@@ -98,9 +98,9 @@ void init() {
   glVertexAttribPointer( vColor, 4, GL_FLOAT, GL_FALSE, 0,
 			 BUFFER_OFFSET(sizeof(points)) );
 
-  theCamera.link( program, TRANSLATION, "glsl_trans" );
-  theCamera.link( program, ROTATION, "glsl_camrot" );
-  theCamera.link( program, VIEW, "glsl_pers" );
+  theCamera.link( program, Camera::TRANSLATION, "glsl_trans" );
+  theCamera.link( program, Camera::ROTATION, "glsl_camrot" );
+  theCamera.link( program, Camera::VIEW, "glsl_pers" );
   theCamera.FOV( 45.0 ); /* Must be set **after** linking perspective ... ! */
 
   glEnable( GL_DEPTH_TEST );
@@ -114,8 +114,8 @@ void display( void ) {
 
   glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
-  theCamera.send( TRANSLATION );
-  theCamera.send( ROTATION );
+  theCamera.send( Camera::TRANSLATION );
+  theCamera.send( Camera::ROTATION );
 
   glDrawArrays( GL_TRIANGLES, 0, NumVertices );
   glutSwapBuffers();

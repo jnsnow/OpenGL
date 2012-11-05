@@ -2,8 +2,6 @@
 #include <string>
 using std::string;
 
-typedef enum { TRANSLATION, ROTATION, VIEW, CTM } glsl_var;
-
 class Camera {
 
 public:
@@ -18,6 +16,14 @@ public:
     End,
     Begin = Forward
   } Direction;
+
+  typedef enum { 
+    TRANSLATION,
+    ROTATION,
+    VIEW,
+    CTM,
+    NumGlslVars
+  } glsl_var;
   
   //  Camera( void );
   Camera( float x = 0.0, float y = 0.0,
@@ -62,10 +68,6 @@ public:
   void roll( const float &by );
 
   /* Instruct the camera to automatically move. */
-  //void autoSway( const bool &on, const bool &positive = true );
-  //void autoSurge( const bool &on, const bool &positive = true );
-  //void autoHeave( const bool &on, const bool &positive = true );
-  //void idleMove( void );
   void Move( const Camera::Direction &in );
   void Stop( const Camera::Direction &in );
   void Idle( void );
@@ -87,10 +89,8 @@ public:
   
 private:
 
-  void initDirection( void );
   void adjustRotation( const mat4 &adjustment );
   void recalculateTranslation( void );
-  //void autoMove( const bool &on, const bool &positive, int axis );
 
   vec4 position;    // Absolute coordinates of camera,
   vec4 translation; // Inverse of position.
@@ -98,8 +98,13 @@ private:
   mat4 perspective; // Matrix for perspective transformation
   mat4 ctm;         // Current Transformation Matrix (TR)
 
-  GLfloat fovy;             // Current field-of-view angle.
+  /** Current field-of-view angle for perspective view. **/
+  GLfloat fovy;
+
+  /** Booleans correlating to the different motion directions. **/
   bool Motion[ Camera::End ];
-  GLuint glsl_handles[4];   // Handles for communicating with the shader.
+  
+  /** Handles for communicating with the shader. **/
+  GLuint glsl_handles[ Camera::NumGlslVars ];
 
 };

@@ -1,3 +1,5 @@
+#include <stdexcept>
+
 #include "Angel.h"
 #include "Camera.hpp"
 
@@ -234,6 +236,9 @@ void Camera::send( const glsl_var &which ) const {
   case CTM:
     glUniformMatrix4fv( glsl_handles[which], 1, GL_TRUE, ctm );
     break;
+
+  default:
+    throw std::invalid_argument( "Unknown GLSL variable handle." );
   }
 }
 
