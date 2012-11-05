@@ -9,18 +9,16 @@ class Camera {
 public:
 
   typedef enum {
-    FORWARD2,
-    BACKWARD,
-    LEFT,
-    RIGHT,
-    UP,
-    DOWN } Direction;
+    Forward,
+    Backward,
+    Left,
+    Right,
+    Up,
+    Down,
+    End,
+    Begin = Forward
+  } Direction;
   
-  static const bool ON;
-  static const bool OFF;
-  static const bool REVERSE;
-  static const bool FORWARD;
-
   //  Camera( void );
   Camera( float x = 0.0, float y = 0.0,
 	  float z = 0.0, float w = 0.0 );
@@ -64,10 +62,13 @@ public:
   void roll( const float &by );
 
   /* Instruct the camera to automatically move. */
-  void autoSway( const bool &on, const bool &positive = true );
-  void autoSurge( const bool &on, const bool &positive = true );
-  void autoHeave( const bool &on, const bool &positive = true );
-  void idleMove( void );
+  //void autoSway( const bool &on, const bool &positive = true );
+  //void autoSurge( const bool &on, const bool &positive = true );
+  //void autoHeave( const bool &on, const bool &positive = true );
+  //void idleMove( void );
+  void Move( const Camera::Direction &in );
+  void Stop( const Camera::Direction &in );
+  void Idle( void );
 
   /* Get Position */
   float X( void ) const;
@@ -81,13 +82,15 @@ public:
   void link( GLuint &program,
 	     const glsl_var &which,
 	     const string &glslVarName );
-
+  
+  static const float Speed;
+  
 private:
 
   void initDirection( void );
-  void autoMove( const bool &on, const bool &positive, int axis );
   void adjustRotation( const mat4 &adjustment );
   void recalculateTranslation( void );
+  //void autoMove( const bool &on, const bool &positive, int axis );
 
   vec4 position;    // Absolute coordinates of camera,
   vec4 translation; // Inverse of position.
@@ -96,7 +99,7 @@ private:
   mat4 ctm;         // Current Transformation Matrix (TR)
 
   GLfloat fovy;             // Current field-of-view angle.
-  bool autoMoveBools[3][2]; // Booleans corresponding to automated motion (SWAY, HEAVE, SURGE)
+  bool Motion[ Camera::End ];
   GLuint glsl_handles[4];   // Handles for communicating with the shader.
 
 };

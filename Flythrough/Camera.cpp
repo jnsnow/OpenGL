@@ -1,17 +1,7 @@
 #include "Angel.h"
 #include "Camera.hpp"
-#include "mat_util.h"
 
-typedef void (Camera::*mov_func)( const float &by );
-const bool Camera::ON = true;
-const bool Camera::OFF = false;
-const bool Camera::FORWARD = true;
-const bool Camera::BACKWARD = false;
-const bool Camera::LEFT = false;
-const bool Camera::FORWARD = true;
-const bool Camera::REVERSE = false;
-const bool Camera::FORWARD = true;
-
+const float Camera::Speed = 0.01;
 
 /**** CONSTRUCTORS ****/
 
@@ -180,47 +170,22 @@ void Camera::roll( const float &by ) {
   adjustRotation(RotateZ(-by));
 }
 
-void Camera::autoSway( const bool &on, const bool &positive ) {
-  autoMove( on, positive, 0 );
-}
+void Camera::Move( const Camera::Direction &in ) { Motion[in] = true; }
 
-void Camera::autoHeave( const bool &on, const bool &positive ) {
-  autoMove( on, positive, 1 );
-}
+void Camera::Stop( const Camera::Direction &in ) { Motion[in] = false; }
 
-void Camera::autoSurge( const bool &on, const bool &positive ) {
-  autoMove( on, positive, 2 );
-}
+void Camera::Idle( void ) {
 
-void Camera::autoMove( const bool &on, const bool &positive, 
-		       int axis ) {
-  if (on) {
-    if (positive) {
-      autoMoveBools[axis][0] = true;
-      autoMoveBools[axis][1] = false;
-    } else {
-      autoMoveBools[axis][0] = false;
-      autoMoveBools[axis][1] = true;
-    }      
-  } else {
-    autoMoveBools[axis][0] = false;
-    autoMoveBools[axis][1] = false;
-  }
-}
+  if (Motion[Camera::Forward]) surge( Camera::Speed );
+  else if (Motion[Camera::Backward]) surge( -Camera::Speed );
 
-void Camera::idleMove( void ) {
-  static const mov_func mov_funcs[3] = { &Camera::sway,
-					 &Camera::heave,
-					 &Camera::surge };
+  if (Motion[Camera::Right]) sway( Camera::Speed );
+  else if (Motion[Camera::Left]) sway( -Camera::Speed );
 
-  for ( size_t i = 0; i < 3; i++ ) {
-    mov_func fptr = mov_funcs[i];
-    if (autoMoveBools[i][0]) (this->*fptr)( 0.01  );
-    else if (autoMoveBools[i][1]) (this->*fptr)( -0.01 );
-  }
+  if (Motion[Camera::Up]) heave( Camera::Speed );
+  else if (Motion[Camera::Down]) heave( -Camera::Speed );
 
 }
-
 
 /**** READ-ONLY FUNCTIONS / GETTERS ****/
 
