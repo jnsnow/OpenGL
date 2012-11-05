@@ -10,3 +10,10 @@
 *.lai
 *.la
 *.a
+
+# Junkjunkjunk.
+
+*.h.gch
+*.hpp.gch
+*~
+#*#
