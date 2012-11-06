@@ -113,10 +113,11 @@ private:
 
   void Init( void );
   void adjustRotation( const mat4 &adjustment );
+  void fakedPos( const vec4 &by );
 
-  //vec4 position;    // Absolute coordinates of camera,
-  //vec4 translation; // Inverse of position.
-  //mat4 rotational;  // Matrix for transformations
+  vec4 position;    // Absolute coordinates of camera,
+  vec4 translation; // Inverse of position.
+  mat4 rotational;  // Matrix for transformations
 
   /** Current Perspective Matrix **/
   mat4 perspective;

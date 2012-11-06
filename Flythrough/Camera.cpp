@@ -11,6 +11,7 @@ void Camera::Init( void ) {
       ctm[i][j] = (i == j) ? 1 : 0;
     }
   }
+  position.w = 1;
 }
 
 /**
@@ -59,7 +60,7 @@ Camera::~Camera( void ) { }
    @return Void.
 **/
 void Camera::X( const float &in, const bool &update ) { 
-  //position.x = in;
+  position.x = in;
   ctm[0][3] = -in;
   if (update) send( CTM );
 }
@@ -72,7 +73,7 @@ void Camera::X( const float &in, const bool &update ) {
    @return Void.
 **/
 void Camera::Y( const float &in, const bool &update ) { 
-  //position.y = in;
+  position.y = in;
   ctm[1][3] = -in;
   if (update) send( CTM );
 }
@@ -85,7 +86,7 @@ void Camera::Y( const float &in, const bool &update ) {
    @return Void.
 **/
 void Camera::Z( const float &in, const bool &update ) { 
-  //position.z = in;
+  position.z = in;
   ctm[2][3] = -in;
   if (update) send( CTM );
 }
@@ -201,6 +202,12 @@ void Camera::dPos( const vec4 &by ) {
   dPos( by.x, by.y, by.z );
 }
 
+void Camera::fakedPos( const vec4 &by ) {
+  position.x = position.x + by.x;
+  position.y = position.y + by.y;
+  position.z = position.z + by.z;
+}
+
 
 /** 
     adjustRotation is an internal function that rotates the camera.
@@ -209,7 +216,7 @@ void Camera::dPos( const vec4 &by ) {
     @return Void.
 **/
 void Camera::adjustRotation( const mat4 &adjustment ) {
-  //rotational = rotational * adjustment;
+  rotational = rotational * adjustment;
   ctm = ctm * adjustment;
   send( CTM );
 }
@@ -223,7 +230,7 @@ void Camera::adjustRotation( const mat4 &adjustment ) {
    @return Void.
 **/
 void Camera::sway( const float &by ) {
-  //dPos(rotational * vec4(by,0,0,0));
+  fakedPos(rotational * vec4(by,0,0,0));
   dPos(ctm * vec4(by,0,0,0));
 }
 
@@ -238,7 +245,7 @@ void Camera::sway( const float &by ) {
    @return Void.
 **/
 void Camera::surge( const float &by ) {
-  //dPos(rotational * vec4(0,0,-by,0));
+  fakedPos(rotational * vec4(0,0,-by,0));
   dPos(ctm * vec4(0,0,-by,0));
 }
 
@@ -251,7 +258,7 @@ void Camera::surge( const float &by ) {
    @return Void.
 **/
 void Camera::heave( const float &by ) {
-  //dPos(rotational * vec4(0,by,0,0));
+  fakedPos(rotational * vec4(0,by,0,0));
   dPos(ctm * vec4(0,by,0,0));
 }
 
@@ -438,6 +445,9 @@ void Camera::send( const glsl_var &which ) const {
 	     ctm[2][0], ctm[2][1], ctm[2][2], ctm[2][3] );
     fprintf( stderr, "[ %f %f %f %f ]\n",
 	     ctm[3][0], ctm[3][1], ctm[3][2], ctm[3][3] );
+    fprintf( stderr, "--\n" );
+    fprintf( stderr, "[ %f, %f, %f, %f ]\n",
+	     position.x, position.y, position.z, position.w );
     fprintf( stderr, "}\n" );
     glUniformMatrix4fv( glsl_handles[which], 1, GL_TRUE, ctm );
     break;
