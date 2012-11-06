@@ -5,15 +5,11 @@ varying   vec4 color;
 uniform vec4 glsl_trans;
 uniform mat4 glsl_pers;
 uniform mat4 glsl_camrot;
+uniform mat4 glsl_ctm;
 
 void main() {
 
-   vec4 trans_vec;
    color = vColor;
-   trans_vec = glsl_trans;
-   trans_vec.w = 0.0;
-
-   gl_Position = (((vPosition - trans_vec) * glsl_camrot) * glsl_pers);
-
+   gl_Position = glsl_pers * glsl_ctm * vPosition;
 
 }

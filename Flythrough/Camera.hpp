@@ -2,10 +2,31 @@
 #include <string>
 using std::string;
 
+/**
+   @author John Huston, jhuston@cs.uml.edu
+   @since 6 Nov 2012
+
+   @brief The Camera class represents a logical camera in a model view,
+   which posesses a current viewing angle and an absolute position 
+   in space as its state.
+
+   Functions are provided to adjust the rotation according to 
+   pitch(), yaw() and roll() motions; surge(), sway(), and heave()
+   are provided to adjust position in space.
+
+   Move(), Stop(), and Idle() are provided to help the camera
+   automatically move along the X, Y, or Z axes.
+**/
 class Camera {
 
 public:
 
+  /**
+     The Direction enumeration lists all of the possible directions
+     the camera may travel in. 'Begin' and 'End' are special sentinel
+     directions for the purposes of iteration, and are ignored by
+     any functions that accept a Direction.
+  **/
   typedef enum {
     Forward,
     Backward,
@@ -17,6 +38,13 @@ public:
     Begin = Forward
   } Direction;
 
+
+  /** 
+      The glsl_var enumeration lists the various variables the
+      Camera class is capable of sending to the shader.
+      The NumGlslVars variable is a sentinel value that is ignored
+      by any functions that accept a glsl_var.
+  **/
   typedef enum { 
     TRANSLATION,
     ROTATION,
@@ -25,30 +53,27 @@ public:
     NumGlslVars
   } glsl_var;
   
-  //  Camera( void );
   Camera( float x = 0.0, float y = 0.0,
-	  float z = 0.0, float w = 0.0 );
+	  float z = 0.0 );
   Camera( vec3 &in );
   Camera( vec4 &in );
   virtual ~Camera( void );
   
   /* Set positionals: forcibly move the camera */
-  void X( const float &in );
-  void Y( const float &in );
-  void Z( const float &in );
-  void W( const float &in );
+  void X( const float &in, const bool &update = true );
+  void Y( const float &in, const bool &update = true );
+  void Z( const float &in, const bool &update = true );
   void pos( const float &x, const float &y, 
-	    const float &z, const float &w );
-  void pos( const vec3 &in );
-  void pos( const vec4 &in );
+	    const float &z, const bool &update = true );
+  void pos( const vec3 &in, const bool &update = true );
+  void pos( const vec4 &in, const bool &update = true );
   
   /* Adjust positionals: move the camera by an offset */
-  void dX( const float &by );
-  void dY( const float &by );
-  void dZ( const float &by );
-  void dW( const float &by );
+  void dX( const float &by, const bool &update = true );
+  void dY( const float &by, const bool &update = true );
+  void dZ( const float &by, const bool &update = true );
   void dPos( const float &x, const float &y, 
-	     const float &z, const float &w );
+	     const float &z );
   void dPos( const vec3 &by );
   void dPos( const vec4 &by );
   
@@ -68,15 +93,14 @@ public:
   void roll( const float &by );
 
   /* Instruct the camera to automatically move. */
-  void Move( const Camera::Direction &in );
-  void Stop( const Camera::Direction &in );
+  void Move( const Camera::Direction &Dir );
+  void Stop( const Camera::Direction &Dir );
   void Idle( void );
 
   /* Get Position */
   float X( void ) const;
   float Y( void ) const;
   float Z( void ) const;
-  float W( void ) const;
   vec4 pos( void ) const;
 
   /* OpenGL Methods */
@@ -84,19 +108,21 @@ public:
   void link( GLuint &program,
 	     const glsl_var &which,
 	     const string &glslVarName );
-  
-  static const float Speed;
-  
+    
 private:
 
+  void Init( void );
   void adjustRotation( const mat4 &adjustment );
-  void recalculateTranslation( void );
 
-  vec4 position;    // Absolute coordinates of camera,
-  vec4 translation; // Inverse of position.
-  mat4 rotational;  // Matrix for transformations
-  mat4 perspective; // Matrix for perspective transformation
-  mat4 ctm;         // Current Transformation Matrix (TR)
+  //vec4 position;    // Absolute coordinates of camera,
+  //vec4 translation; // Inverse of position.
+  //mat4 rotational;  // Matrix for transformations
+
+  /** Current Perspective Matrix **/
+  mat4 perspective;
+  
+  /** Current Transformation Matrix **/
+  mat4 ctm;
 
   /** Current field-of-view angle for perspective view. **/
   GLfloat fovy;
@@ -106,5 +132,10 @@ private:
   
   /** Handles for communicating with the shader. **/
   GLuint glsl_handles[ Camera::NumGlslVars ];
+
+public:
+  
+  /** The increment the camera should move during the Idle() function. **/
+  static const float Speed;
 
 };
