@@ -420,6 +420,11 @@ void Camera::dFOV( const float &by ) {
    @return Void.
 **/
 void Camera::send( const glsl_var &which ) const {
+
+  mat4 temp_ctm( rotational[0], rotational[1], rotational[2], rotational[3] );
+  temp_ctm[0][3] = -position.x;
+  temp_ctm[1][3] = -position.y;
+  temp_ctm[2][3] = -position.z;
   
   switch (which) {
     /*
@@ -436,19 +441,8 @@ void Camera::send( const glsl_var &which ) const {
     break;
 
   case CTM:
-    fprintf( stderr, "{\n" );
-    fprintf( stderr, "[ %f %f %f %f ]\n",
-	     ctm[0][0], ctm[0][1], ctm[0][2], ctm[0][3] );
-    fprintf( stderr, "[ %f %f %f %f ]\n",
-	     ctm[1][0], ctm[1][1], ctm[1][2], ctm[1][3] );
-    fprintf( stderr, "[ %f %f %f %f ]\n",
-	     ctm[2][0], ctm[2][1], ctm[2][2], ctm[2][3] );
-    fprintf( stderr, "[ %f %f %f %f ]\n",
-	     ctm[3][0], ctm[3][1], ctm[3][2], ctm[3][3] );
-    fprintf( stderr, "--\n" );
-    fprintf( stderr, "[ %f, %f, %f, %f ]\n",
-	     position.x, position.y, position.z, position.w );
-    fprintf( stderr, "}\n" );
+    std::cerr << "{{{{" << ctm << "}}}}\n";
+    std::cerr << "[[[[" << temp_ctm << "]]]]\n";
     glUniformMatrix4fv( glsl_handles[which], 1, GL_TRUE, ctm );
     break;
 

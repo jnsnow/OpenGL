@@ -1,6 +1,7 @@
 #define X_SIZE (1024)
 #define Y_SIZE (600)
 
+#include "platform.h"
 #include "Angel.h"
 #include "model.h"
 #include "Camera.hpp"
