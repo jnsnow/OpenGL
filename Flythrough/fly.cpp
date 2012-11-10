@@ -237,8 +237,7 @@ int main( int argc, char **argv ) {
     glutCreateWindow( "Gasket Flythrough" );
     glutSetCursor( GLUT_CURSOR_NONE );
 
-    glewExperimental = GL_TRUE;
-    glewInit();
+    GLEW_INIT();
     init();
 
     /* Plugins and shit oh yeah */
