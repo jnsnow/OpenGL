@@ -99,11 +99,11 @@ void init() {
   glVertexAttribPointer( vColor, 4, GL_FLOAT, GL_FALSE, 0,
 			 BUFFER_OFFSET(sizeof(points)) );
 
-  //theCamera.link( program, Camera::TRANSLATION, "glsl_trans" );
-  //theCamera.link( program, Camera::ROTATION, "glsl_camrot" );
-  theCamera.link( program, Camera::CTM, "glsl_ctm" );
-  theCamera.link( program, Camera::VIEW, "glsl_pers" );
-  theCamera.FOV( 45.0 ); /* Must be set **after** linking perspective ... ! */
+  theCamera.link( program, Camera::TRANSLATION, "T" );
+  theCamera.link( program, Camera::ROTATION, "R" );
+  theCamera.link( program, Camera::PERSPECTIVE, "P" );
+  theCamera.link( program, Camera::PRT_M, "PRT" );
+  theCamera.FOV( 45.0 ); /* Must be set /after/ linking perspective ... ! */
 
   glEnable( GL_DEPTH_TEST );
   glClearColor( 1.0, 1.0, 1.0, 1.0 );
@@ -128,6 +128,9 @@ void keylift( unsigned char key, int x, int y ) {
   switch( key ) {
   case 'w':
     theCamera.Stop( Camera::Forward );
+    break;
+  case 'W':
+    theCamera.surge( 5 );
     break;
   case 's':
     theCamera.Stop( Camera::Backward );
@@ -170,6 +173,19 @@ void keyboard( unsigned char key, int x, int y ) {
     break;
   case 'e':
     theCamera.Move( Camera::Down );
+    break;
+
+  case 'l':
+    theCamera.yaw(1);
+    break;
+  case 'L':
+    theCamera.yaw(45);
+    break;
+  case 'j':
+    theCamera.yaw(-1);
+    break;
+  case 'J':
+    theCamera.yaw(-45);
     break;
     
   case 'p': // Print Info
@@ -236,6 +252,7 @@ int main( int argc, char **argv ) {
     glutInitWindowSize( X_SIZE, Y_SIZE );
     glutCreateWindow( "Gasket Flythrough" );
     glutSetCursor( GLUT_CURSOR_NONE );
+    glutWarpPointer( X_Center, Y_Center );
 
     GLEW_INIT();
     init();

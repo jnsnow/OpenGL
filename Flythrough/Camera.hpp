@@ -1,3 +1,6 @@
+#ifndef __CAMERA_H
+#define __CAMERA_H
+
 #include "Angel.h"
 #include <string>
 using std::string;
@@ -48,7 +51,9 @@ public:
   typedef enum { 
     TRANSLATION,
     ROTATION,
-    VIEW,
+    PERSPECTIVE,
+    TRP_M,
+    PRT_M,
     CTM,
     NumGlslVars
   } glsl_var;
@@ -104,7 +109,7 @@ public:
   vec4 pos( void ) const;
 
   /* OpenGL Methods */
-  void send( const glsl_var &which ) const;
+  void send( const glsl_var &which );
   void link( GLuint &program,
 	     const glsl_var &which,
 	     const string &glslVarName );
@@ -113,16 +118,13 @@ private:
 
   void Init( void );
   void adjustRotation( const mat4 &adjustment );
-  void fakedPos( const vec4 &by );
 
-  vec4 position;    // Absolute coordinates of camera,
-  vec4 translation; // Inverse of position.
-  mat4 rotational;  // Matrix for transformations
-
-  /** Current Perspective Matrix **/
-  mat4 perspective;
-  
-  /** Current Transformation Matrix **/
+  mat4 T;
+  mat4 R;
+  mat4 RI;
+  mat4 P;
+  mat4 TRP;
+  mat4 PRT;
   mat4 ctm;
 
   /** Current field-of-view angle for perspective view. **/
@@ -140,3 +142,5 @@ public:
   static const float Speed;
 
 };
+
+#endif

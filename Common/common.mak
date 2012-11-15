@@ -35,4 +35,4 @@ $(INIT_SHADER): $(RELDIR)/Common/InitShader.cpp
 
 .PHONY: clean
 clean:
-	rm -f $(INIT_SHADER) example*.o $(BIN) *~
+	rm -f $(INIT_SHADER) example*.o Camera.o model.o $(BIN).o $(BIN) *~

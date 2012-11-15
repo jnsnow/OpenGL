@@ -2,14 +2,16 @@ attribute vec4 vPosition;
 attribute vec4 vColor;
 varying   vec4 color;
 
-uniform vec4 glsl_trans;
-uniform mat4 glsl_pers;
-uniform mat4 glsl_camrot;
-uniform mat4 glsl_ctm;
+uniform mat4 P;
+uniform mat4 R;
+uniform mat4 T;
+uniform mat4 PRT;
 
 void main() {
 
    color = vColor;
-   gl_Position = glsl_pers * glsl_ctm * vPosition;
+   //gl_Position = P * R * T * vPosition;
+   //gl_Position = vPosition * T * R * P;
+   gl_Position = PRT * vPosition;
 
 }

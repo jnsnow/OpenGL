@@ -3,16 +3,10 @@
 #include "Angel.h"
 #include "Camera.hpp"
 
-const float Camera::Speed = 0.01;
+//#define ROTATE_OFFSET(V) (RI * V)
+#define ROTATE_OFFSET(V) (transpose(R) * V)
 
-void Camera::Init( void ) {
-  for ( size_t i = 0; i < 4; ++i ) {
-    for ( size_t j = 0; j < 4; ++j ) { 
-      ctm[i][j] = (i == j) ? 1 : 0;
-    }
-  }
-  position.w = 1;
-}
+const float Camera::Speed = 0.01;
 
 /**
    Initialization Constructor; sets the X,Y,Z coordinates explicitly.
@@ -22,7 +16,6 @@ void Camera::Init( void ) {
 **/
 Camera::Camera( float x, float y, 
 		float z ) {
-  Init();
   this->pos( x, y, z, false );
 }
 
@@ -32,7 +25,6 @@ Camera::Camera( float x, float y,
    @param in A vec3 representing the initial coordinates.
 **/
 Camera::Camera( vec3 &in ) {
-  Init();
   this->pos( in, false );
 }
 
@@ -42,7 +34,6 @@ Camera::Camera( vec3 &in ) {
    @param in A vec4 representing the initial coordinates. The w component is ignored.
 **/
 Camera::Camera( vec4 &in ) {
-  Init();
   this->pos( in, false );
 }
 
@@ -60,9 +51,8 @@ Camera::~Camera( void ) { }
    @return Void.
 **/
 void Camera::X( const float &in, const bool &update ) { 
-  position.x = in;
-  ctm[0][3] = -in;
-  if (update) send( CTM );
+  T[0][3] = -in;
+  if (update) send( TRANSLATION );
 }
 
 
@@ -73,9 +63,8 @@ void Camera::X( const float &in, const bool &update ) {
    @return Void.
 **/
 void Camera::Y( const float &in, const bool &update ) { 
-  position.y = in;
-  ctm[1][3] = -in;
-  if (update) send( CTM );
+  T[1][3] = -in;
+  if (update) send( TRANSLATION );
 }
 
 
@@ -86,9 +75,8 @@ void Camera::Y( const float &in, const bool &update ) {
    @return Void.
 **/
 void Camera::Z( const float &in, const bool &update ) { 
-  position.z = in;
-  ctm[2][3] = -in;
-  if (update) send( CTM );
+  T[2][3] = -in;
+  if (update) send( TRANSLATION );
 }
 
 
@@ -105,7 +93,7 @@ void Camera::pos( const float &x, const float &y,
   X(x, false);
   Y(y, false);
   Z(z, false);
-  if (update) send( CTM );
+  if (update) send( TRANSLATION );
 }
 
 
@@ -179,7 +167,7 @@ void Camera::dPos( const float &x, const float &y,
   dX( x, false );
   dY( y, false );
   dZ( z, false );
-  send( CTM );
+  send( TRANSLATION );
 }
 
 
@@ -202,12 +190,6 @@ void Camera::dPos( const vec4 &by ) {
   dPos( by.x, by.y, by.z );
 }
 
-void Camera::fakedPos( const vec4 &by ) {
-  position.x = position.x + by.x;
-  position.y = position.y + by.y;
-  position.z = position.z + by.z;
-}
-
 
 /** 
     adjustRotation is an internal function that rotates the camera.
@@ -216,9 +198,20 @@ void Camera::fakedPos( const vec4 &by ) {
     @return Void.
 **/
 void Camera::adjustRotation( const mat4 &adjustment ) {
-  rotational = rotational * adjustment;
-  ctm = ctm * adjustment;
-  send( CTM );
+#ifdef POSTMULT
+  // In a post-mult system, the argument order is left-to-right,
+  // So the adjustment appears last.
+  R = R * adjustment;
+  RI = RI * transpose(adjustment);
+#else
+  // In a pre-mult system, the last argument is applied first,
+  // So the adjustment should appear first.
+  std::cerr << "[adjustment" << adjustment << "]\n";
+  R = adjustment * R;
+  std::cerr << "[transpose(adjustment)" << transpose(adjustment) << "]\n";
+  RI = transpose(adjustment) * RI;
+#endif
+  send( ROTATION );
 }
 
 
@@ -230,8 +223,7 @@ void Camera::adjustRotation( const mat4 &adjustment ) {
    @return Void.
 **/
 void Camera::sway( const float &by ) {
-  fakedPos(rotational * vec4(by,0,0,0));
-  dPos(ctm * vec4(by,0,0,0));
+  dPos(ROTATE_OFFSET(vec4(by,0,0,0)));
 }
 
 
@@ -245,8 +237,7 @@ void Camera::sway( const float &by ) {
    @return Void.
 **/
 void Camera::surge( const float &by ) {
-  fakedPos(rotational * vec4(0,0,-by,0));
-  dPos(ctm * vec4(0,0,-by,0));
+  dPos(ROTATE_OFFSET(vec4(0,0,-by,0)));
 }
 
 
@@ -258,8 +249,7 @@ void Camera::surge( const float &by ) {
    @return Void.
 **/
 void Camera::heave( const float &by ) {
-  fakedPos(rotational * vec4(0,by,0,0));
-  dPos(ctm * vec4(0,by,0,0));
+  dPos(ROTATE_OFFSET(vec4(0,by,0,0)));
 }
 
 
@@ -278,7 +268,7 @@ void Camera::pitch( const float &by ) {
     and clockwise (looking left), which achieves the effect of
     looking 'down'.
   */ 
-  adjustRotation(RotateX(by));
+  adjustRotation(RotateX(-by));
 }
 
 
@@ -296,7 +286,7 @@ void Camera::yaw( const float &by ) {
     will rotate right, which simulates looking left.
     Therefore, invert.
   */
-  adjustRotation(RotateY(-by));
+  adjustRotation(RotateY(by));
 }
 
 
@@ -308,7 +298,7 @@ void Camera::yaw( const float &by ) {
    @return Void.
 **/
 void Camera::roll( const float &by ) {
-  adjustRotation(RotateZ(-by));
+  adjustRotation(RotateZ(by));
 }
 
 
@@ -356,21 +346,21 @@ void Camera::Idle( void ) {
    X() returns the current position of the camera in model coordinates.
    @return The current X coordinate of the camera in model coordinates.
 **/
-float Camera::X( void ) const { return -ctm[0][3]; }
+float Camera::X( void ) const { return -T[0][3]; }
 
 
 /**
    Y() returns the current position of the camera in model coordinates.
    @return The current Y coordinate of the camera in model coordinates.
 **/
-float Camera::Y( void ) const { return -ctm[1][3]; }
+float Camera::Y( void ) const { return -T[1][3]; }
 
 
 /**
    Z() returns the current position of the camera in model coordinates.
    @return The current Z coordinate of the camera in model coordinates.
 **/
-float Camera::Z( void ) const { return -ctm[2][3]; }
+float Camera::Z( void ) const { return -T[2][3]; }
 
 
 /**
@@ -397,10 +387,10 @@ void Camera::FOV( const float &in ) {
   GLint size[4];
   fovy = in;
   glGetIntegerv( GL_VIEWPORT, size );  
-  perspective = Perspective( fovy,
-			     (float)size[2]/(float)size[3],
-			     0.3, 3.0 );
-  send( VIEW );
+  P = Perspective( fovy,
+		   (float)size[2]/(float)size[3],
+		   0.3, 3.0 );
+  send( PERSPECTIVE );
 }
 
 
@@ -419,33 +409,37 @@ void Camera::dFOV( const float &by ) {
    @param which The parameter to send. Can be any from enum glsl_var.
    @return Void.
 **/
-void Camera::send( const glsl_var &which ) const {
+void Camera::send( const glsl_var &which ) {
 
-  mat4 temp_ctm( rotational[0], rotational[1], rotational[2], rotational[3] );
-  temp_ctm[0][3] = -position.x;
-  temp_ctm[1][3] = -position.y;
-  temp_ctm[2][3] = -position.z;
-  
   switch (which) {
-    /*
   case TRANSLATION:
-    glUniform4fv( glsl_handles[which], 1, position );
+    glUniformMatrix4fv( glsl_handles[which], 1, GL_FALSE, T );
+    send( PRT_M );
     break;
-    
   case ROTATION:
-    glUniformMatrix4fv( glsl_handles[which], 1, GL_TRUE, rotational );
+    glUniformMatrix4fv( glsl_handles[which], 1, GL_FALSE, R );
+    send( PRT_M );
     break;
-    */
-  case VIEW:
-    glUniformMatrix4fv( glsl_handles[which], 1, GL_TRUE, perspective );
+  case PERSPECTIVE:
+    glUniformMatrix4fv( glsl_handles[which], 1, GL_FALSE, P );
+    send( PRT_M );
     break;
+  case TRP_M:
+    glUniformMatrix4fv( glsl_handles[which], 1, GL_FALSE, TRP );
+    break;
+  case PRT_M:
+    PRT = (P*(R*T));
+    std::cerr << "{P" << P << "}\n";
+    std::cerr << "[R" << R << "]\n";
+    std::cerr << "[RI" << RI << "]\n";
+    std::cerr << "<T" << T << ">\n";
+    std::cerr << "(PRT" << PRT << ")\n";
 
+    glUniformMatrix4fv( glsl_handles[which], 1, GL_TRUE, PRT );
+    break;
   case CTM:
-    std::cerr << "{{{{" << ctm << "}}}}\n";
-    std::cerr << "[[[[" << temp_ctm << "]]]]\n";
-    glUniformMatrix4fv( glsl_handles[which], 1, GL_TRUE, ctm );
+    glUniformMatrix4fv( glsl_handles[which], 1, GL_FALSE, ctm );
     break;
-
   default:
     throw std::invalid_argument( "Unknown GLSL variable handle." );
   }

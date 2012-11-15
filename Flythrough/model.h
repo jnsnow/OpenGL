@@ -1,4 +1,6 @@
 /* what the fuck is happening to me i am a frog */
+#ifndef __MODEL_H
+#define __MODEL_H
 
 #include "Angel.h"
 typedef Angel::vec4 color4;
@@ -29,3 +31,5 @@ void cube( const GLfloat &size, const color4 colors[8] );
 void colorcube( void );
 
 void colorcube( GLfloat size );
+
+#endif
