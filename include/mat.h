@@ -562,7 +562,6 @@ namespace Angel {
 
   inline
     mat4 transpose( const mat4& A ) {
-    std::cerr << "transpose(...) called ...\n";
     return mat4( A[0][0], A[1][0], A[2][0], A[3][0],
 		 A[0][1], A[1][1], A[2][1], A[3][1],
 		 A[0][2], A[1][2], A[2][2], A[3][2],

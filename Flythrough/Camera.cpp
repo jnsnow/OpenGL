@@ -1,10 +1,7 @@
 #include <stdexcept>
-
 #include "Angel.h"
 #include "Camera.hpp"
 
-//#define ROTATE_OFFSET(V) (RI * V)
-#define ROTATE_OFFSET(V) (transpose(R) * V)
 
 const float Camera::Speed = 0.01;
 
@@ -202,17 +199,22 @@ void Camera::adjustRotation( const mat4 &adjustment ) {
   // In a post-mult system, the argument order is left-to-right,
   // So the adjustment appears last.
   R = R * adjustment;
-  RI = RI * transpose(adjustment);
 #else
   // In a pre-mult system, the last argument is applied first,
   // So the adjustment should appear first.
-  std::cerr << "[adjustment" << adjustment << "]\n";
   R = adjustment * R;
-  std::cerr << "[transpose(adjustment)" << transpose(adjustment) << "]\n";
-  RI = transpose(adjustment) * RI;
 #endif
   send( ROTATION );
 }
+
+/** 
+  ROTATE_OFFSET is a macro which is used to normalize
+  the six camera motion directions with respect to the
+  current camera rotation. It is used in heave(), sway() and surge().
+  @param V a vec4 representing the movement offset vector.
+  @return A rotated vec4.
+**/
+#define ROTATE_OFFSET(V) (transpose(R) * V)
 
 
 /**
@@ -429,12 +431,6 @@ void Camera::send( const glsl_var &which ) {
     break;
   case PRT_M:
     PRT = (P*(R*T));
-    std::cerr << "{P" << P << "}\n";
-    std::cerr << "[R" << R << "]\n";
-    std::cerr << "[RI" << RI << "]\n";
-    std::cerr << "<T" << T << ">\n";
-    std::cerr << "(PRT" << PRT << ")\n";
-
     glUniformMatrix4fv( glsl_handles[which], 1, GL_TRUE, PRT );
     break;
   case CTM:
