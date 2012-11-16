@@ -214,7 +214,8 @@ void Camera::adjustRotation( const mat4 &adjustment ) {
   @param V a vec4 representing the movement offset vector.
   @return A rotated vec4.
 **/
-#define ROTATE_OFFSET(V) (transpose(R) * V)
+//#define ROTATE_OFFSET(V) (transpose(R) * V)
+#define ROTATE_OFFSET(V) (V * R)
 
 
 /**
@@ -427,10 +428,11 @@ void Camera::send( const glsl_var &which ) {
     send( PRT_M );
     break;
   case TRP_M:
+    TRP = T*R*P;
     glUniformMatrix4fv( glsl_handles[which], 1, GL_FALSE, TRP );
     break;
   case PRT_M:
-    PRT = (P*(R*T));
+    PRT = P*R*T;
     glUniformMatrix4fv( glsl_handles[which], 1, GL_TRUE, PRT );
     break;
   case CTM:

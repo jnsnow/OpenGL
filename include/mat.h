@@ -447,7 +447,18 @@ namespace Angel {
 
     friend mat4 operator * ( const GLfloat s, const mat4& m )
       { return m * s; }
-	
+
+    friend vec4 operator* ( const vec4 &v, const mat4& _m ) {
+      // v * M  
+      return 
+	vec4(
+	     _m[0][0]*v.x + _m[1][0]*v.y + _m[2][0]*v.z + _m[3][0]*v.w,
+	     _m[0][1]*v.x + _m[1][1]*v.y + _m[2][1]*v.z + _m[3][1]*v.w,
+	     _m[0][2]*v.x + _m[1][2]*v.y + _m[2][2]*v.z + _m[3][2]*v.w,
+	     _m[0][3]*v.x + _m[1][3]*v.y + _m[2][3]*v.z + _m[3][3]*v.w
+	     );
+    }
+    
     mat4 operator * ( const mat4& m ) const {
       mat4  a( 0.0 );
 
@@ -520,11 +531,12 @@ namespace Angel {
 		  _m[3][0]*v.x + _m[3][1]*v.y + _m[3][2]*v.z + _m[3][3]*v.w
 		  );
     }
+
 	
     //
     //  --- Insertion and Extraction Operators ---
     //
-	
+    
     friend std::ostream& operator << ( std::ostream& os, const mat4& m ) {
       return os << std::endl 
 		<< m[0] << std::endl
@@ -550,7 +562,7 @@ namespace Angel {
   //
   //  --- Non-class mat4 Methods ---
   //
-
+  
   inline
     mat4 matrixCompMult( const mat4& A, const mat4& B ) {
     return mat4(
@@ -568,11 +580,11 @@ namespace Angel {
 		 A[0][3], A[1][3], A[2][3], A[3][3] );
   }
 
-  //////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////
   //
   //  Helpful Matrix Methods
   //
-  //////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////
 
 #define Error( str ) do { std::cerr << "[" __FILE__ ":" << __LINE__ << "] " \
 				    << str << std::endl; } while(0)
@@ -591,7 +603,7 @@ namespace Angel {
     return c;
   }
 
-  //----------------------------------------------------------------------------
+  //------------------------------------------------------------------------
   //
   //  Rotation matrix generators
   //
@@ -632,7 +644,7 @@ namespace Angel {
     return c;
   }
 
-  //----------------------------------------------------------------------------
+  //------------------------------------------------------------------------
   //
   //  Translation matrix generators
   //
@@ -659,7 +671,7 @@ namespace Angel {
     return Translate( v.x, v.y, v.z );
   }
 
-  //----------------------------------------------------------------------------
+  //------------------------------------------------------------------------
   //
   //  Scale matrix generators
   //
@@ -675,12 +687,11 @@ namespace Angel {
   }
 
   inline
-    mat4 Scale( const vec3& v )
-  {
+    mat4 Scale( const vec3& v ) {
     return Scale( v.x, v.y, v.z );
   }
 
-  //----------------------------------------------------------------------------
+  //------------------------------------------------------------------------
   //
   //  Projection transformation matrix geneartors
   //
@@ -689,13 +700,10 @@ namespace Angel {
   //          "zNear" to reprsent "near", and "zFar" to reprsent "far".
   //
 
-
-
   inline
     mat4 Ortho( const GLfloat left, const GLfloat right,
 		const GLfloat bottom, const GLfloat top,
-		const GLfloat zNear, const GLfloat zFar )
-  {
+		const GLfloat zNear, const GLfloat zFar ) {
     mat4 c;
     c[0][0] = 2.0/(right - left);
     c[1][1] = 2.0/(top - bottom);
@@ -709,8 +717,7 @@ namespace Angel {
 
   inline
     mat4 Ortho2D( const GLfloat left, const GLfloat right,
-		  const GLfloat bottom, const GLfloat top )
-  {
+		  const GLfloat bottom, const GLfloat top ) {
     return Ortho( left, right, bottom, top, -1.0, 1.0 );
   }
 
@@ -746,14 +753,12 @@ namespace Angel {
     return c;
   }
 
-  //----------------------------------------------------------------------------
+  //------------------------------------------------------------------------
   //
   //  Viewing transformation matrix generation
   //
 
-  inline
-    mat4 LookAt( const vec4& eye, const vec4& at, const vec4& up )
-  {
+  inline mat4 LookAt( const vec4& eye, const vec4& at, const vec4& up ) {
     vec4 n = normalize(eye - at);
     vec4 u = normalize(cross(up,n));
     vec4 v = normalize(cross(n,u));
@@ -762,7 +767,7 @@ namespace Angel {
     return c * Translate( -eye );
   }
 
-  //----------------------------------------------------------------------------
+  //------------------------------------------------------------------------
 
   inline
     vec4 minus(const vec4& a, const vec4&  b )
@@ -777,26 +782,22 @@ namespace Angel {
     Error( "replace with vector insertion operator" );
     printf("%f %f %f %f \n\n", a[0], a[1], a[2], a[3]);
   }
-
-  inline
-    void printm(const mat4 a)
-  {
+  
+  inline void printm(const mat4 a) {
     Error( "replace with matrix insertion operator" );
-    for(int i=0; i<4; i++) printf("%f %f %f %f \n", a[i][0], a[i][1], a[i][2], a[i][3]);
+    for(int i=0; i<4; i++) 
+      printf("%f %f %f %f \n", a[i][0], a[i][1], a[i][2], a[i][3]);
     printf("\n");
   }
-
-  inline
-    mat4 identity()
-  {
+  
+  inline mat4 identity() {
     Error( "replace with either a matrix constructor or identity method" );
     mat4 c;
     for(int i=0; i<4; i++) for(int j=0; j<4; j++) c[i][j]=0.0;
     for(int i=0; i<4; i++) c[i][i] = 1.0;
     return c;
   }
-
-
+  
 }  // namespace Angel
 
 #endif // __ANGEL_MAT_H__

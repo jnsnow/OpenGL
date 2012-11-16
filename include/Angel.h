@@ -43,7 +43,7 @@
 // Define a helpful macro for handling offsets into buffer objects
 #define BUFFER_OFFSET( offset )   ((GLvoid*) (offset))
 
-//----------------------------------------------------------------------------
+//--------------------------------------------------------------------------
 //
 //  --- Include our class libraries and constants ---
 //

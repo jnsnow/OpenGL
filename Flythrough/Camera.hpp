@@ -7,7 +7,7 @@ using std::string;
 
 /**
    @author John Huston, jhuston@cs.uml.edu
-   @since 6 Nov 2012
+   @since 16 Nov 2012
 
    @brief The Camera class represents a logical camera in a model view,
    which posesses a current viewing angle and an absolute position 
@@ -116,12 +116,10 @@ public:
     
 private:
 
-  void Init( void );
   void adjustRotation( const mat4 &adjustment );
 
   mat4 T;
   mat4 R;
-  mat4 RI;
   mat4 P;
   mat4 TRP;
   mat4 PRT;

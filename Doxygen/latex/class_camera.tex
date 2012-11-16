@@ -28,9 +28,11 @@ enum \hyperlink{class_camera_a80cb65605322d27ad3b6d973484509ec}{\-Direction} \{ 
 enum \hyperlink{class_camera_a6ff726a75a430e4f17e5dec42e4d4405}{glsl\-\_\-var} \{ \*
 {\bfseries \-T\-R\-A\-N\-S\-L\-A\-T\-I\-O\-N}, 
 {\bfseries \-R\-O\-T\-A\-T\-I\-O\-N}, 
-{\bfseries \-V\-I\-E\-W}, 
-{\bfseries \-C\-T\-M}, 
+{\bfseries \-P\-E\-R\-S\-P\-E\-C\-T\-I\-V\-E}, 
+{\bfseries \-T\-R\-P\-\_\-\-M}, 
 \*
+{\bfseries \-P\-R\-T\-\_\-\-M}, 
+{\bfseries \-C\-T\-M}, 
 {\bfseries \-Num\-Glsl\-Vars}
  \}
 \begin{DoxyCompactList}\small\item\em \-The glsl\-\_\-var enumeration lists the various variables the \hyperlink{class_camera}{\-Camera} class is capable of sending to the shader. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -101,7 +103,7 @@ float \hyperlink{class_camera_abf1730e47e8e51c76acbddcaa85e2475}{\-Z} (void) con
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_camera_abf1730e47e8e51c76acbddcaa85e2475}{\-Z()} returns the current position of the camera in model coordinates. \end{DoxyCompactList}\item 
 vec4 \hyperlink{class_camera_a9982ac5f48fe0af97fefa725080d6da6}{pos} (void) const 
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_camera_a9982ac5f48fe0af97fefa725080d6da6}{pos()} gets the current camera position in model coordinates. \end{DoxyCompactList}\item 
-void \hyperlink{class_camera_a61e55b524e563fc09a2e02e1b1046de3}{send} (const \hyperlink{class_camera_a6ff726a75a430e4f17e5dec42e4d4405}{glsl\-\_\-var} \&which) const 
+void \hyperlink{class_camera_a36cba68c08136242bf5d906f9c0b610c}{send} (const \hyperlink{class_camera_a6ff726a75a430e4f17e5dec42e4d4405}{glsl\-\_\-var} \&which)
 \begin{DoxyCompactList}\small\item\em send will send a glsl variable to the shader. \end{DoxyCompactList}\item 
 void \hyperlink{class_camera_ab7574214240c67ca774255ef1d7616de}{link} (\-G\-Luint \&program, const \hyperlink{class_camera_a6ff726a75a430e4f17e5dec42e4d4405}{glsl\-\_\-var} \&which, const string \&glsl\-Var\-Name)
 \begin{DoxyCompactList}\small\item\em \-Link associates the camera with a glsl uniform variable. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -113,20 +115,29 @@ static const float \hyperlink{class_camera_aedf8ba8b2af631a5a3e33b19bfa40322}{\-
 \subsection*{\-Private \-Member \-Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_camera_a394e2a2b71bfe325ee82e14a1bfea1f1}{void {\bfseries \-Init} (void)}\label{class_camera_a394e2a2b71bfe325ee82e14a1bfea1f1}
-
-\item 
 void \hyperlink{class_camera_a7ffc3619f9a5d8e586cb3d96ebdd3188}{adjust\-Rotation} (const mat4 \&adjustment)
 \begin{DoxyCompactList}\small\item\em adjust\-Rotation is an internal function that rotates the camera. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{\-Private \-Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_camera_a88e27aa6501579b2bde7e6be0b096a1e}{mat4 \hyperlink{class_camera_a88e27aa6501579b2bde7e6be0b096a1e}{perspective}}\label{class_camera_a88e27aa6501579b2bde7e6be0b096a1e}
+\hypertarget{class_camera_aa4cb92b539c9a9707a12d7025ed889f6}{mat4 {\bfseries \-T}}\label{class_camera_aa4cb92b539c9a9707a12d7025ed889f6}
 
-\begin{DoxyCompactList}\small\item\em \-Current \-Perspective \-Matrix. \end{DoxyCompactList}\item 
-\hypertarget{class_camera_a9b1e81e3f5531390bb6a599dca0d2444}{mat4 \hyperlink{class_camera_a9b1e81e3f5531390bb6a599dca0d2444}{ctm}}\label{class_camera_a9b1e81e3f5531390bb6a599dca0d2444}
+\item 
+\hypertarget{class_camera_a8fd028120b18556c43ad86756e637fbc}{mat4 {\bfseries \-R}}\label{class_camera_a8fd028120b18556c43ad86756e637fbc}
 
-\begin{DoxyCompactList}\small\item\em \-Current \-Transformation \-Matrix. \end{DoxyCompactList}\item 
+\item 
+\hypertarget{class_camera_a0bee6fbae6ec5960850a5fb858f3912a}{mat4 {\bfseries \-P}}\label{class_camera_a0bee6fbae6ec5960850a5fb858f3912a}
+
+\item 
+\hypertarget{class_camera_a2ec15fbfe495b11f60b68726d5a22bb9}{mat4 {\bfseries \-T\-R\-P}}\label{class_camera_a2ec15fbfe495b11f60b68726d5a22bb9}
+
+\item 
+\hypertarget{class_camera_a6f5bb6e124f8e4bbfd163a2cb2f505dd}{mat4 {\bfseries \-P\-R\-T}}\label{class_camera_a6f5bb6e124f8e4bbfd163a2cb2f505dd}
+
+\item 
+\hypertarget{class_camera_a9b1e81e3f5531390bb6a599dca0d2444}{mat4 {\bfseries ctm}}\label{class_camera_a9b1e81e3f5531390bb6a599dca0d2444}
+
+\item 
 \-G\-Lfloat \hyperlink{class_camera_acc8b97facc57059530efad534c2f8314}{fovy}
 \begin{DoxyCompactList}\small\item\em \-Current field-\/of-\/view angle for perspective view. \end{DoxyCompactList}\item 
 bool \hyperlink{class_camera_a39746b4fadf30bba6bdc8aa6acfdc6f2}{\-Motion} \mbox{[}\-Camera\-::\-End\mbox{]}
@@ -142,13 +153,13 @@ bool \hyperlink{class_camera_a39746b4fadf30bba6bdc8aa6acfdc6f2}{\-Motion} \mbox{
 \-John \-Huston, \href{mailto:jhuston@cs.uml.edu}{\tt jhuston@cs.\-uml.\-edu} 
 \end{DoxyAuthor}
 \begin{DoxySince}{\-Since}
-6 \-Nov 2012
+16 \-Nov 2012
 \end{DoxySince}
 \-Functions are provided to adjust the rotation according to \hyperlink{class_camera_ade9b499340749c916d6ffeeadd7296d4}{pitch()}, \hyperlink{class_camera_aea440eca8100cae6ffcc6ca915733795}{yaw()} and \hyperlink{class_camera_a6a0a10b821c733f380cc82aff09d9498}{roll()} motions; \hyperlink{class_camera_abb2251df65445bf8efd3fe0074fb5033}{surge()}, \hyperlink{class_camera_abbe6fe82ed05e64e35b0c4ed2001b34e}{sway()}, and \hyperlink{class_camera_a2148d751f104d8e39c9832e2372df2d9}{heave()} are provided to adjust position in space.
 
 \hyperlink{class_camera_a421e03f93824e178d6e77ff547cd290e}{\-Move()}, \hyperlink{class_camera_adf064f765f610684e0675bd67de013fd}{\-Stop()}, and \hyperlink{class_camera_aec3559fe43597656629fdb00157d3c73}{\-Idle()} are provided to help the camera automatically move along the \-X, \-Y, or \-Z axes. 
 
-\-Definition at line 20 of file \-Camera.\-hpp.
+\-Definition at line 23 of file \-Camera.\-hpp.
 
 
 
@@ -162,7 +173,7 @@ bool \hyperlink{class_camera_a39746b4fadf30bba6bdc8aa6acfdc6f2}{\-Motion} \mbox{
 
 '\-Begin' and '\-End' are special sentinel directions for the purposes of iteration, and are ignored by any functions that accept a \-Direction. 
 
-\-Definition at line 30 of file \-Camera.\-hpp.
+\-Definition at line 33 of file \-Camera.\-hpp.
 
 \hypertarget{class_camera_a6ff726a75a430e4f17e5dec42e4d4405}{\index{\-Camera@{\-Camera}!glsl\-\_\-var@{glsl\-\_\-var}}
 \index{glsl\-\_\-var@{glsl\-\_\-var}!Camera@{\-Camera}}
@@ -173,7 +184,7 @@ bool \hyperlink{class_camera_a39746b4fadf30bba6bdc8aa6acfdc6f2}{\-Motion} \mbox{
 
 \-The \-Num\-Glsl\-Vars variable is a sentinel value that is ignored by any functions that accept a glsl\-\_\-var. 
 
-\-Definition at line 48 of file \-Camera.\-hpp.
+\-Definition at line 51 of file \-Camera.\-hpp.
 
 
 
@@ -202,7 +213,7 @@ bool \hyperlink{class_camera_a39746b4fadf30bba6bdc8aa6acfdc6f2}{\-Motion} \mbox{
 \end{DoxyParams}
 
 
-\-Definition at line 22 of file \-Camera.\-cpp.
+\-Definition at line 14 of file \-Camera.\-cpp.
 
 \hypertarget{class_camera_a388c39247312dc6850b2d1b007efb423}{\index{\-Camera@{\-Camera}!\-Camera@{\-Camera}}
 \index{\-Camera@{\-Camera}!Camera@{\-Camera}}
@@ -222,7 +233,7 @@ bool \hyperlink{class_camera_a39746b4fadf30bba6bdc8aa6acfdc6f2}{\-Motion} \mbox{
 \end{DoxyParams}
 
 
-\-Definition at line 33 of file \-Camera.\-cpp.
+\-Definition at line 24 of file \-Camera.\-cpp.
 
 \hypertarget{class_camera_a30b637b0e81821106c16a8a299d24d3f}{\index{\-Camera@{\-Camera}!\-Camera@{\-Camera}}
 \index{\-Camera@{\-Camera}!Camera@{\-Camera}}
@@ -242,7 +253,7 @@ bool \hyperlink{class_camera_a39746b4fadf30bba6bdc8aa6acfdc6f2}{\-Motion} \mbox{
 \end{DoxyParams}
 
 
-\-Definition at line 43 of file \-Camera.\-cpp.
+\-Definition at line 33 of file \-Camera.\-cpp.
 
 \hypertarget{class_camera_a06211f202c145b3ec8253f96e1e654a6}{\index{\-Camera@{\-Camera}!$\sim$\-Camera@{$\sim$\-Camera}}
 \index{$\sim$\-Camera@{$\sim$\-Camera}!Camera@{\-Camera}}
@@ -257,7 +268,7 @@ bool \hyperlink{class_camera_a39746b4fadf30bba6bdc8aa6acfdc6f2}{\-Motion} \mbox{
 
 \-Nothing of note. 
 
-\-Definition at line 52 of file \-Camera.\-cpp.
+\-Definition at line 41 of file \-Camera.\-cpp.
 
 
 
@@ -283,7 +294,7 @@ adjust\-Rotation is an internal function that rotates the camera.
 \end{DoxyReturn}
 
 
-\-Definition at line 211 of file \-Camera.\-cpp.
+\-Definition at line 197 of file \-Camera.\-cpp.
 
 \hypertarget{class_camera_a55355b3376d195b17adcc6a5b72ae07b}{\index{\-Camera@{\-Camera}!d\-F\-O\-V@{d\-F\-O\-V}}
 \index{d\-F\-O\-V@{d\-F\-O\-V}!Camera@{\-Camera}}
@@ -335,7 +346,7 @@ d\-F\-O\-V adjusts the field of view angle up or down by an amount.
 \end{DoxyReturn}
 
 
-\-Definition at line 176 of file \-Camera.\-cpp.
+\-Definition at line 162 of file \-Camera.\-cpp.
 
 \hypertarget{class_camera_a928de59670f0b31264307a8a0888b99d}{\index{\-Camera@{\-Camera}!d\-Pos@{d\-Pos}}
 \index{d\-Pos@{d\-Pos}!Camera@{\-Camera}}
@@ -358,7 +369,7 @@ d\-F\-O\-V adjusts the field of view angle up or down by an amount.
 \end{DoxyReturn}
 
 
-\-Definition at line 190 of file \-Camera.\-cpp.
+\-Definition at line 176 of file \-Camera.\-cpp.
 
 \hypertarget{class_camera_a4ec2e3d2a66826aedb1ac1eee7da0b96}{\index{\-Camera@{\-Camera}!d\-Pos@{d\-Pos}}
 \index{d\-Pos@{d\-Pos}!Camera@{\-Camera}}
@@ -381,7 +392,7 @@ d\-F\-O\-V adjusts the field of view angle up or down by an amount.
 \end{DoxyReturn}
 
 
-\-Definition at line 200 of file \-Camera.\-cpp.
+\-Definition at line 186 of file \-Camera.\-cpp.
 
 \hypertarget{class_camera_ac7985a6cb48f4e1e74fda17e5213dd74}{\index{\-Camera@{\-Camera}!d\-X@{d\-X}}
 \index{d\-X@{d\-X}!Camera@{\-Camera}}
@@ -407,7 +418,7 @@ void.
 \end{DoxyReturn}
 
 
-\-Definition at line 140 of file \-Camera.\-cpp.
+\-Definition at line 126 of file \-Camera.\-cpp.
 
 \hypertarget{class_camera_a59570a88e3ff2d277c9e995372fcadfe}{\index{\-Camera@{\-Camera}!d\-Y@{d\-Y}}
 \index{d\-Y@{d\-Y}!Camera@{\-Camera}}
@@ -433,7 +444,7 @@ void.
 \end{DoxyReturn}
 
 
-\-Definition at line 152 of file \-Camera.\-cpp.
+\-Definition at line 138 of file \-Camera.\-cpp.
 
 \hypertarget{class_camera_ab94ed9b3c7e12f484d6bfa5f827b59ff}{\index{\-Camera@{\-Camera}!d\-Z@{d\-Z}}
 \index{d\-Z@{d\-Z}!Camera@{\-Camera}}
@@ -459,7 +470,7 @@ void.
 \end{DoxyReturn}
 
 
-\-Definition at line 164 of file \-Camera.\-cpp.
+\-Definition at line 150 of file \-Camera.\-cpp.
 
 \hypertarget{class_camera_ac325bf616014d2e6023b84b6224630ac}{\index{\-Camera@{\-Camera}!\-F\-O\-V@{\-F\-O\-V}}
 \index{\-F\-O\-V@{\-F\-O\-V}!Camera@{\-Camera}}
@@ -523,7 +534,7 @@ void.
 \end{DoxyReturn}
 
 
-\-Definition at line 253 of file \-Camera.\-cpp.
+\-Definition at line 254 of file \-Camera.\-cpp.
 
 \hypertarget{class_camera_aec3559fe43597656629fdb00157d3c73}{\index{\-Camera@{\-Camera}!\-Idle@{\-Idle}}
 \index{\-Idle@{\-Idle}!Camera@{\-Camera}}
@@ -648,7 +659,7 @@ pitch adjusts the \-X axis rotation; up/down look.
 \end{DoxyReturn}
 
 
-\-Definition at line 102 of file \-Camera.\-cpp.
+\-Definition at line 88 of file \-Camera.\-cpp.
 
 \hypertarget{class_camera_ae9dc2206b71b25cf320a05d148cb8b56}{\index{\-Camera@{\-Camera}!pos@{pos}}
 \index{pos@{pos}!Camera@{\-Camera}}
@@ -674,7 +685,7 @@ pitch adjusts the \-X axis rotation; up/down look.
 \end{DoxyReturn}
 
 
-\-Definition at line 128 of file \-Camera.\-cpp.
+\-Definition at line 114 of file \-Camera.\-cpp.
 
 \hypertarget{class_camera_aec2115038562e514193bb2b67f5da153}{\index{\-Camera@{\-Camera}!pos@{pos}}
 \index{pos@{pos}!Camera@{\-Camera}}
@@ -700,7 +711,7 @@ pitch adjusts the \-X axis rotation; up/down look.
 \end{DoxyReturn}
 
 
-\-Definition at line 117 of file \-Camera.\-cpp.
+\-Definition at line 103 of file \-Camera.\-cpp.
 
 \hypertarget{class_camera_a9982ac5f48fe0af97fefa725080d6da6}{\index{\-Camera@{\-Camera}!pos@{pos}}
 \index{pos@{pos}!Camera@{\-Camera}}
@@ -743,13 +754,13 @@ roll adjusts the \-Z axis rotation; tilt or lean left/right.
 
 \-Definition at line 303 of file \-Camera.\-cpp.
 
-\hypertarget{class_camera_a61e55b524e563fc09a2e02e1b1046de3}{\index{\-Camera@{\-Camera}!send@{send}}
+\hypertarget{class_camera_a36cba68c08136242bf5d906f9c0b610c}{\index{\-Camera@{\-Camera}!send@{send}}
 \index{send@{send}!Camera@{\-Camera}}
 \subsubsection[{send}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Camera\-::send} (
 \begin{DoxyParamCaption}
 \item[{const {\bf glsl\-\_\-var} \&}]{which}
 \end{DoxyParamCaption}
-) const}}\label{class_camera_a61e55b524e563fc09a2e02e1b1046de3}
+)}}\label{class_camera_a36cba68c08136242bf5d906f9c0b610c}
 
 
 send will send a glsl variable to the shader. 
@@ -810,7 +821,7 @@ send will send a glsl variable to the shader.
 \end{DoxyReturn}
 
 
-\-Definition at line 240 of file \-Camera.\-cpp.
+\-Definition at line 242 of file \-Camera.\-cpp.
 
 \hypertarget{class_camera_abbe6fe82ed05e64e35b0c4ed2001b34e}{\index{\-Camera@{\-Camera}!sway@{sway}}
 \index{sway@{sway}!Camera@{\-Camera}}
@@ -833,7 +844,7 @@ send will send a glsl variable to the shader.
 \end{DoxyReturn}
 
 
-\-Definition at line 225 of file \-Camera.\-cpp.
+\-Definition at line 228 of file \-Camera.\-cpp.
 
 \hypertarget{class_camera_a7ff7cf14bee873ac6cda7b2e42a60358}{\index{\-Camera@{\-Camera}!\-X@{\-X}}
 \index{\-X@{\-X}!Camera@{\-Camera}}
@@ -859,7 +870,7 @@ send will send a glsl variable to the shader.
 \end{DoxyReturn}
 
 
-\-Definition at line 61 of file \-Camera.\-cpp.
+\-Definition at line 50 of file \-Camera.\-cpp.
 
 \hypertarget{class_camera_a2f7fd64d5d6e0dfb5edcca53c7d15994}{\index{\-Camera@{\-Camera}!\-X@{\-X}}
 \index{\-X@{\-X}!Camera@{\-Camera}}
@@ -903,7 +914,7 @@ send will send a glsl variable to the shader.
 \end{DoxyReturn}
 
 
-\-Definition at line 74 of file \-Camera.\-cpp.
+\-Definition at line 62 of file \-Camera.\-cpp.
 
 \hypertarget{class_camera_a37529ef93871f547ebfd5862bc6cce62}{\index{\-Camera@{\-Camera}!\-Y@{\-Y}}
 \index{\-Y@{\-Y}!Camera@{\-Camera}}
@@ -970,7 +981,7 @@ yaw adjusts the \-Y axis rotation; left/right look.
 \end{DoxyReturn}
 
 
-\-Definition at line 87 of file \-Camera.\-cpp.
+\-Definition at line 74 of file \-Camera.\-cpp.
 
 \hypertarget{class_camera_abf1730e47e8e51c76acbddcaa85e2475}{\index{\-Camera@{\-Camera}!\-Z@{\-Z}}
 \index{\-Z@{\-Z}!Camera@{\-Camera}}
@@ -1002,7 +1013,7 @@ yaw adjusts the \-Y axis rotation; left/right look.
 
 
 
-\-Definition at line 128 of file \-Camera.\-hpp.
+\-Definition at line 129 of file \-Camera.\-hpp.
 
 \hypertarget{class_camera_a1635486d7f9e0d52b241899a270ee335}{\index{\-Camera@{\-Camera}!glsl\-\_\-handles@{glsl\-\_\-handles}}
 \index{glsl\-\_\-handles@{glsl\-\_\-handles}!Camera@{\-Camera}}
@@ -1013,7 +1024,7 @@ yaw adjusts the \-Y axis rotation; left/right look.
 
 
 
-\-Definition at line 134 of file \-Camera.\-hpp.
+\-Definition at line 135 of file \-Camera.\-hpp.
 
 \hypertarget{class_camera_a39746b4fadf30bba6bdc8aa6acfdc6f2}{\index{\-Camera@{\-Camera}!\-Motion@{\-Motion}}
 \index{\-Motion@{\-Motion}!Camera@{\-Camera}}
@@ -1024,7 +1035,7 @@ yaw adjusts the \-Y axis rotation; left/right look.
 
 
 
-\-Definition at line 131 of file \-Camera.\-hpp.
+\-Definition at line 132 of file \-Camera.\-hpp.
 
 \hypertarget{class_camera_aedf8ba8b2af631a5a3e33b19bfa40322}{\index{\-Camera@{\-Camera}!\-Speed@{\-Speed}}
 \index{\-Speed@{\-Speed}!Camera@{\-Camera}}
@@ -1035,7 +1046,7 @@ yaw adjusts the \-Y axis rotation; left/right look.
 
 
 
-\-Definition at line 139 of file \-Camera.\-hpp.
+\-Definition at line 140 of file \-Camera.\-hpp.
 
 
 
