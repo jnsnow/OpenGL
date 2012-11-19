@@ -18,7 +18,6 @@ var class_camera =
     [ "FOV", "class_camera.html#a8817ea073431268d8c0e522cdc30026c", null ],
     [ "heave", "class_camera.html#a2148d751f104d8e39c9832e2372df2d9", null ],
     [ "Idle", "class_camera.html#aec3559fe43597656629fdb00157d3c73", null ],
-    [ "Init", "class_camera.html#a394e2a2b71bfe325ee82e14a1bfea1f1", null ],
     [ "link", "class_camera.html#ab7574214240c67ca774255ef1d7616de", null ],
     [ "Move", "class_camera.html#a421e03f93824e178d6e77ff547cd290e", null ],
     [ "pitch", "class_camera.html#ade9b499340749c916d6ffeeadd7296d4", null ],
@@ -27,7 +26,7 @@ var class_camera =
     [ "pos", "class_camera.html#aec2115038562e514193bb2b67f5da153", null ],
     [ "pos", "class_camera.html#a9982ac5f48fe0af97fefa725080d6da6", null ],
     [ "roll", "class_camera.html#a6a0a10b821c733f380cc82aff09d9498", null ],
-    [ "send", "class_camera.html#a61e55b524e563fc09a2e02e1b1046de3", null ],
+    [ "send", "class_camera.html#a36cba68c08136242bf5d906f9c0b610c", null ],
     [ "Stop", "class_camera.html#adf064f765f610684e0675bd67de013fd", null ],
     [ "surge", "class_camera.html#abb2251df65445bf8efd3fe0074fb5033", null ],
     [ "sway", "class_camera.html#abbe6fe82ed05e64e35b0c4ed2001b34e", null ],
@@ -42,6 +41,10 @@ var class_camera =
     [ "fovy", "class_camera.html#acc8b97facc57059530efad534c2f8314", null ],
     [ "glsl_handles", "class_camera.html#a1635486d7f9e0d52b241899a270ee335", null ],
     [ "Motion", "class_camera.html#a39746b4fadf30bba6bdc8aa6acfdc6f2", null ],
-    [ "perspective", "class_camera.html#a88e27aa6501579b2bde7e6be0b096a1e", null ],
-    [ "Speed", "class_camera.html#aedf8ba8b2af631a5a3e33b19bfa40322", null ]
+    [ "P", "class_camera.html#a0bee6fbae6ec5960850a5fb858f3912a", null ],
+    [ "PRT", "class_camera.html#a6f5bb6e124f8e4bbfd163a2cb2f505dd", null ],
+    [ "R", "class_camera.html#a8fd028120b18556c43ad86756e637fbc", null ],
+    [ "Speed", "class_camera.html#aedf8ba8b2af631a5a3e33b19bfa40322", null ],
+    [ "T", "class_camera.html#aa4cb92b539c9a9707a12d7025ed889f6", null ],
+    [ "TRP", "class_camera.html#a2ec15fbfe495b11f60b68726d5a22bb9", null ]
 ];
