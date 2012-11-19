@@ -392,7 +392,7 @@ void Camera::FOV( const float &in ) {
   glGetIntegerv( GL_VIEWPORT, size );  
   P = Perspective( fovy,
 		   (float)size[2]/(float)size[3],
-		   0.3, 3.0 );
+		   0.001, 100.0 );
   send( PERSPECTIVE );
 }
 

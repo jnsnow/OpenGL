@@ -1,6 +1,8 @@
 #ifndef __PLATFORM_H
 #define __PLATFORM_H
 
+#include "OpenGL.h"
+
 #ifdef __APPLE__
 /* All Hail Steve Jobs */
 #define glGenVertexArrays( X, Y ) glGenVertexArraysAPPLE( X, Y )
@@ -12,4 +14,5 @@
   glewExperimental = GL_TRUE; \
   glewInit();
 #endif
+
 #endif

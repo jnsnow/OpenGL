@@ -10,8 +10,11 @@ uniform mat4 PRT;
 void main() {
 
    color = vColor;
-   //gl_Position = P * R * T * vPosition;
-   //gl_Position = vPosition * T * R * P;
+
+   #ifdef POSTMULT
+   gl_Position = vPosition * T * R * P;
+   #else
    gl_Position = PRT * vPosition;
+   #endif
 
 }

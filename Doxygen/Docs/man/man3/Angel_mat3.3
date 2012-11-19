@@ -1,0 +1,169 @@
+.TH "Angel::mat3" 3 "Mon Nov 19 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Angel::mat3 \- 
+.PP
+\fBmat3\fP - 3D square matrix\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <mat\&.hpp>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBmat3\fP (const GLfloat d=GLfloat(1\&.0))"
+.br
+.ti -1c
+.RI "\fBmat3\fP (const \fBvec3\fP &a, const \fBvec3\fP &b, const \fBvec3\fP &c)"
+.br
+.ti -1c
+.RI "\fBmat3\fP (GLfloat m00, GLfloat m10, GLfloat m20, GLfloat m01, GLfloat m11, GLfloat m21, GLfloat m02, GLfloat m12, GLfloat m22)"
+.br
+.ti -1c
+.RI "\fBmat3\fP (const \fBmat3\fP &m)"
+.br
+.ti -1c
+.RI "\fBvec3\fP & \fBoperator[]\fP (int i)"
+.br
+.ti -1c
+.RI "const \fBvec3\fP & \fBoperator[]\fP (int i) const "
+.br
+.ti -1c
+.RI "\fBmat3\fP \fBoperator+\fP (const \fBmat3\fP &m) const "
+.br
+.ti -1c
+.RI "\fBmat3\fP \fBoperator-\fP (const \fBmat3\fP &m) const "
+.br
+.ti -1c
+.RI "\fBmat3\fP \fBoperator*\fP (const GLfloat s) const "
+.br
+.ti -1c
+.RI "\fBmat3\fP \fBoperator/\fP (const GLfloat s) const "
+.br
+.ti -1c
+.RI "\fBmat3\fP \fBoperator*\fP (const \fBmat3\fP &m) const "
+.br
+.ti -1c
+.RI "\fBmat3\fP & \fBoperator+=\fP (const \fBmat3\fP &m)"
+.br
+.ti -1c
+.RI "\fBmat3\fP & \fBoperator-=\fP (const \fBmat3\fP &m)"
+.br
+.ti -1c
+.RI "\fBmat3\fP & \fBoperator*=\fP (const GLfloat s)"
+.br
+.ti -1c
+.RI "\fBmat3\fP & \fBoperator*=\fP (const \fBmat3\fP &m)"
+.br
+.ti -1c
+.RI "\fBmat3\fP & \fBoperator/=\fP (const GLfloat s)"
+.br
+.ti -1c
+.RI "\fBvec3\fP \fBoperator*\fP (const \fBvec3\fP &v) const "
+.br
+.ti -1c
+.RI "\fBoperator const GLfloat *\fP () const "
+.br
+.ti -1c
+.RI "\fBoperator GLfloat *\fP ()"
+.br
+.ti -1c
+.RI "\fBmat3\fP (const GLfloat d=GLfloat(1\&.0))"
+.br
+.ti -1c
+.RI "\fBmat3\fP (const \fBvec3\fP &a, const \fBvec3\fP &b, const \fBvec3\fP &c)"
+.br
+.ti -1c
+.RI "\fBmat3\fP (GLfloat m00, GLfloat m10, GLfloat m20, GLfloat m01, GLfloat m11, GLfloat m21, GLfloat m02, GLfloat m12, GLfloat m22)"
+.br
+.ti -1c
+.RI "\fBmat3\fP (const \fBmat3\fP &m)"
+.br
+.ti -1c
+.RI "\fBvec3\fP & \fBoperator[]\fP (int i)"
+.br
+.ti -1c
+.RI "const \fBvec3\fP & \fBoperator[]\fP (int i) const "
+.br
+.ti -1c
+.RI "\fBmat3\fP \fBoperator+\fP (const \fBmat3\fP &m) const "
+.br
+.ti -1c
+.RI "\fBmat3\fP \fBoperator-\fP (const \fBmat3\fP &m) const "
+.br
+.ti -1c
+.RI "\fBmat3\fP \fBoperator*\fP (const GLfloat s) const "
+.br
+.ti -1c
+.RI "\fBmat3\fP \fBoperator/\fP (const GLfloat s) const "
+.br
+.ti -1c
+.RI "\fBmat3\fP \fBoperator*\fP (const \fBmat3\fP &m) const "
+.br
+.ti -1c
+.RI "\fBmat3\fP & \fBoperator+=\fP (const \fBmat3\fP &m)"
+.br
+.ti -1c
+.RI "\fBmat3\fP & \fBoperator-=\fP (const \fBmat3\fP &m)"
+.br
+.ti -1c
+.RI "\fBmat3\fP & \fBoperator*=\fP (const GLfloat s)"
+.br
+.ti -1c
+.RI "\fBmat3\fP & \fBoperator*=\fP (const \fBmat3\fP &m)"
+.br
+.ti -1c
+.RI "\fBmat3\fP & \fBoperator/=\fP (const GLfloat s)"
+.br
+.ti -1c
+.RI "\fBvec3\fP \fBoperator*\fP (const \fBvec3\fP &v) const "
+.br
+.ti -1c
+.RI "\fBoperator const GLfloat *\fP () const "
+.br
+.ti -1c
+.RI "\fBoperator GLfloat *\fP ()"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBvec3\fP \fB_m\fP [3]"
+.br
+.in -1c
+.SS "Friends"
+
+.in +1c
+.ti -1c
+.RI "\fBmat3\fP \fBoperator*\fP (const GLfloat s, const \fBmat3\fP &m)"
+.br
+.ti -1c
+.RI "std::ostream & \fBoperator<<\fP (std::ostream &os, const \fBmat3\fP &m)"
+.br
+.ti -1c
+.RI "std::istream & \fBoperator>>\fP (std::istream &is, \fBmat3\fP &m)"
+.br
+.ti -1c
+.RI "\fBmat3\fP \fBoperator*\fP (const GLfloat s, const \fBmat3\fP &m)"
+.br
+.ti -1c
+.RI "std::ostream & \fBoperator<<\fP (std::ostream &os, const \fBmat3\fP &m)"
+.br
+.ti -1c
+.RI "std::istream & \fBoperator>>\fP (std::istream &is, \fBmat3\fP &m)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+\fBmat3\fP - 3D square matrix\&. 
+.PP
+Definition at line 192 of file mat\&.h\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for OpenGL Flythrough from the source code\&.
