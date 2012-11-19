@@ -1,13 +1,6 @@
-#ifdef __APPLE__
-#include <Carbon/Carbon.h>
-#define X_SIZE (800)
-#define Y_SIZE (600)
-#endif
-
-#ifndef __APPLE__
 #define X_SIZE (1024)
 #define Y_SIZE (600)
-#endif
+
 
 #include "platform.h"
 #include "Angel.h"
@@ -52,10 +45,10 @@ void init_lights( GLuint program ) {
     color4 light_diffuse( 1.0, 1.0, 1.0, 1.0 );
     color4 light_specular( 1.0, 1.0, 1.0, 1.0 );
 
-    color4 material_ambient( 1.0, 1.0, 1.0, 1.0 );//1.0, 0.0, 1.0, 1.0
+    color4 material_ambient( 1.0, 1.0, 1.0, 1.0 ); //1.0, 0.0, 1.0, 1.0
     color4 material_diffuse( 1.0, 1.0, 1.0, 1.0 );
     color4 material_specular( 1.0, 1.0, 1.0, 1.0 );
-    float  material_shininess = 1.0;//100
+    float  material_shininess = 1.0; // 100.0
 
     color4 ambient_product = light_ambient * material_ambient;
     color4 diffuse_product = light_diffuse * material_diffuse;
@@ -129,7 +122,7 @@ void init() {
   glBufferSubData( GL_ARRAY_BUFFER,                             0, sizeof(points),   points );
   glBufferSubData( GL_ARRAY_BUFFER,                sizeof(points), sizeof(colors),   colors );
   glBufferSubData( GL_ARRAY_BUFFER, sizeof(points)+sizeof(colors), sizeof(normals), normals );
-  
+
   // Load shaders and use the resulting shader program
   GLuint program = InitShader( "vshader.glsl", "fshader.glsl" );
   glUseProgram( program );
@@ -268,6 +261,12 @@ void mouse( int button, int state, int x, int y ) {
 
 }
 
+void mouseAPPLE( int button, int state, int x, int y ) {
+
+  return mouse( button, state, x, y );
+
+}
+
 void mouseroll( int x, int y ) {
 
   if ((x != X_Center) || (y != Y_Center)) {
@@ -277,49 +276,62 @@ void mouseroll( int x, int y ) {
 
 }
 
+
+void mouserollAPPLE( int x, int y ) {
+
+  return mouseroll( x, y ) ;
+
+}
+
 void mouselook( int x, int y ) {
 
   if ( x != X_Center || y != Y_Center ) {
     const double dx = ((double)x - X_Center);
     const double dy = ((double)y - Y_Center);
 
-#ifdef __APPLE__
+    /*#ifdef __APPLE__
     theCamera.pitch( M_PI*dy/2.0 );
     theCamera.yaw( M_PI*dx/2.0 );
-#endif
-#ifndef __APPLE__
+    #else
+    */
     theCamera.pitch( dy );
     theCamera.yaw( dx );
-#endif
+    //#endif
 
-    //    glutWarpPointer( X_Center, Y_Center );
+    glutWarpPointer( X_Center, Y_Center );
   }
 }
 
-int oldX = X_Center ;
-int oldY = Y_Center ;
-void mouselookAlternate( int x, int y ) {
+// apple refuses to support the glutWarpPointer.
+// We must code up workarounds. Carbon.h is a place to start.
+void mouselookAPPLE( int x, int y ) {
 
-  int dx, dy;
+  static int oldX = X_Center ;
+  static int oldY = Y_Center ;
+
+  int dx = x - oldX;
+  int dy = y - oldY;
+
   //CGPoint pnt;
 
   //pnt.x = x; // Width/2;
   //pnt.y = y; // Height/2;
 
-  if( dx = x-oldX ) {
+  if( dx ) { // If the x mouse pos changed...
+
     theCamera.yaw(dx);
     oldX = x;
+
+    //CODE IN PROGRESS
     //pnt.x = X_Center; // Width/2;
-
     /*    CGPoint CenterPos = CGPointMake( WindowWidth/2 + glutGet(GLUT_WINDOW_X),
-				     WindowHeight/2 + glutGet(GLUT_WINDOW_Y));
-
-    CGWarpMouseCursorPosition(CenterPos);
+	  WindowHeight/2 + glutGet(GLUT_WINDOW_Y));
+	  CGWarpMouseCursorPosition(CenterPos);
     */
     //    CGDisplayMoveCursorToPoint (0,pnt);
   }
 
-  if( dy = y-oldY ) {
+  if( dy ) {
     theCamera.pitch(dy);
     oldY = y;
     //pnt.y = Y_Center; // Width/2;
@@ -330,12 +342,10 @@ void mouselookAlternate( int x, int y ) {
 }
 
 
-
-// oh boy MAC COMPATIBILITY PROBLEMS INCOMING
-
 // suggested use of quartz bullshit:
 //  CGEventSourceSetLocalEventsSuppressionInterval( source, seconds);
 //  CGEventSource.h 
+
 
 void resizeEvent( int width, int height ) {
   
@@ -360,8 +370,8 @@ int main( int argc, char **argv ) {
     glutInitDisplayMode( GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH );
     glutInitWindowSize( X_SIZE, Y_SIZE );
     glutCreateWindow( "Gasket Flythrough" );
-    //glutSetCursor( GLUT_CURSOR_NONE );
-    //    glutWarpPointer( X_Center, Y_Center );
+    glutSetCursor( GLUT_CURSOR_NONE );
+    glutWarpPointer( X_Center, Y_Center );
 
     GLEW_INIT();
     init();
@@ -370,17 +380,22 @@ int main( int argc, char **argv ) {
     glutDisplayFunc( display );
     glutKeyboardFunc( keyboard );
     glutKeyboardUpFunc( keylift );
+
+#ifdef __APPLE__
+    glutMouseFunc( mouseAPPLE );
+    glutMotionFunc( mouserollAPPLE );
+    glutPassiveMotionFunc( mouselookAPPLE );
+#endif
+#ifndef __APPLE__
     glutMouseFunc( mouse );
     glutMotionFunc( mouseroll );
-    glutPassiveMotionFunc( mouselookAlternate );
+    glutPassiveMotionFunc( mouselook );
+#endif
+
     glutIdleFunc( idle );
     glutReshapeFunc( resizeEvent );
-
-
 
     /* PULL THE TRIGGER */
     glutMainLoop();
     return 0;
 }
-// so we may need to pass an additional argument to the shader:
-// the TRANSLATION * ROTATION )NO PERSPECTIVE) matrix for lighting computation.

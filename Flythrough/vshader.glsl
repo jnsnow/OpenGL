@@ -20,17 +20,8 @@ varying vec4 finalLight;
 void main() {
 
 
-/*
-    // Transform vertex  position into eye coordinates
-    vec3 pos = (ModelView * vPosition).xyz;
-
-    vec3 L = normalize( LightPosition.xyz - pos );
-    vec3 E = normalize( -pos );
-    vec3 H = normalize( L + E );
-*/
-
-// phong model for lighting.
-// < I think >
+  // phong model for lighting.
+  // ... I think.
 
     vec3 pos = (normalize(R * T * vPosition)).xyz;
 
@@ -71,10 +62,14 @@ void main() {
 
     vec3 lightsum = vec3( (ambient + diffuse + specular).xyz) ;
 
+
+    // This right here is how we take the original color of the surface into consideration.
+    // We should talk about a high level way to manage this. Lighting will require some organized code.
     finalLight = vec4( vColor.x * lightsum.x,
-    	    	  vColor.y * lightsum.y,
-		  vColor.z * lightsum.z,
-		  1.0  ) ;
+        	       vColor.y * lightsum.y,
+		       vColor.z * lightsum.z,
+		       1.0  ) ;
+
 /*
     color = vec4( vColor.x * lightsum.x,
     	    	  vColor.y * lightsum.y,

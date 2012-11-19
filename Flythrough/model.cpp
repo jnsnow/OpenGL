@@ -5,12 +5,14 @@
 #include "Angel.h"
 typedef Angel::vec4  color4;
 typedef Angel::vec4  point4;
+
+/* do we really need these defined here?
 extern vec4  points[];
 extern vec4  colors[];
 extern vec3 normals[];
+*/
 
-
-void createPoint( vec4 const &the_point, vec4 const &the_color, vec3 const &the_normal ) {
+void createPoint( point4 const &the_point, color4 const &the_color, vec3 const &the_normal ) {
   static int Index = 0;
   points[Index]  = the_point ;
   colors[Index]  = the_color ;
@@ -20,8 +22,8 @@ void createPoint( vec4 const &the_point, vec4 const &the_color, vec3 const &the_
 
 //--------------------------------------------------------------------
 
-void triangle( const vec4& a, const vec4& b, 
-	       const vec4& c, const int color ) {
+void triangle( const point4& a, const point4& b, 
+	       const point4& c, const int color ) {
 
   static vec4  base_colors[] = {
     vec4( 1.0, 0.0, 0.0, 1.0 ), /* R */
@@ -46,8 +48,8 @@ void triangle( const vec4& a, const vec4& b,
 
 //--------------------------------------------------------------------
 
-void tetra( const vec4& a, const vec4& b, 
-	    const vec4& c, const vec4& d ) {
+void tetra( const point4& a, const point4& b, 
+	    const point4& c, const point4& d ) {
 
   triangle( a, b, c, 0 );
   triangle( a, c, d, 1 );
@@ -58,20 +60,20 @@ void tetra( const vec4& a, const vec4& b,
 
 //--------------------------------------------------------------------
 
-void divide_tetra( const vec4& a, const vec4& b,
-		   const vec4& c, const vec4& d, int count ) {
+void divide_tetra( const point4& a, const point4& b,
+		   const point4& c, const point4& d, int count ) {
 
   if ( count > 0 ) {
-    vec4 v0 = ( a + b ) / 2.0;
-    vec4 v1 = ( a + c ) / 2.0;
-    vec4 v2 = ( a + d ) / 2.0;
-    vec4 v3 = ( b + c ) / 2.0;
-    vec4 v4 = ( c + d ) / 2.0;
-    vec4 v5 = ( b + d ) / 2.0;
-    divide_tetra( a, v0, v1, v2, count - 1 );
-    divide_tetra( v0, b, v3, v5, count - 1 );
-    divide_tetra( v1, v3, c, v4, count - 1 );
-    divide_tetra( v2, v4, v5, d, count - 1 );
+    point4 v0 = ( a + b ) / 2.0;
+    point4 v1 = ( a + c ) / 2.0;
+    point4 v2 = ( a + d ) / 2.0;
+    point4 v3 = ( b + c ) / 2.0;
+    point4 v4 = ( c + d ) / 2.0;
+    point4 v5 = ( b + d ) / 2.0;
+    divide_tetra(  a, v0, v1, v2, count - 1 );
+    divide_tetra( v0,  b, v3, v5, count - 1 );
+    divide_tetra( v1, v3,  c, v4, count - 1 );
+    divide_tetra( v2, v4, v5,  d, count - 1 );
   } else {
     tetra( a, b, c, d );   // draw tetrahedron at end of recursion
   }
