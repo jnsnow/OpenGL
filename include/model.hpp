@@ -5,19 +5,20 @@
 #include "Angel.h"
 typedef Angel::vec4 color4;
 typedef Angel::vec4 point4;
-extern vec4 points[];
-extern vec4 colors[];
+extern point4 points[];
+extern color4 colors[];
+extern vec3 normals[];
 
-void createPoint( vec4 const &the_point, vec4 const &the_color );
+void createPoint( point4 const &the_point, color4 const &the_color, vec3 const &the_normal );
 
-void triangle( const vec4& a, const vec4& b, 
-	       const vec4& c, const int color );
+void triangle( const point4& a, const point4& b, 
+	       const point4& c, const int color );
 
-void tetra( const vec4& a, const vec4& b, 
-	    const vec4& c, const vec4& d );
+void tetra( const point4& a, const point4& b, 
+	    const point4& c, const point4& d );
 
-void divide_tetra( const vec4& a, const vec4& b,
-		   const vec4& c, const vec4& d, int count );
+void divide_tetra( const point4& a, const point4& b,
+		   const point4& c, const point4& d, int count );
 
 void quad( int a, int b, int c, int d );
 
