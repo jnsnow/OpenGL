@@ -1,10 +1,19 @@
+#ifdef __APPLE__
+#include <Carbon/Carbon.h>
+#define X_SIZE (800)
+#define Y_SIZE (600)
+#endif
+
+#ifndef __APPLE__
 #define X_SIZE (1024)
 #define Y_SIZE (600)
+#endif
 
 #include "platform.h"
 #include "Angel.h"
 #include "model.h"
 #include "Camera.hpp"
+
 
 typedef Angel::vec4  color4;
 typedef Angel::vec4  point4;
@@ -22,6 +31,7 @@ const int NumVertices = 36;
 #endif
 point4 points[NumVertices];
 color4 colors[NumVertices];
+vec3  normals[NumVertices];
 
 Camera theCamera;
 
@@ -32,6 +42,44 @@ int Y_Center = (Height/2);
 
 //--------------------------------------------------------------------
 // OpenGL initialization
+
+void init_lights( GLuint program ) {
+
+// Initialize shader lighting parameters                                                                                   
+    point4 light_position( 0.0, 0.5, 0.8, 0.0 );
+    //point4 light_position2( 0.0, 2.0, -1.0, 0.0 );
+    color4 light_ambient( 0.3, 0.3, 0.3, 1.0 );
+    color4 light_diffuse( 1.0, 1.0, 1.0, 1.0 );
+    color4 light_specular( 1.0, 1.0, 1.0, 1.0 );
+
+    color4 material_ambient( 1.0, 1.0, 1.0, 1.0 );//1.0, 0.0, 1.0, 1.0
+    color4 material_diffuse( 1.0, 1.0, 1.0, 1.0 );
+    color4 material_specular( 1.0, 1.0, 1.0, 1.0 );
+    float  material_shininess = 1.0;//100
+
+    color4 ambient_product = light_ambient * material_ambient;
+    color4 diffuse_product = light_diffuse * material_diffuse;
+    color4 specular_product = light_specular * material_specular;
+
+    glUniform4fv( glGetUniformLocation(program, "AmbientProduct"),
+		  1, ambient_product );
+    glUniform4fv( glGetUniformLocation(program, "DiffuseProduct"),
+		  1, diffuse_product );
+    glUniform4fv( glGetUniformLocation(program, "SpecularProduct"),
+		  1, specular_product );
+
+    glUniform4fv( glGetUniformLocation(program, "LightPosition"),
+		  1, light_position );
+    /*
+    glUniform4fv( glGetUniformLocation(program, "LightPosition2"),
+		  1, light_position2 );
+    */
+    glUniform1f( glGetUniformLocation(program, "Shininess"),
+		 material_shininess );
+}
+
+
+
 void init() {
 
 #ifndef __CUBE__
@@ -58,6 +106,7 @@ void init() {
   colorcube(GLfloat(0.5));
 #endif
 
+
   GLuint vao;
   glGenVertexArrays( 1, &vao );
   glBindVertexArray( vao );
@@ -69,7 +118,7 @@ void init() {
   
   // First, we create an empty buffer of the size we need by passing
   //   a NULL pointer for the data values
-  glBufferData( GL_ARRAY_BUFFER, sizeof(points) + sizeof(colors),
+  glBufferData( GL_ARRAY_BUFFER, sizeof(points) + sizeof(colors) + sizeof(normals),
 		NULL, GL_STATIC_DRAW );
   
   // Next, we load the real data in parts.  We need to specify the
@@ -77,12 +126,16 @@ void init() {
   //   data in the buffer.  Conveniently, the byte offset we need is
   //   the same as the size (in bytes) of the points array, which is
   //   returned from "sizeof(points)".
-  glBufferSubData( GL_ARRAY_BUFFER, 0, sizeof(points), points );
-  glBufferSubData( GL_ARRAY_BUFFER, sizeof(points), sizeof(colors), colors );
+  glBufferSubData( GL_ARRAY_BUFFER,                             0, sizeof(points),   points );
+  glBufferSubData( GL_ARRAY_BUFFER,                sizeof(points), sizeof(colors),   colors );
+  glBufferSubData( GL_ARRAY_BUFFER, sizeof(points)+sizeof(colors), sizeof(normals), normals );
   
   // Load shaders and use the resulting shader program
   GLuint program = InitShader( "vshader.glsl", "fshader.glsl" );
   glUseProgram( program );
+
+  // More init stuff, but only lighting-related.
+  init_lights(program);
   
   // Initialize the vertex position attribute from the vertex shader  
   GLuint vPosition = glGetAttribLocation( program, "vPosition" );
@@ -98,6 +151,14 @@ void init() {
   glEnableVertexAttribArray( vColor );
   glVertexAttribPointer( vColor, 4, GL_FLOAT, GL_FALSE, 0,
 			 BUFFER_OFFSET(sizeof(points)) );
+
+  // Again, initialize another attribute: vNormal.
+  GLuint vNormal = glGetAttribLocation( program, "vNormal" );
+  glEnableVertexAttribArray( vNormal );
+  glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0,
+			 BUFFER_OFFSET(sizeof(points)+sizeof(colors)) );
+
+
 
   theCamera.link( program, Camera::TRANSLATION, "T" );
   theCamera.link( program, Camera::ROTATION, "R" );
@@ -211,7 +272,7 @@ void mouseroll( int x, int y ) {
 
   if ((x != X_Center) || (y != Y_Center)) {
     theCamera.roll( x - X_Center );
-    glutWarpPointer( X_Center, Y_Center );
+    //    glutWarpPointer( X_Center, Y_Center );
   }
 
 }
@@ -221,12 +282,60 @@ void mouselook( int x, int y ) {
   if ( x != X_Center || y != Y_Center ) {
     const double dx = ((double)x - X_Center);
     const double dy = ((double)y - Y_Center);
+
+#ifdef __APPLE__
+    theCamera.pitch( M_PI*dy/2.0 );
+    theCamera.yaw( M_PI*dx/2.0 );
+#endif
+#ifndef __APPLE__
     theCamera.pitch( dy );
     theCamera.yaw( dx );
-    glutWarpPointer( X_Center, Y_Center );
+#endif
+
+    //    glutWarpPointer( X_Center, Y_Center );
+  }
+}
+
+int oldX = X_Center ;
+int oldY = Y_Center ;
+void mouselookAlternate( int x, int y ) {
+
+  int dx, dy;
+  //CGPoint pnt;
+
+  //pnt.x = x; // Width/2;
+  //pnt.y = y; // Height/2;
+
+  if( dx = x-oldX ) {
+    theCamera.yaw(dx);
+    oldX = x;
+    //pnt.x = X_Center; // Width/2;
+
+    /*    CGPoint CenterPos = CGPointMake( WindowWidth/2 + glutGet(GLUT_WINDOW_X),
+				     WindowHeight/2 + glutGet(GLUT_WINDOW_Y));
+
+    CGWarpMouseCursorPosition(CenterPos);
+    */
+    //    CGDisplayMoveCursorToPoint (0,pnt);
   }
 
+  if( dy = y-oldY ) {
+    theCamera.pitch(dy);
+    oldY = y;
+    //pnt.y = Y_Center; // Width/2;
+    //    CGDisplayMoveCursorToPoint (0,pnt);
+  }
+
+
 }
+
+
+
+// oh boy MAC COMPATIBILITY PROBLEMS INCOMING
+
+// suggested use of quartz bullshit:
+//  CGEventSourceSetLocalEventsSuppressionInterval( source, seconds);
+//  CGEventSource.h 
 
 void resizeEvent( int width, int height ) {
   
@@ -251,8 +360,8 @@ int main( int argc, char **argv ) {
     glutInitDisplayMode( GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH );
     glutInitWindowSize( X_SIZE, Y_SIZE );
     glutCreateWindow( "Gasket Flythrough" );
-    glutSetCursor( GLUT_CURSOR_NONE );
-    glutWarpPointer( X_Center, Y_Center );
+    //glutSetCursor( GLUT_CURSOR_NONE );
+    //    glutWarpPointer( X_Center, Y_Center );
 
     GLEW_INIT();
     init();
@@ -263,11 +372,15 @@ int main( int argc, char **argv ) {
     glutKeyboardUpFunc( keylift );
     glutMouseFunc( mouse );
     glutMotionFunc( mouseroll );
-    glutPassiveMotionFunc( mouselook );
+    glutPassiveMotionFunc( mouselookAlternate );
     glutIdleFunc( idle );
     glutReshapeFunc( resizeEvent );
+
+
 
     /* PULL THE TRIGGER */
     glutMainLoop();
     return 0;
 }
+// so we may need to pass an additional argument to the shader:
+// the TRANSLATION * ROTATION )NO PERSPECTIVE) matrix for lighting computation.

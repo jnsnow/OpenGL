@@ -1,15 +1,20 @@
-/* what the fuck is happening to me i am a frog */
+/* oh god please no */
+/* no               */
+/* nooooooooooo     */
 
 #include "Angel.h"
 typedef Angel::vec4  color4;
 typedef Angel::vec4  point4;
-extern vec4 points[];
-extern vec4 colors[];
+extern vec4  points[];
+extern vec4  colors[];
+extern vec3 normals[];
 
-void createPoint( vec4 const &the_point, vec4 const &the_color ) {
+
+void createPoint( vec4 const &the_point, vec4 const &the_color, vec3 const &the_normal ) {
   static int Index = 0;
-  points[Index] = the_point;
-  colors[Index] = the_color;
+  points[Index]  = the_point ;
+  colors[Index]  = the_color ;
+  normals[Index] = the_normal;
   Index++;
 }
 
@@ -24,10 +29,18 @@ void triangle( const vec4& a, const vec4& b,
     vec4( 0.0, 0.0, 1.0, 1.0 ), /* B */
     vec4( 1.0, 1.0, 0.0, 1.0 )  /* Y */
   };
-  
-  createPoint( a, base_colors[ 0 ] );
-  createPoint( b, base_colors[ 1 ] );
-  createPoint( c, base_colors[ 2 ] );
+
+  // Initialize temporary vectors along the quad's edge to
+  //   compute its face normal
+
+  vec4 u = b - a;
+  vec4 v = c - a;
+
+  vec3 normal = normalize( cross(u, v) );
+
+  createPoint( a, base_colors[ 0 ], normal );
+  createPoint( b, base_colors[ 1 ], normal );
+  createPoint( c, base_colors[ 2 ], normal );
   
 }
 
@@ -90,14 +103,23 @@ void quad( int a, int b, int c, int d ) {
     color4( 1.0, 1.0, 1.0, 1.0 ),  // white
     color4( 0.0, 1.0, 1.0, 1.0 )   // cyan
   };
-  
-  createPoint( vertices[a], vertex_colors[a] );
-  createPoint( vertices[b], vertex_colors[b] );
-  createPoint( vertices[c], vertex_colors[c] );
 
-  createPoint( vertices[a], vertex_colors[a] );
-  createPoint( vertices[c], vertex_colors[c] );
-  createPoint( vertices[d], vertex_colors[d] );
+
+  // Initialize temporary vectors along the quad's edge to                                                                                 
+  //   compute its face normal                                                                                                             
+  vec4 u = vertices[b] - vertices[a];
+  vec4 v = vertices[c] - vertices[b];
+
+  vec3 normal = normalize( cross(u, v) );
+
+  createPoint( vertices[a], vertex_colors[a], normal );
+  createPoint( vertices[b], vertex_colors[b], normal );
+  createPoint( vertices[c], vertex_colors[c], normal );
+
+  createPoint( vertices[a], vertex_colors[a], normal ); // if we did this right, we don't
+  createPoint( vertices[c], vertex_colors[c], normal ); // need to recompute the normal 
+  createPoint( vertices[d], vertex_colors[d], normal ); // because it is on the same plane, 
+                                                // and therefore equivalent.
 
 }
 
@@ -106,13 +128,21 @@ void quad( const point4 &a, const point4 &b,
 	   const color4 &A, const color4 &B,
 	   const color4 &C, const color4 &D ) {
 
-  createPoint( a, A );
-  createPoint( b, B );
-  createPoint( c, C );
 
-  createPoint( a, A );
-  createPoint( c, C );
-  createPoint( d, D );
+  // Initialize temporary vectors along the quad's edge to                                                                                 
+  //   compute its face normal                                                                                                             
+  vec4 u = b - a;
+  vec4 v = c - b;
+
+  vec3 normal = normalize( cross(u, v) );
+
+  createPoint( a, A, normal );
+  createPoint( b, B, normal );
+  createPoint( c, C, normal );
+
+  createPoint( a, A, normal );
+  createPoint( c, C, normal );
+  createPoint( d, D, normal );
 
 }
 
