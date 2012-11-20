@@ -5,10 +5,11 @@
 #include "Angel.h"
 typedef Angel::vec4 color4;
 typedef Angel::vec4 point4;
+/* do we really need these here?
 extern point4 points[];
 extern color4 colors[];
 extern vec3 normals[];
-
+*/
 void createPoint( point4 const &the_point, color4 const &the_color, vec3 const &the_normal );
 
 void triangle( const point4& a, const point4& b, 
