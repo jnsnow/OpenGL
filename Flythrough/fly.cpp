@@ -4,7 +4,7 @@
 
 #include "platform.h"
 #include "Angel.h"
-#include "model.h"
+#include "model.hpp"
 #include "Camera.hpp"
 
 
@@ -77,10 +77,10 @@ void init() {
 
 #ifndef __CUBE__
   divide_tetra( 
-	       vec4(  0,  1,  0, 1 ),
-	       vec4( -1, -0.999, -1, 1 ),
-	       vec4(  1, -0.999, -1, 1 ),
-	       vec4(  0, -0.999,  1, 1 ),
+	       vec4(  0,      1,  0, 1 ),
+	       vec4( -1, -0.999, 1, 1 ),
+	       vec4(  1, -0.999, 1, 1 ),
+	       vec4(  0, -0.999, -1, 1 ),
 	       NumTimesToSubdivide );
   
   // Draw a "floor" or something for reference.
@@ -169,10 +169,6 @@ void init() {
 void display( void ) {
 
   glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-
-  //theCamera.send( Camera::TRANSLATION );
-  //theCamera.send( Camera::ROTATION );
-
   glDrawArrays( GL_TRIANGLES, 0, NumVertices );
   glutSwapBuffers();
 
@@ -271,7 +267,7 @@ void mouseroll( int x, int y ) {
 
   if ((x != X_Center) || (y != Y_Center)) {
     theCamera.roll( x - X_Center );
-    //    glutWarpPointer( X_Center, Y_Center );
+    glutWarpPointer( X_Center, Y_Center );
   }
 
 }

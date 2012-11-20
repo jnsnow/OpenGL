@@ -6,11 +6,17 @@
 typedef Angel::vec4  color4;
 typedef Angel::vec4  point4;
 
+<<<<<<< HEAD
 
 extern vec4  points[];
 extern vec4  colors[];
 extern vec3 normals[];
 
+=======
+extern vec4  points[];
+extern vec4  colors[];
+extern vec3 normals[];
+>>>>>>> d81e77208b5184848117c5bd0f1d274e61f32ac3
 
 void createPoint( point4 const &the_point, color4 const &the_color, vec3 const &the_normal ) {
   static int Index = 0;

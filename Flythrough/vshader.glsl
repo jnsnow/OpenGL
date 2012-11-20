@@ -13,13 +13,16 @@ uniform mat4 PRT;
 uniform vec4 AmbientProduct, DiffuseProduct, SpecularProduct;
 uniform vec4 LightPosition;
 uniform float Shininess;
-
 varying vec4 finalLight;
-
 
 void main() {
 
-
+   #ifdef POSTMULT
+   gl_Position = vPosition * T * R * P;
+   #else
+   gl_Position = PRT * vPosition;
+   #endif
+   
   // phong model for lighting.
   // ... I think.
 
@@ -49,14 +52,6 @@ void main() {
     if( dot(L, N) < 0.0 ) {
     specular = vec4(0.0, 0.0, 0.0, 1.0);
     }
-
-
-   // POSITION STUFF
-
-   //gl_Position = P * R * T * vPosition;
-   //gl_Position = vPosition * T * R * P;
-   gl_Position = PRT * vPosition;
-
 
    // COLOR/LIGHTING
 
