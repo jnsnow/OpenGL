@@ -4,10 +4,18 @@ ifndef RELDIR
 	RELDIR="../.."
 endif
 
+UNAME := $(shell uname)
+
 CC=g++
 CFLAGS=-I $(RELDIR)/include -Wall -pedantic
-LDFLAGS=-lGL -lGLU -lGLEW -lglut -lXmu -lX11 -lm
 INIT_SHADER = $(RELDIR)/Common/InitShader.o
+
+ifeq ($(UNAME), Linux)
+LDFLAGS= -lGL -lGLU -lGLEW -lglut -lXmu -lX11 -lm
+endif
+ifeq ($(UNAME), Darwin)
+LDFLAGS= -framework Carbon -framework OpenGL -framework GLUT
+endif
 
 all: $(BIN)
 

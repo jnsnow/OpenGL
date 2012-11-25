@@ -1,6 +1,7 @@
 #define X_SIZE (1024)
 #define Y_SIZE (600)
 
+#include "platform.h"
 #include "Angel.h"
 #include "model.h"
 #include "Camera.hpp"
@@ -198,7 +199,49 @@ void mouseroll( int x, int y ) {
 
 }
 
+
 void mouselook( int x, int y ) {
+
+#ifdef __APPLE__
+  // The following code for OS X was found at
+  // http://stackoverflow.com/questions/728049/
+  // glutpassivemotionfunc-and-glutwarpmousepointer
+  static int lastX = 150;
+  static int lastY = 150;
+  int deltaX = x - lastX;
+  int deltaY = y - lastY;
+
+  lastX = x;
+  lastY = y;
+
+  if( deltaX == 0 && deltaY == 0 ) return;
+
+  int windowX= glutGet( GLUT_WINDOW_X );
+  int windowY= glutGet( GLUT_WINDOW_Y );
+  int screenWidth= glutGet( GLUT_SCREEN_WIDTH );
+  int screenHeight= glutGet( GLUT_SCREEN_HEIGHT );
+
+  int screenLeft = -windowX;
+  int screenTop = -windowY;
+  int screenRight = screenWidth - windowX;
+  int screenBottom = screenHeight - windowY;
+
+  if( x <= screenLeft+10 || (y) <= screenTop+10 || 
+      x >= screenRight-10 || y >= screenBottom - 10) {
+    lastX = 150;
+    lastY = 150;
+    // If on Mac OS X, the following will also work 
+    // (and CGwarpMouseCursorPosition seems faster than glutWarpPointer).
+    CGPoint centerPos = CGPointMake( windowX + lastX, windowY + lastY );
+    CGWarpMouseCursorPosition( centerPos );
+    // Have to re-hide if the user touched any UI element with the invisible
+    // pointer, like the Dock.
+    CGDisplayHideCursor(kCGDirectMainDisplay);
+    }
+  theCamera.pitch( deltaY );
+  theCamera.yaw( deltaX );
+
+#else
 
   if ( x != X_Center || y != Y_Center ) {
     const double dx = ((double)x - X_Center);
@@ -206,7 +249,9 @@ void mouselook( int x, int y ) {
     theCamera.pitch( dy );
     theCamera.yaw( dx );
     glutWarpPointer( X_Center, Y_Center );
-  }
+    }
+
+#endif
 
 }
 
@@ -229,14 +274,22 @@ void idle( void ) {
 //--------------------------------------------------------------------
 
 int main( int argc, char **argv ) {
+
+  // OS X suppresses events after mouse warp.  This resets the suppression 
+  // interval to 0 so that events will not be suppressed. This also found
+  // at http://stackoverflow.com/questions/728049/
+  // glutpassivemotionfunc-and-glutwarpmousepointer
+#ifdef __APPLE__
+  CGSetLocalEventsSuppressionInterval( 0.0 );
+#endif
+
     glutInit( &argc, argv );
     glutInitDisplayMode( GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH );
     glutInitWindowSize( X_SIZE, Y_SIZE );
     glutCreateWindow( "Gasket Flythrough" );
     glutSetCursor( GLUT_CURSOR_NONE );
 
-    glewExperimental = GL_TRUE;
-    glewInit();
+    GLEW_INIT();
     init();
 
     /* Plugins and shit oh yeah */
