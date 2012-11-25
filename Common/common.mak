@@ -5,7 +5,6 @@ ifndef RELDIR
 endif
 
 UNAME := $(shell uname)
-
 CC=g++
 CFLAGS=-I $(RELDIR)/include -Wall -pedantic
 INIT_SHADER = $(RELDIR)/Common/InitShader.o
@@ -18,6 +17,10 @@ LDFLAGS= -framework Carbon -framework OpenGL -framework GLUT
 endif
 
 all: $(BIN)
+
+print:
+	@echo "[$(UNAME)]"
+	@echo $(LDFLAGS)
 
 $(INIT_SHADER): $(RELDIR)/Common/InitShader.cpp
 	$(CC) $(CFLAGS) -c -o $@ $<
@@ -32,4 +35,4 @@ $(INIT_SHADER): $(RELDIR)/Common/InitShader.cpp
 
 .PHONY: clean
 clean:
-	rm -f $(INIT_SHADER) example*.o $(BIN) *~
+	rm -f $(INIT_SHADER) example*.o Camera.o model.o $(BIN).o $(BIN) *~

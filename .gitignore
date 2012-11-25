@@ -16,4 +16,6 @@
 *.h.gch
 *.hpp.gch
 *~
+.DS_Store
+
 #*#

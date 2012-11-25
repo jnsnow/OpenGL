@@ -3,7 +3,7 @@
 
 #include "platform.h"
 #include "Angel.h"
-#include "model.h"
+#include "model.hpp"
 #include "Camera.hpp"
 
 typedef Angel::vec4  color4;
@@ -22,6 +22,7 @@ const int NumVertices = 36;
 #endif
 point4 points[NumVertices];
 color4 colors[NumVertices];
+vec3  normals[NumVertices];
 
 Camera theCamera;
 
@@ -32,14 +33,52 @@ int Y_Center = (Height/2);
 
 //--------------------------------------------------------------------
 // OpenGL initialization
+
+void init_lights( GLuint program ) {
+
+// Initialize shader lighting parameters                                                                                   
+    point4 light_position( 0.0, 0.5, 0.8, 0.0 );
+    //point4 light_position2( 0.0, 2.0, -1.0, 0.0 );
+    color4 light_ambient( 0.3, 0.3, 0.3, 1.0 );
+    color4 light_diffuse( 1.0, 1.0, 1.0, 1.0 );
+    color4 light_specular( 1.0, 1.0, 1.0, 1.0 );
+
+    color4 material_ambient( 1.0, 1.0, 1.0, 1.0 ); //1.0, 0.0, 1.0, 1.0
+    color4 material_diffuse( 1.0, 1.0, 1.0, 1.0 );
+    color4 material_specular( 1.0, 1.0, 1.0, 1.0 );
+    float  material_shininess = 1.0; // 100.0
+
+    color4 ambient_product = light_ambient * material_ambient;
+    color4 diffuse_product = light_diffuse * material_diffuse;
+    color4 specular_product = light_specular * material_specular;
+
+    glUniform4fv( glGetUniformLocation(program, "AmbientProduct"),
+		  1, ambient_product );
+    glUniform4fv( glGetUniformLocation(program, "DiffuseProduct"),
+		  1, diffuse_product );
+    glUniform4fv( glGetUniformLocation(program, "SpecularProduct"),
+		  1, specular_product );
+
+    glUniform4fv( glGetUniformLocation(program, "LightPosition"),
+		  1, light_position );
+    /*
+    glUniform4fv( glGetUniformLocation(program, "LightPosition2"),
+		  1, light_position2 );
+    */
+    glUniform1f( glGetUniformLocation(program, "Shininess"),
+		 material_shininess );
+}
+
+
+
 void init() {
 
 #ifndef __CUBE__
   divide_tetra( 
-	       vec4(  0,  1,  0, 1 ),
-	       vec4( -1, -0.999, -1, 1 ),
-	       vec4(  1, -0.999, -1, 1 ),
-	       vec4(  0, -0.999,  1, 1 ),
+	       vec4(  0,      1,  0, 1 ),
+	       vec4( -1, -0.999, 1, 1 ),
+	       vec4(  1, -0.999, 1, 1 ),
+	       vec4(  0, -0.999, -1, 1 ),
 	       NumTimesToSubdivide );
   
   // Draw a "floor" or something for reference.
@@ -58,6 +97,7 @@ void init() {
   colorcube(GLfloat(0.5));
 #endif
 
+
   GLuint vao;
   glGenVertexArrays( 1, &vao );
   glBindVertexArray( vao );
@@ -69,7 +109,7 @@ void init() {
   
   // First, we create an empty buffer of the size we need by passing
   //   a NULL pointer for the data values
-  glBufferData( GL_ARRAY_BUFFER, sizeof(points) + sizeof(colors),
+  glBufferData( GL_ARRAY_BUFFER, sizeof(points) + sizeof(colors) + sizeof(normals),
 		NULL, GL_STATIC_DRAW );
   
   // Next, we load the real data in parts.  We need to specify the
@@ -77,12 +117,16 @@ void init() {
   //   data in the buffer.  Conveniently, the byte offset we need is
   //   the same as the size (in bytes) of the points array, which is
   //   returned from "sizeof(points)".
-  glBufferSubData( GL_ARRAY_BUFFER, 0, sizeof(points), points );
-  glBufferSubData( GL_ARRAY_BUFFER, sizeof(points), sizeof(colors), colors );
-  
+  glBufferSubData( GL_ARRAY_BUFFER,                             0, sizeof(points),   points );
+  glBufferSubData( GL_ARRAY_BUFFER,                sizeof(points), sizeof(colors),   colors );
+  glBufferSubData( GL_ARRAY_BUFFER, sizeof(points)+sizeof(colors), sizeof(normals), normals );
+
   // Load shaders and use the resulting shader program
   GLuint program = InitShader( "vshader.glsl", "fshader.glsl" );
   glUseProgram( program );
+
+  // More init stuff, but only lighting-related.
+  init_lights(program);
   
   // Initialize the vertex position attribute from the vertex shader  
   GLuint vPosition = glGetAttribLocation( program, "vPosition" );
@@ -99,10 +143,19 @@ void init() {
   glVertexAttribPointer( vColor, 4, GL_FLOAT, GL_FALSE, 0,
 			 BUFFER_OFFSET(sizeof(points)) );
 
-  theCamera.link( program, Camera::TRANSLATION, "glsl_trans" );
-  theCamera.link( program, Camera::ROTATION, "glsl_camrot" );
-  theCamera.link( program, Camera::VIEW, "glsl_pers" );
-  theCamera.FOV( 45.0 ); /* Must be set **after** linking perspective ... ! */
+  // Again, initialize another attribute: vNormal.
+  GLuint vNormal = glGetAttribLocation( program, "vNormal" );
+  glEnableVertexAttribArray( vNormal );
+  glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0,
+			 BUFFER_OFFSET(sizeof(points)+sizeof(colors)) );
+
+
+
+  theCamera.link( program, Camera::TRANSLATION, "T" );
+  theCamera.link( program, Camera::ROTATION, "R" );
+  theCamera.link( program, Camera::PERSPECTIVE, "P" );
+  theCamera.link( program, Camera::PRT_M, "PRT" );
+  theCamera.FOV( 45.0 ); /* Must be set /after/ linking perspective ... ! */
 
   glEnable( GL_DEPTH_TEST );
   glClearColor( 1.0, 1.0, 1.0, 1.0 );
@@ -114,10 +167,6 @@ void init() {
 void display( void ) {
 
   glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-
-  theCamera.send( Camera::TRANSLATION );
-  theCamera.send( Camera::ROTATION );
-
   glDrawArrays( GL_TRIANGLES, 0, NumVertices );
   glutSwapBuffers();
 
@@ -127,6 +176,9 @@ void keylift( unsigned char key, int x, int y ) {
   switch( key ) {
   case 'w':
     theCamera.Stop( Camera::Forward );
+    break;
+  case 'W':
+    theCamera.surge( 5 );
     break;
   case 's':
     theCamera.Stop( Camera::Backward );
@@ -170,11 +222,24 @@ void keyboard( unsigned char key, int x, int y ) {
   case 'e':
     theCamera.Move( Camera::Down );
     break;
+
+  case 'l':
+    theCamera.yaw(1);
+    break;
+  case 'L':
+    theCamera.yaw(45);
+    break;
+  case 'j':
+    theCamera.yaw(-1);
+    break;
+  case 'J':
+    theCamera.yaw(-45);
+    break;
     
   case 'p': // Print Info
-    fprintf( stderr, "POS: (%f,%f,%f,%f)\n",
+    fprintf( stderr, "POS: (%f,%f,%f)\n",
 	     theCamera.X(), theCamera.Y(),
-	     theCamera.Z(), theCamera.W() );
+	     theCamera.Z() );
     break;
   }
 }
@@ -198,7 +263,6 @@ void mouseroll( int x, int y ) {
   }
 
 }
-
 
 void mouselook( int x, int y ) {
 
@@ -246,14 +310,22 @@ void mouselook( int x, int y ) {
   if ( x != X_Center || y != Y_Center ) {
     const double dx = ((double)x - X_Center);
     const double dy = ((double)y - Y_Center);
+
+    /*#ifdef __APPLE__
+    theCamera.pitch( M_PI*dy/2.0 );
+    theCamera.yaw( M_PI*dx/2.0 );
+    #else
+    */
     theCamera.pitch( dy );
     theCamera.yaw( dx );
+    //#endif
+
     glutWarpPointer( X_Center, Y_Center );
     }
-
+  
 #endif
-
 }
+
 
 void resizeEvent( int width, int height ) {
   
@@ -288,11 +360,12 @@ int main( int argc, char **argv ) {
     glutInitWindowSize( X_SIZE, Y_SIZE );
     glutCreateWindow( "Gasket Flythrough" );
     glutSetCursor( GLUT_CURSOR_NONE );
+    glutWarpPointer( X_Center, Y_Center );
 
     GLEW_INIT();
     init();
 
-    /* Plugins and shit oh yeah */
+    /* Register our Callbacks */
     glutDisplayFunc( display );
     glutKeyboardFunc( keyboard );
     glutKeyboardUpFunc( keylift );

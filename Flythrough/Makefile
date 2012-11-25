@@ -3,7 +3,10 @@
 BIN=fly
 RELDIR=..
 include ../Common/common.mak
-CFLAGS += -O2
+#CFLAGS += -O2
+ifdef POSTMULT
+	CFLAGS += -DPOSTMULT
+endif
 
 # build any binary from a matching .o [...]
 fly: fly.o model.o Camera.o
