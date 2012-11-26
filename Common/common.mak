@@ -9,11 +9,11 @@ CC=g++
 CFLAGS=-I $(RELDIR)/include -Wall -pedantic
 INIT_SHADER = $(RELDIR)/Common/InitShader.o
 
-ifeq "$(UNAME)" "Linux"
-LDFLAGS = -lGL -lGLU -lGLEW -lglut -lXmu -lX11 -lm
+ifeq ($(UNAME), Linux)
+LDFLAGS= -lGL -lGLU -lGLEW -lglut -lXmu -lX11 -lm
 endif
-ifeq "$(UNAME)" "Darwin"
-LDFLAGS = -framework Carbon -framework OpenGL -framework GLUT
+ifeq ($(UNAME), Darwin)
+LDFLAGS= -framework Carbon -framework OpenGL -framework GLUT
 endif
 
 all: $(BIN)

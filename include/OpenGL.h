@@ -5,6 +5,8 @@
 #  include <Carbon/Carbon.h>
 #  include <OpenGL/OpenGL.h>
 #  include <GLUT/glut.h>
+#  include <CoreGraphics/CGGeometry.h>
+#  include <CoreGraphics/CGRemoteOperation.h>
 #else // non-Mac OS X operating systems                                     
 #  include <GL/glew.h>
 #  include <GL/freeglut.h>

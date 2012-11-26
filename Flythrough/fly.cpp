@@ -240,12 +240,6 @@ void mouse( int button, int state, int x, int y ) {
 
 }
 
-void mouseAPPLE( int button, int state, int x, int y ) {
-
-  return mouse( button, state, x, y );
-
-}
-
 void mouseroll( int x, int y ) {
 
   if ((x != X_Center) || (y != Y_Center)) {
@@ -255,14 +249,48 @@ void mouseroll( int x, int y ) {
 
 }
 
-
-void mouserollAPPLE( int x, int y ) {
-
-  return mouseroll( x, y ) ;
-
-}
-
 void mouselook( int x, int y ) {
+
+#ifdef __APPLE__
+  // The following code for OS X was found at
+  // http://stackoverflow.com/questions/728049/
+  // glutpassivemotionfunc-and-glutwarpmousepointer
+  static int lastX = 150;
+  static int lastY = 150;
+  int deltaX = x - lastX;
+  int deltaY = y - lastY;
+
+  lastX = x;
+  lastY = y;
+
+  if( deltaX == 0 && deltaY == 0 ) return;
+
+  int windowX= glutGet( GLUT_WINDOW_X );
+  int windowY= glutGet( GLUT_WINDOW_Y );
+  int screenWidth= glutGet( GLUT_SCREEN_WIDTH );
+  int screenHeight= glutGet( GLUT_SCREEN_HEIGHT );
+
+  int screenLeft = -windowX;
+  int screenTop = -windowY;
+  int screenRight = screenWidth - windowX;
+  int screenBottom = screenHeight - windowY;
+
+  if( x <= screenLeft+10 || (y) <= screenTop+10 || 
+      x >= screenRight-10 || y >= screenBottom - 10) {
+    lastX = 150;
+    lastY = 150;
+    // If on Mac OS X, the following will also work 
+    // (and CGwarpMouseCursorPosition seems faster than glutWarpPointer).
+    CGPoint centerPos = CGPointMake( windowX + lastX, windowY + lastY );
+    CGWarpMouseCursorPosition( centerPos );
+    // Have to re-hide if the user touched any UI element with the invisible
+    // pointer, like the Dock.
+    CGDisplayHideCursor(kCGDirectMainDisplay);
+    }
+  theCamera.pitch( deltaY );
+  theCamera.yaw( deltaX );
+
+#else
 
   if ( x != X_Center || y != Y_Center ) {
     const double dx = ((double)x - X_Center);
@@ -278,52 +306,10 @@ void mouselook( int x, int y ) {
     //#endif
 
     glutWarpPointer( X_Center, Y_Center );
-  }
+    }
+  
+#endif
 }
-
-// apple refuses to support the glutWarpPointer.
-// We must code up workarounds. Carbon.h is a place to start.
-void mouselookAPPLE( int x, int y ) {
-
-  static int oldX = X_Center ;
-  static int oldY = Y_Center ;
-
-  int dx = x - oldX;
-  int dy = y - oldY;
-
-  //CGPoint pnt;
-
-  //pnt.x = x; // Width/2;
-  //pnt.y = y; // Height/2;
-
-  if( dx ) { // If the x mouse pos changed...
-
-    theCamera.yaw(dx);
-    oldX = x;
-
-    //CODE IN PROGRESS
-    //pnt.x = X_Center; // Width/2;
-    /*    CGPoint CenterPos = CGPointMake( WindowWidth/2 + glutGet(GLUT_WINDOW_X),
-	  WindowHeight/2 + glutGet(GLUT_WINDOW_Y));
-	  CGWarpMouseCursorPosition(CenterPos);
-    */
-    //    CGDisplayMoveCursorToPoint (0,pnt);
-  }
-
-  if( dy ) {
-    theCamera.pitch(dy);
-    oldY = y;
-    //pnt.y = Y_Center; // Width/2;
-    //    CGDisplayMoveCursorToPoint (0,pnt);
-  }
-
-
-}
-
-
-// suggested use of quartz bullshit:
-//  CGEventSourceSetLocalEventsSuppressionInterval( source, seconds);
-//  CGEventSource.h 
 
 
 void resizeEvent( int width, int height ) {
@@ -345,6 +331,15 @@ void idle( void ) {
 //--------------------------------------------------------------------
 
 int main( int argc, char **argv ) {
+
+  // OS X suppresses events after mouse warp.  This resets the suppression 
+  // interval to 0 so that events will not be suppressed. This also found
+  // at http://stackoverflow.com/questions/728049/
+  // glutpassivemotionfunc-and-glutwarpmousepointer
+#ifdef __APPLE__
+  CGSetLocalEventsSuppressionInterval( 0.0 );
+#endif
+
     glutInit( &argc, argv );
     glutInitDisplayMode( GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH );
     glutInitWindowSize( X_SIZE, Y_SIZE );
@@ -355,22 +350,13 @@ int main( int argc, char **argv ) {
     GLEW_INIT();
     init();
 
-    /* Plugins and shit oh yeah */
+    /* Register our Callbacks */
     glutDisplayFunc( display );
     glutKeyboardFunc( keyboard );
     glutKeyboardUpFunc( keylift );
-
-#ifdef __APPLE__
-    glutMouseFunc( mouseAPPLE );
-    glutMotionFunc( mouserollAPPLE );
-    glutPassiveMotionFunc( mouselookAPPLE );
-#endif
-#ifndef __APPLE__
     glutMouseFunc( mouse );
     glutMotionFunc( mouseroll );
     glutPassiveMotionFunc( mouselook );
-#endif
-
     glutIdleFunc( idle );
     glutReshapeFunc( resizeEvent );
 
