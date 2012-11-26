@@ -6,23 +6,17 @@
 typedef Angel::vec4  color4;
 typedef Angel::vec4  point4;
 
-<<<<<<< HEAD
 
-extern vec4  points[];
-extern vec4  colors[];
-extern vec3 normals[];
+extern point4  points[];
+extern color4  colors[];
+extern vec3  normals[];
 
-=======
-extern vec4  points[];
-extern vec4  colors[];
-extern vec3 normals[];
->>>>>>> d81e77208b5184848117c5bd0f1d274e61f32ac3
 
 void createPoint( point4 const &the_point, color4 const &the_color, vec3 const &the_normal ) {
   static int Index = 0;
   points[Index]  = the_point ;
   colors[Index]  = the_color ;
-  normals[Index] = the_normal;
+  normals[Index] = the_normal;//vec3( 0.0, 1.0, 0.0);//the_normal;
   Index++;
 }
 
@@ -35,20 +29,22 @@ void triangle( const point4& a, const point4& b,
     vec4( 1.0, 0.0, 0.0, 1.0 ), /* R */
     vec4( 0.0, 1.0, 0.0, 1.0 ), /* G */
     vec4( 0.0, 0.0, 1.0, 1.0 ), /* B */
-    vec4( 1.0, 1.0, 0.0, 1.0 )  /* Y */
+    vec4( 1.0, 1.0, 0.0, 1.0 ),  /* Y */
+    vec4( 0.4, 0.1, 0.8, 1.0 )  /* P */
   };
 
   // Initialize temporary vectors along the quad's edge to
   //   compute its face normal
 
-  vec4 u = b - a;
-  vec4 v = c - a;
+
+  vec3 u = normalize(vec3(b.x-a.x, b.y-a.y, b.z-a.z)) ;
+  vec3 v = normalize(vec3(c.x-b.x, c.y-b.y, c.z-b.z)) ;
 
   vec3 normal = normalize( cross(u, v) );
 
-  createPoint( a, base_colors[ 0 ], normal );
-  createPoint( b, base_colors[ 1 ], normal );
-  createPoint( c, base_colors[ 2 ], normal );
+  createPoint( a, base_colors[ color ], normal );
+  createPoint( b, base_colors[ color ], normal );
+  createPoint( c, base_colors[ color ], normal );
   
 }
 
@@ -59,8 +55,8 @@ void tetra( const point4& a, const point4& b,
 
   triangle( a, b, c, 0 );
   triangle( a, c, d, 1 );
-  triangle( a, d, b, 2 );
-  triangle( b, d, c, 3 );
+  triangle( a, d, b, 2 );  // old   triangle( a, d, b, 2 );
+  triangle( b, c, d, 3 );
 
 }
 
@@ -68,6 +64,7 @@ void tetra( const point4& a, const point4& b,
 
 void divide_tetra( const point4& a, const point4& b,
 		   const point4& c, const point4& d, int count ) {
+
 
   if ( count > 0 ) {
     point4 v0 = ( a + b ) / 2.0;
@@ -78,10 +75,35 @@ void divide_tetra( const point4& a, const point4& b,
     point4 v5 = ( b + d ) / 2.0;
     divide_tetra(  a, v0, v1, v2, count - 1 );
     divide_tetra( v0,  b, v3, v5, count - 1 );
-    divide_tetra( v1, v3,  c, v4, count - 1 );
-    divide_tetra( v2, v4, v5,  d, count - 1 );
+    divide_tetra( v1, v3,  c, v4, count - 1 ); // \/ \/ bug fixed
+    divide_tetra( v2, v5, v4,  d, count - 1 ); // divide_tetra( v2, v4, v5,  d, count - 1 );
+
+ 
   } else {
     tetra( a, b, c, d );   // draw tetrahedron at end of recursion
+  }
+
+}
+
+void divide_tetra_alt( const point4& a, const point4& b,
+		       const point4& c, const point4& d, int count ) {
+  point4 a2 = a/2.0;
+
+  if ( count > 0 ) {
+    point4 v0 = ( a2 + b ) / 2.0;
+    point4 v1 = ( a2 + c ) / 2.0;
+    point4 v2 = ( a2 + d ) / 2.0;
+    point4 v3 = ( b + c ) / 2.0;
+    point4 v4 = ( c + d ) / 2.0;
+    point4 v5 = ( b + d ) / 2.0;
+    divide_tetra_alt(  a2, v0, v1, v2, count - 1 );
+    divide_tetra_alt( v0,  b, v3, v5, count - 1 );
+    divide_tetra_alt( v1, v3,  c, v4, count - 1 ); // \/ \/ bug fixed
+    divide_tetra_alt( v2, v5, v4,  d, count - 1 ); // divide_tetra( v2, v4, v5,  d, count - 1 );
+
+
+  } else {
+    tetra( a2, b, c, d );   // draw tetrahedron at end of recursion
   }
 
 }

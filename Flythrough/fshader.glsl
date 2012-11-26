@@ -4,6 +4,6 @@ varying  vec4 finalLight;
 
 void main() 
 { 
-    gl_FragColor = color * finalLight;
+    gl_FragColor = finalLight*color;
 } 
 

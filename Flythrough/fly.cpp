@@ -11,17 +11,37 @@
 typedef Angel::vec4  color4;
 typedef Angel::vec4  point4;
 
+extern void divide_tetra_alt( const point4& a, const point4& b,
+			      const point4& c, const point4& d, int count );
+
+/*
+ * Takes a base and an exponent and returns the appropriate exponent.
+ * If you pass a negative number, one will be returned.
+ * We need this because the pow in math.h returns a floating point number.
+ * edit: actually this is useless neverind.
+ */
+
+int intPow( int base, int exponent ) {
+  int res = 1 ;
+  for ( ; exponent > 0 ; --exponent ){    res *= base;  }
+  return res;
+}
+
+//#define __CUBE__ 1
+
 /**** PYRAMID ****/
 #ifndef __CUBE__
 const int NumTimesToSubdivide = 4;
-const int NumTetrahedrons = 4*4*4*4;
+const int NumTetrahedrons = 4*4*4*4;//intPow(4, NumTimesToSubdivide) ;
 const int NumTriangles = 4*NumTetrahedrons;
-const int NumVertices = 3*NumTriangles + 6;
+const int LIGHT_DUMMY = 0 ;
+const int NumVertices = 3*NumTriangles+6+LIGHT_DUMMY ;
 #endif
 #ifdef __CUBE__
 /**** CUBE ****/
 const int NumVertices = 36;
 #endif
+
 point4 points[NumVertices];
 color4 colors[NumVertices];
 vec3  normals[NumVertices];
@@ -36,50 +56,102 @@ int Y_Center = (Height/2);
 //--------------------------------------------------------------------
 // OpenGL initialization
 
+
+// Moving light source
+point4 light_position( 0.0, 1.0, 0.0, 1.0 );
+
+// Fixed light source
+point4 light_position2( 0.0, 1.0, 0.1, 1.0 );
+
+
+// 11/26 changes: mode of the static light source.
+int lightMode = 0;
+
+
+//glGetUniformLocation(program, "LightPosition");
+// this one corresponds to the moving light source
+GLuint gl_light_position ; // = glGetUniformLocation(program, "LightPosition");
+GLuint gl_AmbientProduct ;
+GLuint gl_DiffuseProduct ;
+GLuint gl_SpecularProduct ;
+
+GLuint gl_AmbientProduct2 ;
+GLuint gl_DiffuseProduct2 ;
+GLuint gl_SpecularProduct2 ;
+
+
+// Initialize shader lighting parameters
+// This will eventually be replaced by a call to the Lights class init function:
+//   the lights class is still being written.
 void init_lights( GLuint program ) {
 
-// Initialize shader lighting parameters                                                                                   
-    point4 light_position( 0.0, 0.5, 0.8, 0.0 );
-    //point4 light_position2( 0.0, 2.0, -1.0, 0.0 );
-    color4 light_ambient( 0.3, 0.3, 0.3, 1.0 );
-    color4 light_diffuse( 1.0, 1.0, 1.0, 1.0 );
-    color4 light_specular( 1.0, 1.0, 1.0, 1.0 );
 
-    color4 material_ambient( 1.0, 1.0, 1.0, 1.0 ); //1.0, 0.0, 1.0, 1.0
-    color4 material_diffuse( 1.0, 1.0, 1.0, 1.0 );
+    color4 light_ambient( 0.12, 0.12, 0.12, 1.0 );
+    color4 light_diffuse( 0.4, 0.4, 0.4, 1.0 );
+    color4 light_specular( 0.4, 0.4, 0.4, 1.0 );
+
+
+    // fun fact, we don't use any of this! (yet??????)
+    color4 material_ambient( 0.6, 0.6, 0.6, 1.0 ); //1.0, 0.0, 1.0, 1.0
+    color4 material_diffuse( 0.5, 0.5, 0.5, 1.0 );
     color4 material_specular( 1.0, 1.0, 1.0, 1.0 );
-    float  material_shininess = 1.0; // 100.0
+    float  material_shininess = 16.0; // 100.0
+
+    /*     original code. not that great. can probably abstract this out.
 
     color4 ambient_product = light_ambient * material_ambient;
     color4 diffuse_product = light_diffuse * material_diffuse;
     color4 specular_product = light_specular * material_specular;
-
-    glUniform4fv( glGetUniformLocation(program, "AmbientProduct"),
-		  1, ambient_product );
-    glUniform4fv( glGetUniformLocation(program, "DiffuseProduct"),
-		  1, diffuse_product );
-    glUniform4fv( glGetUniformLocation(program, "SpecularProduct"),
-		  1, specular_product );
-
-    glUniform4fv( glGetUniformLocation(program, "LightPosition"),
-		  1, light_position );
-    /*
-    glUniform4fv( glGetUniformLocation(program, "LightPosition2"),
-		  1, light_position2 );
     */
+
+    color4 ambient_product = light_ambient;
+    color4 diffuse_product = light_diffuse;
+    color4 specular_product = light_specular;
+
+    gl_AmbientProduct = glGetUniformLocation(program, "AmbientProduct");
+    gl_DiffuseProduct = glGetUniformLocation(program, "DiffuseProduct");
+    gl_SpecularProduct = glGetUniformLocation(program, "SpecularProduct") ;
+
+    gl_AmbientProduct2 = glGetUniformLocation(program, "AmbientProduct2");
+    gl_DiffuseProduct2 = glGetUniformLocation(program, "DiffuseProduct2");
+    gl_SpecularProduct2 = glGetUniformLocation(program, "SpecularProduct2") ;
+
+    gl_light_position = glGetUniformLocation(program, "LightPosition"); // sets a global variable
+    // no matching line for the other source because it is fixed.
+
+    //source 1
+    glUniform4fv( gl_AmbientProduct,  1, ambient_product );
+    glUniform4fv( gl_DiffuseProduct,  1, diffuse_product );
+    glUniform4fv( gl_SpecularProduct, 1, specular_product );
+
+    //source 2
+    glUniform4fv( gl_AmbientProduct2,  1, ambient_product );
+    glUniform4fv( gl_DiffuseProduct2,  1, diffuse_product );
+    glUniform4fv( gl_SpecularProduct2, 1, specular_product );
+
+
+    glUniform4fv( gl_light_position, 1, light_position );
+
+
+    // doesn't change in this demo, so lazymode
+    glUniform4fv( glGetUniformLocation(program, "LightPosition2"),
+		    1, light_position2 );
+    
     glUniform1f( glGetUniformLocation(program, "Shininess"),
 		 material_shininess );
-}
 
+    glShadeModel(GL_FLAT); // ??? I forget if/why we need this
+
+}
 
 
 void init() {
 
 #ifndef __CUBE__
-  divide_tetra( 
+  divide_tetra( //  divide_tetra_alt( 
 	       vec4(  0,      1,  0, 1 ),
-	       vec4( -1, -0.999, 1, 1 ),
-	       vec4(  1, -0.999, 1, 1 ),
+	       vec4( -1, -0.999,  1, 1 ),
+	       vec4(  1, -0.999,  1, 1 ),
 	       vec4(  0, -0.999, -1, 1 ),
 	       NumTimesToSubdivide );
   
@@ -89,10 +161,19 @@ void init() {
        vec4( -1, -1, 1, 1.0 ),
        vec4( 1, -1, 1, 1.0 ),
        vec4( 1, -1, -1, 1.0 ),
-       vec4( 0, 1, 0, 1 ),
-       vec4( 0, 1, 0, 1 ),
-       vec4( 0, 1, 0, 1 ),
-       vec4( 0, 1, 0, 1 ) );
+       vec4( 0.8, 0.1, 0.6, 1 ),
+       vec4( 0.8, 0.1, 0.6, 1 ),
+       vec4( 0.8, 0.1, 0.6, 1 ),
+       vec4( 0.8, 0.1, 0.6, 1 ) );
+
+
+  if (LIGHT_DUMMY) {triangle( light_position, 
+	    light_position+point4(0.0,0.1,0.0,0.0),  //point4(0.9, 1.0, 0.9, 1.0), 
+	    light_position+point4(0.1,0.0,0.0,0.0),  //point4(0.9, 0.9, 1.0, 1.0), 
+	    4 ); // Add a dumb triangle here for the lighting.
+  }
+
+
 #endif
 
 #ifdef __CUBE__
@@ -160,17 +241,109 @@ void init() {
   theCamera.FOV( 45.0 ); /* Must be set /after/ linking perspective ... ! */
 
   glEnable( GL_DEPTH_TEST );
-  glClearColor( 1.0, 1.0, 1.0, 1.0 );
+  glClearColor( 0.1, 0.1, 0.1, 1.0 );
   
 }
 
 //--------------------------------------------------------------------
 
+// depending on the platform the user is on, these controls may not work. 
+// we use the ! operator to toggle between 1 and 0:
+// this functionality is defined inside the keyboard callback function.
+int red_enable = 1;
+int blue_enable = 1;
+int green_enable = 1;
+
+
+
+void lightEffects(int frameNumber){
+
+
+    static const float pulseRad = M_PI/60.0 ; // used in the pulse effect.
+
+    /* static for performance reasons! */
+    static color4 light_ambient( 0.12, 0.12, 0.12, 1.0 );
+    static color4 light_diffuse( 0.8, 0.8, 0.8, 1.0 )   ;
+    static color4 light_specular( 0.8, 0.8, 0.8, 1.0 )  ;
+    static color4 dark( 0.0, 0.0, 0.0, 1.0);
+
+    color4 ambient_product, diffuse_product, specular_product ;
+
+    float dim = 1.0;
+
+    switch(lightMode){
+
+
+    case 0:       // on
+
+      ambient_product = light_ambient ;
+      diffuse_product = light_diffuse ;
+      specular_product = light_specular ;
+
+      break;
+
+
+
+    case 1:  // strobe
+
+
+      if( (frameNumber/30) < 6 ){ //      if( (frameNumber/60) < 3 ){
+
+	ambient_product = dark ;
+	diffuse_product = dark ;
+	specular_product = dark ;
+
+      } else {
+
+      ambient_product = light_ambient ;
+      diffuse_product = light_diffuse ;
+      specular_product = light_specular ;
+
+      }
+
+      break;
+
+
+    case 2: // pulse
+
+      dim = sin( pulseRad * frameNumber) ;
+      dim *= dim ;  // sin squared for great justice and positivity
+
+      ambient_product  = light_ambient  * dim;
+      diffuse_product  = light_diffuse  * dim;
+      specular_product = light_specular * dim;
+
+      break;
+
+
+    case 3: // off
+
+      ambient_product = dark ;
+      diffuse_product = dark ;
+      specular_product = dark ;
+
+      break;
+    }
+
+    glUniform4fv( gl_AmbientProduct,  1, ambient_product );
+    glUniform4fv( gl_DiffuseProduct,  1, diffuse_product );
+    glUniform4fv( gl_SpecularProduct, 1, specular_product );
+
+
+}
+
 void display( void ) {
 
+
+  static int frameNumber = 0;
+
+  lightEffects(frameNumber); // only screws with the non moving light source
+  
   glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
   glDrawArrays( GL_TRIANGLES, 0, NumVertices );
   glutSwapBuffers();
+
+  frameNumber = (frameNumber + 1) % 360 ;
 
 }
 
@@ -200,11 +373,18 @@ void keylift( unsigned char key, int x, int y ) {
   }
 }
 
+// 11/26 changes:
+// adding a light source, and some controls.
+int lightOrbit = 1 ; // this is a multiplier for the radius of the light source's orbit
+
+
+
 void keyboard( unsigned char key, int x, int y ) {
   switch( key ) {
-  case 033: // Escape Key	  
-    exit( EXIT_SUCCESS );
-    break;
+
+    case 033: // Escape Key	  
+      exit( EXIT_SUCCESS );
+      break;
     
   case 'w':
     theCamera.Move( Camera::Forward );
@@ -243,6 +423,47 @@ void keyboard( unsigned char key, int x, int y ) {
 	     theCamera.X(), theCamera.Y(),
 	     theCamera.Z() );
     break;
+  case 'n': // Print normals
+    //light_position = point4( 0.0, 0.2, 0.0, 0.0 );
+    light_position.y = -light_position.y ;
+    break;
+
+  case ';':
+
+    for( int l = 0; l < NumVertices ; l+=3 ) {
+      fprintf( stderr, "POS: (%f, %f, %f)\n",
+	       normals[l].x, normals[l].y, normals[l].z );
+    }
+    break;
+
+  case '0':
+    lightOrbit = 0; break;
+  case '1':
+    lightOrbit = 1; break;
+  case '2':
+    lightOrbit = 2; break;
+  case '3':
+    lightOrbit = 3; break;
+  case '4':
+    lightOrbit = 4; break;
+  case '5':
+    lightOrbit = 5; break;
+  case '6':
+    lightOrbit = 6; break;
+  case '7':
+    lightOrbit = 7; break;
+
+  // Pressing m cycles through the light modes for the static light source.
+  case 'm':  lightMode = (lightMode+1) % 4; break;
+    
+
+
+    // Z, X, C toggle R G B on the light source, respectively.
+  case 'z':  red_enable   = !red_enable   ;  break ;
+  case 'x':  blue_enable  = !blue_enable  ;  break ;
+  case 'c':  green_enable = !green_enable ;  break ;
+
+
   }
 }
 
@@ -338,30 +559,51 @@ void mouselookAPPLE( int x, int y ) {
 }
 
 
-// suggested use of quartz bullshit:
+// suggested use of quartz bologna:
 //  CGEventSourceSetLocalEventsSuppressionInterval( source, seconds);
 //  CGEventSource.h 
 
 
 void resizeEvent( int width, int height ) {
-  
+
   Height = height;
   Width = width;
   X_Center = (Width/2);
   Y_Center = (Height/2);
 
 }
- 
+
+
+
+void movelight(void) {
+
+  static float i = 0;
+  
+  if( i > 360 ) i = 0 ; //i =- 360 ;
+  i += 0.01 ;
+
+  light_position.z = sin(i)*lightOrbit;
+  light_position.x = cos(i)*lightOrbit;
+
+  glUniform4fv( gl_light_position, 1, light_position );
+
+}
+
+
+
+
 void idle( void ) {
 
+  movelight();
   theCamera.Idle();
   glutPostRedisplay();
-  
+
 }
 
 //--------------------------------------------------------------------
 
 int main( int argc, char **argv ) {
+
     glutInit( &argc, argv );
     glutInitDisplayMode( GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH );
     glutInitWindowSize( X_SIZE, Y_SIZE );

@@ -10,6 +10,10 @@ endif
 
 # build any binary from a matching .o [...]
 fly: fly.o model.o Camera.o
+# these are in the wrong order I think...?
+# if fly and model are edited, you should first compile model, not fly, 
+# as model is included in fly.
+
 
 # Make documentation ...
 .PHONY: docs
