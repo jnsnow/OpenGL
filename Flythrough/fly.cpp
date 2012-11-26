@@ -1,12 +1,10 @@
 #define X_SIZE (1024)
 #define Y_SIZE (600)
 
-
 #include "platform.h"
 #include "Angel.h"
 #include "model.hpp"
 #include "Camera.hpp"
-
 
 typedef Angel::vec4  color4;
 typedef Angel::vec4  point4;
@@ -352,9 +350,6 @@ void keylift( unsigned char key, int x, int y ) {
   case 'w':
     theCamera.Stop( Camera::Forward );
     break;
-  case 'W':
-    theCamera.surge( 5 );
-    break;
   case 's':
     theCamera.Stop( Camera::Backward );
     break;
@@ -403,19 +398,6 @@ void keyboard( unsigned char key, int x, int y ) {
     break;
   case 'e':
     theCamera.Move( Camera::Down );
-    break;
-
-  case 'l':
-    theCamera.yaw(1);
-    break;
-  case 'L':
-    theCamera.yaw(45);
-    break;
-  case 'j':
-    theCamera.yaw(-1);
-    break;
-  case 'J':
-    theCamera.yaw(-45);
     break;
     
   case 'p': // Print Info
@@ -478,12 +460,6 @@ void mouse( int button, int state, int x, int y ) {
 
 }
 
-void mouseAPPLE( int button, int state, int x, int y ) {
-
-  return mouse( button, state, x, y );
-
-}
-
 void mouseroll( int x, int y ) {
 
   if ((x != X_Center) || (y != Y_Center)) {
@@ -493,75 +469,19 @@ void mouseroll( int x, int y ) {
 
 }
 
-
-void mouserollAPPLE( int x, int y ) {
-
-  return mouseroll( x, y ) ;
-
-}
-
 void mouselook( int x, int y ) {
 
   if ( x != X_Center || y != Y_Center ) {
     const double dx = ((double)x - X_Center);
     const double dy = ((double)y - Y_Center);
-
-    /*#ifdef __APPLE__
-    theCamera.pitch( M_PI*dy/2.0 );
-    theCamera.yaw( M_PI*dx/2.0 );
-    #else
-    */
+    
     theCamera.pitch( dy );
     theCamera.yaw( dx );
-    //#endif
-
+    
     glutWarpPointer( X_Center, Y_Center );
   }
+  
 }
-
-// apple refuses to support the glutWarpPointer.
-// We must code up workarounds. Carbon.h is a place to start.
-void mouselookAPPLE( int x, int y ) {
-
-  static int oldX = X_Center ;
-  static int oldY = Y_Center ;
-
-  int dx = x - oldX;
-  int dy = y - oldY;
-
-  //CGPoint pnt;
-
-  //pnt.x = x; // Width/2;
-  //pnt.y = y; // Height/2;
-
-  if( dx ) { // If the x mouse pos changed...
-
-    theCamera.yaw(dx);
-    oldX = x;
-
-    //CODE IN PROGRESS
-    //pnt.x = X_Center; // Width/2;
-    /*    CGPoint CenterPos = CGPointMake( WindowWidth/2 + glutGet(GLUT_WINDOW_X),
-	  WindowHeight/2 + glutGet(GLUT_WINDOW_Y));
-	  CGWarpMouseCursorPosition(CenterPos);
-    */
-    //    CGDisplayMoveCursorToPoint (0,pnt);
-  }
-
-  if( dy ) {
-    theCamera.pitch(dy);
-    oldY = y;
-    //pnt.y = Y_Center; // Width/2;
-    //    CGDisplayMoveCursorToPoint (0,pnt);
-  }
-
-
-}
-
-
-// suggested use of quartz bologna:
-//  CGEventSourceSetLocalEventsSuppressionInterval( source, seconds);
-//  CGEventSource.h 
 
 
 void resizeEvent( int width, int height ) {
@@ -604,6 +524,15 @@ void idle( void ) {
 
 int main( int argc, char **argv ) {
 
+
+  // OS X suppresses events after mouse warp.  This resets the suppression 
+  // interval to 0 so that events will not be suppressed. This also found
+  // at http://stackoverflow.com/questions/728049/
+  // glutpassivemotionfunc-and-glutwarpmousepointer
+#ifdef __APPLE__
+  CGSetLocalEventsSuppressionInterval( 0.0 );
+#endif
+
     glutInit( &argc, argv );
     glutInitDisplayMode( GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH );
     glutInitWindowSize( X_SIZE, Y_SIZE );
@@ -614,22 +543,13 @@ int main( int argc, char **argv ) {
     GLEW_INIT();
     init();
 
-    /* Plugins and shit oh yeah */
+    /* Register our Callbacks */
     glutDisplayFunc( display );
     glutKeyboardFunc( keyboard );
     glutKeyboardUpFunc( keylift );
-
-#ifdef __APPLE__
-    glutMouseFunc( mouseAPPLE );
-    glutMotionFunc( mouserollAPPLE );
-    glutPassiveMotionFunc( mouselookAPPLE );
-#endif
-#ifndef __APPLE__
     glutMouseFunc( mouse );
     glutMotionFunc( mouseroll );
     glutPassiveMotionFunc( mouselook );
-#endif
-
     glutIdleFunc( idle );
     glutReshapeFunc( resizeEvent );
 
