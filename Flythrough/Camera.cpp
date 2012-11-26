@@ -48,7 +48,7 @@ Camera::~Camera( void ) { }
    @return Void.
 **/
 void Camera::X( const float &in, const bool &update ) { 
-  T[0][3] = -in;
+  ctm[0][3] = T[0][3] = -in;
   if (update) send( TRANSLATION );
 }
 
@@ -60,7 +60,7 @@ void Camera::X( const float &in, const bool &update ) {
    @return Void.
 **/
 void Camera::Y( const float &in, const bool &update ) { 
-  T[1][3] = -in;
+  ctm[1][3] = T[1][3] = -in;
   if (update) send( TRANSLATION );
 }
 
@@ -72,7 +72,7 @@ void Camera::Y( const float &in, const bool &update ) {
    @return Void.
 **/
 void Camera::Z( const float &in, const bool &update ) { 
-  T[2][3] = -in;
+  ctm[2][3] = T[2][3] = -in;
   if (update) send( TRANSLATION );
 }
 

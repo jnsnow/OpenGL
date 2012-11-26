@@ -138,3 +138,31 @@
            (lambda (x y) (_M* y x))
            ID
            matlist)))))
+
+(define A
+  (mat4
+   1 2 3 4
+   5 6 7 8
+   9 1 2 3
+   4 5 6 7))
+
+(define B
+  (mat4
+   9 8 7 6
+   5 4 3 2
+   1 9 8 7
+   6 5 4 3))
+
+(define AB
+  (M* A B))
+
+(define BA
+  (M* B A))
+
+(define ATBT
+  (M* (transpose A) (transpose B)))
+
+(define BTAT
+  (M* (transpose B) (transpose A)))
+
+(define AB_T

@@ -49,8 +49,8 @@ namespace Angel {
     vec2 operator * ( const vec2& v ) const;
 
     //  --- Insertion and Extraction Operators ---
-    friend std::ostream& operator<<( std::ostream& os, const mat2& m );
-    friend std::istream& operator>>( std::istream& is, mat2& m );
+    friend std::ostream &operator<<( std::ostream &os, const mat2 &m );
+    friend std::istream &operator>>( std::istream &is, mat2 &m );
 
     //  --- Conversion Operators ---
     operator const GLfloat* () const;
@@ -102,8 +102,8 @@ namespace Angel {
     vec3 operator * ( const vec3& v ) const;
 
     //  --- Insertion and Extraction Operators ---
-    friend std::ostream& operator << ( std::ostream& os, const mat3& m );
-    friend std::istream& operator >> ( std::istream& is, mat3& m );
+    friend std::ostream &operator<<( std::ostream &os, const mat3 &m );
+    friend std::istream &operator>>( std::istream &is, mat3 &m );
 
     //  --- Conversion Operators ---
     operator const GLfloat* () const;
@@ -180,7 +180,6 @@ namespace Angel {
     std::cerr << "[" __FILE__ ":" << __LINE__ << "] "	\
 	      << str << std::endl; } while(0)
     
-  inline vec4 mvmult( const mat4& a, const vec4& b );
   inline mat4 RotateX( const GLfloat theta );
   inline mat4 RotateY( const GLfloat theta );
   inline mat4 RotateZ( const GLfloat theta );
@@ -206,12 +205,6 @@ namespace Angel {
   //  Viewing transformation matrix generation
   inline mat4 LookAt( const vec4& eye, const vec4& at, const vec4& up );
 
-  //--Deprecated?-----------------------------------------------------------
-  inline vec4 minus(const vec4& a, const vec4&  b );
-  inline void printv(const vec4& a );
-  inline void printm(const mat4 a);
-  inline mat4 identity();
-  
 }  // namespace Angel
 
 #endif // __ANGEL_MAT_H__

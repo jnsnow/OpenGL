@@ -1,12 +1,10 @@
 #define X_SIZE (1024)
 #define Y_SIZE (600)
 
-
 #include "platform.h"
 #include "Angel.h"
 #include "model.hpp"
 #include "Camera.hpp"
-
 
 typedef Angel::vec4  color4;
 typedef Angel::vec4  point4;
@@ -22,6 +20,7 @@ const int NumVertices = 3*NumTriangles + 6;
 /**** CUBE ****/
 const int NumVertices = 36;
 #endif
+
 point4 points[NumVertices];
 color4 colors[NumVertices];
 vec3  normals[NumVertices];
@@ -179,9 +178,6 @@ void keylift( unsigned char key, int x, int y ) {
   case 'w':
     theCamera.Stop( Camera::Forward );
     break;
-  case 'W':
-    theCamera.surge( 5 );
-    break;
   case 's':
     theCamera.Stop( Camera::Backward );
     break;
@@ -223,19 +219,6 @@ void keyboard( unsigned char key, int x, int y ) {
     break;
   case 'e':
     theCamera.Move( Camera::Down );
-    break;
-
-  case 'l':
-    theCamera.yaw(1);
-    break;
-  case 'L':
-    theCamera.yaw(45);
-    break;
-  case 'j':
-    theCamera.yaw(-1);
-    break;
-  case 'J':
-    theCamera.yaw(-45);
     break;
     
   case 'p': // Print Info
