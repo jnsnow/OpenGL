@@ -1,0 +1,105 @@
+.TH "LightSource" 3 "Tue Nov 27 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+LightSource \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBLightSource\fP (\fBpoint4\fP)"
+.br
+.ti -1c
+.RI "\fBLightSource\fP (\fBpoint4\fP, \fBcolor4\fP, \fBcolor4\fP, \fBcolor4\fP)"
+.br
+.ti -1c
+.RI "\fBLightSource\fP (\fBpoint4\fP, vec3, \fBcolor4\fP, \fBcolor4\fP, \fBcolor4\fP)"
+.br
+.ti -1c
+.RI "\fBLightSource\fP (\fBpoint4\fP, vec3, \fBcolor4\fP, \fBcolor4\fP, \fBcolor4\fP, unsigned int)"
+.br
+.ti -1c
+.RI "\fBLightSource\fP (const \fBLightSource\fP &orig)"
+.br
+.ti -1c
+.RI "void \fBSetLight_specular\fP (\fBcolor4\fP light_specular)"
+.br
+.ti -1c
+.RI "\fBcolor4\fP \fBGetLight_specular\fP () const "
+.br
+.ti -1c
+.RI "void \fBSetLight_diffuse\fP (\fBcolor4\fP light_diffuse)"
+.br
+.ti -1c
+.RI "\fBcolor4\fP \fBGetLight_diffuse\fP () const "
+.br
+.ti -1c
+.RI "void \fBSetLight_ambient\fP (\fBcolor4\fP light_ambient)"
+.br
+.ti -1c
+.RI "\fBcolor4\fP \fBGetLight_ambient\fP () const "
+.br
+.ti -1c
+.RI "void \fBSetDirection\fP (vec3 direction)"
+.br
+.ti -1c
+.RI "vec3 \fBGetDirection\fP () const "
+.br
+.ti -1c
+.RI "void \fBSetPosition\fP (vec4 z)"
+.br
+.ti -1c
+.RI "vec4 \fBGetPosition\fP () const "
+.br
+.ti -1c
+.RI "void \fBSetId\fP (vec4 z)"
+.br
+.ti -1c
+.RI "unsigned int \fBGetId\fP () const "
+.br
+.ti -1c
+.RI "void \fBDoEvents\fP (void)"
+.br
+.ti -1c
+.RI "void \fBsetEffect\fP (int)"
+.br
+.ti -1c
+.RI "bool \fBisDistant\fP ()"
+.br
+.in -1c
+.SS "Private Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBpoint4\fP \fBposition\fP (0\&.0, 0\&.0, 0\&.0, 0\&.0)"
+.br
+.ti -1c
+.RI "vec3 \fBdirection\fP (0\&.0, 0\&.0, 0\&.0)"
+.br
+.ti -1c
+.RI "\fBcolor4\fP \fBlight_ambient\fP (0\&.0, 0\&.0, 0\&.0, 1\&.0)"
+.br
+.ti -1c
+.RI "\fBcolor4\fP \fBlight_diffuse\fP (0\&.0, 0\&.0, 0\&.0, 1\&.0)"
+.br
+.ti -1c
+.RI "\fBcolor4\fP \fBlight_specular\fP (0\&.0, 0\&.0, 0\&.0, 1\&.0)"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "const unsigned int \fBid\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Definition at line 18 of file LightSource\&.hpp\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for OpenGL Flythrough from the source code\&.
