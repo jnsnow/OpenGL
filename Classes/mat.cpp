@@ -168,12 +168,12 @@ namespace Angel {
     return is >> m._m[0] >> m._m[1];
   }
   
-  inline mat2 matrixCompMult( const mat2 &A, const mat2 &B ) {
+  mat2 matrixCompMult( const mat2 &A, const mat2 &B ) {
     return mat2( A[0][0]*B[0][0], A[0][1]*B[0][1],
 		 A[1][0]*B[1][0], A[1][1]*B[1][1] );
   }
   
-  inline mat2 transpose( const mat2 &A ) {
+  mat2 transpose( const mat2 &A ) {
     return mat2( A[0][0], A[1][0],
 		 A[0][1], A[1][1] );
   }
@@ -342,13 +342,13 @@ namespace Angel {
     return is >> m._m[0] >> m._m[1] >> m._m[2]; 
   }
 
-  inline mat3 matrixCompMult( const mat3 &A, const mat3 &B ) {
+  mat3 matrixCompMult( const mat3 &A, const mat3 &B ) {
     return mat3( A[0][0]*B[0][0], A[0][1]*B[0][1], A[0][2]*B[0][2],
 		 A[1][0]*B[1][0], A[1][1]*B[1][1], A[1][2]*B[1][2],
 		 A[2][0]*B[2][0], A[2][1]*B[2][1], A[2][2]*B[2][2] );
   }
 
-  inline mat3 transpose( const mat3 &A ) {
+  mat3 transpose( const mat3 &A ) {
     return mat3( A[0][0], A[1][0], A[2][0],
 		 A[0][1], A[1][1], A[2][1],
 		 A[0][2], A[1][2], A[2][2] );
@@ -538,7 +538,7 @@ namespace Angel {
     return is >> m._m[0] >> m._m[1] >> m._m[2] >> m._m[3];
   }
   
-  inline mat4 matrixCompMult( const mat4 &A, const mat4 &B ) {
+  mat4 matrixCompMult( const mat4 &A, const mat4 &B ) {
     return mat4(
 		A[0][0]*B[0][0], A[0][1]*B[0][1], A[0][2]*B[0][2], A[0][3]*B[0][3],
 		A[1][0]*B[1][0], A[1][1]*B[1][1], A[1][2]*B[1][2], A[1][3]*B[1][3],
@@ -546,14 +546,14 @@ namespace Angel {
 		A[3][0]*B[3][0], A[3][1]*B[3][1], A[3][2]*B[3][2], A[3][3]*B[3][3] );
   }
   
-  inline mat4 transpose( const mat4& A ) {
+  mat4 transpose( const mat4& A ) {
     return mat4( A[0][0], A[1][0], A[2][0], A[3][0],
 		 A[0][1], A[1][1], A[2][1], A[3][1],
 		 A[0][2], A[1][2], A[2][2], A[3][2],
 		 A[0][3], A[1][3], A[2][3], A[3][3] );
   }
   
-  inline mat4 RotateX( const GLfloat theta ) {
+  mat4 RotateX( const GLfloat theta ) {
     GLfloat angle = DegreesToRadians * theta;
     
     mat4 c;
@@ -563,7 +563,7 @@ namespace Angel {
     return c;
   }
 
-  inline mat4 RotateY( const GLfloat theta ) {
+  mat4 RotateY( const GLfloat theta ) {
     GLfloat angle = DegreesToRadians * theta;
     
     mat4 c;
@@ -573,7 +573,7 @@ namespace Angel {
     return c;
   }
 
-  inline mat4 RotateZ( const GLfloat theta ) {
+  mat4 RotateZ( const GLfloat theta ) {
     GLfloat angle = DegreesToRadians * theta;
     
     mat4 c;
@@ -583,7 +583,7 @@ namespace Angel {
     return c;
   }
   
-  inline mat4 Translate( const GLfloat x, const GLfloat y, const GLfloat z ) {
+  mat4 Translate( const GLfloat x, const GLfloat y, const GLfloat z ) {
     mat4 c;
     c[0][3] = x;
     c[1][3] = y;
@@ -591,15 +591,15 @@ namespace Angel {
     return c;
   }
   
-  inline mat4 Translate( const vec3& v ) {
+  mat4 Translate( const vec3& v ) {
     return Translate( v.x, v.y, v.z );
   }
 
-  inline mat4 Translate( const vec4& v ) {
+  mat4 Translate( const vec4& v ) {
     return Translate( v.x, v.y, v.z );
   }
   
-  inline mat4 Scale( const GLfloat x, const GLfloat y, const GLfloat z ) {
+  mat4 Scale( const GLfloat x, const GLfloat y, const GLfloat z ) {
     mat4 c;
     c[0][0] = x;
     c[1][1] = y;
@@ -607,7 +607,7 @@ namespace Angel {
     return c;
   }
 
-  inline mat4 Scale( const vec3& v ) { 
+  mat4 Scale( const vec3& v ) { 
     return Scale( v.x, v.y, v.z );
   }
 
@@ -620,7 +620,7 @@ namespace Angel {
   //          "zNear" to reprsent "near", and "zFar" to reprsent "far".
   //
 
-  inline mat4 Ortho( const GLfloat left, const GLfloat right,
+  mat4 Ortho( const GLfloat left, const GLfloat right,
 		     const GLfloat bottom, const GLfloat top,
 		     const GLfloat zNear, const GLfloat zFar ) {
     mat4 c;
@@ -634,12 +634,12 @@ namespace Angel {
     return c;
   }
   
-  inline mat4 Ortho2D( const GLfloat left, const GLfloat right,
+  mat4 Ortho2D( const GLfloat left, const GLfloat right,
 		       const GLfloat bottom, const GLfloat top ) {
     return Ortho( left, right, bottom, top, -1.0, 1.0 );
   }
   
-  inline mat4 Frustum( const GLfloat left, const GLfloat right, 
+  mat4 Frustum( const GLfloat left, const GLfloat right, 
 		       const GLfloat bottom, const GLfloat top,
 		       const GLfloat zNear, const GLfloat zFar ) {
     mat4 c;
@@ -653,7 +653,7 @@ namespace Angel {
     return c;
   }
   
-  inline mat4 Perspective( const GLfloat fovy, const GLfloat aspect,
+  mat4 Perspective( const GLfloat fovy, const GLfloat aspect,
 			   const GLfloat zNear, const GLfloat zFar) {
     GLfloat top = tan(fovy*DegreesToRadians/2) * zNear;
     GLfloat right = top * aspect;
@@ -667,7 +667,7 @@ namespace Angel {
     return c;
   }
 
-  inline mat4 LookAt( const vec4& eye, const vec4& at, const vec4& up ) {
+  mat4 LookAt( const vec4& eye, const vec4& at, const vec4& up ) {
     vec4 n = normalize(eye - at);
     vec4 u = normalize(cross(up,n));
     vec4 v = normalize(cross(n,u));
