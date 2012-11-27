@@ -1,7 +1,7 @@
 #include "platform.h" /* Multi-platform support and OpenGL includes. */
 #include "vec.hpp"
 #include "mat.hpp"
-#include "math.h"    /* Trigonometry */
+#include <cmath>     /* Trigonometry */
 #include "globals.h" /* Constants, etc. */
 
 namespace Angel {

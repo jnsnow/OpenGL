@@ -1,24 +1,7 @@
 var class_camera =
 [
-    [ "Direction", "class_camera.html#a80cb65605322d27ad3b6d973484509ec", [
-      [ "Forward", "class_camera.html#a80cb65605322d27ad3b6d973484509eca5e915de32fec621852ef915bf5030cba", null ],
-      [ "Backward", "class_camera.html#a80cb65605322d27ad3b6d973484509ecad0cf797c6cff06ef21213c2080d9f10c", null ],
-      [ "Left", "class_camera.html#a80cb65605322d27ad3b6d973484509eca078c43b15f9bbb911f662106bbf292a8", null ],
-      [ "Right", "class_camera.html#a80cb65605322d27ad3b6d973484509eca75a19c746d87ee2091237f031dd8ad0c", null ],
-      [ "Up", "class_camera.html#a80cb65605322d27ad3b6d973484509ecabbe3f3250295458287d080a1bd22836a", null ],
-      [ "Down", "class_camera.html#a80cb65605322d27ad3b6d973484509eca9f55780b3556dc9a198ca80fe11e26fa", null ],
-      [ "End", "class_camera.html#a80cb65605322d27ad3b6d973484509eca598314a9e09a69a76e93a3cfaa64b4a7", null ],
-      [ "Begin", "class_camera.html#a80cb65605322d27ad3b6d973484509eca628165fda0ec4ae69d83aab35c24efb0", null ]
-    ] ],
-    [ "glsl_var", "class_camera.html#a6ff726a75a430e4f17e5dec42e4d4405", [
-      [ "TRANSLATION", "class_camera.html#a6ff726a75a430e4f17e5dec42e4d4405aa724886fecc6e17614369a89202de10a", null ],
-      [ "ROTATION", "class_camera.html#a6ff726a75a430e4f17e5dec42e4d4405a42232985b2e20533d58b84ea50d8262b", null ],
-      [ "PERSPECTIVE", "class_camera.html#a6ff726a75a430e4f17e5dec42e4d4405a34783417054408fd9e024048b1cefa47", null ],
-      [ "TRP_M", "class_camera.html#a6ff726a75a430e4f17e5dec42e4d4405a0056d1381977285eedfddbb7510c4ed3", null ],
-      [ "PRT_M", "class_camera.html#a6ff726a75a430e4f17e5dec42e4d4405a9ff84ada653862cb09e93fd28d2135df", null ],
-      [ "CTM", "class_camera.html#a6ff726a75a430e4f17e5dec42e4d4405a0668f2f217abfa641e0ccc950afb5502", null ],
-      [ "NumGlslVars", "class_camera.html#a6ff726a75a430e4f17e5dec42e4d4405a7027d63185189ed07fcabaa0ea699059", null ]
-    ] ],
+    [ "Direction", "class_camera.html#a80cb65605322d27ad3b6d973484509ec", null ],
+    [ "glsl_var", "class_camera.html#a6ff726a75a430e4f17e5dec42e4d4405", null ],
     [ "Camera", "class_camera.html#a47104bf17f448c97bf7bb34360ab8fcc", null ],
     [ "Camera", "class_camera.html#a388c39247312dc6850b2d1b007efb423", null ],
     [ "Camera", "class_camera.html#a30b637b0e81821106c16a8a299d24d3f", null ],

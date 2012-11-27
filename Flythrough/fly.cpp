@@ -15,26 +15,6 @@ using Angel::vec4;
 typedef Angel::vec4  color4;
 typedef Angel::vec4  point4;
 
-/*
-extern void divide_tetra_alt( const point4& a, const point4& b,
-			      const point4& c, const point4& d, int count );
-*/
-/*
- * Takes a base and an exponent and returns the appropriate exponent.
- * If you pass a negative number, one will be returned.
- * We need this because the pow in math.h returns a floating point number.
- * edit: actually this is useless neverind.
-
-
-int intPow( int base, int exponent ) {
-  int res = 1 ;
-  for ( ; exponent > 0 ; --exponent ){    res *= base;  }
-  return res;
-}
-*/
-
-//#define __CUBE__ 1
-
 /**** PYRAMID ****/
 #ifndef __CUBE__
 const int NumTimesToSubdivide = 4;
