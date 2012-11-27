@@ -1,5 +1,7 @@
-
-#include "Angel.h"
+#include <cstdio>
+#include <iostream>
+#include "platform.h"
+#include "InitShader.hpp"
 
 namespace Angel {
 

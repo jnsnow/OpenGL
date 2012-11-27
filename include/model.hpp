@@ -1,10 +1,12 @@
-/* what the fuck is happening to me i am a frog */
 #ifndef __MODEL_H
 #define __MODEL_H
 
-#include "Angel.h"
+#include "vec.hpp"
+using Angel::vec4;
+using Angel::vec3;
 typedef Angel::vec4 color4;
 typedef Angel::vec4 point4;
+
 /* do we really need these here?
 extern point4 points[];
 extern color4 colors[];

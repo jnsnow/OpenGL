@@ -2,7 +2,9 @@
 /* no               */
 /* nooooooooooo     */
 
-#include "Angel.h"
+#include "vec.hpp"
+using namespace Angel;
+
 typedef Angel::vec4  color4;
 typedef Angel::vec4  point4;
 

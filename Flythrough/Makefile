@@ -1,7 +1,7 @@
 #! /usr/bin/make -f
 
 # John Huston
-# Adapted from a Generic Makefile,
+# Adapted from My Generic Makefile,
 # Written September 20, 2011
 # Modified November 27, 2012
 

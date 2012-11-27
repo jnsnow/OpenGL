@@ -1,14 +1,17 @@
-#define X_SIZE (1024)
+#define X_SIZE (800)
 #define Y_SIZE (600)
- 
-#include "platform.h"
 
-#include "model.hpp"
-#include "Camera.hpp"
+#include <cmath> 
 
+#include "platform.h" /* Multi-platform support and OpenGL headers */
 #include "vec.hpp"
 #include "mat.hpp"
+#include "model.hpp"
+#include "Camera.hpp"
+#include "InitShader.hpp"
 
+using Angel::vec3;
+using Angel::vec4;
 typedef Angel::vec4  color4;
 typedef Angel::vec4  point4;
 
@@ -208,7 +211,7 @@ void init() {
   glBufferSubData( GL_ARRAY_BUFFER, sizeof(points)+sizeof(colors), sizeof(normals), normals );
 
   // Load shaders and use the resulting shader program
-  GLuint program = InitShader( "vshader.glsl", "fshader.glsl" );
+  GLuint program = Angel::InitShader( "vshader.glsl", "fshader.glsl" );
   glUseProgram( program );
 
   // More init stuff, but only lighting-related.
@@ -218,7 +221,7 @@ void init() {
   GLuint vPosition = glGetAttribLocation( program, "vPosition" );
   glEnableVertexAttribArray( vPosition );
   glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0,
-			 BUFFER_OFFSET(0) );
+			 (GLvoid*)0 );
   
   // Likewise, initialize the vertex color attribute.  Once again, we
   //    need to specify the starting offset (in bytes) for the color
@@ -227,13 +230,13 @@ void init() {
   GLuint vColor = glGetAttribLocation( program, "vColor" );
   glEnableVertexAttribArray( vColor );
   glVertexAttribPointer( vColor, 4, GL_FLOAT, GL_FALSE, 0,
-			 BUFFER_OFFSET(sizeof(points)) );
+			 (GLvoid*)sizeof(points) );
 
   // Again, initialize another attribute: vNormal.
   GLuint vNormal = glGetAttribLocation( program, "vNormal" );
   glEnableVertexAttribArray( vNormal );
   glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0,
-			 BUFFER_OFFSET(sizeof(points)+sizeof(colors)) );
+			 (GLvoid*)(sizeof(points)+sizeof(colors)));
 
 
 
@@ -490,11 +493,13 @@ void mouselook( int x, int y ) {
 
 
 void resizeEvent( int width, int height ) {
-
+  
+  std::cerr << "RESIZE EVENT CALLED!! (" << width << " x " << height << ")\n";
   Height = height;
   Width = width;
   X_Center = (Width/2);
   Y_Center = (Height/2);
+  glViewport( 0, 0, Width, Height );
 
 }
 
@@ -540,8 +545,9 @@ int main( int argc, char **argv ) {
 
     glutInit( &argc, argv );
     glutInitDisplayMode( GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH );
-    glutInitWindowSize( X_SIZE, Y_SIZE );
+    glutInitWindowSize( Width, Height );
     glutCreateWindow( "Gasket Flythrough" );
+    glutFullScreen();
     glutSetCursor( GLUT_CURSOR_NONE );
     glutWarpPointer( X_Center, Y_Center );
 

@@ -6,11 +6,13 @@
  * November 20, 2012
 
   ****************************************/
-#ifndef _LIGHTSOURCE
-#define _LIGHTSOURCE
+#ifndef __LIGHTSOURCE_H
+#define __LIGHTSOURCE_H
 
 using namespace std;
 
+#include "vec.hpp"
+#include "mat.hpp"
 #include <vector>
 
 class LightSource

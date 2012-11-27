@@ -1,8 +1,14 @@
 #ifndef __CAMERA_H
 #define __CAMERA_H
 
-#include "Angel.h"
+
 #include <string>
+#include "mat.hpp"
+#include "vec.hpp"
+
+using Angel::vec3;
+using Angel::vec4;
+using Angel::mat4;
 using std::string;
 
 /**

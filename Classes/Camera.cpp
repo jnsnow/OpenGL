@@ -1,7 +1,9 @@
 #include <stdexcept>
-#include "Angel.h"
-#include "Camera.hpp"
 
+#include "mat.hpp"
+#include "vec.hpp"
+#include "Camera.hpp"
+using namespace Angel;
 
 const float Camera::Speed = 0.01;
 
