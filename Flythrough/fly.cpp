@@ -1,6 +1,6 @@
 #define X_SIZE (1024)
 #define Y_SIZE (600)
-
+ 
 #include "platform.h"
 #include "Angel.h"
 #include "model.hpp"
@@ -9,21 +9,23 @@
 typedef Angel::vec4  color4;
 typedef Angel::vec4  point4;
 
+/*
 extern void divide_tetra_alt( const point4& a, const point4& b,
 			      const point4& c, const point4& d, int count );
-
+*/
 /*
  * Takes a base and an exponent and returns the appropriate exponent.
  * If you pass a negative number, one will be returned.
  * We need this because the pow in math.h returns a floating point number.
  * edit: actually this is useless neverind.
- */
+
 
 int intPow( int base, int exponent ) {
   int res = 1 ;
   for ( ; exponent > 0 ; --exponent ){    res *= base;  }
   return res;
 }
+*/
 
 //#define __CUBE__ 1
 
@@ -272,7 +274,7 @@ void lightEffects(int frameNumber){
     switch(lightMode){
 
 
-    case 0:       // on
+    case 0:    // on, no real effect
 
       ambient_product = light_ambient ;
       diffuse_product = light_diffuse ;
@@ -282,10 +284,10 @@ void lightEffects(int frameNumber){
 
 
 
-    case 1:  // strobe
+    case 1:  // strobe/blink
 
 
-      if( (frameNumber/30) < 6 ){ //      if( (frameNumber/60) < 3 ){
+      if( (frameNumber/30) < 3 ){ //      if( (frameNumber/60) < 3 ){
 
 	ambient_product = dark ;
 	diffuse_product = dark ;
@@ -341,7 +343,7 @@ void display( void ) {
   glDrawArrays( GL_TRIANGLES, 0, NumVertices );
   glutSwapBuffers();
 
-  frameNumber = (frameNumber + 1) % 360 ;
+  frameNumber = (frameNumber + 1) % 180 ;
 
 }
 

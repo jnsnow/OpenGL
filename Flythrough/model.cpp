@@ -56,7 +56,7 @@ void tetra( const point4& a, const point4& b,
   triangle( a, b, c, 0 );
   triangle( a, c, d, 1 );
   triangle( a, d, b, 2 );  // old   triangle( a, d, b, 2 );
-  triangle( b, c, d, 3 );
+  triangle( d, c, b, 3 );
 
 }
 

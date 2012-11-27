@@ -21,6 +21,11 @@ void tetra( const point4& a, const point4& b,
 void divide_tetra( const point4& a, const point4& b,
 		   const point4& c, const point4& d, int count );
 
+// This version, which is broken at the moment,
+// produces a warped tetra, which is neato!
+void divide_tetra_alt( const point4& a, const point4& b,
+		       const point4& c, const point4& d, int count );
+
 void quad( int a, int b, int c, int d );
 
 void quad( const point4 &a, const point4 &b,
