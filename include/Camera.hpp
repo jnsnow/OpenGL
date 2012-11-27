@@ -92,6 +92,7 @@ public:
   void FOV( const float &fovy );
   float FOV( void ) const;
   void dFOV( const float &by );
+  void changePerspective( const int &in );
   
   /* Adjust the camera position with regards to its current vector */
   void sway( const float &by );

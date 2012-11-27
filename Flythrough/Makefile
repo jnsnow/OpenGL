@@ -60,5 +60,5 @@ realclean: clean
 
 # Make documentation ...
 .PHONY: docs
-docs: Camera.hpp Camera.cpp Doxyfile
+docs: $(SOURCES) $(RELDIR)/Doxygen/Doxyfile
 	doxygen

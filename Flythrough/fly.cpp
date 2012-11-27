@@ -449,9 +449,17 @@ void keyboard( unsigned char key, int x, int y ) {
 
 
     // Z, X, C toggle R G B on the light source, respectively.
-  case 'z':  red_enable   = !red_enable   ;  break ;
-  case 'x':  blue_enable  = !blue_enable  ;  break ;
-  case 'c':  green_enable = !green_enable ;  break ;
+    /*
+      case 'z':  red_enable   = !red_enable   ;  break ;
+      case 'x':  blue_enable  = !blue_enable  ;  break ;
+      case 'c':  green_enable = !green_enable ;  break ;
+    */
+
+  case 'z': theCamera.changePerspective( 0 ); break;
+  case 'x': theCamera.changePerspective( 1 ); break;
+  case 'c': theCamera.changePerspective( 2 ); break;
+  case 'v': theCamera.changePerspective( 3 ); break;
+  case 'b': theCamera.changePerspective( 4 ); break;
 
 
   }

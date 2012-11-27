@@ -389,15 +389,48 @@ float Camera::FOV( void ) const { return fovy; }
    @return Void.
 **/
 void Camera::FOV( const float &in ) { 
-  GLint size[4];
-  fovy = in;
-  glGetIntegerv( GL_VIEWPORT, size );  
+
+  fovy = in; 
+  changePerspective( 0 );
+  /*
   P = Perspective( fovy,
 		   (float)size[2]/(float)size[3],
 		   0.001, 100.0 );
+  */
   send( PERSPECTIVE );
 }
 
+
+/**
+   changePerspective changes the current perspective of the camera.
+   @param in Which perspective to use: 0 is a normal perspective.
+   @return Void.
+**/
+void Camera::changePerspective( const int &in ) {
+
+  GLint size[4];
+
+  switch (in) {
+  case 0:
+    glGetIntegerv( GL_VIEWPORT, size );  
+    P = Perspective( fovy, (float)size[2]/(float)size[3],
+		     0.001, 100.0 );
+    break;
+  case 1:
+    P = Ortho( -1.0, 1.0, -1.0, 1.0, -1.0, 1.0 );
+    break;
+  case 2:
+    P = Ortho2D( -1.0, 1.0, -1.0, 1.0 );
+    break;
+  case 3:
+    P = Frustum( -1.0, 1.0, -1.0, 1.0, -1.0, 1.0 );
+    break;
+  default:
+    P = mat4( GLuint(1.0) );
+    break;
+  }
+
+}
 
 /**
    dFOV adjusts the field of view angle up or down by an amount.
