@@ -2,9 +2,12 @@
 #define Y_SIZE (600)
  
 #include "platform.h"
-#include "Angel.h"
+
 #include "model.hpp"
 #include "Camera.hpp"
+
+#include "vec.hpp"
+#include "mat.hpp"
 
 typedef Angel::vec4  color4;
 typedef Angel::vec4  point4;
