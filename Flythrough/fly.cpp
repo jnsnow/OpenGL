@@ -512,8 +512,6 @@ void movelight(void) {
 }
 
 
-
-
 void idle( void ) {
 
   movelight();
