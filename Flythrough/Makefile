@@ -61,4 +61,4 @@ realclean: clean
 # Make documentation ...
 .PHONY: docs
 docs: $(SOURCES) $(RELDIR)/Doxygen/Doxyfile
-	doxygen
+	cd $(RELDIR)/Doxygen; doxygen
