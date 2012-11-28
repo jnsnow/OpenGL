@@ -1,11 +1,22 @@
 OpenGL
 ======
 
-- Yes.
+- Hello, I don't have much to say about this, yet!
 
-- Very yes.
+- To build the project, pushd Flythrough && make;
+  To run, pushd Flythrough && ./fly;
 
+- Controls (as of Wed 28 Nov 2012)
+  w,a,s,d: Forward, back, strafe left and right (As in most commercial FPS games)
+  mouse: Look around.
+  click and move mouse: Rotate left or right.
+  
+  1-7, 0: Control rotating light distance,
+  m: change light mode
+  n: change light position
 
-- Classes live in the classes folder
-- The code to build the model and setup the OpenGL program live in Flythrough.
-- We also have utils in the utils folder (a small but neat Racket matrix and vector library)
+  z,x,c,v,b: Various perspective modes.
+
+- wiic library utilizes the LGPL language,
+  The source code is included in our source tree here for convenience,
+  with minor alterations.
