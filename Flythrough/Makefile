@@ -15,13 +15,13 @@ CLASSES_DIR = $(RELDIR)/Classes
 UNAME := $(shell uname)
 EXT=cpp
 CC=g++
-CFLAGS=-Wall -pedantic -ggdb -I $(RELDIR)/include -O2
+CFLAGS=-Wall -pedantic -ggdb -I $(RELDIR)/include -I/usr/local/include/wiic -O2 
 EXECS=fly
-SOURCES=fly.cpp model.cpp $(CLASSES_DIR)/Camera.cpp $(CLASSES_DIR)/vec.cpp $(CLASSES_DIR)/mat.cpp $(COMMON_DIR)/InitShader.cpp
+SOURCES=fly.cpp model.cpp $(CLASSES_DIR)/Camera.cpp $(CLASSES_DIR)/vec.cpp $(CLASSES_DIR)/mat.cpp $(COMMON_DIR)/InitShader.cpp $(CLASSES_DIR)/Cameras.cpp
 OBJS=$(subst .$(EXT),.o,$(SOURCES))
 DEPS=$(subst .$(EXT),.d,$(SOURCES))
 ifeq ($(UNAME), Linux)
-LDFLAGS= -lGL -lGLU -lGLEW -lglut -lXmu -lX11 -lm
+LDFLAGS= -lGL -lGLU -lGLEW -lglut -lXmu -lX11 -lm -lwiic -lwiicpp
 endif
 ifeq ($(UNAME), Darwin)
 LDFLAGS= -framework Carbon -framework OpenGL -framework GLUT
@@ -54,6 +54,14 @@ $(EXECS): $(OBJS)
 clean:
 	rm -f *~ $(OBJS) $(EXECS)
 
+
+.PHONY: scrub
+scrub: realclean
+
+.PHONY: wipe
+wipe: realclean
+
+# Cleans emacs ~ files and deletes .d dependency files
 realclean: clean
 	rm -f *~
 	find $(RELDIR) -name '*.d' -exec rm '{}' \;

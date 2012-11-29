@@ -5,7 +5,7 @@
 #include "Camera.hpp"
 using namespace Angel;
 
-const float Camera::Speed = 0.01;
+const float Camera::initSpeed = 0.01;
 
 /**
    Initialization Constructor; sets the X,Y,Z coordinates explicitly.
@@ -15,6 +15,7 @@ const float Camera::Speed = 0.01;
 **/
 Camera::Camera( float x, float y, 
 		float z ) {
+  this->speed = 0.01;
   this->pos( x, y, z, false );
 }
 
@@ -24,6 +25,7 @@ Camera::Camera( float x, float y,
    @param in A vec3 representing the initial coordinates.
 **/
 Camera::Camera( vec3 &in ) {
+  this->speed = 0.01;
   this->pos( in, false );
 }
 
@@ -33,6 +35,7 @@ Camera::Camera( vec3 &in ) {
    @param in A vec4 representing the initial coordinates. The w component is ignored.
 **/
 Camera::Camera( vec4 &in ) {
+  this->speed = 0.01;
   this->pos( in, false );
 }
 
@@ -335,14 +338,14 @@ void Camera::Stop( const Camera::Direction &Dir ) {
 **/
 void Camera::Idle( void ) {
 
-  if (Motion[Camera::Forward]) surge( Camera::Speed );
-  else if (Motion[Camera::Backward]) surge( -Camera::Speed );
+  if (Motion[Camera::Forward]) surge( speed );
+  else if (Motion[Camera::Backward]) surge( -speed );
 
-  if (Motion[Camera::Right]) sway( Camera::Speed );
-  else if (Motion[Camera::Left]) sway( -Camera::Speed );
+  if (Motion[Camera::Right]) sway( speed );
+  else if (Motion[Camera::Left]) sway( -speed );
 
-  if (Motion[Camera::Up]) heave( Camera::Speed );
-  else if (Motion[Camera::Down]) heave( -Camera::Speed );
+  if (Motion[Camera::Up]) heave( speed );
+  else if (Motion[Camera::Down]) heave( -speed );
 
 }
 
@@ -389,15 +392,9 @@ float Camera::FOV( void ) const { return fovy; }
    @return Void.
 **/
 void Camera::FOV( const float &in ) { 
-
   fovy = in; 
   changePerspective( 0 );
-  /*
-  P = Perspective( fovy,
-		   (float)size[2]/(float)size[3],
-		   0.001, 100.0 );
-  */
-  send( PERSPECTIVE );
+  send( VIEW );
 }
 
 
@@ -417,13 +414,13 @@ void Camera::changePerspective( const int &in ) {
 		     0.001, 100.0 );
     break;
   case 1:
-    P = Ortho( -1.0, 1.0, -1.0, 1.0, -1.0, 1.0 );
+    P = Ortho( -1.0, 1.0, -1.0, 1.0, 0, 100 );
     break;
   case 2:
     P = Ortho2D( -1.0, 1.0, -1.0, 1.0 );
     break;
   case 3:
-    P = Frustum( -1.0, 1.0, -1.0, 1.0, -1.0, 1.0 );
+    P = Frustum( -1.0, 1.0, -1.0, 1.0, 0.001, 100.0 );
     break;
   default:
     P = mat4( GLuint(1.0) );
@@ -452,26 +449,23 @@ void Camera::send( const glsl_var &which ) {
   switch (which) {
   case TRANSLATION:
     glUniformMatrix4fv( glsl_handles[which], 1, GL_FALSE, T );
-    send( PRT_M );
+    send( CTM );
     break;
   case ROTATION:
     glUniformMatrix4fv( glsl_handles[which], 1, GL_FALSE, R );
-    send( PRT_M );
+    send( CTM );
     break;
-  case PERSPECTIVE:
+  case VIEW:
     glUniformMatrix4fv( glsl_handles[which], 1, GL_FALSE, P );
-    send( PRT_M );
-    break;
-  case TRP_M:
-    TRP = T*R*P;
-    glUniformMatrix4fv( glsl_handles[which], 1, GL_FALSE, TRP );
-    break;
-  case PRT_M:
-    PRT = P*R*T;
-    glUniformMatrix4fv( glsl_handles[which], 1, GL_TRUE, PRT );
+    send( CTM );
     break;
   case CTM:
-    glUniformMatrix4fv( glsl_handles[which], 1, GL_FALSE, ctm );
+#ifdef POSTMULT
+    ctm = T*R*P;
+#else
+    ctm = P*R*T;
+#endif
+    glUniformMatrix4fv( glsl_handles[which], 1, GL_TRUE, ctm );
     break;
   default:
     throw std::invalid_argument( "Unknown GLSL variable handle." );
@@ -486,7 +480,7 @@ void Camera::send( const glsl_var &which ) {
    @param glslVarName The name of the variable in the shader.
    @return Void.
 **/
-void Camera::link( GLuint &program, const glsl_var &which, 
+void Camera::link( const GLuint &program, const glsl_var &which, 
 		   const string &glslVarName ) {
   
   glsl_handles[which] = glGetUniformLocation( program, 

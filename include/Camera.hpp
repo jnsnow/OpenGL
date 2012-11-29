@@ -57,12 +57,22 @@ public:
   typedef enum { 
     TRANSLATION,
     ROTATION,
-    PERSPECTIVE,
-    TRP_M,
-    PRT_M,
-    CTM,
+    VIEW,
+    CTM, /* CTM is either P*R*T or T*R*P, depending */
     NumGlslVars
   } glsl_var;
+
+  /**
+     The view_type enumeration lists the various possibilities
+     for the current viewing mode that can be switched between.
+     The default is PERSPECTIVE.
+  **/
+  typedef enum {
+    PERSPECTIVE,
+    ORTHO,
+    IDENTITY,
+    FRUSTRUM
+  } view_type;
   
   Camera( float x = 0.0, float y = 0.0,
 	  float z = 0.0 );
@@ -93,7 +103,8 @@ public:
   float FOV( void ) const;
   void dFOV( const float &by );
   void changePerspective( const int &in );
-  
+  void resize( void );
+
   /* Adjust the camera position with regards to its current vector */
   void sway( const float &by );
   void surge( const float &by );
@@ -117,7 +128,7 @@ public:
 
   /* OpenGL Methods */
   void send( const glsl_var &which );
-  void link( GLuint &program,
+  void link( const GLuint &program,
 	     const glsl_var &which,
 	     const string &glslVarName );
     
@@ -128,9 +139,21 @@ private:
   mat4 T;
   mat4 R;
   mat4 P;
-  mat4 TRP;
-  mat4 PRT;
   mat4 ctm;
+
+  view_type currView;
+
+  /** Current speed of camera motion **/
+  GLfloat speed;
+
+  /** Upper-bound for absolute speed. **/
+  GLfloat maxSpeed;
+
+  /** Current acceleration. **/
+  GLfloat accel;
+
+  /** Maximum acceleration. **/
+  GLfloat maxAccel;
 
   /** Current field-of-view angle for perspective view. **/
   GLfloat fovy;
@@ -144,7 +167,7 @@ private:
 public:
   
   /** The increment the camera should move during the Idle() function. **/
-  static const float Speed;
+  static const float initSpeed; // Set in Camera.cpp. Sorry! Maybe someday c++0x will exist.
 
 };
 
