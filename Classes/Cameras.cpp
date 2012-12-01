@@ -72,7 +72,6 @@ Camera &Cameras::Active( void ) {
 
 Camera &Cameras::Active( size_t n ) {
   if (n < camList.size()) {
-    std::cerr << "Switching from camera #" << activeCamera << " to camera #" << n << ".\n";
     activeCamera = n;
   } 
   camList[activeCamera].send( Camera::CTM );

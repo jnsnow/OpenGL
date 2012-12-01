@@ -27,13 +27,13 @@ CC=g++
 CFLAGS=-Wall -pedantic -ggdb -I $(RELDIR)/include -I/usr/local/include/wiic -O2 
 EXECS=fly
 SOURCES=fly.cpp \
-	model.cpp \
+	$(COMMON_DIR)/model.cpp \
 	$(CLASSES_DIR)/Camera.cpp \
 	$(CLASSES_DIR)/vec.cpp \
 	$(CLASSES_DIR)/mat.cpp \
 	$(COMMON_DIR)/InitShader.cpp \
 	$(CLASSES_DIR)/Cameras.cpp \
-	$(COMMON_DIR)/Wii.cpp
+	$(COMMON_DIR)/WiiUtil.cpp
 OBJS=$(subst .$(EXT),.o,$(SOURCES))
 DEPS=$(subst .$(EXT),.d,$(SOURCES))
 ifeq ($(UNAME), Linux)

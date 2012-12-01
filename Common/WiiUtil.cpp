@@ -1,3 +1,39 @@
+/**
+   Based heavily on WiiC's usage example, whose header appears below.
+   This file was written by John Huston, <jhuston@cs.uml.edu>
+   01 Dec 20122. Only 11 days until the end of the world!
+**/
+
+/*
+ *	example.cpp
+ *
+ *	This file is part of WiiC, written by:
+ *		Gabriele Randelli
+ *		Email: randelli@dis.uniroma1.it
+ *
+ *	Copyright 2010
+ *
+ *	This file is based on WiiuseCpp, written By:
+ *		James Thomas
+ *		Email: jt@missioncognition.net
+ *
+ *	Copyright 2009
+ *
+ *	This program is free software; you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation; either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	This program is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
 #include "WiiUtil.h"
 #include <wiicpp.h>
 #include <iostream>
@@ -38,4 +74,200 @@ bool initWii( CWii &wii ) {
     return true; /* We're all good! */
   }
   return false; /* Couldn't find 2+ devices. */
+}
+
+void HandleEvent(CWiimote &wm) {
+  char prefixString[64];
+  sprintf(prefixString, "Controller [%i]: ", wm.GetID());
+  int exType = wm.ExpansionDevice.GetType();
+
+  // if the accelerometer is turned on then print angles
+  if(wm.isUsingACC())
+    {
+      float pitch, roll, yaw;
+      wm.Accelerometer.GetOrientation(pitch, roll, yaw);
+      printf("%s wiimote roll = %f\n", prefixString, roll);
+      printf("%s wiimote pitch = %f\n", prefixString, pitch);
+      printf("%s wiimote yaw = %f\n", prefixString, yaw);
+    }
+
+  // if the Motion Plus is turned on then print angles
+  if(wm.isUsingMotionPlus()) {
+    float roll_rate, pitch_rate, yaw_rate;
+    wm.ExpansionDevice.MotionPlus.Gyroscope.GetRates(roll_rate,pitch_rate,yaw_rate);
+    printf("%s motion plus roll rate = %f\n", prefixString,roll_rate);
+    printf("%s motion plus pitch rate = %f\n", prefixString,pitch_rate);
+    printf("%s motion plus yaw rate = %f\n", prefixString,yaw_rate);
+  }
+
+  // if(IR tracking is on then print the coordinates
+  if(wm.isUsingIR()) {
+    std::vector<CIRDot>::iterator it;
+    int x, y;
+    int index;
+    
+    printf("%s Num IR Dots: %i\n", prefixString, wm.IR.GetNumDots());
+    printf("%s IR State: %u\n", prefixString, wm.IR.GetState());
+    
+    std::vector<CIRDot>& dots = wm.IR.GetDots();
+    
+    for(index = 0, it = dots.begin(); it != dots.end(); ++index, ++it) {
+      if((*it).isVisible()) {
+	(*it).GetCoordinate(x, y);
+	printf("%s IR source %i: (%i, %i)\n", prefixString, index, x, y);
+	
+	wm.IR.GetCursorPosition(x, y);
+	printf("%s IR cursor: (%i, %i)\n", prefixString, x, y);
+	printf("%s IR z distance: %f\n", prefixString, wm.IR.GetDistance());
+      }
+    }
+  }
+  
+  if(exType == wm.ExpansionDevice.TYPE_NUNCHUK) {
+    float pitch, roll, yaw;
+    float angle, magnitude;
+    
+    CNunchuk &nc = wm.ExpansionDevice.Nunchuk;
+    
+    sprintf(prefixString, "Nunchuk [%i]: ", wm.GetID());
+    
+    if(nc.Buttons.isPressed(CNunchukButtons::BUTTON_C)) {
+      printf("%s C pressed\n", prefixString);
+      printf("Enabling Tare ...\n");
+      tare = true;
+    }
+    
+    if(nc.Buttons.isPressed(CNunchukButtons::BUTTON_Z)) {
+      printf("%s Z pressed\n", prefixString);
+    }
+    
+    nc.Accelerometer.GetOrientation(pitch, roll, yaw);
+    printf("%s roll = %f\n", prefixString, roll);
+    printf("%s pitch = %f\n", prefixString, pitch);
+    printf("%s yaw = %f\n", prefixString, yaw);
+    
+    nc.Joystick.GetPosition(angle, magnitude);
+    printf("%s joystick angle = %f\n", prefixString, angle);
+    printf("%s joystick magnitude = %f\n", prefixString, magnitude);
+  }
+  
+  if(exType == wm.ExpansionDevice.TYPE_BALANCE_BOARD) {
+
+    enum bb_sensor { 
+      TOP_LEFT,
+      TOP_RIGHT,
+      BOT_LEFT,
+      BOT_RIGHT,
+      TOT_WEIGHT
+    };
+
+    static float tare_val[5] = { 0, 0, 0, 0, 0 };
+    static float raw_val[5] = { 0, 0, 0, 0, 0 };
+    static float adj_val[5] = { 0, 0, 0, 0, 0 };
+    static size_t tare_polls = 0;
+    
+    CBalanceBoard &bb = wm.ExpansionDevice.BalanceBoard;
+    bb.WeightSensor.GetWeight( raw_val[TOT_WEIGHT],
+			       raw_val[TOP_LEFT],
+			       raw_val[TOP_RIGHT],
+			       raw_val[BOT_LEFT],
+			       raw_val[BOT_RIGHT] );
+    
+    for ( size_t i = 0; i < 5; ++i ) adj_val[i] = raw_val[i] - tare_val[i];
+
+    /* Compute X and Y magnitudes. */
+    float surge_pct = (adj_val[TOP_LEFT] + adj_val[TOP_RIGHT]
+		       -adj_val[BOT_LEFT] - adj_val[BOT_RIGHT]) / adj_val[TOT_WEIGHT];
+    float sway_pct = (adj_val[TOP_RIGHT] + adj_val[BOT_RIGHT]
+		      -adj_val[TOP_LEFT] - adj_val[BOT_LEFT]) / adj_val[TOT_WEIGHT];
+    
+    /* If there's not much weight on the board, weights are meaningless;
+       unless we are trying to zero the scale. */
+    if (tare) {
+      printf( "TARE %d\n", (int) ++tare_polls );
+      for ( size_t i = 0; i < 4; ++i ) tare_val[i] += raw_val[i];
+      if (tare_polls > 1000) {
+	tare_val[4] = 0;
+	tare_polls = 0;
+	tare = false;
+	for ( size_t i = 0; i < 4; ++i ) {
+	  tare_val[i] = tare_val[i] / 1000;
+	  tare_val[4] += tare_val[i];
+	}
+      }
+    } /*else if (total < 10) return;*/
+
+    printf( "Balance Board Raw Weights: {" );
+    for ( size_t i = 0; i < 5; ++i ) printf( "%6f, ", raw_val[i] );
+    printf( "}\n" );
+
+    printf( "Balance Board Adj Weights: {" );
+    for ( size_t i = 0; i < 5; ++i ) printf( "%6f, ", adj_val[i] );
+    printf( "}\n" );
+
+    printf( "SURGE: %6f; SWAY: %6f\n", surge_pct, sway_pct );
+
+  }
+}
+
+
+void enableRemote( CWiimote &wm ) {
+
+  wm.SetMotionSensingMode(CWiimote::ON);
+  wm.IR.SetMode(CIR::ON);
+  //wm.EnableMotionPlus(CWiimote::ON);
+  
+}
+
+void pollWii( CWii &wii ) {
+
+  //Poll the wiimotes to get the status like pitch or roll
+  if(wii.Poll()) {
+
+    std::vector<CWiimote>& wiimotes = wii.GetWiimotes();
+    std::vector<CWiimote>::iterator it;
+
+    for(it = wiimotes.begin(); it != wiimotes.end(); ++it) {
+      // Use a reference to make working with the iterator handy.
+      CWiimote& wiimote = *it;
+      switch(wiimote.GetEvent()) {
+      case CWiimote::EVENT_EVENT:
+	HandleEvent(wiimote);
+	break;
+      case CWiimote::EVENT_CONNECT:
+	std::cerr << "Device connecting.\n";
+	break;
+      case CWiimote::EVENT_UNEXPECTED_DISCONNECT:
+	std::cerr << "Unexpected disconnect.\n";
+	break;
+      case CWiimote::EVENT_NUNCHUK_INSERTED:
+	enableRemote(wiimote);
+	std::cerr << "Nunchuk has become available.\n";
+	break;
+      case CWiimote::EVENT_NUNCHUK_REMOVED:
+	std::cerr << "Nunchuk has been removed.\n";
+	break;
+      case CWiimote::EVENT_BALANCE_BOARD_INSERTED:
+	std::cerr << "A balance board has become available.\n";
+	break;
+      case CWiimote::EVENT_BALANCE_BOARD_REMOVED:
+	std::cerr << "A balance board has been removed.\n";
+	break;
+
+      case CWiimote::EVENT_CLASSIC_CTRL_INSERTED:
+      case CWiimote::EVENT_MOTION_PLUS_INSERTED:
+	enableRemote(wiimote);
+	std::cerr << "A peripheral has been attached.\n";
+	break;
+	
+      case CWiimote::EVENT_CLASSIC_CTRL_REMOVED:
+      case CWiimote::EVENT_MOTION_PLUS_REMOVED:
+	std::cerr << "A peripheral has been removed.\n";
+	break;
+
+      default:
+	break;
+      }
+    }
+  }
 }

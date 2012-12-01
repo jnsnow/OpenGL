@@ -6,5 +6,6 @@
 extern int LED_MAP[4];
 extern bool tare;
 bool initWii( CWii &wii );
+void pollWii( CWii &wii );
 
 #endif
