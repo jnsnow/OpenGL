@@ -1,0 +1,182 @@
+\hypertarget{wiic__r90_2src_2wiic_2motionplus_8h}{\section{motionplus.\-h File Reference}
+\label{wiic__r90_2src_2wiic_2motionplus_8h}\index{motionplus.\-h@{motionplus.\-h}}
+}
+
+
+Motion Plus expansion device.  
+
+
+{\ttfamily \#include \char`\"{}wiic\-\_\-internal.\-h\char`\"{}}\\*
+{\ttfamily \#include $<$math.\-h$>$}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{wiic__r90_2src_2wiic_2motionplus_8h_a46d17037048c28fdbfbb66a1c0fd5cf2}{\#define {\bfseries M\-P\-\_\-\-S\-M\-O\-O\-T\-H\-\_\-\-A\-L\-P\-H\-A}~0.\-65f}\label{wiic__r90_2src_2wiic_2motionplus_8h_a46d17037048c28fdbfbb66a1c0fd5cf2}
+
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{wiic__r90_2src_2wiic_2motionplus_8h_aafabc35ba07ffad49135ca5678249e88}{motion\-\_\-plus\-\_\-handshake} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, \hyperlink{wiic__r90_2src_2wiic_2wiic__macros_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte} $\ast$data, unsigned short len)
+\begin{DoxyCompactList}\small\item\em Handle the handshake from the Motion Plus. \end{DoxyCompactList}\item 
+void \hyperlink{wiic__r90_2src_2wiic_2motionplus_8h_a76b05e15030cb08b17fab3e7c4d46e9c}{motion\-\_\-plus\-\_\-disconnected} (struct \hyperlink{structmotion__plus__t}{motion\-\_\-plus\-\_\-t} $\ast$mp)
+\begin{DoxyCompactList}\small\item\em Notification of Motion Plus disconnection. \end{DoxyCompactList}\item 
+void \hyperlink{wiic__r90_2src_2wiic_2motionplus_8h_a0f2f989bf76980a687ee493613fdc896}{motion\-\_\-plus\-\_\-event} (struct \hyperlink{structmotion__plus__t}{motion\-\_\-plus\-\_\-t} $\ast$mp, \hyperlink{wiic__r90_2src_2wiic_2wiic__macros_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte} $\ast$msg)
+\begin{DoxyCompactList}\small\item\em Handle Motion Plus event. \end{DoxyCompactList}\item 
+void \hyperlink{wiic__r90_2src_2wiic_2motionplus_8h_a3c14c2a2ada82d49933a8fbf6fefe0aa}{wiic\-\_\-set\-\_\-mp\-\_\-threshold} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, int threshold)
+\begin{DoxyCompactList}\small\item\em Set the gyroscope event threshold. \end{DoxyCompactList}\item 
+void \hyperlink{wiic__r90_2src_2wiic_2motionplus_8h_a98213839a4a3303df132fe863b3561ab}{wiic\-\_\-set\-\_\-mp\-\_\-smooth} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, int status, float alpha)
+\begin{DoxyCompactList}\small\item\em Enable the gyroscope smoothing (through an exponential moving average) \end{DoxyCompactList}\item 
+void \hyperlink{wiic__r90_2src_2wiic_2motionplus_8h_a082ffa1679f8bed1d10e1c96f9319ea3}{motion\-\_\-plus\-\_\-apply\-\_\-smoothing} (struct \hyperlink{structmotion__plus__t}{motion\-\_\-plus\-\_\-t} $\ast$mp)
+\begin{DoxyCompactList}\small\item\em Apply smoothing to the Motion Plus gyroscopes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Motion Plus expansion device. 
+
+Definition in file \hyperlink{wiic__r90_2src_2wiic_2motionplus_8h_source}{wiic\-\_\-r90/src/wiic/motionplus.\-h}.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{wiic__r90_2src_2wiic_2motionplus_8h_a082ffa1679f8bed1d10e1c96f9319ea3}{\index{wiic\-\_\-r90/src/wiic/motionplus.\-h@{wiic\-\_\-r90/src/wiic/motionplus.\-h}!motion\-\_\-plus\-\_\-apply\-\_\-smoothing@{motion\-\_\-plus\-\_\-apply\-\_\-smoothing}}
+\index{motion\-\_\-plus\-\_\-apply\-\_\-smoothing@{motion\-\_\-plus\-\_\-apply\-\_\-smoothing}!wiic_r90/src/wiic/motionplus.h@{wiic\-\_\-r90/src/wiic/motionplus.\-h}}
+\subsubsection[{motion\-\_\-plus\-\_\-apply\-\_\-smoothing}]{\setlength{\rightskip}{0pt plus 5cm}void motion\-\_\-plus\-\_\-apply\-\_\-smoothing (
+\begin{DoxyParamCaption}
+\item[{struct {\bf motion\-\_\-plus\-\_\-t} $\ast$}]{mp}
+\end{DoxyParamCaption}
+)}}\label{wiic__r90_2src_2wiic_2motionplus_8h_a082ffa1679f8bed1d10e1c96f9319ea3}
+
+
+Apply smoothing to the Motion Plus gyroscopes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mp} & Pointer to a \hyperlink{structmotion__plus__t}{motion\-\_\-plus\-\_\-t} structure. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 123 of file wiic\-\_\-r90/src/wiic/motionplus.\-c.
+
+\hypertarget{wiic__r90_2src_2wiic_2motionplus_8h_a76b05e15030cb08b17fab3e7c4d46e9c}{\index{wiic\-\_\-r90/src/wiic/motionplus.\-h@{wiic\-\_\-r90/src/wiic/motionplus.\-h}!motion\-\_\-plus\-\_\-disconnected@{motion\-\_\-plus\-\_\-disconnected}}
+\index{motion\-\_\-plus\-\_\-disconnected@{motion\-\_\-plus\-\_\-disconnected}!wiic_r90/src/wiic/motionplus.h@{wiic\-\_\-r90/src/wiic/motionplus.\-h}}
+\subsubsection[{motion\-\_\-plus\-\_\-disconnected}]{\setlength{\rightskip}{0pt plus 5cm}void motion\-\_\-plus\-\_\-disconnected (
+\begin{DoxyParamCaption}
+\item[{struct {\bf motion\-\_\-plus\-\_\-t} $\ast$}]{mp}
+\end{DoxyParamCaption}
+)}}\label{wiic__r90_2src_2wiic_2motionplus_8h_a76b05e15030cb08b17fab3e7c4d46e9c}
+
+
+Notification of Motion Plus disconnection. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mp} & A pointer to a \hyperlink{structmotion__plus__t}{motion\-\_\-plus\-\_\-t} structure. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 250 of file wiic\-\_\-r90/src/wiic/motionplus.\-c.
+
+\hypertarget{wiic__r90_2src_2wiic_2motionplus_8h_a0f2f989bf76980a687ee493613fdc896}{\index{wiic\-\_\-r90/src/wiic/motionplus.\-h@{wiic\-\_\-r90/src/wiic/motionplus.\-h}!motion\-\_\-plus\-\_\-event@{motion\-\_\-plus\-\_\-event}}
+\index{motion\-\_\-plus\-\_\-event@{motion\-\_\-plus\-\_\-event}!wiic_r90/src/wiic/motionplus.h@{wiic\-\_\-r90/src/wiic/motionplus.\-h}}
+\subsubsection[{motion\-\_\-plus\-\_\-event}]{\setlength{\rightskip}{0pt plus 5cm}void motion\-\_\-plus\-\_\-event (
+\begin{DoxyParamCaption}
+\item[{struct {\bf motion\-\_\-plus\-\_\-t} $\ast$}]{mp, }
+\item[{{\bf byte} $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}}\label{wiic__r90_2src_2wiic_2motionplus_8h_a0f2f989bf76980a687ee493613fdc896}
+
+
+Handle Motion Plus event. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mp} & A pointer to a motionplus\-\_\-t structure. \\
+\hline
+{\em msg} & The message specified in the event packet. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 89 of file wiic\-\_\-r90/src/wiic/motionplus.\-c.
+
+\hypertarget{wiic__r90_2src_2wiic_2motionplus_8h_aafabc35ba07ffad49135ca5678249e88}{\index{wiic\-\_\-r90/src/wiic/motionplus.\-h@{wiic\-\_\-r90/src/wiic/motionplus.\-h}!motion\-\_\-plus\-\_\-handshake@{motion\-\_\-plus\-\_\-handshake}}
+\index{motion\-\_\-plus\-\_\-handshake@{motion\-\_\-plus\-\_\-handshake}!wiic_r90/src/wiic/motionplus.h@{wiic\-\_\-r90/src/wiic/motionplus.\-h}}
+\subsubsection[{motion\-\_\-plus\-\_\-handshake}]{\setlength{\rightskip}{0pt plus 5cm}int motion\-\_\-plus\-\_\-handshake (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
+\item[{{\bf byte} $\ast$}]{data, }
+\item[{unsigned short}]{len}
+\end{DoxyParamCaption}
+)}}\label{wiic__r90_2src_2wiic_2motionplus_8h_aafabc35ba07ffad49135ca5678249e88}
+
+
+Handle the handshake from the Motion Plus. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & A pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\hline
+{\em data} & The data that should contain the Motion Plus I\-D to check. \\
+\hline
+{\em len} & The length of the data block, in bytes.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns 1 if handshake was successful, 0 if not. 
+\end{DoxyReturn}
+
+
+Definition at line 141 of file wiic\-\_\-r90/src/wiic/motionplus.\-c.
+
+\hypertarget{wiic__r90_2src_2wiic_2motionplus_8h_a98213839a4a3303df132fe863b3561ab}{\index{wiic\-\_\-r90/src/wiic/motionplus.\-h@{wiic\-\_\-r90/src/wiic/motionplus.\-h}!wiic\-\_\-set\-\_\-mp\-\_\-smooth@{wiic\-\_\-set\-\_\-mp\-\_\-smooth}}
+\index{wiic\-\_\-set\-\_\-mp\-\_\-smooth@{wiic\-\_\-set\-\_\-mp\-\_\-smooth}!wiic_r90/src/wiic/motionplus.h@{wiic\-\_\-r90/src/wiic/motionplus.\-h}}
+\subsubsection[{wiic\-\_\-set\-\_\-mp\-\_\-smooth}]{\setlength{\rightskip}{0pt plus 5cm}void wiic\-\_\-set\-\_\-mp\-\_\-smooth (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
+\item[{int}]{status, }
+\item[{float}]{alpha}
+\end{DoxyParamCaption}
+)}}\label{wiic__r90_2src_2wiic_2motionplus_8h_a98213839a4a3303df132fe863b3561ab}
+
+
+Enable the gyroscope smoothing (through an exponential moving average) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\hline
+{\em status} & 1 to enable -\/ 0 to disable \\
+\hline
+{\em alpha} & Alpha smoothness parameter (between 0.\-0 and 1.\-0) \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 275 of file wiic\-\_\-r90/src/wiic/motionplus.\-c.
+
+\hypertarget{wiic__r90_2src_2wiic_2motionplus_8h_a3c14c2a2ada82d49933a8fbf6fefe0aa}{\index{wiic\-\_\-r90/src/wiic/motionplus.\-h@{wiic\-\_\-r90/src/wiic/motionplus.\-h}!wiic\-\_\-set\-\_\-mp\-\_\-threshold@{wiic\-\_\-set\-\_\-mp\-\_\-threshold}}
+\index{wiic\-\_\-set\-\_\-mp\-\_\-threshold@{wiic\-\_\-set\-\_\-mp\-\_\-threshold}!wiic_r90/src/wiic/motionplus.h@{wiic\-\_\-r90/src/wiic/motionplus.\-h}}
+\subsubsection[{wiic\-\_\-set\-\_\-mp\-\_\-threshold}]{\setlength{\rightskip}{0pt plus 5cm}void wiic\-\_\-set\-\_\-mp\-\_\-threshold (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
+\item[{int}]{threshold}
+\end{DoxyParamCaption}
+)}}\label{wiic__r90_2src_2wiic_2motionplus_8h_a3c14c2a2ada82d49933a8fbf6fefe0aa}
+
+
+Set the gyroscope event threshold. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\hline
+{\em threshold} & The decimal place that should be considered a significant change. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 262 of file wiic\-\_\-r90/src/wiic/motionplus.\-c.
+

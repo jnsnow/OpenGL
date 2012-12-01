@@ -1,0 +1,28 @@
+var class_dataset =
+[
+    [ "Dataset", "class_dataset.html#a2ef0a4a688a218d55ef061c6df659a4a", null ],
+    [ "Dataset", "class_dataset.html#a299c3198f6325d0c627aa029ed24e2e5", null ],
+    [ "~Dataset", "class_dataset.html#a7f38b79ccbf9ada90d68d3a50250b193", null ],
+    [ "Dataset", "class_dataset.html#a2ef0a4a688a218d55ef061c6df659a4a", null ],
+    [ "Dataset", "class_dataset.html#a299c3198f6325d0c627aa029ed24e2e5", null ],
+    [ "~Dataset", "class_dataset.html#a7f38b79ccbf9ada90d68d3a50250b193", null ],
+    [ "addTraining", "class_dataset.html#a93ab78c0e05f3048c2d9cb0c9afcd3a5", null ],
+    [ "addTraining", "class_dataset.html#a3dd1b2db5490c75c59b23680bb7b8b53", null ],
+    [ "clear", "class_dataset.html#a67744c3bdc87acd2a8189b9c4fbcd192", null ],
+    [ "clear", "class_dataset.html#a67744c3bdc87acd2a8189b9c4fbcd192", null ],
+    [ "getDataTraining", "class_dataset.html#a7bdfc78ad93ba76b10009216269ee814", null ],
+    [ "isValid", "class_dataset.html#a51c528f515d44baee36589e8de11af50", null ],
+    [ "loadDataset", "class_dataset.html#aed0d5ae0808489628f0a8df2500631cc", null ],
+    [ "loadDataset", "class_dataset.html#ac76fd063f6eca24ec277bd4f14cc0484", null ],
+    [ "save", "class_dataset.html#abf4a6c4669f7079d334abd7be6137870", null ],
+    [ "save", "class_dataset.html#a97193aebac43df3a98852a8a675702ab", null ],
+    [ "saveHeader", "class_dataset.html#a23110f7d2b6bc77a388e8dafee9772b3", null ],
+    [ "size", "class_dataset.html#a19b9f5952a3839fd7f6a3cf02785249d", null ],
+    [ "size", "class_dataset.html#a389855d6b88c8257041bcbc489759aae", null ],
+    [ "trainingAt", "class_dataset.html#acce4206f736814c884672a642672de74", null ],
+    [ "trainingAt", "class_dataset.html#a364c0454ce90684f0f375af8bb67772a", null ],
+    [ "trainingAt", "class_dataset.html#af776f6046312827aed048d641e29449b", null ],
+    [ "trainingAt", "class_dataset.html#adf05adb75cc0692104dc809ab030e967", null ],
+    [ "loaded", "class_dataset.html#a55ac9c41a1f3a2bc08ca053df147d163", null ],
+    [ "trainings", "class_dataset.html#a00cb7cd0dd06246daeee7201b810a938", null ]
+];

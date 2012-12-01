@@ -1,0 +1,54 @@
+.TH "classic_ctrl_t" 3 "Fri Nov 30 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+classic_ctrl_t \- 
+.PP
+Classic controller expansion device\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <wiic_structs\&.h>\fP
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "short \fBbtns\fP"
+.br
+.RI "\fIwhat buttons have just been pressed \fP"
+.ti -1c
+.RI "short \fBbtns_held\fP"
+.br
+.RI "\fIwhat buttons are being held down \fP"
+.ti -1c
+.RI "short \fBbtns_released\fP"
+.br
+.RI "\fIwhat buttons were just released this \fP"
+.ti -1c
+.RI "float \fBr_shoulder\fP"
+.br
+.RI "\fIright shoulder button (range 0-1) \fP"
+.ti -1c
+.RI "float \fBl_shoulder\fP"
+.br
+.RI "\fIleft shoulder button (range 0-1) \fP"
+.ti -1c
+.RI "struct \fBjoystick_t\fP \fBljs\fP"
+.br
+.RI "\fIleft joystick calibration \fP"
+.ti -1c
+.RI "struct \fBjoystick_t\fP \fBrjs\fP"
+.br
+.RI "\fIright joystick calibration \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Classic controller expansion device\&. 
+.PP
+Definition at line 291 of file wiic_r90/src/wiic/wiic_structs\&.h\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for OpenGL Flythrough from the source code\&.

@@ -135,6 +135,7 @@ public:
 private:
 
   void adjustRotation( const mat4 &adjustment );
+  void commonInit( void );
 
   mat4 T;
   mat4 R;

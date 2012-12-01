@@ -1,0 +1,78 @@
+.TH "motion_plus_t" 3 "Fri Nov 30 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+motion_plus_t \- 
+.PP
+Motion Plus expansion device\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <wiic_structs\&.h>\fP
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBang3s_t\fP \fBa_raw_gyro\fP"
+.br
+.RI "\fIcurrent raw gyroscope data (unsmoothed) \fP"
+.ti -1c
+.RI "struct \fBang3s_t\fP \fBraw_gyro\fP"
+.br
+.RI "\fIcurrent raw gyroscope data (smoothed, if enabled) \fP"
+.ti -1c
+.RI "struct \fBang3s_t\fP \fBcal_gyro\fP"
+.br
+.RI "\fIcalibration raw gyroscope data \fP"
+.ti -1c
+.RI "struct \fBang3f_t\fP \fBa_gyro_rate\fP"
+.br
+.RI "\fIcurrent gyro angle rate (unsmoothed) \fP"
+.ti -1c
+.RI "struct \fBang3f_t\fP \fBgyro_rate\fP"
+.br
+.RI "\fIcurrent gyro angle rate (smoothed, if enabled) \fP"
+.ti -1c
+.RI "struct \fBorient_t\fP \fBorient\fP"
+.br
+.RI "\fIcurrent orientation on each axis using Motion Plus gyroscopes \fP"
+.ti -1c
+.RI "\fBbyte\fP \fBacc_mode\fP"
+.br
+.RI "\fIFast/slow rotation mode for roll, pitch and yaw (0 if rotating fast, 1 if slow or still) \fP"
+.ti -1c
+.RI "int \fBraw_gyro_threshold\fP"
+.br
+.RI "\fIthreshold for gyroscopes to generate an event \fP"
+.ti -1c
+.RI "int \fBsmooth\fP"
+.br
+.RI "\fIsmoothing enabled/disabled \fP"
+.ti -1c
+.RI "float \fBsmooth_alpha\fP"
+.br
+.RI "\fIsmoothness alpha parameter \fP"
+.ti -1c
+.RI "struct \fBang3f_t\fP \fBangle_rate_gyro\fP"
+.br
+.RI "\fIcurrent gyro angle rate \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Motion Plus expansion device\&. 
+.PP
+Definition at line 334 of file wiic_r90/src/wiic/wiic_structs\&.h\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "struct \fBang3s_t\fP motion_plus_t::raw_gyro"
+
+.PP
+current raw gyroscope data (smoothed, if enabled) current raw gyroscope data 
+.PP
+Definition at line 336 of file wiic_r90/src/wiic/wiic_structs\&.h\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for OpenGL Flythrough from the source code\&.

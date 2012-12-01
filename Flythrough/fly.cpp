@@ -11,6 +11,7 @@
 #include "Camera.hpp"
 #include "InitShader.hpp"
 #include "Cameras.hpp"
+#include "WiiUtil.h" /* Wii Controller Handler Util */
 
 using Angel::vec3;
 using Angel::vec4;
@@ -34,8 +35,8 @@ point4 points[NumVertices];
 color4 colors[NumVertices];
 vec3  normals[NumVertices];
 
-Camera theCamera;
 Cameras camList( 2 );
+CWii Wii;
 
 int Width = X_SIZE;
 int X_Center = (Width/2);
@@ -45,13 +46,11 @@ int Y_Center = (Height/2);
 //--------------------------------------------------------------------
 // OpenGL initialization
 
-
 // Moving light source
 point4 light_position( 0.0, 1.0, 0.0, 1.0 );
 
 // Fixed light source
 point4 light_position2( 0.0, 1.0, 0.1, 1.0 );
-
 
 // 11/26 changes: mode of the static light source.
 int lightMode = 0;
@@ -68,27 +67,6 @@ GLuint gl_AmbientProduct2 ;
 GLuint gl_DiffuseProduct2 ;
 GLuint gl_SpecularProduct2 ;
 
-
-void init_wii( void ) {
-  
-  CWii CX_Data( 2 );
-  int numFound = 0;
-  int tries = 0;
-
-  while (numFound != 2) {
-    fprintf( stderr, "Searching for Wiimote + Balance Board\n" );
-    numFound = CX_Data.Find( 5 );
-    fprintf( stderr, "Numfound: %d\n", numFound );
-    if (++tries >= 5) {
-      fprintf( stderr, "Could only find %d devices.\n", numFound );
-      exit( 2 );
-    }
-  }
-
-  std::vector<CWiimote>& WiiDevices = CX_Data.Connect();
-  fprintf( stderr, "Connected to %d devices\n", (int)WiiDevices.size());
-
-}
 
 // Initialize shader lighting parameters
 // This will eventually be replaced by a call to the Lights class init function:
@@ -243,19 +221,15 @@ void init() {
 			 (GLvoid*)(sizeof(points)+sizeof(colors)));
 
 
+  /* Linkify! */
   camList.LinkAll( program, Camera::TRANSLATION, "T" );
   camList.LinkAll( program, Camera::ROTATION, "R" );
   camList.LinkAll( program, Camera::VIEW, "P" );
   camList.LinkAll( program, Camera::CTM, "CTM" );
+  /* FOV must be set after linking a camera with the VIEW and CTM matrices. */
   CAMERAS_MSG( camList, FOV(45.0) );
   /* Set the active camera to camera #0. */
   camList.Active(0);
-
-  theCamera.link( program, Camera::TRANSLATION, "T" );
-  theCamera.link( program, Camera::ROTATION, "R" );
-  theCamera.link( program, Camera::VIEW, "P" );
-  theCamera.link( program, Camera::CTM, "CTM" );
-  theCamera.FOV( 45.0 ); /* Must be set /after/ linking perspective ... ! */
 
   glEnable( GL_DEPTH_TEST );
   glClearColor( 0.1, 0.1, 0.1, 1.0 );
@@ -367,22 +341,22 @@ void display( void ) {
 void keylift( unsigned char key, int x, int y ) {
   switch( key ) {
   case 'w':
-    theCamera.Stop( Camera::Forward );
+    camList.Active().Stop( Camera::Forward );
     break;
   case 's':
-    theCamera.Stop( Camera::Backward );
+    camList.Active().Stop( Camera::Backward );
     break;
   case 'a':
-    theCamera.Stop( Camera::Left );
+    camList.Active().Stop( Camera::Left );
     break;
   case 'd':
-    theCamera.Stop( Camera::Right );
+    camList.Active().Stop( Camera::Right );
     break;
   case 'q':
-    theCamera.Stop( Camera::Up );
+    camList.Active().Stop( Camera::Up );
     break;
   case 'e':
-    theCamera.Stop( Camera::Down );
+    camList.Active().Stop( Camera::Down );
     break;
   }
 }
@@ -401,28 +375,28 @@ void keyboard( unsigned char key, int x, int y ) {
       break;
     
   case 'w':
-    theCamera.Move( Camera::Forward );
+    camList.Active().Move( Camera::Forward );
     break;
   case 's':
-    theCamera.Move( Camera::Backward );
+    camList.Active().Move( Camera::Backward );
     break;
   case 'a':
-    theCamera.Move( Camera::Left );
+    camList.Active().Move( Camera::Left );
     break;
   case 'd':
-    theCamera.Move( Camera::Right );
+    camList.Active().Move( Camera::Right );
     break;
   case 'q':
-    theCamera.Move( Camera::Up );
+    camList.Active().Move( Camera::Up );
     break;
   case 'e':
-    theCamera.Move( Camera::Down );
+    camList.Active().Move( Camera::Down );
     break;
     
   case 'p': // Print Info
     fprintf( stderr, "POS: (%f,%f,%f)\n",
-	     theCamera.X(), theCamera.Y(),
-	     theCamera.Z() );
+	     camList.Active().X(), camList.Active().Y(),
+	     camList.Active().Z() );
     break;
   case 'n': // Print normals
     //light_position = point4( 0.0, 0.2, 0.0, 0.0 );
@@ -466,12 +440,13 @@ void keyboard( unsigned char key, int x, int y ) {
       case 'c':  green_enable = !green_enable ;  break ;
     */
 
-  case 'z': theCamera.changePerspective( 0 ); break;
-  case 'x': theCamera.changePerspective( 1 ); break;
-  case 'c': theCamera.changePerspective( 2 ); break;
-  case 'v': theCamera.changePerspective( 3 ); break;
-  case 'b': theCamera.changePerspective( 4 ); break;
-
+  case 'z': camList.Active().changePerspective( 0 ); break;
+  case 'x': camList.Active().changePerspective( 1 ); break;
+  case 'c': camList.Active().changePerspective( 2 ); break;
+  case 'v': camList.Active().changePerspective( 3 ); break;
+  case 'b': camList.Active().changePerspective( 4 ); break;
+  case 'C': camList.Active(1); break;
+  case 'X': camList.Active(0); break;
 
   }
 }
@@ -480,21 +455,23 @@ void mouse( int button, int state, int x, int y ) {
 
   if ( state == GLUT_DOWN ) {
     switch( button ) {
-    case 3: theCamera.dFOV( 1 ); break;
-    case 4: theCamera.dFOV( -1 ); break;
+    case 3: camList.Active().dFOV( 1 ); break;
+    case 4: camList.Active().dFOV( -1 ); break;
     }
   }
 
 }
 
+
 void mouseroll( int x, int y ) {
 
   if ((x != X_Center) || (y != Y_Center)) {
-    theCamera.roll( x - X_Center );
+    camList.Active().roll( x - X_Center );
     glutWarpPointer( X_Center, Y_Center );
   }
 
 }
+
 
 void mouselook( int x, int y ) {
 
@@ -502,8 +479,8 @@ void mouselook( int x, int y ) {
     const double dx = ((double)x - X_Center);
     const double dy = ((double)y - Y_Center);
     
-    theCamera.pitch( dy );
-    theCamera.yaw( dx );
+    camList.Active().pitch( dy );
+    camList.Active().yaw( dx );
     
     glutWarpPointer( X_Center, Y_Center );
   }
@@ -523,7 +500,6 @@ void resizeEvent( int width, int height ) {
 }
 
 
-
 void movelight(void) {
 
   static float i = 0;
@@ -539,12 +515,10 @@ void movelight(void) {
 }
 
 
-
-
 void idle( void ) {
 
   movelight();
-  theCamera.Idle();
+  camList.Active().Idle();
   glutPostRedisplay();
 
 }
@@ -553,7 +527,9 @@ void idle( void ) {
 
 int main( int argc, char **argv ) {
 
-  //init_wii();
+  if (!initWii( Wii )) {
+    std::cerr << "Not using Wii controls for this runthrough.\n";
+  }
 
   // OS X suppresses events after mouse warp.  This resets the suppression 
   // interval to 0 so that events will not be suppressed. This also found

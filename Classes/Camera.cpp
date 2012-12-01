@@ -1,9 +1,20 @@
 #include <stdexcept>
+#include <iostream>
 
 #include "mat.hpp"
 #include "vec.hpp"
 #include "Camera.hpp"
 using namespace Angel;
+
+void Camera::commonInit( void ) {
+  std::cerr << "initCamera...\n";
+  for ( size_t i = (size_t)Begin;
+	i != (size_t)End;
+	++i) {
+    Motion[i] = false;
+  }
+  this->speed = initSpeed;
+}
 
 const float Camera::initSpeed = 0.01;
 
@@ -15,7 +26,8 @@ const float Camera::initSpeed = 0.01;
 **/
 Camera::Camera( float x, float y, 
 		float z ) {
-  this->speed = 0.01;
+  commonInit();
+  this->speed = initSpeed;
   this->pos( x, y, z, false );
 }
 
@@ -25,7 +37,8 @@ Camera::Camera( float x, float y,
    @param in A vec3 representing the initial coordinates.
 **/
 Camera::Camera( vec3 &in ) {
-  this->speed = 0.01;
+  commonInit();
+  this->speed = initSpeed;
   this->pos( in, false );
 }
 
@@ -35,7 +48,8 @@ Camera::Camera( vec3 &in ) {
    @param in A vec4 representing the initial coordinates. The w component is ignored.
 **/
 Camera::Camera( vec4 &in ) {
-  this->speed = 0.01;
+  commonInit();
+  this->speed = initSpeed;
   this->pos( in, false );
 }
 

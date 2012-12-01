@@ -1,0 +1,67 @@
+\hypertarget{structnunchuk__t}{\section{nunchuk\-\_\-t Struct Reference}
+\label{structnunchuk__t}\index{nunchuk\-\_\-t@{nunchuk\-\_\-t}}
+}
+
+
+Nunchuk expansion device.  
+
+
+
+
+{\ttfamily \#include $<$wiic\-\_\-structs.\-h$>$}
+
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{structnunchuk__t_a22475e2830a1c51b9b7b4e836eade2e2}{struct \hyperlink{structaccel__t}{accel\-\_\-t} \hyperlink{structnunchuk__t_a22475e2830a1c51b9b7b4e836eade2e2}{accel\-\_\-calib}}\label{structnunchuk__t_a22475e2830a1c51b9b7b4e836eade2e2}
+
+\begin{DoxyCompactList}\small\item\em nunchuk accelerometer calibration \end{DoxyCompactList}\item 
+\hypertarget{structnunchuk__t_abfa0d39060a286eb1f3ca547fbf2d5c1}{struct \hyperlink{structjoystick__t}{joystick\-\_\-t} \hyperlink{structnunchuk__t_abfa0d39060a286eb1f3ca547fbf2d5c1}{js}}\label{structnunchuk__t_abfa0d39060a286eb1f3ca547fbf2d5c1}
+
+\begin{DoxyCompactList}\small\item\em joystick calibration \end{DoxyCompactList}\item 
+\hypertarget{structnunchuk__t_a5c44ad573c8b087cc53620558ba75aec}{int $\ast$ \hyperlink{structnunchuk__t_a5c44ad573c8b087cc53620558ba75aec}{flags}}\label{structnunchuk__t_a5c44ad573c8b087cc53620558ba75aec}
+
+\begin{DoxyCompactList}\small\item\em options flag (points to \hyperlink{structwiimote__t_a463ca22284e245c6fe431340f7d94631}{wiimote\-\_\-t.\-flags}) \end{DoxyCompactList}\item 
+\hypertarget{structnunchuk__t_a0205fe5e81c5f12600488fa3c32ef36b}{\hyperlink{wiic__r90_2src_2wiic_2wiic__macros_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte} \hyperlink{structnunchuk__t_a0205fe5e81c5f12600488fa3c32ef36b}{btns}}\label{structnunchuk__t_a0205fe5e81c5f12600488fa3c32ef36b}
+
+\begin{DoxyCompactList}\small\item\em what buttons have just been pressed \end{DoxyCompactList}\item 
+\hypertarget{structnunchuk__t_a0a9201e5d2a0c699852e31c378847b01}{\hyperlink{wiic__r90_2src_2wiic_2wiic__macros_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte} \hyperlink{structnunchuk__t_a0a9201e5d2a0c699852e31c378847b01}{btns\-\_\-held}}\label{structnunchuk__t_a0a9201e5d2a0c699852e31c378847b01}
+
+\begin{DoxyCompactList}\small\item\em what buttons are being held down \end{DoxyCompactList}\item 
+\hypertarget{structnunchuk__t_aa32da74f5d1282fa6e875816f0d4ecdc}{\hyperlink{wiic__r90_2src_2wiic_2wiic__macros_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte} \hyperlink{structnunchuk__t_aa32da74f5d1282fa6e875816f0d4ecdc}{btns\-\_\-released}}\label{structnunchuk__t_aa32da74f5d1282fa6e875816f0d4ecdc}
+
+\begin{DoxyCompactList}\small\item\em what buttons were just released this \end{DoxyCompactList}\item 
+\hypertarget{structnunchuk__t_a25e802438f1d553605b30d0eace2c958}{float \hyperlink{structnunchuk__t_a25e802438f1d553605b30d0eace2c958}{orient\-\_\-threshold}}\label{structnunchuk__t_a25e802438f1d553605b30d0eace2c958}
+
+\begin{DoxyCompactList}\small\item\em threshold for orient to generate an event \end{DoxyCompactList}\item 
+\hypertarget{structnunchuk__t_a8cdee63a6b2b23f69cac33126eff448e}{int \hyperlink{structnunchuk__t_a8cdee63a6b2b23f69cac33126eff448e}{accel\-\_\-threshold}}\label{structnunchuk__t_a8cdee63a6b2b23f69cac33126eff448e}
+
+\begin{DoxyCompactList}\small\item\em threshold for accel to generate an event \end{DoxyCompactList}\item 
+\hypertarget{structnunchuk__t_a5f83dc7586a80b84bcd6afdc419cc9f8}{struct \hyperlink{structvec3b__t}{vec3b\-\_\-t} \hyperlink{structnunchuk__t_a5f83dc7586a80b84bcd6afdc419cc9f8}{accel}}\label{structnunchuk__t_a5f83dc7586a80b84bcd6afdc419cc9f8}
+
+\begin{DoxyCompactList}\small\item\em current raw acceleration data \end{DoxyCompactList}\item 
+\hypertarget{structnunchuk__t_a24ca076b817418f2e2c1507965256b45}{struct \hyperlink{structorient__t}{orient\-\_\-t} \hyperlink{structnunchuk__t_a24ca076b817418f2e2c1507965256b45}{orient}}\label{structnunchuk__t_a24ca076b817418f2e2c1507965256b45}
+
+\begin{DoxyCompactList}\small\item\em current orientation on each axis \end{DoxyCompactList}\item 
+\hypertarget{structnunchuk__t_a6efb9dfa3391cb3815d6a1741cb4525b}{struct \hyperlink{structorient__t}{orient\-\_\-t} \hyperlink{structnunchuk__t_a6efb9dfa3391cb3815d6a1741cb4525b}{a\-\_\-orient}}\label{structnunchuk__t_a6efb9dfa3391cb3815d6a1741cb4525b}
+
+\begin{DoxyCompactList}\small\item\em current orientation on each axis (unsmoothed) \end{DoxyCompactList}\item 
+\hypertarget{structnunchuk__t_a79d598a365f147ca23c67e592776fde0}{struct \hyperlink{structgforce__t}{gforce\-\_\-t} \hyperlink{structnunchuk__t_a79d598a365f147ca23c67e592776fde0}{gforce}}\label{structnunchuk__t_a79d598a365f147ca23c67e592776fde0}
+
+\begin{DoxyCompactList}\small\item\em current gravity forces on each axis \end{DoxyCompactList}\item 
+\hypertarget{structnunchuk__t_a50d07c79c66f167b7fdb7ee56f173516}{struct \hyperlink{structgforce__t}{gforce\-\_\-t} \hyperlink{structnunchuk__t_a50d07c79c66f167b7fdb7ee56f173516}{a\-\_\-gforce}}\label{structnunchuk__t_a50d07c79c66f167b7fdb7ee56f173516}
+
+\begin{DoxyCompactList}\small\item\em current gravity forces on each axis (unsmoothed) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Nunchuk expansion device. 
+
+Definition at line 266 of file wiic\-\_\-r90/src/wiic/wiic\-\_\-structs.\-h.
+
+
+
+The documentation for this struct was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{wiic__r90_2src_2wiic_2wiic__structs_8h}{wiic\-\_\-r90/src/wiic/wiic\-\_\-structs.\-h}\item 
+\hyperlink{wiic__v1_81_2src_2wiic_2wiic__structs_8h}{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-structs.\-h}\end{DoxyCompactItemize}

@@ -44,36 +44,43 @@ void HandleEvent(CWiimote &wm)
 
     if(wm.Buttons.isJustPressed(CButtons::BUTTON_MINUS))
     {
+      cerr << "MotionSensing OFF\n";
         wm.SetMotionSensingMode(CWiimote::OFF);
     }
 
     if(wm.Buttons.isJustPressed(CButtons::BUTTON_PLUS))
     {
+      cerr << "MotionSensing ON\n";
         wm.SetMotionSensingMode(CWiimote::ON);
     }
 
     if(wm.Buttons.isJustPressed(CButtons::BUTTON_DOWN))
     {
+      cerr << "IR OFF\n";
         wm.IR.SetMode(CIR::OFF);
     }
 
     if(wm.Buttons.isJustPressed(CButtons::BUTTON_UP))
     {
+      cerr << "IR ON\n";
         wm.IR.SetMode(CIR::ON);
     }
 
     if(wm.Buttons.isJustPressed(CButtons::BUTTON_RIGHT))
     {
+      cerr << "MP ON\n";
         wm.EnableMotionPlus(CWiimote::ON);
     }
 
     if(wm.Buttons.isJustPressed(CButtons::BUTTON_LEFT))
     {
+      cerr << "MP OFF\n";
      	 wm.EnableMotionPlus(CWiimote::OFF);
     }
 
     if(wm.Buttons.isJustPressed(CButtons::BUTTON_B))
     {
+      cerr << "Rumble Toggle\n";
         wm.ToggleRumble();
     }
 
@@ -368,6 +375,7 @@ void HandleEvent(CWiimote &wm)
 		printf("balance board bottom left weight: %f\n", bottomLeft);
 		printf("balance board bottom right weight: %f\n", bottomRight);
 		printf("balance board total weight: %f\n", total);
+		exit(255);
 	}
 }
 

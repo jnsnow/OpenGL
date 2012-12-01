@@ -1,0 +1,472 @@
+.TH "wiic_macros.h" 3 "Fri Nov 30 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+wiic_macros.h \- 
+.PP
+WiiC macros and typedef\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBWIIMOTE_STATE_DEV_FOUND\fP   0x00001"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_STATE_HANDSHAKE\fP   0x00002	/* actual connection exists but no handshake yet */"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_STATE_HANDSHAKE_COMPLETE\fP   0x00004	/* actual connection exists but no handshake yet */"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_STATE_CONNECTED\fP   0x00008"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_STATE_RUMBLE\fP   0x00010"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_STATE_ACC\fP   0x00020"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_STATE_EXP\fP   0x00040"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_STATE_IR\fP   0x00080"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_STATE_SPEAKER\fP   0x00100"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_STATE_IR_SENS_LVL1\fP   0x00200"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_STATE_IR_SENS_LVL2\fP   0x00400"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_STATE_IR_SENS_LVL3\fP   0x00800"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_STATE_IR_SENS_LVL4\fP   0x01000"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_STATE_IR_SENS_LVL5\fP   0x02000"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_STATE_EXP_HANDSHAKE\fP   0x04000	/* Added to handle handshaking concurrency between Motion Plus and other expansion types */"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_STATE_EXP_FAILED\fP   0x08000"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_STATE_MOTION_PLUS\fP   0x10000"
+.br
+.RI "\fIMotionPlus state flag, set when the MotionPlus is used\&. \fP"
+.ti -1c
+.RI "#define \fBWIIMOTE_STATE_SPEAKER_MUTE\fP   0x20000"
+.br
+.RI "\fISpeaker Mute\&. \fP"
+.ti -1c
+.RI "#define \fBWIIMOTE_INIT_STATES\fP   (WIIMOTE_STATE_IR_SENS_LVL3)"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_IS_SET\fP(wm, s)   ((wm->state & (s)) == (s))"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_ENABLE_STATE\fP(wm, s)   (wm->state |= (s))"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_DISABLE_STATE\fP(wm, s)   (wm->state &= ~(s))"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_TOGGLE_STATE\fP(wm, s)   ((wm->state & (s)) ? WIIMOTE_DISABLE_STATE(wm, s) : WIIMOTE_ENABLE_STATE(wm, s))"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_IS_FLAG_SET\fP(wm, s)   ((wm->flags & (s)) == (s))"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_ENABLE_FLAG\fP(wm, s)   (wm->flags |= (s))"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_DISABLE_FLAG\fP(wm, s)   (wm->flags &= ~(s))"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_TOGGLE_FLAG\fP(wm, s)   ((wm->flags & (s)) ? WIIMOTE_DISABLE_FLAG(wm, s) : WIIMOTE_ENABLE_FLAG(wm, s))"
+.br
+.ti -1c
+.RI "#define \fBNUNCHUK_IS_FLAG_SET\fP(wm, s)   ((*(wm->flags) & (s)) == (s))"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_ID\fP(wm)   (wm->unid)"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_IS_CONNECTED\fP(wm)   (WIIMOTE_IS_SET(wm, WIIMOTE_STATE_CONNECTED))"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_LED_NONE\fP   0x00"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_LED_1\fP   0x10"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_LED_2\fP   0x20"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_LED_3\fP   0x40"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_LED_4\fP   0x80"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_BUTTON_TWO\fP   0x0001"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_BUTTON_ONE\fP   0x0002"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_BUTTON_B\fP   0x0004"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_BUTTON_A\fP   0x0008"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_BUTTON_MINUS\fP   0x0010"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_BUTTON_ZACCEL_BIT6\fP   0x0020"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_BUTTON_ZACCEL_BIT7\fP   0x0040"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_BUTTON_HOME\fP   0x0080"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_BUTTON_LEFT\fP   0x0100"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_BUTTON_RIGHT\fP   0x0200"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_BUTTON_DOWN\fP   0x0400"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_BUTTON_UP\fP   0x0800"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_BUTTON_PLUS\fP   0x1000"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_BUTTON_ZACCEL_BIT4\fP   0x2000"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_BUTTON_ZACCEL_BIT5\fP   0x4000"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_BUTTON_UNKNOWN\fP   0x8000"
+.br
+.ti -1c
+.RI "#define \fBWIIMOTE_BUTTON_ALL\fP   0x1F9F"
+.br
+.ti -1c
+.RI "#define \fBNUNCHUK_BUTTON_Z\fP   0x01"
+.br
+.ti -1c
+.RI "#define \fBNUNCHUK_BUTTON_C\fP   0x02"
+.br
+.ti -1c
+.RI "#define \fBNUNCHUK_BUTTON_ALL\fP   0x03"
+.br
+.ti -1c
+.RI "#define \fBCLASSIC_CTRL_BUTTON_UP\fP   0x0001"
+.br
+.ti -1c
+.RI "#define \fBCLASSIC_CTRL_BUTTON_LEFT\fP   0x0002"
+.br
+.ti -1c
+.RI "#define \fBCLASSIC_CTRL_BUTTON_ZR\fP   0x0004"
+.br
+.ti -1c
+.RI "#define \fBCLASSIC_CTRL_BUTTON_X\fP   0x0008"
+.br
+.ti -1c
+.RI "#define \fBCLASSIC_CTRL_BUTTON_A\fP   0x0010"
+.br
+.ti -1c
+.RI "#define \fBCLASSIC_CTRL_BUTTON_Y\fP   0x0020"
+.br
+.ti -1c
+.RI "#define \fBCLASSIC_CTRL_BUTTON_B\fP   0x0040"
+.br
+.ti -1c
+.RI "#define \fBCLASSIC_CTRL_BUTTON_ZL\fP   0x0080"
+.br
+.ti -1c
+.RI "#define \fBCLASSIC_CTRL_BUTTON_FULL_R\fP   0x0200"
+.br
+.ti -1c
+.RI "#define \fBCLASSIC_CTRL_BUTTON_PLUS\fP   0x0400"
+.br
+.ti -1c
+.RI "#define \fBCLASSIC_CTRL_BUTTON_HOME\fP   0x0800"
+.br
+.ti -1c
+.RI "#define \fBCLASSIC_CTRL_BUTTON_MINUS\fP   0x1000"
+.br
+.ti -1c
+.RI "#define \fBCLASSIC_CTRL_BUTTON_FULL_L\fP   0x2000"
+.br
+.ti -1c
+.RI "#define \fBCLASSIC_CTRL_BUTTON_DOWN\fP   0x4000"
+.br
+.ti -1c
+.RI "#define \fBCLASSIC_CTRL_BUTTON_RIGHT\fP   0x8000"
+.br
+.ti -1c
+.RI "#define \fBCLASSIC_CTRL_BUTTON_ALL\fP   0xFEFF"
+.br
+.ti -1c
+.RI "#define \fBGUITAR_HERO_3_BUTTON_STRUM_UP\fP   0x0001"
+.br
+.ti -1c
+.RI "#define \fBGUITAR_HERO_3_BUTTON_YELLOW\fP   0x0008"
+.br
+.ti -1c
+.RI "#define \fBGUITAR_HERO_3_BUTTON_GREEN\fP   0x0010"
+.br
+.ti -1c
+.RI "#define \fBGUITAR_HERO_3_BUTTON_BLUE\fP   0x0020"
+.br
+.ti -1c
+.RI "#define \fBGUITAR_HERO_3_BUTTON_RED\fP   0x0040"
+.br
+.ti -1c
+.RI "#define \fBGUITAR_HERO_3_BUTTON_ORANGE\fP   0x0080"
+.br
+.ti -1c
+.RI "#define \fBGUITAR_HERO_3_BUTTON_PLUS\fP   0x0400"
+.br
+.ti -1c
+.RI "#define \fBGUITAR_HERO_3_BUTTON_MINUS\fP   0x1000"
+.br
+.ti -1c
+.RI "#define \fBGUITAR_HERO_3_BUTTON_STRUM_DOWN\fP   0x4000"
+.br
+.ti -1c
+.RI "#define \fBGUITAR_HERO_3_BUTTON_ALL\fP   0xFEFF"
+.br
+.ti -1c
+.RI "#define \fBWIIC_SMOOTHING\fP   0x01"
+.br
+.ti -1c
+.RI "#define \fBWIIC_CONTINUOUS\fP   0x04"
+.br
+.ti -1c
+.RI "#define \fBWIIC_ORIENT_THRESH\fP   0x04"
+.br
+.ti -1c
+.RI "#define \fBWIIC_INIT_FLAGS\fP   (WIIC_SMOOTHING | WIIC_ORIENT_THRESH)"
+.br
+.ti -1c
+.RI "#define \fBEXP_NONE\fP   0"
+.br
+.ti -1c
+.RI "#define \fBEXP_NUNCHUK\fP   1"
+.br
+.ti -1c
+.RI "#define \fBEXP_CLASSIC\fP   2"
+.br
+.ti -1c
+.RI "#define \fBEXP_GUITAR_HERO_3\fP   3"
+.br
+.ti -1c
+.RI "#define \fBEXP_MOTION_PLUS\fP   4"
+.br
+.ti -1c
+.RI "#define \fBEXP_BALANCE_BOARD\fP   5"
+.br
+.ti -1c
+.RI "#define \fBIS_PRESSED\fP(dev, button)   ((dev->btns & button) == button)"
+.br
+.RI "\fICheck if a button is pressed\&. \fP"
+.ti -1c
+.RI "#define \fBIS_HELD\fP(dev, button)   ((dev->btns_held & button) == button)"
+.br
+.RI "\fICheck if a button is being held\&. \fP"
+.ti -1c
+.RI "#define \fBIS_RELEASED\fP(dev, button)   ((dev->btns_released & button) == button)"
+.br
+.RI "\fICheck if a button is released on this event\&. \fP"
+.ti -1c
+.RI "#define \fBIS_JUST_PRESSED\fP(dev, button)   (\fBIS_PRESSED\fP(dev, button) && !\fBIS_HELD\fP(dev, button))"
+.br
+.RI "\fICheck if a button has just been pressed this event\&. \fP"
+.ti -1c
+.RI "#define \fBWIIC_GET_IR_SENSITIVITY\fP(wm, lvl)"
+.br
+.RI "\fIReturn the IR sensitivity level\&. \fP"
+.ti -1c
+.RI "#define \fBWIIC_USING_ACC\fP(wm)   ((wm->state & WIIMOTE_STATE_ACC) == WIIMOTE_STATE_ACC)"
+.br
+.ti -1c
+.RI "#define \fBWIIC_USING_EXP\fP(wm)   ((wm->state & WIIMOTE_STATE_EXP) == WIIMOTE_STATE_EXP)"
+.br
+.ti -1c
+.RI "#define \fBWIIC_USING_IR\fP(wm)   ((wm->state & WIIMOTE_STATE_IR) == WIIMOTE_STATE_IR)"
+.br
+.ti -1c
+.RI "#define \fBWIIC_USING_SPEAKER\fP(wm)   ((wm->state & WIIMOTE_STATE_SPEAKER) == WIIMOTE_STATE_SPEAKER)"
+.br
+.ti -1c
+.RI "#define \fBWIIC_SPEAKER_MUTED\fP(wm)   ((wm->state & \fBWIIMOTE_STATE_SPEAKER_MUTE\fP) == \fBWIIMOTE_STATE_SPEAKER_MUTE\fP)"
+.br
+.ti -1c
+.RI "#define \fBWIIC_USING_MOTION_PLUS\fP(wm)   ((wm->state & \fBWIIMOTE_STATE_MOTION_PLUS\fP) == \fBWIIMOTE_STATE_MOTION_PLUS\fP)"
+.br
+.ti -1c
+.RI "#define \fBWIIC_IS_LED_SET\fP(wm, num)   ((wm->leds & WIIMOTE_LED_##num) == WIIMOTE_LED_##num)"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef unsigned char \fBbyte\fP"
+.br
+.RI "\fITYPEDEFS\&. \fP"
+.ti -1c
+.RI "typedef char \fBsbyte\fP"
+.br
+.ti -1c
+.RI "typedef void(* \fBwiic_read_cb\fP )(struct \fBwiimote_t\fP *wm, \fBbyte\fP *data, unsigned short len)"
+.br
+.ti -1c
+.RI "typedef enum \fBaspect_t\fP \fBaspect_t\fP"
+.br
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fBaspect_t\fP { \fBWIIC_ASPECT_4_3\fP, \fBWIIC_ASPECT_16_9\fP, \fBWIIC_ASPECT_4_3\fP, \fBWIIC_ASPECT_16_9\fP }"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+WiiC macros and typedef\&. 
+
+Contains all the macros to manage the state of the Wiimote, its component, and other devices, as well as some useful typedef\&. This header is included in wiic\&.h\&. 
+.PP
+Definition in file \fBwiic_v1\&.1/src/wiic/wiic_macros\&.h\fP\&.
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define IS_HELD(dev, button)   ((dev->btns_held & button) == button)"
+
+.PP
+Check if a button is being held\&. \fBParameters:\fP
+.RS 4
+\fIdev\fP Pointer to a \fBwiimote_t\fP or expansion structure\&. 
+.br
+\fIbutton\fP The button you are interested in\&. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+1 if the button is held, 0 if not\&. 
+.RE
+.PP
+
+.PP
+Definition at line 170 of file wiic_v1\&.1/src/wiic/wiic_macros\&.h\&.
+.SS "#define IS_JUST_PRESSED(dev, button)   (\fBIS_PRESSED\fP(dev, button) && !\fBIS_HELD\fP(dev, button))"
+
+.PP
+Check if a button has just been pressed this event\&. \fBParameters:\fP
+.RS 4
+\fIdev\fP Pointer to a \fBwiimote_t\fP or expansion structure\&. 
+.br
+\fIbutton\fP The button you are interested in\&. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+1 if the button is pressed, 0 if not\&. 
+.RE
+.PP
+
+.PP
+Definition at line 189 of file wiic_v1\&.1/src/wiic/wiic_macros\&.h\&.
+.SS "#define IS_PRESSED(dev, button)   ((dev->btns & button) == button)"
+
+.PP
+Check if a button is pressed\&. \fBParameters:\fP
+.RS 4
+\fIdev\fP Pointer to a \fBwiimote_t\fP or expansion structure\&. 
+.br
+\fIbutton\fP The button you are interested in\&. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+1 if the button is pressed, 0 if not\&. 
+.RE
+.PP
+
+.PP
+Definition at line 162 of file wiic_v1\&.1/src/wiic/wiic_macros\&.h\&.
+.SS "#define IS_RELEASED(dev, button)   ((dev->btns_released & button) == button)"
+
+.PP
+Check if a button is released on this event\&. .PP
+.nf
+                \n\n
+    This does not mean the button is not pressed, it means      \n
+    this button was just now released.
+.fi
+.PP
+ 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdev\fP Pointer to a \fBwiimote_t\fP or expansion structure\&. 
+.br
+\fIbutton\fP The button you are interested in\&. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+1 if the button is released, 0 if not\&. 
+.RE
+.PP
+
+.PP
+Definition at line 181 of file wiic_v1\&.1/src/wiic/wiic_macros\&.h\&.
+.SS "#define WIIC_GET_IR_SENSITIVITY(wm, lvl)"
+\fBValue:\fP
+.PP
+.nf
+do {                                                       \
+                if ((wm->state & WIIMOTE_STATE_IR_SENS_LVL1) == WIIMOTE_STATE_IR_SENS_LVL1)         *lvl = 1;   \
+                else if ((wm->state & WIIMOTE_STATE_IR_SENS_LVL2) == WIIMOTE_STATE_IR_SENS_LVL2)    *lvl = 2;   \
+                else if ((wm->state & WIIMOTE_STATE_IR_SENS_LVL3) == WIIMOTE_STATE_IR_SENS_LVL3)    *lvl = 3;   \
+                else if ((wm->state & WIIMOTE_STATE_IR_SENS_LVL4) == WIIMOTE_STATE_IR_SENS_LVL4)    *lvl = 4;   \
+                else if ((wm->state & WIIMOTE_STATE_IR_SENS_LVL5) == WIIMOTE_STATE_IR_SENS_LVL5)    *lvl = 5;   \
+                else                                    *lvl = 0;       \
+            } while (0)
+.fi
+.PP
+Return the IR sensitivity level\&. \fBParameters:\fP
+.RS 4
+\fIwm\fP Pointer to a \fBwiimote_t\fP structure\&. 
+.br
+\fIlvl\fP [out] Pointer to an int that will hold the level setting\&. If no level is set 'lvl' will be set to 0\&. 
+.RE
+.PP
+
+.PP
+Definition at line 197 of file wiic_v1\&.1/src/wiic/wiic_macros\&.h\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for OpenGL Flythrough from the source code\&.

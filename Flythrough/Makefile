@@ -4,6 +4,15 @@
 # Adapted from My Generic Makefile,
 # Written September 20, 2011
 # Modified November 27, 2012
+#
+# Known bugs: Dependencies for .cpp files outside of the base directory
+# Are not properly considered when rebuilding. Fresh builds appear to be OK.
+#
+# This is due to the fact that the generated .d files, while generating 
+# correct relative paths in the dependency list,
+# Does not correctly write the relative path of the target.
+# 
+# I.e, the target "Cameras.o: ...deplist..." should be "../Classes/Cameras.o: ...deplist...".
 
 ifndef RELDIR
 	RELDIR=..
@@ -17,14 +26,21 @@ EXT=cpp
 CC=g++
 CFLAGS=-Wall -pedantic -ggdb -I $(RELDIR)/include -I/usr/local/include/wiic -O2 
 EXECS=fly
-SOURCES=fly.cpp model.cpp $(CLASSES_DIR)/Camera.cpp $(CLASSES_DIR)/vec.cpp $(CLASSES_DIR)/mat.cpp $(COMMON_DIR)/InitShader.cpp $(CLASSES_DIR)/Cameras.cpp
+SOURCES=fly.cpp \
+	model.cpp \
+	$(CLASSES_DIR)/Camera.cpp \
+	$(CLASSES_DIR)/vec.cpp \
+	$(CLASSES_DIR)/mat.cpp \
+	$(COMMON_DIR)/InitShader.cpp \
+	$(CLASSES_DIR)/Cameras.cpp \
+	$(COMMON_DIR)/Wii.cpp
 OBJS=$(subst .$(EXT),.o,$(SOURCES))
 DEPS=$(subst .$(EXT),.d,$(SOURCES))
 ifeq ($(UNAME), Linux)
 LDFLAGS= -lGL -lGLU -lGLEW -lglut -lXmu -lX11 -lm -lwiic -lwiicpp
 endif
 ifeq ($(UNAME), Darwin)
-LDFLAGS= -framework Carbon -framework OpenGL -framework GLUT
+LDFLAGS= -framework Carbon -framework OpenGL -framework GLUT -lwiic -lwiicpp
 endif
 ifdef POSTMULT
 	CFLAGS += -DPOSTMULT
@@ -70,3 +86,6 @@ realclean: clean
 .PHONY: docs
 docs: $(SOURCES) $(RELDIR)/Doxygen/Doxyfile
 	cd $(RELDIR)/Doxygen; doxygen
+
+print-%:
+	@echo $* = $($*)
