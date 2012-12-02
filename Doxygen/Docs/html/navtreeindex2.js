@@ -1,5 +1,6 @@
 var NAVTREEINDEX2 =
 {
+"class_c_i_r.html#afd0f42f03533f56f9516e6521cdbe738":[1,0,19,18],
 "class_c_i_r_dot.html":[1,0,20],
 "class_c_i_r_dot.html#a00e386ce0270870f9e1a96515c58e2dd":[1,0,20,16],
 "class_c_i_r_dot.html#a1eee8cc3c7dcdb20c0e73792386bb215":[1,0,20,6],
@@ -248,6 +249,5 @@ var NAVTREEINDEX2 =
 "class_c_wiimote.html#a999a0de6183d8abc02228dbb9b9d1350a681de1a093d6c64532f5ec60682d92e9":[1,0,28,0,20],
 "class_c_wiimote.html#a999a0de6183d8abc02228dbb9b9d1350a681de1a093d6c64532f5ec60682d92e9":[1,0,28,1,3],
 "class_c_wiimote.html#a999a0de6183d8abc02228dbb9b9d1350a681de1a093d6c64532f5ec60682d92e9":[1,0,28,1,20],
-"class_c_wiimote.html#a999a0de6183d8abc02228dbb9b9d1350a87da3b80bf275ae3a646286610ed2ac1":[1,0,28,0,14],
-"class_c_wiimote.html#a999a0de6183d8abc02228dbb9b9d1350a87da3b80bf275ae3a646286610ed2ac1":[1,0,28,0,31]
+"class_c_wiimote.html#a999a0de6183d8abc02228dbb9b9d1350a87da3b80bf275ae3a646286610ed2ac1":[1,0,28,0,14]
 };

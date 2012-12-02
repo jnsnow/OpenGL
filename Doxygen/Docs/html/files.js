@@ -35,7 +35,6 @@ var files =
     [ "wiic_v1.1/src/bin/example.c", "wiic__v1_81_2src_2bin_2example_8c.html", "wiic__v1_81_2src_2bin_2example_8c" ],
     [ "wiic_r90/src/bin/example.cpp", "wiic__r90_2src_2bin_2example_8cpp_source.html", null ],
     [ "wiic_v1.1/src/bin/example.cpp", "wiic__v1_81_2src_2bin_2example_8cpp_source.html", null ],
-    [ "Wiitest/example.cpp", "_wiitest_2example_8cpp_source.html", null ],
     [ "fly.cpp", "fly_8cpp_source.html", null ],
     [ "fly.d", "fly_8d_source.html", null ],
     [ "globals.h", "globals_8h_source.html", null ],
@@ -108,7 +107,6 @@ var files =
     [ "vec.cpp", "vec_8cpp_source.html", null ],
     [ "vec.d", "vec_8d_source.html", null ],
     [ "vec.hpp", "vec_8hpp_source.html", null ],
-    [ "Wii.cpp", "_wii_8cpp_source.html", null ],
     [ "wiic_r90/src/wiic/wiic.c", "wiic__r90_2src_2wiic_2wiic_8c.html", "wiic__r90_2src_2wiic_2wiic_8c" ],
     [ "wiic_v1.1/src/wiic/wiic.c", "wiic__v1_81_2src_2wiic_2wiic_8c.html", "wiic__v1_81_2src_2wiic_2wiic_8c" ],
     [ "wiic_r90/src/wiic/wiic.h", "wiic__r90_2src_2wiic_2wiic_8h.html", "wiic__r90_2src_2wiic_2wiic_8h" ],
@@ -126,5 +124,8 @@ var files =
     [ "wiic_r90/src/wiicpp/wiicpp.cpp", "wiic__r90_2src_2wiicpp_2wiicpp_8cpp_source.html", null ],
     [ "wiic_v1.1/src/wiicpp/wiicpp.cpp", "wiic__v1_81_2src_2wiicpp_2wiicpp_8cpp_source.html", null ],
     [ "wiic_r90/src/wiicpp/wiicpp.h", "wiic__r90_2src_2wiicpp_2wiicpp_8h_source.html", null ],
-    [ "wiic_v1.1/src/wiicpp/wiicpp.h", "wiic__v1_81_2src_2wiicpp_2wiicpp_8h_source.html", null ]
+    [ "wiic_v1.1/src/wiicpp/wiicpp.h", "wiic__v1_81_2src_2wiicpp_2wiicpp_8h_source.html", null ],
+    [ "WiiUtil.cpp", "_wii_util_8cpp_source.html", null ],
+    [ "WiiUtil.d", "_wii_util_8d_source.html", null ],
+    [ "WiiUtil.h", "_wii_util_8h_source.html", null ]
 ];

@@ -1,5 +1,8 @@
 var NAVTREEINDEX4 =
 {
+"class_logger.html":[1,0,40],
+"class_logger.html#a17657ebe893d22cf1052448785123651":[1,0,40,4],
+"class_logger.html#a1f167002b52baf4d1fdd4c996524ee84":[1,0,40,20],
 "class_logger.html#a221bdfa77db049b43ee048d0c17abcce":[1,0,40,12],
 "class_logger.html#a28e321ba8244aa0f18433f8088502512":[1,0,40,23],
 "class_logger.html#a2b697478ebf7af4cc87cd874a1da740c":[1,0,40,15],
@@ -202,8 +205,8 @@ var NAVTREEINDEX4 =
 "class_training.html#af98b1bc7ed710e2fa008a72ad29dbdae":[1,0,50,2],
 "classes.html":[1,1],
 "files.html":[2,0],
-"fly_8cpp_source.html":[2,0,36],
-"fly_8d_source.html":[2,0,37],
+"fly_8cpp_source.html":[2,0,35],
+"fly_8d_source.html":[2,0,36],
 "functions.html":[1,3,0],
 "functions_enum.html":[1,3,3],
 "functions_func.html":[1,3,1],
@@ -224,11 +227,11 @@ var NAVTREEINDEX4 =
 "globals_0x72.html":[2,1,0,12],
 "globals_0x73.html":[2,1,0,13],
 "globals_0x77.html":[2,1,0,14],
-"globals_8h_source.html":[2,0,38],
+"globals_8h_source.html":[2,0,37],
 "globals_defs.html":[2,1,4],
 "globals_enum.html":[2,1,3],
-"globals_func.html":[2,1,1,0],
 "globals_func.html":[2,1,1],
+"globals_func.html":[2,1,1,0],
 "globals_func_0x62.html":[2,1,1,1],
 "globals_func_0x63.html":[2,1,1,2],
 "globals_func_0x64.html":[2,1,1,3],
@@ -244,10 +247,7 @@ var NAVTREEINDEX4 =
 "globals_func_0x73.html":[2,1,1,13],
 "globals_func_0x77.html":[2,1,1,14],
 "globals_type.html":[2,1,2],
-"gyrosample_8cpp_source.html":[2,0,43],
-"gyrosample_8h_source.html":[2,0,44],
-"hierarchy.html":[1,2],
-"index.html":[],
-"index.html":[0],
-"interface_wii_connect.html":[1,0,55]
+"gyrosample_8cpp_source.html":[2,0,42],
+"gyrosample_8h_source.html":[2,0,43],
+"hierarchy.html":[1,2]
 };

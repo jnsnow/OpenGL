@@ -9,6 +9,7 @@ var searchData=
   ['vec4',['vec4',['../struct_angel_1_1vec4.html',1,'Angel']]],
   ['vel',['vel',['../structvel__t.html#a76865c7b30e92bcae2097ec2b46aa692',1,'vel_t']]],
   ['vel_5ft',['vel_t',['../structvel__t.html',1,'']]],
+  ['velocity',['velocity',['../class_camera.html#a5b95c890f213db50f321380108b17ea1',1,'Camera']]],
   ['view_5ftype',['view_type',['../class_camera.html#afdccec6d447490dcc80ab6b99f21d0e5',1,'Camera']]],
   ['visible',['visible',['../structir__dot__t.html#a80221d94f19596c20184f0fa81e492e7',1,'ir_dot_t']]],
   ['vres',['vres',['../structir__t.html#a2bb674ce8596a9b2ab69d311253db61a',1,'ir_t']]]

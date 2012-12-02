@@ -30,15 +30,15 @@ var NAVTREEINDEX =
 [
 ".html",
 "class_c_classic_buttons.html#aaceefe20ed0d4ac86741cad96078b6c9a02e8569f063a97cd442d9919a247adaa",
-"class_c_i_r_dot.html",
+"class_c_i_r.html#afd0f42f03533f56f9516e6521cdbe738",
 "class_c_wiimote.html#a999a0de6183d8abc02228dbb9b9d1350a87da3b80bf275ae3a646286610ed2ac1",
-"class_logger.html#a221bdfa77db049b43ee048d0c17abcce",
-"interface_wii_connect.html#a26884a3572482e8b5de501fec7711251",
-"structnunchuk__t.html#a0205fe5e81c5f12600488fa3c32ef36b",
-"wiic__r90_2src_2wiic_2ir_8h.html#a6fddbe2149000d6a60f8d3236871a182",
-"wiic__r90_2src_2wiic_2wiic__macros_8h.html#a6081736c363aa8ca18345019a907b882",
-"wiic__v1_81_2src_2wiic_2io_8h.html#ae8eaa1bcf927a5aa1176cc8f40c201b6",
-"wiic__v1_81_2src_2wiic_2wiic__macros_8h.html#a26f15633eeb25c7e92210a2624c66526"
+"class_logger.html",
+"index.html",
+"structmotion__plus__t.html#ad362463fe5f487117f3407491385ee0a",
+"wiic__r90_2src_2wiic_2ir_8c_source.html",
+"wiic__r90_2src_2wiic_2wiic__macros_8h.html#a552b150ea306a2ab8138be0cefc5d6d4",
+"wiic__v1_81_2src_2wiic_2io_8h.html",
+"wiic__v1_81_2src_2wiic_2wiic__macros_8h.html#a24d8aa06031742e1f8343c0939d1845a"
 ];
 
 var navTreeSubIndices = new Array();

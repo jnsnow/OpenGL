@@ -178,19 +178,18 @@ $(document).ready(function(){initNavTree('_cameras_8cpp_source.html','');});
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<a class="code" href="class_camera.html" title="The Camera class represents a logical camera in a model view, which posesses a current viewing angle ...">Camera</a> &amp;Cameras::Active( <span class="keywordtype">size_t</span> n ) {</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  <span class="keywordflow">if</span> (n &lt; camList.size()) {</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    std::cerr &lt;&lt; <span class="stringliteral">&quot;Switching from camera #&quot;</span> &lt;&lt; activeCamera &lt;&lt; <span class="stringliteral">&quot; to camera #&quot;</span> &lt;&lt; n &lt;&lt; <span class="stringliteral">&quot;.\n&quot;</span>;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    activeCamera = n;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  } </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  camList[activeCamera].send( Camera::CTM );</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  <span class="keywordflow">return</span> Active();</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;}</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    activeCamera = n;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  } </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  camList[activeCamera].send( Camera::CTM );</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  <span class="keywordflow">return</span> Active();</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_0c68614ac8d8401edbf4146ded722294.html">Classes</a></li><li class="navelem"><b>Cameras.cpp</b></li>
-    <li class="footer">Generated on Fri Nov 30 2012 23:23:59 for OpenGL Flythrough by
+    <li class="footer">Generated on Sat Dec 1 2012 19:54:39 for OpenGL Flythrough by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.1.2 </li>
   </ul>

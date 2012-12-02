@@ -104,6 +104,8 @@ void \hyperlink{class_camera_adf064f765f610684e0675bd67de013fd}{Stop} (const \hy
 \begin{DoxyCompactList}\small\item\em Stop instructs the camera to stop moving in the specified direction. \end{DoxyCompactList}\item 
 void \hyperlink{class_camera_aec3559fe43597656629fdb00157d3c73}{Idle} (void)
 \begin{DoxyCompactList}\small\item\em Idle moves the camera forward in whichever directions it is configured to move in. \end{DoxyCompactList}\item 
+void \hyperlink{class_camera_ad666b5d70a00a0116100bce3d01471bf}{Accel} (const \hyperlink{struct_angel_1_1vec2}{vec2} \&accel)
+\begin{DoxyCompactList}\small\item\em Accel takes an input vec2 which represents an acceleration, and applies it to the motion vectors with regards to the maximum acceleration and the maximum speed of the camera. \end{DoxyCompactList}\item 
 float \hyperlink{class_camera_a2f7fd64d5d6e0dfb5edcca53c7d15994}{X} (void) const 
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_camera_a2f7fd64d5d6e0dfb5edcca53c7d15994}{X()} returns the current position of the camera in model coordinates. \end{DoxyCompactList}\item 
 float \hyperlink{class_camera_a37529ef93871f547ebfd5862bc6cce62}{Y} (void) const 
@@ -147,15 +149,19 @@ void \hyperlink{class_camera_a7ffc3619f9a5d8e586cb3d96ebdd3188}{adjust\-Rotation
 \hypertarget{class_camera_a1fe2ef68d26bb98f0aa736948304eb64}{\hyperlink{class_camera_afdccec6d447490dcc80ab6b99f21d0e5}{view\-\_\-type} {\bfseries curr\-View}}\label{class_camera_a1fe2ef68d26bb98f0aa736948304eb64}
 
 \item 
-\hypertarget{class_camera_a308e92b5d3ef0eea5cac7745df6e28f4}{G\-Lfloat \hyperlink{class_camera_a308e92b5d3ef0eea5cac7745df6e28f4}{speed}}\label{class_camera_a308e92b5d3ef0eea5cac7745df6e28f4}
+G\-Lfloat \hyperlink{class_camera_a308e92b5d3ef0eea5cac7745df6e28f4}{speed}
+\begin{DoxyCompactList}\small\item\em Current Speed of camera motion. \end{DoxyCompactList}\item 
+\hyperlink{struct_angel_1_1vec3}{vec3} \hyperlink{class_camera_a5b95c890f213db50f321380108b17ea1}{velocity}
+\begin{DoxyCompactList}\small\item\em Current Velocity of camera motion. \end{DoxyCompactList}\item 
+\hypertarget{class_camera_aa075ae6872228fc4db892533d9f6d881}{G\-Lfloat \hyperlink{class_camera_aa075ae6872228fc4db892533d9f6d881}{speed\-\_\-cap}}\label{class_camera_aa075ae6872228fc4db892533d9f6d881}
 
-\begin{DoxyCompactList}\small\item\em Current speed of camera motion. \end{DoxyCompactList}\item 
-G\-Lfloat \hyperlink{class_camera_a2bc7ca6d5ed3d448033ad78cc4b1db5c}{max\-Speed}
-\begin{DoxyCompactList}\small\item\em Upper-\/bound for absolute speed. \end{DoxyCompactList}\item 
-G\-Lfloat \hyperlink{class_camera_a51544ca5c398070f7d4e1b395b74d91d}{accel}
-\begin{DoxyCompactList}\small\item\em Current acceleration. \end{DoxyCompactList}\item 
-G\-Lfloat \hyperlink{class_camera_af45694594a06b3d8e4d7044955e489cf}{max\-Accel}
-\begin{DoxyCompactList}\small\item\em Maximum acceleration. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Current Speed Capacity\-: (speed/\-Max\-Speed) \end{DoxyCompactList}\item 
+\hypertarget{class_camera_a7817b2e83ad8f783e2822ec7771c6fe9}{G\-Lfloat \hyperlink{class_camera_a7817b2e83ad8f783e2822ec7771c6fe9}{Max\-Accel}}\label{class_camera_a7817b2e83ad8f783e2822ec7771c6fe9}
+
+\begin{DoxyCompactList}\small\item\em Maximum Acceleration Magnitude. \end{DoxyCompactList}\item 
+\hypertarget{class_camera_a4e6866298a8e7a1ff2f529202892958e}{G\-Lfloat \hyperlink{class_camera_a4e6866298a8e7a1ff2f529202892958e}{Max\-Speed}}\label{class_camera_a4e6866298a8e7a1ff2f529202892958e}
+
+\begin{DoxyCompactList}\small\item\em Maximum Speed. \end{DoxyCompactList}\item 
 G\-Lfloat \hyperlink{class_camera_acc8b97facc57059530efad534c2f8314}{fovy}
 \begin{DoxyCompactList}\small\item\em Current field-\/of-\/view angle for perspective view. \end{DoxyCompactList}\item 
 bool \hyperlink{class_camera_a39746b4fadf30bba6bdc8aa6acfdc6f2}{Motion} \mbox{[}Camera\-::\-End\mbox{]}
@@ -177,7 +183,7 @@ Functions are provided to adjust the rotation according to \hyperlink{class_came
 
 \hyperlink{class_camera_a421e03f93824e178d6e77ff547cd290e}{Move()}, \hyperlink{class_camera_adf064f765f610684e0675bd67de013fd}{Stop()}, and \hyperlink{class_camera_aec3559fe43597656629fdb00157d3c73}{Idle()} are provided to help the camera automatically move along the X, Y, or Z axes. 
 
-Definition at line 29 of file Camera.\-hpp.
+Definition at line 30 of file Camera.\-hpp.
 
 
 
@@ -191,7 +197,7 @@ The Direction enumeration lists all of the possible directions the camera may tr
 
 'Begin' and 'End' are special sentinel directions for the purposes of iteration, and are ignored by any functions that accept a Direction. 
 
-Definition at line 39 of file Camera.\-hpp.
+Definition at line 40 of file Camera.\-hpp.
 
 \hypertarget{class_camera_a6ff726a75a430e4f17e5dec42e4d4405}{\index{Camera@{Camera}!glsl\-\_\-var@{glsl\-\_\-var}}
 \index{glsl\-\_\-var@{glsl\-\_\-var}!Camera@{Camera}}
@@ -202,7 +208,7 @@ The glsl\-\_\-var enumeration lists the various variables the \hyperlink{class_c
 
 The Num\-Glsl\-Vars variable is a sentinel value that is ignored by any functions that accept a glsl\-\_\-var. 
 
-Definition at line 57 of file Camera.\-hpp.
+Definition at line 58 of file Camera.\-hpp.
 
 \hypertarget{class_camera_afdccec6d447490dcc80ab6b99f21d0e5}{\index{Camera@{Camera}!view\-\_\-type@{view\-\_\-type}}
 \index{view\-\_\-type@{view\-\_\-type}!Camera@{Camera}}
@@ -213,7 +219,7 @@ The view\-\_\-type enumeration lists the various possibilities for the current v
 
 The default is P\-E\-R\-S\-P\-E\-C\-T\-I\-V\-E. 
 
-Definition at line 70 of file Camera.\-hpp.
+Definition at line 71 of file Camera.\-hpp.
 
 
 
@@ -242,7 +248,7 @@ Initialization Constructor; sets the X,Y,Z coordinates explicitly.
 \end{DoxyParams}
 
 
-Definition at line 27 of file Camera.\-cpp.
+Definition at line 31 of file Camera.\-cpp.
 
 \hypertarget{class_camera_a388c39247312dc6850b2d1b007efb423}{\index{Camera@{Camera}!Camera@{Camera}}
 \index{Camera@{Camera}!Camera@{Camera}}
@@ -262,7 +268,7 @@ Initialization Constructor, uses a vec3 as its initial coordinates.
 \end{DoxyParams}
 
 
-Definition at line 39 of file Camera.\-cpp.
+Definition at line 43 of file Camera.\-cpp.
 
 \hypertarget{class_camera_a30b637b0e81821106c16a8a299d24d3f}{\index{Camera@{Camera}!Camera@{Camera}}
 \index{Camera@{Camera}!Camera@{Camera}}
@@ -282,7 +288,7 @@ Initialization Constructor, uses a vec4 as its initial coordinates.
 \end{DoxyParams}
 
 
-Definition at line 50 of file Camera.\-cpp.
+Definition at line 54 of file Camera.\-cpp.
 
 \hypertarget{class_camera_a06211f202c145b3ec8253f96e1e654a6}{\index{Camera@{Camera}!$\sim$\-Camera@{$\sim$\-Camera}}
 \index{$\sim$\-Camera@{$\sim$\-Camera}!Camera@{Camera}}
@@ -297,11 +303,34 @@ Default destructor.
 
 Nothing of note. 
 
-Definition at line 60 of file Camera.\-cpp.
+Definition at line 64 of file Camera.\-cpp.
 
 
 
 \subsection{Member Function Documentation}
+\hypertarget{class_camera_ad666b5d70a00a0116100bce3d01471bf}{\index{Camera@{Camera}!Accel@{Accel}}
+\index{Accel@{Accel}!Camera@{Camera}}
+\subsubsection[{Accel}]{\setlength{\rightskip}{0pt plus 5cm}void Camera\-::\-Accel (
+\begin{DoxyParamCaption}
+\item[{const {\bf vec2} \&}]{raw\-\_\-accel}
+\end{DoxyParamCaption}
+)}}\label{class_camera_ad666b5d70a00a0116100bce3d01471bf}
+
+
+Accel takes an input vec2 which represents an acceleration, and applies it to the motion vectors with regards to the maximum acceleration and the maximum speed of the camera. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em accel} & The vec2 which represents the (x,y) accel, where x,y are \mbox{[}-\/1,1\mbox{]}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Void. 
+\end{DoxyReturn}
+
+
+Definition at line 337 of file Camera.\-cpp.
+
 \hypertarget{class_camera_a7ffc3619f9a5d8e586cb3d96ebdd3188}{\index{Camera@{Camera}!adjust\-Rotation@{adjust\-Rotation}}
 \index{adjust\-Rotation@{adjust\-Rotation}!Camera@{Camera}}
 \subsubsection[{adjust\-Rotation}]{\setlength{\rightskip}{0pt plus 5cm}void Camera\-::adjust\-Rotation (
@@ -323,7 +352,7 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line 216 of file Camera.\-cpp.
+Definition at line 220 of file Camera.\-cpp.
 
 \hypertarget{class_camera_ad388a5f75af8f2289447b716c8c839ff}{\index{Camera@{Camera}!change\-Perspective@{change\-Perspective}}
 \index{change\-Perspective@{change\-Perspective}!Camera@{Camera}}
@@ -346,7 +375,7 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line 420 of file Camera.\-cpp.
+Definition at line 467 of file Camera.\-cpp.
 
 \hypertarget{class_camera_a55355b3376d195b17adcc6a5b72ae07b}{\index{Camera@{Camera}!d\-F\-O\-V@{d\-F\-O\-V}}
 \index{d\-F\-O\-V@{d\-F\-O\-V}!Camera@{Camera}}
@@ -369,7 +398,7 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line 451 of file Camera.\-cpp.
+Definition at line 498 of file Camera.\-cpp.
 
 \hypertarget{class_camera_a2ac5f89b4f9f012dead66980925143c0}{\index{Camera@{Camera}!d\-Pos@{d\-Pos}}
 \index{d\-Pos@{d\-Pos}!Camera@{Camera}}
@@ -398,7 +427,7 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line 181 of file Camera.\-cpp.
+Definition at line 185 of file Camera.\-cpp.
 
 \hypertarget{class_camera_a928de59670f0b31264307a8a0888b99d}{\index{Camera@{Camera}!d\-Pos@{d\-Pos}}
 \index{d\-Pos@{d\-Pos}!Camera@{Camera}}
@@ -421,7 +450,7 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line 195 of file Camera.\-cpp.
+Definition at line 199 of file Camera.\-cpp.
 
 \hypertarget{class_camera_a4ec2e3d2a66826aedb1ac1eee7da0b96}{\index{Camera@{Camera}!d\-Pos@{d\-Pos}}
 \index{d\-Pos@{d\-Pos}!Camera@{Camera}}
@@ -444,7 +473,7 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line 205 of file Camera.\-cpp.
+Definition at line 209 of file Camera.\-cpp.
 
 \hypertarget{class_camera_ac7985a6cb48f4e1e74fda17e5213dd74}{\index{Camera@{Camera}!d\-X@{d\-X}}
 \index{d\-X@{d\-X}!Camera@{Camera}}
@@ -470,7 +499,7 @@ void.
 \end{DoxyReturn}
 
 
-Definition at line 145 of file Camera.\-cpp.
+Definition at line 149 of file Camera.\-cpp.
 
 \hypertarget{class_camera_a59570a88e3ff2d277c9e995372fcadfe}{\index{Camera@{Camera}!d\-Y@{d\-Y}}
 \index{d\-Y@{d\-Y}!Camera@{Camera}}
@@ -496,7 +525,7 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line 157 of file Camera.\-cpp.
+Definition at line 161 of file Camera.\-cpp.
 
 \hypertarget{class_camera_ab94ed9b3c7e12f484d6bfa5f827b59ff}{\index{Camera@{Camera}!d\-Z@{d\-Z}}
 \index{d\-Z@{d\-Z}!Camera@{Camera}}
@@ -522,7 +551,7 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line 169 of file Camera.\-cpp.
+Definition at line 173 of file Camera.\-cpp.
 
 \hypertarget{class_camera_ac325bf616014d2e6023b84b6224630ac}{\index{Camera@{Camera}!F\-O\-V@{F\-O\-V}}
 \index{F\-O\-V@{F\-O\-V}!Camera@{Camera}}
@@ -545,7 +574,7 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line 408 of file Camera.\-cpp.
+Definition at line 455 of file Camera.\-cpp.
 
 \hypertarget{class_camera_a8817ea073431268d8c0e522cdc30026c}{\index{Camera@{Camera}!F\-O\-V@{F\-O\-V}}
 \index{F\-O\-V@{F\-O\-V}!Camera@{Camera}}
@@ -563,7 +592,7 @@ A float that is the y axis viewing angle.
 \end{DoxyReturn}
 
 
-Definition at line 399 of file Camera.\-cpp.
+Definition at line 446 of file Camera.\-cpp.
 
 \hypertarget{class_camera_a2148d751f104d8e39c9832e2372df2d9}{\index{Camera@{Camera}!heave@{heave}}
 \index{heave@{heave}!Camera@{Camera}}
@@ -586,7 +615,7 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line 273 of file Camera.\-cpp.
+Definition at line 277 of file Camera.\-cpp.
 
 \hypertarget{class_camera_aec3559fe43597656629fdb00157d3c73}{\index{Camera@{Camera}!Idle@{Idle}}
 \index{Idle@{Idle}!Camera@{Camera}}
@@ -604,7 +633,7 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line 353 of file Camera.\-cpp.
+Definition at line 383 of file Camera.\-cpp.
 
 \hypertarget{class_camera_ad02f12a279c33e7e85dcaf88830d38c7}{\index{Camera@{Camera}!link@{link}}
 \index{link@{link}!Camera@{Camera}}
@@ -633,7 +662,7 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line 497 of file Camera.\-cpp.
+Definition at line 544 of file Camera.\-cpp.
 
 \hypertarget{class_camera_a421e03f93824e178d6e77ff547cd290e}{\index{Camera@{Camera}!Move@{Move}}
 \index{Move@{Move}!Camera@{Camera}}
@@ -656,7 +685,7 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line 333 of file Camera.\-cpp.
+Definition at line 363 of file Camera.\-cpp.
 
 \hypertarget{class_camera_ade9b499340749c916d6ffeeadd7296d4}{\index{Camera@{Camera}!pitch@{pitch}}
 \index{pitch@{pitch}!Camera@{Camera}}
@@ -679,7 +708,7 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line 285 of file Camera.\-cpp.
+Definition at line 289 of file Camera.\-cpp.
 
 \hypertarget{class_camera_a432e03c15d63f8839fe4731016d907a4}{\index{Camera@{Camera}!pos@{pos}}
 \index{pos@{pos}!Camera@{Camera}}
@@ -711,7 +740,7 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line 107 of file Camera.\-cpp.
+Definition at line 111 of file Camera.\-cpp.
 
 \hypertarget{class_camera_ae9dc2206b71b25cf320a05d148cb8b56}{\index{Camera@{Camera}!pos@{pos}}
 \index{pos@{pos}!Camera@{Camera}}
@@ -737,7 +766,7 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line 133 of file Camera.\-cpp.
+Definition at line 137 of file Camera.\-cpp.
 
 \hypertarget{class_camera_aec2115038562e514193bb2b67f5da153}{\index{Camera@{Camera}!pos@{pos}}
 \index{pos@{pos}!Camera@{Camera}}
@@ -763,7 +792,7 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line 122 of file Camera.\-cpp.
+Definition at line 126 of file Camera.\-cpp.
 
 \hypertarget{class_camera_a9982ac5f48fe0af97fefa725080d6da6}{\index{Camera@{Camera}!pos@{pos}}
 \index{pos@{pos}!Camera@{Camera}}
@@ -781,7 +810,7 @@ A vec4 that represents the current camera coordinates.
 \end{DoxyReturn}
 
 
-Definition at line 392 of file Camera.\-cpp.
+Definition at line 439 of file Camera.\-cpp.
 
 \hypertarget{class_camera_a6a0a10b821c733f380cc82aff09d9498}{\index{Camera@{Camera}!roll@{roll}}
 \index{roll@{roll}!Camera@{Camera}}
@@ -804,7 +833,7 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line 322 of file Camera.\-cpp.
+Definition at line 326 of file Camera.\-cpp.
 
 \hypertarget{class_camera_a36cba68c08136242bf5d906f9c0b610c}{\index{Camera@{Camera}!send@{send}}
 \index{send@{send}!Camera@{Camera}}
@@ -827,7 +856,7 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line 461 of file Camera.\-cpp.
+Definition at line 508 of file Camera.\-cpp.
 
 \hypertarget{class_camera_adf064f765f610684e0675bd67de013fd}{\index{Camera@{Camera}!Stop@{Stop}}
 \index{Stop@{Stop}!Camera@{Camera}}
@@ -850,7 +879,7 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line 343 of file Camera.\-cpp.
+Definition at line 373 of file Camera.\-cpp.
 
 \hypertarget{class_camera_abb2251df65445bf8efd3fe0074fb5033}{\index{Camera@{Camera}!surge@{surge}}
 \index{surge@{surge}!Camera@{Camera}}
@@ -873,7 +902,7 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line 261 of file Camera.\-cpp.
+Definition at line 265 of file Camera.\-cpp.
 
 \hypertarget{class_camera_abbe6fe82ed05e64e35b0c4ed2001b34e}{\index{Camera@{Camera}!sway@{sway}}
 \index{sway@{sway}!Camera@{Camera}}
@@ -896,7 +925,7 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line 247 of file Camera.\-cpp.
+Definition at line 251 of file Camera.\-cpp.
 
 \hypertarget{class_camera_a7ff7cf14bee873ac6cda7b2e42a60358}{\index{Camera@{Camera}!X@{X}}
 \index{X@{X}!Camera@{Camera}}
@@ -922,7 +951,7 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line 69 of file Camera.\-cpp.
+Definition at line 73 of file Camera.\-cpp.
 
 \hypertarget{class_camera_a2f7fd64d5d6e0dfb5edcca53c7d15994}{\index{Camera@{Camera}!X@{X}}
 \index{X@{X}!Camera@{Camera}}
@@ -940,7 +969,7 @@ The current X coordinate of the camera in model coordinates.
 \end{DoxyReturn}
 
 
-Definition at line 371 of file Camera.\-cpp.
+Definition at line 418 of file Camera.\-cpp.
 
 \hypertarget{class_camera_a69af560bb7f85db3a5062d1a6b3927bf}{\index{Camera@{Camera}!Y@{Y}}
 \index{Y@{Y}!Camera@{Camera}}
@@ -966,7 +995,7 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line 81 of file Camera.\-cpp.
+Definition at line 85 of file Camera.\-cpp.
 
 \hypertarget{class_camera_a37529ef93871f547ebfd5862bc6cce62}{\index{Camera@{Camera}!Y@{Y}}
 \index{Y@{Y}!Camera@{Camera}}
@@ -984,7 +1013,7 @@ The current Y coordinate of the camera in model coordinates.
 \end{DoxyReturn}
 
 
-Definition at line 378 of file Camera.\-cpp.
+Definition at line 425 of file Camera.\-cpp.
 
 \hypertarget{class_camera_aea440eca8100cae6ffcc6ca915733795}{\index{Camera@{Camera}!yaw@{yaw}}
 \index{yaw@{yaw}!Camera@{Camera}}
@@ -1007,7 +1036,7 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line 304 of file Camera.\-cpp.
+Definition at line 308 of file Camera.\-cpp.
 
 \hypertarget{class_camera_a38438f8e2417a3a40eaad85d2ab344a9}{\index{Camera@{Camera}!Z@{Z}}
 \index{Z@{Z}!Camera@{Camera}}
@@ -1033,7 +1062,7 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line 93 of file Camera.\-cpp.
+Definition at line 97 of file Camera.\-cpp.
 
 \hypertarget{class_camera_abf1730e47e8e51c76acbddcaa85e2475}{\index{Camera@{Camera}!Z@{Z}}
 \index{Z@{Z}!Camera@{Camera}}
@@ -1051,22 +1080,11 @@ The current Z coordinate of the camera in model coordinates.
 \end{DoxyReturn}
 
 
-Definition at line 385 of file Camera.\-cpp.
+Definition at line 432 of file Camera.\-cpp.
 
 
 
 \subsection{Member Data Documentation}
-\hypertarget{class_camera_a51544ca5c398070f7d4e1b395b74d91d}{\index{Camera@{Camera}!accel@{accel}}
-\index{accel@{accel}!Camera@{Camera}}
-\subsubsection[{accel}]{\setlength{\rightskip}{0pt plus 5cm}G\-Lfloat Camera\-::accel\hspace{0.3cm}{\ttfamily [private]}}}\label{class_camera_a51544ca5c398070f7d4e1b395b74d91d}
-
-
-Current acceleration. 
-
-
-
-Definition at line 154 of file Camera.\-hpp.
-
 \hypertarget{class_camera_acc8b97facc57059530efad534c2f8314}{\index{Camera@{Camera}!fovy@{fovy}}
 \index{fovy@{fovy}!Camera@{Camera}}
 \subsubsection[{fovy}]{\setlength{\rightskip}{0pt plus 5cm}G\-Lfloat Camera\-::fovy\hspace{0.3cm}{\ttfamily [private]}}}\label{class_camera_acc8b97facc57059530efad534c2f8314}
@@ -1076,7 +1094,7 @@ Current field-\/of-\/view angle for perspective view.
 
 
 
-Definition at line 160 of file Camera.\-hpp.
+Definition at line 162 of file Camera.\-hpp.
 
 \hypertarget{class_camera_a1635486d7f9e0d52b241899a270ee335}{\index{Camera@{Camera}!glsl\-\_\-handles@{glsl\-\_\-handles}}
 \index{glsl\-\_\-handles@{glsl\-\_\-handles}!Camera@{Camera}}
@@ -1087,7 +1105,7 @@ Handles for communicating with the shader.
 
 
 
-Definition at line 166 of file Camera.\-hpp.
+Definition at line 168 of file Camera.\-hpp.
 
 \hypertarget{class_camera_adc88510e14cf2f6d4c3f6b23216211dc}{\index{Camera@{Camera}!init\-Speed@{init\-Speed}}
 \index{init\-Speed@{init\-Speed}!Camera@{Camera}}
@@ -1098,29 +1116,7 @@ The increment the camera should move during the \hyperlink{class_camera_aec3559f
 
 
 
-Definition at line 171 of file Camera.\-hpp.
-
-\hypertarget{class_camera_af45694594a06b3d8e4d7044955e489cf}{\index{Camera@{Camera}!max\-Accel@{max\-Accel}}
-\index{max\-Accel@{max\-Accel}!Camera@{Camera}}
-\subsubsection[{max\-Accel}]{\setlength{\rightskip}{0pt plus 5cm}G\-Lfloat Camera\-::max\-Accel\hspace{0.3cm}{\ttfamily [private]}}}\label{class_camera_af45694594a06b3d8e4d7044955e489cf}
-
-
-Maximum acceleration. 
-
-
-
-Definition at line 157 of file Camera.\-hpp.
-
-\hypertarget{class_camera_a2bc7ca6d5ed3d448033ad78cc4b1db5c}{\index{Camera@{Camera}!max\-Speed@{max\-Speed}}
-\index{max\-Speed@{max\-Speed}!Camera@{Camera}}
-\subsubsection[{max\-Speed}]{\setlength{\rightskip}{0pt plus 5cm}G\-Lfloat Camera\-::max\-Speed\hspace{0.3cm}{\ttfamily [private]}}}\label{class_camera_a2bc7ca6d5ed3d448033ad78cc4b1db5c}
-
-
-Upper-\/bound for absolute speed. 
-
-
-
-Definition at line 151 of file Camera.\-hpp.
+Definition at line 173 of file Camera.\-hpp.
 
 \hypertarget{class_camera_a39746b4fadf30bba6bdc8aa6acfdc6f2}{\index{Camera@{Camera}!Motion@{Motion}}
 \index{Motion@{Motion}!Camera@{Camera}}
@@ -1131,7 +1127,29 @@ Booleans correlating to the different motion directions.
 
 
 
-Definition at line 163 of file Camera.\-hpp.
+Definition at line 165 of file Camera.\-hpp.
+
+\hypertarget{class_camera_a308e92b5d3ef0eea5cac7745df6e28f4}{\index{Camera@{Camera}!speed@{speed}}
+\index{speed@{speed}!Camera@{Camera}}
+\subsubsection[{speed}]{\setlength{\rightskip}{0pt plus 5cm}G\-Lfloat Camera\-::speed\hspace{0.3cm}{\ttfamily [private]}}}\label{class_camera_a308e92b5d3ef0eea5cac7745df6e28f4}
+
+
+Current Speed of camera motion. 
+
+
+
+Definition at line 150 of file Camera.\-hpp.
+
+\hypertarget{class_camera_a5b95c890f213db50f321380108b17ea1}{\index{Camera@{Camera}!velocity@{velocity}}
+\index{velocity@{velocity}!Camera@{Camera}}
+\subsubsection[{velocity}]{\setlength{\rightskip}{0pt plus 5cm}{\bf vec3} Camera\-::velocity\hspace{0.3cm}{\ttfamily [private]}}}\label{class_camera_a5b95c890f213db50f321380108b17ea1}
+
+
+Current Velocity of camera motion. 
+
+
+
+Definition at line 152 of file Camera.\-hpp.
 
 
 
