@@ -12,8 +12,6 @@ var files =
     [ "Cameras.hpp", "_cameras_8hpp_source.html", null ],
     [ "classic.c", "classic_8c.html", "classic_8c" ],
     [ "classic.h", "classic_8h.html", "classic_8h" ],
-    [ "CMakeCCompilerId.c", "_c_make_c_compiler_id_8c_source.html", null ],
-    [ "CMakeCXXCompilerId.cpp", "_c_make_c_x_x_compiler_id_8cpp_source.html", null ],
     [ "dataset.cpp", "dataset_8cpp_source.html", null ],
     [ "dataset.h", "dataset_8h.html", [
       [ "Dataset", "class_dataset.html", "class_dataset" ]

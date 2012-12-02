@@ -65,6 +65,7 @@ var class_camera =
     [ "ctm", "class_camera.html#a9b1e81e3f5531390bb6a599dca0d2444", null ],
     [ "currView", "class_camera.html#a1fe2ef68d26bb98f0aa736948304eb64", null ],
     [ "fovy", "class_camera.html#acc8b97facc57059530efad534c2f8314", null ],
+    [ "FrictionMagnitude", "class_camera.html#a4260507a4e59b2b079a0e1c6a5b64d5c", null ],
     [ "glsl_handles", "class_camera.html#a1635486d7f9e0d52b241899a270ee335", null ],
     [ "initSpeed", "class_camera.html#adc88510e14cf2f6d4c3f6b23216211dc", null ],
     [ "MaxAccel", "class_camera.html#a7817b2e83ad8f783e2822ec7771c6fe9", null ],

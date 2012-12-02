@@ -224,29 +224,31 @@ $(document).ready(function(){initNavTree('_camera_8hpp_source.html','');});
 <div class="line"><a name="l00152"></a><span class="lineno"><a class="code" href="class_camera.html#a5b95c890f213db50f321380108b17ea1">  152</a></span>&#160;  <a class="code" href="struct_angel_1_1vec3.html">vec3</a> <a class="code" href="class_camera.html#a5b95c890f213db50f321380108b17ea1" title="Current Velocity of camera motion.">velocity</a>;</div>
 <div class="line"><a name="l00154"></a><span class="lineno"><a class="code" href="class_camera.html#aa075ae6872228fc4db892533d9f6d881">  154</a></span>&#160;  GLfloat <a class="code" href="class_camera.html#aa075ae6872228fc4db892533d9f6d881" title="Current Speed Capacity: (speed/MaxSpeed)">speed_cap</a>;</div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;</div>
-<div class="line"><a name="l00157"></a><span class="lineno"><a class="code" href="class_camera.html#a7817b2e83ad8f783e2822ec7771c6fe9">  157</a></span>&#160;  GLfloat <a class="code" href="class_camera.html#a7817b2e83ad8f783e2822ec7771c6fe9" title="Maximum Acceleration Magnitude.">MaxAccel</a>;</div>
-<div class="line"><a name="l00159"></a><span class="lineno"><a class="code" href="class_camera.html#a4e6866298a8e7a1ff2f529202892958e">  159</a></span>&#160;  GLfloat <a class="code" href="class_camera.html#a4e6866298a8e7a1ff2f529202892958e" title="Maximum Speed.">MaxSpeed</a>;</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;</div>
-<div class="line"><a name="l00162"></a><span class="lineno"><a class="code" href="class_camera.html#acc8b97facc57059530efad534c2f8314">  162</a></span>&#160;  GLfloat <a class="code" href="class_camera.html#acc8b97facc57059530efad534c2f8314" title="Current field-of-view angle for perspective view.">fovy</a>;</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;</div>
+<div class="line"><a name="l00158"></a><span class="lineno"><a class="code" href="class_camera.html#a7817b2e83ad8f783e2822ec7771c6fe9">  158</a></span>&#160;  GLfloat <a class="code" href="class_camera.html#a7817b2e83ad8f783e2822ec7771c6fe9" title="Maximum Acceleration Magnitude.">MaxAccel</a>;</div>
+<div class="line"><a name="l00160"></a><span class="lineno"><a class="code" href="class_camera.html#a4e6866298a8e7a1ff2f529202892958e">  160</a></span>&#160;  GLfloat <a class="code" href="class_camera.html#a4e6866298a8e7a1ff2f529202892958e" title="Maximum Speed.">MaxSpeed</a>;</div>
+<div class="line"><a name="l00162"></a><span class="lineno"><a class="code" href="class_camera.html#a4260507a4e59b2b079a0e1c6a5b64d5c">  162</a></span>&#160;  GLfloat <a class="code" href="class_camera.html#a4260507a4e59b2b079a0e1c6a5b64d5c" title="Friction.">FrictionMagnitude</a>;</div>
 <div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;</div>
-<div class="line"><a name="l00165"></a><span class="lineno"><a class="code" href="class_camera.html#a39746b4fadf30bba6bdc8aa6acfdc6f2">  165</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="class_camera.html#a39746b4fadf30bba6bdc8aa6acfdc6f2" title="Booleans correlating to the different motion directions.">Motion</a>[ Camera::End ];</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;  </div>
-<div class="line"><a name="l00168"></a><span class="lineno"><a class="code" href="class_camera.html#a1635486d7f9e0d52b241899a270ee335">  168</a></span>&#160;  GLuint <a class="code" href="class_camera.html#a1635486d7f9e0d52b241899a270ee335" title="Handles for communicating with the shader.">glsl_handles</a>[ Camera::NumGlslVars ];</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;  </div>
-<div class="line"><a name="l00173"></a><span class="lineno"><a class="code" href="class_camera.html#adc88510e14cf2f6d4c3f6b23216211dc">  173</a></span>&#160;  <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> <a class="code" href="class_camera.html#adc88510e14cf2f6d4c3f6b23216211dc" title="The increment the camera should move during the Idle() function.">initSpeed</a>; <span class="comment">// Set in Camera.cpp. Sorry! Maybe someday c++0x will exist.</span></div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;};</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00165"></a><span class="lineno"><a class="code" href="class_camera.html#acc8b97facc57059530efad534c2f8314">  165</a></span>&#160;  GLfloat <a class="code" href="class_camera.html#acc8b97facc57059530efad534c2f8314" title="Current field-of-view angle for perspective view.">fovy</a>;</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;</div>
+<div class="line"><a name="l00168"></a><span class="lineno"><a class="code" href="class_camera.html#a39746b4fadf30bba6bdc8aa6acfdc6f2">  168</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="class_camera.html#a39746b4fadf30bba6bdc8aa6acfdc6f2" title="Booleans correlating to the different motion directions.">Motion</a>[ Camera::End ];</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;  </div>
+<div class="line"><a name="l00171"></a><span class="lineno"><a class="code" href="class_camera.html#a1635486d7f9e0d52b241899a270ee335">  171</a></span>&#160;  GLuint <a class="code" href="class_camera.html#a1635486d7f9e0d52b241899a270ee335" title="Handles for communicating with the shader.">glsl_handles</a>[ Camera::NumGlslVars ];</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;  </div>
+<div class="line"><a name="l00176"></a><span class="lineno"><a class="code" href="class_camera.html#adc88510e14cf2f6d4c3f6b23216211dc">  176</a></span>&#160;  <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> <a class="code" href="class_camera.html#adc88510e14cf2f6d4c3f6b23216211dc" title="The increment the camera should move during the Idle() function.">initSpeed</a>; <span class="comment">// Set in Camera.cpp. Sorry! Maybe someday c++0x will exist.</span></div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;};</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_53ad14f43806fd82fe6f2ac436f467f1.html">include</a></li><li class="navelem"><b>Camera.hpp</b></li>
-    <li class="footer">Generated on Sat Dec 1 2012 20:07:16 for OpenGL Flythrough by
+    <li class="footer">Generated on Sun Dec 2 2012 13:34:02 for OpenGL Flythrough by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.1.2 </li>
   </ul>

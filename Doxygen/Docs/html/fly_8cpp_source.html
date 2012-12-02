@@ -624,13 +624,13 @@ $(document).ready(function(){initNavTree('fly_8cpp_source.html','');});
 <div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;<span class="keywordtype">void</span> idle( <span class="keywordtype">void</span> ) {</div>
 <div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160;</div>
 <div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;  movelight();</div>
-<div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160;</div>
-<div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;  pollWii( Wii );</div>
-<div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;  camList.Active().<a class="code" href="class_camera.html#ad666b5d70a00a0116100bce3d01471bf" title="Accel takes an input vec2 which represents an acceleration, and applies it to the motion vectors with...">Accel</a>( bb_magnitudes );</div>
-<div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160;  camList.Active().<a class="code" href="class_camera.html#aec3559fe43597656629fdb00157d3c73" title="Idle moves the camera forward in whichever directions it is configured to move in.">Idle</a>();</div>
-<div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;</div>
+<div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160;  <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; 20; ++i) {</div>
+<div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;    pollWii( Wii );</div>
+<div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;    camList.Active().<a class="code" href="class_camera.html#ad666b5d70a00a0116100bce3d01471bf" title="Accel takes an input vec2 which represents an acceleration, and applies it to the motion vectors with...">Accel</a>( bb_magnitudes );</div>
+<div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160;  }</div>
+<div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;  camList.Active().<a class="code" href="class_camera.html#aec3559fe43597656629fdb00157d3c73" title="Idle moves the camera forward in whichever directions it is configured to move in.">Idle</a>();</div>
 <div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160;  glutPostRedisplay();</div>
-<div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160;</div>
+<div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160;    </div>
 <div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160;}</div>
 <div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160;</div>
 <div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160;</div>
@@ -680,7 +680,7 @@ $(document).ready(function(){initNavTree('fly_8cpp_source.html','');});
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_1fc136fffc92f3d5a711e422436bcb9d.html">Flythrough</a></li><li class="navelem"><b>fly.cpp</b></li>
-    <li class="footer">Generated on Sat Dec 1 2012 20:07:17 for OpenGL Flythrough by
+    <li class="footer">Generated on Sun Dec 2 2012 13:34:02 for OpenGL Flythrough by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.1.2 </li>
   </ul>
