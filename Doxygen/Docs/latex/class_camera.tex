@@ -104,7 +104,7 @@ void \hyperlink{class_camera_adf064f765f610684e0675bd67de013fd}{Stop} (const \hy
 \begin{DoxyCompactList}\small\item\em Stop instructs the camera to stop moving in the specified direction. \end{DoxyCompactList}\item 
 void \hyperlink{class_camera_aec3559fe43597656629fdb00157d3c73}{Idle} (void)
 \begin{DoxyCompactList}\small\item\em Idle moves the camera forward in whichever directions it is configured to move in. \end{DoxyCompactList}\item 
-void \hyperlink{class_camera_ad666b5d70a00a0116100bce3d01471bf}{Accel} (const \hyperlink{struct_angel_1_1vec2}{vec2} \&accel)
+void \hyperlink{class_camera_a8eb4ebda2379e7289bb2bb942a2796b4}{Accel} (const \hyperlink{struct_angel_1_1vec3}{vec3} \&accel)
 \begin{DoxyCompactList}\small\item\em Accel takes an input vec2 which represents an acceleration, and applies it to the motion vectors with regards to the maximum acceleration and the maximum speed of the camera. \end{DoxyCompactList}\item 
 float \hyperlink{class_camera_a2f7fd64d5d6e0dfb5edcca53c7d15994}{X} (void) const 
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_camera_a2f7fd64d5d6e0dfb5edcca53c7d15994}{X()} returns the current position of the camera in model coordinates. \end{DoxyCompactList}\item 
@@ -310,13 +310,13 @@ Definition at line 65 of file Camera.\-cpp.
 
 
 \subsection{Member Function Documentation}
-\hypertarget{class_camera_ad666b5d70a00a0116100bce3d01471bf}{\index{Camera@{Camera}!Accel@{Accel}}
+\hypertarget{class_camera_a8eb4ebda2379e7289bb2bb942a2796b4}{\index{Camera@{Camera}!Accel@{Accel}}
 \index{Accel@{Accel}!Camera@{Camera}}
 \subsubsection[{Accel}]{\setlength{\rightskip}{0pt plus 5cm}void Camera\-::\-Accel (
 \begin{DoxyParamCaption}
-\item[{const {\bf vec2} \&}]{raw\-\_\-accel}
+\item[{const {\bf vec3} \&}]{raw\-\_\-accel}
 \end{DoxyParamCaption}
-)}}\label{class_camera_ad666b5d70a00a0116100bce3d01471bf}
+)}}\label{class_camera_a8eb4ebda2379e7289bb2bb942a2796b4}
 
 
 Accel takes an input vec2 which represents an acceleration, and applies it to the motion vectors with regards to the maximum acceleration and the maximum speed of the camera. 
@@ -635,7 +635,7 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line 384 of file Camera.\-cpp.
+Definition at line 383 of file Camera.\-cpp.
 
 \hypertarget{class_camera_ad02f12a279c33e7e85dcaf88830d38c7}{\index{Camera@{Camera}!link@{link}}
 \index{link@{link}!Camera@{Camera}}
@@ -687,7 +687,7 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line 364 of file Camera.\-cpp.
+Definition at line 363 of file Camera.\-cpp.
 
 \hypertarget{class_camera_ade9b499340749c916d6ffeeadd7296d4}{\index{Camera@{Camera}!pitch@{pitch}}
 \index{pitch@{pitch}!Camera@{Camera}}
@@ -881,7 +881,7 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line 374 of file Camera.\-cpp.
+Definition at line 373 of file Camera.\-cpp.
 
 \hypertarget{class_camera_abb2251df65445bf8efd3fe0074fb5033}{\index{Camera@{Camera}!surge@{surge}}
 \index{surge@{surge}!Camera@{Camera}}

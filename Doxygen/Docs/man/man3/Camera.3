@@ -150,7 +150,7 @@ The \fBCamera\fP class represents a logical camera in a model view, which posess
 .br
 .RI "\fIIdle moves the camera forward in whichever directions it is configured to move in\&. \fP"
 .ti -1c
-.RI "void \fBAccel\fP (const \fBvec2\fP &accel)"
+.RI "void \fBAccel\fP (const \fBvec3\fP &accel)"
 .br
 .RI "\fIAccel takes an input vec2 which represents an acceleration, and applies it to the motion vectors with regards to the maximum acceleration and the maximum speed of the camera\&. \fP"
 .ti -1c
@@ -338,7 +338,7 @@ Default destructor\&. Nothing of note\&.
 Definition at line 65 of file Camera\&.cpp\&.
 .SH "Member Function Documentation"
 .PP 
-.SS "void Camera::Accel (const \fBvec2\fP &raw_accel)"
+.SS "void Camera::Accel (const \fBvec3\fP &raw_accel)"
 
 .PP
 Accel takes an input vec2 which represents an acceleration, and applies it to the motion vectors with regards to the maximum acceleration and the maximum speed of the camera\&. \fBParameters:\fP
@@ -569,7 +569,7 @@ Void\&.
 .PP
 
 .PP
-Definition at line 384 of file Camera\&.cpp\&.
+Definition at line 383 of file Camera\&.cpp\&.
 .SS "void Camera::link (const GLuint &program, const \fBglsl_var\fP &which, const string &glslVarName)"
 
 .PP
@@ -605,7 +605,7 @@ Void\&.
 .PP
 
 .PP
-Definition at line 364 of file Camera\&.cpp\&.
+Definition at line 363 of file Camera\&.cpp\&.
 .SS "void Camera::pitch (const float &by)"
 
 .PP
@@ -742,7 +742,7 @@ Void\&.
 .PP
 
 .PP
-Definition at line 374 of file Camera\&.cpp\&.
+Definition at line 373 of file Camera\&.cpp\&.
 .SS "void Camera::surge (const float &by)"
 
 .PP

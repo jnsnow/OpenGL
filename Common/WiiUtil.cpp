@@ -42,8 +42,8 @@
 
 
 using std::cerr;
-using Angel::vec2;
-vec2 bb_magnitudes;
+using Angel::vec3;
+vec3 bb_magnitudes;
 
 int LED_MAP[4] = {CWiimote::LED_1, CWiimote::LED_2, CWiimote::LED_3, CWiimote::LED_4};
 
@@ -180,8 +180,7 @@ void WiiHandleBB( CWiimote &wm ) {
     tare = true;
     tare_polls = 0;
     for (size_t i = 0; i < 5; ++i ) tare_val[i] = 0;
-    bb_magnitudes.x = 0;
-    bb_magnitudes.y = 0;
+    bb_magnitudes = vec3( 0, 0, 0 );
   }
   CBalanceBoard &bb = wm.ExpansionDevice.BalanceBoard;
   bb.WeightSensor.GetWeight( raw_val[TOT_WEIGHT],
@@ -214,8 +213,7 @@ void WiiHandleBB( CWiimote &wm ) {
     }
     return; /* Return early: do not compute anything with weird half-tared values. */
   } else if (adj_val[TOT_WEIGHT] < 10) {
-    bb_magnitudes.x = 0;
-    bb_magnitudes.y = 0;
+    bb_magnitudes = vec3( 0, 0, 0 );
     return;  
   }
 
@@ -233,8 +231,8 @@ void WiiHandleBB( CWiimote &wm ) {
   if (sway_pct < -1) sway_pct = -1;
   else if (sway_pct > 1) sway_pct = 1;
 
-  bb_magnitudes.x = surge_pct;
   bb_magnitudes.y = sway_pct;
+  bb_magnitudes.z = surge_pct;
 
   if (0) {
     printf( "Balance Board Raw Weights: {" );

@@ -30,7 +30,7 @@ var NAVTREEINDEX =
 [
 ".html",
 "class_c_gyroscope.html#aa97fedb5d9e31d7e6cc490b93cdf10be",
-"class_camera.html#acc8b97facc57059530efad534c2f8314",
+"class_camera.html#ac7985a6cb48f4e1e74fda17e5213dd74",
 "dynamics_8c.html",
 "struct_angel_1_1vec3.html#a1d78982e3d5969f2e9f98a536cfea9f7",
 "wiic_8c.html#a7ea0133d8242986a40d1c90594af5f06",

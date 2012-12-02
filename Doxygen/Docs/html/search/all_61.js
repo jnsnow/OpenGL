@@ -8,7 +8,7 @@ var searchData=
   ['a_5fvec',['a_vec',['../structgforce__t.html#a51f24cbec42c9cb0027c510eaa7c8f46',1,'gforce_t']]],
   ['a_5fvel',['a_vel',['../structvel__t.html#a5443db069cfca456f3b8f5de9aaf1422',1,'vel_t']]],
   ['acc_5fmode',['acc_mode',['../structmotion__plus__t.html#ae24410a9568890d3dae209583c066835',1,'motion_plus_t']]],
-  ['accel',['accel',['../structnunchuk__t.html#a5f83dc7586a80b84bcd6afdc419cc9f8',1,'nunchuk_t::accel()'],['../structwiimote__t.html#a479d5a06ad78fc175ef5876b9686867c',1,'wiimote_t::accel()'],['../class_camera.html#ad666b5d70a00a0116100bce3d01471bf',1,'Camera::Accel()']]],
+  ['accel',['accel',['../structnunchuk__t.html#a5f83dc7586a80b84bcd6afdc419cc9f8',1,'nunchuk_t::accel()'],['../structwiimote__t.html#a479d5a06ad78fc175ef5876b9686867c',1,'wiimote_t::accel()'],['../class_camera.html#a8eb4ebda2379e7289bb2bb942a2796b4',1,'Camera::Accel()']]],
   ['accel_5fcalib',['accel_calib',['../structnunchuk__t.html#a22475e2830a1c51b9b7b4e836eade2e2',1,'nunchuk_t::accel_calib()'],['../structwiimote__t.html#a70eedb03dbfcfdc6e588110a680d177d',1,'wiimote_t::accel_calib()']]],
   ['accel_5ft',['accel_t',['../structaccel__t.html',1,'']]],
   ['accel_5fthreshold',['accel_threshold',['../structnunchuk__t.html#a8cdee63a6b2b23f69cac33126eff448e',1,'nunchuk_t::accel_threshold()'],['../structwiimote__t.html#a078b9e0aeeacfdabad482db1214d0a88',1,'wiimote_t::accel_threshold()']]],
