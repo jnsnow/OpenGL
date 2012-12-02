@@ -120,7 +120,7 @@ public:
   void Move( const Camera::Direction &Dir );
   void Stop( const Camera::Direction &Dir );
   void Idle( void );
-  void Accel( const vec2 &accel );
+  void Accel( const vec3 &accel );
 
   /* Get Position */
   float X( void ) const;

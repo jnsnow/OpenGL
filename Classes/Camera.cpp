@@ -335,23 +335,22 @@ void Camera::roll( const float &by ) {
   @param accel The vec2 which represents the (x,y) accel, where x,y are [-1,1].
   @return Void.
 **/
-void Camera::Accel( const vec2 &raw_accel ) {
+void Camera::Accel( const vec3 &raw_accel ) {
 
   //Accel comes in as a vector with a length between -sqrt(2) and sqrt(2).
   //We change it to be between -MAX_ACCEL and MAX_ACCEL.
-  vec2 accel = raw_accel * (MaxAccel/SQRT2);
+  vec3 accel = raw_accel * (MaxAccel/SQRT2);
 
   //Now, we scale our accel vector so that we accelerate less when we are near MaxSpeed.
   accel *= (1-POW5(speed_cap));
   
   //The acceleration is finally applied to the velocity vector.
-  velocity.x += accel.x;
-  velocity.y += accel.y;
+  velocity += accel;
 
   //speed and speed_cap must now be recalculated.
   speed_cap = (speed = length(velocity))/MaxSpeed;
 
-  if (0) fprintf( stderr, "Velocity: (%f,%f)\n", velocity.x, velocity.y );
+  if (0) fprintf( stderr, "Velocity: (%f,%f,%f)\n", velocity.x, velocity.y, velocity.z );
 }
 
 
@@ -383,19 +382,21 @@ void Camera::Stop( const Camera::Direction &Dir ) {
 **/
 void Camera::Idle( void ) {
 
-  if (Motion[Camera::Forward]) surge( Camera::initSpeed );
-  else if (Motion[Camera::Backward]) surge( -Camera::initSpeed );
+  /* Apply the automated motion instructions, if any --
+     These are primarily from the keyboard. */
+  if (Motion[Camera::Forward]) Accel(vec3(0,0,1));
+  if (Motion[Camera::Backward]) Accel(vec3(0,0,-1));
+  if (Motion[Camera::Right]) Accel(vec3(0,1,0));
+  if (Motion[Camera::Left]) Accel(vec3(0,-1,0));
+  if (Motion[Camera::Up]) Accel(vec3(1,0,0));
+  if (Motion[Camera::Down]) Accel(vec3(-1,0,0));
 
-  if (Motion[Camera::Right]) sway( Camera::initSpeed );
-  else if (Motion[Camera::Left]) sway( -Camera::initSpeed );
+  /* Apply the velocity vectors computed from Accel,
+     which includes instructions from keyboard and the Balance Board. */
 
-  if (Motion[Camera::Up]) heave( Camera::initSpeed );
-  else if (Motion[Camera::Down]) heave( -Camera::initSpeed );
-
-  /* Apply the Balance Board vectors, along with a correction. */
-  surge( velocity.x / 20000 );
+  heave( velocity.x / 20000 );
   sway( velocity.y / 20000 );
-  heave( velocity.z / 20000 );
+  surge( velocity.z / 20000 );
 
   // We can only apply friction if we are moving. 
   if (speed) {
@@ -408,7 +409,6 @@ void Camera::Idle( void ) {
     speed = length(velocity);
     speed_cap = speed/MaxSpeed;
   }
-
 }
 
 

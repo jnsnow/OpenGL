@@ -27,7 +27,7 @@ var class_camera =
     [ "Camera", "class_camera.html#a388c39247312dc6850b2d1b007efb423", null ],
     [ "Camera", "class_camera.html#a30b637b0e81821106c16a8a299d24d3f", null ],
     [ "~Camera", "class_camera.html#a06211f202c145b3ec8253f96e1e654a6", null ],
-    [ "Accel", "class_camera.html#ad666b5d70a00a0116100bce3d01471bf", null ],
+    [ "Accel", "class_camera.html#a8eb4ebda2379e7289bb2bb942a2796b4", null ],
     [ "adjustRotation", "class_camera.html#a7ffc3619f9a5d8e586cb3d96ebdd3188", null ],
     [ "changePerspective", "class_camera.html#ad388a5f75af8f2289447b716c8c839ff", null ],
     [ "commonInit", "class_camera.html#a20243a7e3eb06ab1265118c5fb9cce9b", null ],

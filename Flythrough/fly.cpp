@@ -37,6 +37,7 @@ vec3  normals[NumVertices];
 
 Cameras camList( 2 );
 CWii Wii;
+bool usingWii = false;
 
 int Width = X_SIZE;
 int X_Center = (Width/2);
@@ -518,9 +519,11 @@ void movelight(void) {
 void idle( void ) {
 
   movelight();
-  for (size_t i = 0; i < 20; ++i) {
-    pollWii( Wii );
-    camList.Active().Accel( bb_magnitudes );
+  if (usingWii) {
+    for (size_t i = 0; i < 20; ++i) {
+      pollWii( Wii );
+      camList.Active().Accel( bb_magnitudes );
+    }
   }
   camList.Active().Idle();
   glutPostRedisplay();
@@ -532,7 +535,7 @@ void idle( void ) {
 
 int main( int argc, char **argv ) {
 
-  if (!initWii( Wii )) {
+  if (!(usingWii = initWii( Wii ))) {
     std::cerr << "Not using Wii controls for this runthrough.\n";
   }
 
