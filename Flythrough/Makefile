@@ -56,7 +56,7 @@ all: $(EXECS)
 # Are the dependency files up to date? Are they missing? (re)Generate them.
 %.d: %.cpp
 	@echo "Building Dependency for $<"
-	@$(CC) -M $(CFLAGS) $< > $@.$$$$;			\
+	@$(CC) -M -MQ "$*.o" $(CFLAGS) $< > $@.$$$$;			\
 	sed 's,\($*\)\.o[ :]*,\1.o $@ : ,g' < $@.$$$$ > $@;	\
 	rm -f $@.$$$$
 

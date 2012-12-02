@@ -4,6 +4,7 @@
 #include "mat.hpp"
 #include "vec.hpp"
 #include "Camera.hpp"
+#include "globals.h" //Math constants and macros (SQRT2, POW5)
 using namespace Angel;
 
 void Camera::commonInit( void ) {
@@ -13,7 +14,10 @@ void Camera::commonInit( void ) {
 	++i) {
     Motion[i] = false;
   }
-  this->speed = initSpeed;
+  this->speed = 0;
+  this->speed_cap = 0;
+  this->MaxAccel = 10;
+  this->MaxSpeed = 200;
 }
 
 const float Camera::initSpeed = 0.01;
@@ -323,6 +327,32 @@ void Camera::roll( const float &by ) {
   adjustRotation(RotateZ(by));
 }
 
+/**
+  Accel takes an input vec2 which represents an acceleration,
+  and applies it to the motion vectors with regards to
+  the maximum acceleration and the maximum speed of the camera.
+  @param accel The vec2 which represents the (x,y) accel, where x,y are [-1,1].
+  @return Void.
+**/
+void Camera::Accel( const vec2 &raw_accel ) {
+
+  //Accel comes in as a vector with a length between -sqrt(2) and sqrt(2).
+  //We change it to be between -MAX_ACCEL and MAX_ACCEL.
+  vec2 accel = raw_accel * (MaxAccel/SQRT2);
+
+  //Now, we scale our accel vector so that we accelerate less when we are near MaxSpeed.
+  accel *= (1-POW5(speed_cap));
+  
+  //The acceleration is finally applied to the velocity vector.
+  velocity.x += accel.x;
+  velocity.y += accel.y;
+
+  //speed and speed_cap must now be recalculated.
+  speed_cap = (speed = length(velocity))/MaxSpeed;
+
+  if (0) fprintf( stderr, "Velocity: (%f,%f)\n", velocity.x, velocity.y );
+}
+
 
 /**
    Move instructs the camera to begin moving in the specified direction. 
@@ -352,14 +382,31 @@ void Camera::Stop( const Camera::Direction &Dir ) {
 **/
 void Camera::Idle( void ) {
 
-  if (Motion[Camera::Forward]) surge( speed );
-  else if (Motion[Camera::Backward]) surge( -speed );
+  if (Motion[Camera::Forward]) surge( Camera::initSpeed );
+  else if (Motion[Camera::Backward]) surge( -Camera::initSpeed );
 
-  if (Motion[Camera::Right]) sway( speed );
-  else if (Motion[Camera::Left]) sway( -speed );
+  if (Motion[Camera::Right]) sway( Camera::initSpeed );
+  else if (Motion[Camera::Left]) sway( -Camera::initSpeed );
 
-  if (Motion[Camera::Up]) heave( speed );
-  else if (Motion[Camera::Down]) heave( -speed );
+  if (Motion[Camera::Up]) heave( Camera::initSpeed );
+  else if (Motion[Camera::Down]) heave( -Camera::initSpeed );
+
+  /* Apply the Balance Board vectors, along with a correction. */
+  surge( velocity.x / 20000 );
+  sway( velocity.y / 20000 );
+  heave( velocity.z / 20000 );
+
+  // We can only apply friction if we are moving. 
+  if (speed) {
+#define FRICTION 2
+    // Friction is a vector that is the opposite of velocity.
+    vec3 friction = -velocity;
+    // By dividing friction by (speed/FRICTION), we guarantee that the magnitude is FRICTION.
+    friction = friction / (speed/FRICTION);
+    velocity += friction;
+    speed = length(velocity);
+    speed_cap = speed/MaxSpeed;
+  }  
 
 }
 

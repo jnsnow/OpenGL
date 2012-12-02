@@ -5,8 +5,6 @@
 **/
 
 /*
- *	example.cpp
- *
  *	This file is part of WiiC, written by:
  *		Gabriele Randelli
  *		Email: randelli@dis.uniroma1.it
@@ -35,12 +33,19 @@
  */
 
 #include "WiiUtil.h"
+#include "vec.hpp"
+#include "globals.h" /* Some math constants and macros. */
 #include <wiicpp.h>
 #include <iostream>
+
+#include <sys/time.h>
+
+
 using std::cerr;
+using Angel::vec2;
+vec2 bb_magnitudes;
 
 int LED_MAP[4] = {CWiimote::LED_1, CWiimote::LED_2, CWiimote::LED_3, CWiimote::LED_4};
-bool tare = false;
 
 bool initWii( CWii &wii ) {
   
@@ -76,21 +81,24 @@ bool initWii( CWii &wii ) {
   return false; /* Couldn't find 2+ devices. */
 }
 
+/**
+   Not currently used,
+   But here for reference.
+**/
 void HandleEvent(CWiimote &wm) {
   char prefixString[64];
   sprintf(prefixString, "Controller [%i]: ", wm.GetID());
   int exType = wm.ExpansionDevice.GetType();
 
   // if the accelerometer is turned on then print angles
-  if(wm.isUsingACC())
-    {
-      float pitch, roll, yaw;
-      wm.Accelerometer.GetOrientation(pitch, roll, yaw);
-      printf("%s wiimote roll = %f\n", prefixString, roll);
-      printf("%s wiimote pitch = %f\n", prefixString, pitch);
-      printf("%s wiimote yaw = %f\n", prefixString, yaw);
-    }
-
+  if(wm.isUsingACC()) {
+    float pitch, roll, yaw;
+    wm.Accelerometer.GetOrientation(pitch, roll, yaw);
+    printf("%s wiimote roll = %f\n", prefixString, roll);
+    printf("%s wiimote pitch = %f\n", prefixString, pitch);
+    printf("%s wiimote yaw = %f\n", prefixString, yaw);
+  }
+  
   // if the Motion Plus is turned on then print angles
   if(wm.isUsingMotionPlus()) {
     float roll_rate, pitch_rate, yaw_rate;
@@ -133,8 +141,6 @@ void HandleEvent(CWiimote &wm) {
     
     if(nc.Buttons.isPressed(CNunchukButtons::BUTTON_C)) {
       printf("%s C pressed\n", prefixString);
-      printf("Enabling Tare ...\n");
-      tare = true;
     }
     
     if(nc.Buttons.isPressed(CNunchukButtons::BUTTON_Z)) {
@@ -150,64 +156,96 @@ void HandleEvent(CWiimote &wm) {
     printf("%s joystick angle = %f\n", prefixString, angle);
     printf("%s joystick magnitude = %f\n", prefixString, magnitude);
   }
+  if(exType == wm.ExpansionDevice.TYPE_BALANCE_BOARD) WiiHandleBB( wm );
+}
+
+
+void WiiHandleBB( CWiimote &wm ) {
+  enum bb_sensor { 
+    TOP_LEFT,
+    TOP_RIGHT,
+    BOT_LEFT,
+    BOT_RIGHT,
+    TOT_WEIGHT
+  };
+
+  static bool tare = false;
+  static float tare_val[5] = { 0, 0, 0, 0, 0 };
+  static float raw_val[5] = { 0, 0, 0, 0, 0 };
+  static float adj_val[5] = { 0, 0, 0, 0, 0 };
+  static size_t tare_polls = 0;
+
+  if(wm.Buttons.isPressed(CButtons::BUTTON_A)) {
+    std::cerr << "Enabling Tare\n";
+    tare = true;
+    tare_polls = 0;
+    for (size_t i = 0; i < 5; ++i ) tare_val[i] = 0;
+    bb_magnitudes.x = 0;
+    bb_magnitudes.y = 0;
+  }
+  CBalanceBoard &bb = wm.ExpansionDevice.BalanceBoard;
+  bb.WeightSensor.GetWeight( raw_val[TOT_WEIGHT],
+			     raw_val[TOP_LEFT],
+			     raw_val[TOP_RIGHT],
+			     raw_val[BOT_LEFT],
+			     raw_val[BOT_RIGHT] );
+
+  /* Compute our adjusted values. */
+  adj_val[TOT_WEIGHT] = 0;
+  for ( size_t i = 0; i < 4; ++i ) {
+    adj_val[i] = raw_val[i] - tare_val[i];
+    adj_val[TOT_WEIGHT] += adj_val[i];
+  }
   
-  if(exType == wm.ExpansionDevice.TYPE_BALANCE_BOARD) {
-
-    enum bb_sensor { 
-      TOP_LEFT,
-      TOP_RIGHT,
-      BOT_LEFT,
-      BOT_RIGHT,
-      TOT_WEIGHT
-    };
-
-    static float tare_val[5] = { 0, 0, 0, 0, 0 };
-    static float raw_val[5] = { 0, 0, 0, 0, 0 };
-    static float adj_val[5] = { 0, 0, 0, 0, 0 };
-    static size_t tare_polls = 0;
-    
-    CBalanceBoard &bb = wm.ExpansionDevice.BalanceBoard;
-    bb.WeightSensor.GetWeight( raw_val[TOT_WEIGHT],
-			       raw_val[TOP_LEFT],
-			       raw_val[TOP_RIGHT],
-			       raw_val[BOT_LEFT],
-			       raw_val[BOT_RIGHT] );
-    
-    for ( size_t i = 0; i < 5; ++i ) adj_val[i] = raw_val[i] - tare_val[i];
-
-    /* Compute X and Y magnitudes. */
-    float surge_pct = (adj_val[TOP_LEFT] + adj_val[TOP_RIGHT]
-		       -adj_val[BOT_LEFT] - adj_val[BOT_RIGHT]) / adj_val[TOT_WEIGHT];
-    float sway_pct = (adj_val[TOP_RIGHT] + adj_val[BOT_RIGHT]
-		      -adj_val[TOP_LEFT] - adj_val[BOT_LEFT]) / adj_val[TOT_WEIGHT];
-    
-    /* If there's not much weight on the board, weights are meaningless;
-       unless we are trying to zero the scale. */
-    if (tare) {
-      printf( "TARE %d\n", (int) ++tare_polls );
-      for ( size_t i = 0; i < 4; ++i ) tare_val[i] += raw_val[i];
-      if (tare_polls > 1000) {
-	tare_val[4] = 0;
-	tare_polls = 0;
-	tare = false;
-	for ( size_t i = 0; i < 4; ++i ) {
-	  tare_val[i] = tare_val[i] / 1000;
-	  tare_val[4] += tare_val[i];
-	}
+  /* We are now either going to zero the scale, 
+     or ignore the inputs if they are too small. */
+  if (tare) {
+    for ( size_t i = 0; i < 4; ++i ) tare_val[i] += raw_val[i];
+    if (++tare_polls >= 1000) {
+      std::cerr << "Tare complete.\n";
+      tare_val[4] = 0;
+      tare_polls = 0;
+      tare = false;
+      for ( size_t i = 0; i < 4; ++i ) {
+	tare_val[i] = tare_val[i] / 1000;
+	std::cerr << "Tare[" << i << "] == " << tare_val[i] << ".\n";
+	tare_val[4] += tare_val[i];
       }
-    } /*else if (total < 10) return;*/
+    }
+    return; /* Return early: do not compute anything with weird half-tared values. */
+  } else if (adj_val[TOT_WEIGHT] < 10) {
+    bb_magnitudes.x = 0;
+    bb_magnitudes.y = 0;
+    return;  
+  }
 
+  /* Compute X and Y magnitudes. */
+  float surge_pct = (adj_val[TOP_LEFT] + adj_val[TOP_RIGHT]
+		     -adj_val[BOT_LEFT] - adj_val[BOT_RIGHT]) / adj_val[TOT_WEIGHT];
+  float sway_pct = (adj_val[TOP_RIGHT] + adj_val[BOT_RIGHT]
+		    -adj_val[TOP_LEFT] - adj_val[BOT_LEFT]) / adj_val[TOT_WEIGHT];
+
+  /* Even with zeroing the scale and ignoring small weights,
+     Sometimes the sensors report something weird.
+     With this we ensure that we've normalized to the [-1,1] range. */
+  if (surge_pct < -1) surge_pct = -1;
+  else if (surge_pct > 1) surge_pct = 1;
+  if (sway_pct < -1) sway_pct = -1;
+  else if (sway_pct > 1) sway_pct = 1;
+
+  bb_magnitudes.x = surge_pct;
+  bb_magnitudes.y = sway_pct;
+
+  if (0) {
     printf( "Balance Board Raw Weights: {" );
     for ( size_t i = 0; i < 5; ++i ) printf( "%6f, ", raw_val[i] );
     printf( "}\n" );
-
     printf( "Balance Board Adj Weights: {" );
     for ( size_t i = 0; i < 5; ++i ) printf( "%6f, ", adj_val[i] );
-    printf( "}\n" );
-
+    printf( "}\n" );  
     printf( "SURGE: %6f; SWAY: %6f\n", surge_pct, sway_pct );
-
   }
+  
 }
 
 
@@ -219,9 +257,13 @@ void enableRemote( CWiimote &wm ) {
   
 }
 
+
 void pollWii( CWii &wii ) {
 
+  struct timeval start, end;
+
   //Poll the wiimotes to get the status like pitch or roll
+  if (0) gettimeofday(&start,NULL);
   if(wii.Poll()) {
 
     std::vector<CWiimote>& wiimotes = wii.GetWiimotes();
@@ -231,9 +273,15 @@ void pollWii( CWii &wii ) {
       // Use a reference to make working with the iterator handy.
       CWiimote& wiimote = *it;
       switch(wiimote.GetEvent()) {
+	
       case CWiimote::EVENT_EVENT:
-	HandleEvent(wiimote);
+	if (wiimote.ExpansionDevice.GetType() ==
+	    wiimote.ExpansionDevice.TYPE_BALANCE_BOARD)
+	  WiiHandleBB(wiimote);
+	else
+	  HandleEvent(wiimote);
 	break;
+
       case CWiimote::EVENT_CONNECT:
 	std::cerr << "Device connecting.\n";
 	break;
@@ -249,6 +297,8 @@ void pollWii( CWii &wii ) {
 	break;
       case CWiimote::EVENT_BALANCE_BOARD_INSERTED:
 	std::cerr << "A balance board has become available.\n";
+	wiimote.SetLEDs(LED_MAP[3]);;
+	wiimote.SetLEDs(LED_MAP[3]);;
 	break;
       case CWiimote::EVENT_BALANCE_BOARD_REMOVED:
 	std::cerr << "A balance board has been removed.\n";
@@ -269,5 +319,19 @@ void pollWii( CWii &wii ) {
 	break;
       }
     }
+  } /** if (wii.Poll()) **/
+
+  /* Debug section for polltime */
+  if (0) {
+    gettimeofday(&end,NULL);
+    size_t i, j;
+    if ((i = end.tv_sec - start.tv_sec) == 0)
+      j = end.tv_usec - start.tv_usec;
+    else if ((j = end.tv_usec - start.tv_usec) < 0) {
+      i--;
+      j = 1000000 + j;
+    }
+    fprintf( stderr, "polltime: %lus%luu\n", i, j );
   }
+
 }

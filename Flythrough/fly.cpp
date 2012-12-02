@@ -519,6 +519,7 @@ void idle( void ) {
 
   movelight();
   pollWii( Wii );
+  camList.Active().Accel( bb_magnitudes );
   camList.Active().Idle();
   glutPostRedisplay();
 

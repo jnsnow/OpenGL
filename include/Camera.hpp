@@ -6,6 +6,7 @@
 #include "mat.hpp"
 #include "vec.hpp"
 
+using Angel::vec2;
 using Angel::vec3;
 using Angel::vec4;
 using Angel::mat4;
@@ -119,6 +120,7 @@ public:
   void Move( const Camera::Direction &Dir );
   void Stop( const Camera::Direction &Dir );
   void Idle( void );
+  void Accel( const vec2 &accel );
 
   /* Get Position */
   float X( void ) const;
@@ -144,17 +146,17 @@ private:
 
   view_type currView;
 
-  /** Current speed of camera motion **/
+  /** Current Speed of camera motion. **/
   GLfloat speed;
+  /** Current Velocity of camera motion. **/
+  vec3 velocity;
+  /** Current Speed Capacity: (speed/MaxSpeed) **/
+  GLfloat speed_cap;
 
-  /** Upper-bound for absolute speed. **/
-  GLfloat maxSpeed;
-
-  /** Current acceleration. **/
-  GLfloat accel;
-
-  /** Maximum acceleration. **/
-  GLfloat maxAccel;
+  /** Maximum Acceleration Magnitude **/
+  GLfloat MaxAccel;
+  /** Maximum Speed **/
+  GLfloat MaxSpeed;
 
   /** Current field-of-view angle for perspective view. **/
   GLfloat fovy;
