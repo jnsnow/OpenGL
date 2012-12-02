@@ -1,0 +1,196 @@
+\hypertarget{wiic__v1_81_2src_2wiic_2io__nix_8c}{\section{io\-\_\-nix.\-c File Reference}
+\label{wiic__v1_81_2src_2wiic_2io__nix_8c}\index{io\-\_\-nix.\-c@{io\-\_\-nix.\-c}}
+}
+
+
+Handles device I/\-O for $\ast$nix.  
+
+
+{\ttfamily \#include $<$stdio.\-h$>$}\\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include $<$unistd.\-h$>$}\\*
+{\ttfamily \#include $<$bluetooth/bluetooth.\-h$>$}\\*
+{\ttfamily \#include $<$bluetooth/hci.\-h$>$}\\*
+{\ttfamily \#include $<$bluetooth/hci\-\_\-lib.\-h$>$}\\*
+{\ttfamily \#include $<$bluetooth/l2cap.\-h$>$}\\*
+{\ttfamily \#include \char`\"{}definitions.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}wiic\-\_\-internal.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}io.\-h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \hyperlink{wiic__v1_81_2src_2wiic_2io__nix_8c_ab2ec7266d206e0a4fa7172cb7ac88792}{wiic\-\_\-connect\-\_\-single} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, char $\ast$address)
+\begin{DoxyCompactList}\small\item\em Connect to a wiimote with a known address. \end{DoxyCompactList}\item 
+int \hyperlink{wiic__v1_81_2src_2wiic_2io__nix_8c_a52ee1d13f65c44656f4cc95d4d54d8f8}{wiic\-\_\-find} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$$\ast$wm, int max\-\_\-wiimotes, int timeout)
+\begin{DoxyCompactList}\small\item\em Find a wiimote or wiimotes. \end{DoxyCompactList}\item 
+int \hyperlink{wiic__v1_81_2src_2wiic_2io__nix_8c_aec9d9ef41c383e1b08ac7868fb524914}{wiic\-\_\-connect} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$$\ast$wm, int wiimotes)
+\begin{DoxyCompactList}\small\item\em Connect to a wiimote or wiimotes once an address is known. \end{DoxyCompactList}\item 
+int \hyperlink{wiic__v1_81_2src_2wiic_2io__nix_8c_a7e041ddd6808f33ad799c6975bbe091f}{wiic\-\_\-load} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$$\ast$wm)
+\begin{DoxyCompactList}\small\item\em Load Wii devices registered in the wiimotes.\-config file. \end{DoxyCompactList}\item 
+void \hyperlink{wiic__v1_81_2src_2wiic_2io__nix_8c_a219a4ed8738f4937a777e02ed8656fcf}{wiic\-\_\-disconnect} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm)
+\begin{DoxyCompactList}\small\item\em Disconnect a wiimote. \end{DoxyCompactList}\item 
+\hypertarget{wiic__v1_81_2src_2wiic_2io__nix_8c_a13c7e16ba153cd7639906d6dfb2e1826}{int {\bfseries wiic\-\_\-io\-\_\-read} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm)}\label{wiic__v1_81_2src_2wiic_2io__nix_8c_a13c7e16ba153cd7639906d6dfb2e1826}
+
+\item 
+\hypertarget{wiic__v1_81_2src_2wiic_2io__nix_8c_a267abb66564b2af088e34d5580f37c59}{int {\bfseries wiic\-\_\-io\-\_\-write} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, \hyperlink{wiic__r90_2src_2wiic_2wiic__macros_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte} $\ast$buf, int len)}\label{wiic__v1_81_2src_2wiic_2io__nix_8c_a267abb66564b2af088e34d5580f37c59}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Handles device I/\-O for $\ast$nix. 
+
+Definition in file \hyperlink{wiic__v1_81_2src_2wiic_2io__nix_8c_source}{wiic\-\_\-v1.\-1/src/wiic/io\-\_\-nix.\-c}.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{wiic__v1_81_2src_2wiic_2io__nix_8c_aec9d9ef41c383e1b08ac7868fb524914}{\index{wiic\-\_\-v1.\-1/src/wiic/io\-\_\-nix.\-c@{wiic\-\_\-v1.\-1/src/wiic/io\-\_\-nix.\-c}!wiic\-\_\-connect@{wiic\-\_\-connect}}
+\index{wiic\-\_\-connect@{wiic\-\_\-connect}!wiic_v1.1/src/wiic/io_nix.c@{wiic\-\_\-v1.\-1/src/wiic/io\-\_\-nix.\-c}}
+\subsubsection[{wiic\-\_\-connect}]{\setlength{\rightskip}{0pt plus 5cm}int wiic\-\_\-connect (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$$\ast$}]{wm, }
+\item[{int}]{wiimotes}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2io__nix_8c_aec9d9ef41c383e1b08ac7868fb524914}
+
+
+Connect to a wiimote or wiimotes once an address is known. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & An array of \hyperlink{structwiimote__t}{wiimote\-\_\-t} structures. \\
+\hline
+{\em wiimotes} & The number of wiimote structures in {\itshape wm}.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The number of wiimotes that successfully connected.
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See Also}
+\hyperlink{wiic__r90_2src_2wiic_2io__nix_8c_a52ee1d13f65c44656f4cc95d4d54d8f8}{wiic\-\_\-find()} 
+
+\hyperlink{wiic__r90_2src_2wiic_2io__nix_8c_a48a32197084dfb1ab5c8d3737b51257f}{wiic\-\_\-connect\-\_\-single()} 
+
+\hyperlink{wiic__r90_2src_2wiic_2io__nix_8c_a219a4ed8738f4937a777e02ed8656fcf}{wiic\-\_\-disconnect()}
+\end{DoxySeeAlso}
+Connect to a number of wiimotes when the address is already set in the \hyperlink{structwiimote__t}{wiimote\-\_\-t} structures. These addresses are normally set by the \hyperlink{wiic__r90_2src_2wiic_2io__nix_8c_a52ee1d13f65c44656f4cc95d4d54d8f8}{wiic\-\_\-find()} function, but can also be set manually. 
+
+Definition at line 148 of file wiic\-\_\-v1.\-1/src/wiic/io\-\_\-nix.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2io__nix_8c_ab2ec7266d206e0a4fa7172cb7ac88792}{\index{wiic\-\_\-v1.\-1/src/wiic/io\-\_\-nix.\-c@{wiic\-\_\-v1.\-1/src/wiic/io\-\_\-nix.\-c}!wiic\-\_\-connect\-\_\-single@{wiic\-\_\-connect\-\_\-single}}
+\index{wiic\-\_\-connect\-\_\-single@{wiic\-\_\-connect\-\_\-single}!wiic_v1.1/src/wiic/io_nix.c@{wiic\-\_\-v1.\-1/src/wiic/io\-\_\-nix.\-c}}
+\subsubsection[{wiic\-\_\-connect\-\_\-single}]{\setlength{\rightskip}{0pt plus 5cm}static int wiic\-\_\-connect\-\_\-single (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
+\item[{char $\ast$}]{address}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{wiic__v1_81_2src_2wiic_2io__nix_8c_ab2ec7266d206e0a4fa7172cb7ac88792}
+
+
+Connect to a wiimote with a known address. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\hline
+{\em address} & The address of the device to connect to. If N\-U\-L\-L, use the address in the struct set by \hyperlink{wiic__r90_2src_2wiic_2io__nix_8c_a52ee1d13f65c44656f4cc95d4d54d8f8}{wiic\-\_\-find()}.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 on success, 0 on failure 
+\end{DoxyReturn}
+
+
+Definition at line 233 of file wiic\-\_\-v1.\-1/src/wiic/io\-\_\-nix.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2io__nix_8c_a219a4ed8738f4937a777e02ed8656fcf}{\index{wiic\-\_\-v1.\-1/src/wiic/io\-\_\-nix.\-c@{wiic\-\_\-v1.\-1/src/wiic/io\-\_\-nix.\-c}!wiic\-\_\-disconnect@{wiic\-\_\-disconnect}}
+\index{wiic\-\_\-disconnect@{wiic\-\_\-disconnect}!wiic_v1.1/src/wiic/io_nix.c@{wiic\-\_\-v1.\-1/src/wiic/io\-\_\-nix.\-c}}
+\subsubsection[{wiic\-\_\-disconnect}]{\setlength{\rightskip}{0pt plus 5cm}void wiic\-\_\-disconnect (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2io__nix_8c_a219a4ed8738f4937a777e02ed8656fcf}
+
+
+Disconnect a wiimote. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure.\\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See Also}
+\hyperlink{wiic__r90_2src_2wiic_2io__nix_8c_a356c1950a83d07f6f31efedfe5f5cdcc}{wiic\-\_\-connect()}
+\end{DoxySeeAlso}
+Note that this will not free the wiimote structure. 
+
+Definition at line 305 of file wiic\-\_\-v1.\-1/src/wiic/io\-\_\-nix.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2io__nix_8c_a52ee1d13f65c44656f4cc95d4d54d8f8}{\index{wiic\-\_\-v1.\-1/src/wiic/io\-\_\-nix.\-c@{wiic\-\_\-v1.\-1/src/wiic/io\-\_\-nix.\-c}!wiic\-\_\-find@{wiic\-\_\-find}}
+\index{wiic\-\_\-find@{wiic\-\_\-find}!wiic_v1.1/src/wiic/io_nix.c@{wiic\-\_\-v1.\-1/src/wiic/io\-\_\-nix.\-c}}
+\subsubsection[{wiic\-\_\-find}]{\setlength{\rightskip}{0pt plus 5cm}int wiic\-\_\-find (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$$\ast$}]{wm, }
+\item[{int}]{max\-\_\-wiimotes, }
+\item[{int}]{timeout}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2io__nix_8c_a52ee1d13f65c44656f4cc95d4d54d8f8}
+
+
+Find a wiimote or wiimotes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & An array of \hyperlink{structwiimote__t}{wiimote\-\_\-t} structures. \\
+\hline
+{\em max\-\_\-wiimotes} & The number of wiimote structures in {\itshape wm}. \\
+\hline
+{\em timeout} & The number of seconds before the search times out.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The number of wiimotes found.
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See Also}
+wiimote\-\_\-connect()
+\end{DoxySeeAlso}
+This function will only look for wiimote devices. \par
+ When a device is found the address in the structures will be set. \par
+ You can then call wiimote\-\_\-connect() to connect to the found \par
+ devices. 
+
+Definition at line 70 of file wiic\-\_\-v1.\-1/src/wiic/io\-\_\-nix.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2io__nix_8c_a7e041ddd6808f33ad799c6975bbe091f}{\index{wiic\-\_\-v1.\-1/src/wiic/io\-\_\-nix.\-c@{wiic\-\_\-v1.\-1/src/wiic/io\-\_\-nix.\-c}!wiic\-\_\-load@{wiic\-\_\-load}}
+\index{wiic\-\_\-load@{wiic\-\_\-load}!wiic_v1.1/src/wiic/io_nix.c@{wiic\-\_\-v1.\-1/src/wiic/io\-\_\-nix.\-c}}
+\subsubsection[{wiic\-\_\-load}]{\setlength{\rightskip}{0pt plus 5cm}int wiic\-\_\-load (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$$\ast$}]{wm}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2io__nix_8c_a7e041ddd6808f33ad799c6975bbe091f}
+
+
+Load Wii devices registered in the wiimotes.\-config file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & An array of \hyperlink{structwiimote__t}{wiimote\-\_\-t} structures.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The number of wiimotes successfully loaded.
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See Also}
+\hyperlink{wiic__r90_2src_2wiic_2io__nix_8c_a52ee1d13f65c44656f4cc95d4d54d8f8}{wiic\-\_\-find()} 
+
+\hyperlink{wiic__r90_2src_2wiic_2io__nix_8c_a356c1950a83d07f6f31efedfe5f5cdcc}{wiic\-\_\-connect()} 
+
+\hyperlink{wiic__r90_2src_2wiic_2io__nix_8c_a48a32197084dfb1ab5c8d3737b51257f}{wiic\-\_\-connect\-\_\-single()} 
+
+\hyperlink{wiic__r90_2src_2wiic_2io__nix_8c_a219a4ed8738f4937a777e02ed8656fcf}{wiic\-\_\-disconnect()}
+\end{DoxySeeAlso}
+Up to version 0.\-53, it is possible to register the M\-A\-C address of your Wii devices. This allows to automatically load them, without waiting for any search timeout. To register a new device, go to\-: $<$\-H\-O\-M\-E\-\_\-\-D\-I\-R$>$/.wiic/ and edit the file wiimotes.\-config, by adding the M\-A\-C address of the device you want to register (one line per M\-A\-C address). 
+
+Definition at line 183 of file wiic\-\_\-v1.\-1/src/wiic/io\-\_\-nix.\-c.
+

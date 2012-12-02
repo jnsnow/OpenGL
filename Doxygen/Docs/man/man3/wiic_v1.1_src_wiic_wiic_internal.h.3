@@ -1,0 +1,363 @@
+.TH "wiic_internal.h" 3 "Sat Dec 1 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+wiic_internal.h \- 
+.PP
+General internal wiic stuff\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <arpa/inet\&.h>\fP
+.br
+\fC#include <bluetooth/bluetooth\&.h>\fP
+.br
+\fC#include 'definitions\&.h'\fP
+.br
+\fC#include 'wiic\&.h'\fP
+.br
+
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBWIIC_VERSION\fP   '1\&.1'"
+.br
+.ti -1c
+.RI "#define \fBWM_OUTPUT_CHANNEL\fP   0x11"
+.br
+.ti -1c
+.RI "#define \fBWM_INPUT_CHANNEL\fP   0x13"
+.br
+.ti -1c
+.RI "#define \fBWM_SET_REPORT\fP   0x50"
+.br
+.ti -1c
+.RI "#define \fBWM_CMD_LED\fP   0x11"
+.br
+.ti -1c
+.RI "#define \fBWM_CMD_REPORT_TYPE\fP   0x12"
+.br
+.ti -1c
+.RI "#define \fBWM_CMD_RUMBLE\fP   0x13"
+.br
+.ti -1c
+.RI "#define \fBWM_CMD_IR\fP   0x13"
+.br
+.ti -1c
+.RI "#define \fBWM_CMD_SPEAKER_ENABLE\fP   0x14"
+.br
+.ti -1c
+.RI "#define \fBWM_CMD_CTRL_STATUS\fP   0x15"
+.br
+.ti -1c
+.RI "#define \fBWM_CMD_WRITE_DATA\fP   0x16"
+.br
+.ti -1c
+.RI "#define \fBWM_CMD_READ_DATA\fP   0x17"
+.br
+.ti -1c
+.RI "#define \fBWM_CMD_SPEAKER_DATA\fP   0x18"
+.br
+.ti -1c
+.RI "#define \fBWM_CMD_SPEAKER_MUTE\fP   0x19"
+.br
+.ti -1c
+.RI "#define \fBWM_CMD_IR_2\fP   0x1A"
+.br
+.ti -1c
+.RI "#define \fBWM_RPT_CTRL_STATUS\fP   0x20"
+.br
+.ti -1c
+.RI "#define \fBWM_RPT_READ\fP   0x21"
+.br
+.ti -1c
+.RI "#define \fBWM_RPT_WRITE\fP   0x22"
+.br
+.ti -1c
+.RI "#define \fBWM_RPT_BTN\fP   0x30"
+.br
+.ti -1c
+.RI "#define \fBWM_RPT_BTN_ACC\fP   0x31"
+.br
+.ti -1c
+.RI "#define \fBWM_RPT_BTN_ACC_IR\fP   0x33"
+.br
+.ti -1c
+.RI "#define \fBWM_RPT_BTN_EXP\fP   0x34"
+.br
+.ti -1c
+.RI "#define \fBWM_RPT_BTN_ACC_EXP\fP   0x35"
+.br
+.ti -1c
+.RI "#define \fBWM_RPT_BTN_IR_EXP\fP   0x36"
+.br
+.ti -1c
+.RI "#define \fBWM_RPT_BTN_ACC_IR_EXP\fP   0x37"
+.br
+.ti -1c
+.RI "#define \fBWM_BT_INPUT\fP   0x01"
+.br
+.ti -1c
+.RI "#define \fBWM_BT_OUTPUT\fP   0x02"
+.br
+.ti -1c
+.RI "#define \fBWM_DEV_CLASS_0\fP   0x04"
+.br
+.ti -1c
+.RI "#define \fBWM_DEV_CLASS_1\fP   0x25"
+.br
+.ti -1c
+.RI "#define \fBWM_DEV_CLASS_2\fP   0x00"
+.br
+.ti -1c
+.RI "#define \fBWM_VENDOR_ID\fP   0x057E"
+.br
+.ti -1c
+.RI "#define \fBWM_PRODUCT_ID\fP   0x0306"
+.br
+.ti -1c
+.RI "#define \fBWM_MAX_BATTERY_CODE\fP   0xC8"
+.br
+.ti -1c
+.RI "#define \fBWM_MEM_OFFSET_CALIBRATION\fP   0x16"
+.br
+.ti -1c
+.RI "#define \fBWM_EXP_MEM_BASE\fP   0x04A40000"
+.br
+.ti -1c
+.RI "#define \fBWM_EXP_MEM_ENABLE\fP   0x04A40040"
+.br
+.ti -1c
+.RI "#define \fBWM_EXP_MEM_CALIBR\fP   0x04A40020"
+.br
+.ti -1c
+.RI "#define \fBWM_EXP_ID\fP   0x04A400FA"
+.br
+.ti -1c
+.RI "#define \fBEXP_HANDSHAKE_LEN\fP   224"
+.br
+.ti -1c
+.RI "#define \fBWM_REG_IR\fP   0x04B00030"
+.br
+.ti -1c
+.RI "#define \fBWM_REG_IR_BLOCK1\fP   0x04B00000"
+.br
+.ti -1c
+.RI "#define \fBWM_REG_IR_BLOCK2\fP   0x04B0001A"
+.br
+.ti -1c
+.RI "#define \fBWM_REG_IR_MODENUM\fP   0x04B00033"
+.br
+.ti -1c
+.RI "#define \fBWM_MOTION_PLUS_INIT\fP   0x04A600F0"
+.br
+.ti -1c
+.RI "#define \fBWM_MOTION_PLUS_ID_ADDR\fP   0x04A400FA	/** This register contains the Motion Plus ID, if correctly activated */"
+.br
+.ti -1c
+.RI "#define \fBWM_MOTION_PLUS_ENABLE\fP   0x04A600FE"
+.br
+.ti -1c
+.RI "#define \fBWM_MOTION_PLUS_DISABLE\fP   0x04A400F0"
+.br
+.ti -1c
+.RI "#define \fBWM_IR_BLOCK1_LEVEL1\fP   '\\x02\\x00\\x00\\x71\\x01\\x00\\x64\\x00\\xfe'"
+.br
+.ti -1c
+.RI "#define \fBWM_IR_BLOCK2_LEVEL1\fP   '\\xfd\\x05'"
+.br
+.ti -1c
+.RI "#define \fBWM_IR_BLOCK1_LEVEL2\fP   '\\x02\\x00\\x00\\x71\\x01\\x00\\x96\\x00\\xb4'"
+.br
+.ti -1c
+.RI "#define \fBWM_IR_BLOCK2_LEVEL2\fP   '\\xb3\\x04'"
+.br
+.ti -1c
+.RI "#define \fBWM_IR_BLOCK1_LEVEL3\fP   '\\x02\\x00\\x00\\x71\\x01\\x00\\xaa\\x00\\x64'"
+.br
+.ti -1c
+.RI "#define \fBWM_IR_BLOCK2_LEVEL3\fP   '\\x63\\x03'"
+.br
+.ti -1c
+.RI "#define \fBWM_IR_BLOCK1_LEVEL4\fP   '\\x02\\x00\\x00\\x71\\x01\\x00\\xc8\\x00\\x36'"
+.br
+.ti -1c
+.RI "#define \fBWM_IR_BLOCK2_LEVEL4\fP   '\\x35\\x03'"
+.br
+.ti -1c
+.RI "#define \fBWM_IR_BLOCK1_LEVEL5\fP   '\\x07\\x00\\x00\\x71\\x01\\x00\\x72\\x00\\x20'"
+.br
+.ti -1c
+.RI "#define \fBWM_IR_BLOCK2_LEVEL5\fP   '\\x1f\\x03'"
+.br
+.ti -1c
+.RI "#define \fBWM_IR_TYPE_BASIC\fP   0x01"
+.br
+.ti -1c
+.RI "#define \fBWM_IR_TYPE_EXTENDED\fP   0x03"
+.br
+.ti -1c
+.RI "#define \fBWM_CTRL_STATUS_BYTE1_ATTACHMENT\fP   0x02"
+.br
+.ti -1c
+.RI "#define \fBWM_CTRL_STATUS_BYTE1_SPEAKER_ENABLED\fP   0x04"
+.br
+.ti -1c
+.RI "#define \fBWM_CTRL_STATUS_BYTE1_IR_ENABLED\fP   0x08"
+.br
+.ti -1c
+.RI "#define \fBWM_CTRL_STATUS_BYTE1_LED_1\fP   0x10"
+.br
+.ti -1c
+.RI "#define \fBWM_CTRL_STATUS_BYTE1_LED_2\fP   0x20"
+.br
+.ti -1c
+.RI "#define \fBWM_CTRL_STATUS_BYTE1_LED_3\fP   0x40"
+.br
+.ti -1c
+.RI "#define \fBWM_CTRL_STATUS_BYTE1_LED_4\fP   0x80"
+.br
+.ti -1c
+.RI "#define \fBWM_ASPECT_16_9_X\fP   660"
+.br
+.ti -1c
+.RI "#define \fBWM_ASPECT_16_9_Y\fP   370"
+.br
+.ti -1c
+.RI "#define \fBWM_ASPECT_4_3_X\fP   560"
+.br
+.ti -1c
+.RI "#define \fBWM_ASPECT_4_3_Y\fP   420"
+.br
+.ti -1c
+.RI "#define \fBEXP_ID_CODE_NUNCHUK\fP   0x9A1EFEFE"
+.br
+.RI "\fIExpansion stuff\&. \fP"
+.ti -1c
+.RI "#define \fBEXP_ID_CODE_CLASSIC_CONTROLLER\fP   0x9A1EFDFD"
+.br
+.ti -1c
+.RI "#define \fBEXP_ID_CODE_GUITAR\fP   0x9A1EFDFB"
+.br
+.ti -1c
+.RI "#define \fBEXP_ID_CODE_MOTION_PLUS\fP   0xA4200405 /** Motion Plus ID (when activated) */"
+.br
+.ti -1c
+.RI "#define \fBEXP_ID_BALANCE_BOARD\fP   0xA4200402"
+.br
+.ti -1c
+.RI "#define \fBWIIC_DEFAULT_SMOOTH_ALPHA\fP   0\&.1f"
+.br
+.ti -1c
+.RI "#define \fBSMOOTH_ROLL\fP   0x01"
+.br
+.ti -1c
+.RI "#define \fBSMOOTH_PITCH\fP   0x02"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBwiic_set_report_type\fP (struct \fBwiimote_t\fP *wm)"
+.br
+.RI "\fISet the report type based on the current wiimote state\&. \fP"
+.ti -1c
+.RI "void \fBwiic_send_next_pending_read_request\fP (struct \fBwiimote_t\fP *wm)"
+.br
+.RI "\fISend the next pending data read request to the wiimote\&. \fP"
+.ti -1c
+.RI "int \fBwiic_send\fP (struct \fBwiimote_t\fP *wm, \fBbyte\fP report_type, \fBbyte\fP *msg, int len)"
+.br
+.RI "\fISend a packet to the wiimote\&. \fP"
+.ti -1c
+.RI "int \fBwiic_read_data_cb\fP (struct \fBwiimote_t\fP *wm, wiic_read_cb read_cb, \fBbyte\fP *buffer, unsigned int offset, unsigned short len)"
+.br
+.RI "\fIRead data from the wiimote (callback version)\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+General internal wiic stuff\&. 
+
+Since WiiC is a library, wiic\&.h is a duplicate of the API header\&.
+.PP
+The code that would normally go in that file, but which is not needed by third party developers, is put here\&.
+.PP
+So wiic_internal\&.h is included by other files internally, wiic\&.h is included only here\&. 
+.PP
+Definition in file \fBwiic_v1\&.1/src/wiic/wiic_internal\&.h\fP\&.
+.SH "Function Documentation"
+.PP 
+.SS "int wiic_read_data_cb (struct \fBwiimote_t\fP *wm, wiic_read_cbread_cb, \fBbyte\fP *buffer, unsigned intaddr, unsigned shortlen)"
+
+.PP
+Read data from the wiimote (callback version)\&. \fBParameters:\fP
+.RS 4
+\fIwm\fP Pointer to a \fBwiimote_t\fP structure\&. 
+.br
+\fIread_cb\fP Function pointer to call when the data arrives from the wiimote\&. 
+.br
+\fIbuffer\fP An allocated buffer to store the data as it arrives from the wiimote\&. Must be persistent in memory and large enough to hold the data\&. 
+.br
+\fIaddr\fP The address of wiimote memory to read from\&. 
+.br
+\fIlen\fP The length of the block to be read\&.
+.RE
+.PP
+The library can only handle one data read request at a time because it must keep track of the buffer and other events that are specific to that request\&. So if a request has already been made, subsequent requests will be added to a pending list and be sent out when the previous finishes\&. 
+.PP
+Definition at line 351 of file wiic_r90/src/wiic/wiic\&.c\&.
+.SS "int wiic_send (struct \fBwiimote_t\fP *wm, \fBbyte\fPreport_type, \fBbyte\fP *msg, intlen)"
+
+.PP
+Send a packet to the wiimote\&. \fBParameters:\fP
+.RS 4
+\fIwm\fP Pointer to a \fBwiimote_t\fP structure\&. 
+.br
+\fIreport_type\fP The report type to send (WIIMOTE_CMD_LED, WIIMOTE_CMD_RUMBLE, etc)\&. Found in wiic\&.h 
+.br
+\fImsg\fP The payload\&. 
+.br
+\fIlen\fP Length of the payload in bytes\&.
+.RE
+.PP
+This function should replace any write()s directly to the wiimote device\&. 
+.PP
+Definition at line 571 of file wiic_r90/src/wiic/wiic\&.c\&.
+.SS "void wiic_send_next_pending_read_request (struct \fBwiimote_t\fP *wm)"
+
+.PP
+Send the next pending data read request to the wiimote\&. \fBParameters:\fP
+.RS 4
+\fIwm\fP Pointer to a \fBwiimote_t\fP structure\&.
+.RE
+.PP
+\fBSee Also:\fP
+.RS 4
+\fBwiic_read_data()\fP
+.RE
+.PP
+This function is not part of the wiic API\&. 
+.PP
+Definition at line 454 of file wiic_r90/src/wiic/wiic\&.c\&.
+.SS "int wiic_set_report_type (struct \fBwiimote_t\fP *wm)"
+
+.PP
+Set the report type based on the current wiimote state\&. \fBParameters:\fP
+.RS 4
+\fIwm\fP Pointer to a \fBwiimote_t\fP structure\&.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+The report type sent\&.
+.RE
+.PP
+The wiimote reports formatted packets depending on the report type that was last requested\&. This function will update the type of report that should be sent based on the current state of the device\&. 
+.PP
+Definition at line 301 of file wiic_r90/src/wiic/wiic\&.c\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for OpenGL Flythrough from the source code\&.

@@ -59,8 +59,8 @@ namespace Angel {
   };
   
   //  --- Non-class mat2 Methods ---
-  inline mat2 matrixCompMult( const mat2& A, const mat2& B );
-  inline mat2 transpose( const mat2& A );
+  mat2 matrixCompMult( const mat2& A, const mat2& B );
+  mat2 transpose( const mat2& A );
 
 
 
@@ -111,8 +111,8 @@ namespace Angel {
   };
 
   //  --- Non-class mat3 Methods ---
-  inline mat3 matrixCompMult( const mat3& A, const mat3& B );
-  inline mat3 transpose( const mat3& A );
+  mat3 matrixCompMult( const mat3& A, const mat3& B );
+  mat3 transpose( const mat3& A );
 
 
 
@@ -169,8 +169,8 @@ namespace Angel {
   };
 
   //  --- Non-class mat4 Methods ---
-  inline mat4 matrixCompMult( const mat4& A, const mat4& B );
-  inline mat4 transpose( const mat4& A );
+  mat4 matrixCompMult( const mat4& A, const mat4& B );
+  mat4 transpose( const mat4& A );
 
   /************************************************************************/
   //  Helpful Matrix Methods
@@ -180,30 +180,30 @@ namespace Angel {
     std::cerr << "[" __FILE__ ":" << __LINE__ << "] "	\
 	      << str << std::endl; } while(0)
     
-  inline mat4 RotateX( const GLfloat theta );
-  inline mat4 RotateY( const GLfloat theta );
-  inline mat4 RotateZ( const GLfloat theta );
+  mat4 RotateX( const GLfloat theta );
+  mat4 RotateY( const GLfloat theta );
+  mat4 RotateZ( const GLfloat theta );
   //  Translation matrix generators
-  inline mat4 Translate( const GLfloat x, const GLfloat y, 
+  mat4 Translate( const GLfloat x, const GLfloat y, 
 			 const GLfloat z );
-  inline mat4 Translate( const vec3& v );
-  inline mat4 Translate( const vec4& v );
+  mat4 Translate( const vec3& v );
+  mat4 Translate( const vec4& v );
   //  Scale matrix generators
-  inline mat4 Scale( const GLfloat x, const GLfloat y, const GLfloat z );
-  inline mat4 Scale( const vec3& v );
+  mat4 Scale( const GLfloat x, const GLfloat y, const GLfloat z );
+  mat4 Scale( const vec3& v );
   //  Projection transformation matrix geneartors
-  inline mat4 Ortho( const GLfloat left, const GLfloat right,
+  mat4 Ortho( const GLfloat left, const GLfloat right,
 		     const GLfloat bottom, const GLfloat top,
 		     const GLfloat zNear, const GLfloat zFar );
-  inline mat4 Ortho2D( const GLfloat left, const GLfloat right,
+  mat4 Ortho2D( const GLfloat left, const GLfloat right,
 		       const GLfloat bottom, const GLfloat top );
-  inline mat4 Frustum( const GLfloat left, const GLfloat right,
+  mat4 Frustum( const GLfloat left, const GLfloat right,
 		       const GLfloat bottom, const GLfloat top,
 		       const GLfloat zNear, const GLfloat zFar );
-  inline mat4 Perspective( const GLfloat fovy, const GLfloat aspect,
+  mat4 Perspective( const GLfloat fovy, const GLfloat aspect,
 			   const GLfloat zNear, const GLfloat zFar);
   //  Viewing transformation matrix generation
-  inline mat4 LookAt( const vec4& eye, const vec4& at, const vec4& up );
+  mat4 LookAt( const vec4& eye, const vec4& at, const vec4& up );
 
 }  // namespace Angel
 

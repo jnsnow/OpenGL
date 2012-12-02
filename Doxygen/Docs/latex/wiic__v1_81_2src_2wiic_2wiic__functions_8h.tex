@@ -1,0 +1,854 @@
+\hypertarget{wiic__v1_81_2src_2wiic_2wiic__functions_8h}{\section{wiic\-\_\-functions.\-h File Reference}
+\label{wiic__v1_81_2src_2wiic_2wiic__functions_8h}\index{wiic\-\_\-functions.\-h@{wiic\-\_\-functions.\-h}}
+}
+
+
+Wii\-C public functions.  
+
+
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a8ff68df64cb2318851a7c4e092cfb235}{W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T const char $\ast$ \hyperlink{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a8ff68df64cb2318851a7c4e092cfb235}{wiic\-\_\-version} ()}\label{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a8ff68df64cb2318851a7c4e092cfb235}
+
+\begin{DoxyCompactList}\small\item\em Returns the version of the library. \end{DoxyCompactList}\item 
+W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$$\ast$ \hyperlink{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a5cc654c15db27599abe95ecb1f16a738}{wiic\-\_\-init} (int wiimotes)
+\begin{DoxyCompactList}\small\item\em Initialize an array of wiimote structures. \end{DoxyCompactList}\item 
+W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void \hyperlink{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a4b212e3511a6fde42c4e8eb86bf003b0}{wiic\-\_\-disconnected} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm)
+\begin{DoxyCompactList}\small\item\em The wiimote disconnected. \end{DoxyCompactList}\item 
+\hypertarget{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a28d217e4490b8e33091abfb8093d7a1f}{W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void \hyperlink{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a28d217e4490b8e33091abfb8093d7a1f}{wiic\-\_\-cleanup} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$$\ast$wm, int wiimotes)}\label{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a28d217e4490b8e33091abfb8093d7a1f}
+
+\begin{DoxyCompactList}\small\item\em Clean up \hyperlink{structwiimote__t}{wiimote\-\_\-t} array created by \hyperlink{wiic__r90_2src_2wiic_2wiic_8c_a2bf7d4c82b94fc0883c6e9dc53123b47}{wiic\-\_\-init()} \end{DoxyCompactList}\item 
+W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void \hyperlink{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a30988a473c575c1f765c76242befb6aa}{wiic\-\_\-rumble} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, int status)
+\begin{DoxyCompactList}\small\item\em Enable or disable the rumble. \end{DoxyCompactList}\item 
+W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void \hyperlink{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a20f7cec5310738870a965b361d69d1bd}{wiic\-\_\-toggle\-\_\-rumble} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm)
+\begin{DoxyCompactList}\small\item\em Toggle the state of the rumble. \end{DoxyCompactList}\item 
+W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void \hyperlink{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a8c0a2becf04bdae281fa3dcf4118fed1}{wiic\-\_\-set\-\_\-leds} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, int leds)
+\begin{DoxyCompactList}\small\item\em Set the enabled L\-E\-Ds. \end{DoxyCompactList}\item 
+W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void \hyperlink{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a7172f9178be4d69ac456d233358e0321}{wiic\-\_\-motion\-\_\-sensing} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, int status)
+\begin{DoxyCompactList}\small\item\em Set if the wiimote should report motion sensing. \end{DoxyCompactList}\item 
+W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a75d3b64484a0638c2950378f2434b2c4}{wiic\-\_\-read\-\_\-data} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, \hyperlink{wiic__r90_2src_2wiic_2wiic__macros_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte} $\ast$buffer, unsigned int offset, unsigned short len)
+\begin{DoxyCompactList}\small\item\em Read data from the wiimote (event version). \end{DoxyCompactList}\item 
+W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a22d3be84d907c5b8f921b2c10cf4b7ba}{wiic\-\_\-write\-\_\-data} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, unsigned int addr, \hyperlink{wiic__r90_2src_2wiic_2wiic__macros_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte} $\ast$data, \hyperlink{wiic__r90_2src_2wiic_2wiic__macros_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte} len)
+\begin{DoxyCompactList}\small\item\em Write data to the wiimote. \end{DoxyCompactList}\item 
+W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void \hyperlink{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a76ab228f5f18c159f32e40a12683401f}{wiic\-\_\-status} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm)
+\begin{DoxyCompactList}\small\item\em Request the wiimote controller status. \end{DoxyCompactList}\item 
+W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$ \hyperlink{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a1186fc29a5e6c4e09179975a62859965}{wiic\-\_\-get\-\_\-by\-\_\-id} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$$\ast$wm, int wiimotes, int unid)
+\begin{DoxyCompactList}\small\item\em Find a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure by its unique identifier. \end{DoxyCompactList}\item 
+W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a84fecf1a64f06c8ea336256be3d23e97}{wiic\-\_\-set\-\_\-flags} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, int enable, int disable)
+\begin{DoxyCompactList}\small\item\em Set flags for the specified wiimote. \end{DoxyCompactList}\item 
+W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T float \hyperlink{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a313a9b0db5e5e33168552389356de067}{wiic\-\_\-set\-\_\-smooth\-\_\-alpha} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, float alpha)
+\begin{DoxyCompactList}\small\item\em Set the wiimote smoothing alpha value. \end{DoxyCompactList}\item 
+W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void \hyperlink{wiic__v1_81_2src_2wiic_2wiic__functions_8h_acf63f067bd32f43283a779f1a7032152}{wiic\-\_\-set\-\_\-orient\-\_\-threshold} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, float threshold)
+\begin{DoxyCompactList}\small\item\em Set the orientation event threshold. \end{DoxyCompactList}\item 
+W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void \hyperlink{wiic__v1_81_2src_2wiic_2wiic__functions_8h_ab4ab39440415aac59fa1b08e9f472302}{wiic\-\_\-resync} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm)
+\begin{DoxyCompactList}\small\item\em Try to resync with the wiimote by starting a new handshake. \end{DoxyCompactList}\item 
+W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void \hyperlink{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a6fb61a6926e344e1ff9d631dbd3901f9}{wiic\-\_\-set\-\_\-accel\-\_\-threshold} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, int threshold)
+\begin{DoxyCompactList}\small\item\em Set the accelerometer event threshold. \end{DoxyCompactList}\item 
+W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{wiic__v1_81_2src_2wiic_2wiic__functions_8h_acff8ebed82eed845a236293c8af890a7}{wiic\-\_\-find} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$$\ast$wm, int max\-\_\-wiimotes, int timeout)
+\begin{DoxyCompactList}\small\item\em Find a wiimote or wiimotes. \end{DoxyCompactList}\item 
+W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a9cb3d4a8f2c2a4dec0f3e79110825f49}{wiic\-\_\-load} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$$\ast$wm)
+\begin{DoxyCompactList}\small\item\em Load Wii devices registered in the wiimotes.\-config file. \end{DoxyCompactList}\item 
+W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{wiic__v1_81_2src_2wiic_2wiic__functions_8h_afddb43679cc37f3e5a22ed7fa6c0167e}{wiic\-\_\-connect} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$$\ast$wm, int wiimotes)
+\begin{DoxyCompactList}\small\item\em Connect to a wiimote or wiimotes once an address is known. \end{DoxyCompactList}\item 
+W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void \hyperlink{wiic__v1_81_2src_2wiic_2wiic__functions_8h_af8dbda91f41919c9a4502ff40f4d997d}{wiic\-\_\-disconnect} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm)
+\begin{DoxyCompactList}\small\item\em Disconnect a wiimote. \end{DoxyCompactList}\item 
+W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a7606226d78586b640ca24b53a67bca47}{wiic\-\_\-poll} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$$\ast$wm, int wiimotes)
+\begin{DoxyCompactList}\small\item\em Poll the wiimotes for any events. \end{DoxyCompactList}\item 
+W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void \hyperlink{wiic__v1_81_2src_2wiic_2wiic__functions_8h_acd35c1d0c37379591a32909b07f0d94e}{wiic\-\_\-set\-\_\-ir} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, int status)
+\begin{DoxyCompactList}\small\item\em Set if the wiimote should track I\-R targets. \end{DoxyCompactList}\item 
+W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void \hyperlink{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a6116de426255dc20adc7a8ec55fb4f19}{wiic\-\_\-set\-\_\-ir\-\_\-vres} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, unsigned int x, unsigned int y)
+\begin{DoxyCompactList}\small\item\em Set the virtual screen resolution for I\-R tracking. \end{DoxyCompactList}\item 
+W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void \hyperlink{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a96046dceb27151f7e6043ddd9c0e4184}{wiic\-\_\-set\-\_\-ir\-\_\-position} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, enum ir\-\_\-position\-\_\-t pos)
+\begin{DoxyCompactList}\small\item\em Set the X\-Y position for the I\-R cursor. \end{DoxyCompactList}\item 
+W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void \hyperlink{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a9f85b6ddffa9b6d9138517087e97c85d}{wiic\-\_\-set\-\_\-aspect\-\_\-ratio} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, enum \hyperlink{wiic__r90_2src_2wiic_2wiic__macros_8h_a48b01fa22a869e3fb6afe4b4a4f30658}{aspect\-\_\-t} aspect)
+\begin{DoxyCompactList}\small\item\em Set the aspect ratio of the T\-V/monitor. \end{DoxyCompactList}\item 
+W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void \hyperlink{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a8a35a32fc58adc038964a7c077eff8e2}{wiic\-\_\-set\-\_\-ir\-\_\-sensitivity} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, int level)
+\begin{DoxyCompactList}\small\item\em Set the I\-R sensitivity. \end{DoxyCompactList}\item 
+W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void \hyperlink{wiic__v1_81_2src_2wiic_2wiic__functions_8h_ad200733799dc65e60921fc88e341e451}{wiic\-\_\-set\-\_\-nunchuk\-\_\-orient\-\_\-threshold} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, float threshold)
+\begin{DoxyCompactList}\small\item\em Set the orientation event threshold for the nunchuk. \end{DoxyCompactList}\item 
+W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void \hyperlink{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a163c5f1de50656268360462facba3244}{wiic\-\_\-set\-\_\-nunchuk\-\_\-accel\-\_\-threshold} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, int threshold)
+\begin{DoxyCompactList}\small\item\em Set the accelerometer event threshold for the nunchuk. \end{DoxyCompactList}\item 
+\hypertarget{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a9158c9234639e4e798d8cc5292e06f60}{W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void {\bfseries wiic\-\_\-set\-\_\-speaker} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, int status)}\label{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a9158c9234639e4e798d8cc5292e06f60}
+
+\item 
+\hypertarget{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a6104ae103d21bc550cf78a2113594c32}{W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void {\bfseries wiic\-\_\-mute\-\_\-speaker} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, int status)}\label{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a6104ae103d21bc550cf78a2113594c32}
+
+\item 
+\hypertarget{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a3774be12c6c6dcee792bd0d9683382e8}{W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void {\bfseries wiic\-\_\-sound} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm)}\label{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a3774be12c6c6dcee792bd0d9683382e8}
+
+\item 
+W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void \hyperlink{wiic__v1_81_2src_2wiic_2wiic__functions_8h_ad134d4c753401b72ad6497d6a525a5e7}{wiic\-\_\-set\-\_\-motion\-\_\-plus} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, int status)
+\begin{DoxyCompactList}\small\item\em Control the Motion Plus support. \end{DoxyCompactList}\item 
+W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void \hyperlink{wiic__v1_81_2src_2wiic_2wiic__functions_8h_acaa58729490323c90acee8c00d8350ca}{wiic\-\_\-calibrate\-\_\-motion\-\_\-plus} (struct \hyperlink{structmotion__plus__t}{motion\-\_\-plus\-\_\-t} $\ast$mp)
+\begin{DoxyCompactList}\small\item\em Calibrate the Motion Plus gyroscopes. \end{DoxyCompactList}\item 
+W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void \hyperlink{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a482cb8fa3304eb6533e42e81e70b624c}{wiic\-\_\-set\-\_\-mp\-\_\-threshold} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, int threshold)
+\begin{DoxyCompactList}\small\item\em Set the gyroscope event threshold. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Wii\-C public functions. Contains all the public functions, available for third party applications. This header is included in wiic.\-h. 
+
+Definition in file \hyperlink{wiic__v1_81_2src_2wiic_2wiic__functions_8h_source}{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{wiic__v1_81_2src_2wiic_2wiic__functions_8h_acaa58729490323c90acee8c00d8350ca}{\index{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}!wiic\-\_\-calibrate\-\_\-motion\-\_\-plus@{wiic\-\_\-calibrate\-\_\-motion\-\_\-plus}}
+\index{wiic\-\_\-calibrate\-\_\-motion\-\_\-plus@{wiic\-\_\-calibrate\-\_\-motion\-\_\-plus}!wiic_v1.1/src/wiic/wiic_functions.h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}}
+\subsubsection[{wiic\-\_\-calibrate\-\_\-motion\-\_\-plus}]{\setlength{\rightskip}{0pt plus 5cm}W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void wiic\-\_\-calibrate\-\_\-motion\-\_\-plus (
+\begin{DoxyParamCaption}
+\item[{struct {\bf motion\-\_\-plus\-\_\-t} $\ast$}]{mp}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2wiic__functions_8h_acaa58729490323c90acee8c00d8350ca}
+
+
+Calibrate the Motion Plus gyroscopes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mp} & Pointer to a \hyperlink{structmotion__plus__t}{motion\-\_\-plus\-\_\-t} structure.\\
+\hline
+\end{DoxyParams}
+This should be called only after receiving the first values from the Motion Plus. 
+
+Definition at line 237 of file wiic\-\_\-r90/src/wiic/motionplus.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2wiic__functions_8h_afddb43679cc37f3e5a22ed7fa6c0167e}{\index{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}!wiic\-\_\-connect@{wiic\-\_\-connect}}
+\index{wiic\-\_\-connect@{wiic\-\_\-connect}!wiic_v1.1/src/wiic/wiic_functions.h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}}
+\subsubsection[{wiic\-\_\-connect}]{\setlength{\rightskip}{0pt plus 5cm}W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T int wiic\-\_\-connect (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$$\ast$}]{wm, }
+\item[{int}]{wiimotes}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2wiic__functions_8h_afddb43679cc37f3e5a22ed7fa6c0167e}
+
+
+Connect to a wiimote or wiimotes once an address is known. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & An array of \hyperlink{structwiimote__t}{wiimote\-\_\-t} structures. \\
+\hline
+{\em wiimotes} & The number of wiimote structures in {\itshape wm}.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The number of wiimotes that successfully connected.
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See Also}
+\hyperlink{wiic__r90_2src_2wiic_2io__nix_8c_a52ee1d13f65c44656f4cc95d4d54d8f8}{wiic\-\_\-find()} 
+
+\hyperlink{wiic__r90_2src_2wiic_2io__nix_8c_a48a32197084dfb1ab5c8d3737b51257f}{wiic\-\_\-connect\-\_\-single()} 
+
+\hyperlink{wiic__r90_2src_2wiic_2io__nix_8c_a219a4ed8738f4937a777e02ed8656fcf}{wiic\-\_\-disconnect()}
+\end{DoxySeeAlso}
+Connect to a number of wiimotes when the address is already set in the \hyperlink{structwiimote__t}{wiimote\-\_\-t} structures. These addresses are normally set by the \hyperlink{wiic__r90_2src_2wiic_2io__nix_8c_a52ee1d13f65c44656f4cc95d4d54d8f8}{wiic\-\_\-find()} function, but can also be set manually. 
+
+Definition at line 148 of file wiic\-\_\-v1.\-1/src/wiic/io\-\_\-nix.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2wiic__functions_8h_af8dbda91f41919c9a4502ff40f4d997d}{\index{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}!wiic\-\_\-disconnect@{wiic\-\_\-disconnect}}
+\index{wiic\-\_\-disconnect@{wiic\-\_\-disconnect}!wiic_v1.1/src/wiic/wiic_functions.h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}}
+\subsubsection[{wiic\-\_\-disconnect}]{\setlength{\rightskip}{0pt plus 5cm}W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void wiic\-\_\-disconnect (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2wiic__functions_8h_af8dbda91f41919c9a4502ff40f4d997d}
+
+
+Disconnect a wiimote. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure.\\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See Also}
+\hyperlink{wiic__r90_2src_2wiic_2io__nix_8c_a356c1950a83d07f6f31efedfe5f5cdcc}{wiic\-\_\-connect()}
+\end{DoxySeeAlso}
+Note that this will not free the wiimote structure. 
+
+Definition at line 314 of file wiic\-\_\-r90/src/wiic/io\-\_\-nix.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a4b212e3511a6fde42c4e8eb86bf003b0}{\index{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}!wiic\-\_\-disconnected@{wiic\-\_\-disconnected}}
+\index{wiic\-\_\-disconnected@{wiic\-\_\-disconnected}!wiic_v1.1/src/wiic/wiic_functions.h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}}
+\subsubsection[{wiic\-\_\-disconnected}]{\setlength{\rightskip}{0pt plus 5cm}W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void wiic\-\_\-disconnected (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a4b212e3511a6fde42c4e8eb86bf003b0}
+
+
+The wiimote disconnected. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 165 of file wiic\-\_\-r90/src/wiic/wiic.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2wiic__functions_8h_acff8ebed82eed845a236293c8af890a7}{\index{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}!wiic\-\_\-find@{wiic\-\_\-find}}
+\index{wiic\-\_\-find@{wiic\-\_\-find}!wiic_v1.1/src/wiic/wiic_functions.h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}}
+\subsubsection[{wiic\-\_\-find}]{\setlength{\rightskip}{0pt plus 5cm}W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T int wiic\-\_\-find (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$$\ast$}]{wm, }
+\item[{int}]{max\-\_\-wiimotes, }
+\item[{int}]{timeout}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2wiic__functions_8h_acff8ebed82eed845a236293c8af890a7}
+
+
+Find a wiimote or wiimotes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & An array of \hyperlink{structwiimote__t}{wiimote\-\_\-t} structures. \\
+\hline
+{\em max\-\_\-wiimotes} & The number of wiimote structures in {\itshape wm}. \\
+\hline
+{\em timeout} & The number of seconds before the search times out.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The number of wiimotes found.
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See Also}
+wiimote\-\_\-connect()
+\end{DoxySeeAlso}
+This function will only look for wiimote devices. \par
+ When a device is found the address in the structures will be set. \par
+ You can then call wiimote\-\_\-connect() to connect to the found \par
+ devices. 
+
+Definition at line 68 of file wiic\-\_\-r90/src/wiic/io\-\_\-nix.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a1186fc29a5e6c4e09179975a62859965}{\index{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}!wiic\-\_\-get\-\_\-by\-\_\-id@{wiic\-\_\-get\-\_\-by\-\_\-id}}
+\index{wiic\-\_\-get\-\_\-by\-\_\-id@{wiic\-\_\-get\-\_\-by\-\_\-id}!wiic_v1.1/src/wiic/wiic_functions.h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}}
+\subsubsection[{wiic\-\_\-get\-\_\-by\-\_\-id}]{\setlength{\rightskip}{0pt plus 5cm}W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T struct {\bf wiimote\-\_\-t}$\ast$ wiic\-\_\-get\-\_\-by\-\_\-id (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$$\ast$}]{wm, }
+\item[{int}]{wiimotes, }
+\item[{int}]{unid}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [read]}}}\label{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a1186fc29a5e6c4e09179975a62859965}
+
+
+Find a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure by its unique identifier. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\hline
+{\em wiimotes} & The number of \hyperlink{structwiimote__t}{wiimote\-\_\-t} structures in {\itshape wm}. \\
+\hline
+{\em unid} & The unique identifier to search for.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure, or N\-U\-L\-L if not found. 
+\end{DoxyReturn}
+
+
+Definition at line 507 of file wiic\-\_\-r90/src/wiic/wiic.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a5cc654c15db27599abe95ecb1f16a738}{\index{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}!wiic\-\_\-init@{wiic\-\_\-init}}
+\index{wiic\-\_\-init@{wiic\-\_\-init}!wiic_v1.1/src/wiic/wiic_functions.h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}}
+\subsubsection[{wiic\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T struct {\bf wiimote\-\_\-t}$\ast$$\ast$ wiic\-\_\-init (
+\begin{DoxyParamCaption}
+\item[{int}]{wiimotes}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [read]}}}\label{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a5cc654c15db27599abe95ecb1f16a738}
+
+
+Initialize an array of wiimote structures. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wiimotes} & Number of \hyperlink{structwiimote__t}{wiimote\-\_\-t} structures to create.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+An array of initialized \hyperlink{structwiimote__t}{wiimote\-\_\-t} structures.
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See Also}
+\hyperlink{wiic__r90_2src_2wiic_2io__nix_8c_a356c1950a83d07f6f31efedfe5f5cdcc}{wiic\-\_\-connect()}
+\end{DoxySeeAlso}
+The array returned by this function can be passed to various functions, including \hyperlink{wiic__r90_2src_2wiic_2io__nix_8c_a356c1950a83d07f6f31efedfe5f5cdcc}{wiic\-\_\-connect()}. 
+
+Definition at line 95 of file wiic\-\_\-r90/src/wiic/wiic.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a9cb3d4a8f2c2a4dec0f3e79110825f49}{\index{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}!wiic\-\_\-load@{wiic\-\_\-load}}
+\index{wiic\-\_\-load@{wiic\-\_\-load}!wiic_v1.1/src/wiic/wiic_functions.h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}}
+\subsubsection[{wiic\-\_\-load}]{\setlength{\rightskip}{0pt plus 5cm}W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T int wiic\-\_\-load (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$$\ast$}]{wm}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a9cb3d4a8f2c2a4dec0f3e79110825f49}
+
+
+Load Wii devices registered in the wiimotes.\-config file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & An array of \hyperlink{structwiimote__t}{wiimote\-\_\-t} structures.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The number of wiimotes successfully loaded.
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See Also}
+\hyperlink{wiic__r90_2src_2wiic_2io__nix_8c_a52ee1d13f65c44656f4cc95d4d54d8f8}{wiic\-\_\-find()} 
+
+\hyperlink{wiic__r90_2src_2wiic_2io__nix_8c_a356c1950a83d07f6f31efedfe5f5cdcc}{wiic\-\_\-connect()} 
+
+\hyperlink{wiic__r90_2src_2wiic_2io__nix_8c_a48a32197084dfb1ab5c8d3737b51257f}{wiic\-\_\-connect\-\_\-single()} 
+
+\hyperlink{wiic__r90_2src_2wiic_2io__nix_8c_a219a4ed8738f4937a777e02ed8656fcf}{wiic\-\_\-disconnect()}
+\end{DoxySeeAlso}
+Up to version 0.\-53, it is possible to register the M\-A\-C address of your Wii devices. This allows to automatically load them, without waiting for any search timeout. To register a new device, go to\-: $<$\-H\-O\-M\-E\-\_\-\-D\-I\-R$>$/.wiic/ and edit the file wiimotes.\-config, by adding the M\-A\-C address of the device you want to register (one line per M\-A\-C address). 
+
+Definition at line 188 of file wiic\-\_\-r90/src/wiic/io\-\_\-nix.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a7172f9178be4d69ac456d233358e0321}{\index{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}!wiic\-\_\-motion\-\_\-sensing@{wiic\-\_\-motion\-\_\-sensing}}
+\index{wiic\-\_\-motion\-\_\-sensing@{wiic\-\_\-motion\-\_\-sensing}!wiic_v1.1/src/wiic/wiic_functions.h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}}
+\subsubsection[{wiic\-\_\-motion\-\_\-sensing}]{\setlength{\rightskip}{0pt plus 5cm}W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void wiic\-\_\-motion\-\_\-sensing (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
+\item[{int}]{status}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a7172f9178be4d69ac456d233358e0321}
+
+
+Set if the wiimote should report motion sensing. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\hline
+{\em status} & 1 to enable, 0 to disable.\\
+\hline
+\end{DoxyParams}
+Since reporting motion sensing sends a lot of data, the wiimote saves power by not transmitting it by default. 
+
+Definition at line 279 of file wiic\-\_\-r90/src/wiic/wiic.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a7606226d78586b640ca24b53a67bca47}{\index{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}!wiic\-\_\-poll@{wiic\-\_\-poll}}
+\index{wiic\-\_\-poll@{wiic\-\_\-poll}!wiic_v1.1/src/wiic/wiic_functions.h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}}
+\subsubsection[{wiic\-\_\-poll}]{\setlength{\rightskip}{0pt plus 5cm}W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T int wiic\-\_\-poll (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$$\ast$}]{wm, }
+\item[{int}]{wiimotes}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a7606226d78586b640ca24b53a67bca47}
+
+
+Poll the wiimotes for any events. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & An array of pointers to \hyperlink{structwiimote__t}{wiimote\-\_\-t} structures. \\
+\hline
+{\em wiimotes} & The number of \hyperlink{structwiimote__t}{wiimote\-\_\-t} structures in the {\itshape wm} array.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns number of wiimotes that an event has occured on.
+\end{DoxyReturn}
+It is necessary to poll the wiimote devices for events that occur. If an event occurs on a particular wiimote, the event variable will be set. 
+
+Definition at line 81 of file wiic\-\_\-r90/src/wiic/events.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a75d3b64484a0638c2950378f2434b2c4}{\index{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}!wiic\-\_\-read\-\_\-data@{wiic\-\_\-read\-\_\-data}}
+\index{wiic\-\_\-read\-\_\-data@{wiic\-\_\-read\-\_\-data}!wiic_v1.1/src/wiic/wiic_functions.h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}}
+\subsubsection[{wiic\-\_\-read\-\_\-data}]{\setlength{\rightskip}{0pt plus 5cm}W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T int wiic\-\_\-read\-\_\-data (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
+\item[{{\bf byte} $\ast$}]{buffer, }
+\item[{unsigned int}]{addr, }
+\item[{unsigned short}]{len}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a75d3b64484a0638c2950378f2434b2c4}
+
+
+Read data from the wiimote (event version). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\hline
+{\em buffer} & An allocated buffer to store the data as it arrives from the wiimote. Must be persistent in memory and large enough to hold the data. \\
+\hline
+{\em addr} & The address of wiimote memory to read from. \\
+\hline
+{\em len} & The length of the block to be read.\\
+\hline
+\end{DoxyParams}
+The library can only handle one data read request at a time because it must keep track of the buffer and other events that are specific to that request. So if a request has already been made, subsequent requests will be added to a pending list and be sent out when the previous finishes. 
+
+Definition at line 406 of file wiic\-\_\-r90/src/wiic/wiic.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2wiic__functions_8h_ab4ab39440415aac59fa1b08e9f472302}{\index{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}!wiic\-\_\-resync@{wiic\-\_\-resync}}
+\index{wiic\-\_\-resync@{wiic\-\_\-resync}!wiic_v1.1/src/wiic/wiic_functions.h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}}
+\subsubsection[{wiic\-\_\-resync}]{\setlength{\rightskip}{0pt plus 5cm}W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void wiic\-\_\-resync (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2wiic__functions_8h_ab4ab39440415aac59fa1b08e9f472302}
+
+
+Try to resync with the wiimote by starting a new handshake. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 704 of file wiic\-\_\-r90/src/wiic/wiic.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a30988a473c575c1f765c76242befb6aa}{\index{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}!wiic\-\_\-rumble@{wiic\-\_\-rumble}}
+\index{wiic\-\_\-rumble@{wiic\-\_\-rumble}!wiic_v1.1/src/wiic/wiic_functions.h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}}
+\subsubsection[{wiic\-\_\-rumble}]{\setlength{\rightskip}{0pt plus 5cm}W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void wiic\-\_\-rumble (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
+\item[{int}]{status}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a30988a473c575c1f765c76242befb6aa}
+
+
+Enable or disable the rumble. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\hline
+{\em status} & 1 to enable, 0 to disable. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 210 of file wiic\-\_\-r90/src/wiic/wiic.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a6fb61a6926e344e1ff9d631dbd3901f9}{\index{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}!wiic\-\_\-set\-\_\-accel\-\_\-threshold@{wiic\-\_\-set\-\_\-accel\-\_\-threshold}}
+\index{wiic\-\_\-set\-\_\-accel\-\_\-threshold@{wiic\-\_\-set\-\_\-accel\-\_\-threshold}!wiic_v1.1/src/wiic/wiic_functions.h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}}
+\subsubsection[{wiic\-\_\-set\-\_\-accel\-\_\-threshold}]{\setlength{\rightskip}{0pt plus 5cm}W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void wiic\-\_\-set\-\_\-accel\-\_\-threshold (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
+\item[{int}]{threshold}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a6fb61a6926e344e1ff9d631dbd3901f9}
+
+
+Set the accelerometer event threshold. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\hline
+{\em threshold} & The decimal place that should be considered a significant change. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 692 of file wiic\-\_\-r90/src/wiic/wiic.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a9f85b6ddffa9b6d9138517087e97c85d}{\index{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}!wiic\-\_\-set\-\_\-aspect\-\_\-ratio@{wiic\-\_\-set\-\_\-aspect\-\_\-ratio}}
+\index{wiic\-\_\-set\-\_\-aspect\-\_\-ratio@{wiic\-\_\-set\-\_\-aspect\-\_\-ratio}!wiic_v1.1/src/wiic/wiic_functions.h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}}
+\subsubsection[{wiic\-\_\-set\-\_\-aspect\-\_\-ratio}]{\setlength{\rightskip}{0pt plus 5cm}W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void wiic\-\_\-set\-\_\-aspect\-\_\-ratio (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
+\item[{enum {\bf aspect\-\_\-t}}]{aspect}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a9f85b6ddffa9b6d9138517087e97c85d}
+
+
+Set the aspect ratio of the T\-V/monitor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\hline
+{\em aspect} & Either W\-I\-I\-C\-\_\-\-A\-S\-P\-E\-C\-T\-\_\-16\-\_\-9 or W\-I\-I\-C\-\_\-\-A\-S\-P\-E\-C\-T\-\_\-4\-\_\-3 \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 239 of file wiic\-\_\-r90/src/wiic/ir.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a84fecf1a64f06c8ea336256be3d23e97}{\index{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}!wiic\-\_\-set\-\_\-flags@{wiic\-\_\-set\-\_\-flags}}
+\index{wiic\-\_\-set\-\_\-flags@{wiic\-\_\-set\-\_\-flags}!wiic_v1.1/src/wiic/wiic_functions.h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}}
+\subsubsection[{wiic\-\_\-set\-\_\-flags}]{\setlength{\rightskip}{0pt plus 5cm}W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T int wiic\-\_\-set\-\_\-flags (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
+\item[{int}]{enable, }
+\item[{int}]{disable}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a84fecf1a64f06c8ea336256be3d23e97}
+
+
+Set flags for the specified wiimote. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\hline
+{\em enable} & Flags to enable. \\
+\hline
+{\em disable} & Flags to disable.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The flags set after 'enable' and 'disable' have been applied.
+\end{DoxyReturn}
+The values 'enable' and 'disable' may be any flags O\-R'ed together. Flags are defined in wiic.\-h. 
+
+Definition at line 625 of file wiic\-\_\-r90/src/wiic/wiic.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2wiic__functions_8h_acd35c1d0c37379591a32909b07f0d94e}{\index{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}!wiic\-\_\-set\-\_\-ir@{wiic\-\_\-set\-\_\-ir}}
+\index{wiic\-\_\-set\-\_\-ir@{wiic\-\_\-set\-\_\-ir}!wiic_v1.1/src/wiic/wiic_functions.h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}}
+\subsubsection[{wiic\-\_\-set\-\_\-ir}]{\setlength{\rightskip}{0pt plus 5cm}W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void wiic\-\_\-set\-\_\-ir (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
+\item[{int}]{status}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2wiic__functions_8h_acd35c1d0c37379591a32909b07f0d94e}
+
+
+Set if the wiimote should track I\-R targets. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\hline
+{\em status} & 1 to enable, 0 to disable. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 61 of file wiic\-\_\-r90/src/wiic/ir.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a96046dceb27151f7e6043ddd9c0e4184}{\index{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}!wiic\-\_\-set\-\_\-ir\-\_\-position@{wiic\-\_\-set\-\_\-ir\-\_\-position}}
+\index{wiic\-\_\-set\-\_\-ir\-\_\-position@{wiic\-\_\-set\-\_\-ir\-\_\-position}!wiic_v1.1/src/wiic/wiic_functions.h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}}
+\subsubsection[{wiic\-\_\-set\-\_\-ir\-\_\-position}]{\setlength{\rightskip}{0pt plus 5cm}W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void wiic\-\_\-set\-\_\-ir\-\_\-position (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
+\item[{enum ir\-\_\-position\-\_\-t}]{pos}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a96046dceb27151f7e6043ddd9c0e4184}
+
+
+Set the X\-Y position for the I\-R cursor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\hline
+{\em pos} & The position of the I\-R emitter (W\-I\-I\-C\-\_\-\-I\-R\-\_\-\-A\-B\-O\-V\-E or W\-I\-I\-C\-\_\-\-I\-R\-\_\-\-B\-E\-L\-O\-W) \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 200 of file wiic\-\_\-r90/src/wiic/ir.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a8a35a32fc58adc038964a7c077eff8e2}{\index{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}!wiic\-\_\-set\-\_\-ir\-\_\-sensitivity@{wiic\-\_\-set\-\_\-ir\-\_\-sensitivity}}
+\index{wiic\-\_\-set\-\_\-ir\-\_\-sensitivity@{wiic\-\_\-set\-\_\-ir\-\_\-sensitivity}!wiic_v1.1/src/wiic/wiic_functions.h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}}
+\subsubsection[{wiic\-\_\-set\-\_\-ir\-\_\-sensitivity}]{\setlength{\rightskip}{0pt plus 5cm}W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void wiic\-\_\-set\-\_\-ir\-\_\-sensitivity (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
+\item[{int}]{level}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a8a35a32fc58adc038964a7c077eff8e2}
+
+
+Set the I\-R sensitivity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\hline
+{\em level} & 1-\/5, same as Wii system sensitivity setting.\\
+\hline
+\end{DoxyParams}
+If the level is $<$ 1, then level will be set to 1. If the level is $>$ 5, then level will be set to 5. 
+
+Definition at line 266 of file wiic\-\_\-r90/src/wiic/ir.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a6116de426255dc20adc7a8ec55fb4f19}{\index{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}!wiic\-\_\-set\-\_\-ir\-\_\-vres@{wiic\-\_\-set\-\_\-ir\-\_\-vres}}
+\index{wiic\-\_\-set\-\_\-ir\-\_\-vres@{wiic\-\_\-set\-\_\-ir\-\_\-vres}!wiic_v1.1/src/wiic/wiic_functions.h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}}
+\subsubsection[{wiic\-\_\-set\-\_\-ir\-\_\-vres}]{\setlength{\rightskip}{0pt plus 5cm}W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void wiic\-\_\-set\-\_\-ir\-\_\-vres (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
+\item[{unsigned int}]{x, }
+\item[{unsigned int}]{y}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a6116de426255dc20adc7a8ec55fb4f19}
+
+
+Set the virtual screen resolution for I\-R tracking. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\hline
+{\em x} & Screen resolution width. \\
+\hline
+{\em y} & Screen resolution height. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 186 of file wiic\-\_\-r90/src/wiic/ir.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a8c0a2becf04bdae281fa3dcf4118fed1}{\index{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}!wiic\-\_\-set\-\_\-leds@{wiic\-\_\-set\-\_\-leds}}
+\index{wiic\-\_\-set\-\_\-leds@{wiic\-\_\-set\-\_\-leds}!wiic_v1.1/src/wiic/wiic_functions.h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}}
+\subsubsection[{wiic\-\_\-set\-\_\-leds}]{\setlength{\rightskip}{0pt plus 5cm}W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void wiic\-\_\-set\-\_\-leds (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
+\item[{int}]{leds}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a8c0a2becf04bdae281fa3dcf4118fed1}
+
+
+Set the enabled L\-E\-Ds. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\hline
+{\em leds} & What L\-E\-Ds to enable.\\
+\hline
+\end{DoxyParams}
+{\itshape leds} is a bitwise or of W\-I\-I\-M\-O\-T\-E\-\_\-\-L\-E\-D\-\_\-1, W\-I\-I\-M\-O\-T\-E\-\_\-\-L\-E\-D\-\_\-2, W\-I\-I\-M\-O\-T\-E\-\_\-\-L\-E\-D\-\_\-3, or W\-I\-I\-M\-O\-T\-E\-\_\-\-L\-E\-D\-\_\-4. 
+
+Definition at line 255 of file wiic\-\_\-r90/src/wiic/wiic.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2wiic__functions_8h_ad134d4c753401b72ad6497d6a525a5e7}{\index{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}!wiic\-\_\-set\-\_\-motion\-\_\-plus@{wiic\-\_\-set\-\_\-motion\-\_\-plus}}
+\index{wiic\-\_\-set\-\_\-motion\-\_\-plus@{wiic\-\_\-set\-\_\-motion\-\_\-plus}!wiic_v1.1/src/wiic/wiic_functions.h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}}
+\subsubsection[{wiic\-\_\-set\-\_\-motion\-\_\-plus}]{\setlength{\rightskip}{0pt plus 5cm}W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void wiic\-\_\-set\-\_\-motion\-\_\-plus (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
+\item[{int}]{status}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2wiic__functions_8h_ad134d4c753401b72ad6497d6a525a5e7}
+
+
+Control the Motion Plus support. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\hline
+{\em status} & Flag to control if the support should be enabled or not (1 to enable, 0 to disable). \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 193 of file wiic\-\_\-r90/src/wiic/motionplus.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a482cb8fa3304eb6533e42e81e70b624c}{\index{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}!wiic\-\_\-set\-\_\-mp\-\_\-threshold@{wiic\-\_\-set\-\_\-mp\-\_\-threshold}}
+\index{wiic\-\_\-set\-\_\-mp\-\_\-threshold@{wiic\-\_\-set\-\_\-mp\-\_\-threshold}!wiic_v1.1/src/wiic/wiic_functions.h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}}
+\subsubsection[{wiic\-\_\-set\-\_\-mp\-\_\-threshold}]{\setlength{\rightskip}{0pt plus 5cm}W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void wiic\-\_\-set\-\_\-mp\-\_\-threshold (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
+\item[{int}]{threshold}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a482cb8fa3304eb6533e42e81e70b624c}
+
+
+Set the gyroscope event threshold. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\hline
+{\em threshold} & The decimal place that should be considered a significant change. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 262 of file wiic\-\_\-r90/src/wiic/motionplus.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a163c5f1de50656268360462facba3244}{\index{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}!wiic\-\_\-set\-\_\-nunchuk\-\_\-accel\-\_\-threshold@{wiic\-\_\-set\-\_\-nunchuk\-\_\-accel\-\_\-threshold}}
+\index{wiic\-\_\-set\-\_\-nunchuk\-\_\-accel\-\_\-threshold@{wiic\-\_\-set\-\_\-nunchuk\-\_\-accel\-\_\-threshold}!wiic_v1.1/src/wiic/wiic_functions.h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}}
+\subsubsection[{wiic\-\_\-set\-\_\-nunchuk\-\_\-accel\-\_\-threshold}]{\setlength{\rightskip}{0pt plus 5cm}W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void wiic\-\_\-set\-\_\-nunchuk\-\_\-accel\-\_\-threshold (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
+\item[{int}]{threshold}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a163c5f1de50656268360462facba3244}
+
+
+Set the accelerometer event threshold for the nunchuk. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure with a nunchuk attached. \\
+\hline
+{\em threshold} & The decimal place that should be considered a significant change.\\
+\hline
+\end{DoxyParams}
+See \hyperlink{wiic__r90_2src_2wiic_2wiic_8c_aa65bb4d505fa8faf60d7a8125a100e87}{wiic\-\_\-set\-\_\-orient\-\_\-threshold()} for details. 
+
+Definition at line 205 of file wiic\-\_\-r90/src/wiic/nunchuk.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2wiic__functions_8h_ad200733799dc65e60921fc88e341e451}{\index{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}!wiic\-\_\-set\-\_\-nunchuk\-\_\-orient\-\_\-threshold@{wiic\-\_\-set\-\_\-nunchuk\-\_\-orient\-\_\-threshold}}
+\index{wiic\-\_\-set\-\_\-nunchuk\-\_\-orient\-\_\-threshold@{wiic\-\_\-set\-\_\-nunchuk\-\_\-orient\-\_\-threshold}!wiic_v1.1/src/wiic/wiic_functions.h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}}
+\subsubsection[{wiic\-\_\-set\-\_\-nunchuk\-\_\-orient\-\_\-threshold}]{\setlength{\rightskip}{0pt plus 5cm}W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void wiic\-\_\-set\-\_\-nunchuk\-\_\-orient\-\_\-threshold (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
+\item[{float}]{threshold}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2wiic__functions_8h_ad200733799dc65e60921fc88e341e451}
+
+
+Set the orientation event threshold for the nunchuk. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure with a nunchuk attached. \\
+\hline
+{\em threshold} & The decimal place that should be considered a significant change.\\
+\hline
+\end{DoxyParams}
+See \hyperlink{wiic__r90_2src_2wiic_2wiic_8c_aa65bb4d505fa8faf60d7a8125a100e87}{wiic\-\_\-set\-\_\-orient\-\_\-threshold()} for details. 
+
+Definition at line 190 of file wiic\-\_\-r90/src/wiic/nunchuk.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2wiic__functions_8h_acf63f067bd32f43283a779f1a7032152}{\index{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}!wiic\-\_\-set\-\_\-orient\-\_\-threshold@{wiic\-\_\-set\-\_\-orient\-\_\-threshold}}
+\index{wiic\-\_\-set\-\_\-orient\-\_\-threshold@{wiic\-\_\-set\-\_\-orient\-\_\-threshold}!wiic_v1.1/src/wiic/wiic_functions.h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}}
+\subsubsection[{wiic\-\_\-set\-\_\-orient\-\_\-threshold}]{\setlength{\rightskip}{0pt plus 5cm}W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void wiic\-\_\-set\-\_\-orient\-\_\-threshold (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
+\item[{float}]{threshold}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2wiic__functions_8h_acf63f067bd32f43283a779f1a7032152}
+
+
+Set the orientation event threshold. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\hline
+{\em threshold} & The decimal place that should be considered a significant change.\\
+\hline
+\end{DoxyParams}
+If threshold is 0.\-01, and any angle changes by 0.\-01 then a significant change has occured and the event callback will be invoked. If threshold is 1 then the angle has to change by a full degree to generate an event. 
+
+Definition at line 679 of file wiic\-\_\-r90/src/wiic/wiic.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a313a9b0db5e5e33168552389356de067}{\index{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}!wiic\-\_\-set\-\_\-smooth\-\_\-alpha@{wiic\-\_\-set\-\_\-smooth\-\_\-alpha}}
+\index{wiic\-\_\-set\-\_\-smooth\-\_\-alpha@{wiic\-\_\-set\-\_\-smooth\-\_\-alpha}!wiic_v1.1/src/wiic/wiic_functions.h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}}
+\subsubsection[{wiic\-\_\-set\-\_\-smooth\-\_\-alpha}]{\setlength{\rightskip}{0pt plus 5cm}W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T float wiic\-\_\-set\-\_\-smooth\-\_\-alpha (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
+\item[{float}]{alpha}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a313a9b0db5e5e33168552389356de067}
+
+
+Set the wiimote smoothing alpha value. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\hline
+{\em alpha} & The alpha value to set. Between 0 and 1.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the old alpha value.
+\end{DoxyReturn}
+The alpha value is between 0 and 1 and is used in an exponential smoothing algorithm.
+
+Smoothing is only performed if the W\-I\-I\-C\-\_\-\-S\-M\-O\-O\-T\-H\-I\-N\-G is set.
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\hline
+{\em alpha} & The alpha value to set. Between 0 and 1.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the old alpha value.
+\end{DoxyReturn}
+The alpha value is between 0 and 1 and is used in an exponential smoothing algorithm.
+
+Smoothing is only performed if the W\-I\-I\-M\-O\-T\-E\-\_\-\-U\-S\-E\-\_\-\-S\-M\-O\-O\-T\-H\-I\-N\-G is set. 
+
+Definition at line 652 of file wiic\-\_\-r90/src/wiic/wiic.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a76ab228f5f18c159f32e40a12683401f}{\index{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}!wiic\-\_\-status@{wiic\-\_\-status}}
+\index{wiic\-\_\-status@{wiic\-\_\-status}!wiic_v1.1/src/wiic/wiic_functions.h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}}
+\subsubsection[{wiic\-\_\-status}]{\setlength{\rightskip}{0pt plus 5cm}W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void wiic\-\_\-status (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a76ab228f5f18c159f32e40a12683401f}
+
+
+Request the wiimote controller status. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure.\\
+\hline
+\end{DoxyParams}
+Controller status includes\-: battery level, L\-E\-D status, expansions 
+
+Definition at line 486 of file wiic\-\_\-r90/src/wiic/wiic.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a20f7cec5310738870a965b361d69d1bd}{\index{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}!wiic\-\_\-toggle\-\_\-rumble@{wiic\-\_\-toggle\-\_\-rumble}}
+\index{wiic\-\_\-toggle\-\_\-rumble@{wiic\-\_\-toggle\-\_\-rumble}!wiic_v1.1/src/wiic/wiic_functions.h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}}
+\subsubsection[{wiic\-\_\-toggle\-\_\-rumble}]{\setlength{\rightskip}{0pt plus 5cm}W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T void wiic\-\_\-toggle\-\_\-rumble (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a20f7cec5310738870a965b361d69d1bd}
+
+
+Toggle the state of the rumble. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 240 of file wiic\-\_\-r90/src/wiic/wiic.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a22d3be84d907c5b8f921b2c10cf4b7ba}{\index{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}!wiic\-\_\-write\-\_\-data@{wiic\-\_\-write\-\_\-data}}
+\index{wiic\-\_\-write\-\_\-data@{wiic\-\_\-write\-\_\-data}!wiic_v1.1/src/wiic/wiic_functions.h@{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-functions.\-h}}
+\subsubsection[{wiic\-\_\-write\-\_\-data}]{\setlength{\rightskip}{0pt plus 5cm}W\-I\-I\-C\-\_\-\-E\-X\-P\-O\-R\-T int wiic\-\_\-write\-\_\-data (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
+\item[{unsigned int}]{addr, }
+\item[{{\bf byte} $\ast$}]{data, }
+\item[{{\bf byte}}]{len}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2wiic__functions_8h_a22d3be84d907c5b8f921b2c10cf4b7ba}
+
+
+Write data to the wiimote. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\hline
+{\em addr} & The address to write to. \\
+\hline
+{\em data} & The data to be written to the memory location. \\
+\hline
+{\em len} & The length of the block to be written. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 527 of file wiic\-\_\-r90/src/wiic/wiic.\-c.
+

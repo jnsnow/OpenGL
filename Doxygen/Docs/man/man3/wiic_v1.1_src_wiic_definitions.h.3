@@ -1,0 +1,58 @@
+.TH "definitions.h" 3 "Sat Dec 1 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+definitions.h \- 
+.PP
+General definitions\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBWIIMOTE_PI\fP   3\&.14159265f"
+.br
+.ti -1c
+.RI "#define \fBWIIC_ERROR\fP(fmt,\&.\&.\&.)   fprintf(stderr, '[ERROR] ' fmt '\\n', ##__VA_ARGS__)"
+.br
+.ti -1c
+.RI "#define \fBWIIC_WARNING\fP(fmt,\&.\&.\&.)   fprintf(stderr, '[WARNING] ' fmt '\\n',	##__VA_ARGS__)"
+.br
+.ti -1c
+.RI "#define \fBWIIC_INFO\fP(fmt,\&.\&.\&.)   fprintf(stderr, '[INFO] ' fmt '\\n', ##__VA_ARGS__)"
+.br
+.ti -1c
+.RI "#define \fBWIIC_DEBUG\fP(fmt,\&.\&.\&.)"
+.br
+.ti -1c
+.RI "#define \fBRAD_TO_DEGREE\fP(r)   ((r * 180\&.0f) / WIIMOTE_PI)"
+.br
+.ti -1c
+.RI "#define \fBDEGREE_TO_RAD\fP(d)   (d * (WIIMOTE_PI / 180\&.0f))"
+.br
+.ti -1c
+.RI "#define \fBBIG_ENDIAN_LONG\fP(i)   (htonl(i))"
+.br
+.ti -1c
+.RI "#define \fBBIG_ENDIAN_SHORT\fP(i)   (htons(i))"
+.br
+.ti -1c
+.RI "#define \fBabsf\fP(x)   ((x >= 0) ? (x) : (x * -1\&.0f))"
+.br
+.ti -1c
+.RI "#define \fBdiff_f\fP(x, y)   ((x >= y) ? (absf(x - y)) : (absf(y - x)))"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+General definitions\&. 
+
+
+.PP
+Definition in file \fBwiic_v1\&.1/src/wiic/definitions\&.h\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for OpenGL Flythrough from the source code\&.

@@ -1,8 +1,15 @@
 #ifndef __CAMERA_H
 #define __CAMERA_H
 
-#include "Angel.h"
+
 #include <string>
+#include "mat.hpp"
+#include "vec.hpp"
+
+using Angel::vec2;
+using Angel::vec3;
+using Angel::vec4;
+using Angel::mat4;
 using std::string;
 
 /**
@@ -51,12 +58,22 @@ public:
   typedef enum { 
     TRANSLATION,
     ROTATION,
-    PERSPECTIVE,
-    TRP_M,
-    PRT_M,
-    CTM,
+    VIEW,
+    CTM, /* CTM is either P*R*T or T*R*P, depending */
     NumGlslVars
   } glsl_var;
+
+  /**
+     The view_type enumeration lists the various possibilities
+     for the current viewing mode that can be switched between.
+     The default is PERSPECTIVE.
+  **/
+  typedef enum {
+    PERSPECTIVE,
+    ORTHO,
+    IDENTITY,
+    FRUSTRUM
+  } view_type;
   
   Camera( float x = 0.0, float y = 0.0,
 	  float z = 0.0 );
@@ -86,7 +103,9 @@ public:
   void FOV( const float &fovy );
   float FOV( void ) const;
   void dFOV( const float &by );
-  
+  void changePerspective( const int &in );
+  void resize( void );
+
   /* Adjust the camera position with regards to its current vector */
   void sway( const float &by );
   void surge( const float &by );
@@ -101,6 +120,7 @@ public:
   void Move( const Camera::Direction &Dir );
   void Stop( const Camera::Direction &Dir );
   void Idle( void );
+  void Accel( const vec2 &accel );
 
   /* Get Position */
   float X( void ) const;
@@ -110,20 +130,36 @@ public:
 
   /* OpenGL Methods */
   void send( const glsl_var &which );
-  void link( GLuint &program,
+  void link( const GLuint &program,
 	     const glsl_var &which,
 	     const string &glslVarName );
     
 private:
 
   void adjustRotation( const mat4 &adjustment );
+  void commonInit( void );
 
   mat4 T;
   mat4 R;
   mat4 P;
-  mat4 TRP;
-  mat4 PRT;
   mat4 ctm;
+
+  view_type currView;
+
+  /** Current Speed of camera motion. **/
+  GLfloat speed;
+  /** Current Velocity of camera motion. **/
+  vec3 velocity;
+  /** Current Speed Capacity: (speed/MaxSpeed) **/
+  GLfloat speed_cap;
+
+
+  /** Maximum Acceleration Magnitude **/
+  GLfloat MaxAccel;
+  /** Maximum Speed **/
+  GLfloat MaxSpeed;
+  /** Friction. Should be less than MaxAccel. **/
+  GLfloat FrictionMagnitude;
 
   /** Current field-of-view angle for perspective view. **/
   GLfloat fovy;
@@ -137,7 +173,7 @@ private:
 public:
   
   /** The increment the camera should move during the Idle() function. **/
-  static const float Speed;
+  static const float initSpeed; // Set in Camera.cpp. Sorry! Maybe someday c++0x will exist.
 
 };
 

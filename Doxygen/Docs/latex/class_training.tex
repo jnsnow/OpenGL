@@ -1,0 +1,179 @@
+\hypertarget{class_training}{\section{Training Class Reference}
+\label{class_training}\index{Training@{Training}}
+}
+
+
+Class \hyperlink{class_training}{Training} to save the individual training of a gesture.  
+
+
+
+
+{\ttfamily \#include $<$training.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_training_af98b1bc7ed710e2fa008a72ad29dbdae}{\hyperlink{class_training_af98b1bc7ed710e2fa008a72ad29dbdae}{Training} ()}\label{class_training_af98b1bc7ed710e2fa008a72ad29dbdae}
+
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\hypertarget{class_training_a6db6a1a9302641ca0d74308e583667af}{\hyperlink{class_training_a6db6a1a9302641ca0d74308e583667af}{$\sim$\-Training} ()}\label{class_training_a6db6a1a9302641ca0d74308e583667af}
+
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_dataset}{Dataset} destructor, which calls clear. \end{DoxyCompactList}\item 
+bool \hyperlink{class_training_a9c02652a34202b9ca082474f99462f95}{load\-Training} (ifstream \&)
+\begin{DoxyCompactList}\small\item\em Load a training stored in a file. \end{DoxyCompactList}\item 
+void \hyperlink{class_training_a53db95eff724d953faaca919708bc10f}{save} (ofstream \&) const 
+\begin{DoxyCompactList}\small\item\em Save the training into a file for training and recognition. \end{DoxyCompactList}\item 
+void \hyperlink{class_training_a3b7366795dfe6861f8db51b8dc4a719e}{add\-Sample} (\hyperlink{class_sample}{Sample} $\ast$)
+\begin{DoxyCompactList}\small\item\em Add a new training to the dataset. \end{DoxyCompactList}\item 
+void \hyperlink{class_training_aa8b430a49b5aaa8410c9288e19f4bbcb}{clear} ()
+\begin{DoxyCompactList}\small\item\em Delete all samples and clear the buffer. \end{DoxyCompactList}\item 
+const \hyperlink{class_sample}{Sample} $\ast$ \hyperlink{class_training_a24c833bf0a60fc96cc09bc86b4de04ba}{sample\-At} (unsigned int i) const 
+\begin{DoxyCompactList}\small\item\em Returns the i-\/th sample of the training as a constant pointer. \end{DoxyCompactList}\item 
+\hyperlink{class_sample}{Sample} $\ast$ \hyperlink{class_training_ada77c7d75f23c04619f33dce4a46115d}{sample\-At} (unsigned int i)
+\begin{DoxyCompactList}\small\item\em Returns the i-\/th sample of the training as a pointer. \end{DoxyCompactList}\item 
+\hypertarget{class_training_a34cd1e59fb499746963c510de4ea8a31}{unsigned int \hyperlink{class_training_a34cd1e59fb499746963c510de4ea8a31}{size} () const }\label{class_training_a34cd1e59fb499746963c510de4ea8a31}
+
+\begin{DoxyCompactList}\small\item\em Number of samples in the current training. \end{DoxyCompactList}\item 
+\hypertarget{class_training_a94d0694609b43099eade91b194212e85}{void {\bfseries set\-Timestamp\-From\-Midnight} (unsigned long ts)}\label{class_training_a94d0694609b43099eade91b194212e85}
+
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_training_a3f02bf507899b92354c1a5c74c734bb2}{vector$<$ \hyperlink{class_sample}{Sample} $\ast$ $>$ {\bfseries samples}}\label{class_training_a3f02bf507899b92354c1a5c74c734bb2}
+
+\item 
+\hypertarget{class_training_a9eac3dfdc171b6c301f1d2a9b3dfd846}{unsigned long {\bfseries timestamp}}\label{class_training_a9eac3dfdc171b6c301f1d2a9b3dfd846}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class \hyperlink{class_training}{Training} to save the individual training of a gesture. 
+
+Definition at line 17 of file training.\-h.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_training_a3b7366795dfe6861f8db51b8dc4a719e}{\index{Training@{Training}!add\-Sample@{add\-Sample}}
+\index{add\-Sample@{add\-Sample}!Training@{Training}}
+\subsubsection[{add\-Sample}]{\setlength{\rightskip}{0pt plus 5cm}void Training\-::add\-Sample (
+\begin{DoxyParamCaption}
+\item[{{\bf Sample} $\ast$}]{sample}
+\end{DoxyParamCaption}
+)}}\label{class_training_a3b7366795dfe6861f8db51b8dc4a719e}
+
+
+Add a new training to the dataset. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sample} & Add a sample to the training set. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 67 of file training.\-cpp.
+
+\hypertarget{class_training_aa8b430a49b5aaa8410c9288e19f4bbcb}{\index{Training@{Training}!clear@{clear}}
+\index{clear@{clear}!Training@{Training}}
+\subsubsection[{clear}]{\setlength{\rightskip}{0pt plus 5cm}void Training\-::clear (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_training_aa8b430a49b5aaa8410c9288e19f4bbcb}
+
+
+Delete all samples and clear the buffer. 
+
+This method will take care of freeing the memory of each sample in the training set, hence you don't need to free them in your code. 
+
+Definition at line 88 of file training.\-cpp.
+
+\hypertarget{class_training_a9c02652a34202b9ca082474f99462f95}{\index{Training@{Training}!load\-Training@{load\-Training}}
+\index{load\-Training@{load\-Training}!Training@{Training}}
+\subsubsection[{load\-Training}]{\setlength{\rightskip}{0pt plus 5cm}bool Training\-::load\-Training (
+\begin{DoxyParamCaption}
+\item[{ifstream \&}]{training}
+\end{DoxyParamCaption}
+)}}\label{class_training_a9c02652a34202b9ca082474f99462f95}
+
+
+Load a training stored in a file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em training} & File stream of the contained training \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 16 of file training.\-cpp.
+
+\hypertarget{class_training_a24c833bf0a60fc96cc09bc86b4de04ba}{\index{Training@{Training}!sample\-At@{sample\-At}}
+\index{sample\-At@{sample\-At}!Training@{Training}}
+\subsubsection[{sample\-At}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf Sample}$\ast$ Training\-::sample\-At (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{i}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_training_a24c833bf0a60fc96cc09bc86b4de04ba}
+
+
+Returns the i-\/th sample of the training as a constant pointer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & \hyperlink{class_sample}{Sample} index in the training set \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 36 of file training.\-h.
+
+\hypertarget{class_training_ada77c7d75f23c04619f33dce4a46115d}{\index{Training@{Training}!sample\-At@{sample\-At}}
+\index{sample\-At@{sample\-At}!Training@{Training}}
+\subsubsection[{sample\-At}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Sample}$\ast$ Training\-::sample\-At (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{i}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_training_ada77c7d75f23c04619f33dce4a46115d}
+
+
+Returns the i-\/th sample of the training as a pointer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & \hyperlink{class_sample}{Sample} index in the training set \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 50 of file training.\-h.
+
+\hypertarget{class_training_a53db95eff724d953faaca919708bc10f}{\index{Training@{Training}!save@{save}}
+\index{save@{save}!Training@{Training}}
+\subsubsection[{save}]{\setlength{\rightskip}{0pt plus 5cm}void Training\-::save (
+\begin{DoxyParamCaption}
+\item[{ofstream \&}]{out}
+\end{DoxyParamCaption}
+) const}}\label{class_training_a53db95eff724d953faaca919708bc10f}
+
+
+Save the training into a file for training and recognition. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em out} & Stream of the destination file \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 50 of file training.\-cpp.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+training.\-h\item 
+training.\-cpp\end{DoxyCompactItemize}

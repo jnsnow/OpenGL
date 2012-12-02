@@ -1,5 +1,7 @@
-
-#include "Angel.h"
+#include <cstdio>
+#include <iostream>
+#include "platform.h"
+#include "InitShader.hpp"
 
 namespace Angel {
 
@@ -62,7 +64,7 @@ InitShader(const char* vShaderFile, const char* fShaderFile)
 	    std::cerr << logMsg << std::endl;
 	    delete [] logMsg;
 
-	    exit( EXIT_FAILURE );
+	    /*exit( EXIT_FAILURE );*/
 	}
 
 	delete [] s.source;

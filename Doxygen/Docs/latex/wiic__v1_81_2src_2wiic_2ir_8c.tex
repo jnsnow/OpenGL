@@ -1,0 +1,423 @@
+\hypertarget{wiic__v1_81_2src_2wiic_2ir_8c}{\section{ir.\-c File Reference}
+\label{wiic__v1_81_2src_2wiic_2ir_8c}\index{ir.\-c@{ir.\-c}}
+}
+
+
+Handles I\-R data.  
+
+
+{\ttfamily \#include $<$stdio.\-h$>$}\\*
+{\ttfamily \#include $<$math.\-h$>$}\\*
+{\ttfamily \#include $<$unistd.\-h$>$}\\*
+{\ttfamily \#include \char`\"{}definitions.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}wiic\-\_\-internal.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}ir.\-h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \hyperlink{wiic__v1_81_2src_2wiic_2ir_8c_ac031b97fde782a38ef2dd5f6e6e103ca}{get\-\_\-ir\-\_\-sens} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, char $\ast$$\ast$block1, char $\ast$$\ast$block2)
+\begin{DoxyCompactList}\small\item\em Get the I\-R sensitivity settings. \end{DoxyCompactList}\item 
+static void \hyperlink{wiic__v1_81_2src_2wiic_2ir_8c_ada7567adfdb4271186ab9e2b8ba25b01}{interpret\-\_\-ir\-\_\-data} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm)
+\begin{DoxyCompactList}\small\item\em Interpret I\-R data into more user friendly variables. \end{DoxyCompactList}\item 
+static void \hyperlink{wiic__v1_81_2src_2wiic_2ir_8c_a008802b9118c76d653804e3f7bd97963}{fix\-\_\-rotated\-\_\-ir\-\_\-dots} (struct \hyperlink{structir__dot__t}{ir\-\_\-dot\-\_\-t} $\ast$dot, float ang)
+\begin{DoxyCompactList}\small\item\em Fix the rotation of the I\-R dots. \end{DoxyCompactList}\item 
+static void \hyperlink{wiic__v1_81_2src_2wiic_2ir_8c_a6c696bb1105b00fe08338f3cac4d5ffa}{get\-\_\-ir\-\_\-dot\-\_\-avg} (struct \hyperlink{structir__dot__t}{ir\-\_\-dot\-\_\-t} $\ast$dot, int $\ast$x, int $\ast$y)
+\begin{DoxyCompactList}\small\item\em Average I\-R dots. \end{DoxyCompactList}\item 
+static void \hyperlink{wiic__v1_81_2src_2wiic_2ir_8c_adad5ac421ba755f34f19f1e3985d918d}{reorder\-\_\-ir\-\_\-dots} (struct \hyperlink{structir__dot__t}{ir\-\_\-dot\-\_\-t} $\ast$dot)
+\begin{DoxyCompactList}\small\item\em Reorder the I\-R dots. \end{DoxyCompactList}\item 
+static float \hyperlink{wiic__v1_81_2src_2wiic_2ir_8c_a8f01b12ea91fd6ceb61dfc50fe6ea3d9}{ir\-\_\-distance} (struct \hyperlink{structir__dot__t}{ir\-\_\-dot\-\_\-t} $\ast$dot)
+\begin{DoxyCompactList}\small\item\em Calculate the distance between the first 2 visible I\-R dots. \end{DoxyCompactList}\item 
+static int \hyperlink{wiic__v1_81_2src_2wiic_2ir_8c_a5fd90be845171acdda541e058b6cacaa}{ir\-\_\-correct\-\_\-for\-\_\-bounds} (int $\ast$x, int $\ast$y, enum \hyperlink{wiic__r90_2src_2wiic_2wiic__macros_8h_a48b01fa22a869e3fb6afe4b4a4f30658}{aspect\-\_\-t} aspect, int offset\-\_\-x, int offset\-\_\-y)
+\begin{DoxyCompactList}\small\item\em Correct for the I\-R bounding box. \end{DoxyCompactList}\item 
+\hypertarget{wiic__v1_81_2src_2wiic_2ir_8c_aa3fa81972cd9b444af75dda6eee5993b}{static void \hyperlink{wiic__v1_81_2src_2wiic_2ir_8c_aa3fa81972cd9b444af75dda6eee5993b}{ir\-\_\-convert\-\_\-to\-\_\-vres} (int $\ast$x, int $\ast$y, enum \hyperlink{wiic__r90_2src_2wiic_2wiic__macros_8h_a48b01fa22a869e3fb6afe4b4a4f30658}{aspect\-\_\-t} aspect, int vx, int vy)}\label{wiic__v1_81_2src_2wiic_2ir_8c_aa3fa81972cd9b444af75dda6eee5993b}
+
+\begin{DoxyCompactList}\small\item\em Interpolate the point to the user defined virtual screen resolution. \end{DoxyCompactList}\item 
+void \hyperlink{wiic__v1_81_2src_2wiic_2ir_8c_a47dba1167f0c88c677e483d037834f5e}{wiic\-\_\-set\-\_\-ir} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, int status)
+\begin{DoxyCompactList}\small\item\em Set if the wiimote should track I\-R targets. \end{DoxyCompactList}\item 
+void \hyperlink{wiic__v1_81_2src_2wiic_2ir_8c_a37f49790604b28feec4c2597a423d1d1}{wiic\-\_\-set\-\_\-ir\-\_\-vres} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, unsigned int x, unsigned int y)
+\begin{DoxyCompactList}\small\item\em Set the virtual screen resolution for I\-R tracking. \end{DoxyCompactList}\item 
+void \hyperlink{wiic__v1_81_2src_2wiic_2ir_8c_a1a3cc328a6c35cce0cc4b7410b56171c}{wiic\-\_\-set\-\_\-ir\-\_\-position} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, enum ir\-\_\-position\-\_\-t pos)
+\begin{DoxyCompactList}\small\item\em Set the X\-Y position for the I\-R cursor. \end{DoxyCompactList}\item 
+void \hyperlink{wiic__v1_81_2src_2wiic_2ir_8c_ac0f4b232fb1291e6bbce26024505d101}{wiic\-\_\-set\-\_\-aspect\-\_\-ratio} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, enum \hyperlink{wiic__r90_2src_2wiic_2wiic__macros_8h_a48b01fa22a869e3fb6afe4b4a4f30658}{aspect\-\_\-t} aspect)
+\begin{DoxyCompactList}\small\item\em Set the aspect ratio of the T\-V/monitor. \end{DoxyCompactList}\item 
+void \hyperlink{wiic__v1_81_2src_2wiic_2ir_8c_a644aca96e5b886169744c891dab64870}{wiic\-\_\-set\-\_\-ir\-\_\-sensitivity} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, int level)
+\begin{DoxyCompactList}\small\item\em Set the I\-R sensitivity. \end{DoxyCompactList}\item 
+void \hyperlink{wiic__v1_81_2src_2wiic_2ir_8c_aa4543068ab29dcdcb678b03f3c053f98}{calculate\-\_\-basic\-\_\-ir} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, \hyperlink{wiic__r90_2src_2wiic_2wiic__macros_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte} $\ast$data)
+\begin{DoxyCompactList}\small\item\em Calculate the data from the I\-R spots. \end{DoxyCompactList}\item 
+void \hyperlink{wiic__v1_81_2src_2wiic_2ir_8c_a82261dee7a0cf4795b5311f79a22691c}{calculate\-\_\-extended\-\_\-ir} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, \hyperlink{wiic__r90_2src_2wiic_2wiic__macros_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte} $\ast$data)
+\begin{DoxyCompactList}\small\item\em Calculate the data from the I\-R spots. \end{DoxyCompactList}\item 
+float \hyperlink{wiic__v1_81_2src_2wiic_2ir_8c_a6fddbe2149000d6a60f8d3236871a182}{calc\-\_\-yaw} (struct \hyperlink{structir__t}{ir\-\_\-t} $\ast$ir)
+\begin{DoxyCompactList}\small\item\em Calculate yaw given the I\-R data. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Handles I\-R data. 
+
+Definition in file \hyperlink{wiic__v1_81_2src_2wiic_2ir_8c_source}{wiic\-\_\-v1.\-1/src/wiic/ir.\-c}.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{wiic__v1_81_2src_2wiic_2ir_8c_a6fddbe2149000d6a60f8d3236871a182}{\index{wiic\-\_\-v1.\-1/src/wiic/ir.\-c@{wiic\-\_\-v1.\-1/src/wiic/ir.\-c}!calc\-\_\-yaw@{calc\-\_\-yaw}}
+\index{calc\-\_\-yaw@{calc\-\_\-yaw}!wiic_v1.1/src/wiic/ir.c@{wiic\-\_\-v1.\-1/src/wiic/ir.\-c}}
+\subsubsection[{calc\-\_\-yaw}]{\setlength{\rightskip}{0pt plus 5cm}float calc\-\_\-yaw (
+\begin{DoxyParamCaption}
+\item[{struct {\bf ir\-\_\-t} $\ast$}]{ir}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2ir_8c_a6fddbe2149000d6a60f8d3236871a182}
+
+
+Calculate yaw given the I\-R data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ir} & I\-R data structure. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 735 of file wiic\-\_\-v1.\-1/src/wiic/ir.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2ir_8c_aa4543068ab29dcdcb678b03f3c053f98}{\index{wiic\-\_\-v1.\-1/src/wiic/ir.\-c@{wiic\-\_\-v1.\-1/src/wiic/ir.\-c}!calculate\-\_\-basic\-\_\-ir@{calculate\-\_\-basic\-\_\-ir}}
+\index{calculate\-\_\-basic\-\_\-ir@{calculate\-\_\-basic\-\_\-ir}!wiic_v1.1/src/wiic/ir.c@{wiic\-\_\-v1.\-1/src/wiic/ir.\-c}}
+\subsubsection[{calculate\-\_\-basic\-\_\-ir}]{\setlength{\rightskip}{0pt plus 5cm}void calculate\-\_\-basic\-\_\-ir (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
+\item[{{\bf byte} $\ast$}]{data}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2ir_8c_aa4543068ab29dcdcb678b03f3c053f98}
+
+
+Calculate the data from the I\-R spots. 
+
+Basic I\-R mode.
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\hline
+{\em data} & Data returned by the wiimote for the I\-R spots. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 317 of file wiic\-\_\-v1.\-1/src/wiic/ir.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2ir_8c_a82261dee7a0cf4795b5311f79a22691c}{\index{wiic\-\_\-v1.\-1/src/wiic/ir.\-c@{wiic\-\_\-v1.\-1/src/wiic/ir.\-c}!calculate\-\_\-extended\-\_\-ir@{calculate\-\_\-extended\-\_\-ir}}
+\index{calculate\-\_\-extended\-\_\-ir@{calculate\-\_\-extended\-\_\-ir}!wiic_v1.1/src/wiic/ir.c@{wiic\-\_\-v1.\-1/src/wiic/ir.\-c}}
+\subsubsection[{calculate\-\_\-extended\-\_\-ir}]{\setlength{\rightskip}{0pt plus 5cm}void calculate\-\_\-extended\-\_\-ir (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
+\item[{{\bf byte} $\ast$}]{data}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2ir_8c_a82261dee7a0cf4795b5311f79a22691c}
+
+
+Calculate the data from the I\-R spots. 
+
+Extended I\-R mode.
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\hline
+{\em data} & Data returned by the wiimote for the I\-R spots. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 353 of file wiic\-\_\-v1.\-1/src/wiic/ir.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2ir_8c_a008802b9118c76d653804e3f7bd97963}{\index{wiic\-\_\-v1.\-1/src/wiic/ir.\-c@{wiic\-\_\-v1.\-1/src/wiic/ir.\-c}!fix\-\_\-rotated\-\_\-ir\-\_\-dots@{fix\-\_\-rotated\-\_\-ir\-\_\-dots}}
+\index{fix\-\_\-rotated\-\_\-ir\-\_\-dots@{fix\-\_\-rotated\-\_\-ir\-\_\-dots}!wiic_v1.1/src/wiic/ir.c@{wiic\-\_\-v1.\-1/src/wiic/ir.\-c}}
+\subsubsection[{fix\-\_\-rotated\-\_\-ir\-\_\-dots}]{\setlength{\rightskip}{0pt plus 5cm}static void fix\-\_\-rotated\-\_\-ir\-\_\-dots (
+\begin{DoxyParamCaption}
+\item[{struct {\bf ir\-\_\-dot\-\_\-t} $\ast$}]{dot, }
+\item[{float}]{ang}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{wiic__v1_81_2src_2wiic_2ir_8c_a008802b9118c76d653804e3f7bd97963}
+
+
+Fix the rotation of the I\-R dots. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dot} & An array of 4 \hyperlink{structir__dot__t}{ir\-\_\-dot\-\_\-t} objects. \\
+\hline
+{\em ang} & The roll angle to correct by (-\/180, 180)\\
+\hline
+\end{DoxyParams}
+If there is roll then the dots are rotated around the origin and give a false cursor position. Correct for the roll.
+
+If the accelerometer is off then obviously this will not do anything and the cursor position may be inaccurate. 
+
+Definition at line 544 of file wiic\-\_\-v1.\-1/src/wiic/ir.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2ir_8c_a6c696bb1105b00fe08338f3cac4d5ffa}{\index{wiic\-\_\-v1.\-1/src/wiic/ir.\-c@{wiic\-\_\-v1.\-1/src/wiic/ir.\-c}!get\-\_\-ir\-\_\-dot\-\_\-avg@{get\-\_\-ir\-\_\-dot\-\_\-avg}}
+\index{get\-\_\-ir\-\_\-dot\-\_\-avg@{get\-\_\-ir\-\_\-dot\-\_\-avg}!wiic_v1.1/src/wiic/ir.c@{wiic\-\_\-v1.\-1/src/wiic/ir.\-c}}
+\subsubsection[{get\-\_\-ir\-\_\-dot\-\_\-avg}]{\setlength{\rightskip}{0pt plus 5cm}static void get\-\_\-ir\-\_\-dot\-\_\-avg (
+\begin{DoxyParamCaption}
+\item[{struct {\bf ir\-\_\-dot\-\_\-t} $\ast$}]{dot, }
+\item[{int $\ast$}]{x, }
+\item[{int $\ast$}]{y}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{wiic__v1_81_2src_2wiic_2ir_8c_a6c696bb1105b00fe08338f3cac4d5ffa}
+
+
+Average I\-R dots. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dot} & An array of 4 \hyperlink{structir__dot__t}{ir\-\_\-dot\-\_\-t} objects. \\
+\hline
+{\em x} & \mbox{[}out\mbox{]} Average X \\
+\hline
+{\em y} & \mbox{[}out\mbox{]} Average Y \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 588 of file wiic\-\_\-v1.\-1/src/wiic/ir.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2ir_8c_ac031b97fde782a38ef2dd5f6e6e103ca}{\index{wiic\-\_\-v1.\-1/src/wiic/ir.\-c@{wiic\-\_\-v1.\-1/src/wiic/ir.\-c}!get\-\_\-ir\-\_\-sens@{get\-\_\-ir\-\_\-sens}}
+\index{get\-\_\-ir\-\_\-sens@{get\-\_\-ir\-\_\-sens}!wiic_v1.1/src/wiic/ir.c@{wiic\-\_\-v1.\-1/src/wiic/ir.\-c}}
+\subsubsection[{get\-\_\-ir\-\_\-sens}]{\setlength{\rightskip}{0pt plus 5cm}static int get\-\_\-ir\-\_\-sens (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
+\item[{char $\ast$$\ast$}]{block1, }
+\item[{char $\ast$$\ast$}]{block2}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{wiic__v1_81_2src_2wiic_2ir_8c_ac031b97fde782a38ef2dd5f6e6e103ca}
+
+
+Get the I\-R sensitivity settings. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\hline
+{\em block1} & \mbox{[}out\mbox{]} Pointer to where block1 will be set. \\
+\hline
+{\em block2} & \mbox{[}out\mbox{]} Pointer to where block2 will be set.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the sensitivity level. 
+\end{DoxyReturn}
+
+
+Definition at line 150 of file wiic\-\_\-v1.\-1/src/wiic/ir.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2ir_8c_ada7567adfdb4271186ab9e2b8ba25b01}{\index{wiic\-\_\-v1.\-1/src/wiic/ir.\-c@{wiic\-\_\-v1.\-1/src/wiic/ir.\-c}!interpret\-\_\-ir\-\_\-data@{interpret\-\_\-ir\-\_\-data}}
+\index{interpret\-\_\-ir\-\_\-data@{interpret\-\_\-ir\-\_\-data}!wiic_v1.1/src/wiic/ir.c@{wiic\-\_\-v1.\-1/src/wiic/ir.\-c}}
+\subsubsection[{interpret\-\_\-ir\-\_\-data}]{\setlength{\rightskip}{0pt plus 5cm}static void interpret\-\_\-ir\-\_\-data (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{wiic__v1_81_2src_2wiic_2ir_8c_ada7567adfdb4271186ab9e2b8ba25b01}
+
+
+Interpret I\-R data into more user friendly variables. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 379 of file wiic\-\_\-v1.\-1/src/wiic/ir.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2ir_8c_a5fd90be845171acdda541e058b6cacaa}{\index{wiic\-\_\-v1.\-1/src/wiic/ir.\-c@{wiic\-\_\-v1.\-1/src/wiic/ir.\-c}!ir\-\_\-correct\-\_\-for\-\_\-bounds@{ir\-\_\-correct\-\_\-for\-\_\-bounds}}
+\index{ir\-\_\-correct\-\_\-for\-\_\-bounds@{ir\-\_\-correct\-\_\-for\-\_\-bounds}!wiic_v1.1/src/wiic/ir.c@{wiic\-\_\-v1.\-1/src/wiic/ir.\-c}}
+\subsubsection[{ir\-\_\-correct\-\_\-for\-\_\-bounds}]{\setlength{\rightskip}{0pt plus 5cm}static int ir\-\_\-correct\-\_\-for\-\_\-bounds (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{x, }
+\item[{int $\ast$}]{y, }
+\item[{enum {\bf aspect\-\_\-t}}]{aspect, }
+\item[{int}]{offset\-\_\-x, }
+\item[{int}]{offset\-\_\-y}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{wiic__v1_81_2src_2wiic_2ir_8c_a5fd90be845171acdda541e058b6cacaa}
+
+
+Correct for the I\-R bounding box. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \mbox{[}out\mbox{]} The current X, it will be updated if valid. \\
+\hline
+{\em y} & \mbox{[}out\mbox{]} The current Y, it will be updated if valid. \\
+\hline
+{\em aspect} & Aspect ratio of the screen. \\
+\hline
+{\em offset\-\_\-x} & The X offset of the bounding box. \\
+\hline
+{\em offset\-\_\-y} & The Y offset of the bounding box.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns 1 if the point is valid and was updated.
+\end{DoxyReturn}
+Nintendo was smart with this bit. They sacrifice a little precision for a big increase in usability. 
+
+Definition at line 678 of file wiic\-\_\-v1.\-1/src/wiic/ir.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2ir_8c_a8f01b12ea91fd6ceb61dfc50fe6ea3d9}{\index{wiic\-\_\-v1.\-1/src/wiic/ir.\-c@{wiic\-\_\-v1.\-1/src/wiic/ir.\-c}!ir\-\_\-distance@{ir\-\_\-distance}}
+\index{ir\-\_\-distance@{ir\-\_\-distance}!wiic_v1.1/src/wiic/ir.c@{wiic\-\_\-v1.\-1/src/wiic/ir.\-c}}
+\subsubsection[{ir\-\_\-distance}]{\setlength{\rightskip}{0pt plus 5cm}static float ir\-\_\-distance (
+\begin{DoxyParamCaption}
+\item[{struct {\bf ir\-\_\-dot\-\_\-t} $\ast$}]{dot}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{wiic__v1_81_2src_2wiic_2ir_8c_a8f01b12ea91fd6ceb61dfc50fe6ea3d9}
+
+
+Calculate the distance between the first 2 visible I\-R dots. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dot} & An array of 4 \hyperlink{structir__dot__t}{ir\-\_\-dot\-\_\-t} objects. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 641 of file wiic\-\_\-v1.\-1/src/wiic/ir.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2ir_8c_adad5ac421ba755f34f19f1e3985d918d}{\index{wiic\-\_\-v1.\-1/src/wiic/ir.\-c@{wiic\-\_\-v1.\-1/src/wiic/ir.\-c}!reorder\-\_\-ir\-\_\-dots@{reorder\-\_\-ir\-\_\-dots}}
+\index{reorder\-\_\-ir\-\_\-dots@{reorder\-\_\-ir\-\_\-dots}!wiic_v1.1/src/wiic/ir.c@{wiic\-\_\-v1.\-1/src/wiic/ir.\-c}}
+\subsubsection[{reorder\-\_\-ir\-\_\-dots}]{\setlength{\rightskip}{0pt plus 5cm}static void reorder\-\_\-ir\-\_\-dots (
+\begin{DoxyParamCaption}
+\item[{struct {\bf ir\-\_\-dot\-\_\-t} $\ast$}]{dot}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{wiic__v1_81_2src_2wiic_2ir_8c_adad5ac421ba755f34f19f1e3985d918d}
+
+
+Reorder the I\-R dots. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dot} & An array of 4 \hyperlink{structir__dot__t}{ir\-\_\-dot\-\_\-t} objects. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 612 of file wiic\-\_\-v1.\-1/src/wiic/ir.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2ir_8c_ac0f4b232fb1291e6bbce26024505d101}{\index{wiic\-\_\-v1.\-1/src/wiic/ir.\-c@{wiic\-\_\-v1.\-1/src/wiic/ir.\-c}!wiic\-\_\-set\-\_\-aspect\-\_\-ratio@{wiic\-\_\-set\-\_\-aspect\-\_\-ratio}}
+\index{wiic\-\_\-set\-\_\-aspect\-\_\-ratio@{wiic\-\_\-set\-\_\-aspect\-\_\-ratio}!wiic_v1.1/src/wiic/ir.c@{wiic\-\_\-v1.\-1/src/wiic/ir.\-c}}
+\subsubsection[{wiic\-\_\-set\-\_\-aspect\-\_\-ratio}]{\setlength{\rightskip}{0pt plus 5cm}void wiic\-\_\-set\-\_\-aspect\-\_\-ratio (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
+\item[{enum {\bf aspect\-\_\-t}}]{aspect}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2ir_8c_ac0f4b232fb1291e6bbce26024505d101}
+
+
+Set the aspect ratio of the T\-V/monitor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\hline
+{\em aspect} & Either W\-I\-I\-C\-\_\-\-A\-S\-P\-E\-C\-T\-\_\-16\-\_\-9 or W\-I\-I\-C\-\_\-\-A\-S\-P\-E\-C\-T\-\_\-4\-\_\-3 \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 239 of file wiic\-\_\-v1.\-1/src/wiic/ir.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2ir_8c_a47dba1167f0c88c677e483d037834f5e}{\index{wiic\-\_\-v1.\-1/src/wiic/ir.\-c@{wiic\-\_\-v1.\-1/src/wiic/ir.\-c}!wiic\-\_\-set\-\_\-ir@{wiic\-\_\-set\-\_\-ir}}
+\index{wiic\-\_\-set\-\_\-ir@{wiic\-\_\-set\-\_\-ir}!wiic_v1.1/src/wiic/ir.c@{wiic\-\_\-v1.\-1/src/wiic/ir.\-c}}
+\subsubsection[{wiic\-\_\-set\-\_\-ir}]{\setlength{\rightskip}{0pt plus 5cm}void wiic\-\_\-set\-\_\-ir (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
+\item[{int}]{status}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2ir_8c_a47dba1167f0c88c677e483d037834f5e}
+
+
+Set if the wiimote should track I\-R targets. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\hline
+{\em status} & 1 to enable, 0 to disable. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 61 of file wiic\-\_\-v1.\-1/src/wiic/ir.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2ir_8c_a1a3cc328a6c35cce0cc4b7410b56171c}{\index{wiic\-\_\-v1.\-1/src/wiic/ir.\-c@{wiic\-\_\-v1.\-1/src/wiic/ir.\-c}!wiic\-\_\-set\-\_\-ir\-\_\-position@{wiic\-\_\-set\-\_\-ir\-\_\-position}}
+\index{wiic\-\_\-set\-\_\-ir\-\_\-position@{wiic\-\_\-set\-\_\-ir\-\_\-position}!wiic_v1.1/src/wiic/ir.c@{wiic\-\_\-v1.\-1/src/wiic/ir.\-c}}
+\subsubsection[{wiic\-\_\-set\-\_\-ir\-\_\-position}]{\setlength{\rightskip}{0pt plus 5cm}void wiic\-\_\-set\-\_\-ir\-\_\-position (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
+\item[{enum ir\-\_\-position\-\_\-t}]{pos}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2ir_8c_a1a3cc328a6c35cce0cc4b7410b56171c}
+
+
+Set the X\-Y position for the I\-R cursor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\hline
+{\em pos} & The position of the I\-R emitter (W\-I\-I\-C\-\_\-\-I\-R\-\_\-\-A\-B\-O\-V\-E or W\-I\-I\-C\-\_\-\-I\-R\-\_\-\-B\-E\-L\-O\-W) \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 200 of file wiic\-\_\-v1.\-1/src/wiic/ir.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2ir_8c_a644aca96e5b886169744c891dab64870}{\index{wiic\-\_\-v1.\-1/src/wiic/ir.\-c@{wiic\-\_\-v1.\-1/src/wiic/ir.\-c}!wiic\-\_\-set\-\_\-ir\-\_\-sensitivity@{wiic\-\_\-set\-\_\-ir\-\_\-sensitivity}}
+\index{wiic\-\_\-set\-\_\-ir\-\_\-sensitivity@{wiic\-\_\-set\-\_\-ir\-\_\-sensitivity}!wiic_v1.1/src/wiic/ir.c@{wiic\-\_\-v1.\-1/src/wiic/ir.\-c}}
+\subsubsection[{wiic\-\_\-set\-\_\-ir\-\_\-sensitivity}]{\setlength{\rightskip}{0pt plus 5cm}void wiic\-\_\-set\-\_\-ir\-\_\-sensitivity (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
+\item[{int}]{level}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2ir_8c_a644aca96e5b886169744c891dab64870}
+
+
+Set the I\-R sensitivity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\hline
+{\em level} & 1-\/5, same as Wii system sensitivity setting.\\
+\hline
+\end{DoxyParams}
+If the level is $<$ 1, then level will be set to 1. If the level is $>$ 5, then level will be set to 5. 
+
+Definition at line 266 of file wiic\-\_\-v1.\-1/src/wiic/ir.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2ir_8c_a37f49790604b28feec4c2597a423d1d1}{\index{wiic\-\_\-v1.\-1/src/wiic/ir.\-c@{wiic\-\_\-v1.\-1/src/wiic/ir.\-c}!wiic\-\_\-set\-\_\-ir\-\_\-vres@{wiic\-\_\-set\-\_\-ir\-\_\-vres}}
+\index{wiic\-\_\-set\-\_\-ir\-\_\-vres@{wiic\-\_\-set\-\_\-ir\-\_\-vres}!wiic_v1.1/src/wiic/ir.c@{wiic\-\_\-v1.\-1/src/wiic/ir.\-c}}
+\subsubsection[{wiic\-\_\-set\-\_\-ir\-\_\-vres}]{\setlength{\rightskip}{0pt plus 5cm}void wiic\-\_\-set\-\_\-ir\-\_\-vres (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
+\item[{unsigned int}]{x, }
+\item[{unsigned int}]{y}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2ir_8c_a37f49790604b28feec4c2597a423d1d1}
+
+
+Set the virtual screen resolution for I\-R tracking. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\hline
+{\em x} & Screen resolution width. \\
+\hline
+{\em y} & Screen resolution height. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 186 of file wiic\-\_\-v1.\-1/src/wiic/ir.\-c.
+

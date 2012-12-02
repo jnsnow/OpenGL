@@ -1,0 +1,92 @@
+.TH "CAccelerometer" 3 "Sun Dec 2 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+CAccelerometer \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBCAccelerometer\fP (struct \fBaccel_t\fP *AccelCalPtr, struct \fBvec3b_t\fP *AccelerationPtr, int *AccelThresholdPtr, struct \fBorient_t\fP *OrientationPtr, float *OrientationThresholdPtr, struct \fBgforce_t\fP *GForcePtr)"
+.br
+.ti -1c
+.RI "float \fBSetSmoothAlpha\fP (float Alpha)"
+.br
+.ti -1c
+.RI "float \fBGetOrientThreshold\fP ()"
+.br
+.ti -1c
+.RI "void \fBSetOrientThreshold\fP (float Threshold)"
+.br
+.ti -1c
+.RI "int \fBGetAccelThreshold\fP ()"
+.br
+.ti -1c
+.RI "void \fBSetAccelThreshold\fP (int Threshold)"
+.br
+.ti -1c
+.RI "void \fBGetOrientation\fP (float &Pitch, float &Roll, float &Yaw)"
+.br
+.RI "\fIRetrieves the smoothed device attitude (pitch, roll, and yaw) computed with an exponential moving average\&. \fP"
+.ti -1c
+.RI "void \fBGetGravityCalVector\fP (float &X, float &Y, float &Z)"
+.br
+.ti -1c
+.RI "void \fBSetGravityCalVector\fP (float X, float Y, float Z)"
+.br
+.ti -1c
+.RI "void \fBGetGravityVector\fP (float &X, float &Y, float &Z)"
+.br
+.ti -1c
+.RI "void \fBGetRawGravityVector\fP (float &X, float &Y, float &Z)"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBaccel_t\fP * \fBmpAccelCalibPtr\fP"
+.br
+.ti -1c
+.RI "struct \fBvec3b_t\fP * \fBmpAccelPtr\fP"
+.br
+.ti -1c
+.RI "struct \fBorient_t\fP * \fBmpOrientPtr\fP"
+.br
+.ti -1c
+.RI "struct \fBgforce_t\fP * \fBmpGForcePtr\fP"
+.br
+.ti -1c
+.RI "int * \fBmpAccelThresholdPtr\fP"
+.br
+.ti -1c
+.RI "float * \fBmpOrientThresholdPtr\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Definition at line 166 of file wiicpp\&.h\&.
+.SH "Member Function Documentation"
+.PP 
+.SS "void CAccelerometer::GetOrientation (float &Pitch, float &Roll, float &Yaw)"
+
+.PP
+Retrieves the smoothed device attitude (pitch, roll, and yaw) computed with an exponential moving average\&. \fBParameters:\fP
+.RS 4
+\fIPitch\fP [out] Reference variable where the smooth device pitch will be set\&. 
+.br
+\fIRoll\fP [out] Reference variable where the smooth device roll will be set\&. 
+.br
+\fIYaw\fP [out] Reference variable where the smooth device yaw will be set\&. Please, note that without IR enabled, yaw cannot be retrieved\&. 
+.RE
+.PP
+
+.PP
+Definition at line 205 of file wiicpp\&.cpp\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for OpenGL Flythrough from the source code\&.

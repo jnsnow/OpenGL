@@ -1,4 +1,4 @@
-.TH "Angel::mat2" 3 "Mon Nov 19 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.TH "Angel::mat2" 3 "Sun Dec 2 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -67,63 +67,6 @@ Angel::mat2 \-
 .ti -1c
 .RI "\fBoperator GLfloat *\fP ()"
 .br
-.ti -1c
-.RI "\fBmat2\fP (const GLfloat d=GLfloat(1\&.0))"
-.br
-.ti -1c
-.RI "\fBmat2\fP (const \fBvec2\fP &a, const \fBvec2\fP &b)"
-.br
-.ti -1c
-.RI "\fBmat2\fP (GLfloat m00, GLfloat m10, GLfloat m01, GLfloat m11)"
-.br
-.ti -1c
-.RI "\fBmat2\fP (const \fBmat2\fP &m)"
-.br
-.ti -1c
-.RI "\fBvec2\fP & \fBoperator[]\fP (int i)"
-.br
-.ti -1c
-.RI "const \fBvec2\fP & \fBoperator[]\fP (int i) const "
-.br
-.ti -1c
-.RI "\fBmat2\fP \fBoperator+\fP (const \fBmat2\fP &m) const "
-.br
-.ti -1c
-.RI "\fBmat2\fP \fBoperator-\fP (const \fBmat2\fP &m) const "
-.br
-.ti -1c
-.RI "\fBmat2\fP \fBoperator*\fP (const GLfloat s) const "
-.br
-.ti -1c
-.RI "\fBmat2\fP \fBoperator/\fP (const GLfloat s) const "
-.br
-.ti -1c
-.RI "\fBmat2\fP \fBoperator*\fP (const \fBmat2\fP &m) const "
-.br
-.ti -1c
-.RI "\fBmat2\fP & \fBoperator+=\fP (const \fBmat2\fP &m)"
-.br
-.ti -1c
-.RI "\fBmat2\fP & \fBoperator-=\fP (const \fBmat2\fP &m)"
-.br
-.ti -1c
-.RI "\fBmat2\fP & \fBoperator*=\fP (const GLfloat s)"
-.br
-.ti -1c
-.RI "\fBmat2\fP & \fBoperator*=\fP (const \fBmat2\fP &m)"
-.br
-.ti -1c
-.RI "\fBmat2\fP & \fBoperator/=\fP (const GLfloat s)"
-.br
-.ti -1c
-.RI "\fBvec2\fP \fBoperator*\fP (const \fBvec2\fP &v) const "
-.br
-.ti -1c
-.RI "\fBoperator const GLfloat *\fP () const "
-.br
-.ti -1c
-.RI "\fBoperator GLfloat *\fP ()"
-.br
 .in -1c
 .SS "Private Attributes"
 
@@ -144,26 +87,18 @@ Angel::mat2 \-
 .ti -1c
 .RI "std::istream & \fBoperator>>\fP (std::istream &is, \fBmat2\fP &m)"
 .br
-.ti -1c
-.RI "\fBmat2\fP \fBoperator*\fP (const GLfloat s, const \fBmat2\fP &m)"
-.br
-.ti -1c
-.RI "std::ostream & \fBoperator<<\fP (std::ostream &os, const \fBmat2\fP &m)"
-.br
-.ti -1c
-.RI "std::istream & \fBoperator>>\fP (std::istream &is, \fBmat2\fP &m)"
-.br
 .in -1c
 .SH "Detailed Description"
 .PP 
-Definition at line 20 of file mat\&.h\&.
+Definition at line 17 of file mat\&.hpp\&.
 .SH "Member Function Documentation"
 .PP 
-.SS "\fBvec2\fP mat2::operator* (const \fBvec2\fP &v) const\fC [inline]\fP"
+.SS "\fBvec2\fP Angel::mat2::operator* (const \fBvec2\fP &v) const"
+
 .PP
 Returns the result of the operation M*v\&. Assumes v is a one column, two row matrix\&. 
 .PP
-Definition at line 145 of file mat\&.h\&.
+Definition at line 142 of file mat\&.cpp\&.
 
 .SH "Author"
 .PP 

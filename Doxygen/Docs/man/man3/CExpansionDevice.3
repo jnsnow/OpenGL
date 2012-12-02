@@ -1,0 +1,58 @@
+.TH "CExpansionDevice" 3 "Sun Dec 2 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+CExpansionDevice \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBExpTypes\fP { \fBTYPE_NONE\fP =  EXP_NONE, \fBTYPE_NUNCHUK\fP =  EXP_NUNCHUK, \fBTYPE_CLASSIC\fP =  EXP_CLASSIC, \fBTYPE_GUITAR_HERO_3\fP =  EXP_GUITAR_HERO_3, \fBTYPE_MOTION_PLUS\fP =  EXP_MOTION_PLUS, \fBTYPE_BALANCE_BOARD\fP =  EXP_BALANCE_BOARD }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBCExpansionDevice\fP (struct \fBexpansion_t\fP *ExpPtr)"
+.br
+.ti -1c
+.RI "ExpTypes \fBGetType\fP ()"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBCNunchuk\fP \fBNunchuk\fP"
+.br
+.ti -1c
+.RI "\fBCClassic\fP \fBClassic\fP"
+.br
+.ti -1c
+.RI "\fBCGuitarHero3\fP \fBGuitarHero3\fP"
+.br
+.ti -1c
+.RI "\fBCMotionPlus\fP \fBMotionPlus\fP"
+.br
+.ti -1c
+.RI "\fBCBalanceBoard\fP \fBBalanceBoard\fP"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBexpansion_t\fP * \fBmpExpansionPtr\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Definition at line 372 of file wiicpp\&.h\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for OpenGL Flythrough from the source code\&.

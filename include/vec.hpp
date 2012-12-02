@@ -53,9 +53,9 @@ namespace Angel {
   };
 
   //  Non-class vec2 Methods
-  inline GLfloat dot( const vec2& u, const vec2& v );
-  inline GLfloat length( const vec2& v );
-  inline vec2 normalize( const vec2& v );
+  GLfloat dot( const vec2& u, const vec2& v );
+  GLfloat length( const vec2& v );
+  vec2 normalize( const vec2& v );
   
   //  vec3.h - 3D vector
   struct vec3 {
@@ -101,10 +101,10 @@ namespace Angel {
   };
 
     //  Non-class vec3 Methods
-    inline GLfloat dot( const vec3& u, const vec3& v );
-    inline GLfloat length( const vec3& v );
-    inline vec3 normalize( const vec3& v );
-    inline vec3 cross(const vec3& a, const vec3& b );
+    GLfloat dot( const vec3& u, const vec3& v );
+    GLfloat length( const vec3& v );
+    vec3 normalize( const vec3& v );
+    vec3 cross(const vec3& a, const vec3& b );
 
 
     //  vec4 - 4D vector
@@ -153,10 +153,10 @@ namespace Angel {
   };
   
   //  Non-class vec4 Methods
-  inline GLfloat dot( const vec4& u, const vec4& v );
-  inline GLfloat length( const vec4& v );
-  inline vec4 normalize( const vec4& v );
-  inline vec4 cross(const vec4& a, const vec4& b );
+  GLfloat dot( const vec4& u, const vec4& v );
+  GLfloat length( const vec4& v );
+  vec4 normalize( const vec4& v );
+  vec3 cross(const vec4& a, const vec4& b );
 
 }  // namespace Angel
 

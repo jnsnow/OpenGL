@@ -1,0 +1,54 @@
+.TH "read_req_t" 3 "Sun Dec 2 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+read_req_t \- 
+.PP
+Data read request structure\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <wiic_structs\&.h>\fP
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "wiic_read_cb \fBcb\fP"
+.br
+.RI "\fIread data callback \fP"
+.ti -1c
+.RI "\fBbyte\fP * \fBbuf\fP"
+.br
+.RI "\fIbuffer where read data is written \fP"
+.ti -1c
+.RI "unsigned int \fBaddr\fP"
+.br
+.RI "\fIthe offset that the read started at \fP"
+.ti -1c
+.RI "unsigned short \fBsize\fP"
+.br
+.RI "\fIthe length of the data read \fP"
+.ti -1c
+.RI "unsigned short \fBwait\fP"
+.br
+.RI "\fInum bytes still needed to finish read \fP"
+.ti -1c
+.RI "\fBbyte\fP \fBdirty\fP"
+.br
+.RI "\fIset to 1 if not using callback and needs to be cleaned up \fP"
+.ti -1c
+.RI "struct \fBread_req_t\fP * \fBnext\fP"
+.br
+.RI "\fInext read request in the queue \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Data read request structure\&. 
+.PP
+Definition at line 49 of file wiic_structs\&.h\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for OpenGL Flythrough from the source code\&.

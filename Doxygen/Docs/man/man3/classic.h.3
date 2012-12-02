@@ -1,0 +1,86 @@
+.TH "classic.h" 3 "Sun Dec 2 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+classic.h \- 
+.PP
+Classic controller expansion device\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'wiic_internal\&.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBclassic_ctrl_handshake\fP (struct \fBwiimote_t\fP *wm, struct \fBclassic_ctrl_t\fP *cc, \fBbyte\fP *data, unsigned short len)"
+.br
+.RI "\fIHandle the handshake data from the classic controller\&. \fP"
+.ti -1c
+.RI "void \fBclassic_ctrl_disconnected\fP (struct \fBclassic_ctrl_t\fP *cc)"
+.br
+.RI "\fIThe classic controller disconnected\&. \fP"
+.ti -1c
+.RI "void \fBclassic_ctrl_event\fP (struct \fBclassic_ctrl_t\fP *cc, \fBbyte\fP *msg)"
+.br
+.RI "\fIHandle classic controller event\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Classic controller expansion device\&. 
+
+
+.PP
+Definition in file \fBclassic\&.h\fP\&.
+.SH "Function Documentation"
+.PP 
+.SS "void classic_ctrl_disconnected (struct \fBclassic_ctrl_t\fP *cc)"
+
+.PP
+The classic controller disconnected\&. \fBParameters:\fP
+.RS 4
+\fIcc\fP A pointer to a \fBclassic_ctrl_t\fP structure\&. 
+.RE
+.PP
+
+.PP
+Definition at line 123 of file classic\&.c\&.
+.SS "void classic_ctrl_event (struct \fBclassic_ctrl_t\fP *cc, \fBbyte\fP *msg)"
+
+.PP
+Handle classic controller event\&. \fBParameters:\fP
+.RS 4
+\fIcc\fP A pointer to a \fBclassic_ctrl_t\fP structure\&. 
+.br
+\fImsg\fP The message specified in the event packet\&. 
+.RE
+.PP
+
+.PP
+Definition at line 135 of file classic\&.c\&.
+.SS "int classic_ctrl_handshake (struct \fBwiimote_t\fP *wm, struct \fBclassic_ctrl_t\fP *cc, \fBbyte\fP *data, unsigned shortlen)"
+
+.PP
+Handle the handshake data from the classic controller\&. \fBParameters:\fP
+.RS 4
+\fIcc\fP A pointer to a \fBclassic_ctrl_t\fP structure\&. 
+.br
+\fIdata\fP The data read in from the device\&. 
+.br
+\fIlen\fP The length of the data block, in bytes\&.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Returns 1 if handshake was successful, 0 if not\&. 
+.RE
+.PP
+
+.PP
+Definition at line 58 of file classic\&.c\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for OpenGL Flythrough from the source code\&.

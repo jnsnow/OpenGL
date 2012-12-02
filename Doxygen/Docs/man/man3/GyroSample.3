@@ -1,0 +1,74 @@
+.TH "GyroSample" 3 "Sun Dec 2 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+GyroSample \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits \fBSample\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBGyroSample\fP (float r, float p, float y)"
+.br
+.ti -1c
+.RI "\fBGyroSample\fP (const string &line)"
+.br
+.ti -1c
+.RI "float \fBroll\fP () const "
+.br
+.ti -1c
+.RI "float \fBpitch\fP () const "
+.br
+.ti -1c
+.RI "float \fByaw\fP () const "
+.br
+.ti -1c
+.RI "virtual void \fBsave\fP (ofstream &out)"
+.br
+.ti -1c
+.RI "void \fBsetLogType\fP (int l)"
+.br
+.ti -1c
+.RI "int \fBgetLogType\fP () const "
+.br
+.ti -1c
+.RI "void \fBsetTimestampFromGestureStart\fP (unsigned long t)"
+.br
+.ti -1c
+.RI "unsigned long \fBgetTimestampFromGestureStart\fP () const "
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "unsigned long \fBrelTimestamp\fP"
+.br
+.ti -1c
+.RI "int \fBlogType\fP"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "float \fBroll_\fP"
+.br
+.ti -1c
+.RI "float \fBpitch_\fP"
+.br
+.ti -1c
+.RI "float \fByaw_\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Definition at line 6 of file gyrosample\&.h\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for OpenGL Flythrough from the source code\&.

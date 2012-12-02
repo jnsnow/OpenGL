@@ -1,0 +1,57 @@
+.TH "io.c" 3 "Sat Dec 1 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+io.c \- 
+.PP
+Handles device I/O (non-OS specific)\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdio\&.h>\fP
+.br
+\fC#include <stdlib\&.h>\fP
+.br
+\fC#include 'definitions\&.h'\fP
+.br
+\fC#include 'wiic_internal\&.h'\fP
+.br
+\fC#include 'io\&.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBwiic_handshake\fP (struct \fBwiimote_t\fP *wm, \fBbyte\fP *data, unsigned short len)"
+.br
+.RI "\fIGet initialization data from the wiimote\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Handles device I/O (non-OS specific)\&. 
+
+
+.PP
+Definition in file \fBwiic_v1\&.1/src/wiic/io\&.c\fP\&.
+.SH "Function Documentation"
+.PP 
+.SS "void wiic_handshake (struct \fBwiimote_t\fP *wm, \fBbyte\fP *data, unsigned shortlen)"
+
+.PP
+Get initialization data from the wiimote\&. \fBParameters:\fP
+.RS 4
+\fIwm\fP Pointer to a \fBwiimote_t\fP structure\&. 
+.br
+\fIdata\fP unused 
+.br
+\fIlen\fP unused
+.RE
+.PP
+When first called for a \fBwiimote_t\fP structure, a request is sent to the wiimote for initialization information\&. This includes factory set accelerometer data\&. The handshake will be concluded when the wiimote responds with this data\&. 
+.PP
+Definition at line 58 of file wiic_v1\&.1/src/wiic/io\&.c\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for OpenGL Flythrough from the source code\&.

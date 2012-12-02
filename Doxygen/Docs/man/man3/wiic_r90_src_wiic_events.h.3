@@ -1,0 +1,84 @@
+.TH "events.h" 3 "Sat Dec 1 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+events.h \- 
+.PP
+Handles wiimote events\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBwiic_pressed_buttons\fP (struct \fBwiimote_t\fP *wm, \fBbyte\fP *msg)"
+.br
+.RI "\fIFind what buttons are pressed\&. \fP"
+.ti -1c
+.RI "void \fBhandshake_expansion\fP (struct \fBwiimote_t\fP *wm, \fBbyte\fP *data, unsigned short len)"
+.br
+.RI "\fIHandle the handshake data from the expansion device\&. \fP"
+.ti -1c
+.RI "void \fBdisable_expansion\fP (struct \fBwiimote_t\fP *wm)"
+.br
+.RI "\fIDisable the expansion device if it was enabled\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Handles wiimote events\&. 
+
+The file includes functions that handle the events that are sent from the wiimote to us\&. 
+.PP
+Definition in file \fBwiic_r90/src/wiic/events\&.h\fP\&.
+.SH "Function Documentation"
+.PP 
+.SS "void disable_expansion (struct \fBwiimote_t\fP *wm)"
+
+.PP
+Disable the expansion device if it was enabled\&. \fBParameters:\fP
+.RS 4
+\fIwm\fP A pointer to a \fBwiimote_t\fP structure\&. 
+.br
+\fIdata\fP The data read in from the device\&. 
+.br
+\fIlen\fP The length of the data block, in bytes\&.
+.RE
+.PP
+If the data is NULL then this function will try to start a handshake with the expansion\&. 
+.PP
+Definition at line 709 of file wiic_r90/src/wiic/events\&.c\&.
+.SS "void handshake_expansion (struct \fBwiimote_t\fP *wm, \fBbyte\fP *data, unsigned shortlen)"
+
+.PP
+Handle the handshake data from the expansion device\&. \fBParameters:\fP
+.RS 4
+\fIwm\fP A pointer to a \fBwiimote_t\fP structure\&. 
+.br
+\fIdata\fP The data read in from the device\&. 
+.br
+\fIlen\fP The length of the data block, in bytes\&.
+.RE
+.PP
+Tries to determine what kind of expansion was attached and invoke the correct handshake function\&.
+.PP
+If the data is NULL then this function will try to start a handshake with the expansion\&. 
+.PP
+Definition at line 634 of file wiic_r90/src/wiic/events\&.c\&.
+.SS "void wiic_pressed_buttons (struct \fBwiimote_t\fP *wm, \fBbyte\fP *msg)"
+
+.PP
+Find what buttons are pressed\&. \fBParameters:\fP
+.RS 4
+\fIwm\fP Pointer to a \fBwiimote_t\fP structure\&. 
+.br
+\fImsg\fP The message specified in the event packet\&. 
+.RE
+.PP
+
+.PP
+Definition at line 387 of file wiic_r90/src/wiic/events\&.c\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for OpenGL Flythrough from the source code\&.

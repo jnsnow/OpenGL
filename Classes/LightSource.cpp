@@ -5,7 +5,7 @@
  * Created on November 20, 2012, 1:39 PM
  */
 
-#include "LightSource.h"
+#include "LightSource.hpp"
 #include "Angel.h"
 
 

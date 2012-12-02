@@ -10,7 +10,8 @@ varying vec4 color;
 uniform mat4 P;
 uniform mat4 R;
 uniform mat4 T;
-uniform mat4 PRT;
+uniform mat4 CTM; // CTM is either PRT or TRP, depending.
+
 
 // color/lighting
 uniform vec4 AmbientProduct,  DiffuseProduct,  SpecularProduct  ;
@@ -25,9 +26,9 @@ void main() {
 
    // Positioning Code
    #ifdef POSTMULT
-   gl_Position = vPosition * T * R * P;
+   gl_Position = vPosition * CTM;
    #else
-   gl_Position = PRT * vPosition;
+   gl_Position = CTM * vPosition;
    #endif
    
   // phong model for lighting.

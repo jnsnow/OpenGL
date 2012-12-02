@@ -1,0 +1,54 @@
+\hypertarget{wiic__v1_81_2src_2wiic_2io_8c}{\section{io.\-c File Reference}
+\label{wiic__v1_81_2src_2wiic_2io_8c}\index{io.\-c@{io.\-c}}
+}
+
+
+Handles device I/\-O (non-\/\-O\-S specific).  
+
+
+{\ttfamily \#include $<$stdio.\-h$>$}\\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include \char`\"{}definitions.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}wiic\-\_\-internal.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}io.\-h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{wiic__v1_81_2src_2wiic_2io_8c_ae8eaa1bcf927a5aa1176cc8f40c201b6}{wiic\-\_\-handshake} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, \hyperlink{wiic__r90_2src_2wiic_2wiic__macros_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte} $\ast$data, unsigned short len)
+\begin{DoxyCompactList}\small\item\em Get initialization data from the wiimote. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Handles device I/\-O (non-\/\-O\-S specific). 
+
+Definition in file \hyperlink{wiic__v1_81_2src_2wiic_2io_8c_source}{wiic\-\_\-v1.\-1/src/wiic/io.\-c}.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{wiic__v1_81_2src_2wiic_2io_8c_ae8eaa1bcf927a5aa1176cc8f40c201b6}{\index{wiic\-\_\-v1.\-1/src/wiic/io.\-c@{wiic\-\_\-v1.\-1/src/wiic/io.\-c}!wiic\-\_\-handshake@{wiic\-\_\-handshake}}
+\index{wiic\-\_\-handshake@{wiic\-\_\-handshake}!wiic_v1.1/src/wiic/io.c@{wiic\-\_\-v1.\-1/src/wiic/io.\-c}}
+\subsubsection[{wiic\-\_\-handshake}]{\setlength{\rightskip}{0pt plus 5cm}void wiic\-\_\-handshake (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
+\item[{{\bf byte} $\ast$}]{data, }
+\item[{unsigned short}]{len}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2io_8c_ae8eaa1bcf927a5aa1176cc8f40c201b6}
+
+
+Get initialization data from the wiimote. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\hline
+{\em data} & unused \\
+\hline
+{\em len} & unused\\
+\hline
+\end{DoxyParams}
+When first called for a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure, a request is sent to the wiimote for initialization information. This includes factory set accelerometer data. The handshake will be concluded when the wiimote responds with this data. 
+
+Definition at line 58 of file wiic\-\_\-v1.\-1/src/wiic/io.\-c.
+

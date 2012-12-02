@@ -1,0 +1,117 @@
+.TH "guitar_hero_3.c" 3 "Sat Dec 1 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+guitar_hero_3.c \- 
+.PP
+Guitar Hero 3 expansion device\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdio\&.h>\fP
+.br
+\fC#include <stdlib\&.h>\fP
+.br
+\fC#include <math\&.h>\fP
+.br
+\fC#include 'definitions\&.h'\fP
+.br
+\fC#include 'wiic_internal\&.h'\fP
+.br
+\fC#include 'dynamics\&.h'\fP
+.br
+\fC#include 'events\&.h'\fP
+.br
+\fC#include 'guitar_hero_3\&.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBguitar_hero_3_pressed_buttons\fP (struct \fBguitar_hero_3_t\fP *gh3, short now)"
+.br
+.RI "\fIFind what buttons are pressed\&. \fP"
+.ti -1c
+.RI "int \fBguitar_hero_3_handshake\fP (struct \fBwiimote_t\fP *wm, struct \fBguitar_hero_3_t\fP *gh3, \fBbyte\fP *data, unsigned short len)"
+.br
+.RI "\fIHandle the handshake data from the guitar\&. \fP"
+.ti -1c
+.RI "void \fBguitar_hero_3_disconnected\fP (struct \fBguitar_hero_3_t\fP *gh3)"
+.br
+.RI "\fIThe guitar disconnected\&. \fP"
+.ti -1c
+.RI "void \fBguitar_hero_3_event\fP (struct \fBguitar_hero_3_t\fP *gh3, \fBbyte\fP *msg)"
+.br
+.RI "\fIHandle guitar event\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Guitar Hero 3 expansion device\&. 
+
+
+.PP
+Definition in file \fBwiic_r90/src/wiic/guitar_hero_3\&.c\fP\&.
+.SH "Function Documentation"
+.PP 
+.SS "void guitar_hero_3_disconnected (struct \fBguitar_hero_3_t\fP *gh3)"
+
+.PP
+The guitar disconnected\&. \fBParameters:\fP
+.RS 4
+\fIcc\fP A pointer to a \fBclassic_ctrl_t\fP structure\&. 
+.RE
+.PP
+
+.PP
+Definition at line 121 of file wiic_r90/src/wiic/guitar_hero_3\&.c\&.
+.SS "void guitar_hero_3_event (struct \fBguitar_hero_3_t\fP *gh3, \fBbyte\fP *msg)"
+
+.PP
+Handle guitar event\&. \fBParameters:\fP
+.RS 4
+\fIcc\fP A pointer to a \fBclassic_ctrl_t\fP structure\&. 
+.br
+\fImsg\fP The message specified in the event packet\&. 
+.RE
+.PP
+
+.PP
+Definition at line 133 of file wiic_r90/src/wiic/guitar_hero_3\&.c\&.
+.SS "int guitar_hero_3_handshake (struct \fBwiimote_t\fP *wm, struct \fBguitar_hero_3_t\fP *gh3, \fBbyte\fP *data, unsigned shortlen)"
+
+.PP
+Handle the handshake data from the guitar\&. \fBParameters:\fP
+.RS 4
+\fIcc\fP A pointer to a \fBclassic_ctrl_t\fP structure\&. 
+.br
+\fIdata\fP The data read in from the device\&. 
+.br
+\fIlen\fP The length of the data block, in bytes\&.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Returns 1 if handshake was successful, 0 if not\&. 
+.RE
+.PP
+
+.PP
+Definition at line 59 of file wiic_r90/src/wiic/guitar_hero_3\&.c\&.
+.SS "static void guitar_hero_3_pressed_buttons (struct \fBguitar_hero_3_t\fP *gh3, shortnow)\fC [static]\fP"
+
+.PP
+Find what buttons are pressed\&. \fBParameters:\fP
+.RS 4
+\fIcc\fP A pointer to a \fBclassic_ctrl_t\fP structure\&. 
+.br
+\fImsg\fP The message byte specified in the event packet\&. 
+.RE
+.PP
+
+.PP
+Definition at line 156 of file wiic_r90/src/wiic/guitar_hero_3\&.c\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for OpenGL Flythrough from the source code\&.
