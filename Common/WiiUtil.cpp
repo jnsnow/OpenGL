@@ -278,8 +278,8 @@ void pollWii( CWii &wii ) {
 	if (wiimote.ExpansionDevice.GetType() ==
 	    wiimote.ExpansionDevice.TYPE_BALANCE_BOARD)
 	  WiiHandleBB(wiimote);
-	else
-	  HandleEvent(wiimote);
+	/*else
+	  HandleEvent(wiimote);*/
 	break;
 
       case CWiimote::EVENT_CONNECT:

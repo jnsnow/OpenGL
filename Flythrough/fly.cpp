@@ -518,11 +518,13 @@ void movelight(void) {
 void idle( void ) {
 
   movelight();
-  pollWii( Wii );
-  camList.Active().Accel( bb_magnitudes );
+  for (size_t i = 0; i < 20; ++i) {
+    pollWii( Wii );
+    camList.Active().Accel( bb_magnitudes );
+  }
   camList.Active().Idle();
   glutPostRedisplay();
-
+    
 }
 
 

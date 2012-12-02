@@ -18,6 +18,7 @@ void Camera::commonInit( void ) {
   this->speed_cap = 0;
   this->MaxAccel = 10;
   this->MaxSpeed = 200;
+  this->FrictionMagnitude = 2;
 }
 
 const float Camera::initSpeed = 0.01;
@@ -398,15 +399,15 @@ void Camera::Idle( void ) {
 
   // We can only apply friction if we are moving. 
   if (speed) {
-#define FRICTION 2
     // Friction is a vector that is the opposite of velocity.
-    vec3 friction = -velocity;
-    // By dividing friction by (speed/FRICTION), we guarantee that the magnitude is FRICTION.
-    friction = friction / (speed/FRICTION);
-    velocity += friction;
+    vec3 frictionVec = -velocity;
+    /* By dividing friction by (speed/FrictionMagnitude), 
+       we guarantee that the magnitude is FrictionMagnitude. */
+    frictionVec = frictionVec / (speed/FrictionMagnitude);
+    velocity += frictionVec;
     speed = length(velocity);
     speed_cap = speed/MaxSpeed;
-  }  
+  }
 
 }
 

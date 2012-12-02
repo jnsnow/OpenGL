@@ -11,12 +11,8 @@ var hierarchy =
     [ "CBalanceBoard", "class_c_balance_board.html", null ],
     [ "CButtonBase", "class_c_button_base.html", [
       [ "CButtons", "class_c_buttons.html", null ],
-      [ "CButtons", "class_c_buttons.html", null ],
-      [ "CClassicButtons", "class_c_classic_buttons.html", null ],
       [ "CClassicButtons", "class_c_classic_buttons.html", null ],
       [ "CGH3Buttons", "class_c_g_h3_buttons.html", null ],
-      [ "CGH3Buttons", "class_c_g_h3_buttons.html", null ],
-      [ "CNunchukButtons", "class_c_nunchuk_buttons.html", null ],
       [ "CNunchukButtons", "class_c_nunchuk_buttons.html", null ]
     ] ],
     [ "CClassic", "class_c_classic.html", null ],
@@ -55,7 +51,6 @@ var hierarchy =
     [ "pressure_weight_t", "structpressure__weight__t.html", null ],
     [ "read_req_t", "structread__req__t.html", null ],
     [ "Sample", "class_sample.html", [
-      [ "AccSample", "class_acc_sample.html", null ],
       [ "AccSample", "class_acc_sample.html", null ],
       [ "GyroSample", "class_gyro_sample.html", null ]
     ] ],

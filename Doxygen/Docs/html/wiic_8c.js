@@ -1,0 +1,26 @@
+var wiic_8c =
+[
+    [ "wiic_cleanup", "wiic_8c.html#aab85a1a70b94931371f535f49a885294", null ],
+    [ "wiic_disconnected", "wiic_8c.html#ae0cded1b6d0dd9ecb604745d26a9f5ff", null ],
+    [ "wiic_get_by_id", "wiic_8c.html#a5e9800b2fa2b3e989db0be594539b533", null ],
+    [ "wiic_init", "wiic_8c.html#a2bf7d4c82b94fc0883c6e9dc53123b47", null ],
+    [ "wiic_motion_sensing", "wiic_8c.html#a05b9c952980e8da5cf52c2b8e605689f", null ],
+    [ "wiic_read_data", "wiic_8c.html#a7680f82595ab757815aae6f4a3188de1", null ],
+    [ "wiic_read_data_cb", "wiic_8c.html#a80791525cc22a3b5cad9951e35ee864e", null ],
+    [ "wiic_resync", "wiic_8c.html#a3e410e67972c18a3166cb9aec272ded5", null ],
+    [ "wiic_rumble", "wiic_8c.html#a005b4e3109011ecf617e8a7316ee9cf8", null ],
+    [ "wiic_send", "wiic_8c.html#a7ea0133d8242986a40d1c90594af5f06", null ],
+    [ "wiic_send_next_pending_read_request", "wiic_8c.html#ae50c81051a90e76bb77b2bf8509c8591", null ],
+    [ "wiic_set_accel_threshold", "wiic_8c.html#a3cbf3bb06509c81ea5a86320806e88f0", null ],
+    [ "wiic_set_flags", "wiic_8c.html#af5faa69afc40e36b8d48f64f1feba1e1", null ],
+    [ "wiic_set_leds", "wiic_8c.html#a016583fd750a967611a4e0a448a01ca7", null ],
+    [ "wiic_set_orient_threshold", "wiic_8c.html#aa65bb4d505fa8faf60d7a8125a100e87", null ],
+    [ "wiic_set_report_type", "wiic_8c.html#a937b83fc4a809a68989443e74adb6217", null ],
+    [ "wiic_set_smooth_alpha", "wiic_8c.html#a792203b27c9956acd211f753a33626c9", null ],
+    [ "wiic_status", "wiic_8c.html#a50c5f584a92ab6f1e353a7dc2f9e95cd", null ],
+    [ "wiic_toggle_rumble", "wiic_8c.html#ad093a4031571c9f57dcad38e23d2aea5", null ],
+    [ "wiic_update_timestamp", "wiic_8c.html#a250b3c468393d3e7bc957bb9677f2996", null ],
+    [ "wiic_version", "wiic_8c.html#aba155ab2435a75b3ef54ea4b6bf5238c", null ],
+    [ "wiic_write_data", "wiic_8c.html#a06fa27f4d55c3186f36bfd91e9ca408c", null ],
+    [ "g_banner", "wiic_8c.html#aa7ec994c77c468d5e0e5bfb3e484ae8f", null ]
+];

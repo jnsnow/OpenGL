@@ -53,47 +53,6 @@ Class \fBTraining\fP to save the individual training of a gesture\&.
 .ti -1c
 .RI "void \fBsetTimestampFromMidnight\fP (unsigned long ts)"
 .br
-.ti -1c
-.RI "\fBTraining\fP ()"
-.br
-.RI "\fIConstructor void\&. \fP"
-.ti -1c
-.RI "\fBTraining\fP (LogType l)"
-.br
-.ti -1c
-.RI "void \fBloadTraining\fP (ifstream &)"
-.br
-.ti -1c
-.RI "void \fBsave\fP (ofstream &) const "
-.br
-.ti -1c
-.RI "void \fBaddSample\fP (\fBSample\fP *)"
-.br
-.ti -1c
-.RI "void \fBclear\fP ()"
-.br
-.ti -1c
-.RI "const \fBSample\fP * \fBsampleAt\fP (unsigned int i) const "
-.br
-.ti -1c
-.RI "\fBSample\fP * \fBsampleAt\fP (unsigned int i)"
-.br
-.ti -1c
-.RI "void \fBsetLogType\fP (LogType l)"
-.br
-.ti -1c
-.RI "LogType \fBgetLogType\fP () const "
-.br
-.ti -1c
-.RI "unsigned int \fBsize\fP () const "
-.br
-.in -1c
-.SS "Protected Member Functions"
-
-.in +1c
-.ti -1c
-.RI "void \fBloadAccTraining\fP (ifstream &infile)"
-.br
 .in -1c
 .SS "Private Attributes"
 
@@ -104,15 +63,12 @@ Class \fBTraining\fP to save the individual training of a gesture\&.
 .ti -1c
 .RI "unsigned long \fBtimestamp\fP"
 .br
-.ti -1c
-.RI "LogType \fBlogType\fP"
-.br
 .in -1c
 .SH "Detailed Description"
 .PP 
 Class \fBTraining\fP to save the individual training of a gesture\&. 
 .PP
-Definition at line 17 of file wiic_r90/src/log/training\&.h\&.
+Definition at line 17 of file training\&.h\&.
 .SH "Member Function Documentation"
 .PP 
 .SS "void Training::addSample (\fBSample\fP *sample)"
@@ -125,14 +81,14 @@ Add a new training to the dataset\&. \fBParameters:\fP
 .PP
 
 .PP
-Definition at line 67 of file wiic_r90/src/log/training\&.cpp\&.
+Definition at line 67 of file training\&.cpp\&.
 .SS "void Training::clear ()"
 
 .PP
 Delete all samples and clear the buffer\&. This method will take care of freeing the memory of each sample in the training set, hence you don't need to free them in your code\&. 
 .PP
-Definition at line 88 of file wiic_r90/src/log/training\&.cpp\&.
-.SS "void Training::loadTraining (ifstream &training)"
+Definition at line 88 of file training\&.cpp\&.
+.SS "bool Training::loadTraining (ifstream &training)"
 
 .PP
 Load a training stored in a file\&. \fBParameters:\fP
@@ -142,7 +98,7 @@ Load a training stored in a file\&. \fBParameters:\fP
 .PP
 
 .PP
-Definition at line 16 of file wiic_r90/src/log/training\&.cpp\&.
+Definition at line 16 of file training\&.cpp\&.
 .SS "const \fBSample\fP* Training::sampleAt (unsigned inti) const\fC [inline]\fP"
 
 .PP
@@ -153,7 +109,7 @@ Returns the i-th sample of the training as a constant pointer\&. \fBParameters:\
 .PP
 
 .PP
-Definition at line 36 of file wiic_r90/src/log/training\&.h\&.
+Definition at line 36 of file training\&.h\&.
 .SS "\fBSample\fP* Training::sampleAt (unsigned inti)\fC [inline]\fP"
 
 .PP
@@ -164,7 +120,7 @@ Returns the i-th sample of the training as a pointer\&. \fBParameters:\fP
 .PP
 
 .PP
-Definition at line 50 of file wiic_r90/src/log/training\&.h\&.
+Definition at line 50 of file training\&.h\&.
 .SS "void Training::save (ofstream &out) const"
 
 .PP
@@ -175,7 +131,7 @@ Save the training into a file for training and recognition\&. \fBParameters:\fP
 .PP
 
 .PP
-Definition at line 50 of file wiic_r90/src/log/training\&.cpp\&.
+Definition at line 50 of file training\&.cpp\&.
 
 .SH "Author"
 .PP 

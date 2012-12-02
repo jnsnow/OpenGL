@@ -15,6 +15,5 @@ var class_gyro_sample =
     [ "pitch_", "class_gyro_sample.html#ad2574d31543929b4d54bf64236346bdb", null ],
     [ "relTimestamp", "class_gyro_sample.html#a24ea733ab0a815949a57aca2a4740e33", null ],
     [ "roll_", "class_gyro_sample.html#a54e5450ba9577976cdaba4f5c2e61422", null ],
-    [ "timestamp", "class_gyro_sample.html#adbde42442423cd9dc8d971bf764391cc", null ],
     [ "yaw_", "class_gyro_sample.html#ae9454e936037dfb739b355e1baed42b5", null ]
 ];

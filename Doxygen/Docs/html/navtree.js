@@ -16,8 +16,8 @@ var NAVTREE =
     [ "Files", null, [
       [ "File List", "files.html", "files" ],
       [ "File Members", "globals.html", [
-        [ "All", "globals.html", "globals_dup" ],
-        [ "Functions", "globals_func.html", "globals_func" ],
+        [ "All", "globals.html", null ],
+        [ "Functions", "globals_func.html", null ],
         [ "Typedefs", "globals_type.html", null ],
         [ "Enumerations", "globals_enum.html", null ],
         [ "Macros", "globals_defs.html", null ]
@@ -29,16 +29,12 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 ".html",
-"class_c_classic_buttons.html#aaceefe20ed0d4ac86741cad96078b6c9a02e8569f063a97cd442d9919a247adaa",
-"class_c_i_r.html#afd0f42f03533f56f9516e6521cdbe738",
-"class_c_wiimote.html#a999a0de6183d8abc02228dbb9b9d1350a87da3b80bf275ae3a646286610ed2ac1",
-"class_logger.html",
-"index.html",
-"structmotion__plus__t.html#ad362463fe5f487117f3407491385ee0a",
-"wiic__r90_2src_2wiic_2ir_8c_source.html",
-"wiic__r90_2src_2wiic_2wiic__macros_8h.html#a552b150ea306a2ab8138be0cefc5d6d4",
-"wiic__v1_81_2src_2wiic_2io_8h.html",
-"wiic__v1_81_2src_2wiic_2wiic__macros_8h.html#a24d8aa06031742e1f8343c0939d1845a"
+"class_c_gyroscope.html#a87e3c3237cf9aa647616a3c6a67383d4",
+"class_camera.html#ac7985a6cb48f4e1e74fda17e5213dd74",
+"definitions_8h_source.html",
+"struct_angel_1_1vec3.html#a02608203e694798c3118d5b55a0e0048",
+"wiic_8c.html#a792203b27c9956acd211f753a33626c9",
+"wiic__macros_8h.html#af21b7a15eb6d95a133ae042e1341b95e"
 ];
 
 var navTreeSubIndices = new Array();

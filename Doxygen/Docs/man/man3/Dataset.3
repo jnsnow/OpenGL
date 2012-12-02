@@ -4,7 +4,7 @@
 .SH NAME
 Dataset \- 
 .PP
-Class \fBDataset\fP for manage data from wiimote for a neural net application\&.  
+A \fBDataset\fP is a collection of trainings, which can represent multiple gestures acquired over time, with different lenghts, and with different approaches\&.  
 
 .SH SYNOPSIS
 .br
@@ -58,39 +58,6 @@ Class \fBDataset\fP for manage data from wiimote for a neural net application\&.
 .RI "bool \fBisValid\fP () const "
 .br
 .RI "\fIChecks if the instance has a valid dataset loaded\&. \fP"
-.ti -1c
-.RI "\fBDataset\fP (const string &filename)"
-.br
-.ti -1c
-.RI "int \fBsize\fP () const "
-.br
-.RI "\fINumber of trainings in the current dataset\&. \fP"
-.ti -1c
-.RI "const \fBTraining\fP * \fBtrainingAt\fP (unsigned int i) const "
-.br
-.ti -1c
-.RI "\fBTraining\fP * \fBtrainingAt\fP (unsigned int i)"
-.br
-.ti -1c
-.RI "void \fBaddTraining\fP (\fBTraining\fP *)"
-.br
-.RI "\fIAdd a new training to the dataset\&. \fP"
-.ti -1c
-.RI "void \fBloadDataset\fP (const string &nomefile)"
-.br
-.RI "\fILoad training values from a file\&. \fP"
-.ti -1c
-.RI "void \fBgetDataTraining\fP (ifstream &infile, \fBTraining\fP *training)"
-.br
-.RI "\fISave training onto dataset\&. \fP"
-.ti -1c
-.RI "bool \fBsave\fP (const char *file) const "
-.br
-.RI "\fISave the dataset into a file for training and recognition\&. \fP"
-.ti -1c
-.RI "void \fBclear\fP ()"
-.br
-.RI "\fIDelete all trainings and clear the buffer\&. \fP"
 .in -1c
 .SS "Protected Member Functions"
 
@@ -112,11 +79,9 @@ Class \fBDataset\fP for manage data from wiimote for a neural net application\&.
 .in -1c
 .SH "Detailed Description"
 .PP 
-Class \fBDataset\fP for manage data from wiimote for a neural net application\&. 
-
 A \fBDataset\fP is a collection of trainings, which can represent multiple gestures acquired over time, with different lenghts, and with different approaches\&. 
 .PP
-Definition at line 15 of file wiic_r90/src/log/dataset\&.h\&.
+Definition at line 15 of file dataset\&.h\&.
 .SH "Constructor & Destructor Documentation"
 .PP 
 .SS "Dataset::Dataset (const string &filename)\fC [inline]\fP"
@@ -129,24 +94,9 @@ Creates a \fBDataset\fP object from a log file\&. \fBParameters:\fP
 .PP
 
 .PP
-Definition at line 28 of file wiic_r90/src/log/dataset\&.h\&.
-.SS "Dataset::~Dataset ()"
-
-.PP
-\fBDataset\fP destructor, which calls clear\&. \fBDataset\fP methods\&. 
-.PP
-Definition at line 7 of file wiic_r90/src/log/dataset\&.cpp\&.
+Definition at line 28 of file dataset\&.h\&.
 .SH "Member Function Documentation"
 .PP 
-.SS "void Dataset::addTraining (\fBTraining\fP *)"
-
-.PP
-Add a new training to the dataset\&. \fBParameters:\fP
-.RS 4
-\fItraining\fP to add to the dataset 
-.RE
-.PP
-
 .SS "void Dataset::addTraining (\fBTraining\fP *t)"
 
 .PP
@@ -163,7 +113,7 @@ The new element will be indexed as the last element and will not be copied\&. It
 .PP
 
 .PP
-Definition at line 17 of file wiic_r90/src/log/dataset\&.cpp\&.
+Definition at line 17 of file dataset\&.cpp\&.
 .SS "void Dataset::clear ()"
 
 .PP
@@ -171,18 +121,7 @@ Deallocates and deletes all the current trainings in the dataset\&. Delete all t
 .PP
 This method will take care of freeing the memory of each training in the dataset, hence you don't need to free them in your code\&. 
 .PP
-Definition at line 87 of file wiic_r90/src/log/dataset\&.cpp\&.
-.SS "void Dataset::getDataTraining (ifstream &infile, \fBTraining\fP *training)"
-
-.PP
-Save training onto dataset\&. \fBParameters:\fP
-.RS 4
-\fIinput\fP file stream 
-.br
-\fItraining\fP 
-.RE
-.PP
-
+Definition at line 87 of file dataset\&.cpp\&.
 .SS "bool Dataset::isValid () const\fC [inline]\fP"
 
 .PP
@@ -193,22 +132,11 @@ TRUE if a dataset is correctly loaded, FALSE otherwise
 .PP
 
 .PP
-Definition at line 104 of file wiic_r90/src/log/dataset\&.h\&.
-.SS "void Dataset::loadDataset (const string &nomefile)"
+Definition at line 104 of file dataset\&.h\&.
+.SS "bool Dataset::loadDataset (const string &nomefile)"
 
 .PP
-Load training values from a file\&. \fBParameters:\fP
-.RS 4
-\fIdataset\fP filename 
-.RE
-.PP
-
-.SS "void Dataset::loadDataset (const string &nomefile)"
-
-.PP
-Loads a new dataset from file, erasing the current one (if not saved on file)\&. Load dataset from a file into a class \fBDataset\fP\&.
-.PP
-Load a dataset stored in a file\&.
+Loads a new dataset from file, erasing the current one (if not saved on file)\&. Load a dataset stored in a file\&.
 .PP
 \fBParameters:\fP
 .RS 4
@@ -219,20 +147,7 @@ Load a dataset stored in a file\&.
 .PP
 
 .PP
-Definition at line 30 of file wiic_r90/src/log/dataset\&.cpp\&.
-.SS "bool Dataset::save (const char *file) const"
-
-.PP
-Save the dataset into a file for training and recognition\&. Save data vector for recognition or acquisition into a file\&.
-.PP
-\fBParameters:\fP
-.RS 4
-\fIfile\fP name 
-.RE
-.PP
-
-.PP
-Definition at line 64 of file wiic_v1\&.1/src/log/dataset\&.cpp\&.
+Definition at line 30 of file dataset\&.cpp\&.
 .SS "bool Dataset::save (const char *file, const char *addr) const"
 
 .PP
@@ -251,7 +166,7 @@ Saves the current dataset in a file\&. Save the dataset into a file for training
 .PP
 
 .PP
-Definition at line 105 of file wiic_r90/src/log/dataset\&.cpp\&.
+Definition at line 105 of file dataset\&.cpp\&.
 .SS "void Dataset::saveHeader (ofstream &out, const char *addr) const\fC [protected]\fP"
 
 .PP
@@ -270,7 +185,7 @@ Saves the initial header of WiiC's log files\&. Save the dataset header into a f
 .PP
 
 .PP
-Definition at line 135 of file wiic_r90/src/log/dataset\&.cpp\&.
+Definition at line 135 of file dataset\&.cpp\&.
 .SS "unsigned int Dataset::size () const\fC [inline]\fP"
 
 .PP
@@ -281,7 +196,7 @@ the number of trainings collected in the current dataset
 .PP
 
 .PP
-Definition at line 36 of file wiic_r90/src/log/dataset\&.h\&.
+Definition at line 36 of file dataset\&.h\&.
 .SS "const \fBTraining\fP* Dataset::trainingAt (const unsigned inti) const\fC [inline]\fP"
 
 .PP
@@ -297,7 +212,7 @@ A constant pointer to the \fBTraining\fP object corresponding to the i-th elemen
 .PP
 
 .PP
-Definition at line 45 of file wiic_r90/src/log/dataset\&.h\&.
+Definition at line 45 of file dataset\&.h\&.
 .SS "\fBTraining\fP* Dataset::trainingAt (const unsigned inti)\fC [inline]\fP"
 
 .PP
@@ -313,7 +228,7 @@ A pointer to the \fBTraining\fP object corresponding to the i-th element in the 
 .PP
 
 .PP
-Definition at line 61 of file wiic_r90/src/log/dataset\&.h\&.
+Definition at line 61 of file dataset\&.h\&.
 
 .SH "Author"
 .PP 

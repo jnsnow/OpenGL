@@ -10,7 +10,7 @@ var structwiimote__t =
     [ "btns_held", "structwiimote__t.html#a61d9434f6f5fd46adf1d4eed944c9d18", null ],
     [ "btns_released", "structwiimote__t.html#ad1796e2e88f095bf34366c6f04f2ab64", null ],
     [ "event", "structwiimote__t.html#a43531392613c6cea17ceae6b39d02f26", null ],
-    [ "event_buf", "structwiimote__t.html#a2d381e4b33b7a5906e58fe5bb19c5ffb", null ],
+    [ "event_buf", "structwiimote__t.html#a5c6264ca2b7df67c2b747e87657512c9", null ],
     [ "exp", "structwiimote__t.html#a50eb2a01ebd5e702c38890459070899e", null ],
     [ "flags", "structwiimote__t.html#a463ca22284e245c6fe431340f7d94631", null ],
     [ "gforce", "structwiimote__t.html#ab2ccaf1bd030bfb24aa60c474b34d1f4", null ],
@@ -20,7 +20,7 @@ var structwiimote__t =
     [ "lstate", "structwiimote__t.html#a1b18fd0743add3b1bdb97f2bb2e41679", null ],
     [ "orient", "structwiimote__t.html#a793dc495a39c2ae4a4a6cd875094070d", null ],
     [ "orient_threshold", "structwiimote__t.html#ab8e07b8b47e89082b89396d10100db9a", null ],
-    [ "read_req", "structwiimote__t.html#aa418f08f5c8735a3d5dec31436f85af9", null ],
+    [ "read_req", "structwiimote__t.html#ac192abc14dc9355c9a161f9390a803ae", null ],
     [ "state", "structwiimote__t.html#aa8d3f1b4b7c6b5d4de3cb5750f0e509a", null ],
     [ "timestamp", "structwiimote__t.html#ac2c9f22c51c73d6b4c029504baa320a8", null ],
     [ "unid", "structwiimote__t.html#af8d0abc503b7117566f8f36427ba558e", null ]

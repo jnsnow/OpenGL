@@ -8,7 +8,7 @@ var structnunchuk__t =
     [ "btns", "structnunchuk__t.html#a0205fe5e81c5f12600488fa3c32ef36b", null ],
     [ "btns_held", "structnunchuk__t.html#a0a9201e5d2a0c699852e31c378847b01", null ],
     [ "btns_released", "structnunchuk__t.html#aa32da74f5d1282fa6e875816f0d4ecdc", null ],
-    [ "flags", "structnunchuk__t.html#a5c44ad573c8b087cc53620558ba75aec", null ],
+    [ "flags", "structnunchuk__t.html#a2b144556040fab37446afe3da5611ced", null ],
     [ "gforce", "structnunchuk__t.html#a79d598a365f147ca23c67e592776fde0", null ],
     [ "js", "structnunchuk__t.html#abfa0d39060a286eb1f3ca547fbf2d5c1", null ],
     [ "orient", "structnunchuk__t.html#a24ca076b817418f2e2c1507965256b45", null ],

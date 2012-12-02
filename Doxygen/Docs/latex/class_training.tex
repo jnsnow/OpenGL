@@ -19,7 +19,7 @@ Class \hyperlink{class_training}{Training} to save the individual training of a 
 \hypertarget{class_training_a6db6a1a9302641ca0d74308e583667af}{\hyperlink{class_training_a6db6a1a9302641ca0d74308e583667af}{$\sim$\-Training} ()}\label{class_training_a6db6a1a9302641ca0d74308e583667af}
 
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_dataset}{Dataset} destructor, which calls clear. \end{DoxyCompactList}\item 
-bool \hyperlink{class_training_a9399c15218729fefd018b7cd3d303319}{load\-Training} (ifstream \&)
+bool \hyperlink{class_training_a9c02652a34202b9ca082474f99462f95}{load\-Training} (ifstream \&)
 \begin{DoxyCompactList}\small\item\em Load a training stored in a file. \end{DoxyCompactList}\item 
 void \hyperlink{class_training_a53db95eff724d953faaca919708bc10f}{save} (ofstream \&) const 
 \begin{DoxyCompactList}\small\item\em Save the training into a file for training and recognition. \end{DoxyCompactList}\item 
@@ -36,56 +36,14 @@ const \hyperlink{class_sample}{Sample} $\ast$ \hyperlink{class_training_a24c833b
 \begin{DoxyCompactList}\small\item\em Number of samples in the current training. \end{DoxyCompactList}\item 
 \hypertarget{class_training_a94d0694609b43099eade91b194212e85}{void {\bfseries set\-Timestamp\-From\-Midnight} (unsigned long ts)}\label{class_training_a94d0694609b43099eade91b194212e85}
 
-\item 
-\hypertarget{class_training_af98b1bc7ed710e2fa008a72ad29dbdae}{\hyperlink{class_training_af98b1bc7ed710e2fa008a72ad29dbdae}{Training} ()}\label{class_training_af98b1bc7ed710e2fa008a72ad29dbdae}
-
-\begin{DoxyCompactList}\small\item\em Constructor void. \end{DoxyCompactList}\item 
-\hypertarget{class_training_aaa3229d32dbbddf33db5c66dae89a02d}{{\bfseries Training} (Log\-Type l)}\label{class_training_aaa3229d32dbbddf33db5c66dae89a02d}
-
-\item 
-\hypertarget{class_training_a9399c15218729fefd018b7cd3d303319}{void {\bfseries load\-Training} (ifstream \&)}\label{class_training_a9399c15218729fefd018b7cd3d303319}
-
-\item 
-\hypertarget{class_training_a53db95eff724d953faaca919708bc10f}{void {\bfseries save} (ofstream \&) const }\label{class_training_a53db95eff724d953faaca919708bc10f}
-
-\item 
-\hypertarget{class_training_a3b7366795dfe6861f8db51b8dc4a719e}{void {\bfseries add\-Sample} (\hyperlink{class_sample}{Sample} $\ast$)}\label{class_training_a3b7366795dfe6861f8db51b8dc4a719e}
-
-\item 
-\hypertarget{class_training_aa8b430a49b5aaa8410c9288e19f4bbcb}{void {\bfseries clear} ()}\label{class_training_aa8b430a49b5aaa8410c9288e19f4bbcb}
-
-\item 
-\hypertarget{class_training_a24c833bf0a60fc96cc09bc86b4de04ba}{const \hyperlink{class_sample}{Sample} $\ast$ {\bfseries sample\-At} (unsigned int i) const }\label{class_training_a24c833bf0a60fc96cc09bc86b4de04ba}
-
-\item 
-\hypertarget{class_training_ada77c7d75f23c04619f33dce4a46115d}{\hyperlink{class_sample}{Sample} $\ast$ {\bfseries sample\-At} (unsigned int i)}\label{class_training_ada77c7d75f23c04619f33dce4a46115d}
-
-\item 
-\hypertarget{class_training_a70170c11ac3fe14b840fdb5484ad4247}{void {\bfseries set\-Log\-Type} (Log\-Type l)}\label{class_training_a70170c11ac3fe14b840fdb5484ad4247}
-
-\item 
-\hypertarget{class_training_af43ee4618a0620d940d95d88470440d4}{Log\-Type {\bfseries get\-Log\-Type} () const }\label{class_training_af43ee4618a0620d940d95d88470440d4}
-
-\item 
-\hypertarget{class_training_a34cd1e59fb499746963c510de4ea8a31}{unsigned int {\bfseries size} () const }\label{class_training_a34cd1e59fb499746963c510de4ea8a31}
-
-\end{DoxyCompactItemize}
-\subsection*{Protected Member Functions}
-\begin{DoxyCompactItemize}
-\item 
-\hypertarget{class_training_adab700ca2a1d928fcceb0a7d1c515830}{void {\bfseries load\-Acc\-Training} (ifstream \&infile)}\label{class_training_adab700ca2a1d928fcceb0a7d1c515830}
-
 \end{DoxyCompactItemize}
 \subsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_training_a552318082a3618fd28e38cd4f37d8bf8}{vector$<$ \hyperlink{class_sample}{Sample} $\ast$ $>$ {\bfseries samples}}\label{class_training_a552318082a3618fd28e38cd4f37d8bf8}
+\hypertarget{class_training_a3f02bf507899b92354c1a5c74c734bb2}{vector$<$ \hyperlink{class_sample}{Sample} $\ast$ $>$ {\bfseries samples}}\label{class_training_a3f02bf507899b92354c1a5c74c734bb2}
 
 \item 
 \hypertarget{class_training_a9eac3dfdc171b6c301f1d2a9b3dfd846}{unsigned long {\bfseries timestamp}}\label{class_training_a9eac3dfdc171b6c301f1d2a9b3dfd846}
-
-\item 
-\hypertarget{class_training_a252abea8bd5504538e2d7f2a415d4927}{Log\-Type {\bfseries log\-Type}}\label{class_training_a252abea8bd5504538e2d7f2a415d4927}
 
 \end{DoxyCompactItemize}
 
@@ -93,7 +51,7 @@ const \hyperlink{class_sample}{Sample} $\ast$ \hyperlink{class_training_a24c833b
 \subsection{Detailed Description}
 Class \hyperlink{class_training}{Training} to save the individual training of a gesture. 
 
-Definition at line 17 of file wiic\-\_\-r90/src/log/training.\-h.
+Definition at line 17 of file training.\-h.
 
 
 
@@ -116,7 +74,7 @@ Add a new training to the dataset.
 \end{DoxyParams}
 
 
-Definition at line 67 of file wiic\-\_\-r90/src/log/training.\-cpp.
+Definition at line 67 of file training.\-cpp.
 
 \hypertarget{class_training_aa8b430a49b5aaa8410c9288e19f4bbcb}{\index{Training@{Training}!clear@{clear}}
 \index{clear@{clear}!Training@{Training}}
@@ -131,15 +89,15 @@ Delete all samples and clear the buffer.
 
 This method will take care of freeing the memory of each sample in the training set, hence you don't need to free them in your code. 
 
-Definition at line 88 of file wiic\-\_\-r90/src/log/training.\-cpp.
+Definition at line 88 of file training.\-cpp.
 
-\hypertarget{class_training_a9399c15218729fefd018b7cd3d303319}{\index{Training@{Training}!load\-Training@{load\-Training}}
+\hypertarget{class_training_a9c02652a34202b9ca082474f99462f95}{\index{Training@{Training}!load\-Training@{load\-Training}}
 \index{load\-Training@{load\-Training}!Training@{Training}}
-\subsubsection[{load\-Training}]{\setlength{\rightskip}{0pt plus 5cm}void Training\-::load\-Training (
+\subsubsection[{load\-Training}]{\setlength{\rightskip}{0pt plus 5cm}bool Training\-::load\-Training (
 \begin{DoxyParamCaption}
 \item[{ifstream \&}]{training}
 \end{DoxyParamCaption}
-)}}\label{class_training_a9399c15218729fefd018b7cd3d303319}
+)}}\label{class_training_a9c02652a34202b9ca082474f99462f95}
 
 
 Load a training stored in a file. 
@@ -151,7 +109,7 @@ Load a training stored in a file.
 \end{DoxyParams}
 
 
-Definition at line 16 of file wiic\-\_\-r90/src/log/training.\-cpp.
+Definition at line 16 of file training.\-cpp.
 
 \hypertarget{class_training_a24c833bf0a60fc96cc09bc86b4de04ba}{\index{Training@{Training}!sample\-At@{sample\-At}}
 \index{sample\-At@{sample\-At}!Training@{Training}}
@@ -171,7 +129,7 @@ Returns the i-\/th sample of the training as a constant pointer.
 \end{DoxyParams}
 
 
-Definition at line 36 of file wiic\-\_\-r90/src/log/training.\-h.
+Definition at line 36 of file training.\-h.
 
 \hypertarget{class_training_ada77c7d75f23c04619f33dce4a46115d}{\index{Training@{Training}!sample\-At@{sample\-At}}
 \index{sample\-At@{sample\-At}!Training@{Training}}
@@ -191,7 +149,7 @@ Returns the i-\/th sample of the training as a pointer.
 \end{DoxyParams}
 
 
-Definition at line 50 of file wiic\-\_\-r90/src/log/training.\-h.
+Definition at line 50 of file training.\-h.
 
 \hypertarget{class_training_a53db95eff724d953faaca919708bc10f}{\index{Training@{Training}!save@{save}}
 \index{save@{save}!Training@{Training}}
@@ -211,13 +169,11 @@ Save the training into a file for training and recognition.
 \end{DoxyParams}
 
 
-Definition at line 50 of file wiic\-\_\-r90/src/log/training.\-cpp.
+Definition at line 50 of file training.\-cpp.
 
 
 
 The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
 \item 
-wiic\-\_\-r90/src/log/training.\-h\item 
-wiic\-\_\-v1.\-1/src/log/training.\-h\item 
-wiic\-\_\-r90/src/log/training.\-cpp\item 
-wiic\-\_\-v1.\-1/src/log/training.\-cpp\end{DoxyCompactItemize}
+training.\-h\item 
+training.\-cpp\end{DoxyCompactItemize}

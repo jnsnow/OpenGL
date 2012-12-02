@@ -104,7 +104,6 @@ $(document).ready(function(){initNavTree('class_training.html','');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_training-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -115,7 +114,7 @@ $(document).ready(function(){initNavTree('class_training.html','');});
 <p>Class <a class="el" href="class_training.html" title="Class Training to save the individual training of a gesture.">Training</a> to save the individual training of a gesture.  
  <a href="class_training.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="wiic__r90_2src_2log_2training_8h_source.html">training.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="training_8h_source.html">training.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -124,9 +123,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:af98b1bc7ed710e2fa008a72ad29dbdae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor. <br/></td></tr>
 <tr class="memitem:a6db6a1a9302641ca0d74308e583667af"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6db6a1a9302641ca0d74308e583667af"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_training.html#a6db6a1a9302641ca0d74308e583667af">~Training</a> ()</td></tr>
-<tr class="memdesc:a6db6a1a9302641ca0d74308e583667af"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_dataset.html" title="Class Dataset for manage data from wiimote for a neural net application.">Dataset</a> destructor, which calls clear. <br/></td></tr>
-<tr class="memitem:a9399c15218729fefd018b7cd3d303319"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_training.html#a9399c15218729fefd018b7cd3d303319">loadTraining</a> (ifstream &amp;)</td></tr>
-<tr class="memdesc:a9399c15218729fefd018b7cd3d303319"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load a training stored in a file.  <a href="#a9399c15218729fefd018b7cd3d303319"></a><br/></td></tr>
+<tr class="memdesc:a6db6a1a9302641ca0d74308e583667af"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_dataset.html" title="A Dataset is a collection of trainings, which can represent multiple gestures acquired over time...">Dataset</a> destructor, which calls clear. <br/></td></tr>
+<tr class="memitem:a9c02652a34202b9ca082474f99462f95"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_training.html#a9c02652a34202b9ca082474f99462f95">loadTraining</a> (ifstream &amp;)</td></tr>
+<tr class="memdesc:a9c02652a34202b9ca082474f99462f95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load a training stored in a file.  <a href="#a9c02652a34202b9ca082474f99462f95"></a><br/></td></tr>
 <tr class="memitem:a53db95eff724d953faaca919708bc10f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_training.html#a53db95eff724d953faaca919708bc10f">save</a> (ofstream &amp;) const </td></tr>
 <tr class="memdesc:a53db95eff724d953faaca919708bc10f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Save the training into a file for training and recognition.  <a href="#a53db95eff724d953faaca919708bc10f"></a><br/></td></tr>
 <tr class="memitem:a3b7366795dfe6861f8db51b8dc4a719e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_training.html#a3b7366795dfe6861f8db51b8dc4a719e">addSample</a> (<a class="el" href="class_sample.html">Sample</a> *)</td></tr>
@@ -142,48 +141,18 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <tr class="memdesc:a34cd1e59fb499746963c510de4ea8a31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of samples in the current training. <br/></td></tr>
 <tr class="memitem:a94d0694609b43099eade91b194212e85"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a94d0694609b43099eade91b194212e85"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setTimestampFromMidnight</b> (unsigned long ts)</td></tr>
-<tr class="memitem:af98b1bc7ed710e2fa008a72ad29dbdae"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af98b1bc7ed710e2fa008a72ad29dbdae"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_training.html#af98b1bc7ed710e2fa008a72ad29dbdae">Training</a> ()</td></tr>
-<tr class="memdesc:af98b1bc7ed710e2fa008a72ad29dbdae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor void. <br/></td></tr>
-<tr class="memitem:aaa3229d32dbbddf33db5c66dae89a02d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaa3229d32dbbddf33db5c66dae89a02d"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Training</b> (LogType l)</td></tr>
-<tr class="memitem:a9399c15218729fefd018b7cd3d303319"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9399c15218729fefd018b7cd3d303319"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>loadTraining</b> (ifstream &amp;)</td></tr>
-<tr class="memitem:a53db95eff724d953faaca919708bc10f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a53db95eff724d953faaca919708bc10f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>save</b> (ofstream &amp;) const </td></tr>
-<tr class="memitem:a3b7366795dfe6861f8db51b8dc4a719e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3b7366795dfe6861f8db51b8dc4a719e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>addSample</b> (<a class="el" href="class_sample.html">Sample</a> *)</td></tr>
-<tr class="memitem:aa8b430a49b5aaa8410c9288e19f4bbcb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa8b430a49b5aaa8410c9288e19f4bbcb"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>clear</b> ()</td></tr>
-<tr class="memitem:a24c833bf0a60fc96cc09bc86b4de04ba"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a24c833bf0a60fc96cc09bc86b4de04ba"></a>
-const <a class="el" href="class_sample.html">Sample</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>sampleAt</b> (unsigned int i) const </td></tr>
-<tr class="memitem:ada77c7d75f23c04619f33dce4a46115d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ada77c7d75f23c04619f33dce4a46115d"></a>
-<a class="el" href="class_sample.html">Sample</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>sampleAt</b> (unsigned int i)</td></tr>
-<tr class="memitem:a70170c11ac3fe14b840fdb5484ad4247"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a70170c11ac3fe14b840fdb5484ad4247"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setLogType</b> (LogType l)</td></tr>
-<tr class="memitem:af43ee4618a0620d940d95d88470440d4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af43ee4618a0620d940d95d88470440d4"></a>
-LogType&#160;</td><td class="memItemRight" valign="bottom"><b>getLogType</b> () const </td></tr>
-<tr class="memitem:a34cd1e59fb499746963c510de4ea8a31"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a34cd1e59fb499746963c510de4ea8a31"></a>
-unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>size</b> () const </td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2><a name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
-<tr class="memitem:adab700ca2a1d928fcceb0a7d1c515830"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adab700ca2a1d928fcceb0a7d1c515830"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>loadAccTraining</b> (ifstream &amp;infile)</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a552318082a3618fd28e38cd4f37d8bf8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a552318082a3618fd28e38cd4f37d8bf8"></a>
+<tr class="memitem:a3f02bf507899b92354c1a5c74c734bb2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3f02bf507899b92354c1a5c74c734bb2"></a>
 vector&lt; <a class="el" href="class_sample.html">Sample</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>samples</b></td></tr>
 <tr class="memitem:a9eac3dfdc171b6c301f1d2a9b3dfd846"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9eac3dfdc171b6c301f1d2a9b3dfd846"></a>
 unsigned long&#160;</td><td class="memItemRight" valign="bottom"><b>timestamp</b></td></tr>
-<tr class="memitem:a252abea8bd5504538e2d7f2a415d4927"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a252abea8bd5504538e2d7f2a415d4927"></a>
-LogType&#160;</td><td class="memItemRight" valign="bottom"><b>logType</b></td></tr>
 </table>
 <a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Class <a class="el" href="class_training.html" title="Class Training to save the individual training of a gesture.">Training</a> to save the individual training of a gesture. </p>
 
-<p>Definition at line <a class="el" href="wiic__r90_2src_2log_2training_8h_source.html#l00017">17</a> of file <a class="el" href="wiic__r90_2src_2log_2training_8h_source.html">wiic_r90/src/log/training.h</a>.</p>
+<p>Definition at line <a class="el" href="training_8h_source.html#l00017">17</a> of file <a class="el" href="training_8h_source.html">training.h</a>.</p>
 </div><h2>Member Function Documentation</h2>
 <a class="anchor" id="a3b7366795dfe6861f8db51b8dc4a719e"></a>
 <div class="memitem">
@@ -207,7 +176,7 @@ LogType&#160;</td><td class="memItemRight" valign="bottom"><b>logType</b></td></
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="wiic__r90_2src_2log_2training_8cpp_source.html#l00067">67</a> of file <a class="el" href="wiic__r90_2src_2log_2training_8cpp_source.html">wiic_r90/src/log/training.cpp</a>.</p>
+<p>Definition at line <a class="el" href="training_8cpp_source.html#l00067">67</a> of file <a class="el" href="training_8cpp_source.html">training.cpp</a>.</p>
 
 </div>
 </div>
@@ -227,16 +196,16 @@ LogType&#160;</td><td class="memItemRight" valign="bottom"><b>logType</b></td></
 <p>Delete all samples and clear the buffer. </p>
 <p>This method will take care of freeing the memory of each sample in the training set, hence you don't need to free them in your code. </p>
 
-<p>Definition at line <a class="el" href="wiic__r90_2src_2log_2training_8cpp_source.html#l00088">88</a> of file <a class="el" href="wiic__r90_2src_2log_2training_8cpp_source.html">wiic_r90/src/log/training.cpp</a>.</p>
+<p>Definition at line <a class="el" href="training_8cpp_source.html#l00088">88</a> of file <a class="el" href="training_8cpp_source.html">training.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a9399c15218729fefd018b7cd3d303319"></a>
+<a class="anchor" id="a9c02652a34202b9ca082474f99462f95"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Training::loadTraining </td>
+          <td class="memname">bool Training::loadTraining </td>
           <td>(</td>
           <td class="paramtype">ifstream &amp;&#160;</td>
           <td class="paramname"><em>training</em></td><td>)</td>
@@ -253,7 +222,7 @@ LogType&#160;</td><td class="memItemRight" valign="bottom"><b>logType</b></td></
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="wiic__r90_2src_2log_2training_8cpp_source.html#l00016">16</a> of file <a class="el" href="wiic__r90_2src_2log_2training_8cpp_source.html">wiic_r90/src/log/training.cpp</a>.</p>
+<p>Definition at line <a class="el" href="training_8cpp_source.html#l00016">16</a> of file <a class="el" href="training_8cpp_source.html">training.cpp</a>.</p>
 
 </div>
 </div>
@@ -287,7 +256,7 @@ LogType&#160;</td><td class="memItemRight" valign="bottom"><b>logType</b></td></
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="wiic__r90_2src_2log_2training_8h_source.html#l00036">36</a> of file <a class="el" href="wiic__r90_2src_2log_2training_8h_source.html">wiic_r90/src/log/training.h</a>.</p>
+<p>Definition at line <a class="el" href="training_8h_source.html#l00036">36</a> of file <a class="el" href="training_8h_source.html">training.h</a>.</p>
 
 </div>
 </div>
@@ -321,7 +290,7 @@ LogType&#160;</td><td class="memItemRight" valign="bottom"><b>logType</b></td></
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="wiic__r90_2src_2log_2training_8h_source.html#l00050">50</a> of file <a class="el" href="wiic__r90_2src_2log_2training_8h_source.html">wiic_r90/src/log/training.h</a>.</p>
+<p>Definition at line <a class="el" href="training_8h_source.html#l00050">50</a> of file <a class="el" href="training_8h_source.html">training.h</a>.</p>
 
 </div>
 </div>
@@ -347,15 +316,13 @@ LogType&#160;</td><td class="memItemRight" valign="bottom"><b>logType</b></td></
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="wiic__r90_2src_2log_2training_8cpp_source.html#l00050">50</a> of file <a class="el" href="wiic__r90_2src_2log_2training_8cpp_source.html">wiic_r90/src/log/training.cpp</a>.</p>
+<p>Definition at line <a class="el" href="training_8cpp_source.html#l00050">50</a> of file <a class="el" href="training_8cpp_source.html">training.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li><a class="el" href="wiic__r90_2src_2log_2training_8h_source.html">wiic_r90/src/log/training.h</a></li>
-<li><a class="el" href="wiic__v1_81_2src_2log_2training_8h_source.html">wiic_v1.1/src/log/training.h</a></li>
-<li><a class="el" href="wiic__r90_2src_2log_2training_8cpp_source.html">wiic_r90/src/log/training.cpp</a></li>
-<li><a class="el" href="wiic__v1_81_2src_2log_2training_8cpp_source.html">wiic_v1.1/src/log/training.cpp</a></li>
+<li><a class="el" href="training_8h_source.html">training.h</a></li>
+<li><a class="el" href="training_8cpp_source.html">training.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -363,7 +330,7 @@ LogType&#160;</td><td class="memItemRight" valign="bottom"><b>logType</b></td></
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="class_training.html">Training</a></li>
-    <li class="footer">Generated on Sat Dec 1 2012 19:54:43 for OpenGL Flythrough by
+    <li class="footer">Generated on Sat Dec 1 2012 20:07:19 for OpenGL Flythrough by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.1.2 </li>
   </ul>

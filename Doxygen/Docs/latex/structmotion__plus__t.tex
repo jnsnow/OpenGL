@@ -16,7 +16,8 @@ Motion Plus expansion device.
 \hypertarget{structmotion__plus__t_a2f50155183d6adbe643c59dd36c26e2d}{struct \hyperlink{structang3s__t}{ang3s\-\_\-t} \hyperlink{structmotion__plus__t_a2f50155183d6adbe643c59dd36c26e2d}{a\-\_\-raw\-\_\-gyro}}\label{structmotion__plus__t_a2f50155183d6adbe643c59dd36c26e2d}
 
 \begin{DoxyCompactList}\small\item\em current raw gyroscope data (unsmoothed) \end{DoxyCompactList}\item 
-struct \hyperlink{structang3s__t}{ang3s\-\_\-t} \hyperlink{structmotion__plus__t_a57475c270b4209cc7649ab6b7fda336e}{raw\-\_\-gyro}
+\hypertarget{structmotion__plus__t_a57475c270b4209cc7649ab6b7fda336e}{struct \hyperlink{structang3s__t}{ang3s\-\_\-t} \hyperlink{structmotion__plus__t_a57475c270b4209cc7649ab6b7fda336e}{raw\-\_\-gyro}}\label{structmotion__plus__t_a57475c270b4209cc7649ab6b7fda336e}
+
 \begin{DoxyCompactList}\small\item\em current raw gyroscope data (smoothed, if enabled) \end{DoxyCompactList}\item 
 \hypertarget{structmotion__plus__t_a607762b4cbc1ee3435cffc3bb9129d90}{struct \hyperlink{structang3s__t}{ang3s\-\_\-t} \hyperlink{structmotion__plus__t_a607762b4cbc1ee3435cffc3bb9129d90}{cal\-\_\-gyro}}\label{structmotion__plus__t_a607762b4cbc1ee3435cffc3bb9129d90}
 
@@ -30,7 +31,7 @@ struct \hyperlink{structang3s__t}{ang3s\-\_\-t} \hyperlink{structmotion__plus__t
 \hypertarget{structmotion__plus__t_ad362463fe5f487117f3407491385ee0a}{struct \hyperlink{structorient__t}{orient\-\_\-t} \hyperlink{structmotion__plus__t_ad362463fe5f487117f3407491385ee0a}{orient}}\label{structmotion__plus__t_ad362463fe5f487117f3407491385ee0a}
 
 \begin{DoxyCompactList}\small\item\em current orientation on each axis using Motion Plus gyroscopes \end{DoxyCompactList}\item 
-\hypertarget{structmotion__plus__t_ae24410a9568890d3dae209583c066835}{\hyperlink{wiic__r90_2src_2wiic_2wiic__macros_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte} \hyperlink{structmotion__plus__t_ae24410a9568890d3dae209583c066835}{acc\-\_\-mode}}\label{structmotion__plus__t_ae24410a9568890d3dae209583c066835}
+\hypertarget{structmotion__plus__t_ae24410a9568890d3dae209583c066835}{\hyperlink{wiic__macros_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte} \hyperlink{structmotion__plus__t_ae24410a9568890d3dae209583c066835}{acc\-\_\-mode}}\label{structmotion__plus__t_ae24410a9568890d3dae209583c066835}
 
 \begin{DoxyCompactList}\small\item\em Fast/slow rotation mode for roll, pitch and yaw (0 if rotating fast, 1 if slow or still) \end{DoxyCompactList}\item 
 \hypertarget{structmotion__plus__t_ac3ae3d162dd57fd139cc104addfb6e5e}{int \hyperlink{structmotion__plus__t_ac3ae3d162dd57fd139cc104addfb6e5e}{raw\-\_\-gyro\-\_\-threshold}}\label{structmotion__plus__t_ac3ae3d162dd57fd139cc104addfb6e5e}
@@ -41,34 +42,16 @@ struct \hyperlink{structang3s__t}{ang3s\-\_\-t} \hyperlink{structmotion__plus__t
 \begin{DoxyCompactList}\small\item\em smoothing enabled/disabled \end{DoxyCompactList}\item 
 \hypertarget{structmotion__plus__t_ab5eda5d43a79e927542d25338c3a7989}{float \hyperlink{structmotion__plus__t_ab5eda5d43a79e927542d25338c3a7989}{smooth\-\_\-alpha}}\label{structmotion__plus__t_ab5eda5d43a79e927542d25338c3a7989}
 
-\begin{DoxyCompactList}\small\item\em smoothness alpha parameter \end{DoxyCompactList}\item 
-\hypertarget{structmotion__plus__t_a221e7d9472c63cb35d2aa9c0e88f5f21}{struct \hyperlink{structang3f__t}{ang3f\-\_\-t} \hyperlink{structmotion__plus__t_a221e7d9472c63cb35d2aa9c0e88f5f21}{angle\-\_\-rate\-\_\-gyro}}\label{structmotion__plus__t_a221e7d9472c63cb35d2aa9c0e88f5f21}
-
-\begin{DoxyCompactList}\small\item\em current gyro angle rate \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em smoothness alpha parameter \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
 Motion Plus expansion device. 
 
-Definition at line 334 of file wiic\-\_\-r90/src/wiic/wiic\-\_\-structs.\-h.
+Definition at line 334 of file wiic\-\_\-structs.\-h.
 
 
 
-\subsection{Member Data Documentation}
-\hypertarget{structmotion__plus__t_a57475c270b4209cc7649ab6b7fda336e}{\index{motion\-\_\-plus\-\_\-t@{motion\-\_\-plus\-\_\-t}!raw\-\_\-gyro@{raw\-\_\-gyro}}
-\index{raw\-\_\-gyro@{raw\-\_\-gyro}!motion_plus_t@{motion\-\_\-plus\-\_\-t}}
-\subsubsection[{raw\-\_\-gyro}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf ang3s\-\_\-t} motion\-\_\-plus\-\_\-t\-::raw\-\_\-gyro}}\label{structmotion__plus__t_a57475c270b4209cc7649ab6b7fda336e}
-
-
-current raw gyroscope data (smoothed, if enabled) 
-
-current raw gyroscope data 
-
-Definition at line 336 of file wiic\-\_\-r90/src/wiic/wiic\-\_\-structs.\-h.
-
-
-
-The documentation for this struct was generated from the following files\-:\begin{DoxyCompactItemize}
+The documentation for this struct was generated from the following file\-:\begin{DoxyCompactItemize}
 \item 
-\hyperlink{wiic__r90_2src_2wiic_2wiic__structs_8h}{wiic\-\_\-r90/src/wiic/wiic\-\_\-structs.\-h}\item 
-\hyperlink{wiic__v1_81_2src_2wiic_2wiic__structs_8h}{wiic\-\_\-v1.\-1/src/wiic/wiic\-\_\-structs.\-h}\end{DoxyCompactItemize}
+\hyperlink{wiic__structs_8h}{wiic\-\_\-structs.\-h}\end{DoxyCompactItemize}

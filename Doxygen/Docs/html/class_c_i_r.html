@@ -115,33 +115,12 @@ $(document).ready(function(){initNavTree('class_c_i_r.html','');});
 <tr class="heading"><td colspan="2"><h2><a name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr class="memitem:abb8a78dba77bf7666cb2bf05e9240610"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><b>BarPositions</b> { <b>BAR_ABOVE</b> =  WIIC_IR_ABOVE, 
-<b>BAR_BELOW</b> =  WIIC_IR_BELOW, 
-<b>BAR_ABOVE</b> =  WIIC_IR_ABOVE, 
 <b>BAR_BELOW</b> =  WIIC_IR_BELOW
  }</td></tr>
 <tr class="memitem:a78b124ad32b42c393210c4ac083f792b"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><b>AspectRatioSelections</b> { <b>ASPECT_4_3</b> =  WIIC_ASPECT_4_3, 
-<b>ASPECT_16_9</b> =  WIIC_ASPECT_16_9, 
-<b>ASPECT_4_3</b> =  WIIC_ASPECT_4_3, 
 <b>ASPECT_16_9</b> =  WIIC_ASPECT_16_9
  }</td></tr>
 <tr class="memitem:a999889c22bcacdebf9e6e449ef7d7284"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><b>OnOffSelection</b> { <b>OFF</b> =  0, 
-<b>ON</b> =  1, 
-<b>OFF</b> =  0, 
-<b>ON</b> =  1
- }</td></tr>
-<tr class="memitem:abb8a78dba77bf7666cb2bf05e9240610"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><b>BarPositions</b> { <b>BAR_ABOVE</b> =  WIIC_IR_ABOVE, 
-<b>BAR_BELOW</b> =  WIIC_IR_BELOW, 
-<b>BAR_ABOVE</b> =  WIIC_IR_ABOVE, 
-<b>BAR_BELOW</b> =  WIIC_IR_BELOW
- }</td></tr>
-<tr class="memitem:a78b124ad32b42c393210c4ac083f792b"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><b>AspectRatioSelections</b> { <b>ASPECT_4_3</b> =  WIIC_ASPECT_4_3, 
-<b>ASPECT_16_9</b> =  WIIC_ASPECT_16_9, 
-<b>ASPECT_4_3</b> =  WIIC_ASPECT_4_3, 
-<b>ASPECT_16_9</b> =  WIIC_ASPECT_16_9
- }</td></tr>
-<tr class="memitem:a999889c22bcacdebf9e6e449ef7d7284"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><b>OnOffSelection</b> { <b>OFF</b> =  0, 
-<b>ON</b> =  1, 
-<b>OFF</b> =  0, 
 <b>ON</b> =  1
  }</td></tr>
 </table><table class="memberdecls">
@@ -181,56 +160,20 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>GetCursorPosition</b>
 float&#160;</td><td class="memItemRight" valign="bottom"><b>GetPixelDistance</b> ()</td></tr>
 <tr class="memitem:aa9d59cb470867a28b558f310b154fcc2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa9d59cb470867a28b558f310b154fcc2"></a>
 float&#160;</td><td class="memItemRight" valign="bottom"><b>GetDistance</b> ()</td></tr>
-<tr class="memitem:aa57f492413ae0ab3b89df2132333c8aa"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa57f492413ae0ab3b89df2132333c8aa"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>CIR</b> (struct <a class="el" href="structwiimote__t.html">wiimote_t</a> *wmPtr)</td></tr>
-<tr class="memitem:a4c5e1930758120afa38ce8f4404c0cad"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4c5e1930758120afa38ce8f4404c0cad"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetMode</b> (OnOffSelection State)</td></tr>
-<tr class="memitem:a55843dbe557db2a246b72a820d4feb2f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a55843dbe557db2a246b72a820d4feb2f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetVres</b> (unsigned int x, unsigned int y)</td></tr>
-<tr class="memitem:a4a503687457f634fc6c856f2e77c06f5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4a503687457f634fc6c856f2e77c06f5"></a>
-BarPositions&#160;</td><td class="memItemRight" valign="bottom"><b>GetBarPositionSetting</b> ()</td></tr>
-<tr class="memitem:a2f53ec4a1467018e7f87e7656e41b973"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2f53ec4a1467018e7f87e7656e41b973"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetBarPosition</b> (BarPositions PositionSelection)</td></tr>
-<tr class="memitem:a91c86ac63664923f1d9e8349090305ba"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a91c86ac63664923f1d9e8349090305ba"></a>
-AspectRatioSelections&#160;</td><td class="memItemRight" valign="bottom"><b>GetAspectRatioSetting</b> ()</td></tr>
-<tr class="memitem:a086af52543a75cdba5434a57b1846edb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a086af52543a75cdba5434a57b1846edb"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetAspectRatio</b> (AspectRatioSelections AspectRatioSelection)</td></tr>
-<tr class="memitem:a4144e2d3d037de5cd2da3d53d11f1a83"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4144e2d3d037de5cd2da3d53d11f1a83"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetSensitivity</b> (int Level)</td></tr>
-<tr class="memitem:a2898d4e3967661a04b93246f4dda4a40"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2898d4e3967661a04b93246f4dda4a40"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>GetSensitivity</b> ()</td></tr>
-<tr class="memitem:a76afd635873b098e0cd6c8b9bcab9587"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a76afd635873b098e0cd6c8b9bcab9587"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>GetNumDots</b> ()</td></tr>
-<tr class="memitem:afd0f42f03533f56f9516e6521cdbe738"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afd0f42f03533f56f9516e6521cdbe738"></a>
-std::vector&lt; <a class="el" href="class_c_i_r_dot.html">CIRDot</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetDots</b> ()</td></tr>
-<tr class="memitem:aeb23613d64e95e7e7fff717c83f68377"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aeb23613d64e95e7e7fff717c83f68377"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>GetOffset</b> (int &amp;X, int &amp;Y)</td></tr>
-<tr class="memitem:aee4bc6e44ee5903b2c45cc46bf5be361"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aee4bc6e44ee5903b2c45cc46bf5be361"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>GetState</b> ()</td></tr>
-<tr class="memitem:a573324907a9082fe70d65b419ed83a5e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a573324907a9082fe70d65b419ed83a5e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>GetCursorPositionAbsolute</b> (int &amp;X, int &amp;Y)</td></tr>
-<tr class="memitem:a8b37d7fa74319ff3736cf39956f82df0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8b37d7fa74319ff3736cf39956f82df0"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>GetCursorPosition</b> (int &amp;X, int &amp;Y)</td></tr>
-<tr class="memitem:a254b766dbc50c29d5d08ae8375e764f8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a254b766dbc50c29d5d08ae8375e764f8"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>GetPixelDistance</b> ()</td></tr>
-<tr class="memitem:aa9d59cb470867a28b558f310b154fcc2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa9d59cb470867a28b558f310b154fcc2"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>GetDistance</b> ()</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a6c01dcc8d2256fcc1ce5e8df9b9bf85e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6c01dcc8d2256fcc1ce5e8df9b9bf85e"></a>
+<tr class="memitem:aa1a05a67ac59456976f1f5ad6b894137"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa1a05a67ac59456976f1f5ad6b894137"></a>
 struct <a class="el" href="structwiimote__t.html">wiimote_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>mpWiimotePtr</b></td></tr>
-<tr class="memitem:a553276736583298e095fa13a2a5c0590"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a553276736583298e095fa13a2a5c0590"></a>
+<tr class="memitem:a3edb622c7e2bd20852c0fe6bb0e427e5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3edb622c7e2bd20852c0fe6bb0e427e5"></a>
 std::vector&lt; <a class="el" href="class_c_i_r_dot.html">CIRDot</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mpIRDotsVector</b></td></tr>
 </table>
 <a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock">
-<p>Definition at line <a class="el" href="wiic__r90_2src_2wiicpp_2wiicpp_8h_source.html#l00255">255</a> of file <a class="el" href="wiic__r90_2src_2wiicpp_2wiicpp_8h_source.html">wiic_r90/src/wiicpp/wiicpp.h</a>.</p>
+<p>Definition at line <a class="el" href="wiicpp_8h_source.html#l00255">255</a> of file <a class="el" href="wiicpp_8h_source.html">wiicpp.h</a>.</p>
 </div><hr/>The documentation for this class was generated from the following files:<ul>
-<li><a class="el" href="wiic__r90_2src_2wiicpp_2wiicpp_8h_source.html">wiic_r90/src/wiicpp/wiicpp.h</a></li>
-<li><a class="el" href="wiic__v1_81_2src_2wiicpp_2wiicpp_8h_source.html">wiic_v1.1/src/wiicpp/wiicpp.h</a></li>
-<li><a class="el" href="wiic__r90_2src_2wiicpp_2wiicpp_8cpp_source.html">wiic_r90/src/wiicpp/wiicpp.cpp</a></li>
-<li><a class="el" href="wiic__v1_81_2src_2wiicpp_2wiicpp_8cpp_source.html">wiic_v1.1/src/wiicpp/wiicpp.cpp</a></li>
+<li><a class="el" href="wiicpp_8h_source.html">wiicpp.h</a></li>
+<li><a class="el" href="wiicpp_8cpp_source.html">wiicpp.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -238,7 +181,7 @@ std::vector&lt; <a class="el" href="class_c_i_r_dot.html">CIRDot</a> &gt;&#160;<
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="class_c_i_r.html">CIR</a></li>
-    <li class="footer">Generated on Sat Dec 1 2012 19:54:43 for OpenGL Flythrough by
+    <li class="footer">Generated on Sat Dec 1 2012 20:07:18 for OpenGL Flythrough by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.1.2 </li>
   </ul>

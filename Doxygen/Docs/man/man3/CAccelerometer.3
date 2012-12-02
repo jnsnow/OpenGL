@@ -43,40 +43,6 @@ CAccelerometer \-
 .ti -1c
 .RI "void \fBGetRawGravityVector\fP (float &X, float &Y, float &Z)"
 .br
-.ti -1c
-.RI "\fBCAccelerometer\fP (struct \fBaccel_t\fP *AccelCalPtr, struct \fBvec3b_t\fP *AccelerationPtr, int *AccelThresholdPtr, struct \fBorient_t\fP *OrientationPtr, float *OrientationThresholdPtr, struct \fBgforce_t\fP *GForcePtr)"
-.br
-.ti -1c
-.RI "float \fBSetSmoothAlpha\fP (float Alpha)"
-.br
-.ti -1c
-.RI "float \fBGetOrientThreshold\fP ()"
-.br
-.ti -1c
-.RI "void \fBSetOrientThreshold\fP (float Threshold)"
-.br
-.ti -1c
-.RI "int \fBGetAccelThreshold\fP ()"
-.br
-.ti -1c
-.RI "void \fBSetAccelThreshold\fP (int Threshold)"
-.br
-.ti -1c
-.RI "void \fBGetOrientation\fP (float &Pitch, float &Roll, float &Yaw)"
-.br
-.ti -1c
-.RI "void \fBGetRawOrientation\fP (float &Pitch, float &Roll)"
-.br
-.RI "\fIRetrieves the unsmooth (raw) device attitude (pitch, roll, and yaw) computed with an exponential moving average\&. \fP"
-.ti -1c
-.RI "void \fBGetGravityCalVector\fP (float &X, float &Y, float &Z)"
-.br
-.ti -1c
-.RI "void \fBSetGravityCalVector\fP (float X, float Y, float Z)"
-.br
-.ti -1c
-.RI "void \fBGetGravityVector\fP (float &X, float &Y, float &Z)"
-.br
 .in -1c
 .SS "Private Attributes"
 
@@ -102,15 +68,13 @@ CAccelerometer \-
 .in -1c
 .SH "Detailed Description"
 .PP 
-Definition at line 166 of file wiic_r90/src/wiicpp/wiicpp\&.h\&.
+Definition at line 166 of file wiicpp\&.h\&.
 .SH "Member Function Documentation"
 .PP 
 .SS "void CAccelerometer::GetOrientation (float &Pitch, float &Roll, float &Yaw)"
 
 .PP
-Retrieves the smoothed device attitude (pitch, roll, and yaw) computed with an exponential moving average\&. Retrieves the smooth device attitude (pitch, roll, and yaw) computed with an exponential moving average\&.
-.PP
-\fBParameters:\fP
+Retrieves the smoothed device attitude (pitch, roll, and yaw) computed with an exponential moving average\&. \fBParameters:\fP
 .RS 4
 \fIPitch\fP [out] Reference variable where the smooth device pitch will be set\&. 
 .br
@@ -121,22 +85,7 @@ Retrieves the smoothed device attitude (pitch, roll, and yaw) computed with an e
 .PP
 
 .PP
-Definition at line 205 of file wiic_r90/src/wiicpp/wiicpp\&.cpp\&.
-.SS "void CAccelerometer::GetRawOrientation (float &Pitch, float &Roll)"
-
-.PP
-Retrieves the unsmooth (raw) device attitude (pitch, roll, and yaw) computed with an exponential moving average\&. \fBParameters:\fP
-.RS 4
-\fIPitch\fP [out] Reference variable where the device pitch will be set\&. 
-.br
-\fIRoll\fP [out] Reference variable where the device roll will be set\&. 
-.br
-\fIYaw\fP [out] Reference variable where the device yaw will be set\&. 
-.RE
-.PP
-
-.PP
-Definition at line 217 of file wiic_v1\&.1/src/wiicpp/wiicpp\&.cpp\&.
+Definition at line 205 of file wiicpp\&.cpp\&.
 
 .SH "Author"
 .PP 

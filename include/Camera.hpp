@@ -153,10 +153,13 @@ private:
   /** Current Speed Capacity: (speed/MaxSpeed) **/
   GLfloat speed_cap;
 
+
   /** Maximum Acceleration Magnitude **/
   GLfloat MaxAccel;
   /** Maximum Speed **/
   GLfloat MaxSpeed;
+  /** Friction. Should be less than MaxAccel. **/
+  GLfloat FrictionMagnitude;
 
   /** Current field-of-view angle for perspective view. **/
   GLfloat fovy;

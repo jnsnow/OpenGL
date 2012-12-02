@@ -1,0 +1,442 @@
+.TH "wiic.c" 3 "Sat Dec 1 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+wiic.c \- 
+.PP
+General wiimote operations\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdio\&.h>\fP
+.br
+\fC#include <stdlib\&.h>\fP
+.br
+\fC#include <unistd\&.h>\fP
+.br
+\fC#include <sys/time\&.h>\fP
+.br
+\fC#include 'definitions\&.h'\fP
+.br
+\fC#include 'wiic_internal\&.h'\fP
+.br
+\fC#include 'events\&.h'\fP
+.br
+\fC#include 'io\&.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "const char * \fBwiic_version\fP ()"
+.br
+.RI "\fIReturns the version of the library\&. \fP"
+.ti -1c
+.RI "void \fBwiic_cleanup\fP (struct \fBwiimote_t\fP **wm, int wiimotes)"
+.br
+.RI "\fIClean up \fBwiimote_t\fP array created by \fBwiic_init()\fP \fP"
+.ti -1c
+.RI "struct \fBwiimote_t\fP ** \fBwiic_init\fP (int wiimotes)"
+.br
+.RI "\fIInitialize an array of wiimote structures\&. \fP"
+.ti -1c
+.RI "void \fBwiic_disconnected\fP (struct \fBwiimote_t\fP *wm)"
+.br
+.RI "\fIThe wiimote disconnected\&. \fP"
+.ti -1c
+.RI "void \fBwiic_rumble\fP (struct \fBwiimote_t\fP *wm, int status)"
+.br
+.RI "\fIEnable or disable the rumble\&. \fP"
+.ti -1c
+.RI "void \fBwiic_toggle_rumble\fP (struct \fBwiimote_t\fP *wm)"
+.br
+.RI "\fIToggle the state of the rumble\&. \fP"
+.ti -1c
+.RI "void \fBwiic_set_leds\fP (struct \fBwiimote_t\fP *wm, int leds)"
+.br
+.RI "\fISet the enabled LEDs\&. \fP"
+.ti -1c
+.RI "void \fBwiic_motion_sensing\fP (struct \fBwiimote_t\fP *wm, int status)"
+.br
+.RI "\fISet if the wiimote should report motion sensing\&. \fP"
+.ti -1c
+.RI "int \fBwiic_set_report_type\fP (struct \fBwiimote_t\fP *wm)"
+.br
+.RI "\fISet the report type based on the current wiimote state\&. \fP"
+.ti -1c
+.RI "int \fBwiic_read_data_cb\fP (struct \fBwiimote_t\fP *wm, wiic_read_cb read_cb, \fBbyte\fP *buffer, unsigned int addr, unsigned short len)"
+.br
+.RI "\fIRead data from the wiimote (callback version)\&. \fP"
+.ti -1c
+.RI "int \fBwiic_read_data\fP (struct \fBwiimote_t\fP *wm, \fBbyte\fP *buffer, unsigned int addr, unsigned short len)"
+.br
+.RI "\fIRead data from the wiimote (event version)\&. \fP"
+.ti -1c
+.RI "void \fBwiic_send_next_pending_read_request\fP (struct \fBwiimote_t\fP *wm)"
+.br
+.RI "\fISend the next pending data read request to the wiimote\&. \fP"
+.ti -1c
+.RI "void \fBwiic_status\fP (struct \fBwiimote_t\fP *wm)"
+.br
+.RI "\fIRequest the wiimote controller status\&. \fP"
+.ti -1c
+.RI "struct \fBwiimote_t\fP * \fBwiic_get_by_id\fP (struct \fBwiimote_t\fP **wm, int wiimotes, int unid)"
+.br
+.RI "\fIFind a \fBwiimote_t\fP structure by its unique identifier\&. \fP"
+.ti -1c
+.RI "int \fBwiic_write_data\fP (struct \fBwiimote_t\fP *wm, unsigned int addr, \fBbyte\fP *data, \fBbyte\fP len)"
+.br
+.RI "\fIWrite data to the wiimote\&. \fP"
+.ti -1c
+.RI "int \fBwiic_send\fP (struct \fBwiimote_t\fP *wm, \fBbyte\fP report_type, \fBbyte\fP *msg, int len)"
+.br
+.RI "\fISend a packet to the wiimote\&. \fP"
+.ti -1c
+.RI "int \fBwiic_set_flags\fP (struct \fBwiimote_t\fP *wm, int enable, int disable)"
+.br
+.RI "\fISet flags for the specified wiimote\&. \fP"
+.ti -1c
+.RI "float \fBwiic_set_smooth_alpha\fP (struct \fBwiimote_t\fP *wm, float alpha)"
+.br
+.RI "\fISet the wiimote smoothing alpha value\&. \fP"
+.ti -1c
+.RI "void \fBwiic_set_orient_threshold\fP (struct \fBwiimote_t\fP *wm, float threshold)"
+.br
+.RI "\fISet the orientation event threshold\&. \fP"
+.ti -1c
+.RI "void \fBwiic_set_accel_threshold\fP (struct \fBwiimote_t\fP *wm, int threshold)"
+.br
+.RI "\fISet the accelerometer event threshold\&. \fP"
+.ti -1c
+.RI "void \fBwiic_resync\fP (struct \fBwiimote_t\fP *wm)"
+.br
+.RI "\fITry to resync with the wiimote by starting a new handshake\&. \fP"
+.ti -1c
+.RI "void \fBwiic_update_timestamp\fP (struct \fBwiimote_t\fP *wm)"
+.br
+.RI "\fIUpdate the relative timestamp of a wiimote device\&. \fP"
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "static int \fBg_banner\fP = 0"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+General wiimote operations\&. 
+
+The file includes functions that handle general tasks\&. Most of these are functions that are part of the API\&. 
+.PP
+Definition in file \fBwiic\&.c\fP\&.
+.SH "Function Documentation"
+.PP 
+.SS "void wiic_disconnected (struct \fBwiimote_t\fP *wm)"
+
+.PP
+The wiimote disconnected\&. \fBParameters:\fP
+.RS 4
+\fIwm\fP Pointer to a \fBwiimote_t\fP structure\&. 
+.RE
+.PP
+
+.PP
+Definition at line 165 of file wiic\&.c\&.
+.SS "struct \fBwiimote_t\fP* wiic_get_by_id (struct \fBwiimote_t\fP **wm, intwiimotes, intunid)\fC [read]\fP"
+
+.PP
+Find a \fBwiimote_t\fP structure by its unique identifier\&. \fBParameters:\fP
+.RS 4
+\fIwm\fP Pointer to a \fBwiimote_t\fP structure\&. 
+.br
+\fIwiimotes\fP The number of \fBwiimote_t\fP structures in \fIwm\fP\&. 
+.br
+\fIunid\fP The unique identifier to search for\&.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Pointer to a \fBwiimote_t\fP structure, or NULL if not found\&. 
+.RE
+.PP
+
+.PP
+Definition at line 507 of file wiic\&.c\&.
+.SS "struct \fBwiimote_t\fP** wiic_init (intwiimotes)\fC [read]\fP"
+
+.PP
+Initialize an array of wiimote structures\&. \fBParameters:\fP
+.RS 4
+\fIwiimotes\fP Number of \fBwiimote_t\fP structures to create\&.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+An array of initialized \fBwiimote_t\fP structures\&.
+.RE
+.PP
+\fBSee Also:\fP
+.RS 4
+\fBwiic_connect()\fP
+.RE
+.PP
+The array returned by this function can be passed to various functions, including \fBwiic_connect()\fP\&. 
+.PP
+Definition at line 95 of file wiic\&.c\&.
+.SS "void wiic_motion_sensing (struct \fBwiimote_t\fP *wm, intstatus)"
+
+.PP
+Set if the wiimote should report motion sensing\&. \fBParameters:\fP
+.RS 4
+\fIwm\fP Pointer to a \fBwiimote_t\fP structure\&. 
+.br
+\fIstatus\fP 1 to enable, 0 to disable\&.
+.RE
+.PP
+Since reporting motion sensing sends a lot of data, the wiimote saves power by not transmitting it by default\&. 
+.PP
+Definition at line 279 of file wiic\&.c\&.
+.SS "int wiic_read_data (struct \fBwiimote_t\fP *wm, \fBbyte\fP *buffer, unsigned intaddr, unsigned shortlen)"
+
+.PP
+Read data from the wiimote (event version)\&. \fBParameters:\fP
+.RS 4
+\fIwm\fP Pointer to a \fBwiimote_t\fP structure\&. 
+.br
+\fIbuffer\fP An allocated buffer to store the data as it arrives from the wiimote\&. Must be persistent in memory and large enough to hold the data\&. 
+.br
+\fIaddr\fP The address of wiimote memory to read from\&. 
+.br
+\fIlen\fP The length of the block to be read\&.
+.RE
+.PP
+The library can only handle one data read request at a time because it must keep track of the buffer and other events that are specific to that request\&. So if a request has already been made, subsequent requests will be added to a pending list and be sent out when the previous finishes\&. 
+.PP
+Definition at line 406 of file wiic\&.c\&.
+.SS "int wiic_read_data_cb (struct \fBwiimote_t\fP *wm, wiic_read_cbread_cb, \fBbyte\fP *buffer, unsigned intaddr, unsigned shortlen)"
+
+.PP
+Read data from the wiimote (callback version)\&. \fBParameters:\fP
+.RS 4
+\fIwm\fP Pointer to a \fBwiimote_t\fP structure\&. 
+.br
+\fIread_cb\fP Function pointer to call when the data arrives from the wiimote\&. 
+.br
+\fIbuffer\fP An allocated buffer to store the data as it arrives from the wiimote\&. Must be persistent in memory and large enough to hold the data\&. 
+.br
+\fIaddr\fP The address of wiimote memory to read from\&. 
+.br
+\fIlen\fP The length of the block to be read\&.
+.RE
+.PP
+The library can only handle one data read request at a time because it must keep track of the buffer and other events that are specific to that request\&. So if a request has already been made, subsequent requests will be added to a pending list and be sent out when the previous finishes\&. 
+.PP
+Definition at line 351 of file wiic\&.c\&.
+.SS "void wiic_resync (struct \fBwiimote_t\fP *wm)"
+
+.PP
+Try to resync with the wiimote by starting a new handshake\&. \fBParameters:\fP
+.RS 4
+\fIwm\fP Pointer to a \fBwiimote_t\fP structure\&. 
+.RE
+.PP
+
+.PP
+Definition at line 704 of file wiic\&.c\&.
+.SS "void wiic_rumble (struct \fBwiimote_t\fP *wm, intstatus)"
+
+.PP
+Enable or disable the rumble\&. \fBParameters:\fP
+.RS 4
+\fIwm\fP Pointer to a \fBwiimote_t\fP structure\&. 
+.br
+\fIstatus\fP 1 to enable, 0 to disable\&. 
+.RE
+.PP
+
+.PP
+Definition at line 210 of file wiic\&.c\&.
+.SS "int wiic_send (struct \fBwiimote_t\fP *wm, \fBbyte\fPreport_type, \fBbyte\fP *msg, intlen)"
+
+.PP
+Send a packet to the wiimote\&. \fBParameters:\fP
+.RS 4
+\fIwm\fP Pointer to a \fBwiimote_t\fP structure\&. 
+.br
+\fIreport_type\fP The report type to send (WIIMOTE_CMD_LED, WIIMOTE_CMD_RUMBLE, etc)\&. Found in \fBwiic\&.h\fP 
+.br
+\fImsg\fP The payload\&. 
+.br
+\fIlen\fP Length of the payload in bytes\&.
+.RE
+.PP
+This function should replace any write()s directly to the wiimote device\&. 
+.PP
+Definition at line 571 of file wiic\&.c\&.
+.SS "void wiic_send_next_pending_read_request (struct \fBwiimote_t\fP *wm)"
+
+.PP
+Send the next pending data read request to the wiimote\&. \fBParameters:\fP
+.RS 4
+\fIwm\fP Pointer to a \fBwiimote_t\fP structure\&.
+.RE
+.PP
+\fBSee Also:\fP
+.RS 4
+\fBwiic_read_data()\fP
+.RE
+.PP
+This function is not part of the wiic API\&. 
+.PP
+Definition at line 454 of file wiic\&.c\&.
+.SS "void wiic_set_accel_threshold (struct \fBwiimote_t\fP *wm, intthreshold)"
+
+.PP
+Set the accelerometer event threshold\&. \fBParameters:\fP
+.RS 4
+\fIwm\fP Pointer to a \fBwiimote_t\fP structure\&. 
+.br
+\fIthreshold\fP The decimal place that should be considered a significant change\&. 
+.RE
+.PP
+
+.PP
+Definition at line 692 of file wiic\&.c\&.
+.SS "int wiic_set_flags (struct \fBwiimote_t\fP *wm, intenable, intdisable)"
+
+.PP
+Set flags for the specified wiimote\&. \fBParameters:\fP
+.RS 4
+\fIwm\fP Pointer to a \fBwiimote_t\fP structure\&. 
+.br
+\fIenable\fP Flags to enable\&. 
+.br
+\fIdisable\fP Flags to disable\&.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+The flags set after 'enable' and 'disable' have been applied\&.
+.RE
+.PP
+The values 'enable' and 'disable' may be any flags OR'ed together\&. Flags are defined in \fBwiic\&.h\fP\&. 
+.PP
+Definition at line 625 of file wiic\&.c\&.
+.SS "void wiic_set_leds (struct \fBwiimote_t\fP *wm, intleds)"
+
+.PP
+Set the enabled LEDs\&. \fBParameters:\fP
+.RS 4
+\fIwm\fP Pointer to a \fBwiimote_t\fP structure\&. 
+.br
+\fIleds\fP What LEDs to enable\&.
+.RE
+.PP
+\fIleds\fP is a bitwise or of WIIMOTE_LED_1, WIIMOTE_LED_2, WIIMOTE_LED_3, or WIIMOTE_LED_4\&. 
+.PP
+Definition at line 255 of file wiic\&.c\&.
+.SS "void wiic_set_orient_threshold (struct \fBwiimote_t\fP *wm, floatthreshold)"
+
+.PP
+Set the orientation event threshold\&. \fBParameters:\fP
+.RS 4
+\fIwm\fP Pointer to a \fBwiimote_t\fP structure\&. 
+.br
+\fIthreshold\fP The decimal place that should be considered a significant change\&.
+.RE
+.PP
+If threshold is 0\&.01, and any angle changes by 0\&.01 then a significant change has occured and the event callback will be invoked\&. If threshold is 1 then the angle has to change by a full degree to generate an event\&. 
+.PP
+Definition at line 679 of file wiic\&.c\&.
+.SS "int wiic_set_report_type (struct \fBwiimote_t\fP *wm)"
+
+.PP
+Set the report type based on the current wiimote state\&. \fBParameters:\fP
+.RS 4
+\fIwm\fP Pointer to a \fBwiimote_t\fP structure\&.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+The report type sent\&.
+.RE
+.PP
+The wiimote reports formatted packets depending on the report type that was last requested\&. This function will update the type of report that should be sent based on the current state of the device\&. 
+.PP
+Definition at line 301 of file wiic\&.c\&.
+.SS "float wiic_set_smooth_alpha (struct \fBwiimote_t\fP *wm, floatalpha)"
+
+.PP
+Set the wiimote smoothing alpha value\&. \fBParameters:\fP
+.RS 4
+\fIwm\fP Pointer to a \fBwiimote_t\fP structure\&. 
+.br
+\fIalpha\fP The alpha value to set\&. Between 0 and 1\&.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Returns the old alpha value\&.
+.RE
+.PP
+The alpha value is between 0 and 1 and is used in an exponential smoothing algorithm\&.
+.PP
+Smoothing is only performed if the WIIC_SMOOTHING is set\&. 
+.PP
+Definition at line 652 of file wiic\&.c\&.
+.SS "void wiic_status (struct \fBwiimote_t\fP *wm)"
+
+.PP
+Request the wiimote controller status\&. \fBParameters:\fP
+.RS 4
+\fIwm\fP Pointer to a \fBwiimote_t\fP structure\&.
+.RE
+.PP
+Controller status includes: battery level, LED status, expansions 
+.PP
+Definition at line 486 of file wiic\&.c\&.
+.SS "void wiic_toggle_rumble (struct \fBwiimote_t\fP *wm)"
+
+.PP
+Toggle the state of the rumble\&. \fBParameters:\fP
+.RS 4
+\fIwm\fP Pointer to a \fBwiimote_t\fP structure\&. 
+.RE
+.PP
+
+.PP
+Definition at line 240 of file wiic\&.c\&.
+.SS "void wiic_update_timestamp (struct \fBwiimote_t\fP *wm)"
+
+.PP
+Update the relative timestamp of a wiimote device\&. \fBParameters:\fP
+.RS 4
+\fIwm\fP Pointer to a \fBwiimote_t\fP structure\&. 
+.RE
+.PP
+
+.PP
+Definition at line 716 of file wiic\&.c\&.
+.SS "int wiic_write_data (struct \fBwiimote_t\fP *wm, unsigned intaddr, \fBbyte\fP *data, \fBbyte\fPlen)"
+
+.PP
+Write data to the wiimote\&. \fBParameters:\fP
+.RS 4
+\fIwm\fP Pointer to a \fBwiimote_t\fP structure\&. 
+.br
+\fIaddr\fP The address to write to\&. 
+.br
+\fIdata\fP The data to be written to the memory location\&. 
+.br
+\fIlen\fP The length of the block to be written\&. 
+.RE
+.PP
+
+.PP
+Definition at line 527 of file wiic\&.c\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for OpenGL Flythrough from the source code\&.

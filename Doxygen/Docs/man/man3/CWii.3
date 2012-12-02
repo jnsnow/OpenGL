@@ -41,33 +41,6 @@ CWii \-
 .ti -1c
 .RI "int \fBPoll\fP ()"
 .br
-.ti -1c
-.RI "\fBCWii\fP (int MaxNumCWiimotes)"
-.br
-.ti -1c
-.RI "int \fBGetNumConnectedWiimotes\fP ()"
-.br
-.ti -1c
-.RI "void \fBRefreshWiimotes\fP ()"
-.br
-.ti -1c
-.RI "\fBCWiimote\fP & \fBGetByID\fP (int ID, int Refresh=1)"
-.br
-.ti -1c
-.RI "std::vector< \fBCWiimote\fP > & \fBGetWiimotes\fP (int Refresh=1)"
-.br
-.ti -1c
-.RI "int \fBFind\fP (int timeout)"
-.br
-.ti -1c
-.RI "int \fBLoadRegisteredWiimotes\fP ()"
-.br
-.ti -1c
-.RI "std::vector< \fBCWiimote\fP > & \fBConnect\fP ()"
-.br
-.ti -1c
-.RI "int \fBPoll\fP ()"
-.br
 .in -1c
 .SS "Private Attributes"
 
@@ -84,7 +57,7 @@ CWii \-
 .in -1c
 .SH "Detailed Description"
 .PP 
-Definition at line 531 of file wiic_r90/src/wiicpp/wiicpp\&.h\&.
+Definition at line 531 of file wiicpp\&.h\&.
 .SH "Member Function Documentation"
 .PP 
 .SS "std::vector< \fBCWiimote\fP > & CWii::Connect (boolautoreconnect = \fCfalse\fP)"
@@ -97,7 +70,7 @@ Connects to the found Wii devices\&. \fBParameters:\fP
 .PP
 
 .PP
-Definition at line 928 of file wiic_r90/src/wiicpp/wiicpp\&.cpp\&.
+Definition at line 928 of file wiicpp\&.cpp\&.
 .SS "std::vector< \fBCWiimote\fP > & CWii::FindAndConnect (inttimeout = \fC5\fP, boolrumbleAck = \fCtrue\fP, boolautoreconnect = \fCfalse\fP)"
 
 .PP
@@ -112,7 +85,7 @@ Finds up to five devices and automatically connect to all of them\&. \fBParamete
 .PP
 
 .PP
-Definition at line 954 of file wiic_r90/src/wiicpp/wiicpp\&.cpp\&.
+Definition at line 954 of file wiicpp\&.cpp\&.
 
 .SH "Author"
 .PP 

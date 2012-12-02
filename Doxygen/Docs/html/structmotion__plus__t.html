@@ -113,15 +113,16 @@ $(document).ready(function(){initNavTree('structmotion__plus__t.html','');});
 <p>Motion Plus expansion device.  
  <a href="structmotion__plus__t.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="wiic__r90_2src_2wiic_2wiic__structs_8h_source.html">wiic_structs.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="wiic__structs_8h_source.html">wiic_structs.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a2f50155183d6adbe643c59dd36c26e2d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2f50155183d6adbe643c59dd36c26e2d"></a>
 struct <a class="el" href="structang3s__t.html">ang3s_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmotion__plus__t.html#a2f50155183d6adbe643c59dd36c26e2d">a_raw_gyro</a></td></tr>
 <tr class="memdesc:a2f50155183d6adbe643c59dd36c26e2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">current raw gyroscope data (unsmoothed) <br/></td></tr>
-<tr class="memitem:a57475c270b4209cc7649ab6b7fda336e"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structang3s__t.html">ang3s_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmotion__plus__t.html#a57475c270b4209cc7649ab6b7fda336e">raw_gyro</a></td></tr>
-<tr class="memdesc:a57475c270b4209cc7649ab6b7fda336e"><td class="mdescLeft">&#160;</td><td class="mdescRight">current raw gyroscope data (smoothed, if enabled)  <a href="#a57475c270b4209cc7649ab6b7fda336e"></a><br/></td></tr>
+<tr class="memitem:a57475c270b4209cc7649ab6b7fda336e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a57475c270b4209cc7649ab6b7fda336e"></a>
+struct <a class="el" href="structang3s__t.html">ang3s_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmotion__plus__t.html#a57475c270b4209cc7649ab6b7fda336e">raw_gyro</a></td></tr>
+<tr class="memdesc:a57475c270b4209cc7649ab6b7fda336e"><td class="mdescLeft">&#160;</td><td class="mdescRight">current raw gyroscope data (smoothed, if enabled) <br/></td></tr>
 <tr class="memitem:a607762b4cbc1ee3435cffc3bb9129d90"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a607762b4cbc1ee3435cffc3bb9129d90"></a>
 struct <a class="el" href="structang3s__t.html">ang3s_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmotion__plus__t.html#a607762b4cbc1ee3435cffc3bb9129d90">cal_gyro</a></td></tr>
 <tr class="memdesc:a607762b4cbc1ee3435cffc3bb9129d90"><td class="mdescLeft">&#160;</td><td class="mdescRight">calibration raw gyroscope data <br/></td></tr>
@@ -135,7 +136,7 @@ struct <a class="el" href="structang3f__t.html">ang3f_t</a>&#160;</td><td class=
 struct <a class="el" href="structorient__t.html">orient_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmotion__plus__t.html#ad362463fe5f487117f3407491385ee0a">orient</a></td></tr>
 <tr class="memdesc:ad362463fe5f487117f3407491385ee0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">current orientation on each axis using Motion Plus gyroscopes <br/></td></tr>
 <tr class="memitem:ae24410a9568890d3dae209583c066835"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae24410a9568890d3dae209583c066835"></a>
-<a class="el" href="wiic__r90_2src_2wiic_2wiic__macros_8h.html#a0c8186d9b9b7880309c27230bbb5e69d">byte</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmotion__plus__t.html#ae24410a9568890d3dae209583c066835">acc_mode</a></td></tr>
+<a class="el" href="wiic__macros_8h.html#a0c8186d9b9b7880309c27230bbb5e69d">byte</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmotion__plus__t.html#ae24410a9568890d3dae209583c066835">acc_mode</a></td></tr>
 <tr class="memdesc:ae24410a9568890d3dae209583c066835"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fast/slow rotation mode for roll, pitch and yaw (0 if rotating fast, 1 if slow or still) <br/></td></tr>
 <tr class="memitem:ac3ae3d162dd57fd139cc104addfb6e5e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac3ae3d162dd57fd139cc104addfb6e5e"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmotion__plus__t.html#ac3ae3d162dd57fd139cc104addfb6e5e">raw_gyro_threshold</a></td></tr>
@@ -146,35 +147,13 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struc
 <tr class="memitem:ab5eda5d43a79e927542d25338c3a7989"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab5eda5d43a79e927542d25338c3a7989"></a>
 float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmotion__plus__t.html#ab5eda5d43a79e927542d25338c3a7989">smooth_alpha</a></td></tr>
 <tr class="memdesc:ab5eda5d43a79e927542d25338c3a7989"><td class="mdescLeft">&#160;</td><td class="mdescRight">smoothness alpha parameter <br/></td></tr>
-<tr class="memitem:a221e7d9472c63cb35d2aa9c0e88f5f21"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a221e7d9472c63cb35d2aa9c0e88f5f21"></a>
-struct <a class="el" href="structang3f__t.html">ang3f_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmotion__plus__t.html#a221e7d9472c63cb35d2aa9c0e88f5f21">angle_rate_gyro</a></td></tr>
-<tr class="memdesc:a221e7d9472c63cb35d2aa9c0e88f5f21"><td class="mdescLeft">&#160;</td><td class="mdescRight">current gyro angle rate <br/></td></tr>
 </table>
 <a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Motion Plus expansion device. </p>
 
-<p>Definition at line <a class="el" href="wiic__r90_2src_2wiic_2wiic__structs_8h_source.html#l00334">334</a> of file <a class="el" href="wiic__r90_2src_2wiic_2wiic__structs_8h_source.html">wiic_r90/src/wiic/wiic_structs.h</a>.</p>
-</div><h2>Member Data Documentation</h2>
-<a class="anchor" id="a57475c270b4209cc7649ab6b7fda336e"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">struct <a class="el" href="structang3s__t.html">ang3s_t</a> motion_plus_t::raw_gyro</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>current raw gyroscope data (smoothed, if enabled) </p>
-<p>current raw gyroscope data </p>
-
-<p>Definition at line <a class="el" href="wiic__r90_2src_2wiic_2wiic__structs_8h_source.html#l00336">336</a> of file <a class="el" href="wiic__r90_2src_2wiic_2wiic__structs_8h_source.html">wiic_r90/src/wiic/wiic_structs.h</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following files:<ul>
-<li><a class="el" href="wiic__r90_2src_2wiic_2wiic__structs_8h_source.html">wiic_r90/src/wiic/wiic_structs.h</a></li>
-<li><a class="el" href="wiic__v1_81_2src_2wiic_2wiic__structs_8h_source.html">wiic_v1.1/src/wiic/wiic_structs.h</a></li>
+<p>Definition at line <a class="el" href="wiic__structs_8h_source.html#l00334">334</a> of file <a class="el" href="wiic__structs_8h_source.html">wiic_structs.h</a>.</p>
+</div><hr/>The documentation for this struct was generated from the following file:<ul>
+<li><a class="el" href="wiic__structs_8h_source.html">wiic_structs.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -182,7 +161,7 @@ struct <a class="el" href="structang3f__t.html">ang3f_t</a>&#160;</td><td class=
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structmotion__plus__t.html">motion_plus_t</a></li>
-    <li class="footer">Generated on Sat Dec 1 2012 19:54:43 for OpenGL Flythrough by
+    <li class="footer">Generated on Sat Dec 1 2012 20:07:19 for OpenGL Flythrough by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.1.2 </li>
   </ul>

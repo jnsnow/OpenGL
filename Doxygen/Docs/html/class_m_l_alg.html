@@ -125,70 +125,12 @@ Public Types</h2></td></tr>
 <b>RT</b>, 
 <b>NONE</b>, 
 <br/>
-&#160;&#160;<b>NUMTYPES</b>, 
-<b>KNN</b>, 
-<b>Bayes</b>, 
-<b>SVM</b>, 
-<br/>
-&#160;&#160;<b>DT</b>, 
-<b>ANN</b>, 
-<b>Boost</b>, 
-<b>RT</b>, 
-<br/>
-&#160;&#160;<b>NONE</b>, 
-<b>NUMTYPES</b>
-<br/>
- }</td></tr>
-<tr class="memitem:a2ec023cf3bbc9f1f62b975d10ba97158"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><b>type</b> { <br/>
-&#160;&#160;<b>KNN</b>, 
-<b>Bayes</b>, 
-<b>SVM</b>, 
-<b>DT</b>, 
-<br/>
-&#160;&#160;<b>ANN</b>, 
-<b>Boost</b>, 
-<b>RT</b>, 
-<b>NONE</b>, 
-<br/>
-&#160;&#160;<b>NUMTYPES</b>, 
-<b>KNN</b>, 
-<b>Bayes</b>, 
-<b>SVM</b>, 
-<br/>
-&#160;&#160;<b>DT</b>, 
-<b>ANN</b>, 
-<b>Boost</b>, 
-<b>RT</b>, 
-<br/>
-&#160;&#160;<b>NONE</b>, 
-<b>NUMTYPES</b>
+&#160;&#160;<b>NUMTYPES</b>
 <br/>
  }</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:abe64a2a987f3564d4b8a555bc028a628"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abe64a2a987f3564d4b8a555bc028a628"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>MLAlg</b> (type t=KNN)</td></tr>
-<tr class="memitem:ad91e8880931c1c1a4cffd06dd9abfbe7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad91e8880931c1c1a4cffd06dd9abfbe7"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setType</b> (type t)</td></tr>
-<tr class="memitem:a9189e74165b45c44b404660a67bdbfe8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9189e74165b45c44b404660a67bdbfe8"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setType</b> (const string &amp;st)</td></tr>
-<tr class="memitem:a7cc0abdf363c12ec83ee63119b81d19c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7cc0abdf363c12ec83ee63119b81d19c"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>getType</b> ()</td></tr>
-<tr class="memitem:a44f120e39108980863a3fac855f89106"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a44f120e39108980863a3fac855f89106"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setCategoryNames</b> (const vector&lt; string &gt; &amp;names)</td></tr>
-<tr class="memitem:ad62d73beb4bd63465a4bf24644df420f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad62d73beb4bd63465a4bf24644df420f"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>categoryName</b> (int i)</td></tr>
-<tr class="memitem:af50750d469efca6635f056471423c619"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af50750d469efca6635f056471423c619"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>train</b> (const CvMat *trainIn, const CvMat *trainOut)</td></tr>
-<tr class="memitem:af7cd4f07c40c55a603e3a6dcaf5f287d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af7cd4f07c40c55a603e3a6dcaf5f287d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>validate</b> (const CvMat *validateIn, const CvMat *validateOut)</td></tr>
-<tr class="memitem:ae05ba5c235d576a81f2a82eef06448ed"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae05ba5c235d576a81f2a82eef06448ed"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>recognize</b> (const CvMat *recognizeIn, CvMat *recognizeOut)</td></tr>
-<tr class="memitem:a368d08fe8e04e626e56bd17d531ef795"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a368d08fe8e04e626e56bd17d531ef795"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>save</b> (const char *filename) const </td></tr>
-<tr class="memitem:a3651488762f2ba0d7f28e9ee114674bf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3651488762f2ba0d7f28e9ee114674bf"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>load</b> (const char *filename)</td></tr>
 <tr class="memitem:abe64a2a987f3564d4b8a555bc028a628"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abe64a2a987f3564d4b8a555bc028a628"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>MLAlg</b> (type t=KNN)</td></tr>
 <tr class="memitem:ad91e8880931c1c1a4cffd06dd9abfbe7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad91e8880931c1c1a4cffd06dd9abfbe7"></a>
@@ -242,17 +184,15 @@ CvANN_MLP_TrainParams&#160;</td><td class="memItemRight" valign="bottom"><b>annp
 int&#160;</td><td class="memItemRight" valign="bottom"><b>K</b></td></tr>
 <tr class="memitem:afc48fbeac702aeb6b9d32c99da80dc54"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afc48fbeac702aeb6b9d32c99da80dc54"></a>
 type&#160;</td><td class="memItemRight" valign="bottom"><b>tp</b></td></tr>
-<tr class="memitem:a5d842c24808322a6077c69dfbe0088d0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5d842c24808322a6077c69dfbe0088d0"></a>
+<tr class="memitem:a85ca41d5b92e86c8d9c6321adef7a5f9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a85ca41d5b92e86c8d9c6321adef7a5f9"></a>
 vector&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>categoryNames</b></td></tr>
 </table>
 <a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock">
-<p>Definition at line <a class="el" href="wiic__r90_2src_2ml_2_m_l_alg_8h_source.html#l00008">8</a> of file <a class="el" href="wiic__r90_2src_2ml_2_m_l_alg_8h_source.html">wiic_r90/src/ml/MLAlg.h</a>.</p>
+<p>Definition at line <a class="el" href="_m_l_alg_8h_source.html#l00008">8</a> of file <a class="el" href="_m_l_alg_8h_source.html">MLAlg.h</a>.</p>
 </div><hr/>The documentation for this class was generated from the following files:<ul>
-<li><a class="el" href="wiic__r90_2src_2ml_2_m_l_alg_8h_source.html">wiic_r90/src/ml/MLAlg.h</a></li>
-<li><a class="el" href="wiic__v1_81_2src_2ml_2_m_l_alg_8h_source.html">wiic_v1.1/src/ml/MLAlg.h</a></li>
-<li><a class="el" href="wiic__r90_2src_2ml_2_m_l_alg_8cpp_source.html">wiic_r90/src/ml/MLAlg.cpp</a></li>
-<li><a class="el" href="wiic__v1_81_2src_2ml_2_m_l_alg_8cpp_source.html">wiic_v1.1/src/ml/MLAlg.cpp</a></li>
+<li><a class="el" href="_m_l_alg_8h_source.html">MLAlg.h</a></li>
+<li><a class="el" href="_m_l_alg_8cpp_source.html">MLAlg.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -260,7 +200,7 @@ vector&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>cat
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="class_m_l_alg.html">MLAlg</a></li>
-    <li class="footer">Generated on Sat Dec 1 2012 19:54:43 for OpenGL Flythrough by
+    <li class="footer">Generated on Sat Dec 1 2012 20:07:19 for OpenGL Flythrough by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.1.2 </li>
   </ul>

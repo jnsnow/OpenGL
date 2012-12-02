@@ -375,7 +375,6 @@ void HandleEvent(CWiimote &wm)
 		printf("balance board bottom left weight: %f\n", bottomLeft);
 		printf("balance board bottom right weight: %f\n", bottomRight);
 		printf("balance board total weight: %f\n", total);
-		exit(255);
 	}
 }
 
