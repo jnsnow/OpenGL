@@ -324,19 +324,25 @@ void lightEffects(int frameNumber){
 
 }
 
+/** A function that takes no arguments.
+    Is responsible for drawing a SINGLE VIEWPORT. **/
+void displayViewport( void ) {
+  
+  glDrawArrays( GL_TRIANGLES, 0, NumVertices );
+
+}
+
 void display( void ) {
 
-
   static int frameNumber = 0;
-
   lightEffects(frameNumber); // only screws with the non moving light source
-  
   glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-  glDrawArrays( GL_TRIANGLES, 0, NumVertices );
+
+  // Tell camList to draw using our displayViewport rendering function.
+  camList.Draw( displayViewport );
+
   glutSwapBuffers();
-
   frameNumber = (frameNumber + 1) % 180 ;
-
 }
 
 void keylift( unsigned char key, int x, int y ) {
@@ -495,7 +501,9 @@ void resizeEvent( int width, int height ) {
   Width = width;
   X_Center = (Width/2);
   Y_Center = (Height/2);
-  glViewport( 0, 0, Width, Height );
+  camList.Resize( Width, Height );
+  /*camList handles setting viewports now.
+    glViewport( 0, 0, Width, Height );*/
   glutWarpPointer( X_Center, Y_Center );
 
 }

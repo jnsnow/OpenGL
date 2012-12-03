@@ -7,6 +7,11 @@
 #include "globals.h" //Math constants and macros (SQRT2, POW5)
 using namespace Angel;
 
+/**
+   comminInit is a private function that initializes local object attributes.
+   It should be called by all available constructors.
+   @return Void.
+**/
 void Camera::commonInit( void ) {
   std::cerr << "initCamera...\n";
   for ( size_t i = (size_t)Begin;
@@ -19,9 +24,8 @@ void Camera::commonInit( void ) {
   this->MaxAccel = 10;
   this->MaxSpeed = 200;
   this->FrictionMagnitude = 2;
+  this->currView = PERSPECTIVE;
 }
-
-const float Camera::initSpeed = 0.01;
 
 /**
    Initialization Constructor; sets the X,Y,Z coordinates explicitly.
@@ -32,7 +36,6 @@ const float Camera::initSpeed = 0.01;
 Camera::Camera( float x, float y, 
 		float z ) {
   commonInit();
-  this->speed = initSpeed;
   this->pos( x, y, z, false );
 }
 
@@ -43,7 +46,6 @@ Camera::Camera( float x, float y,
 **/
 Camera::Camera( vec3 &in ) {
   commonInit();
-  this->speed = initSpeed;
   this->pos( in, false );
 }
 
@@ -54,7 +56,6 @@ Camera::Camera( vec3 &in ) {
 **/
 Camera::Camera( vec4 &in ) {
   commonInit();
-  this->speed = initSpeed;
   this->pos( in, false );
 }
 
@@ -501,6 +502,14 @@ void Camera::dFOV( const float &by ) {
 }
 
 
+void Camera::viewport( size_t _X, size_t _Y,
+		       size_t _Width, size_t _Height ) {
+  this->XPos = _X;
+  this->YPos = _Y;
+  this->width = _Width;
+  this->height = _Height;
+}
+
 /**
    send will send a glsl variable to the shader.
    @param which The parameter to send. Can be any from enum glsl_var.
@@ -548,5 +557,12 @@ void Camera::link( const GLuint &program, const glsl_var &which,
   glsl_handles[which] = glGetUniformLocation( program, 
 					      glslVarName.c_str() );
   send( which );
+
+}
+
+void Camera::Draw( void ) {
+
+  glViewport( XPos, YPos, width, height );
+  send( CTM );
 
 }

@@ -37,9 +37,15 @@ public:
   void IdleMotion( void );
   void LinkAll( const GLuint &program, 
 		const Camera::glsl_var &which, const string &glslVarName ); 
-  
+
+  size_t ActiveN( void );
   Camera &Active( void );
   Camera &Active( size_t n );
+
+  void Resize( int width, int height );
+  void Draw(void (*draw_func)(void));
+
+
 
 private:
   

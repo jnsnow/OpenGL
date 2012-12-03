@@ -1,3 +1,4 @@
+#include <cmath>
 #include <vector>
 #include "Camera.hpp"
 #include "Cameras.hpp"
@@ -66,6 +67,10 @@ Camera *Cameras::iter( size_t n ) {
 
 }
 
+size_t Cameras::ActiveN( void ) {
+  return activeCamera;
+}
+
 Camera &Cameras::Active( void ) {
   return camList[activeCamera];
 }
@@ -76,4 +81,62 @@ Camera &Cameras::Active( size_t n ) {
   } 
   camList[activeCamera].send( Camera::CTM );
   return Active();
+}
+
+void Cameras::Draw(void (*draw_func)(void)) {
+
+  vector<Camera>::iterator it;
+  for (it = camList.begin();
+       it != camList.end();
+       ++it) {
+    it->Draw();
+    (*draw_func)();
+  }
+}
+
+void Cameras::Resize( int width, int height ) {
+  
+  // How many cameras do we have?
+  size_t numCameras = camList.size();
+
+  // How many virtual rows will we need to display this many?
+  size_t numRows = ceil(sqrt(numCameras));
+
+  // How many columns will we need (average) in general to display this many?
+  double numCols = (double)numCameras/(double)numRows;
+  size_t numMaxCols = ceil(numCols);
+  size_t numMinCols = floor(numCols);
+
+  // How many rows do we need to draw with MinCols?
+  size_t drawMinRows = (numCameras % numRows) ?
+    ((numCameras - (numRows * numMaxCols)) / (numMinCols - numMaxCols)) :
+    0;
+
+  vector<Camera>::iterator it = camList.begin();
+  size_t row = 0;
+
+  for (size_t allocHeight = 0; row < numRows; ++row) {
+    size_t myWidth;
+    size_t myHeight;
+    size_t allocWidth = 0;
+    size_t colsThisRow = (row < drawMinRows) ? numMinCols : numMaxCols;
+
+    for (size_t col = 0; col < colsThisRow; ++col, ++it) {
+      // Is this the last column? Use the remaining width.
+      if (col + 1 == colsThisRow) myWidth = width - allocWidth;
+      else myWidth = width/colsThisRow;
+      // Is this the last row? Use the remaining height.
+      if (row + 1 == numRows) myHeight = height - allocHeight;
+      else myHeight = height/numRows;
+      // Tell this camera his new viewport.
+      it->viewport( allocWidth, allocHeight, myWidth, myHeight );
+	
+      // Increment our allocated width counter.
+      allocWidth += myWidth;
+    }
+
+    // Increment our allocated height counter.
+    allocHeight += (height/numRows);
+  }
+
 }
