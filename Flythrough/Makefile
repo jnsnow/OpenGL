@@ -24,7 +24,7 @@ CLASSES_DIR = $(RELDIR)/Classes
 UNAME := $(shell uname)
 EXT=cpp
 CC=g++
-CFLAGS=-Wall -pedantic -ggdb -I $(RELDIR)/include -I/usr/local/include/wiic -O2 
+CFLAGS=-Wall -pedantic -ggdb -I $(RELDIR)/include -O2 
 EXECS=fly
 SOURCES=fly.cpp \
 	$(COMMON_DIR)/model.cpp \
@@ -32,19 +32,24 @@ SOURCES=fly.cpp \
 	$(CLASSES_DIR)/vec.cpp \
 	$(CLASSES_DIR)/mat.cpp \
 	$(COMMON_DIR)/InitShader.cpp \
-	$(CLASSES_DIR)/Cameras.cpp \
-	$(COMMON_DIR)/WiiUtil.cpp
-OBJS=$(subst .$(EXT),.o,$(SOURCES))
-DEPS=$(subst .$(EXT),.d,$(SOURCES))
+	$(CLASSES_DIR)/Cameras.cpp
 ifeq ($(UNAME), Linux)
-LDFLAGS= -lGL -lGLU -lGLEW -lglut -lXmu -lX11 -lm -lwiic -lwiicpp
+LDFLAGS= -lGL -lGLU -lGLEW -lglut -lXmu -lX11 -lm
 endif
 ifeq ($(UNAME), Darwin)
-LDFLAGS= -framework Carbon -framework OpenGL -framework GLUT -lwiic -lwiicpp
+LDFLAGS= -framework Carbon -framework OpenGL -framework GLUT
 endif
 ifdef POSTMULT
 	CFLAGS += -DPOSTMULT
 endif
+ifdef WII
+	CFLAGS += -DWII -I/usr/local/include/wiic
+	LDFLAGS += -lwiic -lwiicpp
+	SOURCES += $(COMMON_DIR)/WiiUtil.cpp
+endif
+
+OBJS=$(subst .$(EXT),.o,$(SOURCES))
+DEPS=$(subst .$(EXT),.d,$(SOURCES))
 
 # This .PHONY is required to prevent Makefile's built-in rules from processing it.
 .PHONY: all

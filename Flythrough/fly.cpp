@@ -1,9 +1,7 @@
 #define X_SIZE (800)
 #define Y_SIZE (600)
 
-#include <cmath> 
-#include <wiicpp.h>
-
+#include <cmath>
 #include "platform.h" /* Multi-platform support and OpenGL headers */
 #include "vec.hpp"
 #include "mat.hpp"
@@ -11,7 +9,15 @@
 #include "Camera.hpp"
 #include "InitShader.hpp"
 #include "Cameras.hpp"
-#include "WiiUtil.h" /* Wii Controller Handler Util */
+
+// Wii Connectivity 
+#ifdef WII
+#include <wiicpp.h>  // WiiC++ API
+#include "WiiUtil.h" // Wii Controller Handler Util
+CWii Wii;
+bool usingWii = false;
+#endif
+////
 
 using Angel::vec3;
 using Angel::vec4;
@@ -36,8 +42,6 @@ color4 colors[NumVertices];
 vec3  normals[NumVertices];
 
 Cameras camList( 2 );
-CWii Wii;
-bool usingWii = false;
 
 int Width = X_SIZE;
 int X_Center = (Width/2);
@@ -55,7 +59,6 @@ point4 light_position2( 0.0, 1.0, 0.1, 1.0 );
 
 // 11/26 changes: mode of the static light source.
 int lightMode = 0;
-
 
 //glGetUniformLocation(program, "LightPosition");
 // this one corresponds to the moving light source
@@ -133,6 +136,17 @@ void init_lights( GLuint program ) {
 
 }
 
+void cameraInit( GLuint program, Camera& cam ) {
+
+  /* Link this camera to our standard shader variables. */
+  cam.link( program, Camera::TRANSLATION, "T" );
+  cam.link( program, Camera::ROTATION, "R" );
+  cam.link( program, Camera::VIEW, "P" );
+  cam.link( program, Camera::CTM, "CTM" );
+  /* FOV must be set /after/ linking the VIEW and CTM matrices. */
+  cam.FOV( 45.0 );
+
+}
 
 void init() {
 
@@ -220,7 +234,6 @@ void init() {
   glEnableVertexAttribArray( vNormal );
   glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0,
 			 (GLvoid*)(sizeof(points)+sizeof(colors)));
-
 
   /* Linkify! */
   camList.LinkAll( program, Camera::TRANSLATION, "T" );
@@ -381,6 +394,10 @@ void keyboard( unsigned char key, int x, int y ) {
       exit( EXIT_SUCCESS );
       break;
     
+  case '+':
+    camList.addCamera();
+    break;
+
   case 'w':
     camList.Active().Move( Camera::Forward );
     break;
@@ -527,13 +544,20 @@ void movelight(void) {
 void idle( void ) {
 
   movelight();
+
+#ifdef WII
   if (usingWii) {
     for (size_t i = 0; i < 20; ++i) {
       pollWii( Wii );
       camList.Active().Accel( bb_magnitudes );
     }
   }
-  camList.Active().Idle();
+#endif
+
+  /* Move all camera(s) */
+  camList.IdleMotion();
+  /* The following would move only the active. */
+  //camList.Active().Idle();
   glutPostRedisplay();
     
 }
@@ -543,9 +567,11 @@ void idle( void ) {
 
 int main( int argc, char **argv ) {
 
+#ifdef WII
   if (!(usingWii = initWii( Wii ))) {
     std::cerr << "Not using Wii controls for this runthrough.\n";
   }
+#endif
 
   // OS X suppresses events after mouse warp.  This resets the suppression 
   // interval to 0 so that events will not be suppressed. This also found
@@ -577,5 +603,5 @@ int main( int argc, char **argv ) {
 
     /* PULL THE TRIGGER */
     glutMainLoop();
-    return 0;
+    return EXIT_SUCCESS;
 }

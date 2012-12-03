@@ -43,14 +43,16 @@ public:
   Camera &Active( size_t n );
 
   void Resize( int width, int height );
+  void CalculateViewports( void );
   void Draw(void (*draw_func)(void));
-
-
 
 private:
   
+  void commonInit( void );
   vector< Camera > camList;
   size_t activeCamera;
+  size_t Width;
+  size_t Height;
 
 };
 

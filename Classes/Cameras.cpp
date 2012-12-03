@@ -1,20 +1,32 @@
+//#include "OpenGL.h" /* For window size calculations */
 #include <cmath>
 #include <vector>
 #include "Camera.hpp"
 #include "Cameras.hpp"
 using std::vector;
 
+
 Cameras::Cameras( void ) {
+  //commonInit();
   /* Nothing, one supposes? 
      Hello, though!
      If you are reading this, I love you. */
 }
 
 Cameras::Cameras( const size_t &numCameras ) {
+  //commonInit();
   for ( size_t i = 0; i < numCameras; ++i ) {
     addCamera( Camera() );
   }
 }
+
+/*
+void Cameras::commonInit( void ) {
+  GLint size[4];
+  glGetIntegerv( GL_VIEWPORT, size );
+  Resize( size[2], size[3] );
+}
+*/
 
 Cameras::~Cameras( void ) {
   /* Nothing special here, either! */
@@ -25,12 +37,17 @@ size_t Cameras::addCamera( void ) {
 }
 
 size_t Cameras::addCamera( Camera const &newCamera ) {
+  // Add the new camera.
   this->camList.push_back( newCamera );
+  //Recalculate our splitscreen viewports.
+  CalculateViewports();
   return (this->camList.size()) - 1;
 }
 
 void Cameras::delCamera( size_t n ) {
   this->camList.erase(camList.begin()+n);
+  //Recalculate our splitscreen viewports.
+  CalculateViewports();
 }
 
 Camera &Cameras::getCamera( size_t n ) {
@@ -96,8 +113,24 @@ void Cameras::Draw(void (*draw_func)(void)) {
 
 void Cameras::Resize( int width, int height ) {
   
+  this->Width = width;
+  this->Height = height;
+  std::cerr << "Setting Cameras WxH: " << Width << "x" << Height << "\n";
+  CalculateViewports();
+
+}
+
+void Cameras::CalculateViewports( void ) {
+
+  /* Let's not try to distribute Viewports if the window system
+     hasn't been initialized yet, i.e, if Resize() has not yet
+     been called. */
+  if (!Height || !Width) return;
+  
   // How many cameras do we have?
   size_t numCameras = camList.size();
+  // Let's not try to resize zero cameras.
+  if (numCameras == 0) return;
 
   // How many virtual rows will we need to display this many?
   size_t numRows = ceil(sqrt(numCameras));
@@ -106,6 +139,8 @@ void Cameras::Resize( int width, int height ) {
   double numCols = (double)numCameras/(double)numRows;
   size_t numMaxCols = ceil(numCols);
   size_t numMinCols = floor(numCols);
+
+  fprintf( stderr, "numCameras: %lu; numRows: %lu; numCols: %f; numMaxCols: %lu; numMinCols: %lu\n", numCameras, numRows, numCols, numMaxCols, numMinCols );
 
   // How many rows do we need to draw with MinCols?
   // (By extension: drawMaxRows = (numRows-drawMinRows))
@@ -125,25 +160,25 @@ void Cameras::Resize( int width, int height ) {
 
     for (size_t col = 0; col < colsThisRow; ++col, ++it) {
       // Is this the last column? Use the remaining width.
-      if (col + 1 == colsThisRow) myWidth = width - allocWidth;
-      else myWidth = width/colsThisRow;
+      if (col + 1 == colsThisRow) myWidth = (this->Width) - allocWidth;
+      else myWidth = (this->Width)/colsThisRow;
       // Is this the last row? Use the remaining height.
-      if (row + 1 == numRows) myHeight = height - allocHeight;
-      else myHeight = height/numRows;
+      if (row + 1 == numRows) myHeight = (this->Height) - allocHeight;
+      else myHeight = (this->Height)/numRows;
 
       // Tell this camera his new viewport.
       // height looks a little goofy because we are allocating height
       // from the top of the coordinate system and working down,
       // so we have to take the complement.
-      it->viewport( allocWidth, (height-(allocHeight+myHeight)), myWidth, myHeight );
-      if (0) fprintf( stderr, "Camera: (%lu x %lu) @ (%lu,%lu)\n",
+      it->viewport( allocWidth, ((this->Height)-(allocHeight+myHeight)), myWidth, myHeight );
+      if (1) fprintf( stderr, "Camera: (%lu x %lu) @ (%lu,%lu)\n",
 		      myWidth, myHeight,
-		      allocWidth, (height-(allocHeight+myHeight)));
+		      allocWidth, ((this->Height)-(allocHeight+myHeight)));
 
       // Increment our allocated width counter.
       allocWidth += myWidth;
     }
     // Increment our allocated height counter.
-    allocHeight += (height/numRows);
+    allocHeight += ((this->Height)/numRows);
   }
 }
