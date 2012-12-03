@@ -39,7 +39,7 @@ const int NumVertices = 36;
 point4 points[NumVertices];
 color4 colors[NumVertices];
 vec3  normals[NumVertices];
-Cameras camList( 2 );
+Cameras camList( 1 );
 int Width = X_SIZE;
 int X_Center = (Width/2);
 int Height = Y_SIZE;
@@ -379,9 +379,12 @@ void keyboard( unsigned char key, int x, int y ) {
     break;
     
   case '+':
-    camList.addCamera();
+    cameraInit(camList[camList.addCamera()]);
     break;
-
+  case '-':
+    camList.popCamera();
+    break;
+    
   case 'w':
     camList.Active().Move( Camera::Forward );
     break;

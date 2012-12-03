@@ -28,6 +28,7 @@ public:
   size_t addCamera( void );
   size_t addCamera( Camera const &newCamera );
   void delCamera( size_t n );
+  void popCamera( void );
 
   Camera &getCamera( size_t n );
   Camera &operator[]( size_t n );

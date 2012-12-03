@@ -50,6 +50,11 @@ void Cameras::delCamera( size_t n ) {
   CalculateViewports();
 }
 
+void Cameras::popCamera( void ) {
+  this->camList.pop_back();
+  CalculateViewports();
+}
+
 Camera &Cameras::getCamera( size_t n ) {
   return this->camList.at( n );
 }
