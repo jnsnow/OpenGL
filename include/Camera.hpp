@@ -115,10 +115,10 @@ public:
   void heave( const float &by );
   
   /* Adjust the camera's current view angle */
-  void pitch( const float &by );
-  void yaw( const float &by );
-  void roll( const float &by );
-
+  void pitch( const float &by, const bool &fixed = false );
+  void yaw( const float &by, const bool &fixed = false );
+  void roll( const float &by, const bool &fixed = false );
+  
   /* Instruct the camera to automatically move. */
   void Move( const Camera::Direction &Dir );
   void Stop( const Camera::Direction &Dir );
@@ -140,7 +140,7 @@ public:
     
 private:
 
-  void adjustRotation( const mat4 &adjustment );
+  void adjustRotation( const mat4 &adjustment, const bool &fixed = false );
   void commonInit( void );
 
   /** The current translation matrix for this camera. **/

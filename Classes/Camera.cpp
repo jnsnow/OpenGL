@@ -7,6 +7,14 @@
 #include "globals.h" //Math constants and macros (SQRT2, POW5)
 using namespace Angel;
 
+#ifdef POSTMULT
+static const bool POSTMULT = true;
+static const bool PREMULT = false;
+#else
+static const bool POSTMULT = false;
+static const bool PREMULT = true;
+#endif
+
 /**
    comminInit is a private function that initializes local object attributes.
    It should be called by all available constructors.
@@ -220,18 +228,36 @@ void Camera::dPos( const vec4 &by ) {
     @param adjustment The 4x4 matrix to transform the CTM by.
     @return Void.
 **/
-void Camera::adjustRotation( const mat4 &adjustment ) {
-#ifdef POSTMULT
-  // In a post-mult system, the argument order is left-to-right,
-  // So the adjustment appears last.
-  R = R * adjustment;
-#else
-  // In a pre-mult system, the last argument is applied first,
-  // So the adjustment should appear first.
+void Camera::adjustRotation( const mat4 &adjustment, const bool &fixed ) {
+
+  // By default, the 'order' bool represents the POSTMULT behavior.
+  bool order = POSTMULT;
+  // However, if the fixed bool is present, flip it around.
+  if (fixed) order = !order;
+
+  if (order) {
+    // In a post-mult system, the argument order is left-to-right,
+    // So the adjustment appears last.
+    R = R * adjustment;
+  } else {
+    // In a pre-mult system, the last argument is applied first,
+    // So the adjustment should appear first.    
+    R = adjustment * R;
+  }
+
+  send( ROTATION );
+
+}
+
+/*void Camera::fixedRotation( const mat4 &adjustment ) {
+#ifdef POSTMUST
   R = adjustment * R;
+#else
+  R = R * adjustment;
 #endif
   send( ROTATION );
-}
+  }*/
+
 
 /** 
   ROTATE_OFFSET is a macro which is used to normalize
@@ -240,7 +266,6 @@ void Camera::adjustRotation( const mat4 &adjustment ) {
   @param V a vec4 representing the movement offset vector.
   @return A rotated vec4.
 **/
-//#define ROTATE_OFFSET(V) (transpose(R) * V)
 #define ROTATE_OFFSET(V) (V * R)
 
 
@@ -289,7 +314,7 @@ void Camera::heave( const float &by ) {
    @param by A float, in degrees, to adjust the pitch by.
    @return Void.
 **/
-void Camera::pitch( const float &by ) {
+void Camera::pitch( const float &by, const bool &fixed ) {
   /*
     Since negative values are interpreted as pitching down,
     We leave the input uninverted, because a negative rotation
@@ -297,7 +322,7 @@ void Camera::pitch( const float &by ) {
     and clockwise (looking left), which achieves the effect of
     looking 'down'.
   */ 
-  adjustRotation(RotateX(-by));
+  adjustRotation(RotateX(-by), fixed);
 }
 
 
@@ -308,14 +333,14 @@ void Camera::pitch( const float &by ) {
    @param by A float, in degrees, to adjust the yaw by.
    @return Void.
 **/
-void Camera::yaw( const float &by ) {
+void Camera::yaw( const float &by, const bool &fixed ) {
   /*
     Since a positive 'by' should represent looking right,
     we invert the rotation because rotating by a positive value
     will rotate right, which simulates looking left.
     Therefore, invert.
   */
-  adjustRotation(RotateY(by));
+  adjustRotation(RotateY(by), fixed);
 }
 
 
@@ -326,8 +351,8 @@ void Camera::yaw( const float &by ) {
    @param by A float, in degrees, to adjust the roll by.
    @return Void.
 **/
-void Camera::roll( const float &by ) {
-  adjustRotation(RotateZ(by));
+void Camera::roll( const float &by, const bool &fixed ) {
+  adjustRotation(RotateZ(by), fixed);
 }
 
 /**

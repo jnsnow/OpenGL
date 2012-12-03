@@ -482,7 +482,7 @@ void mouselook( int x, int y ) {
     const double dy = ((double)y - Y_Center);
     
     camList.Active().pitch( dy );
-    camList.Active().yaw( dx );
+    camList.Active().yaw( dx, true );
     
     glutWarpPointer( X_Center, Y_Center );
   }
