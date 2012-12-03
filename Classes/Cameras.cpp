@@ -140,23 +140,22 @@ void Cameras::CalculateViewports( void ) {
   size_t numMaxCols = ceil(numCols);
   size_t numMinCols = floor(numCols);
 
-  fprintf( stderr, "numCameras: %lu; numRows: %lu; numCols: %f; numMaxCols: %lu; numMinCols: %lu\n", numCameras, numRows, numCols, numMaxCols, numMinCols );
-
   // How many rows do we need to draw with MinCols?
   // (By extension: drawMaxRows = (numRows-drawMinRows))
   size_t drawMinRows = (numCameras % numRows) ?
-    ((numCameras - (numRows * numMaxCols)) / (numMinCols - numMaxCols)) :
+    ((int)(numCameras - (numRows * numMaxCols)) / (int)(numMinCols - numMaxCols)) :
     0;
 
   vector<Camera>::iterator it = camList.begin();
-  size_t row = 0;
-
   /* This is confusing as hell. Good luck! */
-  for (size_t allocHeight = 0; row < numRows; ++row) {
+  for (size_t allocHeight = 0, row = 0;
+       (row < numRows) || (it != camList.end()); //Terminate on either cond. Just in case.
+       ++row) {
     size_t myWidth;
     size_t myHeight;
     size_t allocWidth = 0;
     size_t colsThisRow = (row < drawMinRows) ? numMinCols : numMaxCols;
+    fprintf( stderr, "Row: %lu; Columns this row: %lu\n", row, colsThisRow );
 
     for (size_t col = 0; col < colsThisRow; ++col, ++it) {
       // Is this the last column? Use the remaining width.
@@ -171,7 +170,7 @@ void Cameras::CalculateViewports( void ) {
       // from the top of the coordinate system and working down,
       // so we have to take the complement.
       it->viewport( allocWidth, ((this->Height)-(allocHeight+myHeight)), myWidth, myHeight );
-      if (1) fprintf( stderr, "Camera: (%lu x %lu) @ (%lu,%lu)\n",
+      if (0) fprintf( stderr, "Camera: (%lu x %lu) @ (%lu,%lu)\n",
 		      myWidth, myHeight,
 		      allocWidth, ((this->Height)-(allocHeight+myHeight)));
 
