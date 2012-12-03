@@ -14,7 +14,7 @@ var searchData=
   ['addr',['addr',['../structread__req__t.html#a9d0e60fd85e0590ad1fdf03eac17bea6',1,'read_req_t']]],
   ['ang',['ang',['../structjoystick__t.html#a59aa4a12fedb3126f21345905d824fc1',1,'joystick_t']]],
   ['angle',['angle',['../structorient__t.html#a0703101bf0e89193a67f55d07e83822e',1,'orient_t']]],
-  ['aspect',['aspect',['../structir__t.html#a0a54081272fba76534573a4ed8fe9cc9',1,'ir_t']]],
+  ['aspect',['aspect',['../class_camera.html#af3fdbc52ba0f7af7d8091986d6303119',1,'Camera::aspect()'],['../structir__t.html#a0a54081272fba76534573a4ed8fe9cc9',1,'ir_t::aspect()']]],
   ['autoreconnect',['autoreconnect',['../structwiimote__t.html#a483762d7737311fa5e4c8d90ef531875',1,'wiimote_t']]],
   ['ax',['ax',['../structir__t.html#affbbd8f9e9bccf428b39f2ac54f797fd',1,'ir_t']]],
   ['ay',['ay',['../structir__t.html#adad042b5d45b0dd513ceec8f79459750',1,'ir_t']]]

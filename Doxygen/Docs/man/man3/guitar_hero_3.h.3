@@ -1,4 +1,4 @@
-.TH "guitar_hero_3.h" 3 "Sun Dec 2 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.TH "guitar_hero_3.h" 3 "Mon Dec 3 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -12,7 +12,7 @@ Guitar Hero 3 expansion device\&.
 \fC#include 'wiic_internal\&.h'\fP
 .br
 
-.SS "Macros"
+.SS "Defines"
 
 .in +1c
 .ti -1c
@@ -65,8 +65,7 @@ Guitar Hero 3 expansion device\&.
 Definition in file \fBguitar_hero_3\&.h\fP\&.
 .SH "Function Documentation"
 .PP 
-.SS "void guitar_hero_3_disconnected (struct \fBguitar_hero_3_t\fP *gh3)"
-
+.SS "void \fBguitar_hero_3_disconnected\fP (struct \fBguitar_hero_3_t\fP *gh3)"
 .PP
 The guitar disconnected\&. \fBParameters:\fP
 .RS 4
@@ -76,8 +75,7 @@ The guitar disconnected\&. \fBParameters:\fP
 
 .PP
 Definition at line 121 of file guitar_hero_3\&.c\&.
-.SS "void guitar_hero_3_event (struct \fBguitar_hero_3_t\fP *gh3, \fBbyte\fP *msg)"
-
+.SS "void \fBguitar_hero_3_event\fP (struct \fBguitar_hero_3_t\fP *gh3, \fBbyte\fP *msg)"
 .PP
 Handle guitar event\&. \fBParameters:\fP
 .RS 4
@@ -89,8 +87,7 @@ Handle guitar event\&. \fBParameters:\fP
 
 .PP
 Definition at line 133 of file guitar_hero_3\&.c\&.
-.SS "int guitar_hero_3_handshake (struct \fBwiimote_t\fP *wm, struct \fBguitar_hero_3_t\fP *gh3, \fBbyte\fP *data, unsigned shortlen)"
-
+.SS "int \fBguitar_hero_3_handshake\fP (struct \fBwiimote_t\fP *wm, struct \fBguitar_hero_3_t\fP *gh3, \fBbyte\fP *data, unsigned shortlen)"
 .PP
 Handle the handshake data from the guitar\&. \fBParameters:\fP
 .RS 4

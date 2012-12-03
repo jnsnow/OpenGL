@@ -7,26 +7,16 @@ using std::vector;
 
 
 Cameras::Cameras( void ) {
-  //commonInit();
   /* Nothing, one supposes? 
      Hello, though!
      If you are reading this, I love you. */
 }
 
 Cameras::Cameras( const size_t &numCameras ) {
-  //commonInit();
   for ( size_t i = 0; i < numCameras; ++i ) {
     addCamera( Camera() );
   }
 }
-
-/*
-void Cameras::commonInit( void ) {
-  GLint size[4];
-  glGetIntegerv( GL_VIEWPORT, size );
-  Resize( size[2], size[3] );
-}
-*/
 
 Cameras::~Cameras( void ) {
   /* Nothing special here, either! */

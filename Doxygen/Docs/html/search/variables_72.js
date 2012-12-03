@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['r',['R',['../class_camera.html#a8fd028120b18556c43ad86756e637fbc',1,'Camera']]],
   ['r_5fshoulder',['r_shoulder',['../structclassic__ctrl__t.html#aa3957631edebe03ac120c847b11ff7da',1,'classic_ctrl_t']]],
   ['rate',['rate',['../structang__rate__t.html#aa1fa5093d421095a2eeae1ad07b341eb',1,'ang_rate_t']]],
   ['raw_5fgyro',['raw_gyro',['../structmotion__plus__t.html#a57475c270b4209cc7649ab6b7fda336e',1,'motion_plus_t']]],

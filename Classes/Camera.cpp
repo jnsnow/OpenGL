@@ -226,6 +226,7 @@ void Camera::dPos( const vec4 &by ) {
     adjustRotation is an internal function that rotates the camera.
     Technically, any transformation, not just a rotation, is possible.
     @param adjustment The 4x4 matrix to transform the CTM by.
+    @param fixed Should this rotation be fixed about the origin?
     @return Void.
 **/
 void Camera::adjustRotation( const mat4 &adjustment, const bool &fixed ) {
@@ -233,6 +234,9 @@ void Camera::adjustRotation( const mat4 &adjustment, const bool &fixed ) {
   // By default, the 'order' bool represents the POSTMULT behavior.
   bool order = POSTMULT;
   // However, if the fixed bool is present, flip it around.
+  // This stealthily inserts this rotation "first",
+  // So that it is applied before any other rotations.
+
   if (fixed) order = !order;
 
   if (order) {
@@ -248,15 +252,6 @@ void Camera::adjustRotation( const mat4 &adjustment, const bool &fixed ) {
   send( ROTATION );
 
 }
-
-/*void Camera::fixedRotation( const mat4 &adjustment ) {
-#ifdef POSTMUST
-  R = adjustment * R;
-#else
-  R = R * adjustment;
-#endif
-  send( ROTATION );
-  }*/
 
 
 /** 
@@ -312,6 +307,7 @@ void Camera::heave( const float &by ) {
    A positive value represents looking up,
    while a negative value represents looking down.
    @param by A float, in degrees, to adjust the pitch by.
+   @param fixed Should this rotation be fixed about the origin?
    @return Void.
 **/
 void Camera::pitch( const float &by, const bool &fixed ) {
@@ -331,6 +327,7 @@ void Camera::pitch( const float &by, const bool &fixed ) {
    A positive value represents looking right,
    while a negative value represents looking left.
    @param by A float, in degrees, to adjust the yaw by.
+   @param fixed Should this rotation be fixed about the origin?
    @return Void.
 **/
 void Camera::yaw( const float &by, const bool &fixed ) {
@@ -349,6 +346,7 @@ void Camera::yaw( const float &by, const bool &fixed ) {
    A positive value represents leaning right,
    while a negative value represents leaning left.
    @param by A float, in degrees, to adjust the roll by.
+   @param fixed Should this rotation be fixed about the origin?
    @return Void.
 **/
 void Camera::roll( const float &by, const bool &fixed ) {
@@ -359,14 +357,14 @@ void Camera::roll( const float &by, const bool &fixed ) {
   Accel takes an input vec2 which represents an acceleration,
   and applies it to the motion vectors with regards to
   the maximum acceleration and the maximum speed of the camera.
-  @param accel The vec2 which represents the (x,y) accel, where x,y are [-1,1].
+  @param raw_accel The vec3 which represents the (x,y,z) acceleration, where x,y,z are [-1,1].
   @return Void.
 **/
 void Camera::Accel( const vec3 &raw_accel ) {
 
-  //Accel comes in as a vector with a length between -sqrt(2) and sqrt(2).
+  //Accel comes in as a vector with a length between -sqrt(3) and sqrt(3).
   //We change it to be between -MAX_ACCEL and MAX_ACCEL.
-  vec3 accel = raw_accel * (MaxAccel/SQRT2);
+  vec3 accel = raw_accel * (MaxAccel/SQRT3);
 
   //Now, we scale our accel vector so that we accelerate less when we are near MaxSpeed.
   accel *= (1-POW5(speed_cap));
@@ -612,6 +610,11 @@ void Camera::link( const GLuint &program, const glsl_var &which,
 
 }
 
+/**
+   Draw will instruct OpenGL of the viewport we want, and then send all of our
+   current matrices to the shader for rendering.
+   @return Void.
+**/
 void Camera::Draw( void ) {
 
   glViewport( XPos, YPos, width, height );

@@ -1,13 +1,5 @@
 var annotated =
 [
-    [ "Angel", null, [
-      [ "mat2", "class_angel_1_1mat2.html", "class_angel_1_1mat2" ],
-      [ "mat3", "class_angel_1_1mat3.html", "class_angel_1_1mat3" ],
-      [ "mat4", "class_angel_1_1mat4.html", "class_angel_1_1mat4" ],
-      [ "vec2", "struct_angel_1_1vec2.html", "struct_angel_1_1vec2" ],
-      [ "vec3", "struct_angel_1_1vec3.html", "struct_angel_1_1vec3" ],
-      [ "vec4", "struct_angel_1_1vec4.html", "struct_angel_1_1vec4" ]
-    ] ],
     [ "accel_t", "structaccel__t.html", "structaccel__t" ],
     [ "AccSample", "class_acc_sample.html", "class_acc_sample" ],
     [ "ang3f_t", "structang3f__t.html", "structang3f__t" ],
@@ -48,6 +40,9 @@ var annotated =
     [ "Lights", "class_lights.html", "class_lights" ],
     [ "LightSource", "class_light_source.html", "class_light_source" ],
     [ "Logger", "class_logger.html", "class_logger" ],
+    [ "Angel::mat2", "class_angel_1_1mat2.html", "class_angel_1_1mat2" ],
+    [ "Angel::mat3", "class_angel_1_1mat3.html", "class_angel_1_1mat3" ],
+    [ "Angel::mat4", "class_angel_1_1mat4.html", "class_angel_1_1mat4" ],
     [ "MLAlg", "class_m_l_alg.html", "class_m_l_alg" ],
     [ "MLData", "class_m_l_data.html", "class_m_l_data" ],
     [ "motion_plus_t", "structmotion__plus__t.html", "structmotion__plus__t" ],
@@ -58,9 +53,12 @@ var annotated =
     [ "read_req_t", "structread__req__t.html", "structread__req__t" ],
     [ "Sample", "class_sample.html", "class_sample" ],
     [ "Training", "class_training.html", "class_training" ],
+    [ "Angel::vec2", "struct_angel_1_1vec2.html", "struct_angel_1_1vec2" ],
     [ "vec2b_t", "structvec2b__t.html", "structvec2b__t" ],
+    [ "Angel::vec3", "struct_angel_1_1vec3.html", "struct_angel_1_1vec3" ],
     [ "vec3b_t", "structvec3b__t.html", "structvec3b__t" ],
     [ "vec3f_t", "structvec3f__t.html", "structvec3f__t" ],
+    [ "Angel::vec4", "struct_angel_1_1vec4.html", "struct_angel_1_1vec4" ],
     [ "vel_t", "structvel__t.html", "structvel__t" ],
     [ "WiiConnect", "interface_wii_connect.html", "interface_wii_connect" ],
     [ "wiimote_state_t", "structwiimote__state__t.html", "structwiimote__state__t" ],

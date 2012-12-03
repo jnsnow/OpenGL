@@ -1,16 +1,6 @@
 var class_m_l_alg =
 [
-    [ "type", "class_m_l_alg.html#a2ec023cf3bbc9f1f62b975d10ba97158", [
-      [ "KNN", "class_m_l_alg.html#a2ec023cf3bbc9f1f62b975d10ba97158aa735712785ba9d7f84cc64617e9afdf6", null ],
-      [ "Bayes", "class_m_l_alg.html#a2ec023cf3bbc9f1f62b975d10ba97158af188126e144070116415c0e88fcdeda2", null ],
-      [ "SVM", "class_m_l_alg.html#a2ec023cf3bbc9f1f62b975d10ba97158a17ec7ac007e4b5dd5d113c660716e6d1", null ],
-      [ "DT", "class_m_l_alg.html#a2ec023cf3bbc9f1f62b975d10ba97158af686421a6cfaa3f663656b1c9601701e", null ],
-      [ "ANN", "class_m_l_alg.html#a2ec023cf3bbc9f1f62b975d10ba97158acb1b78c21bc652b848731aa45585371e", null ],
-      [ "Boost", "class_m_l_alg.html#a2ec023cf3bbc9f1f62b975d10ba97158a584f31646b4d92f443d47555f4d33ba8", null ],
-      [ "RT", "class_m_l_alg.html#a2ec023cf3bbc9f1f62b975d10ba97158a3a240fd5e4ecea03aaeea8c0d0414a0e", null ],
-      [ "NONE", "class_m_l_alg.html#a2ec023cf3bbc9f1f62b975d10ba97158ae0e74a3e9639a6f6200b9be3cf13d65b", null ],
-      [ "NUMTYPES", "class_m_l_alg.html#a2ec023cf3bbc9f1f62b975d10ba97158aa00b4b977bb2ac470fcf99b8c2755b35", null ]
-    ] ],
+    [ "type", "class_m_l_alg.html#a2ec023cf3bbc9f1f62b975d10ba97158", null ],
     [ "MLAlg", "class_m_l_alg.html#abe64a2a987f3564d4b8a555bc028a628", null ],
     [ "categoryName", "class_m_l_alg.html#ad62d73beb4bd63465a4bf24644df420f", null ],
     [ "getType", "class_m_l_alg.html#a7cc0abdf363c12ec83ee63119b81d19c", null ],

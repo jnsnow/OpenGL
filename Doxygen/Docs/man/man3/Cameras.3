@@ -1,4 +1,4 @@
-.TH "Cameras" 3 "Sun Dec 2 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.TH "Cameras" 3 "Mon Dec 3 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -27,6 +27,9 @@ The \fBCameras\fP class represents a group of logical cameras for a model view\&
 .RI "void \fBdelCamera\fP (size_t n)"
 .br
 .ti -1c
+.RI "void \fBpopCamera\fP (void)"
+.br
+.ti -1c
 .RI "\fBCamera\fP & \fBgetCamera\fP (size_t n)"
 .br
 .ti -1c
@@ -42,10 +45,29 @@ The \fBCameras\fP class represents a group of logical cameras for a model view\&
 .RI "void \fBLinkAll\fP (const GLuint &program, const \fBCamera::glsl_var\fP &which, const string &glslVarName)"
 .br
 .ti -1c
+.RI "size_t \fBActiveN\fP (void)"
+.br
+.ti -1c
 .RI "\fBCamera\fP & \fBActive\fP (void)"
 .br
 .ti -1c
 .RI "\fBCamera\fP & \fBActive\fP (size_t n)"
+.br
+.ti -1c
+.RI "void \fBResize\fP (int width, int height)"
+.br
+.ti -1c
+.RI "void \fBCalculateViewports\fP (void)"
+.br
+.ti -1c
+.RI "void \fBDraw\fP (void(*draw_func)(void))"
+.br
+.in -1c
+.SS "Private Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBcommonInit\fP (void)"
 .br
 .in -1c
 .SS "Private Attributes"
@@ -56,6 +78,12 @@ The \fBCameras\fP class represents a group of logical cameras for a model view\&
 .br
 .ti -1c
 .RI "size_t \fBactiveCamera\fP"
+.br
+.ti -1c
+.RI "size_t \fBWidth\fP"
+.br
+.ti -1c
+.RI "size_t \fBHeight\fP"
 .br
 .in -1c
 .SH "Detailed Description"

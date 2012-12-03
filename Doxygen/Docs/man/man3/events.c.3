@@ -1,4 +1,4 @@
-.TH "events.c" 3 "Sun Dec 2 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.TH "events.c" 3 "Mon Dec 3 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -42,7 +42,7 @@ Handles wiimote events\&.
 \fC#include 'events\&.h'\fP
 .br
 
-.SS "Macros"
+.SS "Defines"
 
 .in +1c
 .ti -1c
@@ -117,10 +117,9 @@ Handles wiimote events\&.
 The file includes functions that handle the events that are sent from the wiimote to us\&. 
 .PP
 Definition in file \fBevents\&.c\fP\&.
-.SH "Macro Definition Documentation"
+.SH "Define Documentation"
 .PP 
-.SS "#define CROSS_THRESH(last, now, thresh)"
-\fBValue:\fP
+.SS "#define CROSS_THRESH(last, now, thresh)"\fBValue:\fP
 .PP
 .nf
 do {                                                          \
@@ -139,8 +138,7 @@ do {                                                          \
                     }                                                           \
                 } while (0)
 .fi
-.SS "#define CROSS_THRESH_RATE(last, now, thresh)"
-\fBValue:\fP
+.SS "#define CROSS_THRESH_RATE(last, now, thresh)"\fBValue:\fP
 .PP
 .nf
 do {                                                            \
@@ -159,8 +157,7 @@ do {                                                            \
                     }                                                           \
                 } while (0)
 .fi
-.SS "#define CROSS_THRESH_XYZ(last, now, thresh)"
-\fBValue:\fP
+.SS "#define CROSS_THRESH_XYZ(last, now, thresh)"\fBValue:\fP
 .PP
 .nf
 do {                                                         \
@@ -181,8 +178,7 @@ do {                                                         \
 .fi
 .SH "Function Documentation"
 .PP 
-.SS "void clear_dirty_reads (struct \fBwiimote_t\fP *wm)"
-
+.SS "void \fBclear_dirty_reads\fP (struct \fBwiimote_t\fP *wm)"
 .PP
 Clear out all old 'dirty' read requests\&. \fBParameters:\fP
 .RS 4
@@ -192,8 +188,7 @@ Clear out all old 'dirty' read requests\&. \fBParameters:\fP
 
 .PP
 Definition at line 226 of file events\&.c\&.
-.SS "void disable_expansion (struct \fBwiimote_t\fP *wm)"
-
+.SS "void \fBdisable_expansion\fP (struct \fBwiimote_t\fP *wm)"
 .PP
 Disable the expansion device if it was enabled\&. \fBParameters:\fP
 .RS 4
@@ -207,8 +202,7 @@ Disable the expansion device if it was enabled\&. \fBParameters:\fP
 If the data is NULL then this function will try to start a handshake with the expansion\&. 
 .PP
 Definition at line 709 of file events\&.c\&.
-.SS "static void event_data_read (struct \fBwiimote_t\fP *wm, \fBbyte\fP *msg)\fC [static]\fP"
-
+.SS "static void \fBevent_data_read\fP (struct \fBwiimote_t\fP *wm, \fBbyte\fP *msg)\fC [static]\fP"
 .PP
 Received a data packet from a read request\&. \fBParameters:\fP
 .RS 4
@@ -220,8 +214,7 @@ Received a data packet from a read request\&. \fBParameters:\fP
 Data from the wiimote comes in packets\&. If the requested data segment size is bigger than one packet can hold then several packets will be received\&. These packets are first reassembled into one, then the registered callback function that handles data reads is invoked\&. 
 .PP
 Definition at line 421 of file events\&.c\&.
-.SS "static void event_status (struct \fBwiimote_t\fP *wm, \fBbyte\fP *msg)\fC [static]\fP"
-
+.SS "static void \fBevent_status\fP (struct \fBwiimote_t\fP *wm, \fBbyte\fP *msg)\fC [static]\fP"
 .PP
 Read the controller status\&. \fBParameters:\fP
 .RS 4
@@ -233,8 +226,7 @@ Read the controller status\&. \fBParameters:\fP
 Read the controller status and execute the registered status callback\&. 
 .PP
 Definition at line 528 of file events\&.c\&.
-.SS "static void handle_expansion (struct \fBwiimote_t\fP *wm, \fBbyte\fP *msg)\fC [static]\fP"
-
+.SS "static void \fBhandle_expansion\fP (struct \fBwiimote_t\fP *wm, \fBbyte\fP *msg)\fC [static]\fP"
 .PP
 Handle data from the expansion\&. \fBParameters:\fP
 .RS 4
@@ -246,8 +238,7 @@ Handle data from the expansion\&. \fBParameters:\fP
 
 .PP
 Definition at line 598 of file events\&.c\&.
-.SS "void handshake_expansion (struct \fBwiimote_t\fP *wm, \fBbyte\fP *data, unsigned shortlen)"
-
+.SS "void \fBhandshake_expansion\fP (struct \fBwiimote_t\fP *wm, \fBbyte\fP *data, unsigned shortlen)"
 .PP
 Handle the handshake data from the expansion device\&. \fBParameters:\fP
 .RS 4
@@ -263,8 +254,7 @@ Tries to determine what kind of expansion was attached and invoke the correct ha
 If the data is NULL then this function will try to start a handshake with the expansion\&. 
 .PP
 Definition at line 634 of file events\&.c\&.
-.SS "static void idle_cycle (struct \fBwiimote_t\fP *wm)\fC [static]\fP"
-
+.SS "static void \fBidle_cycle\fP (struct \fBwiimote_t\fP *wm)\fC [static]\fP"
 .PP
 Called on a cycle where no significant change occurs\&. \fBParameters:\fP
 .RS 4
@@ -274,8 +264,7 @@ Called on a cycle where no significant change occurs\&. \fBParameters:\fP
 
 .PP
 Definition at line 200 of file events\&.c\&.
-.SS "void propagate_event (struct \fBwiimote_t\fP *wm, \fBbyte\fPevent, \fBbyte\fP *msg)"
-
+.SS "void \fBpropagate_event\fP (struct \fBwiimote_t\fP *wm, \fBbyte\fPevent, \fBbyte\fP *msg)"
 .PP
 Analyze the event that occured on a wiimote\&. \fBParameters:\fP
 .RS 4
@@ -289,8 +278,7 @@ Analyze the event that occured on a wiimote\&. \fBParameters:\fP
 Pass the event to the registered event callback\&. 
 .PP
 Definition at line 248 of file events\&.c\&.
-.SS "static void save_state (struct \fBwiimote_t\fP *wm)\fC [static]\fP"
-
+.SS "static void \fBsave_state\fP (struct \fBwiimote_t\fP *wm)\fC [static]\fP"
 .PP
 Save important state data\&. \fBParameters:\fP
 .RS 4
@@ -300,8 +288,7 @@ Save important state data\&. \fBParameters:\fP
 
 .PP
 Definition at line 750 of file events\&.c\&.
-.SS "static int state_changed (struct \fBwiimote_t\fP *wm)\fC [static]\fP"
-
+.SS "static int \fBstate_changed\fP (struct \fBwiimote_t\fP *wm)\fC [static]\fP"
 .PP
 Determine if the current state differs significantly from the previous\&. \fBParameters:\fP
 .RS 4
@@ -316,8 +303,7 @@ Determine if the current state differs significantly from the previous\&. \fBPar
 
 .PP
 Definition at line 813 of file events\&.c\&.
-.SS "int wiic_poll (struct \fBwiimote_t\fP **wm, intwiimotes)"
-
+.SS "int \fBwiic_poll\fP (struct \fBwiimote_t\fP **wm, intwiimotes)"
 .PP
 Poll the wiimotes for any events\&. \fBParameters:\fP
 .RS 4
@@ -334,8 +320,7 @@ Returns number of wiimotes that an event has occured on\&.
 It is necessary to poll the wiimote devices for events that occur\&. If an event occurs on a particular wiimote, the event variable will be set\&. 
 .PP
 Definition at line 81 of file events\&.c\&.
-.SS "void wiic_pressed_buttons (struct \fBwiimote_t\fP *wm, \fBbyte\fP *msg)"
-
+.SS "void \fBwiic_pressed_buttons\fP (struct \fBwiimote_t\fP *wm, \fBbyte\fP *msg)"
 .PP
 Find what buttons are pressed\&. \fBParameters:\fP
 .RS 4
