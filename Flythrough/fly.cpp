@@ -147,7 +147,7 @@ void cameraInit( Camera& cam ) {
   cam.link( gShader, Camera::VIEW, "P" );
   cam.link( gShader, Camera::CTM, "CTM" );
   /* FOV must be set /after/ linking the VIEW and CTM matrices. */
-  cam.FOV( 45.0 );
+  //cam.FOV( 45.0 );
 
 }
 
@@ -234,7 +234,7 @@ void init() {
   camList.LinkAll( gShader, Camera::VIEW, "P" );
   camList.LinkAll( gShader, Camera::CTM, "CTM" );
   /* FOV must be set after linking a camera with the VIEW and CTM matrices. */
-  CAMERAS_MSG( camList, FOV(45.0) );
+  //CAMERAS_MSG( camList, FOV(45.0) );
   /* Set the active camera to camera #0. */
   camList.Active(0);
 
@@ -442,11 +442,11 @@ void keyboard( unsigned char key, int x, int y ) {
     // Pressing m cycles through the light modes for the static light source.
   case 'm':  lightMode = (lightMode+1) % 4; break;
     
-  case 'z': camList.Active().changePerspective( 0 ); break;
-  case 'x': camList.Active().changePerspective( 1 ); break;
-  case 'c': camList.Active().changePerspective( 2 ); break;
-  case 'v': camList.Active().changePerspective( 3 ); break;
-  case 'b': camList.Active().changePerspective( 4 ); break;
+  case 'z': camList.Active().changePerspective( Camera::PERSPECTIVE ); break;
+  case 'x': camList.Active().changePerspective( Camera::ORTHO ); break;
+  case 'c': camList.Active().changePerspective( Camera::ORTHO2D ); break;
+  case 'v': camList.Active().changePerspective( Camera::FRUSTUM ); break;
+  case 'b': camList.Active().changePerspective( Camera::IDENTITY ); break;
   case 'C': camList.Active(1); break;
   case 'X': camList.Active(0); break;
 

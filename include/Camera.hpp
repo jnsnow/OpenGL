@@ -71,8 +71,9 @@ public:
   typedef enum {
     PERSPECTIVE,
     ORTHO,
+    ORTHO2D,
     IDENTITY,
-    FRUSTRUM
+    FRUSTUM
   } view_type;
   
   Camera( float x = 0.0, float y = 0.0,
@@ -103,7 +104,8 @@ public:
   void FOV( const float &fovy );
   float FOV( void ) const;
   void dFOV( const float &by );
-  void changePerspective( const int &in );
+  void changePerspective( const view_type &vType );
+  void refreshPerspective( void );
   void viewport( size_t _X, size_t _Y,
 		 size_t _width, size_t _height );
 

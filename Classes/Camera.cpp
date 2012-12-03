@@ -13,7 +13,6 @@ using namespace Angel;
    @return Void.
 **/
 void Camera::commonInit( void ) {
-  std::cerr << "initCamera...\n";
   for ( size_t i = (size_t)Begin;
 	i != (size_t)End;
 	++i) {
@@ -24,8 +23,9 @@ void Camera::commonInit( void ) {
   this->MaxAccel = 10;
   this->MaxSpeed = 200;
   this->FrictionMagnitude = 2;
-  this->currView = PERSPECTIVE;
   this->aspect = 1;
+  this->currView = PERSPECTIVE;
+  this->fovy = 45.0;
 }
 
 /**
@@ -456,41 +456,56 @@ float Camera::FOV( void ) const { return fovy; }
    @return Void.
 **/
 void Camera::FOV( const float &in ) { 
-  fovy = in; 
-  changePerspective( 0 );
-  send( VIEW );
+  fovy = in;
+  if (currView == Camera::PERSPECTIVE)
+    send( VIEW );
 }
 
 
 /**
    changePerspective changes the current perspective of the camera.
-   @param in Which perspective to use: 0 is a normal perspective.
+   @param vType Which perspective to use. see enum view_type for possibilities.
    @return Void.
 **/
-void Camera::changePerspective( const int &in ) {
+void Camera::changePerspective( const view_type &vType ) {
+  
+  currView = vType;
+  refreshPerspective();
 
+}
+
+
+/**
+   refreshPerspective re-generates the current view/perspective matrix of the camera.
+   This function should be called after physical or virtual (viewport) screen resizes.
+   @return Void.
+**/
+void Camera::refreshPerspective( void ) {
+  
+  // Some constants. For your pleasure.
   static const GLfloat zNear = 0.001;
   static const GLfloat zFar = 100.0;
-
-  switch (in) {
-  case 0:
+  
+  switch (currView) {
+  case PERSPECTIVE:
     P = Perspective( fovy, aspect, zNear, zFar );
     break;
-  case 1:
+  case ORTHO:
     P = Ortho( -1.0, 1.0, -1.0, 1.0, zNear, zFar );
     break;
-  case 2:
+  case ORTHO2D:
     P = Ortho2D( -1.0, 1.0, -1.0, 1.0 );
     break;
-  case 3:
+  case FRUSTUM:
     P = Frustum( -1.0, 1.0, -1.0, 1.0, zNear, zFar );
     break;
+  case IDENTITY:
   default:
     P = mat4( GLuint(1.0) );
     break;
   }
-
 }
+  
 
 /**
    dFOV adjusts the field of view angle up or down by an amount.
@@ -518,7 +533,8 @@ void Camera::viewport( size_t _X, size_t _Y,
   this->YPos = _Y;
   this->width = _Width;
   this->height = _Height;
-  this->aspect = (this->width) / (this->height);
+  this->aspect = (double)(this->width) / (double)(this->height);
+  refreshPerspective();
 }
 
 /**
@@ -574,6 +590,10 @@ void Camera::link( const GLuint &program, const glsl_var &which,
 void Camera::Draw( void ) {
 
   glViewport( XPos, YPos, width, height );
+  /* Send all of our matrices, who knows what the shader's gonna do with 'em */
+  send( TRANSLATION );
+  send( ROTATION );
+  send( VIEW );
   send( CTM );
 
 }
