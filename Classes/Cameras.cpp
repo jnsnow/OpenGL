@@ -108,6 +108,7 @@ void Cameras::Resize( int width, int height ) {
   size_t numMinCols = floor(numCols);
 
   // How many rows do we need to draw with MinCols?
+  // (By extension: drawMaxRows = (numRows-drawMinRows))
   size_t drawMinRows = (numCameras % numRows) ?
     ((numCameras - (numRows * numMaxCols)) / (numMinCols - numMaxCols)) :
     0;
@@ -115,6 +116,7 @@ void Cameras::Resize( int width, int height ) {
   vector<Camera>::iterator it = camList.begin();
   size_t row = 0;
 
+  /* This is confusing as hell. Good luck! */
   for (size_t allocHeight = 0; row < numRows; ++row) {
     size_t myWidth;
     size_t myHeight;
@@ -128,15 +130,20 @@ void Cameras::Resize( int width, int height ) {
       // Is this the last row? Use the remaining height.
       if (row + 1 == numRows) myHeight = height - allocHeight;
       else myHeight = height/numRows;
+
       // Tell this camera his new viewport.
-      it->viewport( allocWidth, allocHeight, myWidth, myHeight );
-	
+      // height looks a little goofy because we are allocating height
+      // from the top of the coordinate system and working down,
+      // so we have to take the complement.
+      it->viewport( allocWidth, (height-(allocHeight+myHeight)), myWidth, myHeight );
+      if (0) fprintf( stderr, "Camera: (%lu x %lu) @ (%lu,%lu)\n",
+		      myWidth, myHeight,
+		      allocWidth, (height-(allocHeight+myHeight)));
+
       // Increment our allocated width counter.
       allocWidth += myWidth;
     }
-
     // Increment our allocated height counter.
     allocHeight += (height/numRows);
   }
-
 }

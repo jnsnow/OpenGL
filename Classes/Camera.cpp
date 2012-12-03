@@ -25,6 +25,7 @@ void Camera::commonInit( void ) {
   this->MaxSpeed = 200;
   this->FrictionMagnitude = 2;
   this->currView = PERSPECTIVE;
+  this->aspect = 1;
 }
 
 /**
@@ -468,22 +469,21 @@ void Camera::FOV( const float &in ) {
 **/
 void Camera::changePerspective( const int &in ) {
 
-  GLint size[4];
+  static const GLfloat zNear = 0.001;
+  static const GLfloat zFar = 100.0;
 
   switch (in) {
   case 0:
-    glGetIntegerv( GL_VIEWPORT, size );  
-    P = Perspective( fovy, (float)size[2]/(float)size[3],
-		     0.001, 100.0 );
+    P = Perspective( fovy, aspect, zNear, zFar );
     break;
   case 1:
-    P = Ortho( -1.0, 1.0, -1.0, 1.0, 0, 100 );
+    P = Ortho( -1.0, 1.0, -1.0, 1.0, zNear, zFar );
     break;
   case 2:
     P = Ortho2D( -1.0, 1.0, -1.0, 1.0 );
     break;
   case 3:
-    P = Frustum( -1.0, 1.0, -1.0, 1.0, 0.001, 100.0 );
+    P = Frustum( -1.0, 1.0, -1.0, 1.0, zNear, zFar );
     break;
   default:
     P = mat4( GLuint(1.0) );
@@ -502,12 +502,23 @@ void Camera::dFOV( const float &by ) {
 }
 
 
+/**
+   viewport instructs this camera what his expected drawing window will be.
+   This allows the camera to generate his viewing matrices with the
+   correct aspect ratio.
+   @param _X The X coordinate of the lower-left corner of our viewport.
+   @param _Y the Y coordinate of the lower-left corner of our viewport.
+   @param _Width The width of our viewport.
+   @param _Height the height of our viewport.
+   @return Void.
+**/
 void Camera::viewport( size_t _X, size_t _Y,
 		       size_t _Width, size_t _Height ) {
   this->XPos = _X;
   this->YPos = _Y;
   this->width = _Width;
   this->height = _Height;
+  this->aspect = (this->width) / (this->height);
 }
 
 /**

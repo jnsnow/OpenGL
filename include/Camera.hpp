@@ -172,6 +172,9 @@ private:
   /** Friction. Should be less than MaxAccel. **/
   GLfloat FrictionMagnitude;
 
+  /** Current aspect ratio for certain perspectives. **/
+  GLfloat aspect;
+
   /** Current field-of-view angle for perspective view. **/
   GLfloat fovy;
 
