@@ -8,12 +8,13 @@ var searchData=
   ['calculate_5fgyro_5frates',['calculate_gyro_rates',['../motionplus_8c.html#a001ca4a571a8fc67ed0f3a16c50f05e0',1,'motionplus.c']]],
   ['calculate_5forientation',['calculate_orientation',['../dynamics_8c.html#a0275bd51e31ff27b681a2a8f4f0515e1',1,'calculate_orientation(struct vec3f_t *in, struct ang3f_t *out):&#160;dynamics.c'],['../dynamics_8h.html#a0275bd51e31ff27b681a2a8f4f0515e1',1,'calculate_orientation(struct vec3f_t *in, struct ang3f_t *out):&#160;dynamics.c']]],
   ['camera',['Camera',['../class_camera.html#a47104bf17f448c97bf7bb34360ab8fcc',1,'Camera::Camera(float x=0.0, float y=0.0, float z=0.0)'],['../class_camera.html#a388c39247312dc6850b2d1b007efb423',1,'Camera::Camera(vec3 &amp;in)'],['../class_camera.html#a30b637b0e81821106c16a8a299d24d3f',1,'Camera::Camera(vec4 &amp;in)']]],
-  ['changeperspective',['changePerspective',['../class_camera.html#ad388a5f75af8f2289447b716c8c839ff',1,'Camera']]],
+  ['changeperspective',['changePerspective',['../class_camera.html#aaadaebb40dc7262abc3f4bc52bc5bfb3',1,'Camera']]],
   ['classic_5fctrl_5fdisconnected',['classic_ctrl_disconnected',['../classic_8c.html#acaf43c2aa4cbf7eeba0785a05eb73e2a',1,'classic_ctrl_disconnected(struct classic_ctrl_t *cc):&#160;classic.c'],['../classic_8h.html#acaf43c2aa4cbf7eeba0785a05eb73e2a',1,'classic_ctrl_disconnected(struct classic_ctrl_t *cc):&#160;classic.c']]],
   ['classic_5fctrl_5fevent',['classic_ctrl_event',['../classic_8c.html#a30fdb853bbecfc8e5580e1499d83a82e',1,'classic_ctrl_event(struct classic_ctrl_t *cc, byte *msg):&#160;classic.c'],['../classic_8h.html#a30fdb853bbecfc8e5580e1499d83a82e',1,'classic_ctrl_event(struct classic_ctrl_t *cc, byte *msg):&#160;classic.c']]],
   ['classic_5fctrl_5fhandshake',['classic_ctrl_handshake',['../classic_8c.html#a8d346a78459a8b8d47352876dd487dba',1,'classic_ctrl_handshake(struct wiimote_t *wm, struct classic_ctrl_t *cc, byte *data, unsigned short len):&#160;classic.c'],['../classic_8h.html#a8d346a78459a8b8d47352876dd487dba',1,'classic_ctrl_handshake(struct wiimote_t *wm, struct classic_ctrl_t *cc, byte *data, unsigned short len):&#160;classic.c']]],
   ['classic_5fctrl_5fpressed_5fbuttons',['classic_ctrl_pressed_buttons',['../classic_8c.html#a7db2f600c33440f5dee31bf85cf92c33',1,'classic.c']]],
   ['clear',['clear',['../class_dataset.html#a67744c3bdc87acd2a8189b9c4fbcd192',1,'Dataset::clear()'],['../class_training.html#aa8b430a49b5aaa8410c9288e19f4bbcb',1,'Training::clear()']]],
   ['clear_5fdirty_5freads',['clear_dirty_reads',['../events_8c.html#a25dc969008973c968e11fd8b31775e2f',1,'events.c']]],
+  ['commoninit',['commonInit',['../class_camera.html#a20243a7e3eb06ab1265118c5fb9cce9b',1,'Camera']]],
   ['connect',['Connect',['../class_c_wii.html#aae588e4b73fc2cfe2a50dcc6d23e695d',1,'CWii']]]
 ];

@@ -71,8 +71,9 @@ public:
   typedef enum {
     PERSPECTIVE,
     ORTHO,
+    ORTHO2D,
     IDENTITY,
-    FRUSTRUM
+    FRUSTUM
   } view_type;
   
   Camera( float x = 0.0, float y = 0.0,
@@ -103,8 +104,10 @@ public:
   void FOV( const float &fovy );
   float FOV( void ) const;
   void dFOV( const float &by );
-  void changePerspective( const int &in );
-  void resize( void );
+  void changePerspective( const view_type &vType );
+  void refreshPerspective( void );
+  void viewport( size_t _X, size_t _Y,
+		 size_t _width, size_t _height );
 
   /* Adjust the camera position with regards to its current vector */
   void sway( const float &by );
@@ -112,10 +115,10 @@ public:
   void heave( const float &by );
   
   /* Adjust the camera's current view angle */
-  void pitch( const float &by );
-  void yaw( const float &by );
-  void roll( const float &by );
-
+  void pitch( const float &by, const bool &fixed = false );
+  void yaw( const float &by, const bool &fixed = false );
+  void roll( const float &by, const bool &fixed = false );
+  
   /* Instruct the camera to automatically move. */
   void Move( const Camera::Direction &Dir );
   void Stop( const Camera::Direction &Dir );
@@ -133,47 +136,67 @@ public:
   void link( const GLuint &program,
 	     const glsl_var &which,
 	     const string &glslVarName );
+  void Draw( void );
     
 private:
 
-  void adjustRotation( const mat4 &adjustment );
+  void adjustRotation( const mat4 &adjustment, const bool &fixed = false );
   void commonInit( void );
 
+  /** The current translation matrix for this camera. **/
   mat4 T;
+  /** The current rotational matrix for this camera. **/
   mat4 R;
+  /** The current view matrix (usually perspective) for this camera. **/
   mat4 P;
+  /** The 'Current Transformation Matrix' for this camera. May be P*R*T or T*R*P
+      depending on the current POST/PRE mult configurations. **/
   mat4 ctm;
 
+  /** The current viewing mode type. **/
   view_type currView;
 
   /** Current Speed of camera motion. **/
   GLfloat speed;
+
   /** Current Velocity of camera motion. **/
   vec3 velocity;
+
   /** Current Speed Capacity: (speed/MaxSpeed) **/
   GLfloat speed_cap;
 
-
   /** Maximum Acceleration Magnitude **/
   GLfloat MaxAccel;
+
   /** Maximum Speed **/
   GLfloat MaxSpeed;
+
   /** Friction. Should be less than MaxAccel. **/
   GLfloat FrictionMagnitude;
 
+  /** Current aspect ratio for certain perspectives. **/
+  GLfloat aspect;
+
   /** Current field-of-view angle for perspective view. **/
   GLfloat fovy;
+
+  /** Camera's drawbox width, used for computing (some) perspectives **/
+  size_t width;
+
+  /** Camera's drawbox height, used for computing (some) perspectives **/
+  size_t height;
+
+  /** Camera's Viewport's X-Position Offset **/
+  size_t XPos;
+
+  /** Camera's Viewport's Y-Position Offset **/
+  size_t YPos;
 
   /** Booleans correlating to the different motion directions. **/
   bool Motion[ Camera::End ];
   
   /** Handles for communicating with the shader. **/
   GLuint glsl_handles[ Camera::NumGlslVars ];
-
-public:
-  
-  /** The increment the camera should move during the Idle() function. **/
-  static const float initSpeed; // Set in Camera.cpp. Sorry! Maybe someday c++0x will exist.
 
 };
 

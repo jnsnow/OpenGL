@@ -7,5 +7,6 @@ var searchData=
   ['handle_5fread',['handle_read',['../example_8c.html#af4da3f106eec02e87d873336568cbe38',1,'example.c']]],
   ['handshake_5fexpansion',['handshake_expansion',['../events_8c.html#a14b6a00b1437061ce8ab09940b729e16',1,'handshake_expansion(struct wiimote_t *wm, byte *data, unsigned short len):&#160;events.c'],['../events_8h.html#a14b6a00b1437061ce8ab09940b729e16',1,'handshake_expansion(struct wiimote_t *wm, byte *data, unsigned short len):&#160;events.c']]],
   ['handshake_5fstate',['handshake_state',['../structwiimote__t.html#a0944f61c49aa42236f7ae1fa1b077d4f',1,'wiimote_t']]],
-  ['heave',['heave',['../class_camera.html#a2148d751f104d8e39c9832e2372df2d9',1,'Camera']]]
+  ['heave',['heave',['../class_camera.html#a2148d751f104d8e39c9832e2372df2d9',1,'Camera']]],
+  ['height',['height',['../class_camera.html#a99ad71730dc8fb068b814ca6328e40fa',1,'Camera']]]
 ];

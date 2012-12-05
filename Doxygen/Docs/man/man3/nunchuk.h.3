@@ -1,4 +1,4 @@
-.TH "nunchuk.h" 3 "Sun Dec 2 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.TH "nunchuk.h" 3 "Mon Dec 3 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -37,8 +37,7 @@ Nunchuk expansion device\&.
 Definition in file \fBnunchuk\&.h\fP\&.
 .SH "Function Documentation"
 .PP 
-.SS "void nunchuk_disconnected (struct \fBnunchuk_t\fP *nc)"
-
+.SS "void \fBnunchuk_disconnected\fP (struct \fBnunchuk_t\fP *nc)"
 .PP
 The nunchuk disconnected\&. \fBParameters:\fP
 .RS 4
@@ -48,8 +47,7 @@ The nunchuk disconnected\&. \fBParameters:\fP
 
 .PP
 Definition at line 126 of file nunchuk\&.c\&.
-.SS "void nunchuk_event (struct \fBnunchuk_t\fP *nc, \fBbyte\fP *msg)"
-
+.SS "void \fBnunchuk_event\fP (struct \fBnunchuk_t\fP *nc, \fBbyte\fP *msg)"
 .PP
 Handle nunchuk event\&. \fBParameters:\fP
 .RS 4
@@ -61,8 +59,7 @@ Handle nunchuk event\&. \fBParameters:\fP
 
 .PP
 Definition at line 138 of file nunchuk\&.c\&.
-.SS "int nunchuk_handshake (struct \fBwiimote_t\fP *wm, struct \fBnunchuk_t\fP *nc, \fBbyte\fP *data, unsigned shortlen)"
-
+.SS "int \fBnunchuk_handshake\fP (struct \fBwiimote_t\fP *wm, struct \fBnunchuk_t\fP *nc, \fBbyte\fP *data, unsigned shortlen)"
 .PP
 Handle the handshake data from the nunchuk\&. \fBParameters:\fP
 .RS 4

@@ -7,8 +7,20 @@
 #include "globals.h" //Math constants and macros (SQRT2, POW5)
 using namespace Angel;
 
+#ifdef POSTMULT
+static const bool POSTMULT = true;
+static const bool PREMULT = false;
+#else
+static const bool POSTMULT = false;
+static const bool PREMULT = true;
+#endif
+
+/**
+   comminInit is a private function that initializes local object attributes.
+   It should be called by all available constructors.
+   @return Void.
+**/
 void Camera::commonInit( void ) {
-  std::cerr << "initCamera...\n";
   for ( size_t i = (size_t)Begin;
 	i != (size_t)End;
 	++i) {
@@ -19,9 +31,10 @@ void Camera::commonInit( void ) {
   this->MaxAccel = 10;
   this->MaxSpeed = 200;
   this->FrictionMagnitude = 2;
+  this->aspect = 1;
+  this->currView = PERSPECTIVE;
+  this->fovy = 45.0;
 }
-
-const float Camera::initSpeed = 0.01;
 
 /**
    Initialization Constructor; sets the X,Y,Z coordinates explicitly.
@@ -32,7 +45,6 @@ const float Camera::initSpeed = 0.01;
 Camera::Camera( float x, float y, 
 		float z ) {
   commonInit();
-  this->speed = initSpeed;
   this->pos( x, y, z, false );
 }
 
@@ -43,7 +55,6 @@ Camera::Camera( float x, float y,
 **/
 Camera::Camera( vec3 &in ) {
   commonInit();
-  this->speed = initSpeed;
   this->pos( in, false );
 }
 
@@ -54,7 +65,6 @@ Camera::Camera( vec3 &in ) {
 **/
 Camera::Camera( vec4 &in ) {
   commonInit();
-  this->speed = initSpeed;
   this->pos( in, false );
 }
 
@@ -216,20 +226,33 @@ void Camera::dPos( const vec4 &by ) {
     adjustRotation is an internal function that rotates the camera.
     Technically, any transformation, not just a rotation, is possible.
     @param adjustment The 4x4 matrix to transform the CTM by.
+    @param fixed Should this rotation be fixed about the origin?
     @return Void.
 **/
-void Camera::adjustRotation( const mat4 &adjustment ) {
-#ifdef POSTMULT
-  // In a post-mult system, the argument order is left-to-right,
-  // So the adjustment appears last.
-  R = R * adjustment;
-#else
-  // In a pre-mult system, the last argument is applied first,
-  // So the adjustment should appear first.
-  R = adjustment * R;
-#endif
+void Camera::adjustRotation( const mat4 &adjustment, const bool &fixed ) {
+
+  // By default, the 'order' bool represents the POSTMULT behavior.
+  bool order = POSTMULT;
+  // However, if the fixed bool is present, flip it around.
+  // This stealthily inserts this rotation "first",
+  // So that it is applied before any other rotations.
+
+  if (fixed) order = !order;
+
+  if (order) {
+    // In a post-mult system, the argument order is left-to-right,
+    // So the adjustment appears last.
+    R = R * adjustment;
+  } else {
+    // In a pre-mult system, the last argument is applied first,
+    // So the adjustment should appear first.    
+    R = adjustment * R;
+  }
+
   send( ROTATION );
+
 }
+
 
 /** 
   ROTATE_OFFSET is a macro which is used to normalize
@@ -238,7 +261,6 @@ void Camera::adjustRotation( const mat4 &adjustment ) {
   @param V a vec4 representing the movement offset vector.
   @return A rotated vec4.
 **/
-//#define ROTATE_OFFSET(V) (transpose(R) * V)
 #define ROTATE_OFFSET(V) (V * R)
 
 
@@ -285,9 +307,10 @@ void Camera::heave( const float &by ) {
    A positive value represents looking up,
    while a negative value represents looking down.
    @param by A float, in degrees, to adjust the pitch by.
+   @param fixed Should this rotation be fixed about the origin?
    @return Void.
 **/
-void Camera::pitch( const float &by ) {
+void Camera::pitch( const float &by, const bool &fixed ) {
   /*
     Since negative values are interpreted as pitching down,
     We leave the input uninverted, because a negative rotation
@@ -295,7 +318,7 @@ void Camera::pitch( const float &by ) {
     and clockwise (looking left), which achieves the effect of
     looking 'down'.
   */ 
-  adjustRotation(RotateX(-by));
+  adjustRotation(RotateX(-by), fixed);
 }
 
 
@@ -304,16 +327,17 @@ void Camera::pitch( const float &by ) {
    A positive value represents looking right,
    while a negative value represents looking left.
    @param by A float, in degrees, to adjust the yaw by.
+   @param fixed Should this rotation be fixed about the origin?
    @return Void.
 **/
-void Camera::yaw( const float &by ) {
+void Camera::yaw( const float &by, const bool &fixed ) {
   /*
     Since a positive 'by' should represent looking right,
     we invert the rotation because rotating by a positive value
     will rotate right, which simulates looking left.
     Therefore, invert.
   */
-  adjustRotation(RotateY(by));
+  adjustRotation(RotateY(by), fixed);
 }
 
 
@@ -322,24 +346,25 @@ void Camera::yaw( const float &by ) {
    A positive value represents leaning right,
    while a negative value represents leaning left.
    @param by A float, in degrees, to adjust the roll by.
+   @param fixed Should this rotation be fixed about the origin?
    @return Void.
 **/
-void Camera::roll( const float &by ) {
-  adjustRotation(RotateZ(by));
+void Camera::roll( const float &by, const bool &fixed ) {
+  adjustRotation(RotateZ(by), fixed);
 }
 
 /**
   Accel takes an input vec2 which represents an acceleration,
   and applies it to the motion vectors with regards to
   the maximum acceleration and the maximum speed of the camera.
-  @param accel The vec2 which represents the (x,y) accel, where x,y are [-1,1].
+  @param raw_accel The vec3 which represents the (x,y,z) acceleration, where x,y,z are [-1,1].
   @return Void.
 **/
 void Camera::Accel( const vec3 &raw_accel ) {
 
-  //Accel comes in as a vector with a length between -sqrt(2) and sqrt(2).
+  //Accel comes in as a vector with a length between -sqrt(3) and sqrt(3).
   //We change it to be between -MAX_ACCEL and MAX_ACCEL.
-  vec3 accel = raw_accel * (MaxAccel/SQRT2);
+  vec3 accel = raw_accel * (MaxAccel/SQRT3);
 
   //Now, we scale our accel vector so that we accelerate less when we are near MaxSpeed.
   accel *= (1-POW5(speed_cap));
@@ -454,42 +479,56 @@ float Camera::FOV( void ) const { return fovy; }
    @return Void.
 **/
 void Camera::FOV( const float &in ) { 
-  fovy = in; 
-  changePerspective( 0 );
-  send( VIEW );
+  fovy = in;
+  if (currView == Camera::PERSPECTIVE)
+    send( VIEW );
 }
 
 
 /**
    changePerspective changes the current perspective of the camera.
-   @param in Which perspective to use: 0 is a normal perspective.
+   @param vType Which perspective to use. see enum view_type for possibilities.
    @return Void.
 **/
-void Camera::changePerspective( const int &in ) {
+void Camera::changePerspective( const view_type &vType ) {
+  
+  currView = vType;
+  refreshPerspective();
 
-  GLint size[4];
+}
 
-  switch (in) {
-  case 0:
-    glGetIntegerv( GL_VIEWPORT, size );  
-    P = Perspective( fovy, (float)size[2]/(float)size[3],
-		     0.001, 100.0 );
+
+/**
+   refreshPerspective re-generates the current view/perspective matrix of the camera.
+   This function should be called after physical or virtual (viewport) screen resizes.
+   @return Void.
+**/
+void Camera::refreshPerspective( void ) {
+  
+  // Some constants. For your pleasure.
+  static const GLfloat zNear = 0.001;
+  static const GLfloat zFar = 100.0;
+  
+  switch (currView) {
+  case PERSPECTIVE:
+    P = Perspective( fovy, aspect, zNear, zFar );
     break;
-  case 1:
-    P = Ortho( -1.0, 1.0, -1.0, 1.0, 0, 100 );
+  case ORTHO:
+    P = Ortho( -1.0, 1.0, -1.0, 1.0, zNear, zFar );
     break;
-  case 2:
+  case ORTHO2D:
     P = Ortho2D( -1.0, 1.0, -1.0, 1.0 );
     break;
-  case 3:
-    P = Frustum( -1.0, 1.0, -1.0, 1.0, 0.001, 100.0 );
+  case FRUSTUM:
+    P = Frustum( -1.0, 1.0, -1.0, 1.0, zNear, zFar );
     break;
+  case IDENTITY:
   default:
     P = mat4( GLuint(1.0) );
     break;
   }
-
 }
+  
 
 /**
    dFOV adjusts the field of view angle up or down by an amount.
@@ -500,6 +539,26 @@ void Camera::dFOV( const float &by ) {
   FOV( FOV() + by );
 }
 
+
+/**
+   viewport instructs this camera what his expected drawing window will be.
+   This allows the camera to generate his viewing matrices with the
+   correct aspect ratio.
+   @param _X The X coordinate of the lower-left corner of our viewport.
+   @param _Y the Y coordinate of the lower-left corner of our viewport.
+   @param _Width The width of our viewport.
+   @param _Height the height of our viewport.
+   @return Void.
+**/
+void Camera::viewport( size_t _X, size_t _Y,
+		       size_t _Width, size_t _Height ) {
+  this->XPos = _X;
+  this->YPos = _Y;
+  this->width = _Width;
+  this->height = _Height;
+  this->aspect = (double)(this->width) / (double)(this->height);
+  refreshPerspective();
+}
 
 /**
    send will send a glsl variable to the shader.
@@ -548,5 +607,21 @@ void Camera::link( const GLuint &program, const glsl_var &which,
   glsl_handles[which] = glGetUniformLocation( program, 
 					      glslVarName.c_str() );
   send( which );
+
+}
+
+/**
+   Draw will instruct OpenGL of the viewport we want, and then send all of our
+   current matrices to the shader for rendering.
+   @return Void.
+**/
+void Camera::Draw( void ) {
+
+  glViewport( XPos, YPos, width, height );
+  /* Send all of our matrices, who knows what the shader's gonna do with 'em */
+  send( TRANSLATION );
+  send( ROTATION );
+  send( VIEW );
+  send( CTM );
 
 }

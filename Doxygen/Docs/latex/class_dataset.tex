@@ -1,51 +1,51 @@
-\hypertarget{class_dataset}{\section{Dataset Class Reference}
-\label{class_dataset}\index{Dataset@{Dataset}}
+\hypertarget{class_dataset}{\section{\-Dataset \-Class \-Reference}
+\label{class_dataset}\index{\-Dataset@{\-Dataset}}
 }
 
 
-A \hyperlink{class_dataset}{Dataset} is a collection of trainings, which can represent multiple gestures acquired over time, with different lenghts, and with different approaches.  
+\-A \hyperlink{class_dataset}{\-Dataset} is a collection of trainings, which can represent multiple gestures acquired over time, with different lenghts, and with different approaches.  
 
 
 
 
 {\ttfamily \#include $<$dataset.\-h$>$}
 
-\subsection*{Public Member Functions}
+\subsection*{\-Public \-Member \-Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_dataset_a2ef0a4a688a218d55ef061c6df659a4a}{\hyperlink{class_dataset_a2ef0a4a688a218d55ef061c6df659a4a}{Dataset} ()}\label{class_dataset_a2ef0a4a688a218d55ef061c6df659a4a}
+\hypertarget{class_dataset_a2ef0a4a688a218d55ef061c6df659a4a}{\hyperlink{class_dataset_a2ef0a4a688a218d55ef061c6df659a4a}{\-Dataset} ()}\label{class_dataset_a2ef0a4a688a218d55ef061c6df659a4a}
 
-\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
-\hyperlink{class_dataset_a299c3198f6325d0c627aa029ed24e2e5}{Dataset} (const string \&filename)
-\begin{DoxyCompactList}\small\item\em Creates a \hyperlink{class_dataset}{Dataset} object from a log file. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em \-Default constructor. \end{DoxyCompactList}\item 
+\hyperlink{class_dataset_a299c3198f6325d0c627aa029ed24e2e5}{\-Dataset} (const string \&filename)
+\begin{DoxyCompactList}\small\item\em \-Creates a \hyperlink{class_dataset}{\-Dataset} object from a log file. \end{DoxyCompactList}\item 
 \hypertarget{class_dataset_a7f38b79ccbf9ada90d68d3a50250b193}{\hyperlink{class_dataset_a7f38b79ccbf9ada90d68d3a50250b193}{$\sim$\-Dataset} ()}\label{class_dataset_a7f38b79ccbf9ada90d68d3a50250b193}
 
-\begin{DoxyCompactList}\small\item\em \hyperlink{class_dataset}{Dataset} destructor, which calls clear. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_dataset}{\-Dataset} destructor, which calls clear. \end{DoxyCompactList}\item 
 unsigned int \hyperlink{class_dataset_a389855d6b88c8257041bcbc489759aae}{size} () const 
-\begin{DoxyCompactList}\small\item\em Retrieves the dataset's size. \end{DoxyCompactList}\item 
-const \hyperlink{class_training}{Training} $\ast$ \hyperlink{class_dataset_af776f6046312827aed048d641e29449b}{training\-At} (const unsigned int i) const 
-\begin{DoxyCompactList}\small\item\em Returns a training in the dataset as a constant pointer. \end{DoxyCompactList}\item 
-\hyperlink{class_training}{Training} $\ast$ \hyperlink{class_dataset_adf05adb75cc0692104dc809ab030e967}{training\-At} (const unsigned int i)
-\begin{DoxyCompactList}\small\item\em Returns a training in the dataset as a pointer. \end{DoxyCompactList}\item 
-void \hyperlink{class_dataset_a3dd1b2db5490c75c59b23680bb7b8b53}{add\-Training} (\hyperlink{class_training}{Training} $\ast$training)
-\begin{DoxyCompactList}\small\item\em Adds a training to the dataset. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em \-Retrieves the dataset's size. \end{DoxyCompactList}\item 
+const \hyperlink{class_training}{\-Training} $\ast$ \hyperlink{class_dataset_af776f6046312827aed048d641e29449b}{training\-At} (const unsigned int i) const 
+\begin{DoxyCompactList}\small\item\em \-Returns a training in the dataset as a constant pointer. \end{DoxyCompactList}\item 
+\hyperlink{class_training}{\-Training} $\ast$ \hyperlink{class_dataset_adf05adb75cc0692104dc809ab030e967}{training\-At} (const unsigned int i)
+\begin{DoxyCompactList}\small\item\em \-Returns a training in the dataset as a pointer. \end{DoxyCompactList}\item 
+void \hyperlink{class_dataset_a3dd1b2db5490c75c59b23680bb7b8b53}{add\-Training} (\hyperlink{class_training}{\-Training} $\ast$training)
+\begin{DoxyCompactList}\small\item\em \-Adds a training to the dataset. \end{DoxyCompactList}\item 
 bool \hyperlink{class_dataset_a371d55ca351e5f805d8d5c7ffe51c829}{load\-Dataset} (const string \&filename)
-\begin{DoxyCompactList}\small\item\em Loads a new dataset from file, erasing the current one (if not saved on file). \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em \-Loads a new dataset from file, erasing the current one (if not saved on file). \end{DoxyCompactList}\item 
 bool \hyperlink{class_dataset_a97193aebac43df3a98852a8a675702ab}{save} (const char $\ast$filename, const char $\ast$addr) const 
-\begin{DoxyCompactList}\small\item\em Saves the current dataset in a file. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em \-Saves the current dataset in a file. \end{DoxyCompactList}\item 
 void \hyperlink{class_dataset_a67744c3bdc87acd2a8189b9c4fbcd192}{clear} ()
-\begin{DoxyCompactList}\small\item\em Deallocates and deletes all the current trainings in the dataset. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em \-Deallocates and deletes all the current trainings in the dataset. \end{DoxyCompactList}\item 
 bool \hyperlink{class_dataset_a51c528f515d44baee36589e8de11af50}{is\-Valid} () const 
-\begin{DoxyCompactList}\small\item\em Checks if the instance has a valid dataset loaded. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\subsection*{Protected Member Functions}
+\begin{DoxyCompactList}\small\item\em \-Checks if the instance has a valid dataset loaded. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{\-Protected \-Member \-Functions}
 \begin{DoxyCompactItemize}
 \item 
 void \hyperlink{class_dataset_a23110f7d2b6bc77a388e8dafee9772b3}{save\-Header} (ofstream \&out, const char $\ast$addr) const 
-\begin{DoxyCompactList}\small\item\em Saves the initial header of Wii\-C's log files. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\subsection*{Private Attributes}
+\begin{DoxyCompactList}\small\item\em \-Saves the initial header of \-Wii\-C's log files. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{\-Private \-Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_dataset_a4491c33243fb10969489cc4c3e25de02}{vector$<$ \hyperlink{class_training}{Training} $\ast$ $>$ {\bfseries trainings}}\label{class_dataset_a4491c33243fb10969489cc4c3e25de02}
+\hypertarget{class_dataset_a4491c33243fb10969489cc4c3e25de02}{vector$<$ \hyperlink{class_training}{\-Training} $\ast$ $>$ {\bfseries trainings}}\label{class_dataset_a4491c33243fb10969489cc4c3e25de02}
 
 \item 
 \hypertarget{class_dataset_a55ac9c41a1f3a2bc08ca053df147d163}{bool {\bfseries loaded}}\label{class_dataset_a55ac9c41a1f3a2bc08ca053df147d163}
@@ -53,125 +53,125 @@ void \hyperlink{class_dataset_a23110f7d2b6bc77a388e8dafee9772b3}{save\-Header} (
 \end{DoxyCompactItemize}
 
 
-\subsection{Detailed Description}
-A \hyperlink{class_dataset}{Dataset} is a collection of trainings, which can represent multiple gestures acquired over time, with different lenghts, and with different approaches. 
+\subsection{\-Detailed \-Description}
+\-A \hyperlink{class_dataset}{\-Dataset} is a collection of trainings, which can represent multiple gestures acquired over time, with different lenghts, and with different approaches. 
 
-Definition at line 15 of file dataset.\-h.
+\-Definition at line 15 of file dataset.\-h.
 
 
 
-\subsection{Constructor \& Destructor Documentation}
-\hypertarget{class_dataset_a299c3198f6325d0c627aa029ed24e2e5}{\index{Dataset@{Dataset}!Dataset@{Dataset}}
-\index{Dataset@{Dataset}!Dataset@{Dataset}}
-\subsubsection[{Dataset}]{\setlength{\rightskip}{0pt plus 5cm}Dataset\-::\-Dataset (
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{class_dataset_a299c3198f6325d0c627aa029ed24e2e5}{\index{\-Dataset@{\-Dataset}!\-Dataset@{\-Dataset}}
+\index{\-Dataset@{\-Dataset}!Dataset@{\-Dataset}}
+\subsubsection[{\-Dataset}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Dataset\-::\-Dataset} (
 \begin{DoxyParamCaption}
 \item[{const string \&}]{filename}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_dataset_a299c3198f6325d0c627aa029ed24e2e5}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{class_dataset_a299c3198f6325d0c627aa029ed24e2e5}
 
 
-Creates a \hyperlink{class_dataset}{Dataset} object from a log file. 
+\-Creates a \hyperlink{class_dataset}{\-Dataset} object from a log file. 
 
 
-\begin{DoxyParams}{Parameters}
-{\em filename} & Pathname of the dataset to load \\
+\begin{DoxyParams}{\-Parameters}
+{\em filename} & \-Pathname of the dataset to load \\
 \hline
 \end{DoxyParams}
 
 
-Definition at line 28 of file dataset.\-h.
+\-Definition at line 28 of file dataset.\-h.
 
 
 
-\subsection{Member Function Documentation}
-\hypertarget{class_dataset_a3dd1b2db5490c75c59b23680bb7b8b53}{\index{Dataset@{Dataset}!add\-Training@{add\-Training}}
-\index{add\-Training@{add\-Training}!Dataset@{Dataset}}
-\subsubsection[{add\-Training}]{\setlength{\rightskip}{0pt plus 5cm}void Dataset\-::add\-Training (
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{class_dataset_a3dd1b2db5490c75c59b23680bb7b8b53}{\index{\-Dataset@{\-Dataset}!add\-Training@{add\-Training}}
+\index{add\-Training@{add\-Training}!Dataset@{\-Dataset}}
+\subsubsection[{add\-Training}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Dataset\-::add\-Training} (
 \begin{DoxyParamCaption}
-\item[{{\bf Training} $\ast$}]{t}
+\item[{{\bf \-Training} $\ast$}]{t}
 \end{DoxyParamCaption}
 )}}\label{class_dataset_a3dd1b2db5490c75c59b23680bb7b8b53}
 
 
-Adds a training to the dataset. 
+\-Adds a training to the dataset. 
 
-Add a new training to the dataset.
+\-Add a new training to the dataset.
 
-The new element will be indexed as the last element and will not be copied. It will be responsability of the destructor of the class \hyperlink{class_dataset}{Dataset} to deallocate this element.
+\-The new element will be indexed as the last element and will not be copied. \-It will be responsability of the destructor of the class \hyperlink{class_dataset}{\-Dataset} to deallocate this element.
 
 
-\begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em training} & The training to add\\
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em training} & \-The training to add\\
 \hline
- & {\em training} & Add a training to the dataset. \\
+ & {\em training} & \-Add a training to the dataset. \\
 \hline
 \end{DoxyParams}
 
 
-Definition at line 17 of file dataset.\-cpp.
+\-Definition at line 17 of file dataset.\-cpp.
 
-\hypertarget{class_dataset_a67744c3bdc87acd2a8189b9c4fbcd192}{\index{Dataset@{Dataset}!clear@{clear}}
-\index{clear@{clear}!Dataset@{Dataset}}
-\subsubsection[{clear}]{\setlength{\rightskip}{0pt plus 5cm}void Dataset\-::clear (
+\hypertarget{class_dataset_a67744c3bdc87acd2a8189b9c4fbcd192}{\index{\-Dataset@{\-Dataset}!clear@{clear}}
+\index{clear@{clear}!Dataset@{\-Dataset}}
+\subsubsection[{clear}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Dataset\-::clear} (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
 )}}\label{class_dataset_a67744c3bdc87acd2a8189b9c4fbcd192}
 
 
-Deallocates and deletes all the current trainings in the dataset. 
+\-Deallocates and deletes all the current trainings in the dataset. 
 
-Delete all trainings and clear the buffer.
+\-Delete all trainings and clear the buffer.
 
-This method will take care of freeing the memory of each training in the dataset, hence you don't need to free them in your code. 
+\-This method will take care of freeing the memory of each training in the dataset, hence you don't need to free them in your code. 
 
-Definition at line 87 of file dataset.\-cpp.
+\-Definition at line 87 of file dataset.\-cpp.
 
-\hypertarget{class_dataset_a51c528f515d44baee36589e8de11af50}{\index{Dataset@{Dataset}!is\-Valid@{is\-Valid}}
-\index{is\-Valid@{is\-Valid}!Dataset@{Dataset}}
-\subsubsection[{is\-Valid}]{\setlength{\rightskip}{0pt plus 5cm}bool Dataset\-::is\-Valid (
+\hypertarget{class_dataset_a51c528f515d44baee36589e8de11af50}{\index{\-Dataset@{\-Dataset}!is\-Valid@{is\-Valid}}
+\index{is\-Valid@{is\-Valid}!Dataset@{\-Dataset}}
+\subsubsection[{is\-Valid}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-Dataset\-::is\-Valid} (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_dataset_a51c528f515d44baee36589e8de11af50}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{class_dataset_a51c528f515d44baee36589e8de11af50}
 
 
-Checks if the instance has a valid dataset loaded. 
+\-Checks if the instance has a valid dataset loaded. 
 
-\begin{DoxyReturn}{Returns}
-T\-R\-U\-E if a dataset is correctly loaded, F\-A\-L\-S\-E otherwise 
+\begin{DoxyReturn}{\-Returns}
+\-T\-R\-U\-E if a dataset is correctly loaded, \-F\-A\-L\-S\-E otherwise 
 \end{DoxyReturn}
 
 
-Definition at line 104 of file dataset.\-h.
+\-Definition at line 104 of file dataset.\-h.
 
-\hypertarget{class_dataset_a371d55ca351e5f805d8d5c7ffe51c829}{\index{Dataset@{Dataset}!load\-Dataset@{load\-Dataset}}
-\index{load\-Dataset@{load\-Dataset}!Dataset@{Dataset}}
-\subsubsection[{load\-Dataset}]{\setlength{\rightskip}{0pt plus 5cm}bool Dataset\-::load\-Dataset (
+\hypertarget{class_dataset_a371d55ca351e5f805d8d5c7ffe51c829}{\index{\-Dataset@{\-Dataset}!load\-Dataset@{load\-Dataset}}
+\index{load\-Dataset@{load\-Dataset}!Dataset@{\-Dataset}}
+\subsubsection[{load\-Dataset}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-Dataset\-::load\-Dataset} (
 \begin{DoxyParamCaption}
 \item[{const string \&}]{nomefile}
 \end{DoxyParamCaption}
 )}}\label{class_dataset_a371d55ca351e5f805d8d5c7ffe51c829}
 
 
-Loads a new dataset from file, erasing the current one (if not saved on file). 
+\-Loads a new dataset from file, erasing the current one (if not saved on file). 
 
-Load a dataset stored in a file.
+\-Load a dataset stored in a file.
 
 
-\begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em filename} & Filename of the dataset to load\\
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em filename} & \-Filename of the dataset to load\\
 \hline
- & {\em filename} & \hyperlink{class_dataset}{Dataset} filename \\
+ & {\em filename} & \hyperlink{class_dataset}{\-Dataset} filename \\
 \hline
 \end{DoxyParams}
 
 
-Definition at line 30 of file dataset.\-cpp.
+\-Definition at line 30 of file dataset.\-cpp.
 
-\hypertarget{class_dataset_a97193aebac43df3a98852a8a675702ab}{\index{Dataset@{Dataset}!save@{save}}
-\index{save@{save}!Dataset@{Dataset}}
-\subsubsection[{save}]{\setlength{\rightskip}{0pt plus 5cm}bool Dataset\-::save (
+\hypertarget{class_dataset_a97193aebac43df3a98852a8a675702ab}{\index{\-Dataset@{\-Dataset}!save@{save}}
+\index{save@{save}!Dataset@{\-Dataset}}
+\subsubsection[{save}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-Dataset\-::save} (
 \begin{DoxyParamCaption}
 \item[{const char $\ast$}]{file, }
 \item[{const char $\ast$}]{addr}
@@ -179,121 +179,121 @@ Definition at line 30 of file dataset.\-cpp.
 ) const}}\label{class_dataset_a97193aebac43df3a98852a8a675702ab}
 
 
-Saves the current dataset in a file. 
+\-Saves the current dataset in a file. 
 
-Save the dataset into a file for training and recognition.
+\-Save the dataset into a file for training and recognition.
 
 
-\begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em filename} & Desired filename of the saved dataset \\
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em filename} & \-Desired filename of the saved dataset \\
 \hline
-\mbox{\tt in}  & {\em addr} & M\-A\-C address of the source device for the dataset\\
+\mbox{\tt in}  & {\em addr} & \-M\-A\-C address of the source device for the dataset\\
 \hline
- & {\em filename} & Pathname of the destination file \\
+ & {\em filename} & \-Pathname of the destination file \\
 \hline
- & {\em addr} & Wii device mac address \\
+ & {\em addr} & \-Wii device mac address \\
 \hline
 \end{DoxyParams}
 
 
-Definition at line 105 of file dataset.\-cpp.
+\-Definition at line 105 of file dataset.\-cpp.
 
-\hypertarget{class_dataset_a23110f7d2b6bc77a388e8dafee9772b3}{\index{Dataset@{Dataset}!save\-Header@{save\-Header}}
-\index{save\-Header@{save\-Header}!Dataset@{Dataset}}
-\subsubsection[{save\-Header}]{\setlength{\rightskip}{0pt plus 5cm}void Dataset\-::save\-Header (
+\hypertarget{class_dataset_a23110f7d2b6bc77a388e8dafee9772b3}{\index{\-Dataset@{\-Dataset}!save\-Header@{save\-Header}}
+\index{save\-Header@{save\-Header}!Dataset@{\-Dataset}}
+\subsubsection[{save\-Header}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Dataset\-::save\-Header} (
 \begin{DoxyParamCaption}
 \item[{ofstream \&}]{out, }
 \item[{const char $\ast$}]{addr}
 \end{DoxyParamCaption}
-) const\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_dataset_a23110f7d2b6bc77a388e8dafee9772b3}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{class_dataset_a23110f7d2b6bc77a388e8dafee9772b3}
 
 
-Saves the initial header of Wii\-C's log files. 
+\-Saves the initial header of \-Wii\-C's log files. 
 
-Save the dataset header into a file.
+\-Save the dataset header into a file.
 
 
-\begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em out} & The output stream of the log file \\
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em out} & \-The output stream of the log file \\
 \hline
-\mbox{\tt in}  & {\em addr} & M\-A\-C address of the source device for the dataset\\
+\mbox{\tt in}  & {\em addr} & \-M\-A\-C address of the source device for the dataset\\
 \hline
- & {\em out} & Output file stream \\
+ & {\em out} & \-Output file stream \\
 \hline
- & {\em addr} & Wii device M\-A\-C address \\
+ & {\em addr} & \-Wii device \-M\-A\-C address \\
 \hline
 \end{DoxyParams}
 
 
-Definition at line 135 of file dataset.\-cpp.
+\-Definition at line 135 of file dataset.\-cpp.
 
-\hypertarget{class_dataset_a389855d6b88c8257041bcbc489759aae}{\index{Dataset@{Dataset}!size@{size}}
-\index{size@{size}!Dataset@{Dataset}}
-\subsubsection[{size}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int Dataset\-::size (
+\hypertarget{class_dataset_a389855d6b88c8257041bcbc489759aae}{\index{\-Dataset@{\-Dataset}!size@{size}}
+\index{size@{size}!Dataset@{\-Dataset}}
+\subsubsection[{size}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int {\bf \-Dataset\-::size} (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_dataset_a389855d6b88c8257041bcbc489759aae}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{class_dataset_a389855d6b88c8257041bcbc489759aae}
 
 
-Retrieves the dataset's size. 
+\-Retrieves the dataset's size. 
 
-\begin{DoxyReturn}{Returns}
+\begin{DoxyReturn}{\-Returns}
 the number of trainings collected in the current dataset 
 \end{DoxyReturn}
 
 
-Definition at line 36 of file dataset.\-h.
+\-Definition at line 36 of file dataset.\-h.
 
-\hypertarget{class_dataset_af776f6046312827aed048d641e29449b}{\index{Dataset@{Dataset}!training\-At@{training\-At}}
-\index{training\-At@{training\-At}!Dataset@{Dataset}}
-\subsubsection[{training\-At}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf Training}$\ast$ Dataset\-::training\-At (
+\hypertarget{class_dataset_af776f6046312827aed048d641e29449b}{\index{\-Dataset@{\-Dataset}!training\-At@{training\-At}}
+\index{training\-At@{training\-At}!Dataset@{\-Dataset}}
+\subsubsection[{training\-At}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf \-Training}$\ast$ {\bf \-Dataset\-::training\-At} (
 \begin{DoxyParamCaption}
 \item[{const unsigned int}]{i}
 \end{DoxyParamCaption}
-) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_dataset_af776f6046312827aed048d641e29449b}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{class_dataset_af776f6046312827aed048d641e29449b}
 
 
-Returns a training in the dataset as a constant pointer. 
+\-Returns a training in the dataset as a constant pointer. 
 
 
-\begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em i} & The training index in the dataset\\
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em i} & \-The training index in the dataset\\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-A constant pointer to the \hyperlink{class_training}{Training} object corresponding to the i-\/th element in the dataset 
+\begin{DoxyReturn}{\-Returns}
+\-A constant pointer to the \hyperlink{class_training}{\-Training} object corresponding to the i-\/th element in the dataset 
 \end{DoxyReturn}
 
 
-Definition at line 45 of file dataset.\-h.
+\-Definition at line 45 of file dataset.\-h.
 
-\hypertarget{class_dataset_adf05adb75cc0692104dc809ab030e967}{\index{Dataset@{Dataset}!training\-At@{training\-At}}
-\index{training\-At@{training\-At}!Dataset@{Dataset}}
-\subsubsection[{training\-At}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Training}$\ast$ Dataset\-::training\-At (
+\hypertarget{class_dataset_adf05adb75cc0692104dc809ab030e967}{\index{\-Dataset@{\-Dataset}!training\-At@{training\-At}}
+\index{training\-At@{training\-At}!Dataset@{\-Dataset}}
+\subsubsection[{training\-At}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Training}$\ast$ {\bf \-Dataset\-::training\-At} (
 \begin{DoxyParamCaption}
 \item[{const unsigned int}]{i}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_dataset_adf05adb75cc0692104dc809ab030e967}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{class_dataset_adf05adb75cc0692104dc809ab030e967}
 
 
-Returns a training in the dataset as a pointer. 
+\-Returns a training in the dataset as a pointer. 
 
 
-\begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em i} & The training index in the dataset\\
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em i} & \-The training index in the dataset\\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-A pointer to the \hyperlink{class_training}{Training} object corresponding to the i-\/th element in the dataset 
+\begin{DoxyReturn}{\-Returns}
+\-A pointer to the \hyperlink{class_training}{\-Training} object corresponding to the i-\/th element in the dataset 
 \end{DoxyReturn}
 
 
-Definition at line 61 of file dataset.\-h.
+\-Definition at line 61 of file dataset.\-h.
 
 
 
-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
 \item 
 \hyperlink{dataset_8h}{dataset.\-h}\item 
 dataset.\-cpp\end{DoxyCompactItemize}

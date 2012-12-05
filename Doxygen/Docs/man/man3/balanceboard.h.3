@@ -1,4 +1,4 @@
-.TH "balanceboard.h" 3 "Sun Dec 2 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.TH "balanceboard.h" 3 "Mon Dec 3 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -37,8 +37,7 @@ Balance Board expansion device\&.
 Definition in file \fBbalanceboard\&.h\fP\&.
 .SH "Function Documentation"
 .PP 
-.SS "void balance_board_disconnected (struct \fBbalance_board_t\fP *bb)"
-
+.SS "void \fBbalance_board_disconnected\fP (struct \fBbalance_board_t\fP *bb)"
 .PP
 The balance board disconnected\&. \fBParameters:\fP
 .RS 4
@@ -48,8 +47,7 @@ The balance board disconnected\&. \fBParameters:\fP
 
 .PP
 Definition at line 169 of file balanceboard\&.c\&.
-.SS "void balance_board_event (struct \fBbalance_board_t\fP *bb, \fBbyte\fP *msg)"
-
+.SS "void \fBbalance_board_event\fP (struct \fBbalance_board_t\fP *bb, \fBbyte\fP *msg)"
 .PP
 Handle balance board event\&. \fBParameters:\fP
 .RS 4
@@ -61,8 +59,7 @@ Handle balance board event\&. \fBParameters:\fP
 
 .PP
 Definition at line 107 of file balanceboard\&.c\&.
-.SS "int balance_board_handshake (struct \fBwiimote_t\fP *wm, struct \fBbalance_board_t\fP *bb, \fBbyte\fP *data, unsigned shortlen)"
-
+.SS "int \fBbalance_board_handshake\fP (struct \fBwiimote_t\fP *wm, struct \fBbalance_board_t\fP *bb, \fBbyte\fP *data, unsigned shortlen)"
 .PP
 Handle the handshake data from the balance board\&. \fBParameters:\fP
 .RS 4

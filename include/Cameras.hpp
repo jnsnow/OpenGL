@@ -28,6 +28,7 @@ public:
   size_t addCamera( void );
   size_t addCamera( Camera const &newCamera );
   void delCamera( size_t n );
+  void popCamera( void );
 
   Camera &getCamera( size_t n );
   Camera &operator[]( size_t n );
@@ -37,14 +38,22 @@ public:
   void IdleMotion( void );
   void LinkAll( const GLuint &program, 
 		const Camera::glsl_var &which, const string &glslVarName ); 
-  
+
+  size_t ActiveN( void );
   Camera &Active( void );
   Camera &Active( size_t n );
 
+  void Resize( int width, int height );
+  void CalculateViewports( void );
+  void Draw(void (*draw_func)(void));
+
 private:
   
+  void commonInit( void );
   vector< Camera > camList;
   size_t activeCamera;
+  size_t Width;
+  size_t Height;
 
 };
 

@@ -1,4 +1,4 @@
-.TH "classic.h" 3 "Sun Dec 2 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.TH "classic.h" 3 "Mon Dec 3 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -37,8 +37,7 @@ Classic controller expansion device\&.
 Definition in file \fBclassic\&.h\fP\&.
 .SH "Function Documentation"
 .PP 
-.SS "void classic_ctrl_disconnected (struct \fBclassic_ctrl_t\fP *cc)"
-
+.SS "void \fBclassic_ctrl_disconnected\fP (struct \fBclassic_ctrl_t\fP *cc)"
 .PP
 The classic controller disconnected\&. \fBParameters:\fP
 .RS 4
@@ -48,8 +47,7 @@ The classic controller disconnected\&. \fBParameters:\fP
 
 .PP
 Definition at line 123 of file classic\&.c\&.
-.SS "void classic_ctrl_event (struct \fBclassic_ctrl_t\fP *cc, \fBbyte\fP *msg)"
-
+.SS "void \fBclassic_ctrl_event\fP (struct \fBclassic_ctrl_t\fP *cc, \fBbyte\fP *msg)"
 .PP
 Handle classic controller event\&. \fBParameters:\fP
 .RS 4
@@ -61,8 +59,7 @@ Handle classic controller event\&. \fBParameters:\fP
 
 .PP
 Definition at line 135 of file classic\&.c\&.
-.SS "int classic_ctrl_handshake (struct \fBwiimote_t\fP *wm, struct \fBclassic_ctrl_t\fP *cc, \fBbyte\fP *data, unsigned shortlen)"
-
+.SS "int \fBclassic_ctrl_handshake\fP (struct \fBwiimote_t\fP *wm, struct \fBclassic_ctrl_t\fP *cc, \fBbyte\fP *data, unsigned shortlen)"
 .PP
 Handle the handshake data from the classic controller\&. \fBParameters:\fP
 .RS 4

@@ -1,4 +1,4 @@
-.TH "Dataset" 3 "Sun Dec 2 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.TH "Dataset" 3 "Mon Dec 3 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -84,8 +84,7 @@ A \fBDataset\fP is a collection of trainings, which can represent multiple gestu
 Definition at line 15 of file dataset\&.h\&.
 .SH "Constructor & Destructor Documentation"
 .PP 
-.SS "Dataset::Dataset (const string &filename)\fC [inline]\fP"
-
+.SS "\fBDataset::Dataset\fP (const string &filename)\fC [inline]\fP"
 .PP
 Creates a \fBDataset\fP object from a log file\&. \fBParameters:\fP
 .RS 4
@@ -97,8 +96,7 @@ Creates a \fBDataset\fP object from a log file\&. \fBParameters:\fP
 Definition at line 28 of file dataset\&.h\&.
 .SH "Member Function Documentation"
 .PP 
-.SS "void Dataset::addTraining (\fBTraining\fP *t)"
-
+.SS "void \fBDataset::addTraining\fP (\fBTraining\fP *t)"
 .PP
 Adds a training to the dataset\&. Add a new training to the dataset\&.
 .PP
@@ -114,16 +112,14 @@ The new element will be indexed as the last element and will not be copied\&. It
 
 .PP
 Definition at line 17 of file dataset\&.cpp\&.
-.SS "void Dataset::clear ()"
-
+.SS "void \fBDataset::clear\fP ()"
 .PP
 Deallocates and deletes all the current trainings in the dataset\&. Delete all trainings and clear the buffer\&.
 .PP
 This method will take care of freeing the memory of each training in the dataset, hence you don't need to free them in your code\&. 
 .PP
 Definition at line 87 of file dataset\&.cpp\&.
-.SS "bool Dataset::isValid () const\fC [inline]\fP"
-
+.SS "bool \fBDataset::isValid\fP () const\fC [inline]\fP"
 .PP
 Checks if the instance has a valid dataset loaded\&. \fBReturns:\fP
 .RS 4
@@ -133,8 +129,7 @@ TRUE if a dataset is correctly loaded, FALSE otherwise
 
 .PP
 Definition at line 104 of file dataset\&.h\&.
-.SS "bool Dataset::loadDataset (const string &nomefile)"
-
+.SS "bool \fBDataset::loadDataset\fP (const string &nomefile)"
 .PP
 Loads a new dataset from file, erasing the current one (if not saved on file)\&. Load a dataset stored in a file\&.
 .PP
@@ -148,8 +143,7 @@ Loads a new dataset from file, erasing the current one (if not saved on file)\&.
 
 .PP
 Definition at line 30 of file dataset\&.cpp\&.
-.SS "bool Dataset::save (const char *file, const char *addr) const"
-
+.SS "bool \fBDataset::save\fP (const char *file, const char *addr) const"
 .PP
 Saves the current dataset in a file\&. Save the dataset into a file for training and recognition\&.
 .PP
@@ -167,8 +161,7 @@ Saves the current dataset in a file\&. Save the dataset into a file for training
 
 .PP
 Definition at line 105 of file dataset\&.cpp\&.
-.SS "void Dataset::saveHeader (ofstream &out, const char *addr) const\fC [protected]\fP"
-
+.SS "void \fBDataset::saveHeader\fP (ofstream &out, const char *addr) const\fC [protected]\fP"
 .PP
 Saves the initial header of WiiC's log files\&. Save the dataset header into a file\&.
 .PP
@@ -186,8 +179,7 @@ Saves the initial header of WiiC's log files\&. Save the dataset header into a f
 
 .PP
 Definition at line 135 of file dataset\&.cpp\&.
-.SS "unsigned int Dataset::size () const\fC [inline]\fP"
-
+.SS "unsigned int \fBDataset::size\fP () const\fC [inline]\fP"
 .PP
 Retrieves the dataset's size\&. \fBReturns:\fP
 .RS 4
@@ -197,8 +189,7 @@ the number of trainings collected in the current dataset
 
 .PP
 Definition at line 36 of file dataset\&.h\&.
-.SS "const \fBTraining\fP* Dataset::trainingAt (const unsigned inti) const\fC [inline]\fP"
-
+.SS "const \fBTraining\fP* \fBDataset::trainingAt\fP (const unsigned inti) const\fC [inline]\fP"
 .PP
 Returns a training in the dataset as a constant pointer\&. \fBParameters:\fP
 .RS 4
@@ -213,8 +204,7 @@ A constant pointer to the \fBTraining\fP object corresponding to the i-th elemen
 
 .PP
 Definition at line 45 of file dataset\&.h\&.
-.SS "\fBTraining\fP* Dataset::trainingAt (const unsigned inti)\fC [inline]\fP"
-
+.SS "\fBTraining\fP* \fBDataset::trainingAt\fP (const unsigned inti)\fC [inline]\fP"
 .PP
 Returns a training in the dataset as a pointer\&. \fBParameters:\fP
 .RS 4

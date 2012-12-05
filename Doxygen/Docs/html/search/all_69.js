@@ -2,7 +2,6 @@ var searchData=
 [
   ['idle',['Idle',['../class_camera.html#aec3559fe43597656629fdb00157d3c73',1,'Camera']]],
   ['idle_5fcycle',['idle_cycle',['../events_8c.html#ab614a8e937b01dd2ae93f461cbb1a5a9',1,'events.c']]],
-  ['initspeed',['initSpeed',['../class_camera.html#adc88510e14cf2f6d4c3f6b23216211dc',1,'Camera']]],
   ['interpret_5fir_5fdata',['interpret_ir_data',['../ir_8c.html#ada7567adfdb4271186ab9e2b8ba25b01',1,'ir.c']]],
   ['io_2ec',['io.c',['../io_8c.html',1,'']]],
   ['io_2eh',['io.h',['../io_8h.html',1,'']]],

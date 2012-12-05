@@ -1,54 +1,54 @@
-\hypertarget{balanceboard_8h}{\section{balanceboard.\-h File Reference}
+\hypertarget{balanceboard_8h}{\section{balanceboard.\-h \-File \-Reference}
 \label{balanceboard_8h}\index{balanceboard.\-h@{balanceboard.\-h}}
 }
 
 
-Balance Board expansion device.  
+\-Balance \-Board expansion device.  
 
 
-{\ttfamily \#include \char`\"{}wiic\-\_\-internal.\-h\char`\"{}}\\*
-\subsection*{Functions}
+{\ttfamily \#include \char`\"{}wiic\-\_\-internal.\-h\char`\"{}}\*
+\subsection*{\-Functions}
 \begin{DoxyCompactItemize}
 \item 
 int \hyperlink{balanceboard_8h_a5258901e14a0001a16c350003f34a5cc}{balance\-\_\-board\-\_\-handshake} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, struct \hyperlink{structbalance__board__t}{balance\-\_\-board\-\_\-t} $\ast$bb, \hyperlink{wiic__macros_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte} $\ast$data, unsigned short len)
-\begin{DoxyCompactList}\small\item\em Handle the handshake data from the balance board. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em \-Handle the handshake data from the balance board. \end{DoxyCompactList}\item 
 void \hyperlink{balanceboard_8h_aa005fe60243eca3fe67e69ca0038b8c9}{balance\-\_\-board\-\_\-disconnected} (struct \hyperlink{structbalance__board__t}{balance\-\_\-board\-\_\-t} $\ast$bb)
-\begin{DoxyCompactList}\small\item\em The balance board disconnected. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em \-The balance board disconnected. \end{DoxyCompactList}\item 
 void \hyperlink{balanceboard_8h_a979914830a7bdbbad15147f3fc831ca3}{balance\-\_\-board\-\_\-event} (struct \hyperlink{structbalance__board__t}{balance\-\_\-board\-\_\-t} $\ast$bb, \hyperlink{wiic__macros_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte} $\ast$msg)
-\begin{DoxyCompactList}\small\item\em Handle balance board event. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em \-Handle balance board event. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
-\subsection{Detailed Description}
-Balance Board expansion device. 
+\subsection{\-Detailed \-Description}
+\-Balance \-Board expansion device. 
 
-Definition in file \hyperlink{balanceboard_8h_source}{balanceboard.\-h}.
+\-Definition in file \hyperlink{balanceboard_8h_source}{balanceboard.\-h}.
 
 
 
-\subsection{Function Documentation}
+\subsection{\-Function \-Documentation}
 \hypertarget{balanceboard_8h_aa005fe60243eca3fe67e69ca0038b8c9}{\index{balanceboard.\-h@{balanceboard.\-h}!balance\-\_\-board\-\_\-disconnected@{balance\-\_\-board\-\_\-disconnected}}
 \index{balance\-\_\-board\-\_\-disconnected@{balance\-\_\-board\-\_\-disconnected}!balanceboard.h@{balanceboard.\-h}}
-\subsubsection[{balance\-\_\-board\-\_\-disconnected}]{\setlength{\rightskip}{0pt plus 5cm}void balance\-\_\-board\-\_\-disconnected (
+\subsubsection[{balance\-\_\-board\-\_\-disconnected}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf balance\-\_\-board\-\_\-disconnected} (
 \begin{DoxyParamCaption}
 \item[{struct {\bf balance\-\_\-board\-\_\-t} $\ast$}]{bb}
 \end{DoxyParamCaption}
 )}}\label{balanceboard_8h_aa005fe60243eca3fe67e69ca0038b8c9}
 
 
-The balance board disconnected. 
+\-The balance board disconnected. 
 
 
-\begin{DoxyParams}{Parameters}
-{\em bb} & A pointer to a \hyperlink{structbalance__board__t}{balance\-\_\-board\-\_\-t} structure. \\
+\begin{DoxyParams}{\-Parameters}
+{\em bb} & \-A pointer to a \hyperlink{structbalance__board__t}{balance\-\_\-board\-\_\-t} structure. \\
 \hline
 \end{DoxyParams}
 
 
-Definition at line 169 of file balanceboard.\-c.
+\-Definition at line 169 of file balanceboard.\-c.
 
 \hypertarget{balanceboard_8h_a979914830a7bdbbad15147f3fc831ca3}{\index{balanceboard.\-h@{balanceboard.\-h}!balance\-\_\-board\-\_\-event@{balance\-\_\-board\-\_\-event}}
 \index{balance\-\_\-board\-\_\-event@{balance\-\_\-board\-\_\-event}!balanceboard.h@{balanceboard.\-h}}
-\subsubsection[{balance\-\_\-board\-\_\-event}]{\setlength{\rightskip}{0pt plus 5cm}void balance\-\_\-board\-\_\-event (
+\subsubsection[{balance\-\_\-board\-\_\-event}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf balance\-\_\-board\-\_\-event} (
 \begin{DoxyParamCaption}
 \item[{struct {\bf balance\-\_\-board\-\_\-t} $\ast$}]{bb, }
 \item[{{\bf byte} $\ast$}]{msg}
@@ -56,22 +56,22 @@ Definition at line 169 of file balanceboard.\-c.
 )}}\label{balanceboard_8h_a979914830a7bdbbad15147f3fc831ca3}
 
 
-Handle balance board event. 
+\-Handle balance board event. 
 
 
-\begin{DoxyParams}{Parameters}
-{\em bb} & A pointer to a \hyperlink{structbalance__board__t}{balance\-\_\-board\-\_\-t} structure. \\
+\begin{DoxyParams}{\-Parameters}
+{\em bb} & \-A pointer to a \hyperlink{structbalance__board__t}{balance\-\_\-board\-\_\-t} structure. \\
 \hline
-{\em msg} & The message specified in the event packet. \\
+{\em msg} & \-The message specified in the event packet. \\
 \hline
 \end{DoxyParams}
 
 
-Definition at line 107 of file balanceboard.\-c.
+\-Definition at line 107 of file balanceboard.\-c.
 
 \hypertarget{balanceboard_8h_a5258901e14a0001a16c350003f34a5cc}{\index{balanceboard.\-h@{balanceboard.\-h}!balance\-\_\-board\-\_\-handshake@{balance\-\_\-board\-\_\-handshake}}
 \index{balance\-\_\-board\-\_\-handshake@{balance\-\_\-board\-\_\-handshake}!balanceboard.h@{balanceboard.\-h}}
-\subsubsection[{balance\-\_\-board\-\_\-handshake}]{\setlength{\rightskip}{0pt plus 5cm}int balance\-\_\-board\-\_\-handshake (
+\subsubsection[{balance\-\_\-board\-\_\-handshake}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf balance\-\_\-board\-\_\-handshake} (
 \begin{DoxyParamCaption}
 \item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
 \item[{struct {\bf balance\-\_\-board\-\_\-t} $\ast$}]{bb, }
@@ -81,21 +81,21 @@ Definition at line 107 of file balanceboard.\-c.
 )}}\label{balanceboard_8h_a5258901e14a0001a16c350003f34a5cc}
 
 
-Handle the handshake data from the balance board. 
+\-Handle the handshake data from the balance board. 
 
 
-\begin{DoxyParams}{Parameters}
-{\em bb} & A pointer to a \hyperlink{structbalance__board__t}{balance\-\_\-board\-\_\-t} structure. \\
+\begin{DoxyParams}{\-Parameters}
+{\em bb} & \-A pointer to a \hyperlink{structbalance__board__t}{balance\-\_\-board\-\_\-t} structure. \\
 \hline
-{\em data} & The data read in from the device. \\
+{\em data} & \-The data read in from the device. \\
 \hline
-{\em len} & The length of the data block, in bytes.\\
+{\em len} & \-The length of the data block, in bytes.\\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-Returns 1 if handshake was successful, 0 if not. 
+\begin{DoxyReturn}{\-Returns}
+\-Returns 1 if handshake was successful, 0 if not. 
 \end{DoxyReturn}
 
 
-Definition at line 40 of file balanceboard.\-c.
+\-Definition at line 40 of file balanceboard.\-c.
 
