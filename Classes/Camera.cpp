@@ -1,3 +1,11 @@
+/**
+   @file Camera.cpp
+   @author John Huston
+   @authors John Huston, Nicholas StPierre, Chris Compton
+   @date 2012-12-04
+   @brief Implementation for the Camera class.
+**/
+
 #include <stdexcept>
 #include <iostream>
 
@@ -8,6 +16,8 @@
 using namespace Angel;
 
 #ifdef POSTMULT
+/** @var POSTMULT defines if we are, or are not using a Post-Multiplication system. **/
+/** @var PREMULT defines if we are, or are not using a Pre-Multiplication system. **/
 static const bool POSTMULT = true;
 static const bool PREMULT = false;
 #else

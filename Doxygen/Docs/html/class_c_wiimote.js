@@ -1,9 +1,41 @@
 var class_c_wiimote =
 [
-    [ "EventTypes", "class_c_wiimote.html#a999a0de6183d8abc02228dbb9b9d1350", null ],
-    [ "Flags", "class_c_wiimote.html#a17132c196be5ca49cfd8db3886592f7a", null ],
-    [ "LEDS", "class_c_wiimote.html#a8e105211c7c369343de9f63bb20a8755", null ],
-    [ "OnOffSelection", "class_c_wiimote.html#ae0d82aa9b43b304a72c1b06a56283b85", null ],
+    [ "EventTypes", "class_c_wiimote.html#a999a0de6183d8abc02228dbb9b9d1350", [
+      [ "EVENT_NONE", "class_c_wiimote.html#a999a0de6183d8abc02228dbb9b9d1350ac2b90924ea995c03f8d122f3efb592fa", null ],
+      [ "EVENT_EVENT", "class_c_wiimote.html#a999a0de6183d8abc02228dbb9b9d1350a14ab1121d6ffe4c85cc93415d1863ee7", null ],
+      [ "EVENT_STATUS", "class_c_wiimote.html#a999a0de6183d8abc02228dbb9b9d1350a5a26e29598efdfebeebe07dd652063ee", null ],
+      [ "EVENT_CONNECT", "class_c_wiimote.html#a999a0de6183d8abc02228dbb9b9d1350acedca29b29c97c4f6a9ab3ff657f16ad", null ],
+      [ "EVENT_DISCONNECT", "class_c_wiimote.html#a999a0de6183d8abc02228dbb9b9d1350a7ffcc22548e93a60d3528f756b925a90", null ],
+      [ "EVENT_UNEXPECTED_DISCONNECT", "class_c_wiimote.html#a999a0de6183d8abc02228dbb9b9d1350ac6c44484afaa669d77609cf88ba988ef", null ],
+      [ "EVENT_READ_DATA", "class_c_wiimote.html#a999a0de6183d8abc02228dbb9b9d1350aa9d2831db2c360e654acee7e26fc5d42", null ],
+      [ "EVENT_NUNCHUK_INSERTED", "class_c_wiimote.html#a999a0de6183d8abc02228dbb9b9d1350af6433444c1bb117e620d9bc240670ac1", null ],
+      [ "EVENT_NUNCHUK_REMOVED", "class_c_wiimote.html#a999a0de6183d8abc02228dbb9b9d1350ae665e1242504ca33b5efc0e0da7d1b52", null ],
+      [ "EVENT_CLASSIC_CTRL_INSERTED", "class_c_wiimote.html#a999a0de6183d8abc02228dbb9b9d1350a7bf8f30b135eb634acce0177add6b4bd", null ],
+      [ "EVENT_CLASSIC_CTRL_REMOVED", "class_c_wiimote.html#a999a0de6183d8abc02228dbb9b9d1350a0edddb2ca9379adecde12fcc4bc02d60", null ],
+      [ "EVENT_GUITAR_HERO_3_CTRL_INSERTED", "class_c_wiimote.html#a999a0de6183d8abc02228dbb9b9d1350a433a26bfbfb89f8f52c17b0740c50dce", null ],
+      [ "EVENT_GUITAR_HERO_3_CTRL_REMOVED", "class_c_wiimote.html#a999a0de6183d8abc02228dbb9b9d1350a367fb388d9f77ac29ce3b46e78829712", null ],
+      [ "EVENT_MOTION_PLUS_INSERTED", "class_c_wiimote.html#a999a0de6183d8abc02228dbb9b9d1350ad8d9e36223d7d5504a3c45e948b74d6c", null ],
+      [ "EVENT_MOTION_PLUS_REMOVED", "class_c_wiimote.html#a999a0de6183d8abc02228dbb9b9d1350aea98236568ae100e2cfb529973c20661", null ],
+      [ "EVENT_BALANCE_BOARD_INSERTED", "class_c_wiimote.html#a999a0de6183d8abc02228dbb9b9d1350a9fe9bf528dc0f530d52d4c7524a90b5f", null ],
+      [ "EVENT_BALANCE_BOARD_REMOVED", "class_c_wiimote.html#a999a0de6183d8abc02228dbb9b9d1350a2a835d23aadf148800885839103566bb", null ]
+    ] ],
+    [ "Flags", "class_c_wiimote.html#a17132c196be5ca49cfd8db3886592f7a", [
+      [ "FLAG_SMOOTHING", "class_c_wiimote.html#a17132c196be5ca49cfd8db3886592f7aac9b6b002398674505a0fe71785c88a69", null ],
+      [ "FLAG_CONTINUOUS", "class_c_wiimote.html#a17132c196be5ca49cfd8db3886592f7aa8ba4afac639034755032a70b78858b4c", null ],
+      [ "FLAG_ORIENT_THRESH", "class_c_wiimote.html#a17132c196be5ca49cfd8db3886592f7aa7207fd577a2c37f2b69674ef84c9b1e8", null ],
+      [ "FLAG_INIT_FLAGS", "class_c_wiimote.html#a17132c196be5ca49cfd8db3886592f7aacac572c30a20c4ff8383853056c4cea1", null ]
+    ] ],
+    [ "LEDS", "class_c_wiimote.html#a8e105211c7c369343de9f63bb20a8755", [
+      [ "LED_NONE", "class_c_wiimote.html#a8e105211c7c369343de9f63bb20a8755ab131563151dc30fe7c820f91f7c9f2c0", null ],
+      [ "LED_1", "class_c_wiimote.html#a8e105211c7c369343de9f63bb20a8755ab19d0250ab8c7c499d0bc141147c6c40", null ],
+      [ "LED_2", "class_c_wiimote.html#a8e105211c7c369343de9f63bb20a8755a20d0626be41531166330462a162c7bb2", null ],
+      [ "LED_3", "class_c_wiimote.html#a8e105211c7c369343de9f63bb20a8755a8ed165f2de7333f28e1c6fff95b3fcab", null ],
+      [ "LED_4", "class_c_wiimote.html#a8e105211c7c369343de9f63bb20a8755ae6e1c79642c184791fc9f0a502095816", null ]
+    ] ],
+    [ "OnOffSelection", "class_c_wiimote.html#ae0d82aa9b43b304a72c1b06a56283b85", [
+      [ "OFF", "class_c_wiimote.html#ae0d82aa9b43b304a72c1b06a56283b85af084d2cb7068cf3aa1e55be361480f00", null ],
+      [ "ON", "class_c_wiimote.html#ae0d82aa9b43b304a72c1b06a56283b85a07f3792ca0abfa41f284ac63518e5ec2", null ]
+    ] ],
     [ "CWiimote", "class_c_wiimote.html#adaa6f7042ad4ff8e46f930075314adb5", null ],
     [ "CWiimote", "class_c_wiimote.html#aea8deb92b4f4c23ff5f619f92f5740bb", null ],
     [ "CWiimote", "class_c_wiimote.html#af907ec89113a3e2ec6f992bb381c6253", null ],

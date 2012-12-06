@@ -1,4 +1,4 @@
-.TH "wiic_macros.h" 3 "Mon Dec 3 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.TH "wiic_macros.h" 3 "Wed Dec 5 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -9,7 +9,7 @@ WiiC macros and typedef\&.
 .SH SYNOPSIS
 .br
 .PP
-.SS "Defines"
+.SS "Macros"
 
 .in +1c
 .ti -1c
@@ -352,7 +352,7 @@ WiiC macros and typedef\&.
 .ti -1c
 .RI "enum \fBaspect_t\fP { \fBWIIC_ASPECT_4_3\fP, \fBWIIC_ASPECT_16_9\fP }"
 .br
-.RI "\fIScreen aspect ratio\&. \fP"
+.RI "\fI\fBScreen\fP aspect ratio\&. \fP"
 .in -1c
 .SH "Detailed Description"
 .PP 
@@ -361,9 +361,10 @@ WiiC macros and typedef\&.
 Contains all the macros to manage the state of the Wiimote, its component, and other devices, as well as some useful typedef\&. This header is included in \fBwiic\&.h\fP\&. 
 .PP
 Definition in file \fBwiic_macros\&.h\fP\&.
-.SH "Define Documentation"
+.SH "Macro Definition Documentation"
 .PP 
-.SS "#define \fBIS_HELD\fP(dev, button)   ((dev->btns_held & button) == button)"
+.SS "#define IS_HELD(dev, button)   ((dev->btns_held & button) == button)"
+
 .PP
 Check if a button is being held\&. \fBParameters:\fP
 .RS 4
@@ -380,7 +381,8 @@ Check if a button is being held\&. \fBParameters:\fP
 
 .PP
 Definition at line 171 of file wiic_macros\&.h\&.
-.SS "#define \fBIS_JUST_PRESSED\fP(dev, button)   (\fBIS_PRESSED\fP(dev, button) && !\fBIS_HELD\fP(dev, button))"
+.SS "#define IS_JUST_PRESSED(dev, button)   (\fBIS_PRESSED\fP(dev, button) && !\fBIS_HELD\fP(dev, button))"
+
 .PP
 Check if a button has just been pressed this event\&. \fBParameters:\fP
 .RS 4
@@ -397,7 +399,8 @@ Check if a button has just been pressed this event\&. \fBParameters:\fP
 
 .PP
 Definition at line 190 of file wiic_macros\&.h\&.
-.SS "#define \fBIS_PRESSED\fP(dev, button)   ((dev->btns & button) == button)"
+.SS "#define IS_PRESSED(dev, button)   ((dev->btns & button) == button)"
+
 .PP
 Check if a button is pressed\&. \fBParameters:\fP
 .RS 4
@@ -414,15 +417,17 @@ Check if a button is pressed\&. \fBParameters:\fP
 
 .PP
 Definition at line 163 of file wiic_macros\&.h\&.
-.SS "#define \fBIS_RELEASED\fP(dev, button)   ((dev->btns_released & button) == button)"
-.PP
-Check if a button is released on this event\&. 
-.br
+.SS "#define IS_RELEASED(dev, button)   ((dev->btns_released & button) == button)"
 
-.br
- This does not mean the button is not pressed, it means 
-.br
- this button was just now released\&. 
+.PP
+Check if a button is released on this event\&. .PP
+.nf
+                \n\n
+    This does not mean the button is not pressed, it means      \n
+    this button was just now released.
+.fi
+.PP
+ 
 .PP
 \fBParameters:\fP
 .RS 4
@@ -439,7 +444,8 @@ Check if a button is released on this event\&.
 
 .PP
 Definition at line 182 of file wiic_macros\&.h\&.
-.SS "#define \fBWIIC_GET_IR_SENSITIVITY\fP(wm, lvl)"\fBValue:\fP
+.SS "#define WIIC_GET_IR_SENSITIVITY(wm, lvl)"
+\fBValue:\fP
 .PP
 .nf
 do {                                                     \

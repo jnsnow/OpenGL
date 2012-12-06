@@ -1,312 +1,312 @@
-\hypertarget{events_8c}{\section{events.\-c \-File \-Reference}
+\hypertarget{events_8c}{\section{events.\-c File Reference}
 \label{events_8c}\index{events.\-c@{events.\-c}}
 }
 
 
-\-Handles wiimote events.  
+Handles wiimote events.  
 
 
-{\ttfamily \#include $<$stdio.\-h$>$}\*
-{\ttfamily \#include $<$sys/time.\-h$>$}\*
-{\ttfamily \#include $<$unistd.\-h$>$}\*
-{\ttfamily \#include $<$errno.\-h$>$}\*
-{\ttfamily \#include $<$sys/types.\-h$>$}\*
-{\ttfamily \#include $<$stdlib.\-h$>$}\*
-{\ttfamily \#include $<$math.\-h$>$}\*
-{\ttfamily \#include \char`\"{}definitions.\-h\char`\"{}}\*
-{\ttfamily \#include \char`\"{}io.\-h\char`\"{}}\*
-{\ttfamily \#include \char`\"{}wiic\-\_\-internal.\-h\char`\"{}}\*
-{\ttfamily \#include \char`\"{}dynamics.\-h\char`\"{}}\*
-{\ttfamily \#include \char`\"{}ir.\-h\char`\"{}}\*
-{\ttfamily \#include \char`\"{}nunchuk.\-h\char`\"{}}\*
-{\ttfamily \#include \char`\"{}classic.\-h\char`\"{}}\*
-{\ttfamily \#include \char`\"{}guitar\-\_\-hero\-\_\-3.\-h\char`\"{}}\*
-{\ttfamily \#include \char`\"{}events.\-h\char`\"{}}\*
-\subsection*{\-Defines}
+{\ttfamily \#include $<$stdio.\-h$>$}\\*
+{\ttfamily \#include $<$sys/time.\-h$>$}\\*
+{\ttfamily \#include $<$unistd.\-h$>$}\\*
+{\ttfamily \#include $<$errno.\-h$>$}\\*
+{\ttfamily \#include $<$sys/types.\-h$>$}\\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include $<$math.\-h$>$}\\*
+{\ttfamily \#include \char`\"{}definitions.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}io.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}wiic\-\_\-internal.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}dynamics.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}ir.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}nunchuk.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}classic.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}guitar\-\_\-hero\-\_\-3.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}events.\-h\char`\"{}}\\*
+\subsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{events_8c_af8bae66658de9b0d87cf39890b505440}{\#define {\bfseries \-S\-T\-A\-T\-E\-\_\-\-C\-H\-A\-N\-G\-E\-D}(a, b)~if (a != b)				return 1}\label{events_8c_af8bae66658de9b0d87cf39890b505440}
+\hypertarget{events_8c_af8bae66658de9b0d87cf39890b505440}{\#define {\bfseries S\-T\-A\-T\-E\-\_\-\-C\-H\-A\-N\-G\-E\-D}(a, b)~if (a != b)				return 1}\label{events_8c_af8bae66658de9b0d87cf39890b505440}
 
 \item 
-\#define {\bfseries \-C\-R\-O\-S\-S\-\_\-\-T\-H\-R\-E\-S\-H}(last, now, thresh)
+\#define {\bfseries C\-R\-O\-S\-S\-\_\-\-T\-H\-R\-E\-S\-H}(last, now, thresh)
 \item 
-\#define {\bfseries \-C\-R\-O\-S\-S\-\_\-\-T\-H\-R\-E\-S\-H\-\_\-\-X\-Y\-Z}(last, now, thresh)
+\#define {\bfseries C\-R\-O\-S\-S\-\_\-\-T\-H\-R\-E\-S\-H\-\_\-\-X\-Y\-Z}(last, now, thresh)
 \item 
-\#define {\bfseries \-C\-R\-O\-S\-S\-\_\-\-T\-H\-R\-E\-S\-H\-\_\-\-R\-A\-T\-E}(last, now, thresh)
+\#define {\bfseries C\-R\-O\-S\-S\-\_\-\-T\-H\-R\-E\-S\-H\-\_\-\-R\-A\-T\-E}(last, now, thresh)
 \end{DoxyCompactItemize}
-\subsection*{\-Functions}
+\subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 static void \hyperlink{events_8c_ab614a8e937b01dd2ae93f461cbb1a5a9}{idle\-\_\-cycle} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm)
-\begin{DoxyCompactList}\small\item\em \-Called on a cycle where no significant change occurs. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Called on a cycle where no significant change occurs. \end{DoxyCompactList}\item 
 void \hyperlink{events_8c_a25dc969008973c968e11fd8b31775e2f}{clear\-\_\-dirty\-\_\-reads} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm)
-\begin{DoxyCompactList}\small\item\em \-Clear out all old 'dirty' read requests. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Clear out all old 'dirty' read requests. \end{DoxyCompactList}\item 
 void \hyperlink{events_8c_ac045a0643d5364d8d1cd093f1b662108}{propagate\-\_\-event} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, \hyperlink{wiic__macros_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte} event, \hyperlink{wiic__macros_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte} $\ast$msg)
-\begin{DoxyCompactList}\small\item\em \-Analyze the event that occured on a wiimote. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Analyze the event that occured on a wiimote. \end{DoxyCompactList}\item 
 static void \hyperlink{events_8c_a7950daed11e2c7b89aab4ce201f04b6d}{event\-\_\-data\-\_\-read} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, \hyperlink{wiic__macros_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte} $\ast$msg)
-\begin{DoxyCompactList}\small\item\em \-Received a data packet from a read request. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Received a data packet from a read request. \end{DoxyCompactList}\item 
 static void \hyperlink{events_8c_a5697afb339307c664466407317efc8a3}{event\-\_\-status} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, \hyperlink{wiic__macros_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte} $\ast$msg)
-\begin{DoxyCompactList}\small\item\em \-Read the controller status. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Read the controller status. \end{DoxyCompactList}\item 
 static void \hyperlink{events_8c_a4f42a7aba5a9eb7f57d8a6ea9488cf9e}{handle\-\_\-expansion} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, \hyperlink{wiic__macros_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte} $\ast$msg)
-\begin{DoxyCompactList}\small\item\em \-Handle data from the expansion. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Handle data from the expansion. \end{DoxyCompactList}\item 
 static void \hyperlink{events_8c_a291022db03cfff5328eeb716c3190409}{save\-\_\-state} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm)
-\begin{DoxyCompactList}\small\item\em \-Save important state data. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Save important state data. \end{DoxyCompactList}\item 
 static int \hyperlink{events_8c_a77ada8b59758e38f0004f6490e2ade13}{state\-\_\-changed} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm)
-\begin{DoxyCompactList}\small\item\em \-Determine if the current state differs significantly from the previous. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Determine if the current state differs significantly from the previous. \end{DoxyCompactList}\item 
 int \hyperlink{events_8c_a1a1c9eb3c4957b12ffb900d65a98310a}{wiic\-\_\-poll} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$$\ast$wm, int wiimotes)
-\begin{DoxyCompactList}\small\item\em \-Poll the wiimotes for any events. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Poll the wiimotes for any events. \end{DoxyCompactList}\item 
 void \hyperlink{events_8c_a9d3d561a62161e2cb9443d613a07c96e}{wiic\-\_\-pressed\-\_\-buttons} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, \hyperlink{wiic__macros_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte} $\ast$msg)
-\begin{DoxyCompactList}\small\item\em \-Find what buttons are pressed. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Find what buttons are pressed. \end{DoxyCompactList}\item 
 void \hyperlink{events_8c_a14b6a00b1437061ce8ab09940b729e16}{handshake\-\_\-expansion} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, \hyperlink{wiic__macros_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte} $\ast$data, unsigned short len)
-\begin{DoxyCompactList}\small\item\em \-Handle the handshake data from the expansion device. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Handle the handshake data from the expansion device. \end{DoxyCompactList}\item 
 void \hyperlink{events_8c_a96e25335cb926c6bb824f732361472bd}{disable\-\_\-expansion} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm)
-\begin{DoxyCompactList}\small\item\em \-Disable the expansion device if it was enabled. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Disable the expansion device if it was enabled. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
-\subsection{\-Detailed \-Description}
-\-Handles wiimote events. \-The file includes functions that handle the events that are sent from the wiimote to us. 
+\subsection{Detailed Description}
+Handles wiimote events. The file includes functions that handle the events that are sent from the wiimote to us. 
 
-\-Definition in file \hyperlink{events_8c_source}{events.\-c}.
+Definition in file \hyperlink{events_8c_source}{events.\-c}.
 
 
 
-\subsection{\-Define \-Documentation}
-\hypertarget{events_8c_a54d0d3692b8b461574b9925e7d00b053}{\index{events.\-c@{events.\-c}!\-C\-R\-O\-S\-S\-\_\-\-T\-H\-R\-E\-S\-H@{\-C\-R\-O\-S\-S\-\_\-\-T\-H\-R\-E\-S\-H}}
-\index{\-C\-R\-O\-S\-S\-\_\-\-T\-H\-R\-E\-S\-H@{\-C\-R\-O\-S\-S\-\_\-\-T\-H\-R\-E\-S\-H}!events.c@{events.\-c}}
-\subsubsection[{\-C\-R\-O\-S\-S\-\_\-\-T\-H\-R\-E\-S\-H}]{\setlength{\rightskip}{0pt plus 5cm}\#define \-C\-R\-O\-S\-S\-\_\-\-T\-H\-R\-E\-S\-H(
+\subsection{Macro Definition Documentation}
+\hypertarget{events_8c_a54d0d3692b8b461574b9925e7d00b053}{\index{events.\-c@{events.\-c}!C\-R\-O\-S\-S\-\_\-\-T\-H\-R\-E\-S\-H@{C\-R\-O\-S\-S\-\_\-\-T\-H\-R\-E\-S\-H}}
+\index{C\-R\-O\-S\-S\-\_\-\-T\-H\-R\-E\-S\-H@{C\-R\-O\-S\-S\-\_\-\-T\-H\-R\-E\-S\-H}!events.c@{events.\-c}}
+\subsubsection[{C\-R\-O\-S\-S\-\_\-\-T\-H\-R\-E\-S\-H}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-R\-O\-S\-S\-\_\-\-T\-H\-R\-E\-S\-H(
 \begin{DoxyParamCaption}
 \item[{}]{last, }
 \item[{}]{now, }
 \item[{}]{thresh}
 \end{DoxyParamCaption}
 )}}\label{events_8c_a54d0d3692b8b461574b9925e7d00b053}
-{\bfseries \-Value\-:}
+{\bfseries Value\-:}
 \begin{DoxyCode}
-do {                                                            \
-                    if (WIIMOTE_IS_FLAG_SET(wm, WIIC_ORIENT_THRESH)) {      \
-                        if ((diff_f(last.roll, now.roll) >= thresh) ||          
-      \
-                            (diff_f(last.pitch, now.pitch) >= thresh) ||        
-      \
-                            (diff_f(last.yaw, now.yaw) >= thresh))              
-      \
-                        {                                                       
-      \
+\textcolor{keywordflow}{do} \{                                                            \(\backslash\)
+                    if (WIIMOTE\_IS\_FLAG\_SET(wm, WIIC\_ORIENT\_THRESH)) \{      \(\backslash\)
+                        if ((diff\_f(last.roll, now.roll) >= thresh) ||          
+      \(\backslash\)
+                            (diff\_f(last.pitch, now.pitch) >= thresh) ||        
+      \(\backslash\)
+                            (diff\_f(last.yaw, now.yaw) >= thresh))              
+      \(\backslash\)
+                        \{                                                       
+      \(\backslash\)
                             last = now;                                         
-      \
+      \(\backslash\)
                             return 1;                                           
-      \
-                        }                                                       
-      \
-                    } else {                                                    
-      \
+      \(\backslash\)
+                        \}                                                       
+      \(\backslash\)
+                    \} \textcolor{keywordflow}{else} \{                                                    
+      \(\backslash\)
                         if (last.roll != now.roll)      return 1;               
-      \
+      \(\backslash\)
                         if (last.pitch != now.pitch)    return 1;               
-      \
+      \(\backslash\)
                         if (last.yaw != now.yaw)        return 1;               
-      \
-                    }                                                           
-      \
-                } while (0)
+      \(\backslash\)
+                    \}                                                           
+      \(\backslash\)
+                \} while (0)
 \end{DoxyCode}
-\hypertarget{events_8c_a5140821fca809a8e31b8fc54b50dd208}{\index{events.\-c@{events.\-c}!\-C\-R\-O\-S\-S\-\_\-\-T\-H\-R\-E\-S\-H\-\_\-\-R\-A\-T\-E@{\-C\-R\-O\-S\-S\-\_\-\-T\-H\-R\-E\-S\-H\-\_\-\-R\-A\-T\-E}}
-\index{\-C\-R\-O\-S\-S\-\_\-\-T\-H\-R\-E\-S\-H\-\_\-\-R\-A\-T\-E@{\-C\-R\-O\-S\-S\-\_\-\-T\-H\-R\-E\-S\-H\-\_\-\-R\-A\-T\-E}!events.c@{events.\-c}}
-\subsubsection[{\-C\-R\-O\-S\-S\-\_\-\-T\-H\-R\-E\-S\-H\-\_\-\-R\-A\-T\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define \-C\-R\-O\-S\-S\-\_\-\-T\-H\-R\-E\-S\-H\-\_\-\-R\-A\-T\-E(
+\hypertarget{events_8c_a5140821fca809a8e31b8fc54b50dd208}{\index{events.\-c@{events.\-c}!C\-R\-O\-S\-S\-\_\-\-T\-H\-R\-E\-S\-H\-\_\-\-R\-A\-T\-E@{C\-R\-O\-S\-S\-\_\-\-T\-H\-R\-E\-S\-H\-\_\-\-R\-A\-T\-E}}
+\index{C\-R\-O\-S\-S\-\_\-\-T\-H\-R\-E\-S\-H\-\_\-\-R\-A\-T\-E@{C\-R\-O\-S\-S\-\_\-\-T\-H\-R\-E\-S\-H\-\_\-\-R\-A\-T\-E}!events.c@{events.\-c}}
+\subsubsection[{C\-R\-O\-S\-S\-\_\-\-T\-H\-R\-E\-S\-H\-\_\-\-R\-A\-T\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-R\-O\-S\-S\-\_\-\-T\-H\-R\-E\-S\-H\-\_\-\-R\-A\-T\-E(
 \begin{DoxyParamCaption}
 \item[{}]{last, }
 \item[{}]{now, }
 \item[{}]{thresh}
 \end{DoxyParamCaption}
 )}}\label{events_8c_a5140821fca809a8e31b8fc54b50dd208}
-{\bfseries \-Value\-:}
+{\bfseries Value\-:}
 \begin{DoxyCode}
-do {                                                            \
-                    if (WIIMOTE_IS_FLAG_SET(wm, WIIC_ORIENT_THRESH)) {      \
-                        if ((diff_f(last.roll, now.roll) >= thresh) ||              
-      \
-                            (diff_f(last.pitch, now.pitch) >= thresh) ||                
-      \
-                            (diff_f(last.yaw, now.yaw) >= thresh))                  
-      \
-                        {                                                       
-      \
+\textcolor{keywordflow}{do} \{                                                            \(\backslash\)
+                    if (WIIMOTE\_IS\_FLAG\_SET(wm, WIIC\_ORIENT\_THRESH)) \{      \(\backslash\)
+                        if ((diff\_f(last.roll, now.roll) >= thresh) ||              
+      \(\backslash\)
+                            (diff\_f(last.pitch, now.pitch) >= thresh) ||                
+      \(\backslash\)
+                            (diff\_f(last.yaw, now.yaw) >= thresh))                  
+      \(\backslash\)
+                        \{                                                       
+      \(\backslash\)
                             last = now;                                         
-      \
+      \(\backslash\)
                             return 1;                                           
-      \
-                        }                                                       
-      \
-                    } else {                                                    
-      \
+      \(\backslash\)
+                        \}                                                       
+      \(\backslash\)
+                    \} \textcolor{keywordflow}{else} \{                                                    
+      \(\backslash\)
                         if (last.roll != now.roll)      return 1;                   
-      \
+      \(\backslash\)
                         if (last.pitch != now.pitch)        return 1;                   
-      \
+      \(\backslash\)
                         if (last.yaw != now.yaw)        return 1;                   
-      \
-                    }                                                           
-      \
-                } while (0)
+      \(\backslash\)
+                    \}                                                           
+      \(\backslash\)
+                \} while (0)
 \end{DoxyCode}
-\hypertarget{events_8c_aa0293dfc29d80ebdda7fa10ef67d7d42}{\index{events.\-c@{events.\-c}!\-C\-R\-O\-S\-S\-\_\-\-T\-H\-R\-E\-S\-H\-\_\-\-X\-Y\-Z@{\-C\-R\-O\-S\-S\-\_\-\-T\-H\-R\-E\-S\-H\-\_\-\-X\-Y\-Z}}
-\index{\-C\-R\-O\-S\-S\-\_\-\-T\-H\-R\-E\-S\-H\-\_\-\-X\-Y\-Z@{\-C\-R\-O\-S\-S\-\_\-\-T\-H\-R\-E\-S\-H\-\_\-\-X\-Y\-Z}!events.c@{events.\-c}}
-\subsubsection[{\-C\-R\-O\-S\-S\-\_\-\-T\-H\-R\-E\-S\-H\-\_\-\-X\-Y\-Z}]{\setlength{\rightskip}{0pt plus 5cm}\#define \-C\-R\-O\-S\-S\-\_\-\-T\-H\-R\-E\-S\-H\-\_\-\-X\-Y\-Z(
+\hypertarget{events_8c_aa0293dfc29d80ebdda7fa10ef67d7d42}{\index{events.\-c@{events.\-c}!C\-R\-O\-S\-S\-\_\-\-T\-H\-R\-E\-S\-H\-\_\-\-X\-Y\-Z@{C\-R\-O\-S\-S\-\_\-\-T\-H\-R\-E\-S\-H\-\_\-\-X\-Y\-Z}}
+\index{C\-R\-O\-S\-S\-\_\-\-T\-H\-R\-E\-S\-H\-\_\-\-X\-Y\-Z@{C\-R\-O\-S\-S\-\_\-\-T\-H\-R\-E\-S\-H\-\_\-\-X\-Y\-Z}!events.c@{events.\-c}}
+\subsubsection[{C\-R\-O\-S\-S\-\_\-\-T\-H\-R\-E\-S\-H\-\_\-\-X\-Y\-Z}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-R\-O\-S\-S\-\_\-\-T\-H\-R\-E\-S\-H\-\_\-\-X\-Y\-Z(
 \begin{DoxyParamCaption}
 \item[{}]{last, }
 \item[{}]{now, }
 \item[{}]{thresh}
 \end{DoxyParamCaption}
 )}}\label{events_8c_aa0293dfc29d80ebdda7fa10ef67d7d42}
-{\bfseries \-Value\-:}
+{\bfseries Value\-:}
 \begin{DoxyCode}
-do {                                                            \
-                    if (WIIMOTE_IS_FLAG_SET(wm, WIIC_ORIENT_THRESH)) {      \
-                        if ((diff_f(last.x, now.x) >= thresh) ||                
-      \
-                            (diff_f(last.y, now.y) >= thresh) ||                
-      \
-                            (diff_f(last.z, now.z) >= thresh))                  
-      \
-                        {                                                       
-      \
+\textcolor{keywordflow}{do} \{                                                            \(\backslash\)
+                    if (WIIMOTE\_IS\_FLAG\_SET(wm, WIIC\_ORIENT\_THRESH)) \{      \(\backslash\)
+                        if ((diff\_f(last.x, now.x) >= thresh) ||                
+      \(\backslash\)
+                            (diff\_f(last.y, now.y) >= thresh) ||                
+      \(\backslash\)
+                            (diff\_f(last.z, now.z) >= thresh))                  
+      \(\backslash\)
+                        \{                                                       
+      \(\backslash\)
                             last = now;                                         
-      \
+      \(\backslash\)
                             return 1;                                           
-      \
-                        }                                                       
-      \
-                    } else {                                                    
-      \
+      \(\backslash\)
+                        \}                                                       
+      \(\backslash\)
+                    \} \textcolor{keywordflow}{else} \{                                                    
+      \(\backslash\)
                         if (last.x != now.x)        return 1;                   
-      \
+      \(\backslash\)
                         if (last.y != now.y)        return 1;                   
-      \
+      \(\backslash\)
                         if (last.z != now.z)        return 1;                   
-      \
-                    }                                                           
-      \
-                } while (0)
+      \(\backslash\)
+                    \}                                                           
+      \(\backslash\)
+                \} while (0)
 \end{DoxyCode}
 
 
-\subsection{\-Function \-Documentation}
+\subsection{Function Documentation}
 \hypertarget{events_8c_a25dc969008973c968e11fd8b31775e2f}{\index{events.\-c@{events.\-c}!clear\-\_\-dirty\-\_\-reads@{clear\-\_\-dirty\-\_\-reads}}
 \index{clear\-\_\-dirty\-\_\-reads@{clear\-\_\-dirty\-\_\-reads}!events.c@{events.\-c}}
-\subsubsection[{clear\-\_\-dirty\-\_\-reads}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf clear\-\_\-dirty\-\_\-reads} (
+\subsubsection[{clear\-\_\-dirty\-\_\-reads}]{\setlength{\rightskip}{0pt plus 5cm}void clear\-\_\-dirty\-\_\-reads (
 \begin{DoxyParamCaption}
 \item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm}
 \end{DoxyParamCaption}
 )}}\label{events_8c_a25dc969008973c968e11fd8b31775e2f}
 
 
-\-Clear out all old 'dirty' read requests. 
+Clear out all old 'dirty' read requests. 
 
 
-\begin{DoxyParams}{\-Parameters}
-{\em wm} & \-Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
 \hline
 \end{DoxyParams}
 
 
-\-Definition at line 226 of file events.\-c.
+Definition at line 226 of file events.\-c.
 
 \hypertarget{events_8c_a96e25335cb926c6bb824f732361472bd}{\index{events.\-c@{events.\-c}!disable\-\_\-expansion@{disable\-\_\-expansion}}
 \index{disable\-\_\-expansion@{disable\-\_\-expansion}!events.c@{events.\-c}}
-\subsubsection[{disable\-\_\-expansion}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf disable\-\_\-expansion} (
+\subsubsection[{disable\-\_\-expansion}]{\setlength{\rightskip}{0pt plus 5cm}void disable\-\_\-expansion (
 \begin{DoxyParamCaption}
 \item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm}
 \end{DoxyParamCaption}
 )}}\label{events_8c_a96e25335cb926c6bb824f732361472bd}
 
 
-\-Disable the expansion device if it was enabled. 
+Disable the expansion device if it was enabled. 
 
 
-\begin{DoxyParams}{\-Parameters}
-{\em wm} & \-A pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\begin{DoxyParams}{Parameters}
+{\em wm} & A pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
 \hline
-{\em data} & \-The data read in from the device. \\
+{\em data} & The data read in from the device. \\
 \hline
-{\em len} & \-The length of the data block, in bytes.\\
+{\em len} & The length of the data block, in bytes.\\
 \hline
 \end{DoxyParams}
-\-If the data is \-N\-U\-L\-L then this function will try to start a handshake with the expansion. 
+If the data is N\-U\-L\-L then this function will try to start a handshake with the expansion. 
 
-\-Definition at line 709 of file events.\-c.
+Definition at line 709 of file events.\-c.
 
 \hypertarget{events_8c_a7950daed11e2c7b89aab4ce201f04b6d}{\index{events.\-c@{events.\-c}!event\-\_\-data\-\_\-read@{event\-\_\-data\-\_\-read}}
 \index{event\-\_\-data\-\_\-read@{event\-\_\-data\-\_\-read}!events.c@{events.\-c}}
-\subsubsection[{event\-\_\-data\-\_\-read}]{\setlength{\rightskip}{0pt plus 5cm}static void {\bf event\-\_\-data\-\_\-read} (
+\subsubsection[{event\-\_\-data\-\_\-read}]{\setlength{\rightskip}{0pt plus 5cm}static void event\-\_\-data\-\_\-read (
 \begin{DoxyParamCaption}
 \item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
 \item[{{\bf byte} $\ast$}]{msg}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{events_8c_a7950daed11e2c7b89aab4ce201f04b6d}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{events_8c_a7950daed11e2c7b89aab4ce201f04b6d}
 
 
-\-Received a data packet from a read request. 
+Received a data packet from a read request. 
 
 
-\begin{DoxyParams}{\-Parameters}
-{\em wm} & \-Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
 \hline
-{\em msg} & \-The message specified in the event packet.\\
+{\em msg} & The message specified in the event packet.\\
 \hline
 \end{DoxyParams}
-\-Data from the wiimote comes in packets. \-If the requested data segment size is bigger than one packet can hold then several packets will be received. \-These packets are first reassembled into one, then the registered callback function that handles data reads is invoked. 
+Data from the wiimote comes in packets. If the requested data segment size is bigger than one packet can hold then several packets will be received. These packets are first reassembled into one, then the registered callback function that handles data reads is invoked. 
 
-\-Definition at line 421 of file events.\-c.
+Definition at line 421 of file events.\-c.
 
 \hypertarget{events_8c_a5697afb339307c664466407317efc8a3}{\index{events.\-c@{events.\-c}!event\-\_\-status@{event\-\_\-status}}
 \index{event\-\_\-status@{event\-\_\-status}!events.c@{events.\-c}}
-\subsubsection[{event\-\_\-status}]{\setlength{\rightskip}{0pt plus 5cm}static void {\bf event\-\_\-status} (
+\subsubsection[{event\-\_\-status}]{\setlength{\rightskip}{0pt plus 5cm}static void event\-\_\-status (
 \begin{DoxyParamCaption}
 \item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
 \item[{{\bf byte} $\ast$}]{msg}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{events_8c_a5697afb339307c664466407317efc8a3}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{events_8c_a5697afb339307c664466407317efc8a3}
 
 
-\-Read the controller status. 
+Read the controller status. 
 
 
-\begin{DoxyParams}{\-Parameters}
-{\em wm} & \-Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
 \hline
-{\em msg} & \-The message specified in the event packet.\\
+{\em msg} & The message specified in the event packet.\\
 \hline
 \end{DoxyParams}
-\-Read the controller status and execute the registered status callback. 
+Read the controller status and execute the registered status callback. 
 
-\-Definition at line 528 of file events.\-c.
+Definition at line 528 of file events.\-c.
 
 \hypertarget{events_8c_a4f42a7aba5a9eb7f57d8a6ea9488cf9e}{\index{events.\-c@{events.\-c}!handle\-\_\-expansion@{handle\-\_\-expansion}}
 \index{handle\-\_\-expansion@{handle\-\_\-expansion}!events.c@{events.\-c}}
-\subsubsection[{handle\-\_\-expansion}]{\setlength{\rightskip}{0pt plus 5cm}static void {\bf handle\-\_\-expansion} (
+\subsubsection[{handle\-\_\-expansion}]{\setlength{\rightskip}{0pt plus 5cm}static void handle\-\_\-expansion (
 \begin{DoxyParamCaption}
 \item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
 \item[{{\bf byte} $\ast$}]{msg}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{events_8c_a4f42a7aba5a9eb7f57d8a6ea9488cf9e}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{events_8c_a4f42a7aba5a9eb7f57d8a6ea9488cf9e}
 
 
-\-Handle data from the expansion. 
+Handle data from the expansion. 
 
 
-\begin{DoxyParams}{\-Parameters}
-{\em wm} & \-A pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\begin{DoxyParams}{Parameters}
+{\em wm} & A pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
 \hline
-{\em msg} & \-The message specified in the event packet for the expansion. \\
+{\em msg} & The message specified in the event packet for the expansion. \\
 \hline
 \end{DoxyParams}
 
 
-\-Definition at line 598 of file events.\-c.
+Definition at line 598 of file events.\-c.
 
 \hypertarget{events_8c_a14b6a00b1437061ce8ab09940b729e16}{\index{events.\-c@{events.\-c}!handshake\-\_\-expansion@{handshake\-\_\-expansion}}
 \index{handshake\-\_\-expansion@{handshake\-\_\-expansion}!events.c@{events.\-c}}
-\subsubsection[{handshake\-\_\-expansion}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf handshake\-\_\-expansion} (
+\subsubsection[{handshake\-\_\-expansion}]{\setlength{\rightskip}{0pt plus 5cm}void handshake\-\_\-expansion (
 \begin{DoxyParamCaption}
 \item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
 \item[{{\bf byte} $\ast$}]{data, }
@@ -315,46 +315,46 @@ do {                                                            \
 )}}\label{events_8c_a14b6a00b1437061ce8ab09940b729e16}
 
 
-\-Handle the handshake data from the expansion device. 
+Handle the handshake data from the expansion device. 
 
 
-\begin{DoxyParams}{\-Parameters}
-{\em wm} & \-A pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\begin{DoxyParams}{Parameters}
+{\em wm} & A pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
 \hline
-{\em data} & \-The data read in from the device. \\
+{\em data} & The data read in from the device. \\
 \hline
-{\em len} & \-The length of the data block, in bytes.\\
+{\em len} & The length of the data block, in bytes.\\
 \hline
 \end{DoxyParams}
-\-Tries to determine what kind of expansion was attached and invoke the correct handshake function.
+Tries to determine what kind of expansion was attached and invoke the correct handshake function.
 
-\-If the data is \-N\-U\-L\-L then this function will try to start a handshake with the expansion. 
+If the data is N\-U\-L\-L then this function will try to start a handshake with the expansion. 
 
-\-Definition at line 634 of file events.\-c.
+Definition at line 634 of file events.\-c.
 
 \hypertarget{events_8c_ab614a8e937b01dd2ae93f461cbb1a5a9}{\index{events.\-c@{events.\-c}!idle\-\_\-cycle@{idle\-\_\-cycle}}
 \index{idle\-\_\-cycle@{idle\-\_\-cycle}!events.c@{events.\-c}}
-\subsubsection[{idle\-\_\-cycle}]{\setlength{\rightskip}{0pt plus 5cm}static void {\bf idle\-\_\-cycle} (
+\subsubsection[{idle\-\_\-cycle}]{\setlength{\rightskip}{0pt plus 5cm}static void idle\-\_\-cycle (
 \begin{DoxyParamCaption}
 \item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{events_8c_ab614a8e937b01dd2ae93f461cbb1a5a9}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{events_8c_ab614a8e937b01dd2ae93f461cbb1a5a9}
 
 
-\-Called on a cycle where no significant change occurs. 
+Called on a cycle where no significant change occurs. 
 
 
-\begin{DoxyParams}{\-Parameters}
-{\em wm} & \-Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
 \hline
 \end{DoxyParams}
 
 
-\-Definition at line 200 of file events.\-c.
+Definition at line 200 of file events.\-c.
 
 \hypertarget{events_8c_ac045a0643d5364d8d1cd093f1b662108}{\index{events.\-c@{events.\-c}!propagate\-\_\-event@{propagate\-\_\-event}}
 \index{propagate\-\_\-event@{propagate\-\_\-event}!events.c@{events.\-c}}
-\subsubsection[{propagate\-\_\-event}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf propagate\-\_\-event} (
+\subsubsection[{propagate\-\_\-event}]{\setlength{\rightskip}{0pt plus 5cm}void propagate\-\_\-event (
 \begin{DoxyParamCaption}
 \item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
 \item[{{\bf byte}}]{event, }
@@ -363,67 +363,67 @@ do {                                                            \
 )}}\label{events_8c_ac045a0643d5364d8d1cd093f1b662108}
 
 
-\-Analyze the event that occured on a wiimote. 
+Analyze the event that occured on a wiimote. 
 
 
-\begin{DoxyParams}{\-Parameters}
-{\em wm} & \-An array of pointers to \hyperlink{structwiimote__t}{wiimote\-\_\-t} structures. \\
+\begin{DoxyParams}{Parameters}
+{\em wm} & An array of pointers to \hyperlink{structwiimote__t}{wiimote\-\_\-t} structures. \\
 \hline
-{\em event} & \-The event that occured. \\
+{\em event} & The event that occured. \\
 \hline
-{\em msg} & \-The message specified in the event packet.\\
+{\em msg} & The message specified in the event packet.\\
 \hline
 \end{DoxyParams}
-\-Pass the event to the registered event callback. 
+Pass the event to the registered event callback. 
 
-\-Definition at line 248 of file events.\-c.
+Definition at line 248 of file events.\-c.
 
 \hypertarget{events_8c_a291022db03cfff5328eeb716c3190409}{\index{events.\-c@{events.\-c}!save\-\_\-state@{save\-\_\-state}}
 \index{save\-\_\-state@{save\-\_\-state}!events.c@{events.\-c}}
-\subsubsection[{save\-\_\-state}]{\setlength{\rightskip}{0pt plus 5cm}static void {\bf save\-\_\-state} (
+\subsubsection[{save\-\_\-state}]{\setlength{\rightskip}{0pt plus 5cm}static void save\-\_\-state (
 \begin{DoxyParamCaption}
 \item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{events_8c_a291022db03cfff5328eeb716c3190409}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{events_8c_a291022db03cfff5328eeb716c3190409}
 
 
-\-Save important state data. 
+Save important state data. 
 
 
-\begin{DoxyParams}{\-Parameters}
-{\em wm} & \-A pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\begin{DoxyParams}{Parameters}
+{\em wm} & A pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
 \hline
 \end{DoxyParams}
 
 
-\-Definition at line 750 of file events.\-c.
+Definition at line 750 of file events.\-c.
 
 \hypertarget{events_8c_a77ada8b59758e38f0004f6490e2ade13}{\index{events.\-c@{events.\-c}!state\-\_\-changed@{state\-\_\-changed}}
 \index{state\-\_\-changed@{state\-\_\-changed}!events.c@{events.\-c}}
-\subsubsection[{state\-\_\-changed}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf state\-\_\-changed} (
+\subsubsection[{state\-\_\-changed}]{\setlength{\rightskip}{0pt plus 5cm}static int state\-\_\-changed (
 \begin{DoxyParamCaption}
 \item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{events_8c_a77ada8b59758e38f0004f6490e2ade13}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{events_8c_a77ada8b59758e38f0004f6490e2ade13}
 
 
-\-Determine if the current state differs significantly from the previous. 
+Determine if the current state differs significantly from the previous. 
 
 
-\begin{DoxyParams}{\-Parameters}
-{\em wm} & \-A pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\begin{DoxyParams}{Parameters}
+{\em wm} & A pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{\-Returns}
+\begin{DoxyReturn}{Returns}
 1 if a significant change occured, 0 if not. 
 \end{DoxyReturn}
 
 
-\-Definition at line 813 of file events.\-c.
+Definition at line 813 of file events.\-c.
 
 \hypertarget{events_8c_a1a1c9eb3c4957b12ffb900d65a98310a}{\index{events.\-c@{events.\-c}!wiic\-\_\-poll@{wiic\-\_\-poll}}
 \index{wiic\-\_\-poll@{wiic\-\_\-poll}!events.c@{events.\-c}}
-\subsubsection[{wiic\-\_\-poll}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf wiic\-\_\-poll} (
+\subsubsection[{wiic\-\_\-poll}]{\setlength{\rightskip}{0pt plus 5cm}int wiic\-\_\-poll (
 \begin{DoxyParamCaption}
 \item[{struct {\bf wiimote\-\_\-t} $\ast$$\ast$}]{wm, }
 \item[{int}]{wiimotes}
@@ -431,25 +431,25 @@ do {                                                            \
 )}}\label{events_8c_a1a1c9eb3c4957b12ffb900d65a98310a}
 
 
-\-Poll the wiimotes for any events. 
+Poll the wiimotes for any events. 
 
 
-\begin{DoxyParams}{\-Parameters}
-{\em wm} & \-An array of pointers to \hyperlink{structwiimote__t}{wiimote\-\_\-t} structures. \\
+\begin{DoxyParams}{Parameters}
+{\em wm} & An array of pointers to \hyperlink{structwiimote__t}{wiimote\-\_\-t} structures. \\
 \hline
-{\em wiimotes} & \-The number of \hyperlink{structwiimote__t}{wiimote\-\_\-t} structures in the {\itshape wm\/} array.\\
+{\em wiimotes} & The number of \hyperlink{structwiimote__t}{wiimote\-\_\-t} structures in the {\itshape wm} array.\\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{\-Returns}
-\-Returns number of wiimotes that an event has occured on.
+\begin{DoxyReturn}{Returns}
+Returns number of wiimotes that an event has occured on.
 \end{DoxyReturn}
-\-It is necessary to poll the wiimote devices for events that occur. \-If an event occurs on a particular wiimote, the event variable will be set. 
+It is necessary to poll the wiimote devices for events that occur. If an event occurs on a particular wiimote, the event variable will be set. 
 
-\-Definition at line 81 of file events.\-c.
+Definition at line 81 of file events.\-c.
 
 \hypertarget{events_8c_a9d3d561a62161e2cb9443d613a07c96e}{\index{events.\-c@{events.\-c}!wiic\-\_\-pressed\-\_\-buttons@{wiic\-\_\-pressed\-\_\-buttons}}
 \index{wiic\-\_\-pressed\-\_\-buttons@{wiic\-\_\-pressed\-\_\-buttons}!events.c@{events.\-c}}
-\subsubsection[{wiic\-\_\-pressed\-\_\-buttons}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf wiic\-\_\-pressed\-\_\-buttons} (
+\subsubsection[{wiic\-\_\-pressed\-\_\-buttons}]{\setlength{\rightskip}{0pt plus 5cm}void wiic\-\_\-pressed\-\_\-buttons (
 \begin{DoxyParamCaption}
 \item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
 \item[{{\bf byte} $\ast$}]{msg}
@@ -457,16 +457,16 @@ do {                                                            \
 )}}\label{events_8c_a9d3d561a62161e2cb9443d613a07c96e}
 
 
-\-Find what buttons are pressed. 
+Find what buttons are pressed. 
 
 
-\begin{DoxyParams}{\-Parameters}
-{\em wm} & \-Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
 \hline
-{\em msg} & \-The message specified in the event packet. \\
+{\em msg} & The message specified in the event packet. \\
 \hline
 \end{DoxyParams}
 
 
-\-Definition at line 387 of file events.\-c.
+Definition at line 387 of file events.\-c.
 

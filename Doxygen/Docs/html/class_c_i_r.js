@@ -1,8 +1,17 @@
 var class_c_i_r =
 [
-    [ "AspectRatioSelections", "class_c_i_r.html#a78b124ad32b42c393210c4ac083f792b", null ],
-    [ "BarPositions", "class_c_i_r.html#abb8a78dba77bf7666cb2bf05e9240610", null ],
-    [ "OnOffSelection", "class_c_i_r.html#a999889c22bcacdebf9e6e449ef7d7284", null ],
+    [ "AspectRatioSelections", "class_c_i_r.html#a78b124ad32b42c393210c4ac083f792b", [
+      [ "ASPECT_4_3", "class_c_i_r.html#a78b124ad32b42c393210c4ac083f792ba08c041b464540a53ecb237caa459fa93", null ],
+      [ "ASPECT_16_9", "class_c_i_r.html#a78b124ad32b42c393210c4ac083f792ba209865a7ce8fbfb5eddb066075a948aa", null ]
+    ] ],
+    [ "BarPositions", "class_c_i_r.html#abb8a78dba77bf7666cb2bf05e9240610", [
+      [ "BAR_ABOVE", "class_c_i_r.html#abb8a78dba77bf7666cb2bf05e9240610a563af74bb019aa67343013582848cfa8", null ],
+      [ "BAR_BELOW", "class_c_i_r.html#abb8a78dba77bf7666cb2bf05e9240610a08b25b7bdc48f5f710ffdee19c9dd470", null ]
+    ] ],
+    [ "OnOffSelection", "class_c_i_r.html#a999889c22bcacdebf9e6e449ef7d7284", [
+      [ "OFF", "class_c_i_r.html#a999889c22bcacdebf9e6e449ef7d7284ae222a82621b27eb6de827b804416cfa8", null ],
+      [ "ON", "class_c_i_r.html#a999889c22bcacdebf9e6e449ef7d7284aad0be50ee27b4b1880b9d620f2d206aa", null ]
+    ] ],
     [ "CIR", "class_c_i_r.html#aa57f492413ae0ab3b89df2132333c8aa", null ],
     [ "GetAspectRatioSetting", "class_c_i_r.html#ab66706c98e35632fa825fb51bd40239b", null ],
     [ "GetBarPositionSetting", "class_c_i_r.html#a234cdafc9ba4f8c71d079be4b628037e", null ],

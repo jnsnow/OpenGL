@@ -1,57 +1,57 @@
-\hypertarget{events_8h}{\section{events.\-h \-File \-Reference}
+\hypertarget{events_8h}{\section{events.\-h File Reference}
 \label{events_8h}\index{events.\-h@{events.\-h}}
 }
 
 
-\-Handles wiimote events.  
+Handles wiimote events.  
 
 
-\subsection*{\-Functions}
+\subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 void \hyperlink{events_8h_a9d3d561a62161e2cb9443d613a07c96e}{wiic\-\_\-pressed\-\_\-buttons} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, \hyperlink{wiic__macros_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte} $\ast$msg)
-\begin{DoxyCompactList}\small\item\em \-Find what buttons are pressed. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Find what buttons are pressed. \end{DoxyCompactList}\item 
 void \hyperlink{events_8h_a14b6a00b1437061ce8ab09940b729e16}{handshake\-\_\-expansion} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, \hyperlink{wiic__macros_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte} $\ast$data, unsigned short len)
-\begin{DoxyCompactList}\small\item\em \-Handle the handshake data from the expansion device. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Handle the handshake data from the expansion device. \end{DoxyCompactList}\item 
 void \hyperlink{events_8h_a96e25335cb926c6bb824f732361472bd}{disable\-\_\-expansion} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm)
-\begin{DoxyCompactList}\small\item\em \-Disable the expansion device if it was enabled. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Disable the expansion device if it was enabled. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
-\subsection{\-Detailed \-Description}
-\-Handles wiimote events. \-The file includes functions that handle the events that are sent from the wiimote to us. 
+\subsection{Detailed Description}
+Handles wiimote events. The file includes functions that handle the events that are sent from the wiimote to us. 
 
-\-Definition in file \hyperlink{events_8h_source}{events.\-h}.
+Definition in file \hyperlink{events_8h_source}{events.\-h}.
 
 
 
-\subsection{\-Function \-Documentation}
+\subsection{Function Documentation}
 \hypertarget{events_8h_a96e25335cb926c6bb824f732361472bd}{\index{events.\-h@{events.\-h}!disable\-\_\-expansion@{disable\-\_\-expansion}}
 \index{disable\-\_\-expansion@{disable\-\_\-expansion}!events.h@{events.\-h}}
-\subsubsection[{disable\-\_\-expansion}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf disable\-\_\-expansion} (
+\subsubsection[{disable\-\_\-expansion}]{\setlength{\rightskip}{0pt plus 5cm}void disable\-\_\-expansion (
 \begin{DoxyParamCaption}
 \item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm}
 \end{DoxyParamCaption}
 )}}\label{events_8h_a96e25335cb926c6bb824f732361472bd}
 
 
-\-Disable the expansion device if it was enabled. 
+Disable the expansion device if it was enabled. 
 
 
-\begin{DoxyParams}{\-Parameters}
-{\em wm} & \-A pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\begin{DoxyParams}{Parameters}
+{\em wm} & A pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
 \hline
-{\em data} & \-The data read in from the device. \\
+{\em data} & The data read in from the device. \\
 \hline
-{\em len} & \-The length of the data block, in bytes.\\
+{\em len} & The length of the data block, in bytes.\\
 \hline
 \end{DoxyParams}
-\-If the data is \-N\-U\-L\-L then this function will try to start a handshake with the expansion. 
+If the data is N\-U\-L\-L then this function will try to start a handshake with the expansion. 
 
-\-Definition at line 709 of file events.\-c.
+Definition at line 709 of file events.\-c.
 
 \hypertarget{events_8h_a14b6a00b1437061ce8ab09940b729e16}{\index{events.\-h@{events.\-h}!handshake\-\_\-expansion@{handshake\-\_\-expansion}}
 \index{handshake\-\_\-expansion@{handshake\-\_\-expansion}!events.h@{events.\-h}}
-\subsubsection[{handshake\-\_\-expansion}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf handshake\-\_\-expansion} (
+\subsubsection[{handshake\-\_\-expansion}]{\setlength{\rightskip}{0pt plus 5cm}void handshake\-\_\-expansion (
 \begin{DoxyParamCaption}
 \item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
 \item[{{\bf byte} $\ast$}]{data, }
@@ -60,26 +60,26 @@ void \hyperlink{events_8h_a96e25335cb926c6bb824f732361472bd}{disable\-\_\-expans
 )}}\label{events_8h_a14b6a00b1437061ce8ab09940b729e16}
 
 
-\-Handle the handshake data from the expansion device. 
+Handle the handshake data from the expansion device. 
 
 
-\begin{DoxyParams}{\-Parameters}
-{\em wm} & \-A pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\begin{DoxyParams}{Parameters}
+{\em wm} & A pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
 \hline
-{\em data} & \-The data read in from the device. \\
+{\em data} & The data read in from the device. \\
 \hline
-{\em len} & \-The length of the data block, in bytes.\\
+{\em len} & The length of the data block, in bytes.\\
 \hline
 \end{DoxyParams}
-\-Tries to determine what kind of expansion was attached and invoke the correct handshake function.
+Tries to determine what kind of expansion was attached and invoke the correct handshake function.
 
-\-If the data is \-N\-U\-L\-L then this function will try to start a handshake with the expansion. 
+If the data is N\-U\-L\-L then this function will try to start a handshake with the expansion. 
 
-\-Definition at line 634 of file events.\-c.
+Definition at line 634 of file events.\-c.
 
 \hypertarget{events_8h_a9d3d561a62161e2cb9443d613a07c96e}{\index{events.\-h@{events.\-h}!wiic\-\_\-pressed\-\_\-buttons@{wiic\-\_\-pressed\-\_\-buttons}}
 \index{wiic\-\_\-pressed\-\_\-buttons@{wiic\-\_\-pressed\-\_\-buttons}!events.h@{events.\-h}}
-\subsubsection[{wiic\-\_\-pressed\-\_\-buttons}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf wiic\-\_\-pressed\-\_\-buttons} (
+\subsubsection[{wiic\-\_\-pressed\-\_\-buttons}]{\setlength{\rightskip}{0pt plus 5cm}void wiic\-\_\-pressed\-\_\-buttons (
 \begin{DoxyParamCaption}
 \item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
 \item[{{\bf byte} $\ast$}]{msg}
@@ -87,16 +87,16 @@ void \hyperlink{events_8h_a96e25335cb926c6bb824f732361472bd}{disable\-\_\-expans
 )}}\label{events_8h_a9d3d561a62161e2cb9443d613a07c96e}
 
 
-\-Find what buttons are pressed. 
+Find what buttons are pressed. 
 
 
-\begin{DoxyParams}{\-Parameters}
-{\em wm} & \-Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure. \\
 \hline
-{\em msg} & \-The message specified in the event packet. \\
+{\em msg} & The message specified in the event packet. \\
 \hline
 \end{DoxyParams}
 
 
-\-Definition at line 387 of file events.\-c.
+Definition at line 387 of file events.\-c.
 

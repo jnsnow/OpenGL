@@ -21,7 +21,6 @@ class Cameras {
 
 public:
 
-  Cameras( void );
   Cameras( const size_t &numCameras = 1 );
   ~Cameras( void );
 
@@ -42,6 +41,8 @@ public:
   size_t ActiveN( void );
   Camera &Active( void );
   Camera &Active( size_t n );
+  Camera &Next( void );
+  Camera &Prev( void );
 
   void Resize( int width, int height );
   void CalculateViewports( void );

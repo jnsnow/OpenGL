@@ -32,7 +32,8 @@ SOURCES=fly.cpp \
 	$(CLASSES_DIR)/vec.cpp \
 	$(CLASSES_DIR)/mat.cpp \
 	$(COMMON_DIR)/InitShader.cpp \
-	$(CLASSES_DIR)/Cameras.cpp
+	$(CLASSES_DIR)/Cameras.cpp \
+	$(CLASSES_DIR)/Screen.cpp
 ifeq ($(UNAME), Linux)
 LDFLAGS= -lGL -lGLU -lGLEW -lglut -lXmu -lX11 -lm
 endif

@@ -1,4 +1,4 @@
-.TH "motionplus.h" 3 "Mon Dec 3 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.TH "motionplus.h" 3 "Wed Dec 5 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -14,7 +14,7 @@ Motion Plus expansion device\&.
 \fC#include <math\&.h>\fP
 .br
 
-.SS "Defines"
+.SS "Macros"
 
 .in +1c
 .ti -1c
@@ -58,7 +58,8 @@ Motion Plus expansion device\&.
 Definition in file \fBmotionplus\&.h\fP\&.
 .SH "Function Documentation"
 .PP 
-.SS "void \fBmotion_plus_apply_smoothing\fP (struct \fBmotion_plus_t\fP *mp)"
+.SS "void motion_plus_apply_smoothing (struct \fBmotion_plus_t\fP *mp)"
+
 .PP
 Apply smoothing to the Motion Plus gyroscopes\&. \fBParameters:\fP
 .RS 4
@@ -68,7 +69,8 @@ Apply smoothing to the Motion Plus gyroscopes\&. \fBParameters:\fP
 
 .PP
 Definition at line 123 of file motionplus\&.c\&.
-.SS "void \fBmotion_plus_disconnected\fP (struct \fBmotion_plus_t\fP *mp)"
+.SS "void motion_plus_disconnected (struct \fBmotion_plus_t\fP *mp)"
+
 .PP
 Notification of Motion Plus disconnection\&. \fBParameters:\fP
 .RS 4
@@ -78,7 +80,8 @@ Notification of Motion Plus disconnection\&. \fBParameters:\fP
 
 .PP
 Definition at line 250 of file motionplus\&.c\&.
-.SS "void \fBmotion_plus_event\fP (struct \fBmotion_plus_t\fP *mp, \fBbyte\fP *msg)"
+.SS "void motion_plus_event (struct \fBmotion_plus_t\fP *mp, \fBbyte\fP *msg)"
+
 .PP
 Handle Motion Plus event\&. \fBParameters:\fP
 .RS 4
@@ -90,7 +93,8 @@ Handle Motion Plus event\&. \fBParameters:\fP
 
 .PP
 Definition at line 89 of file motionplus\&.c\&.
-.SS "int \fBmotion_plus_handshake\fP (struct \fBwiimote_t\fP *wm, \fBbyte\fP *data, unsigned shortlen)"
+.SS "int motion_plus_handshake (struct \fBwiimote_t\fP *wm, \fBbyte\fP *data, unsigned shortlen)"
+
 .PP
 Handle the handshake from the Motion Plus\&. \fBParameters:\fP
 .RS 4
@@ -109,7 +113,8 @@ Returns 1 if handshake was successful, 0 if not\&.
 
 .PP
 Definition at line 141 of file motionplus\&.c\&.
-.SS "void \fBwiic_set_mp_smooth\fP (struct \fBwiimote_t\fP *wm, intstatus, floatalpha)"
+.SS "void wiic_set_mp_smooth (struct \fBwiimote_t\fP *wm, intstatus, floatalpha)"
+
 .PP
 Enable the gyroscope smoothing (through an exponential moving average) \fBParameters:\fP
 .RS 4
@@ -123,7 +128,8 @@ Enable the gyroscope smoothing (through an exponential moving average) \fBParame
 
 .PP
 Definition at line 275 of file motionplus\&.c\&.
-.SS "void \fBwiic_set_mp_threshold\fP (struct \fBwiimote_t\fP *wm, intthreshold)"
+.SS "void wiic_set_mp_threshold (struct \fBwiimote_t\fP *wm, intthreshold)"
+
 .PP
 Set the gyroscope event threshold\&. \fBParameters:\fP
 .RS 4

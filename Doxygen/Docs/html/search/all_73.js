@@ -6,6 +6,7 @@ var searchData=
   ['save_5fstate',['save_state',['../events_8c.html#a291022db03cfff5328eeb716c3190409',1,'events.c']]],
   ['saveheader',['saveHeader',['../class_dataset.html#a23110f7d2b6bc77a388e8dafee9772b3',1,'Dataset']]],
   ['savelogheader',['SaveLogHeader',['../class_logger.html#a221bdfa77db049b43ee048d0c17abcce',1,'Logger']]],
+  ['screen',['Screen',['../class_screen.html',1,'']]],
   ['send',['send',['../class_camera.html#a36cba68c08136242bf5d906f9c0b610c',1,'Camera']]],
   ['size',['size',['../structread__req__t.html#a1ba9dc32f81a628129a499cd67367fec',1,'read_req_t::size()'],['../structir__dot__t.html#a009422c74d8c2a1dcfe64e669cb7aa91',1,'ir_dot_t::size()'],['../class_dataset.html#a389855d6b88c8257041bcbc489759aae',1,'Dataset::size()'],['../class_training.html#a34cd1e59fb499746963c510de4ea8a31',1,'Training::size()']]],
   ['smooth',['smooth',['../structmotion__plus__t.html#a897911489b87b7a5ff24861c00ba2332',1,'motion_plus_t']]],

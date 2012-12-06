@@ -1,4 +1,4 @@
-.TH "Training" 3 "Mon Dec 3 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.TH "Training" 3 "Wed Dec 5 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -71,7 +71,8 @@ Class \fBTraining\fP to save the individual training of a gesture\&.
 Definition at line 17 of file training\&.h\&.
 .SH "Member Function Documentation"
 .PP 
-.SS "void \fBTraining::addSample\fP (\fBSample\fP *sample)"
+.SS "void Training::addSample (\fBSample\fP *sample)"
+
 .PP
 Add a new training to the dataset\&. \fBParameters:\fP
 .RS 4
@@ -81,12 +82,14 @@ Add a new training to the dataset\&. \fBParameters:\fP
 
 .PP
 Definition at line 67 of file training\&.cpp\&.
-.SS "void \fBTraining::clear\fP ()"
+.SS "void Training::clear ()"
+
 .PP
 Delete all samples and clear the buffer\&. This method will take care of freeing the memory of each sample in the training set, hence you don't need to free them in your code\&. 
 .PP
 Definition at line 88 of file training\&.cpp\&.
-.SS "bool \fBTraining::loadTraining\fP (ifstream &training)"
+.SS "bool Training::loadTraining (ifstream &training)"
+
 .PP
 Load a training stored in a file\&. \fBParameters:\fP
 .RS 4
@@ -96,7 +99,8 @@ Load a training stored in a file\&. \fBParameters:\fP
 
 .PP
 Definition at line 16 of file training\&.cpp\&.
-.SS "const \fBSample\fP* \fBTraining::sampleAt\fP (unsigned inti) const\fC [inline]\fP"
+.SS "const \fBSample\fP* Training::sampleAt (unsigned inti) const\fC [inline]\fP"
+
 .PP
 Returns the i-th sample of the training as a constant pointer\&. \fBParameters:\fP
 .RS 4
@@ -106,7 +110,8 @@ Returns the i-th sample of the training as a constant pointer\&. \fBParameters:\
 
 .PP
 Definition at line 36 of file training\&.h\&.
-.SS "\fBSample\fP* \fBTraining::sampleAt\fP (unsigned inti)\fC [inline]\fP"
+.SS "\fBSample\fP* Training::sampleAt (unsigned inti)\fC [inline]\fP"
+
 .PP
 Returns the i-th sample of the training as a pointer\&. \fBParameters:\fP
 .RS 4
@@ -116,7 +121,8 @@ Returns the i-th sample of the training as a pointer\&. \fBParameters:\fP
 
 .PP
 Definition at line 50 of file training\&.h\&.
-.SS "void \fBTraining::save\fP (ofstream &out) const"
+.SS "void Training::save (ofstream &out) const"
+
 .PP
 Save the training into a file for training and recognition\&. \fBParameters:\fP
 .RS 4

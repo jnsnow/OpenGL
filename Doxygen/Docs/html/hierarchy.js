@@ -54,6 +54,7 @@ var hierarchy =
       [ "AccSample", "class_acc_sample.html", null ],
       [ "GyroSample", "class_gyro_sample.html", null ]
     ] ],
+    [ "Screen", "class_screen.html", null ],
     [ "Training", "class_training.html", null ],
     [ "Angel::vec2", "struct_angel_1_1vec2.html", null ],
     [ "vec2b_t", "structvec2b__t.html", null ],

@@ -1,8 +1,16 @@
-////////////////////////////////////////////////////////////////////////////
-//
-//  --- vec.h ---
-//
-////////////////////////////////////////////////////////////////////////////
+/**
+   @file vec.cpp
+   @author Ed Angel
+   @date 2012-12-04
+   @brief Implementation for the vec2, vec3, and vec4 classes.
+   @details
+   Modified heavily from code available from Ed Angel's website,
+   http://www.cs.unm.edu/~angel/BOOK/INTERACTIVE_COMPUTER_GRAPHICS/SIXTH_EDITION/
+   Published from his book,
+   Interactive Computer Graphics
+   A Top-Down Approach with OpenGL, Sixth Edition
+   Addison-Wesley 2012
+**/
 
 #include "vec.hpp"
 #include <cmath>
