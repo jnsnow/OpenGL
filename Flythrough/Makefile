@@ -27,24 +27,23 @@ CLASSES_DIR = $(RELDIR)/Classes
 EXT=cpp
 CC=g++
 CFLAGS=-Wall -pedantic -I $(RELDIR)/include
+
 EXECS=fly
-SOURCES=fly.cpp \
-	$(COMMON_DIR)/model.cpp \
-	$(CLASSES_DIR)/Camera.cpp \
-	$(CLASSES_DIR)/vec.cpp \
-	$(CLASSES_DIR)/mat.cpp \
-	$(COMMON_DIR)/InitShader.cpp \
-	$(CLASSES_DIR)/Cameras.cpp \
-	$(CLASSES_DIR)/Screen.cpp
+BIN_SOURCES=fly.cpp
+COMMON_SOURCES=model.cpp InitShader.cpp
+CLASS_SOURCES=Camera.cpp vec.cpp mat.cpp Cameras.cpp Screen.cpp Timer.cpp
+SOURCES=$(BIN_SOURCES) \
+	$(addprefix $(COMMON_DIR)/, $(COMMON_SOURCES)) \
+	$(addprefix $(CLASSES_DIR)/, $(CLASS_SOURCES))
 
 # Platform-dependent configuration.
 UNAME := $(shell uname)
 ifeq ($(UNAME), Linux)
-LDFLAGS= -lGL -lGLU -lGLEW -lglut -lXmu -lX11 -lm
+LDLIBS = -lGL -lGLU -lGLEW -lglut -lXmu -lX11 -lm
 endif
 
 ifeq ($(UNAME), Darwin)
-LDFLAGS= -framework Carbon -framework OpenGL -framework GLUT
+LDLIBS = -framework Carbon -framework OpenGL -framework GLUT
 endif
 
 # Configuration Options
@@ -54,7 +53,7 @@ endif
 
 ifdef WII
 	CFLAGS += -DWII -I/usr/local/include/wiic
-	LDFLAGS += -lwiic -lwiicpp
+	LDLIBS += -lwiic -lwiicpp
 	SOURCES += $(COMMON_DIR)/WiiUtil.cpp
 endif
 
@@ -87,7 +86,7 @@ all: $(EXECS)
 	$(CC) $(CFLAGS) -c -o $@ $*.$(EXT)
 
 $(EXECS): $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+	$(CC) $(CFLAGS) -o $@ $^ $(LDLIBS)
 
 clean:
 	rm -f *~ $(OBJS) $(EXECS)

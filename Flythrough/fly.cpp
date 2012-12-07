@@ -1,13 +1,19 @@
-#include <sys/time.h>
+/* System Headers */
 #include <cmath>
-#include "platform.h" /* Multi-platform support and OpenGL headers */
+#include <cstdio>
+#include <cstdlib>
+/* Multi-platform support and OpenGL headers. */
+#include "platform.h"
+/* Ed Angel's Math Classes */
 #include "vec.hpp"
 #include "mat.hpp"
+/* Utilities and Classes */
 #include "model.hpp"
 #include "Camera.hpp"
 #include "InitShader.hpp"
 #include "Cameras.hpp"
 #include "Screen.hpp"
+#include "Timer.hpp"
 
 // Turn on debugging if it's been requested of us by the Makefile environment.
 #ifndef DEBUG
@@ -48,8 +54,6 @@ extern color4 colors[NumVertices];
 extern vec3  normals[NumVertices];
 Screen myScreen( 800, 600 );
 GLuint gShader;
-struct timeval _T1;
-struct timeval _T2;
 
 //--------------------------------------------------------------------
 // OpenGL's disgusting, terrible globals initialization
@@ -73,12 +77,6 @@ GLuint gl_SpecularProduct ;
 GLuint gl_AmbientProduct2 ;
 GLuint gl_DiffuseProduct2 ;
 GLuint gl_SpecularProduct2 ;
-
-
-
-
-
-
 
 
 // Initialize shader lighting parameters
@@ -151,8 +149,6 @@ void cameraInit( Camera& cam ) {
   cam.link( gShader, Camera::ROTATION, "R" );
   cam.link( gShader, Camera::VIEW, "P" );
   cam.link( gShader, Camera::CTM, "CTM" );
-  /* FOV must be set /after/ linking the VIEW and CTM matrices. */
-  //cam.FOV( 45.0 );
 
 }
 
@@ -238,8 +234,6 @@ void init() {
   myScreen.camList.LinkAll( gShader, Camera::ROTATION, "R" );
   myScreen.camList.LinkAll( gShader, Camera::VIEW, "P" );
   myScreen.camList.LinkAll( gShader, Camera::CTM, "CTM" );
-
-  gettimeofday( &_T1, NULL );
 
   glEnable( GL_DEPTH_TEST );
   glClearColor( 0.1, 0.1, 0.1, 1.0 );
@@ -533,22 +527,8 @@ void movelight(void) {
 
 void idle( void ) {
 
-  int i, j;
-  gettimeofday( &_T2, NULL );
-  
-
-  if (!(i = _T2.tv_sec - _T1.tv_sec))
-    j = _T2.tv_usec - _T1.tv_usec;
-  else
-    if ((j = _T2.tv_usec - _T1.tv_usec) < 0) {
-      --i;
-      j += 1000000;
-    }
-  fprintf( stderr, "%d:%d\n", i, j );
-  _T1 = _T2;
-  
+  static Timer Tock;
   movelight();
-  
 
 #ifdef WII
   if (usingWii) {
