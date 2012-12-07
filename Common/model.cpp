@@ -14,6 +14,29 @@ extern color4  colors[];
 extern vec3  normals[];
 
 
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <vector>
+
+
+using std::vector       ;
+using std::fstream      ;
+using std::ifstream     ;
+using std::istringstream;
+using std::string       ;
+using std::ios          ;
+using std::cerr         ;
+using std::endl         ;
+
+
+/*
+#include <vector>
+#include <ifstream>
+#include <stream>
+#include <string>*/
+
+
 void createPoint( point4 const &the_point, color4 const &the_color, vec3 const &the_normal ) {
   static int Index = 0;
   points[Index]  = the_point ;
@@ -237,3 +260,105 @@ void colorcube( GLfloat size ) {
 }
 
 //--------------------------------------------------------------------
+
+/**
+ model loader:
+ Shamelessly ripped straight from the Simiandroid's main source file!
+
+  .obj model loader
+  models must be triangulated, and have normals included to be
+  correctly parsed
+  vertices, normals, vertex elements, and normal elements will be returned to pointers to vectors
+*/
+
+
+/*
+  Basic function to split strings over a delimiter
+  used in model parsing
+*/
+vector<string> split(string str, char delim)
+{
+  vector<string> *elements = new vector<string>();
+
+  // loop through and break string up by the deliminator
+  while (str.find_first_of(delim) != string::npos)
+    {
+      // position of deliminator in current string
+      int pos = str.find_first_of(delim);
+
+      elements->push_back(str.substr(0, pos));
+
+      str = str.substr(pos + 1);
+    }
+
+  // str will have the final element remaining in it
+  elements->push_back(str);
+
+  return *elements;
+}
+
+void load_obj(const char* filename, vector<vec4> &vertices,
+	      vector<vec3> &normals, vector<GLushort> &v_elements,
+	      vector<GLushort> &n_elements)
+{
+  // file input stream
+  ifstream in(filename, ios::in);
+
+  if (!in)
+    {
+      cerr << "Cannot open " << filename << endl;
+      exit(1);
+    }
+
+  string line;
+
+  while (getline(in, line))
+    {
+      // lines beginning with 'v ' have vertices
+      if (line.substr(0, 2) == "v ")
+	{
+	  // read in vertex coords
+	  istringstream s(line.substr(2));
+	  vec4 v;
+	  s >> v.x;
+	  s >> v.y;
+	  s >> v.z;
+	  v.w = 1.0;
+	    
+	  vertices.push_back(v);
+	}
+      // lines beginning with 'f ' have elements
+      else if (line.substr(0, 2) == "f ")
+	{
+	  istringstream s(line.substr(2));
+	  string a, b, c;
+	  s >> a;
+	  s >> b;
+	  s >> c;
+
+	  // split elements by '/'
+	  v_elements.push_back(atoi(split(a, '/')[0].c_str()));
+	  v_elements.push_back(atoi(split(b, '/')[0].c_str()));
+	  v_elements.push_back(atoi(split(c, '/')[0].c_str()));
+
+	  n_elements.push_back(atoi(split(a, '/')[2].c_str()));
+	  n_elements.push_back(atoi(split(b, '/')[2].c_str()));
+	  n_elements.push_back(atoi(split(c, '/')[2].c_str()));
+	}
+      // lines beginning with 'vn ' will have normals
+      else if (line.substr(0, 3) == "vn ") {
+	istringstream s(line.substr(3));
+	vec3 vn;
+	s >> vn.x;
+	s >> vn.y;
+	s >> vn.z;
+	  
+	normals.push_back(vn);
+      }
+      else if (line[0] == '#') { /* ignore comments */ }
+      else { /* blank/junk */ }
+    }
+
+}
+
+

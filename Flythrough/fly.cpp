@@ -1,7 +1,7 @@
-#define X_SIZE (800)
-#define Y_SIZE (600)
+#include <cmath> 
+#include <wiicpp.h>
+#include <vector>
 
-#include <cmath>
 #include "platform.h" /* Multi-platform support and OpenGL headers */
 #include "vec.hpp"
 #include "mat.hpp"
@@ -27,11 +27,26 @@ bool usingWii = false;
 
 /** Disgusting, horrible, awful Globals **/
 #ifndef __CUBE__ // Globals for Pyramid Model
+
+using std::vector;
+
+/**** MODELS? ****/
+
+int NumVertices ;
+
+
+
+
+/**** PYRAMID ****/
+#if 0 
+//__CUBE__
+
 const int NumTimesToSubdivide = 4;
 const int NumTetrahedrons = 4*4*4*4;//intPow(4, NumTimesToSubdivide) ;
 const int NumTriangles = 4*NumTetrahedrons;
 const int NumVertices = 3*NumTriangles+6;
 #endif
+
 #ifdef __CUBE__ // Globals for Cube Model
 const int NumVertices = 36;
 #endif
@@ -40,6 +55,21 @@ point4 points[NumVertices];
 color4 colors[NumVertices];
 vec3  normals[NumVertices];
 Cameras camList( 1 );
+
+#if 0// __CUBE__
+/**** CUBE ****/
+const int NumVertices = 36;
+#endif
+
+//point4 points[NumVertices];
+//color4 colors[NumVertices];
+//vec3  normals[NumVertices];
+
+Cameras camList( 2 );
+CWii Wii;
+bool usingWii = false;
+
+
 int Width = X_SIZE;
 int X_Center = (Width/2);
 int Height = Y_SIZE;
@@ -68,11 +98,6 @@ GLuint gl_SpecularProduct ;
 GLuint gl_AmbientProduct2 ;
 GLuint gl_DiffuseProduct2 ;
 GLuint gl_SpecularProduct2 ;
-
-
-
-
-
 
 
 
@@ -141,6 +166,7 @@ void init_lights( GLuint program ) {
 
 void cameraInit( Camera& cam ) {
 
+
   /* Link this camera to our standard shader variables. */
   cam.link( gShader, Camera::TRANSLATION, "T" );
   cam.link( gShader, Camera::ROTATION, "R" );
@@ -151,8 +177,143 @@ void cameraInit( Camera& cam ) {
 
 }
 
-void init() {
+typedef struct modelData{
+
+  vector<vec4> vertices;
+  vector<vec3> normals;
+  vector<vec3> colors;
+
+
+} modelData;
+
+
+//void init() {
   
+
+
+void model_init()
+{
+
+  vector<vec4> raw_vertices;
+  vector<vec4> vertices;
+  vector<vec3> normals;
+  vector<vec3> raw_normals;
+  vector<GLushort> v_elements;
+  vector<GLushort> n_elements;
+  vector<vec3> colors;
+
+    
+  load_obj("../models/heavyhead.obj", raw_vertices, raw_normals, v_elements, n_elements);
+
+
+  
+  //push vertices obtained from the model loader in the order specified in the .obj elements section
+  for (unsigned int i = 0; i < v_elements.size(); i++)
+    {
+      vertices.push_back(raw_vertices[v_elements[i] - 1]);
+    }
+  NumVertices = vertices.size();
+
+  //push normals obtained from the model loader in the order specified in the .obj elements section
+  for (unsigned int i = 0; i < n_elements.size(); i++)
+    {
+      normals.push_back(raw_normals[n_elements[i] - 1]);
+    }
+
+  //Set color of all vertices to be white
+  colors.resize(vertices.size());
+  for (unsigned int i = 0; i < vertices.size(); i++)
+    {
+      colors[i] = vec3(1.0, 1.0, 1.0);
+    }
+
+  // Create a vertex array object
+  GLuint vao;
+  glGenVertexArrays( 1, &vao );
+  glBindVertexArray( vao );
+  
+  // Create and initialize a buffer object
+  GLuint buffer;
+  glGenBuffers( 1, &buffer );
+  glBindBuffer( GL_ARRAY_BUFFER, buffer );
+  
+  // First, we create an empty buffer of the size we need by passing
+  //   a NULL pointer for the data values
+  glBufferData( GL_ARRAY_BUFFER, sizeof(vec4) * vertices.size() + sizeof(vec3) * colors.size() 
+		+ sizeof(vec3) * normals.size(), NULL, GL_STATIC_DRAW );
+  
+  // Next, we load the real data in parts.  We need to specify the
+  //   correct byte offset for placing the color data after the point
+  //   data in the buffer.  Conveniently, the byte offset we need is
+  //   the same as the size (in bytes) of the points array, which is
+  //   returned from "sizeof(points)".
+  glBufferSubData( GL_ARRAY_BUFFER, 0, sizeof(vec4) * vertices.size(), &vertices[0]);
+  glBufferSubData( GL_ARRAY_BUFFER, sizeof(vec4) * vertices.size(), 
+		   sizeof(vec3) * colors.size(), &colors[0]);
+  glBufferSubData( GL_ARRAY_BUFFER, sizeof(vec4) * vertices.size() + sizeof(vec3) * colors.size(),
+		   sizeof(vec3) * normals.size(), &normals[0]);
+
+
+  // Load shaders and use the resulting shader program
+  GLuint program = InitShader( "vshader.glsl", "fshader.glsl" );
+  glUseProgram(program);
+
+  GLuint vPosition = glGetAttribLocation(program, "vPosition");
+  glEnableVertexAttribArray( vPosition );
+  glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0,
+			 BUFFER_OFFSET(0) );
+  
+  // Likewise, initialize the vertex color attribute.  Once again, we
+  //    need to specify the starting offset (in bytes) for the color
+  //    data.  Just like loading the array, we use "sizeof(points)"
+  //    to determine the correct value.
+  GLuint vColor = glGetAttribLocation( program, "vColor" );
+  glEnableVertexAttribArray( vColor );
+  glVertexAttribPointer( vColor, 3, GL_FLOAT, GL_FALSE, 0,
+			 BUFFER_OFFSET(sizeof(vec4) * vertices.size()) );
+
+  GLuint vNormal = glGetAttribLocation( program, "vNormal" );
+  glEnableVertexAttribArray( vNormal );
+  glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0,
+			 BUFFER_OFFSET(sizeof(vec4) * vertices.size() + sizeof(vec3) * colors.size()) );
+  
+  matLoc = glGetUniformLocation(program, "m");
+
+
+  // More init stuff, but only lighting-related.                                                                               
+  init_lights(program);
+
+
+  /* Linkify! */
+  camList.LinkAll( program, Camera::TRANSLATION, "T" );
+  camList.LinkAll( program, Camera::ROTATION, "R" );
+  camList.LinkAll( program, Camera::VIEW, "P" );
+  camList.LinkAll( program, Camera::CTM, "CTM" );
+  /* FOV must be set after linking a camera with the VIEW and CTM matrices. */
+  CAMERAS_MSG( camList, FOV(45.0) );
+  /* Set the active camera to camera #0. */
+  camList.Active(0);
+
+  glEnable( GL_DEPTH_TEST );
+  glClearColor( 0.0, 0.0, 0.0, 1.0 ); /* black background */
+  //glClearColor( 0.1, 0.1, 0.1, 1.0 );
+
+
+
+}
+
+void init() {
+
+
+#define __MODEL__ 1
+
+#if defined (__MODEL__)
+
+  init_model();
+
+#else
+
+
 #ifndef __CUBE__
   divide_tetra( //  divide_tetra_alt( 
 	       vec4(  0,      1,  0, 1 ),
@@ -171,26 +332,37 @@ void init() {
        vec4( 0.8, 0.1, 0.6, 1 ),
        vec4( 0.8, 0.1, 0.6, 1 ),
        vec4( 0.8, 0.1, 0.6, 1 ) );
+
 #endif
   
 #ifdef __CUBE__
   colorcube(GLfloat(0.5));
 #endif
   
+  if (LIGHT_DUMMY) {
+    triangle( light_position,
+	      light_position+point4(0.0, 0.1, 0.0, 0.0),  //point4(0.9, 1.0, 0.9, 1.0),
+	      light_position+point4(0.1, 0.0, 0.0, 0.0),  //point4(0.9, 0.9, 1.0, 1.0),
+	      4 ); // Add a dumb triangle here for the lighting.
+  }
+
+#endif
+#endif
+
   GLuint vao;
   glGenVertexArrays( 1, &vao );
   glBindVertexArray( vao );
-  
+
   // Create and initialize a buffer object
   GLuint buffer;
   glGenBuffers( 1, &buffer );
   glBindBuffer( GL_ARRAY_BUFFER, buffer );
-  
+
   // First, we create an empty buffer of the size we need by passing
   //   a NULL pointer for the data values
   glBufferData( GL_ARRAY_BUFFER, sizeof(points) + sizeof(colors) + sizeof(normals),
 		NULL, GL_STATIC_DRAW );
-  
+
   // Next, we load the real data in parts.  We need to specify the
   //   correct byte offset for placing the color data after the point
   //   data in the buffer.  Conveniently, the byte offset we need is
@@ -204,15 +376,17 @@ void init() {
   gShader = Angel::InitShader( "vshader.glsl", "fshader.glsl" );
   glUseProgram( gShader );
 
+
   // More init stuff, but only lighting-related.
   init_lights( gShader );
-  
+
+
   // Initialize the vertex position attribute from the vertex shader  
   GLuint vPosition = glGetAttribLocation( gShader, "vPosition" );
   glEnableVertexAttribArray( vPosition );
   glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0,
 			 (GLvoid*)0 );
-  
+
   // Likewise, initialize the vertex color attribute.  Once again, we
   //    need to specify the starting offset (in bytes) for the color
   //    data.  Just like loading the array, we use "sizeof(points)"
@@ -227,6 +401,7 @@ void init() {
   glEnableVertexAttribArray( vNormal );
   glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0,
 			 (GLvoid*)(sizeof(points)+sizeof(colors)));
+
 
   /* Linkify! */
   camList.LinkAll( gShader, Camera::TRANSLATION, "T" );
@@ -438,6 +613,10 @@ void keyboard( unsigned char key, int x, int y ) {
     lightOrbit = 6; break;
   case '7':
     lightOrbit = 7; break;
+  case '8':
+    lightOrbit = 8; break;
+  case '9':
+    lightOrbit = 9; break;
 
     // Pressing m cycles through the light modes for the static light source.
   case 'm':  lightMode = (lightMode+1) % 4; break;
@@ -525,9 +704,10 @@ void idle( void ) {
 
 #ifdef WII
   if (usingWii) {
-    for (size_t i = 0; i < 20; ++i) {
+    for (size_t i = 0; i < 2; ++i) {
       pollWii( Wii );
       camList.Active().Accel( bb_magnitudes );
+      fprintf(stderr, ".");
     }
   }
 #endif

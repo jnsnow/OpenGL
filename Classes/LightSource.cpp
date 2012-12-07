@@ -8,6 +8,19 @@
 #include "LightSource.hpp"
 #include "Angel.h"
 
+/*
+   point4   position( 0.0, 0.0, 0.0, 0.0 ) ;
+   vec3    direction( 0.0, 0.0, 0.0 ) ;
+
+   color4 light_ambient(  0.0, 0.0, 0.0, 1.0 );
+   color4 light_diffuse(  0.0, 0.0, 0.0, 1.0 );
+   color4 light_specular( 0.0, 0.0, 0.0, 1.0 );
+
+   light_effect effect ;
+
+   const unsigned int id;
+*/
+
 
 LightSource::LightSource() {
 }
@@ -50,20 +63,19 @@ vec3 LightSource::GetDirection() const {
   return direction ;
 }
 
-void LightSource::SetPosition(point4 z) {
-  this->z = z ;
+void LightSource::SetPosition(point4 position) {
+  this->position = position ;
 }
 
 point4 LightSource::GetPoint() const {
-  return z ;
+  return position ;
 }
 
 
-
-
 void
-init_lights(void)
-{ // Initialize shader lighting parameters
+init_lights(void) {
+
+  // Initialize shader lighting parameters
   //    point4 light_position( 0.0, 0.0, -1.0, 0.0 );
   //    point4 light_position2( 0.0, 2.0, -1.0, 0.0 );
   color4 light_ambient( 0.2, 0.2, 0.2, 1.0 );
