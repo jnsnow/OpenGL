@@ -3,28 +3,30 @@
 # John Huston
 # Adapted from My Generic Makefile,
 # Written September 20, 2011
-# Modified November 27, 2012
+# Modified December 6, 2012
 #
-# Known bugs: Dependencies for .cpp files outside of the base directory
-# Are not properly considered when rebuilding. Fresh builds appear to be OK.
+# Usages:
+# make [all]: Build all code with optimization and no debugging symbols.
+# make debug: Build all code with optimization disabled, gdb debugging symbols, and DEBUG flag enabled.
+# make docs: Build doxygen documentation.
 #
-# This is due to the fact that the generated .d files, while generating 
-# correct relative paths in the dependency list,
-# Does not correctly write the relative path of the target.
-# 
-# I.e, the target "Cameras.o: ...deplist..." should be "../Classes/Cameras.o: ...deplist...".
+# Flags:
+# WII=TRUE -- Enable Wii Controls.
+# POSTMULT -- Enable Post multiplication code.
 
+# We can define the relative dir. By default, assume the root is up one.
 ifndef RELDIR
 	RELDIR=..
 endif
 
+# Define our directories where the goodies live.
 COMMON_DIR = $(RELDIR)/Common
 CLASSES_DIR = $(RELDIR)/Classes
 
-UNAME := $(shell uname)
+# Some basic, common settings.
 EXT=cpp
 CC=g++
-CFLAGS=-Wall -pedantic -ggdb -I $(RELDIR)/include -O2 
+CFLAGS=-Wall -pedantic -I $(RELDIR)/include
 EXECS=fly
 SOURCES=fly.cpp \
 	$(COMMON_DIR)/model.cpp \
@@ -34,20 +36,34 @@ SOURCES=fly.cpp \
 	$(COMMON_DIR)/InitShader.cpp \
 	$(CLASSES_DIR)/Cameras.cpp \
 	$(CLASSES_DIR)/Screen.cpp
+
+# Platform-dependent configuration.
+UNAME := $(shell uname)
 ifeq ($(UNAME), Linux)
 LDFLAGS= -lGL -lGLU -lGLEW -lglut -lXmu -lX11 -lm
 endif
+
 ifeq ($(UNAME), Darwin)
 LDFLAGS= -framework Carbon -framework OpenGL -framework GLUT
 endif
+
+# Configuration Options
 ifdef POSTMULT
 	CFLAGS += -DPOSTMULT
 endif
+
 ifdef WII
 	CFLAGS += -DWII -I/usr/local/include/wiic
 	LDFLAGS += -lwiic -lwiicpp
 	SOURCES += $(COMMON_DIR)/WiiUtil.cpp
 endif
+
+ifdef DEBUG
+	CFLAGS += -DDEBUG -O0 -ggdb
+else
+	CFLAGS += -O3
+endif
+
 
 OBJS=$(subst .$(EXT),.o,$(SOURCES))
 DEPS=$(subst .$(EXT),.d,$(SOURCES))

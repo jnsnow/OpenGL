@@ -1,3 +1,4 @@
+#include <sys/time.h>
 #include <cmath>
 #include "platform.h" /* Multi-platform support and OpenGL headers */
 #include "vec.hpp"
@@ -7,6 +8,14 @@
 #include "InitShader.hpp"
 #include "Cameras.hpp"
 #include "Screen.hpp"
+
+// Turn on debugging if it's been requested of us by the Makefile environment.
+#ifndef DEBUG
+#define DEBUG false
+#else
+#undef DEBUG
+#define DEBUG true
+#endif
 
 // Type Aliases
 using Angel::vec3;
@@ -34,11 +43,13 @@ const int NumVertices = 3*NumTriangles+6;
 const int NumVertices = 36;
 #endif
 
-point4 points[NumVertices];
-color4 colors[NumVertices];
-vec3  normals[NumVertices];
+extern point4 points[NumVertices];
+extern color4 colors[NumVertices];
+extern vec3  normals[NumVertices];
 Screen myScreen( 800, 600 );
 GLuint gShader;
+struct timeval _T1;
+struct timeval _T2;
 
 //--------------------------------------------------------------------
 // OpenGL's disgusting, terrible globals initialization
@@ -227,6 +238,8 @@ void init() {
   myScreen.camList.LinkAll( gShader, Camera::ROTATION, "R" );
   myScreen.camList.LinkAll( gShader, Camera::VIEW, "P" );
   myScreen.camList.LinkAll( gShader, Camera::CTM, "CTM" );
+
+  gettimeofday( &_T1, NULL );
 
   glEnable( GL_DEPTH_TEST );
   glClearColor( 0.1, 0.1, 0.1, 1.0 );
@@ -520,7 +533,22 @@ void movelight(void) {
 
 void idle( void ) {
 
+  int i, j;
+  gettimeofday( &_T2, NULL );
+  
+
+  if (!(i = _T2.tv_sec - _T1.tv_sec))
+    j = _T2.tv_usec - _T1.tv_usec;
+  else
+    if ((j = _T2.tv_usec - _T1.tv_usec) < 0) {
+      --i;
+      j += 1000000;
+    }
+  fprintf( stderr, "%d:%d\n", i, j );
+  _T1 = _T2;
+  
   movelight();
+  
 
 #ifdef WII
   if (usingWii) {
@@ -576,6 +604,14 @@ int main( int argc, char **argv ) {
   glutPassiveMotionFunc( mouselook );
   glutIdleFunc( idle );
   glutReshapeFunc( resizeEvent );
+
+  if (DEBUG) {
+    fprintf( stderr, "GL_VENDOR: %s\n", glGetString( GL_VENDOR ));
+    fprintf( stderr, "GL_RENDERER: %s\n", glGetString( GL_RENDERER ));
+    fprintf( stderr, "GL_VERSION: %s\n", glGetString( GL_VERSION ));
+    fprintf( stderr, "GL_SHADING_LANGUAGE_VERSION: %s\n", 
+	     glGetString( GL_SHADING_LANGUAGE_VERSION ));
+  }
 
   /* PULL THE TRIGGER */
   glutMainLoop();

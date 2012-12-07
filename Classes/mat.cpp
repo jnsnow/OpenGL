@@ -141,7 +141,7 @@ namespace Angel {
       if ( std::fabs(s) < DivideByZeroTolerance ) {
 	std::cerr << "[" << __FILE__ << ":" << __LINE__ << "] "
 		  << "Division by zero" << std::endl;
-	return mat2();
+	return (*this = mat2());
       }
     }
 #endif // DEBUG
@@ -317,7 +317,7 @@ namespace Angel {
     if ( std::fabs(s) < DivideByZeroTolerance ) {
       std::cerr << "[" << __FILE__ << ":" << __LINE__ << "] "
 		<< "Division by zero" << std::endl;
-      return mat3();
+      return (*this = mat3());
     }
 #endif // DEBUG
   
@@ -500,7 +500,7 @@ namespace Angel {
     if ( std::fabs(s) < DivideByZeroTolerance ) {
       std::cerr << "[" << __FILE__ << ":" << __LINE__ << "] "
 		<< "Division by zero" << std::endl;
-      return mat4();
+      return (*this = mat4());
     }
 #endif // DEBUG
     

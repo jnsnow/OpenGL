@@ -14,6 +14,7 @@
 
 #include "vec.hpp"
 #include <cmath>
+#include "globals.h"
 
 namespace Angel {
 
