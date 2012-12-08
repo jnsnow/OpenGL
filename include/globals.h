@@ -6,5 +6,6 @@
 #define SQRT2 (1.41421356237)
 #define SQRT3 (1.73205080757)
 #define POW5(X) ((X)*(X)*(X)*(X)*(X))
+const GLfloat DivideByZeroTolerance = GLfloat(1.0e-07);
 
 #endif

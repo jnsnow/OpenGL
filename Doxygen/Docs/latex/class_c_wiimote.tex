@@ -1,149 +1,149 @@
-\hypertarget{class_c_wiimote}{\section{\-C\-Wiimote \-Class \-Reference}
-\label{class_c_wiimote}\index{\-C\-Wiimote@{\-C\-Wiimote}}
+\hypertarget{class_c_wiimote}{\section{C\-Wiimote Class Reference}
+\label{class_c_wiimote}\index{C\-Wiimote@{C\-Wiimote}}
 }
-\subsection*{\-Public \-Types}
+\subsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
-enum {\bfseries \-L\-E\-D\-S} \{ \*
-{\bfseries \-L\-E\-D\-\_\-\-N\-O\-N\-E} =  \-W\-I\-I\-M\-O\-T\-E\-\_\-\-L\-E\-D\-\_\-\-N\-O\-N\-E, 
-{\bfseries \-L\-E\-D\-\_\-1} =  \-W\-I\-I\-M\-O\-T\-E\-\_\-\-L\-E\-D\-\_\-1, 
-{\bfseries \-L\-E\-D\-\_\-2} =  \-W\-I\-I\-M\-O\-T\-E\-\_\-\-L\-E\-D\-\_\-2, 
-{\bfseries \-L\-E\-D\-\_\-3} =  \-W\-I\-I\-M\-O\-T\-E\-\_\-\-L\-E\-D\-\_\-3, 
-\*
-{\bfseries \-L\-E\-D\-\_\-4} =  \-W\-I\-I\-M\-O\-T\-E\-\_\-\-L\-E\-D\-\_\-4
+enum {\bfseries L\-E\-D\-S} \{ \\*
+{\bfseries L\-E\-D\-\_\-\-N\-O\-N\-E} =  W\-I\-I\-M\-O\-T\-E\-\_\-\-L\-E\-D\-\_\-\-N\-O\-N\-E, 
+{\bfseries L\-E\-D\-\_\-1} =  W\-I\-I\-M\-O\-T\-E\-\_\-\-L\-E\-D\-\_\-1, 
+{\bfseries L\-E\-D\-\_\-2} =  W\-I\-I\-M\-O\-T\-E\-\_\-\-L\-E\-D\-\_\-2, 
+{\bfseries L\-E\-D\-\_\-3} =  W\-I\-I\-M\-O\-T\-E\-\_\-\-L\-E\-D\-\_\-3, 
+\\*
+{\bfseries L\-E\-D\-\_\-4} =  W\-I\-I\-M\-O\-T\-E\-\_\-\-L\-E\-D\-\_\-4
  \}
 \item 
-enum {\bfseries \-Flags} \{ {\bfseries \-F\-L\-A\-G\-\_\-\-S\-M\-O\-O\-T\-H\-I\-N\-G} =  \-W\-I\-I\-C\-\_\-\-S\-M\-O\-O\-T\-H\-I\-N\-G, 
-{\bfseries \-F\-L\-A\-G\-\_\-\-C\-O\-N\-T\-I\-N\-U\-O\-U\-S} =  \-W\-I\-I\-C\-\_\-\-C\-O\-N\-T\-I\-N\-U\-O\-U\-S, 
-{\bfseries \-F\-L\-A\-G\-\_\-\-O\-R\-I\-E\-N\-T\-\_\-\-T\-H\-R\-E\-S\-H} =  \-W\-I\-I\-C\-\_\-\-O\-R\-I\-E\-N\-T\-\_\-\-T\-H\-R\-E\-S\-H, 
-{\bfseries \-F\-L\-A\-G\-\_\-\-I\-N\-I\-T\-\_\-\-F\-L\-A\-G\-S} =  \-W\-I\-I\-C\-\_\-\-I\-N\-I\-T\-\_\-\-F\-L\-A\-G\-S
+enum {\bfseries Flags} \{ {\bfseries F\-L\-A\-G\-\_\-\-S\-M\-O\-O\-T\-H\-I\-N\-G} =  W\-I\-I\-C\-\_\-\-S\-M\-O\-O\-T\-H\-I\-N\-G, 
+{\bfseries F\-L\-A\-G\-\_\-\-C\-O\-N\-T\-I\-N\-U\-O\-U\-S} =  W\-I\-I\-C\-\_\-\-C\-O\-N\-T\-I\-N\-U\-O\-U\-S, 
+{\bfseries F\-L\-A\-G\-\_\-\-O\-R\-I\-E\-N\-T\-\_\-\-T\-H\-R\-E\-S\-H} =  W\-I\-I\-C\-\_\-\-O\-R\-I\-E\-N\-T\-\_\-\-T\-H\-R\-E\-S\-H, 
+{\bfseries F\-L\-A\-G\-\_\-\-I\-N\-I\-T\-\_\-\-F\-L\-A\-G\-S} =  W\-I\-I\-C\-\_\-\-I\-N\-I\-T\-\_\-\-F\-L\-A\-G\-S
  \}
 \item 
-enum {\bfseries \-Event\-Types} \{ \*
-{\bfseries \-E\-V\-E\-N\-T\-\_\-\-N\-O\-N\-E} =  \-W\-I\-I\-C\-\_\-\-N\-O\-N\-E, 
-{\bfseries \-E\-V\-E\-N\-T\-\_\-\-E\-V\-E\-N\-T} =  \-W\-I\-I\-C\-\_\-\-E\-V\-E\-N\-T, 
-{\bfseries \-E\-V\-E\-N\-T\-\_\-\-S\-T\-A\-T\-U\-S} =  \-W\-I\-I\-C\-\_\-\-S\-T\-A\-T\-U\-S, 
-{\bfseries \-E\-V\-E\-N\-T\-\_\-\-C\-O\-N\-N\-E\-C\-T} =  \-W\-I\-I\-C\-\_\-\-C\-O\-N\-N\-E\-C\-T, 
-\*
-{\bfseries \-E\-V\-E\-N\-T\-\_\-\-D\-I\-S\-C\-O\-N\-N\-E\-C\-T} =  \-W\-I\-I\-C\-\_\-\-D\-I\-S\-C\-O\-N\-N\-E\-C\-T, 
-{\bfseries \-E\-V\-E\-N\-T\-\_\-\-U\-N\-E\-X\-P\-E\-C\-T\-E\-D\-\_\-\-D\-I\-S\-C\-O\-N\-N\-E\-C\-T} =  \-W\-I\-I\-C\-\_\-\-U\-N\-E\-X\-P\-E\-C\-T\-E\-D\-\_\-\-D\-I\-S\-C\-O\-N\-N\-E\-C\-T, 
-{\bfseries \-E\-V\-E\-N\-T\-\_\-\-R\-E\-A\-D\-\_\-\-D\-A\-T\-A} =  \-W\-I\-I\-C\-\_\-\-R\-E\-A\-D\-\_\-\-D\-A\-T\-A, 
-{\bfseries \-E\-V\-E\-N\-T\-\_\-\-N\-U\-N\-C\-H\-U\-K\-\_\-\-I\-N\-S\-E\-R\-T\-E\-D} =  \-W\-I\-I\-C\-\_\-\-N\-U\-N\-C\-H\-U\-K\-\_\-\-I\-N\-S\-E\-R\-T\-E\-D, 
-\*
-{\bfseries \-E\-V\-E\-N\-T\-\_\-\-N\-U\-N\-C\-H\-U\-K\-\_\-\-R\-E\-M\-O\-V\-E\-D} =  \-W\-I\-I\-C\-\_\-\-N\-U\-N\-C\-H\-U\-K\-\_\-\-R\-E\-M\-O\-V\-E\-D, 
-{\bfseries \-E\-V\-E\-N\-T\-\_\-\-C\-L\-A\-S\-S\-I\-C\-\_\-\-C\-T\-R\-L\-\_\-\-I\-N\-S\-E\-R\-T\-E\-D} =  \-W\-I\-I\-C\-\_\-\-C\-L\-A\-S\-S\-I\-C\-\_\-\-C\-T\-R\-L\-\_\-\-I\-N\-S\-E\-R\-T\-E\-D, 
-{\bfseries \-E\-V\-E\-N\-T\-\_\-\-C\-L\-A\-S\-S\-I\-C\-\_\-\-C\-T\-R\-L\-\_\-\-R\-E\-M\-O\-V\-E\-D} =  \-W\-I\-I\-C\-\_\-\-C\-L\-A\-S\-S\-I\-C\-\_\-\-C\-T\-R\-L\-\_\-\-R\-E\-M\-O\-V\-E\-D, 
-{\bfseries \-E\-V\-E\-N\-T\-\_\-\-G\-U\-I\-T\-A\-R\-\_\-\-H\-E\-R\-O\-\_\-3\-\_\-\-C\-T\-R\-L\-\_\-\-I\-N\-S\-E\-R\-T\-E\-D} =  \-W\-I\-I\-C\-\_\-\-G\-U\-I\-T\-A\-R\-\_\-\-H\-E\-R\-O\-\_\-3\-\_\-\-C\-T\-R\-L\-\_\-\-I\-N\-S\-E\-R\-T\-E\-D, 
-\*
-{\bfseries \-E\-V\-E\-N\-T\-\_\-\-G\-U\-I\-T\-A\-R\-\_\-\-H\-E\-R\-O\-\_\-3\-\_\-\-C\-T\-R\-L\-\_\-\-R\-E\-M\-O\-V\-E\-D} =  \-W\-I\-I\-C\-\_\-\-G\-U\-I\-T\-A\-R\-\_\-\-H\-E\-R\-O\-\_\-3\-\_\-\-C\-T\-R\-L\-\_\-\-R\-E\-M\-O\-V\-E\-D, 
-{\bfseries \-E\-V\-E\-N\-T\-\_\-\-M\-O\-T\-I\-O\-N\-\_\-\-P\-L\-U\-S\-\_\-\-I\-N\-S\-E\-R\-T\-E\-D} =  \-W\-I\-I\-C\-\_\-\-M\-O\-T\-I\-O\-N\-\_\-\-P\-L\-U\-S\-\_\-\-I\-N\-S\-E\-R\-T\-E\-D, 
-{\bfseries \-E\-V\-E\-N\-T\-\_\-\-M\-O\-T\-I\-O\-N\-\_\-\-P\-L\-U\-S\-\_\-\-R\-E\-M\-O\-V\-E\-D} =  \-W\-I\-I\-C\-\_\-\-M\-O\-T\-I\-O\-N\-\_\-\-P\-L\-U\-S\-\_\-\-R\-E\-M\-O\-V\-E\-D, 
-{\bfseries \-E\-V\-E\-N\-T\-\_\-\-B\-A\-L\-A\-N\-C\-E\-\_\-\-B\-O\-A\-R\-D\-\_\-\-I\-N\-S\-E\-R\-T\-E\-D} =  \-W\-I\-I\-C\-\_\-\-B\-A\-L\-A\-N\-C\-E\-\_\-\-B\-O\-A\-R\-D\-\_\-\-I\-N\-S\-E\-R\-T\-E\-D, 
-\*
-{\bfseries \-E\-V\-E\-N\-T\-\_\-\-B\-A\-L\-A\-N\-C\-E\-\_\-\-B\-O\-A\-R\-D\-\_\-\-R\-E\-M\-O\-V\-E\-D} =  \-W\-I\-I\-C\-\_\-\-B\-A\-L\-A\-N\-C\-E\-\_\-\-B\-O\-A\-R\-D\-\_\-\-R\-E\-M\-O\-V\-E\-D
+enum {\bfseries Event\-Types} \{ \\*
+{\bfseries E\-V\-E\-N\-T\-\_\-\-N\-O\-N\-E} =  W\-I\-I\-C\-\_\-\-N\-O\-N\-E, 
+{\bfseries E\-V\-E\-N\-T\-\_\-\-E\-V\-E\-N\-T} =  W\-I\-I\-C\-\_\-\-E\-V\-E\-N\-T, 
+{\bfseries E\-V\-E\-N\-T\-\_\-\-S\-T\-A\-T\-U\-S} =  W\-I\-I\-C\-\_\-\-S\-T\-A\-T\-U\-S, 
+{\bfseries E\-V\-E\-N\-T\-\_\-\-C\-O\-N\-N\-E\-C\-T} =  W\-I\-I\-C\-\_\-\-C\-O\-N\-N\-E\-C\-T, 
+\\*
+{\bfseries E\-V\-E\-N\-T\-\_\-\-D\-I\-S\-C\-O\-N\-N\-E\-C\-T} =  W\-I\-I\-C\-\_\-\-D\-I\-S\-C\-O\-N\-N\-E\-C\-T, 
+{\bfseries E\-V\-E\-N\-T\-\_\-\-U\-N\-E\-X\-P\-E\-C\-T\-E\-D\-\_\-\-D\-I\-S\-C\-O\-N\-N\-E\-C\-T} =  W\-I\-I\-C\-\_\-\-U\-N\-E\-X\-P\-E\-C\-T\-E\-D\-\_\-\-D\-I\-S\-C\-O\-N\-N\-E\-C\-T, 
+{\bfseries E\-V\-E\-N\-T\-\_\-\-R\-E\-A\-D\-\_\-\-D\-A\-T\-A} =  W\-I\-I\-C\-\_\-\-R\-E\-A\-D\-\_\-\-D\-A\-T\-A, 
+{\bfseries E\-V\-E\-N\-T\-\_\-\-N\-U\-N\-C\-H\-U\-K\-\_\-\-I\-N\-S\-E\-R\-T\-E\-D} =  W\-I\-I\-C\-\_\-\-N\-U\-N\-C\-H\-U\-K\-\_\-\-I\-N\-S\-E\-R\-T\-E\-D, 
+\\*
+{\bfseries E\-V\-E\-N\-T\-\_\-\-N\-U\-N\-C\-H\-U\-K\-\_\-\-R\-E\-M\-O\-V\-E\-D} =  W\-I\-I\-C\-\_\-\-N\-U\-N\-C\-H\-U\-K\-\_\-\-R\-E\-M\-O\-V\-E\-D, 
+{\bfseries E\-V\-E\-N\-T\-\_\-\-C\-L\-A\-S\-S\-I\-C\-\_\-\-C\-T\-R\-L\-\_\-\-I\-N\-S\-E\-R\-T\-E\-D} =  W\-I\-I\-C\-\_\-\-C\-L\-A\-S\-S\-I\-C\-\_\-\-C\-T\-R\-L\-\_\-\-I\-N\-S\-E\-R\-T\-E\-D, 
+{\bfseries E\-V\-E\-N\-T\-\_\-\-C\-L\-A\-S\-S\-I\-C\-\_\-\-C\-T\-R\-L\-\_\-\-R\-E\-M\-O\-V\-E\-D} =  W\-I\-I\-C\-\_\-\-C\-L\-A\-S\-S\-I\-C\-\_\-\-C\-T\-R\-L\-\_\-\-R\-E\-M\-O\-V\-E\-D, 
+{\bfseries E\-V\-E\-N\-T\-\_\-\-G\-U\-I\-T\-A\-R\-\_\-\-H\-E\-R\-O\-\_\-3\-\_\-\-C\-T\-R\-L\-\_\-\-I\-N\-S\-E\-R\-T\-E\-D} =  W\-I\-I\-C\-\_\-\-G\-U\-I\-T\-A\-R\-\_\-\-H\-E\-R\-O\-\_\-3\-\_\-\-C\-T\-R\-L\-\_\-\-I\-N\-S\-E\-R\-T\-E\-D, 
+\\*
+{\bfseries E\-V\-E\-N\-T\-\_\-\-G\-U\-I\-T\-A\-R\-\_\-\-H\-E\-R\-O\-\_\-3\-\_\-\-C\-T\-R\-L\-\_\-\-R\-E\-M\-O\-V\-E\-D} =  W\-I\-I\-C\-\_\-\-G\-U\-I\-T\-A\-R\-\_\-\-H\-E\-R\-O\-\_\-3\-\_\-\-C\-T\-R\-L\-\_\-\-R\-E\-M\-O\-V\-E\-D, 
+{\bfseries E\-V\-E\-N\-T\-\_\-\-M\-O\-T\-I\-O\-N\-\_\-\-P\-L\-U\-S\-\_\-\-I\-N\-S\-E\-R\-T\-E\-D} =  W\-I\-I\-C\-\_\-\-M\-O\-T\-I\-O\-N\-\_\-\-P\-L\-U\-S\-\_\-\-I\-N\-S\-E\-R\-T\-E\-D, 
+{\bfseries E\-V\-E\-N\-T\-\_\-\-M\-O\-T\-I\-O\-N\-\_\-\-P\-L\-U\-S\-\_\-\-R\-E\-M\-O\-V\-E\-D} =  W\-I\-I\-C\-\_\-\-M\-O\-T\-I\-O\-N\-\_\-\-P\-L\-U\-S\-\_\-\-R\-E\-M\-O\-V\-E\-D, 
+{\bfseries E\-V\-E\-N\-T\-\_\-\-B\-A\-L\-A\-N\-C\-E\-\_\-\-B\-O\-A\-R\-D\-\_\-\-I\-N\-S\-E\-R\-T\-E\-D} =  W\-I\-I\-C\-\_\-\-B\-A\-L\-A\-N\-C\-E\-\_\-\-B\-O\-A\-R\-D\-\_\-\-I\-N\-S\-E\-R\-T\-E\-D, 
+\\*
+{\bfseries E\-V\-E\-N\-T\-\_\-\-B\-A\-L\-A\-N\-C\-E\-\_\-\-B\-O\-A\-R\-D\-\_\-\-R\-E\-M\-O\-V\-E\-D} =  W\-I\-I\-C\-\_\-\-B\-A\-L\-A\-N\-C\-E\-\_\-\-B\-O\-A\-R\-D\-\_\-\-R\-E\-M\-O\-V\-E\-D
  \}
 \item 
-enum {\bfseries \-On\-Off\-Selection} \{ {\bfseries \-O\-F\-F} =  0, 
-{\bfseries \-O\-N} =  1
+enum {\bfseries On\-Off\-Selection} \{ {\bfseries O\-F\-F} =  0, 
+{\bfseries O\-N} =  1
  \}
 \end{DoxyCompactItemize}
-\subsection*{\-Public \-Member \-Functions}
+\subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_c_wiimote_aea8deb92b4f4c23ff5f619f92f5740bb}{{\bfseries \-C\-Wiimote} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm\-Ptr)}\label{class_c_wiimote_aea8deb92b4f4c23ff5f619f92f5740bb}
+\hypertarget{class_c_wiimote_aea8deb92b4f4c23ff5f619f92f5740bb}{{\bfseries C\-Wiimote} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm\-Ptr)}\label{class_c_wiimote_aea8deb92b4f4c23ff5f619f92f5740bb}
 
 \item 
-\hypertarget{class_c_wiimote_af907ec89113a3e2ec6f992bb381c6253}{{\bfseries \-C\-Wiimote} (const \hyperlink{class_c_wiimote}{\-C\-Wiimote} \&copyin)}\label{class_c_wiimote_af907ec89113a3e2ec6f992bb381c6253}
+\hypertarget{class_c_wiimote_af907ec89113a3e2ec6f992bb381c6253}{{\bfseries C\-Wiimote} (const \hyperlink{class_c_wiimote}{C\-Wiimote} \&copyin)}\label{class_c_wiimote_af907ec89113a3e2ec6f992bb381c6253}
 
 \item 
-\hypertarget{class_c_wiimote_a39252c75229d1bc9d2acc126304a7ca6}{void {\bfseries \-Disconnected} ()}\label{class_c_wiimote_a39252c75229d1bc9d2acc126304a7ca6}
+\hypertarget{class_c_wiimote_a39252c75229d1bc9d2acc126304a7ca6}{void {\bfseries Disconnected} ()}\label{class_c_wiimote_a39252c75229d1bc9d2acc126304a7ca6}
 
 \item 
-\hypertarget{class_c_wiimote_a4945392c6bcfa461bdcc6b8f5ff25ba1}{void {\bfseries \-Set\-Rumble\-Mode} (\-On\-Off\-Selection \-State)}\label{class_c_wiimote_a4945392c6bcfa461bdcc6b8f5ff25ba1}
+\hypertarget{class_c_wiimote_a4945392c6bcfa461bdcc6b8f5ff25ba1}{void {\bfseries Set\-Rumble\-Mode} (On\-Off\-Selection State)}\label{class_c_wiimote_a4945392c6bcfa461bdcc6b8f5ff25ba1}
 
 \item 
-\hypertarget{class_c_wiimote_af1908b383e4a700c270af461bf1b209d}{void {\bfseries \-Toggle\-Rumble} ()}\label{class_c_wiimote_af1908b383e4a700c270af461bf1b209d}
+\hypertarget{class_c_wiimote_af1908b383e4a700c270af461bf1b209d}{void {\bfseries Toggle\-Rumble} ()}\label{class_c_wiimote_af1908b383e4a700c270af461bf1b209d}
 
 \item 
 \hypertarget{class_c_wiimote_a332038d26d6b67d6a566cc1789bae118}{bool {\bfseries is\-Rumble\-Enabled} ()}\label{class_c_wiimote_a332038d26d6b67d6a566cc1789bae118}
 
 \item 
-\hypertarget{class_c_wiimote_a288872e2efc61d986b4b49e4b868460b}{int {\bfseries \-Get\-L\-E\-Ds} ()}\label{class_c_wiimote_a288872e2efc61d986b4b49e4b868460b}
+\hypertarget{class_c_wiimote_a288872e2efc61d986b4b49e4b868460b}{int {\bfseries Get\-L\-E\-Ds} ()}\label{class_c_wiimote_a288872e2efc61d986b4b49e4b868460b}
 
 \item 
-\hypertarget{class_c_wiimote_a3526e61d6a51b6fc8406aeca60e92318}{void {\bfseries \-Set\-L\-E\-Ds} (int \-L\-E\-Ds)}\label{class_c_wiimote_a3526e61d6a51b6fc8406aeca60e92318}
+\hypertarget{class_c_wiimote_a3526e61d6a51b6fc8406aeca60e92318}{void {\bfseries Set\-L\-E\-Ds} (int L\-E\-Ds)}\label{class_c_wiimote_a3526e61d6a51b6fc8406aeca60e92318}
 
 \item 
-\hypertarget{class_c_wiimote_adb0acbb6196d8782790e818b4babfde7}{float {\bfseries \-Get\-Battery\-Level} ()}\label{class_c_wiimote_adb0acbb6196d8782790e818b4babfde7}
+\hypertarget{class_c_wiimote_adb0acbb6196d8782790e818b4babfde7}{float {\bfseries Get\-Battery\-Level} ()}\label{class_c_wiimote_adb0acbb6196d8782790e818b4babfde7}
 
 \item 
-\hypertarget{class_c_wiimote_a35a74550a3ec0115ccb39054da4b5064}{int {\bfseries \-Get\-Handshake\-State} ()}\label{class_c_wiimote_a35a74550a3ec0115ccb39054da4b5064}
+\hypertarget{class_c_wiimote_a35a74550a3ec0115ccb39054da4b5064}{int {\bfseries Get\-Handshake\-State} ()}\label{class_c_wiimote_a35a74550a3ec0115ccb39054da4b5064}
 
 \item 
-\hypertarget{class_c_wiimote_a2f453ed8f5f825d0e503f6f0980d3c70}{\-Event\-Types {\bfseries \-Get\-Event} ()}\label{class_c_wiimote_a2f453ed8f5f825d0e503f6f0980d3c70}
+\hypertarget{class_c_wiimote_a2f453ed8f5f825d0e503f6f0980d3c70}{Event\-Types {\bfseries Get\-Event} ()}\label{class_c_wiimote_a2f453ed8f5f825d0e503f6f0980d3c70}
 
 \item 
-\hypertarget{class_c_wiimote_a4ed15cfe1340119e090bd9c1feb86e17}{const unsigned char $\ast$ {\bfseries \-Get\-Event\-Buffer} ()}\label{class_c_wiimote_a4ed15cfe1340119e090bd9c1feb86e17}
+\hypertarget{class_c_wiimote_a4ed15cfe1340119e090bd9c1feb86e17}{const unsigned char $\ast$ {\bfseries Get\-Event\-Buffer} ()}\label{class_c_wiimote_a4ed15cfe1340119e090bd9c1feb86e17}
 
 \item 
-\hypertarget{class_c_wiimote_a5f2218caddda3453cfdce8c27262a533}{void {\bfseries \-Set\-Smoothing} (bool \-Smooth)}\label{class_c_wiimote_a5f2218caddda3453cfdce8c27262a533}
+\hypertarget{class_c_wiimote_a5f2218caddda3453cfdce8c27262a533}{void {\bfseries Set\-Smoothing} (bool Smooth)}\label{class_c_wiimote_a5f2218caddda3453cfdce8c27262a533}
 
 \item 
-\hypertarget{class_c_wiimote_a3c8c97c0b796d449e143a1a9147925bc}{void {\bfseries \-Set\-Motion\-Sensing\-Mode} (\-On\-Off\-Selection \-State)}\label{class_c_wiimote_a3c8c97c0b796d449e143a1a9147925bc}
+\hypertarget{class_c_wiimote_a3c8c97c0b796d449e143a1a9147925bc}{void {\bfseries Set\-Motion\-Sensing\-Mode} (On\-Off\-Selection State)}\label{class_c_wiimote_a3c8c97c0b796d449e143a1a9147925bc}
 
 \item 
-\hypertarget{class_c_wiimote_ad3e4373c9ab443498f7f6b5cb9c73f20}{void {\bfseries \-Enable\-Motion\-Plus} (\-On\-Off\-Selection \-State)}\label{class_c_wiimote_ad3e4373c9ab443498f7f6b5cb9c73f20}
+\hypertarget{class_c_wiimote_ad3e4373c9ab443498f7f6b5cb9c73f20}{void {\bfseries Enable\-Motion\-Plus} (On\-Off\-Selection State)}\label{class_c_wiimote_ad3e4373c9ab443498f7f6b5cb9c73f20}
 
 \item 
-\hypertarget{class_c_wiimote_ab6d3946204a8836f800e4fd7a7643572}{void {\bfseries \-Log\-Start} (int type=\-W\-I\-I\-C\-\_\-\-L\-O\-G\-\_\-\-N\-O\-N\-E, const string \&file=\char`\"{}\char`\"{})}\label{class_c_wiimote_ab6d3946204a8836f800e4fd7a7643572}
+\hypertarget{class_c_wiimote_ab6d3946204a8836f800e4fd7a7643572}{void {\bfseries Log\-Start} (int type=W\-I\-I\-C\-\_\-\-L\-O\-G\-\_\-\-N\-O\-N\-E, const string \&file=\char`\"{}\char`\"{})}\label{class_c_wiimote_ab6d3946204a8836f800e4fd7a7643572}
 
 \item 
-\hypertarget{class_c_wiimote_ab4ca7dc470ba7da2ae2c321788ac12a6}{void {\bfseries \-Log\-Stop} ()}\label{class_c_wiimote_ab4ca7dc470ba7da2ae2c321788ac12a6}
+\hypertarget{class_c_wiimote_ab4ca7dc470ba7da2ae2c321788ac12a6}{void {\bfseries Log\-Stop} ()}\label{class_c_wiimote_ab4ca7dc470ba7da2ae2c321788ac12a6}
 
 \item 
-\hypertarget{class_c_wiimote_ac07a724c6f0485927c666116d39e6dcc}{void {\bfseries \-Log} ()}\label{class_c_wiimote_ac07a724c6f0485927c666116d39e6dcc}
+\hypertarget{class_c_wiimote_ac07a724c6f0485927c666116d39e6dcc}{void {\bfseries Log} ()}\label{class_c_wiimote_ac07a724c6f0485927c666116d39e6dcc}
 
 \item 
-\hypertarget{class_c_wiimote_ac3f59a474bed928f29c7ea37a267a516}{struct timeval {\bfseries \-Get\-Timestamp} () const }\label{class_c_wiimote_ac3f59a474bed928f29c7ea37a267a516}
+\hypertarget{class_c_wiimote_ac3f59a474bed928f29c7ea37a267a516}{struct timeval {\bfseries Get\-Timestamp} () const }\label{class_c_wiimote_ac3f59a474bed928f29c7ea37a267a516}
 
 \item 
-\hypertarget{class_c_wiimote_af1a936c6f362670eea3663dd15219bd8}{void {\bfseries \-Enable\-Speaker} (\-On\-Off\-Selection \-State)}\label{class_c_wiimote_af1a936c6f362670eea3663dd15219bd8}
+\hypertarget{class_c_wiimote_af1a936c6f362670eea3663dd15219bd8}{void {\bfseries Enable\-Speaker} (On\-Off\-Selection State)}\label{class_c_wiimote_af1a936c6f362670eea3663dd15219bd8}
 
 \item 
-\hypertarget{class_c_wiimote_aab77d7cd365cea3a7d1e8bdbff07de38}{void {\bfseries \-Mute\-Speaker} (\-On\-Off\-Selection \-State)}\label{class_c_wiimote_aab77d7cd365cea3a7d1e8bdbff07de38}
+\hypertarget{class_c_wiimote_aab77d7cd365cea3a7d1e8bdbff07de38}{void {\bfseries Mute\-Speaker} (On\-Off\-Selection State)}\label{class_c_wiimote_aab77d7cd365cea3a7d1e8bdbff07de38}
 
 \item 
-\hypertarget{class_c_wiimote_a80afecda83601b7e3b33087500b05c84}{void {\bfseries \-Play\-Sound} ()}\label{class_c_wiimote_a80afecda83601b7e3b33087500b05c84}
+\hypertarget{class_c_wiimote_a80afecda83601b7e3b33087500b05c84}{void {\bfseries Play\-Sound} ()}\label{class_c_wiimote_a80afecda83601b7e3b33087500b05c84}
 
 \item 
-\hypertarget{class_c_wiimote_a2894de3f305f27ec1f47d896659a8037}{void {\bfseries \-Read\-Data} (unsigned char $\ast$\-Buffer, unsigned int \-Offset, unsigned int \-Length)}\label{class_c_wiimote_a2894de3f305f27ec1f47d896659a8037}
+\hypertarget{class_c_wiimote_a2894de3f305f27ec1f47d896659a8037}{void {\bfseries Read\-Data} (unsigned char $\ast$Buffer, unsigned int Offset, unsigned int Length)}\label{class_c_wiimote_a2894de3f305f27ec1f47d896659a8037}
 
 \item 
-\hypertarget{class_c_wiimote_a048e1a9f0612b58b6201ab0f88c7df6c}{void {\bfseries \-Write\-Data} (unsigned int \-Address, unsigned char $\ast$\-Data, unsigned int \-Length)}\label{class_c_wiimote_a048e1a9f0612b58b6201ab0f88c7df6c}
+\hypertarget{class_c_wiimote_a048e1a9f0612b58b6201ab0f88c7df6c}{void {\bfseries Write\-Data} (unsigned int Address, unsigned char $\ast$Data, unsigned int Length)}\label{class_c_wiimote_a048e1a9f0612b58b6201ab0f88c7df6c}
 
 \item 
-\hypertarget{class_c_wiimote_aa175e0730a9e68334c010119a280720d}{void {\bfseries \-Update\-Status} ()}\label{class_c_wiimote_aa175e0730a9e68334c010119a280720d}
+\hypertarget{class_c_wiimote_aa175e0730a9e68334c010119a280720d}{void {\bfseries Update\-Status} ()}\label{class_c_wiimote_aa175e0730a9e68334c010119a280720d}
 
 \item 
-\hypertarget{class_c_wiimote_aff65f1d90f0fd1a989f0566385276eeb}{int {\bfseries \-Get\-I\-D} ()}\label{class_c_wiimote_aff65f1d90f0fd1a989f0566385276eeb}
+\hypertarget{class_c_wiimote_aff65f1d90f0fd1a989f0566385276eeb}{int {\bfseries Get\-I\-D} ()}\label{class_c_wiimote_aff65f1d90f0fd1a989f0566385276eeb}
 
 \item 
-\hypertarget{class_c_wiimote_a0df092c0ad66746f24793a088ff46e6a}{const char $\ast$ {\bfseries \-Get\-Address} ()}\label{class_c_wiimote_a0df092c0ad66746f24793a088ff46e6a}
+\hypertarget{class_c_wiimote_a0df092c0ad66746f24793a088ff46e6a}{const char $\ast$ {\bfseries Get\-Address} ()}\label{class_c_wiimote_a0df092c0ad66746f24793a088ff46e6a}
 
 \item 
-\hypertarget{class_c_wiimote_a0b4b626beab4475fa349de8943c7b24f}{int {\bfseries \-Get\-State} ()}\label{class_c_wiimote_a0b4b626beab4475fa349de8943c7b24f}
+\hypertarget{class_c_wiimote_a0b4b626beab4475fa349de8943c7b24f}{int {\bfseries Get\-State} ()}\label{class_c_wiimote_a0b4b626beab4475fa349de8943c7b24f}
 
 \item 
-\hypertarget{class_c_wiimote_a2900db59b2eb728f9db885ec1c9aa5e4}{int {\bfseries \-Get\-Flags} ()}\label{class_c_wiimote_a2900db59b2eb728f9db885ec1c9aa5e4}
+\hypertarget{class_c_wiimote_a2900db59b2eb728f9db885ec1c9aa5e4}{int {\bfseries Get\-Flags} ()}\label{class_c_wiimote_a2900db59b2eb728f9db885ec1c9aa5e4}
 
 \item 
-\hypertarget{class_c_wiimote_a4efceeac77af5f1e8ca1418841b000b6}{int {\bfseries \-Set\-Flags} (int \-Enable, int \-Disable)}\label{class_c_wiimote_a4efceeac77af5f1e8ca1418841b000b6}
+\hypertarget{class_c_wiimote_a4efceeac77af5f1e8ca1418841b000b6}{int {\bfseries Set\-Flags} (int Enable, int Disable)}\label{class_c_wiimote_a4efceeac77af5f1e8ca1418841b000b6}
 
 \item 
-\hypertarget{class_c_wiimote_a26cd4594fecee2158f4c11a079cad904}{void {\bfseries \-Resync} ()}\label{class_c_wiimote_a26cd4594fecee2158f4c11a079cad904}
+\hypertarget{class_c_wiimote_a26cd4594fecee2158f4c11a079cad904}{void {\bfseries Resync} ()}\label{class_c_wiimote_a26cd4594fecee2158f4c11a079cad904}
 
 \item 
-\hypertarget{class_c_wiimote_ad20d26c4cbf0d9b0e4ca26a5d9efed29}{void {\bfseries \-Disconnect} ()}\label{class_c_wiimote_ad20d26c4cbf0d9b0e4ca26a5d9efed29}
+\hypertarget{class_c_wiimote_ad20d26c4cbf0d9b0e4ca26a5d9efed29}{void {\bfseries Disconnect} ()}\label{class_c_wiimote_ad20d26c4cbf0d9b0e4ca26a5d9efed29}
 
 \item 
 \hypertarget{class_c_wiimote_a25de8c4f00761781102b8fe47227d756}{int {\bfseries is\-Using\-A\-C\-C} ()}\label{class_c_wiimote_a25de8c4f00761781102b8fe47227d756}
@@ -164,37 +164,37 @@ enum {\bfseries \-On\-Off\-Selection} \{ {\bfseries \-O\-F\-F} =  0,
 \hypertarget{class_c_wiimote_a8549efa36985e03294333def36878516}{int {\bfseries is\-Using\-Motion\-Plus} ()}\label{class_c_wiimote_a8549efa36985e03294333def36878516}
 
 \item 
-\hypertarget{class_c_wiimote_a66043d17813c93bc528ae05e0cc4b8d1}{int {\bfseries is\-L\-E\-D\-Set} (int \-L\-E\-D\-Num)}\label{class_c_wiimote_a66043d17813c93bc528ae05e0cc4b8d1}
+\hypertarget{class_c_wiimote_a66043d17813c93bc528ae05e0cc4b8d1}{int {\bfseries is\-L\-E\-D\-Set} (int L\-E\-D\-Num)}\label{class_c_wiimote_a66043d17813c93bc528ae05e0cc4b8d1}
 
 \item 
 \hypertarget{class_c_wiimote_a085bede0ce129ef6a5c2bb087b66ba71}{bool {\bfseries is\-Log\-Enabled} ()}\label{class_c_wiimote_a085bede0ce129ef6a5c2bb087b66ba71}
 
 \end{DoxyCompactItemize}
-\subsection*{\-Public \-Attributes}
+\subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_c_wiimote_adfac321e1529a387b92f485cc1da29f9}{\hyperlink{class_c_i_r}{\-C\-I\-R} {\bfseries \-I\-R}}\label{class_c_wiimote_adfac321e1529a387b92f485cc1da29f9}
+\hypertarget{class_c_wiimote_adfac321e1529a387b92f485cc1da29f9}{\hyperlink{class_c_i_r}{C\-I\-R} {\bfseries I\-R}}\label{class_c_wiimote_adfac321e1529a387b92f485cc1da29f9}
 
 \item 
-\hypertarget{class_c_wiimote_a88cb9a84630d5cceae9dc95e36ae557c}{\hyperlink{class_c_buttons}{\-C\-Buttons} {\bfseries \-Buttons}}\label{class_c_wiimote_a88cb9a84630d5cceae9dc95e36ae557c}
+\hypertarget{class_c_wiimote_a88cb9a84630d5cceae9dc95e36ae557c}{\hyperlink{class_c_buttons}{C\-Buttons} {\bfseries Buttons}}\label{class_c_wiimote_a88cb9a84630d5cceae9dc95e36ae557c}
 
 \item 
-\hypertarget{class_c_wiimote_a4c7a137a16717d034641d2207a6a7bb3}{\hyperlink{class_c_accelerometer}{\-C\-Accelerometer} {\bfseries \-Accelerometer}}\label{class_c_wiimote_a4c7a137a16717d034641d2207a6a7bb3}
+\hypertarget{class_c_wiimote_a4c7a137a16717d034641d2207a6a7bb3}{\hyperlink{class_c_accelerometer}{C\-Accelerometer} {\bfseries Accelerometer}}\label{class_c_wiimote_a4c7a137a16717d034641d2207a6a7bb3}
 
 \item 
-\hypertarget{class_c_wiimote_aee65e07504dfcb032dd17680b1f54b4e}{\hyperlink{class_c_expansion_device}{\-C\-Expansion\-Device} {\bfseries \-Expansion\-Device}}\label{class_c_wiimote_aee65e07504dfcb032dd17680b1f54b4e}
+\hypertarget{class_c_wiimote_aee65e07504dfcb032dd17680b1f54b4e}{\hyperlink{class_c_expansion_device}{C\-Expansion\-Device} {\bfseries Expansion\-Device}}\label{class_c_wiimote_aee65e07504dfcb032dd17680b1f54b4e}
 
 \item 
 \hypertarget{class_c_wiimote_a4a5e8cdb604e524ca31cf8bb7019e906}{struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$ {\bfseries mp\-Wiimote\-Ptr}}\label{class_c_wiimote_a4a5e8cdb604e524ca31cf8bb7019e906}
 
 \end{DoxyCompactItemize}
-\subsection*{\-Static \-Public \-Attributes}
+\subsection*{Static Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_c_wiimote_a6f1fb15f31fdbdce4c79454fc710cb52}{static const int {\bfseries \-E\-V\-E\-N\-T\-\_\-\-B\-U\-F\-F\-E\-R\-\_\-\-L\-E\-N\-G\-T\-H} = \-M\-A\-X\-\_\-\-P\-A\-Y\-L\-O\-A\-D}\label{class_c_wiimote_a6f1fb15f31fdbdce4c79454fc710cb52}
+\hypertarget{class_c_wiimote_a6f1fb15f31fdbdce4c79454fc710cb52}{static const int {\bfseries E\-V\-E\-N\-T\-\_\-\-B\-U\-F\-F\-E\-R\-\_\-\-L\-E\-N\-G\-T\-H} = M\-A\-X\-\_\-\-P\-A\-Y\-L\-O\-A\-D}\label{class_c_wiimote_a6f1fb15f31fdbdce4c79454fc710cb52}
 
 \end{DoxyCompactItemize}
-\subsection*{\-Private \-Attributes}
+\subsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \hypertarget{class_c_wiimote_aee9de2bf7c6e2d2933b2be46f21f4982}{int {\bfseries mp\-Temp\-Int}}\label{class_c_wiimote_aee9de2bf7c6e2d2933b2be46f21f4982}
@@ -203,7 +203,7 @@ enum {\bfseries \-On\-Off\-Selection} \{ {\bfseries \-O\-F\-F} =  0,
 \hypertarget{class_c_wiimote_a2617e6071bfc6712961d6b7edb79c2e5}{float {\bfseries mp\-Temp\-Float}}\label{class_c_wiimote_a2617e6071bfc6712961d6b7edb79c2e5}
 
 \item 
-\hypertarget{class_c_wiimote_a211cbf074ff990c86b441c84ad003493}{\hyperlink{class_logger}{\-Logger} {\bfseries logger}}\label{class_c_wiimote_a211cbf074ff990c86b441c84ad003493}
+\hypertarget{class_c_wiimote_a211cbf074ff990c86b441c84ad003493}{\hyperlink{class_logger}{Logger} {\bfseries logger}}\label{class_c_wiimote_a211cbf074ff990c86b441c84ad003493}
 
 \item 
 \hypertarget{class_c_wiimote_a9569ece9c54e7483b1f52a3a94ecc746}{int {\bfseries log\-Type}}\label{class_c_wiimote_a9569ece9c54e7483b1f52a3a94ecc746}
@@ -211,14 +211,14 @@ enum {\bfseries \-On\-Off\-Selection} \{ {\bfseries \-O\-F\-F} =  0,
 \end{DoxyCompactItemize}
 
 
-\subsection{\-Detailed \-Description}
+\subsection{Detailed Description}
 
 
-\-Definition at line 400 of file wiicpp.\-h.
+Definition at line 400 of file wiicpp.\-h.
 
 
 
-\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
 \item 
 wiicpp.\-h\item 
 wiicpp.\-cpp\end{DoxyCompactItemize}

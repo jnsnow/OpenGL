@@ -1,4 +1,4 @@
-.TH "wiic_functions.h" 3 "Mon Dec 3 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.TH "wiic_functions.h" 3 "Wed Dec 5 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -167,7 +167,8 @@ Contains all the public functions, available for third party applications\&. Thi
 Definition in file \fBwiic_functions\&.h\fP\&.
 .SH "Function Documentation"
 .PP 
-.SS "WIIC_EXPORT void \fBwiic_calibrate_motion_plus\fP (struct \fBmotion_plus_t\fP *mp)"
+.SS "WIIC_EXPORT void wiic_calibrate_motion_plus (struct \fBmotion_plus_t\fP *mp)"
+
 .PP
 Calibrate the Motion Plus gyroscopes\&. \fBParameters:\fP
 .RS 4
@@ -177,7 +178,8 @@ Calibrate the Motion Plus gyroscopes\&. \fBParameters:\fP
 This should be called only after receiving the first values from the Motion Plus\&. 
 .PP
 Definition at line 237 of file motionplus\&.c\&.
-.SS "WIIC_EXPORT int \fBwiic_connect\fP (struct \fBwiimote_t\fP **wm, intwiimotes, intautoreconnect)"
+.SS "WIIC_EXPORT int wiic_connect (struct \fBwiimote_t\fP **wm, intwiimotes, intautoreconnect)"
+
 .PP
 Connect to a wiimote or wiimotes once an address is known\&. \fBParameters:\fP
 .RS 4
@@ -193,7 +195,7 @@ Connect to a wiimote or wiimotes once an address is known\&. \fBParameters:\fP
 The number of wiimotes that successfully connected\&.
 .RE
 .PP
-\fBSee also:\fP
+\fBSee Also:\fP
 .RS 4
 \fBwiic_find()\fP 
 .PP
@@ -205,7 +207,8 @@ The number of wiimotes that successfully connected\&.
 Connect to a number of wiimotes when the address is already set in the \fBwiimote_t\fP structures\&. These addresses are normally set by the \fBwiic_find()\fP function, but can also be set manually\&. 
 .PP
 Definition at line 152 of file io_nix\&.c\&.
-.SS "WIIC_EXPORT int \fBwiic_connect_single\fP (struct \fBwiimote_t\fP *wm, char *address, intautoreconnect)"
+.SS "WIIC_EXPORT int wiic_connect_single (struct \fBwiimote_t\fP *wm, char *address, intautoreconnect)"
+
 .PP
 Connect to a wiimote with a known address\&. \fBParameters:\fP
 .RS 4
@@ -224,14 +227,15 @@ Connect to a wiimote with a known address\&. \fBParameters:\fP
 
 .PP
 Definition at line 239 of file io_nix\&.c\&.
-.SS "WIIC_EXPORT void \fBwiic_disconnect\fP (struct \fBwiimote_t\fP *wm)"
+.SS "WIIC_EXPORT void wiic_disconnect (struct \fBwiimote_t\fP *wm)"
+
 .PP
 Disconnect a wiimote\&. \fBParameters:\fP
 .RS 4
 \fIwm\fP Pointer to a \fBwiimote_t\fP structure\&.
 .RE
 .PP
-\fBSee also:\fP
+\fBSee Also:\fP
 .RS 4
 \fBwiic_connect()\fP
 .RE
@@ -239,7 +243,8 @@ Disconnect a wiimote\&. \fBParameters:\fP
 Note that this will not free the wiimote structure\&. 
 .PP
 Definition at line 314 of file io_nix\&.c\&.
-.SS "WIIC_EXPORT void \fBwiic_disconnected\fP (struct \fBwiimote_t\fP *wm)"
+.SS "WIIC_EXPORT void wiic_disconnected (struct \fBwiimote_t\fP *wm)"
+
 .PP
 The wiimote disconnected\&. \fBParameters:\fP
 .RS 4
@@ -249,7 +254,8 @@ The wiimote disconnected\&. \fBParameters:\fP
 
 .PP
 Definition at line 165 of file wiic\&.c\&.
-.SS "WIIC_EXPORT int \fBwiic_find\fP (struct \fBwiimote_t\fP **wm, intmax_wiimotes, inttimeout)"
+.SS "WIIC_EXPORT int wiic_find (struct \fBwiimote_t\fP **wm, intmax_wiimotes, inttimeout)"
+
 .PP
 Find a wiimote or wiimotes\&. \fBParameters:\fP
 .RS 4
@@ -265,7 +271,7 @@ Find a wiimote or wiimotes\&. \fBParameters:\fP
 The number of wiimotes found\&.
 .RE
 .PP
-\fBSee also:\fP
+\fBSee Also:\fP
 .RS 4
 wiimote_connect()
 .RE
@@ -279,7 +285,8 @@ This function will only look for wiimote devices\&.
  devices\&. 
 .PP
 Definition at line 68 of file io_nix\&.c\&.
-.SS "WIIC_EXPORT struct \fBwiimote_t\fP* \fBwiic_get_by_id\fP (struct \fBwiimote_t\fP **wm, intwiimotes, intunid)\fC [read]\fP"
+.SS "WIIC_EXPORT struct \fBwiimote_t\fP* wiic_get_by_id (struct \fBwiimote_t\fP **wm, intwiimotes, intunid)\fC [read]\fP"
+
 .PP
 Find a \fBwiimote_t\fP structure by its unique identifier\&. \fBParameters:\fP
 .RS 4
@@ -298,7 +305,8 @@ Pointer to a \fBwiimote_t\fP structure, or NULL if not found\&.
 
 .PP
 Definition at line 507 of file wiic\&.c\&.
-.SS "WIIC_EXPORT struct \fBwiimote_t\fP** \fBwiic_init\fP (intwiimotes)\fC [read]\fP"
+.SS "WIIC_EXPORT struct \fBwiimote_t\fP** wiic_init (intwiimotes)\fC [read]\fP"
+
 .PP
 Initialize an array of wiimote structures\&. \fBParameters:\fP
 .RS 4
@@ -310,7 +318,7 @@ Initialize an array of wiimote structures\&. \fBParameters:\fP
 An array of initialized \fBwiimote_t\fP structures\&.
 .RE
 .PP
-\fBSee also:\fP
+\fBSee Also:\fP
 .RS 4
 \fBwiic_connect()\fP
 .RE
@@ -318,7 +326,8 @@ An array of initialized \fBwiimote_t\fP structures\&.
 The array returned by this function can be passed to various functions, including \fBwiic_connect()\fP\&. 
 .PP
 Definition at line 95 of file wiic\&.c\&.
-.SS "WIIC_EXPORT int \fBwiic_load\fP (struct \fBwiimote_t\fP **wm)"
+.SS "WIIC_EXPORT int wiic_load (struct \fBwiimote_t\fP **wm)"
+
 .PP
 Load Wii devices registered in the wiimotes\&.config file\&. \fBParameters:\fP
 .RS 4
@@ -330,7 +339,7 @@ Load Wii devices registered in the wiimotes\&.config file\&. \fBParameters:\fP
 The number of wiimotes successfully loaded\&.
 .RE
 .PP
-\fBSee also:\fP
+\fBSee Also:\fP
 .RS 4
 \fBwiic_find()\fP 
 .PP
@@ -344,7 +353,8 @@ The number of wiimotes successfully loaded\&.
 Up to version 0\&.53, it is possible to register the MAC address of your Wii devices\&. This allows to automatically load them, without waiting for any search timeout\&. To register a new device, go to: <HOME_DIR>/\&.wiic/ and edit the file wiimotes\&.config, by adding the MAC address of the device you want to register (one line per MAC address)\&. 
 .PP
 Definition at line 188 of file io_nix\&.c\&.
-.SS "WIIC_EXPORT void \fBwiic_motion_sensing\fP (struct \fBwiimote_t\fP *wm, intstatus)"
+.SS "WIIC_EXPORT void wiic_motion_sensing (struct \fBwiimote_t\fP *wm, intstatus)"
+
 .PP
 Set if the wiimote should report motion sensing\&. \fBParameters:\fP
 .RS 4
@@ -356,7 +366,8 @@ Set if the wiimote should report motion sensing\&. \fBParameters:\fP
 Since reporting motion sensing sends a lot of data, the wiimote saves power by not transmitting it by default\&. 
 .PP
 Definition at line 279 of file wiic\&.c\&.
-.SS "WIIC_EXPORT int \fBwiic_poll\fP (struct \fBwiimote_t\fP **wm, intwiimotes)"
+.SS "WIIC_EXPORT int wiic_poll (struct \fBwiimote_t\fP **wm, intwiimotes)"
+
 .PP
 Poll the wiimotes for any events\&. \fBParameters:\fP
 .RS 4
@@ -373,7 +384,8 @@ Returns number of wiimotes that an event has occured on\&.
 It is necessary to poll the wiimote devices for events that occur\&. If an event occurs on a particular wiimote, the event variable will be set\&. 
 .PP
 Definition at line 81 of file events\&.c\&.
-.SS "WIIC_EXPORT int \fBwiic_read_data\fP (struct \fBwiimote_t\fP *wm, \fBbyte\fP *buffer, unsigned intaddr, unsigned shortlen)"
+.SS "WIIC_EXPORT int wiic_read_data (struct \fBwiimote_t\fP *wm, \fBbyte\fP *buffer, unsigned intaddr, unsigned shortlen)"
+
 .PP
 Read data from the wiimote (event version)\&. \fBParameters:\fP
 .RS 4
@@ -389,7 +401,8 @@ Read data from the wiimote (event version)\&. \fBParameters:\fP
 The library can only handle one data read request at a time because it must keep track of the buffer and other events that are specific to that request\&. So if a request has already been made, subsequent requests will be added to a pending list and be sent out when the previous finishes\&. 
 .PP
 Definition at line 406 of file wiic\&.c\&.
-.SS "WIIC_EXPORT void \fBwiic_resync\fP (struct \fBwiimote_t\fP *wm)"
+.SS "WIIC_EXPORT void wiic_resync (struct \fBwiimote_t\fP *wm)"
+
 .PP
 Try to resync with the wiimote by starting a new handshake\&. \fBParameters:\fP
 .RS 4
@@ -399,7 +412,8 @@ Try to resync with the wiimote by starting a new handshake\&. \fBParameters:\fP
 
 .PP
 Definition at line 704 of file wiic\&.c\&.
-.SS "WIIC_EXPORT void \fBwiic_rumble\fP (struct \fBwiimote_t\fP *wm, intstatus)"
+.SS "WIIC_EXPORT void wiic_rumble (struct \fBwiimote_t\fP *wm, intstatus)"
+
 .PP
 Enable or disable the rumble\&. \fBParameters:\fP
 .RS 4
@@ -411,7 +425,8 @@ Enable or disable the rumble\&. \fBParameters:\fP
 
 .PP
 Definition at line 210 of file wiic\&.c\&.
-.SS "WIIC_EXPORT void \fBwiic_set_accel_threshold\fP (struct \fBwiimote_t\fP *wm, intthreshold)"
+.SS "WIIC_EXPORT void wiic_set_accel_threshold (struct \fBwiimote_t\fP *wm, intthreshold)"
+
 .PP
 Set the accelerometer event threshold\&. \fBParameters:\fP
 .RS 4
@@ -423,7 +438,8 @@ Set the accelerometer event threshold\&. \fBParameters:\fP
 
 .PP
 Definition at line 692 of file wiic\&.c\&.
-.SS "WIIC_EXPORT void \fBwiic_set_aspect_ratio\fP (struct \fBwiimote_t\fP *wm, enum \fBaspect_t\fPaspect)"
+.SS "WIIC_EXPORT void wiic_set_aspect_ratio (struct \fBwiimote_t\fP *wm, enum \fBaspect_t\fPaspect)"
+
 .PP
 Set the aspect ratio of the TV/monitor\&. \fBParameters:\fP
 .RS 4
@@ -435,7 +451,8 @@ Set the aspect ratio of the TV/monitor\&. \fBParameters:\fP
 
 .PP
 Definition at line 239 of file ir\&.c\&.
-.SS "WIIC_EXPORT int \fBwiic_set_flags\fP (struct \fBwiimote_t\fP *wm, intenable, intdisable)"
+.SS "WIIC_EXPORT int wiic_set_flags (struct \fBwiimote_t\fP *wm, intenable, intdisable)"
+
 .PP
 Set flags for the specified wiimote\&. \fBParameters:\fP
 .RS 4
@@ -454,7 +471,8 @@ The flags set after 'enable' and 'disable' have been applied\&.
 The values 'enable' and 'disable' may be any flags OR'ed together\&. Flags are defined in \fBwiic\&.h\fP\&. 
 .PP
 Definition at line 625 of file wiic\&.c\&.
-.SS "WIIC_EXPORT void \fBwiic_set_ir\fP (struct \fBwiimote_t\fP *wm, intstatus)"
+.SS "WIIC_EXPORT void wiic_set_ir (struct \fBwiimote_t\fP *wm, intstatus)"
+
 .PP
 Set if the wiimote should track IR targets\&. \fBParameters:\fP
 .RS 4
@@ -466,7 +484,8 @@ Set if the wiimote should track IR targets\&. \fBParameters:\fP
 
 .PP
 Definition at line 61 of file ir\&.c\&.
-.SS "WIIC_EXPORT void \fBwiic_set_ir_position\fP (struct \fBwiimote_t\fP *wm, enum ir_position_tpos)"
+.SS "WIIC_EXPORT void wiic_set_ir_position (struct \fBwiimote_t\fP *wm, enum ir_position_tpos)"
+
 .PP
 Set the XY position for the IR cursor\&. \fBParameters:\fP
 .RS 4
@@ -478,7 +497,8 @@ Set the XY position for the IR cursor\&. \fBParameters:\fP
 
 .PP
 Definition at line 200 of file ir\&.c\&.
-.SS "WIIC_EXPORT void \fBwiic_set_ir_sensitivity\fP (struct \fBwiimote_t\fP *wm, intlevel)"
+.SS "WIIC_EXPORT void wiic_set_ir_sensitivity (struct \fBwiimote_t\fP *wm, intlevel)"
+
 .PP
 Set the IR sensitivity\&. \fBParameters:\fP
 .RS 4
@@ -490,21 +510,23 @@ Set the IR sensitivity\&. \fBParameters:\fP
 If the level is < 1, then level will be set to 1\&. If the level is > 5, then level will be set to 5\&. 
 .PP
 Definition at line 266 of file ir\&.c\&.
-.SS "WIIC_EXPORT void \fBwiic_set_ir_vres\fP (struct \fBwiimote_t\fP *wm, unsigned intx, unsigned inty)"
+.SS "WIIC_EXPORT void wiic_set_ir_vres (struct \fBwiimote_t\fP *wm, unsigned intx, unsigned inty)"
+
 .PP
 Set the virtual screen resolution for IR tracking\&. \fBParameters:\fP
 .RS 4
 \fIwm\fP Pointer to a \fBwiimote_t\fP structure\&. 
 .br
-\fIx\fP Screen resolution width\&. 
+\fIx\fP \fBScreen\fP resolution width\&. 
 .br
-\fIy\fP Screen resolution height\&. 
+\fIy\fP \fBScreen\fP resolution height\&. 
 .RE
 .PP
 
 .PP
 Definition at line 186 of file ir\&.c\&.
-.SS "WIIC_EXPORT void \fBwiic_set_leds\fP (struct \fBwiimote_t\fP *wm, intleds)"
+.SS "WIIC_EXPORT void wiic_set_leds (struct \fBwiimote_t\fP *wm, intleds)"
+
 .PP
 Set the enabled LEDs\&. \fBParameters:\fP
 .RS 4
@@ -516,7 +538,8 @@ Set the enabled LEDs\&. \fBParameters:\fP
 \fIleds\fP is a bitwise or of WIIMOTE_LED_1, WIIMOTE_LED_2, WIIMOTE_LED_3, or WIIMOTE_LED_4\&. 
 .PP
 Definition at line 255 of file wiic\&.c\&.
-.SS "WIIC_EXPORT void \fBwiic_set_motion_plus\fP (struct \fBwiimote_t\fP *wm, intstatus)"
+.SS "WIIC_EXPORT void wiic_set_motion_plus (struct \fBwiimote_t\fP *wm, intstatus)"
+
 .PP
 Control the Motion Plus support\&. \fBParameters:\fP
 .RS 4
@@ -528,7 +551,8 @@ Control the Motion Plus support\&. \fBParameters:\fP
 
 .PP
 Definition at line 193 of file motionplus\&.c\&.
-.SS "WIIC_EXPORT void \fBwiic_set_mp_threshold\fP (struct \fBwiimote_t\fP *wm, intthreshold)"
+.SS "WIIC_EXPORT void wiic_set_mp_threshold (struct \fBwiimote_t\fP *wm, intthreshold)"
+
 .PP
 Set the gyroscope event threshold\&. \fBParameters:\fP
 .RS 4
@@ -540,7 +564,8 @@ Set the gyroscope event threshold\&. \fBParameters:\fP
 
 .PP
 Definition at line 262 of file motionplus\&.c\&.
-.SS "WIIC_EXPORT void \fBwiic_set_nunchuk_accel_threshold\fP (struct \fBwiimote_t\fP *wm, intthreshold)"
+.SS "WIIC_EXPORT void wiic_set_nunchuk_accel_threshold (struct \fBwiimote_t\fP *wm, intthreshold)"
+
 .PP
 Set the accelerometer event threshold for the nunchuk\&. \fBParameters:\fP
 .RS 4
@@ -552,7 +577,8 @@ Set the accelerometer event threshold for the nunchuk\&. \fBParameters:\fP
 See \fBwiic_set_orient_threshold()\fP for details\&. 
 .PP
 Definition at line 205 of file nunchuk\&.c\&.
-.SS "WIIC_EXPORT void \fBwiic_set_nunchuk_orient_threshold\fP (struct \fBwiimote_t\fP *wm, floatthreshold)"
+.SS "WIIC_EXPORT void wiic_set_nunchuk_orient_threshold (struct \fBwiimote_t\fP *wm, floatthreshold)"
+
 .PP
 Set the orientation event threshold for the nunchuk\&. \fBParameters:\fP
 .RS 4
@@ -564,7 +590,8 @@ Set the orientation event threshold for the nunchuk\&. \fBParameters:\fP
 See \fBwiic_set_orient_threshold()\fP for details\&. 
 .PP
 Definition at line 190 of file nunchuk\&.c\&.
-.SS "WIIC_EXPORT void \fBwiic_set_orient_threshold\fP (struct \fBwiimote_t\fP *wm, floatthreshold)"
+.SS "WIIC_EXPORT void wiic_set_orient_threshold (struct \fBwiimote_t\fP *wm, floatthreshold)"
+
 .PP
 Set the orientation event threshold\&. \fBParameters:\fP
 .RS 4
@@ -576,7 +603,8 @@ Set the orientation event threshold\&. \fBParameters:\fP
 If threshold is 0\&.01, and any angle changes by 0\&.01 then a significant change has occured and the event callback will be invoked\&. If threshold is 1 then the angle has to change by a full degree to generate an event\&. 
 .PP
 Definition at line 679 of file wiic\&.c\&.
-.SS "WIIC_EXPORT float \fBwiic_set_smooth_alpha\fP (struct \fBwiimote_t\fP *wm, floatalpha)"
+.SS "WIIC_EXPORT float wiic_set_smooth_alpha (struct \fBwiimote_t\fP *wm, floatalpha)"
+
 .PP
 Set the wiimote smoothing alpha value\&. \fBParameters:\fP
 .RS 4
@@ -595,7 +623,8 @@ The alpha value is between 0 and 1 and is used in an exponential smoothing algor
 Smoothing is only performed if the WIIC_SMOOTHING is set\&. 
 .PP
 Definition at line 652 of file wiic\&.c\&.
-.SS "WIIC_EXPORT void \fBwiic_status\fP (struct \fBwiimote_t\fP *wm)"
+.SS "WIIC_EXPORT void wiic_status (struct \fBwiimote_t\fP *wm)"
+
 .PP
 Request the wiimote controller status\&. \fBParameters:\fP
 .RS 4
@@ -605,7 +634,8 @@ Request the wiimote controller status\&. \fBParameters:\fP
 Controller status includes: battery level, LED status, expansions 
 .PP
 Definition at line 486 of file wiic\&.c\&.
-.SS "WIIC_EXPORT void \fBwiic_toggle_rumble\fP (struct \fBwiimote_t\fP *wm)"
+.SS "WIIC_EXPORT void wiic_toggle_rumble (struct \fBwiimote_t\fP *wm)"
+
 .PP
 Toggle the state of the rumble\&. \fBParameters:\fP
 .RS 4
@@ -615,7 +645,8 @@ Toggle the state of the rumble\&. \fBParameters:\fP
 
 .PP
 Definition at line 240 of file wiic\&.c\&.
-.SS "WIIC_EXPORT void \fBwiic_update_timestamp\fP (struct \fBwiimote_t\fP *wm)"
+.SS "WIIC_EXPORT void wiic_update_timestamp (struct \fBwiimote_t\fP *wm)"
+
 .PP
 Update the relative timestamp of a wiimote device\&. \fBParameters:\fP
 .RS 4
@@ -625,7 +656,8 @@ Update the relative timestamp of a wiimote device\&. \fBParameters:\fP
 
 .PP
 Definition at line 716 of file wiic\&.c\&.
-.SS "WIIC_EXPORT int \fBwiic_write_data\fP (struct \fBwiimote_t\fP *wm, unsigned intaddr, \fBbyte\fP *data, \fBbyte\fPlen)"
+.SS "WIIC_EXPORT int wiic_write_data (struct \fBwiimote_t\fP *wm, unsigned intaddr, \fBbyte\fP *data, \fBbyte\fPlen)"
+
 .PP
 Write data to the wiimote\&. \fBParameters:\fP
 .RS 4

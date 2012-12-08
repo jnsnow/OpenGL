@@ -1,3 +1,18 @@
+/**
+   @file mat.cpp
+   @author Ed Angel
+   @date 2012-12-04
+   @brief Implementation for the mat2, mat3, and mat4 classes.
+   @details
+   Modified heavily from code available from Ed Angel's website,
+   http://www.cs.unm.edu/~angel/BOOK/INTERACTIVE_COMPUTER_GRAPHICS/SIXTH_EDITION/
+   Published from his book,
+   Interactive Computer Graphics
+   A Top-Down Approach with OpenGL, Sixth Edition
+   Addison-Wesley 2012
+**/
+
+
 #include "platform.h" /* Multi-platform support and OpenGL includes. */
 #include "vec.hpp"
 #include "mat.hpp"
@@ -126,7 +141,7 @@ namespace Angel {
       if ( std::fabs(s) < DivideByZeroTolerance ) {
 	std::cerr << "[" << __FILE__ << ":" << __LINE__ << "] "
 		  << "Division by zero" << std::endl;
-	return mat2();
+	return (*this = mat2());
       }
     }
 #endif // DEBUG
@@ -302,7 +317,7 @@ namespace Angel {
     if ( std::fabs(s) < DivideByZeroTolerance ) {
       std::cerr << "[" << __FILE__ << ":" << __LINE__ << "] "
 		<< "Division by zero" << std::endl;
-      return mat3();
+      return (*this = mat3());
     }
 #endif // DEBUG
   
@@ -485,7 +500,7 @@ namespace Angel {
     if ( std::fabs(s) < DivideByZeroTolerance ) {
       std::cerr << "[" << __FILE__ << ":" << __LINE__ << "] "
 		<< "Division by zero" << std::endl;
-      return mat4();
+      return (*this = mat4());
     }
 #endif // DEBUG
     

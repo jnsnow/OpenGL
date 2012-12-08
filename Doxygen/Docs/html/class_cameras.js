@@ -1,6 +1,5 @@
 var class_cameras =
 [
-    [ "Cameras", "class_cameras.html#a14342354c24f588c24e004a722849c3d", null ],
     [ "Cameras", "class_cameras.html#a35c195ae1a970836e7192bac0f34fb54", null ],
     [ "~Cameras", "class_cameras.html#a7de763b562cce2a06cb120610987cd29", null ],
     [ "Active", "class_cameras.html#a66a0741c023da5ef362f501ea255d65e", null ],
@@ -16,8 +15,10 @@ var class_cameras =
     [ "IdleMotion", "class_cameras.html#acb3907c96b7d147b7bcc1aad42f8da6f", null ],
     [ "iter", "class_cameras.html#a91bd6744be5f876bd74e65134da8653a", null ],
     [ "LinkAll", "class_cameras.html#a5300fe1aefc42b41151dbb55aff1c978", null ],
+    [ "Next", "class_cameras.html#a60d90887fd811a6cdfe0ffab75e63594", null ],
     [ "operator[]", "class_cameras.html#aeee13e4cc6eb085a65af9ef6bf3a549a", null ],
     [ "popCamera", "class_cameras.html#a9dee7bf1f2c56176c461fa2617ce4549", null ],
+    [ "Prev", "class_cameras.html#a9f13d3876229fdcf19640af01be1b95f", null ],
     [ "Resize", "class_cameras.html#a72155a9003f5976b455482d65d0a61ff", null ],
     [ "activeCamera", "class_cameras.html#a3327a3104975b11b6f144ccba0720c49", null ],
     [ "camList", "class_cameras.html#a7411a5eef4362af369217ea8e37cffd3", null ],

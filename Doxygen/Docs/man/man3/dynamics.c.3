@@ -1,4 +1,4 @@
-.TH "dynamics.c" 3 "Mon Dec 3 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.TH "dynamics.c" 3 "Wed Dec 5 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -53,7 +53,8 @@ The file includes functions that handle the dynamics of the wiimote\&. Such dyna
 Definition in file \fBdynamics\&.c\fP\&.
 .SH "Function Documentation"
 .PP 
-.SS "void \fBapply_smoothing\fP (struct \fBgforce_t\fP *gforce, floatalpha)"
+.SS "void apply_smoothing (struct \fBgforce_t\fP *gforce, floatalpha)"
+
 .PP
 Apply a smooth factor to accelerometer angles\&. \fBParameters:\fP
 .RS 4
@@ -65,7 +66,8 @@ Apply a smooth factor to accelerometer angles\&. \fBParameters:\fP
 
 .PP
 Definition at line 192 of file dynamics\&.c\&.
-.SS "void \fBcalc_joystick_state\fP (struct \fBjoystick_t\fP *js, floatx, floaty)"
+.SS "void calc_joystick_state (struct \fBjoystick_t\fP *js, floatx, floaty)"
+
 .PP
 Calculate the angle and magnitude of a joystick\&. \fBParameters:\fP
 .RS 4
@@ -79,7 +81,8 @@ Calculate the angle and magnitude of a joystick\&. \fBParameters:\fP
 
 .PP
 Definition at line 143 of file dynamics\&.c\&.
-.SS "void \fBcalculate_gforce\fP (struct \fBaccel_t\fP *ac, struct \fBvec3b_t\fP *accel, struct \fBgforce_t\fP *gforce, intsmooth)"
+.SS "void calculate_gforce (struct \fBaccel_t\fP *ac, struct \fBvec3b_t\fP *accel, struct \fBgforce_t\fP *gforce, intsmooth)"
+
 .PP
 Calculate the gravity forces on each axis\&. \fBParameters:\fP
 .RS 4
@@ -93,7 +96,8 @@ Calculate the gravity forces on each axis\&. \fBParameters:\fP
 
 .PP
 Definition at line 112 of file dynamics\&.c\&.
-.SS "void \fBcalculate_orientation\fP (struct \fBvec3f_t\fP *in, struct \fBang3f_t\fP *out)"
+.SS "void calculate_orientation (struct \fBvec3f_t\fP *in, struct \fBang3f_t\fP *out)"
+
 .PP
 Calculate the roll, pitch, yaw\&. \fBParameters:\fP
 .RS 4

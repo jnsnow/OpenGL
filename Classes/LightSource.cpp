@@ -1,9 +1,11 @@
-/* 
- * File:   LightSource.cpp
- * Author: nico200
- * 
- * Created on November 20, 2012, 1:39 PM
- */
+/**
+   @file LightSource.cpp
+   @author Nicholas StPierre
+   @authors John Huston, Nicholas StPierre, Chris Compton
+   @since 2012-11-20
+   @date 2012-12-04
+   @brief Implementation for the Light Source class.
+**/
 
 #include "LightSource.hpp"
 #include "Angel.h"

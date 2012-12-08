@@ -1,14 +1,35 @@
+<<<<<<< HEAD
 #include <cmath> 
 #include <wiicpp.h>
 #include <vector>
 
 #include "platform.h" /* Multi-platform support and OpenGL headers */
+=======
+/* System Headers */
+#include <cmath>
+#include <cstdio>
+#include <cstdlib>
+/* Multi-platform support and OpenGL headers. */
+#include "platform.h"
+/* Ed Angel's Math Classes */
+>>>>>>> 67fe71667105c7519587d833c8c0e79adb12174d
 #include "vec.hpp"
 #include "mat.hpp"
+/* Utilities and Classes */
 #include "model.hpp"
 #include "Camera.hpp"
 #include "InitShader.hpp"
 #include "Cameras.hpp"
+#include "Screen.hpp"
+#include "Timer.hpp"
+
+// Turn on debugging if it's been requested of us by the Makefile environment.
+#ifndef DEBUG
+#define DEBUG false
+#else
+#undef DEBUG
+#define DEBUG true
+#endif
 
 // Type Aliases
 using Angel::vec3;
@@ -51,6 +72,7 @@ const int NumVertices = 3*NumTriangles+6;
 const int NumVertices = 36;
 #endif
 
+<<<<<<< HEAD
 point4 points[NumVertices];
 color4 colors[NumVertices];
 vec3  normals[NumVertices];
@@ -74,6 +96,12 @@ int Width = X_SIZE;
 int X_Center = (Width/2);
 int Height = Y_SIZE;
 int Y_Center = (Height/2);
+=======
+extern point4 points[NumVertices];
+extern color4 colors[NumVertices];
+extern vec3  normals[NumVertices];
+Screen myScreen( 800, 600 );
+>>>>>>> 67fe71667105c7519587d833c8c0e79adb12174d
 GLuint gShader;
 
 //--------------------------------------------------------------------
@@ -100,7 +128,10 @@ GLuint gl_DiffuseProduct2 ;
 GLuint gl_SpecularProduct2 ;
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 67fe71667105c7519587d833c8c0e79adb12174d
 // Initialize shader lighting parameters
 // This will eventually be replaced by a call to the Lights class init function:
 //   the lights class is still being written.
@@ -172,8 +203,6 @@ void cameraInit( Camera& cam ) {
   cam.link( gShader, Camera::ROTATION, "R" );
   cam.link( gShader, Camera::VIEW, "P" );
   cam.link( gShader, Camera::CTM, "CTM" );
-  /* FOV must be set /after/ linking the VIEW and CTM matrices. */
-  //cam.FOV( 45.0 );
 
 }
 
@@ -402,6 +431,7 @@ void init() {
   glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0,
 			 (GLvoid*)(sizeof(points)+sizeof(colors)));
 
+<<<<<<< HEAD
 
   /* Linkify! */
   camList.LinkAll( gShader, Camera::TRANSLATION, "T" );
@@ -412,6 +442,13 @@ void init() {
   //CAMERAS_MSG( camList, FOV(45.0) );
   /* Set the active camera to camera #0. */
   camList.Active(0);
+=======
+  // Link however many cameras we have at this point to the shader.
+  myScreen.camList.LinkAll( gShader, Camera::TRANSLATION, "T" );
+  myScreen.camList.LinkAll( gShader, Camera::ROTATION, "R" );
+  myScreen.camList.LinkAll( gShader, Camera::VIEW, "P" );
+  myScreen.camList.LinkAll( gShader, Camera::CTM, "CTM" );
+>>>>>>> 67fe71667105c7519587d833c8c0e79adb12174d
 
   glEnable( GL_DEPTH_TEST );
   glClearColor( 0.1, 0.1, 0.1, 1.0 );
@@ -511,31 +548,34 @@ void display( void ) {
   glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
   // Tell camList to draw using our displayViewport rendering function.
-  camList.Draw( displayViewport );
+  myScreen.camList.Draw( displayViewport );
 
   glutSwapBuffers();
   frameNumber = (frameNumber + 1) % 180 ;
 }
 
 void keylift( unsigned char key, int x, int y ) {
+  
+  Camera &cam = myScreen.camList.Active();
+
   switch( key ) {
   case 'w':
-    camList.Active().Stop( Camera::Forward );
+    cam.Stop( Camera::Forward );
     break;
   case 's':
-    camList.Active().Stop( Camera::Backward );
+    cam.Stop( Camera::Backward );
     break;
   case 'a':
-    camList.Active().Stop( Camera::Left );
+    cam.Stop( Camera::Left );
     break;
   case 'd':
-    camList.Active().Stop( Camera::Right );
+    cam.Stop( Camera::Right );
     break;
   case 'q':
-    camList.Active().Stop( Camera::Up );
+    cam.Stop( Camera::Up );
     break;
   case 'e':
-    camList.Active().Stop( Camera::Down );
+    cam.Stop( Camera::Down );
     break;
   }
 }
@@ -547,6 +587,10 @@ int lightOrbit = 1 ; // this is a multiplier for the radius of the light source'
 
 
 void keyboard( unsigned char key, int x, int y ) {
+
+  /* A shorthand variable with local scope that refers to "The Active Camera." */
+  Camera &cam = myScreen.camList.Active();
+
   switch( key ) {
 
   case 033: // Escape Key	  
@@ -554,35 +598,33 @@ void keyboard( unsigned char key, int x, int y ) {
     break;
     
   case '+':
-    cameraInit(camList[camList.addCamera()]);
+    cameraInit(myScreen.camList[myScreen.camList.addCamera()]);
     break;
   case '-':
-    camList.popCamera();
+    myScreen.camList.popCamera();
     break;
     
   case 'w':
-    camList.Active().Move( Camera::Forward );
+    cam.Move( Camera::Forward );
     break;
   case 's':
-    camList.Active().Move( Camera::Backward );
+    cam.Move( Camera::Backward );
     break;
   case 'a':
-    camList.Active().Move( Camera::Left );
+    cam.Move( Camera::Left );
     break;
   case 'd':
-    camList.Active().Move( Camera::Right );
+    cam.Move( Camera::Right );
     break;
   case 'q':
-    camList.Active().Move( Camera::Up );
+    cam.Move( Camera::Up );
     break;
   case 'e':
-    camList.Active().Move( Camera::Down );
+    cam.Move( Camera::Down );
     break;
     
   case 'p': // Print Info
-    fprintf( stderr, "POS: (%f,%f,%f)\n",
-	     camList.Active().X(), camList.Active().Y(),
-	     camList.Active().Z() );
+    fprintf( stderr, "POS: (%f,%f,%f)\n", cam.X(), cam.Y(), cam.Z() );
     break;
   case 'n': // Print normals
     //light_position = point4( 0.0, 0.2, 0.0, 0.0 );
@@ -590,7 +632,6 @@ void keyboard( unsigned char key, int x, int y ) {
     break;
 
   case ';':
-
     for( int l = 0; l < NumVertices ; l+=3 ) {
       fprintf( stderr, "POS: (%f, %f, %f)\n",
 	       normals[l].x, normals[l].y, normals[l].z );
@@ -620,15 +661,25 @@ void keyboard( unsigned char key, int x, int y ) {
 
     // Pressing m cycles through the light modes for the static light source.
   case 'm':  lightMode = (lightMode+1) % 4; break;
-    
-  case 'z': camList.Active().changePerspective( Camera::PERSPECTIVE ); break;
-  case 'x': camList.Active().changePerspective( Camera::ORTHO ); break;
-  case 'c': camList.Active().changePerspective( Camera::ORTHO2D ); break;
-  case 'v': camList.Active().changePerspective( Camera::FRUSTUM ); break;
-  case 'b': camList.Active().changePerspective( Camera::IDENTITY ); break;
-  case 'C': camList.Active(1); break;
-  case 'X': camList.Active(0); break;
+   
+    //Perspectives
+  case 'z': cam.changePerspective( Camera::PERSPECTIVE ); break;
+  case 'x': cam.changePerspective( Camera::ORTHO ); break;
+  case 'c': cam.changePerspective( Camera::ORTHO2D ); break;
+  case 'v': cam.changePerspective( Camera::FRUSTUM ); break;
+  case 'b': cam.changePerspective( Camera::IDENTITY ); break;
+  }
+}
 
+void keyboard_ctrl( int key, int x, int y ) {
+  switch (key) {
+  case GLUT_KEY_PAGE_UP:
+    myScreen.camList.Prev();
+    break;
+
+  case GLUT_KEY_PAGE_DOWN:
+    myScreen.camList.Next();
+    break;
   }
 }
 
@@ -636,8 +687,8 @@ void mouse( int button, int state, int x, int y ) {
 
   if ( state == GLUT_DOWN ) {
     switch( button ) {
-    case 3: camList.Active().dFOV( 1 ); break;
-    case 4: camList.Active().dFOV( -1 ); break;
+    case 3: myScreen.camList.Active().dFOV( 1 ); break;
+    case 4: myScreen.camList.Active().dFOV( -1 ); break;
     }
   }
 
@@ -646,9 +697,9 @@ void mouse( int button, int state, int x, int y ) {
 
 void mouseroll( int x, int y ) {
 
-  if ((x != X_Center) || (y != Y_Center)) {
-    camList.Active().roll( x - X_Center );
-    glutWarpPointer( X_Center, Y_Center );
+  if ((x != myScreen.MidpointX()) || (y != myScreen.MidpointY())) {
+    myScreen.camList.Active().roll( x - myScreen.MidpointX() );
+    glutWarpPointer( myScreen.MidpointX(), myScreen.MidpointY() );
   }
 
 }
@@ -656,29 +707,24 @@ void mouseroll( int x, int y ) {
 
 void mouselook( int x, int y ) {
 
-  if ( x != X_Center || y != Y_Center ) {
-    const double dx = ((double)x - X_Center);
-    const double dy = ((double)y - Y_Center);
+  if ((x != myScreen.MidpointX()) || (y != myScreen.MidpointY())) {
+    const double dx = ((double)x - myScreen.MidpointX());
+    const double dy = ((double)y - myScreen.MidpointY());
     
-    camList.Active().pitch( dy );
-    camList.Active().yaw( dx, true );
+    myScreen.camList.Active().pitch( dy );
+    myScreen.camList.Active().yaw( dx, true ); // Fixed Yaw
     
-    glutWarpPointer( X_Center, Y_Center );
+    glutWarpPointer( myScreen.MidpointX(), myScreen.MidpointY() );
   }
   
 }
 
 
 void resizeEvent( int width, int height ) {
-  
-  Height = height;
-  Width = width;
-  X_Center = (Width/2);
-  Y_Center = (Height/2);
-  camList.Resize( Width, Height );
-  /*camList handles setting viewports now.
-    glViewport( 0, 0, Width, Height );*/
-  glutWarpPointer( X_Center, Y_Center );
+
+  /* Handles resizing the child cameras as well. */
+  myScreen.Size( width, height );
+  glutWarpPointer( myScreen.MidpointX(), myScreen.MidpointY() );
 
 }
 
@@ -700,22 +746,25 @@ void movelight(void) {
 
 void idle( void ) {
 
+  static Timer Tock;
   movelight();
 
 #ifdef WII
   if (usingWii) {
     for (size_t i = 0; i < 2; ++i) {
       pollWii( Wii );
+<<<<<<< HEAD
       camList.Active().Accel( bb_magnitudes );
       fprintf(stderr, ".");
+=======
+      myScreen.camList.Active().Accel( bb_magnitudes );
+>>>>>>> 67fe71667105c7519587d833c8c0e79adb12174d
     }
   }
 #endif
 
-  /* Move all camera(s) */
-  camList.IdleMotion();
-  /* The following would move only the active. */
-  //camList.Active().Idle();
+  // Move all camera(s).
+  myScreen.camList.IdleMotion();
   glutPostRedisplay();
     
 }
@@ -741,7 +790,7 @@ int main( int argc, char **argv ) {
 
   glutInit( &argc, argv );
   glutInitDisplayMode( GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH );
-  glutInitWindowSize( Width, Height );
+  glutInitWindowSize( myScreen.Width(), myScreen.Height() );
   glutCreateWindow( "Gasket Flythrough" );
   glutFullScreen();
   glutSetCursor( GLUT_CURSOR_NONE );
@@ -753,11 +802,20 @@ int main( int argc, char **argv ) {
   glutDisplayFunc( display );
   glutKeyboardFunc( keyboard );
   glutKeyboardUpFunc( keylift );
+  glutSpecialFunc( keyboard_ctrl );
   glutMouseFunc( mouse );
   glutMotionFunc( mouseroll );
   glutPassiveMotionFunc( mouselook );
   glutIdleFunc( idle );
   glutReshapeFunc( resizeEvent );
+
+  if (DEBUG) {
+    fprintf( stderr, "GL_VENDOR: %s\n", glGetString( GL_VENDOR ));
+    fprintf( stderr, "GL_RENDERER: %s\n", glGetString( GL_RENDERER ));
+    fprintf( stderr, "GL_VERSION: %s\n", glGetString( GL_VERSION ));
+    fprintf( stderr, "GL_SHADING_LANGUAGE_VERSION: %s\n", 
+	     glGetString( GL_SHADING_LANGUAGE_VERSION ));
+  }
 
   /* PULL THE TRIGGER */
   glutMainLoop();

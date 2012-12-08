@@ -8,11 +8,19 @@ using namespace Angel;
 typedef Angel::vec4  color4;
 typedef Angel::vec4  point4;
 
+#ifndef __CUBE__ // Globals for Pyramid Model
+const int NumTimesToSubdivide = 4;
+const int NumTetrahedrons = 4*4*4*4;//intPow(4, NumTimesToSubdivide);
+const int NumTriangles = 4*NumTetrahedrons;
+const int NumVertices = 3*NumTriangles+6;
+#endif
+#ifdef __CUBE__ // Globals for Cube Model 
+const int NumVertices = 36;
+#endif
 
-extern point4  points[];
-extern color4  colors[];
-extern vec3  normals[];
-
+point4 points[NumVertices];
+color4 colors[NumVertices];
+vec3  normals[NumVertices];
 
 #include <iostream>
 #include <fstream>

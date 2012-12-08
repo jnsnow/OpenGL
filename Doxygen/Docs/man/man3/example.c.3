@@ -1,4 +1,4 @@
-.TH "example.c" 3 "Mon Dec 3 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.TH "example.c" 3 "Wed Dec 5 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -18,7 +18,7 @@ Example using the wiic API\&.
 \fC#include <wiic\&.h>\fP
 .br
 
-.SS "Defines"
+.SS "Macros"
 
 .in +1c
 .ti -1c
@@ -68,7 +68,8 @@ This file is an example of how to use the wiic library\&.
 Definition in file \fBexample\&.c\fP\&.
 .SH "Function Documentation"
 .PP 
-.SS "void \fBhandle_ctrl_status\fP (struct \fBwiimote_t\fP *wm)"
+.SS "void handle_ctrl_status (struct \fBwiimote_t\fP *wm)"
+
 .PP
 Callback that handles a controller status event\&. \fBParameters:\fP
 .RS 4
@@ -90,7 +91,8 @@ This occurs when either the controller status changed or the controller status w
 One reason the status can change is if the nunchuk was inserted or removed from the expansion port\&. 
 .PP
 Definition at line 259 of file example\&.c\&.
-.SS "void \fBhandle_disconnect\fP (\fBwiimote\fP *wm)"
+.SS "void handle_disconnect (\fBwiimote\fP *wm)"
+
 .PP
 Callback that handles a disconnection event\&. \fBParameters:\fP
 .RS 4
@@ -100,7 +102,8 @@ Callback that handles a disconnection event\&. \fBParameters:\fP
 This can happen if the POWER button is pressed, or if the connection is interrupted\&. 
 .PP
 Definition at line 278 of file example\&.c\&.
-.SS "void \fBhandle_event\fP (struct \fBwiimote_t\fP *wm)"
+.SS "void handle_event (struct \fBwiimote_t\fP *wm)"
+
 .PP
 Callback that handles an event\&. \fBParameters:\fP
 .RS 4
@@ -110,7 +113,8 @@ Callback that handles an event\&. \fBParameters:\fP
 This function is called automatically by the wiic library when an event occurs on the specified wiimote\&. 
 .PP
 Definition at line 61 of file example\&.c\&.
-.SS "void \fBhandle_read\fP (struct \fBwiimote_t\fP *wm, \fBbyte\fP *data, unsigned shortlen)"
+.SS "void handle_read (struct \fBwiimote_t\fP *wm, \fBbyte\fP *data, unsigned shortlen)"
+
 .PP
 Callback that handles a read event\&. \fBParameters:\fP
 .RS 4
@@ -128,7 +132,8 @@ You can read data on the wiimote, such as Mii data, if you know the offset addre
 The \fIdata\fP pointer was specified on the call to \fBwiic_read_data()\fP\&. At the time of this function being called, it is not safe to deallocate this buffer\&. 
 .PP
 Definition at line 228 of file example\&.c\&.
-.SS "int \fBmain\fP (intargc, char **argv)"
+.SS "int main (intargc, char **argv)"
+
 .PP
 \fBmain()\fP Connect to up to two wiimotes and print any events that occur on either device\&. 
 .PP

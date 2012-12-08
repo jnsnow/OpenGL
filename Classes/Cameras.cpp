@@ -1,4 +1,12 @@
-//#include "OpenGL.h" /* For window size calculations */
+/**
+   @file Cameras.cpp
+   @author John Huston
+   @authors John Huston, Nicholas StPierre, Chris Compton
+   @date 2012-12-04
+   @brief Implementation for the Cameras class, which is a container for Camera objects.
+**/
+
+
 #include <cmath>
 #include <vector>
 #include "Camera.hpp"
@@ -6,16 +14,14 @@
 using std::vector;
 
 
-Cameras::Cameras( void ) {
-  /* Nothing, one supposes? 
-     Hello, though!
-     If you are reading this, I love you. */
-}
-
 Cameras::Cameras( const size_t &numCameras ) {
   for ( size_t i = 0; i < numCameras; ++i ) {
     addCamera( Camera() );
   }
+  /* Do not use Active(n) to set the initial active camera.
+     This will attempt to send data to the GPU, and we may
+     not have done that yet. */
+  activeCamera = 0;
 }
 
 Cameras::~Cameras( void ) {
@@ -95,6 +101,16 @@ Camera &Cameras::Active( size_t n ) {
   return Active();
 }
 
+Camera &Cameras::Next( void ) {
+  activeCamera = (activeCamera + 1) % camList.size();
+  return Active();
+}
+Camera &Cameras::Prev( void ) {
+  if (activeCamera == 0) activeCamera = camList.size() - 1;
+  else activeCamera--;
+  return Active();
+}
+
 void Cameras::Draw(void (*draw_func)(void)) {
 
   vector<Camera>::iterator it;
@@ -110,7 +126,8 @@ void Cameras::Resize( int width, int height ) {
   
   this->Width = width;
   this->Height = height;
-  std::cerr << "Setting Cameras WxH: " << Width << "x" << Height << "\n";
+  if (0)
+    std::cerr << "Setting Cameras WxH: " << Width << "x" << Height << "\n";
   CalculateViewports();
 
 }
@@ -150,7 +167,7 @@ void Cameras::CalculateViewports( void ) {
     size_t myHeight;
     size_t allocWidth = 0;
     size_t colsThisRow = (row < drawMinRows) ? numMinCols : numMaxCols;
-    fprintf( stderr, "Row: %lu; Columns this row: %lu\n", row, colsThisRow );
+    if (0) fprintf( stderr, "Row: %lu; Columns this row: %lu\n", row, colsThisRow );
 
     for (size_t col = 0; col < colsThisRow; ++col, ++it) {
       // Is this the last column? Use the remaining width.

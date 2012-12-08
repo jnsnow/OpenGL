@@ -1,4 +1,4 @@
-.TH "ir.h" 3 "Mon Dec 3 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.TH "ir.h" 3 "Wed Dec 5 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -12,7 +12,7 @@ Handles IR data\&.
 \fC#include 'wiic_internal\&.h'\fP
 .br
 
-.SS "Defines"
+.SS "Macros"
 
 .in +1c
 .ti -1c
@@ -47,7 +47,8 @@ Handles IR data\&.
 Definition in file \fBir\&.h\fP\&.
 .SH "Function Documentation"
 .PP 
-.SS "float \fBcalc_yaw\fP (struct \fBir_t\fP *ir)"
+.SS "float calc_yaw (struct \fBir_t\fP *ir)"
+
 .PP
 Calculate yaw given the IR data\&. \fBParameters:\fP
 .RS 4
@@ -57,7 +58,8 @@ Calculate yaw given the IR data\&. \fBParameters:\fP
 
 .PP
 Definition at line 735 of file ir\&.c\&.
-.SS "void \fBcalculate_basic_ir\fP (struct \fBwiimote_t\fP *wm, \fBbyte\fP *data)"
+.SS "void calculate_basic_ir (struct \fBwiimote_t\fP *wm, \fBbyte\fP *data)"
+
 .PP
 Calculate the data from the IR spots\&. Basic IR mode\&.
 .PP
@@ -71,7 +73,8 @@ Calculate the data from the IR spots\&. Basic IR mode\&.
 
 .PP
 Definition at line 317 of file ir\&.c\&.
-.SS "void \fBcalculate_extended_ir\fP (struct \fBwiimote_t\fP *wm, \fBbyte\fP *data)"
+.SS "void calculate_extended_ir (struct \fBwiimote_t\fP *wm, \fBbyte\fP *data)"
+
 .PP
 Calculate the data from the IR spots\&. Extended IR mode\&.
 .PP

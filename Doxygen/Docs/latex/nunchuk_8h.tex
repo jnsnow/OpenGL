@@ -1,54 +1,54 @@
-\hypertarget{nunchuk_8h}{\section{nunchuk.\-h \-File \-Reference}
+\hypertarget{nunchuk_8h}{\section{nunchuk.\-h File Reference}
 \label{nunchuk_8h}\index{nunchuk.\-h@{nunchuk.\-h}}
 }
 
 
-\-Nunchuk expansion device.  
+Nunchuk expansion device.  
 
 
-{\ttfamily \#include \char`\"{}wiic\-\_\-internal.\-h\char`\"{}}\*
-\subsection*{\-Functions}
+{\ttfamily \#include \char`\"{}wiic\-\_\-internal.\-h\char`\"{}}\\*
+\subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 int \hyperlink{nunchuk_8h_a1d81662126d49b7f3ef269a8e4a97e3c}{nunchuk\-\_\-handshake} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, struct \hyperlink{structnunchuk__t}{nunchuk\-\_\-t} $\ast$nc, \hyperlink{wiic__macros_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte} $\ast$data, unsigned short len)
-\begin{DoxyCompactList}\small\item\em \-Handle the handshake data from the nunchuk. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Handle the handshake data from the nunchuk. \end{DoxyCompactList}\item 
 void \hyperlink{nunchuk_8h_a1bca9c217d6a21be8e261fccc9181943}{nunchuk\-\_\-disconnected} (struct \hyperlink{structnunchuk__t}{nunchuk\-\_\-t} $\ast$nc)
-\begin{DoxyCompactList}\small\item\em \-The nunchuk disconnected. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em The nunchuk disconnected. \end{DoxyCompactList}\item 
 void \hyperlink{nunchuk_8h_a4f807481274fb3fcc2286a8fa26fed3f}{nunchuk\-\_\-event} (struct \hyperlink{structnunchuk__t}{nunchuk\-\_\-t} $\ast$nc, \hyperlink{wiic__macros_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte} $\ast$msg)
-\begin{DoxyCompactList}\small\item\em \-Handle nunchuk event. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Handle nunchuk event. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
-\subsection{\-Detailed \-Description}
-\-Nunchuk expansion device. 
+\subsection{Detailed Description}
+Nunchuk expansion device. 
 
-\-Definition in file \hyperlink{nunchuk_8h_source}{nunchuk.\-h}.
+Definition in file \hyperlink{nunchuk_8h_source}{nunchuk.\-h}.
 
 
 
-\subsection{\-Function \-Documentation}
+\subsection{Function Documentation}
 \hypertarget{nunchuk_8h_a1bca9c217d6a21be8e261fccc9181943}{\index{nunchuk.\-h@{nunchuk.\-h}!nunchuk\-\_\-disconnected@{nunchuk\-\_\-disconnected}}
 \index{nunchuk\-\_\-disconnected@{nunchuk\-\_\-disconnected}!nunchuk.h@{nunchuk.\-h}}
-\subsubsection[{nunchuk\-\_\-disconnected}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf nunchuk\-\_\-disconnected} (
+\subsubsection[{nunchuk\-\_\-disconnected}]{\setlength{\rightskip}{0pt plus 5cm}void nunchuk\-\_\-disconnected (
 \begin{DoxyParamCaption}
 \item[{struct {\bf nunchuk\-\_\-t} $\ast$}]{nc}
 \end{DoxyParamCaption}
 )}}\label{nunchuk_8h_a1bca9c217d6a21be8e261fccc9181943}
 
 
-\-The nunchuk disconnected. 
+The nunchuk disconnected. 
 
 
-\begin{DoxyParams}{\-Parameters}
-{\em nc} & \-A pointer to a \hyperlink{structnunchuk__t}{nunchuk\-\_\-t} structure. \\
+\begin{DoxyParams}{Parameters}
+{\em nc} & A pointer to a \hyperlink{structnunchuk__t}{nunchuk\-\_\-t} structure. \\
 \hline
 \end{DoxyParams}
 
 
-\-Definition at line 126 of file nunchuk.\-c.
+Definition at line 126 of file nunchuk.\-c.
 
 \hypertarget{nunchuk_8h_a4f807481274fb3fcc2286a8fa26fed3f}{\index{nunchuk.\-h@{nunchuk.\-h}!nunchuk\-\_\-event@{nunchuk\-\_\-event}}
 \index{nunchuk\-\_\-event@{nunchuk\-\_\-event}!nunchuk.h@{nunchuk.\-h}}
-\subsubsection[{nunchuk\-\_\-event}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf nunchuk\-\_\-event} (
+\subsubsection[{nunchuk\-\_\-event}]{\setlength{\rightskip}{0pt plus 5cm}void nunchuk\-\_\-event (
 \begin{DoxyParamCaption}
 \item[{struct {\bf nunchuk\-\_\-t} $\ast$}]{nc, }
 \item[{{\bf byte} $\ast$}]{msg}
@@ -56,22 +56,22 @@ void \hyperlink{nunchuk_8h_a4f807481274fb3fcc2286a8fa26fed3f}{nunchuk\-\_\-event
 )}}\label{nunchuk_8h_a4f807481274fb3fcc2286a8fa26fed3f}
 
 
-\-Handle nunchuk event. 
+Handle nunchuk event. 
 
 
-\begin{DoxyParams}{\-Parameters}
-{\em nc} & \-A pointer to a \hyperlink{structnunchuk__t}{nunchuk\-\_\-t} structure. \\
+\begin{DoxyParams}{Parameters}
+{\em nc} & A pointer to a \hyperlink{structnunchuk__t}{nunchuk\-\_\-t} structure. \\
 \hline
-{\em msg} & \-The message specified in the event packet. \\
+{\em msg} & The message specified in the event packet. \\
 \hline
 \end{DoxyParams}
 
 
-\-Definition at line 138 of file nunchuk.\-c.
+Definition at line 138 of file nunchuk.\-c.
 
 \hypertarget{nunchuk_8h_a1d81662126d49b7f3ef269a8e4a97e3c}{\index{nunchuk.\-h@{nunchuk.\-h}!nunchuk\-\_\-handshake@{nunchuk\-\_\-handshake}}
 \index{nunchuk\-\_\-handshake@{nunchuk\-\_\-handshake}!nunchuk.h@{nunchuk.\-h}}
-\subsubsection[{nunchuk\-\_\-handshake}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf nunchuk\-\_\-handshake} (
+\subsubsection[{nunchuk\-\_\-handshake}]{\setlength{\rightskip}{0pt plus 5cm}int nunchuk\-\_\-handshake (
 \begin{DoxyParamCaption}
 \item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
 \item[{struct {\bf nunchuk\-\_\-t} $\ast$}]{nc, }
@@ -81,21 +81,21 @@ void \hyperlink{nunchuk_8h_a4f807481274fb3fcc2286a8fa26fed3f}{nunchuk\-\_\-event
 )}}\label{nunchuk_8h_a1d81662126d49b7f3ef269a8e4a97e3c}
 
 
-\-Handle the handshake data from the nunchuk. 
+Handle the handshake data from the nunchuk. 
 
 
-\begin{DoxyParams}{\-Parameters}
-{\em nc} & \-A pointer to a \hyperlink{structnunchuk__t}{nunchuk\-\_\-t} structure. \\
+\begin{DoxyParams}{Parameters}
+{\em nc} & A pointer to a \hyperlink{structnunchuk__t}{nunchuk\-\_\-t} structure. \\
 \hline
-{\em data} & \-The data read in from the device. \\
+{\em data} & The data read in from the device. \\
 \hline
-{\em len} & \-The length of the data block, in bytes.\\
+{\em len} & The length of the data block, in bytes.\\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{\-Returns}
-\-Returns 1 if handshake was successful, 0 if not. 
+\begin{DoxyReturn}{Returns}
+Returns 1 if handshake was successful, 0 if not. 
 \end{DoxyReturn}
 
 
-\-Definition at line 58 of file nunchuk.\-c.
+Definition at line 58 of file nunchuk.\-c.
 

@@ -107,5 +107,8 @@ var wiic__macros_8h =
     [ "byte", "wiic__macros_8h.html#a0c8186d9b9b7880309c27230bbb5e69d", null ],
     [ "sbyte", "wiic__macros_8h.html#a72179b3835ebf8b0fb93f5b0755ed66c", null ],
     [ "wiic_read_cb", "wiic__macros_8h.html#a99277983eee0e7a676a23c86db356b83", null ],
-    [ "aspect_t", "wiic__macros_8h.html#a48b01fa22a869e3fb6afe4b4a4f30658", null ]
+    [ "aspect_t", "wiic__macros_8h.html#a48b01fa22a869e3fb6afe4b4a4f30658", [
+      [ "WIIC_ASPECT_4_3", "wiic__macros_8h.html#a48b01fa22a869e3fb6afe4b4a4f30658a1b36cf4cccae89ae621c81e5ea04ddcf", null ],
+      [ "WIIC_ASPECT_16_9", "wiic__macros_8h.html#a48b01fa22a869e3fb6afe4b4a4f30658ac932007de595f006349acf755bceb386", null ]
+    ] ]
 ];

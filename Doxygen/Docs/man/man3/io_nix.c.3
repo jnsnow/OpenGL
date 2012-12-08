@@ -1,4 +1,4 @@
-.TH "io_nix.c" 3 "Mon Dec 3 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.TH "io_nix.c" 3 "Wed Dec 5 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -69,7 +69,8 @@ Handles device I/O for *nix\&.
 Definition in file \fBio_nix\&.c\fP\&.
 .SH "Function Documentation"
 .PP 
-.SS "int \fBwiic_connect\fP (struct \fBwiimote_t\fP **wm, intwiimotes, intautoreconnect)"
+.SS "int wiic_connect (struct \fBwiimote_t\fP **wm, intwiimotes, intautoreconnect)"
+
 .PP
 Connect to a wiimote or wiimotes once an address is known\&. \fBParameters:\fP
 .RS 4
@@ -85,7 +86,7 @@ Connect to a wiimote or wiimotes once an address is known\&. \fBParameters:\fP
 The number of wiimotes that successfully connected\&.
 .RE
 .PP
-\fBSee also:\fP
+\fBSee Also:\fP
 .RS 4
 \fBwiic_find()\fP 
 .PP
@@ -97,7 +98,8 @@ The number of wiimotes that successfully connected\&.
 Connect to a number of wiimotes when the address is already set in the \fBwiimote_t\fP structures\&. These addresses are normally set by the \fBwiic_find()\fP function, but can also be set manually\&. 
 .PP
 Definition at line 152 of file io_nix\&.c\&.
-.SS "int \fBwiic_connect_single\fP (struct \fBwiimote_t\fP *wm, char *address, intautoreconnect)"
+.SS "int wiic_connect_single (struct \fBwiimote_t\fP *wm, char *address, intautoreconnect)"
+
 .PP
 Connect to a wiimote with a known address\&. \fBParameters:\fP
 .RS 4
@@ -116,14 +118,15 @@ Connect to a wiimote with a known address\&. \fBParameters:\fP
 
 .PP
 Definition at line 239 of file io_nix\&.c\&.
-.SS "void \fBwiic_disconnect\fP (struct \fBwiimote_t\fP *wm)"
+.SS "void wiic_disconnect (struct \fBwiimote_t\fP *wm)"
+
 .PP
 Disconnect a wiimote\&. \fBParameters:\fP
 .RS 4
 \fIwm\fP Pointer to a \fBwiimote_t\fP structure\&.
 .RE
 .PP
-\fBSee also:\fP
+\fBSee Also:\fP
 .RS 4
 \fBwiic_connect()\fP
 .RE
@@ -131,7 +134,8 @@ Disconnect a wiimote\&. \fBParameters:\fP
 Note that this will not free the wiimote structure\&. 
 .PP
 Definition at line 314 of file io_nix\&.c\&.
-.SS "int \fBwiic_find\fP (struct \fBwiimote_t\fP **wm, intmax_wiimotes, inttimeout)"
+.SS "int wiic_find (struct \fBwiimote_t\fP **wm, intmax_wiimotes, inttimeout)"
+
 .PP
 Find a wiimote or wiimotes\&. \fBParameters:\fP
 .RS 4
@@ -147,7 +151,7 @@ Find a wiimote or wiimotes\&. \fBParameters:\fP
 The number of wiimotes found\&.
 .RE
 .PP
-\fBSee also:\fP
+\fBSee Also:\fP
 .RS 4
 wiimote_connect()
 .RE
@@ -161,7 +165,8 @@ This function will only look for wiimote devices\&.
  devices\&. 
 .PP
 Definition at line 68 of file io_nix\&.c\&.
-.SS "int \fBwiic_load\fP (struct \fBwiimote_t\fP **wm)"
+.SS "int wiic_load (struct \fBwiimote_t\fP **wm)"
+
 .PP
 Load Wii devices registered in the wiimotes\&.config file\&. \fBParameters:\fP
 .RS 4
@@ -173,7 +178,7 @@ Load Wii devices registered in the wiimotes\&.config file\&. \fBParameters:\fP
 The number of wiimotes successfully loaded\&.
 .RE
 .PP
-\fBSee also:\fP
+\fBSee Also:\fP
 .RS 4
 \fBwiic_find()\fP 
 .PP

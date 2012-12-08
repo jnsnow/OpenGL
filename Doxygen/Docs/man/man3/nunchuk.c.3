@@ -1,4 +1,4 @@
-.TH "nunchuk.c" 3 "Mon Dec 3 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.TH "nunchuk.c" 3 "Wed Dec 5 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -63,7 +63,8 @@ Nunchuk expansion device\&.
 Definition in file \fBnunchuk\&.c\fP\&.
 .SH "Function Documentation"
 .PP 
-.SS "void \fBnunchuk_disconnected\fP (struct \fBnunchuk_t\fP *nc)"
+.SS "void nunchuk_disconnected (struct \fBnunchuk_t\fP *nc)"
+
 .PP
 The nunchuk disconnected\&. \fBParameters:\fP
 .RS 4
@@ -73,7 +74,8 @@ The nunchuk disconnected\&. \fBParameters:\fP
 
 .PP
 Definition at line 126 of file nunchuk\&.c\&.
-.SS "void \fBnunchuk_event\fP (struct \fBnunchuk_t\fP *nc, \fBbyte\fP *msg)"
+.SS "void nunchuk_event (struct \fBnunchuk_t\fP *nc, \fBbyte\fP *msg)"
+
 .PP
 Handle nunchuk event\&. \fBParameters:\fP
 .RS 4
@@ -85,7 +87,8 @@ Handle nunchuk event\&. \fBParameters:\fP
 
 .PP
 Definition at line 138 of file nunchuk\&.c\&.
-.SS "int \fBnunchuk_handshake\fP (struct \fBwiimote_t\fP *wm, struct \fBnunchuk_t\fP *nc, \fBbyte\fP *data, unsigned shortlen)"
+.SS "int nunchuk_handshake (struct \fBwiimote_t\fP *wm, struct \fBnunchuk_t\fP *nc, \fBbyte\fP *data, unsigned shortlen)"
+
 .PP
 Handle the handshake data from the nunchuk\&. \fBParameters:\fP
 .RS 4
@@ -104,7 +107,8 @@ Returns 1 if handshake was successful, 0 if not\&.
 
 .PP
 Definition at line 58 of file nunchuk\&.c\&.
-.SS "static void \fBnunchuk_pressed_buttons\fP (struct \fBnunchuk_t\fP *nc, \fBbyte\fPnow)\fC [static]\fP"
+.SS "static void nunchuk_pressed_buttons (struct \fBnunchuk_t\fP *nc, \fBbyte\fPnow)\fC [static]\fP"
+
 .PP
 Find what buttons are pressed\&. \fBParameters:\fP
 .RS 4
@@ -116,7 +120,8 @@ Find what buttons are pressed\&. \fBParameters:\fP
 
 .PP
 Definition at line 167 of file nunchuk\&.c\&.
-.SS "void \fBwiic_set_nunchuk_accel_threshold\fP (struct \fBwiimote_t\fP *wm, intthreshold)"
+.SS "void wiic_set_nunchuk_accel_threshold (struct \fBwiimote_t\fP *wm, intthreshold)"
+
 .PP
 Set the accelerometer event threshold for the nunchuk\&. \fBParameters:\fP
 .RS 4
@@ -128,7 +133,8 @@ Set the accelerometer event threshold for the nunchuk\&. \fBParameters:\fP
 See \fBwiic_set_orient_threshold()\fP for details\&. 
 .PP
 Definition at line 205 of file nunchuk\&.c\&.
-.SS "void \fBwiic_set_nunchuk_orient_threshold\fP (struct \fBwiimote_t\fP *wm, floatthreshold)"
+.SS "void wiic_set_nunchuk_orient_threshold (struct \fBwiimote_t\fP *wm, floatthreshold)"
+
 .PP
 Set the orientation event threshold for the nunchuk\&. \fBParameters:\fP
 .RS 4
