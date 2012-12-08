@@ -8,6 +8,7 @@ class Timer {
 public:
   Timer();  
   unsigned long Tick();
+  unsigned long Tock();
   unsigned long Delta() const;
 
 private:
@@ -20,5 +21,7 @@ private:
 #endif
   unsigned long delta;
 };
+
+extern Timer Tick;
 
 #endif

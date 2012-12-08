@@ -1,5 +1,14 @@
-#include <vector>
+/**
+   @file terrain.cpp
+   @authors John Huston, Nicholas StPierre, Chris Compton
+   @date 2012-12-06
+   @brief This is a derivative of our main project file, fly.cpp.
+   @details This is a tech demo for terrain generation using an udpated
+   engine derived from fly.cpp, which was mostly based on Ed Angel's code
+   from his book.
+**/
 
+#include <vector>
 #include <sys/time.h>
 #include <cmath>
 #include "platform.h" /* Multi-platform support and OpenGL headers */
@@ -36,18 +45,16 @@ bool usingWii = false;
 #endif
 ////
 
-std::vector<point4> pointVector;
-std::vector<unsigned int> pointIndices;
-
 Screen myScreen( 800, 600 );
 GLuint gShader;
-GLenum draw_mode = GL_TRIANGLE_STRIP;
+// Must create a POINTER, because if we try to initialize it before OpenGL, W.W.III.
 Object *terrain;
-
+// Draw a key frame every 16667 usec or so.
+ulong KeyFrameRate = 16667;
 
 void landGen( std::vector<point4> &vec, std::vector<unsigned int> &drawIndex ) {
 
-  Timer Tock;
+  Timer Tick;
 
   const int _N = 5;
   const int S = pow(2,_N) + 1;
@@ -146,9 +153,10 @@ void landGen( std::vector<point4> &vec, std::vector<unsigned int> &drawIndex ) {
     }
   }
   if (DEBUG) printf("\nExiting landGen()...\n");
-  Tock.Tick();
-  fprintf( stderr, "Landgen took %lu usec, %lu msec, %f sec to generate %d vertices.\n", 
-	   Tock.Delta(), Tock.Delta()/1000, Tock.Delta()/1000000.0, S*S );
+
+  Tick.Tock();
+  fprintf( stderr, "Landgen took %lu usec, %f msec, %f sec to generate %d vertices.\n", 
+	   Tick.Delta(), Tick.Delta()/1000.0, Tick.Delta()/1000000.0, S*S );
 
   return;
 }
@@ -354,6 +362,9 @@ void resizeEvent( int width, int height ) {
 
 
 void idle( void ) {
+
+  Tick.Tock();
+  fprintf( stderr, "Time since last idle: %lu\n", Tick.Delta() );
 
 #ifdef WII
   if (usingWii) {
