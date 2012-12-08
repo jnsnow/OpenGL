@@ -16,20 +16,24 @@ class Object {
     TEXCOORDS };
 
 public:
-  Object( void );
+  Object( GLuint gShader );
   ~Object( void );
   void Draw( void );
+  void Buffer( void );
+  void Mode( GLenum new_node );
 
-protected:  
-  GLuint vao;
-  GLuint buffer[5];
-  GLenum draw_mode;
-
+  /* Bad. Bad! Protect these. ...Later? :( */
   std::vector<Angel::vec4> points;
   std::vector<Angel::vec3> normals;
   std::vector<unsigned int> indices;
   std::vector<Angel::vec4> colors;
   std::vector<Angel::vec2> texcoords;
+
+protected:  
+  GLuint vao;
+  GLuint buffer[5];
+  GLenum draw_mode;
+  GLuint gShader;
 
   /* Per-Object CTM */
   Angel::mat4 CTM;

@@ -49,7 +49,7 @@ void landGen( std::vector<point4> &vec, std::vector<unsigned int> &drawIndex ) {
 
   Timer Tock;
 
-  const int _N = 12;
+  const int _N = 5;
   const int S = pow(2,_N) + 1;
 
   if (DEBUG) printf( "\nEntering landGen()...\n");
@@ -57,7 +57,7 @@ void landGen( std::vector<point4> &vec, std::vector<unsigned int> &drawIndex ) {
   // This determines the jaggedness of the peaks and valleys.
   // A smaller initial value will create smaller peaks and shollow valleys for
   // a look more similar to rolling hill tops.
-  double h = 30.0;  
+  double h = 8.0;  
   double magnitude = (h*(2 - pow(2,-(_N))));
   fprintf( stderr, "landGen theoretical magnitude: %f\n", magnitude );
 
@@ -171,39 +171,15 @@ void cameraInit( Camera& cam ) {
 
 void init() {
 
-  terrain = new( Object );
-
-  /** Fill points[...] with terrain map **/
-  landGen( pointVector, pointIndices );
-  
-  GLuint vao;
-  glGenVertexArrays( 1, &vao );
-  glBindVertexArray( vao );
-  
-  // Create and initialize a buffer object
-  GLuint buffer;
-  glGenBuffers( 1, &buffer );
-  glBindBuffer( GL_ARRAY_BUFFER, buffer );
-  glBufferData( GL_ARRAY_BUFFER, sizeof(point4) * pointVector.size(),
-		&(pointVector[0]), GL_STATIC_DRAW );
-  
   // Load shaders and use the resulting shader program
   gShader = Angel::InitShader( "vterrain.glsl", "fterrain.glsl" );
+  terrain = new Object( gShader );
   glUseProgram( gShader );
 
-  // Initialize the vertex position attribute from the vertex shader  
-  GLuint vPosition = glGetAttribLocation( gShader, "vPosition" );
-  glEnableVertexAttribArray( vPosition );
-  glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0,
-			 (GLvoid*)0 );
-
-  GLuint IBO;
-  glGenBuffers( 1, &IBO );
-  glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, IBO );
-  glBufferData( GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * pointIndices.size(),
-		&(pointIndices[0]), GL_STATIC_DRAW );
-
-  
+  /** Fill points[...] with terrain map **/
+  landGen( terrain->points, terrain->indices );
+  terrain->Buffer();
+    
   // Link however many cameras we have at this point to the shader.
   myScreen.camList.LinkAll( gShader, Camera::TRANSLATION, "T" );
   myScreen.camList.LinkAll( gShader, Camera::ROTATION, "R" );
@@ -220,8 +196,9 @@ void init() {
 /** A function that takes no arguments.
     Is responsible for drawing a SINGLE VIEWPORT. **/
 void displayViewport( void ) {  
+  terrain->Draw();
   //glDrawArrays( draw_mode, 0, pointVector.size() );
-  glDrawElements( draw_mode, pointIndices.size(), GL_UNSIGNED_INT, 0 );
+  //glDrawElements( draw_mode, pointIndices.size(), GL_UNSIGNED_INT, 0 );
 }
 
 void display( void ) {
@@ -319,13 +296,13 @@ void keyboard_ctrl( int key, int x, int y ) {
     break;
 
   case GLUT_KEY_F1:
-    draw_mode = GL_POINTS;
+    terrain->Mode( GL_POINTS );
     break;
   case GLUT_KEY_F2:
-    draw_mode = GL_LINE_STRIP;
+    terrain->Mode( GL_LINE_STRIP );
     break;
   case GLUT_KEY_F3:
-    draw_mode = GL_TRIANGLE_STRIP;
+    terrain->Mode( GL_TRIANGLE_STRIP );
     break;
   }
 }
