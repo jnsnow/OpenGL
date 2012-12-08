@@ -11,6 +11,7 @@
 #include "Cameras.hpp"
 #include "Screen.hpp"
 #include "Object.hpp"
+#include "Timer.hpp"
 
 // Turn on debugging if it's been requested of us by the Makefile environment.
 #ifndef DEBUG
@@ -36,6 +37,7 @@ bool usingWii = false;
 ////
 
 std::vector<point4> pointVector;
+std::vector<unsigned int> pointIndices;
 
 Screen myScreen( 800, 600 );
 GLuint gShader;
@@ -43,9 +45,11 @@ GLenum draw_mode = GL_TRIANGLE_STRIP;
 Object *terrain;
 
 
-void landGen( std::vector<point4> &vec ) {
+void landGen( std::vector<point4> &vec, std::vector<unsigned int> &drawIndex ) {
 
-  const int _N = 7;
+  Timer Tock;
+
+  const int _N = 12;
   const int S = pow(2,_N) + 1;
 
   if (DEBUG) printf( "\nEntering landGen()...\n");
@@ -53,20 +57,21 @@ void landGen( std::vector<point4> &vec ) {
   // This determines the jaggedness of the peaks and valleys.
   // A smaller initial value will create smaller peaks and shollow valleys for
   // a look more similar to rolling hill tops.
-  double h = 8.0;  
+  double h = 30.0;  
   double magnitude = (h*(2 - pow(2,-(_N))));
   fprintf( stderr, "landGen theoretical magnitude: %f\n", magnitude );
 
-  /* Create and initialize an S x S array. */
-  std::vector< vec4 > tPoints;
-  tPoints.reserve( S * S );
+  if (vec.size()) vec.clear();
+  vec.reserve( S * S );
   for ( int i = 0; i < S; ++i )
     for ( int j = 0; j < S; ++j ) 
-      tPoints.push_back( vec4( j, 0, i, 1 ) );
+      vec.push_back( vec4( j, 0, i, 1 ) );
 
-  /* Simulate a 2D array in this 1D array. */
-#define VertexAt(X,Z) (tPoints.at((X)*S + (Z)))
-#define HeightAt(X,Z) (tPoints[(X)*S + (Z)].y)
+  /* Simulate a 2D array in this 1D array. Use these Macros to help. */
+#define OffsetAt(X,Z) ((X)*S+(Z))
+#define VertexAt(X,Z) (vec.at(OffsetAt(X,Z)))
+#define HeightAt(X,Z) (VertexAt(X,Z).y)
+
 
   // Initialize the corners of the grid
   HeightAt( 0, 0 )     = 0;
@@ -122,25 +127,29 @@ void landGen( std::vector<point4> &vec ) {
   } // for sideLength
 
 
-  vec.reserve(2*S*S - 2*S);
+  //vec.reserve(2*S*S - 2*S);
   // Convert 2D array into 1D array to pass to shaders
   // Size of 1D array is 2*SIZE^2 - 2SIZE for
   // the sake of proper parsing by glTriangleStrips
   for ( int i = 0, j = 0 ; i + 1 < S ; i++ ) {
     for ( j = 0 ; j < S ; j++ ) {
-      vec.push_back(VertexAt(i,j));
-      vec.push_back(VertexAt(i+1,j));
+      drawIndex.push_back(OffsetAt(i,j));
+      drawIndex.push_back(OffsetAt(i+1,j));
     }
 
     /* If we're out of rows to serialize, give up. */
     if (++i == S) break;
 
     for ( ; j > 0 ; j-- ){
-      vec.push_back(VertexAt(i,j-1));
-      vec.push_back(VertexAt(i+1,j-1));
+      drawIndex.push_back(OffsetAt(i,j-1));
+      drawIndex.push_back(OffsetAt(i+1,j-1));
     }
   }
   if (DEBUG) printf("\nExiting landGen()...\n");
+  Tock.Tick();
+  fprintf( stderr, "Landgen took %lu usec, %lu msec, %f sec to generate %d vertices.\n", 
+	   Tock.Delta(), Tock.Delta()/1000, Tock.Delta()/1000000.0, S*S );
+
   return;
 }
 
@@ -165,7 +174,7 @@ void init() {
   terrain = new( Object );
 
   /** Fill points[...] with terrain map **/
-  landGen( pointVector );
+  landGen( pointVector, pointIndices );
   
   GLuint vao;
   glGenVertexArrays( 1, &vao );
@@ -175,10 +184,8 @@ void init() {
   GLuint buffer;
   glGenBuffers( 1, &buffer );
   glBindBuffer( GL_ARRAY_BUFFER, buffer );
-  
-  // First, we create an empty buffer of the size we need
-  glBufferData( GL_ARRAY_BUFFER, sizeof(point4) * pointVector.size(), NULL, GL_STATIC_DRAW );
-  glBufferSubData( GL_ARRAY_BUFFER, 0, sizeof(point4) * pointVector.size(), &(pointVector[0]) );
+  glBufferData( GL_ARRAY_BUFFER, sizeof(point4) * pointVector.size(),
+		&(pointVector[0]), GL_STATIC_DRAW );
   
   // Load shaders and use the resulting shader program
   gShader = Angel::InitShader( "vterrain.glsl", "fterrain.glsl" );
@@ -189,6 +196,13 @@ void init() {
   glEnableVertexAttribArray( vPosition );
   glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0,
 			 (GLvoid*)0 );
+
+  GLuint IBO;
+  glGenBuffers( 1, &IBO );
+  glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, IBO );
+  glBufferData( GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * pointIndices.size(),
+		&(pointIndices[0]), GL_STATIC_DRAW );
+
   
   // Link however many cameras we have at this point to the shader.
   myScreen.camList.LinkAll( gShader, Camera::TRANSLATION, "T" );
@@ -206,7 +220,8 @@ void init() {
 /** A function that takes no arguments.
     Is responsible for drawing a SINGLE VIEWPORT. **/
 void displayViewport( void ) {  
-  glDrawArrays( draw_mode, 0, pointVector.size() );
+  //glDrawArrays( draw_mode, 0, pointVector.size() );
+  glDrawElements( draw_mode, pointIndices.size(), GL_UNSIGNED_INT, 0 );
 }
 
 void display( void ) {

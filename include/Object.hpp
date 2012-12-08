@@ -4,6 +4,7 @@
 #include <vector>
 #include "platform.h"
 #include "vec.hpp"
+#include "mat.hpp"
 
 class Object {
 
@@ -19,20 +20,22 @@ public:
   ~Object( void );
   void Draw( void );
 
-private:
-  
+protected:  
   GLuint vao;
   GLuint buffer[5];
   GLenum draw_mode;
- 
-protected:
 
   std::vector<Angel::vec4> points;
   std::vector<Angel::vec3> normals;
   std::vector<unsigned int> indices;
   std::vector<Angel::vec4> colors;
   std::vector<Angel::vec2> texcoords;
+
+  /* Per-Object CTM */
+  Angel::mat4 CTM;
   
+  /* Hello, Children! */
+  std::vector<Object> children;
 };
 
 #endif
