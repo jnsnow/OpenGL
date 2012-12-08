@@ -7,7 +7,7 @@
 #
 # Usages:
 # make [all]: Build all code with optimization and no debugging symbols.
-# make debug: Build all code with optimization disabled, gdb debugging symbols, and DEBUG flag enabled.
+# make DEBUG=true: Build all code with optimization disabled, gdb debugging symbols, and DEBUG flag enabled.
 # make docs: Build doxygen documentation.
 #
 # Flags:
@@ -28,10 +28,10 @@ EXT=cpp
 CC=g++
 CFLAGS=-Wall -pedantic -I $(RELDIR)/include
 
-EXECS=fly
-BIN_SOURCES=fly.cpp
+EXECS=terrain
+BIN_SOURCES=terrain.cpp
 COMMON_SOURCES=model.cpp InitShader.cpp
-CLASS_SOURCES=Camera.cpp vec.cpp mat.cpp Cameras.cpp Screen.cpp Timer.cpp
+CLASS_SOURCES=Camera.cpp vec.cpp mat.cpp Cameras.cpp Screen.cpp Timer.cpp Object.cpp
 SOURCES=$(BIN_SOURCES) \
 	$(addprefix $(COMMON_DIR)/, $(COMMON_SOURCES)) \
 	$(addprefix $(CLASSES_DIR)/, $(CLASS_SOURCES))

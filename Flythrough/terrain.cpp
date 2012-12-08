@@ -10,6 +10,7 @@
 #include "InitShader.hpp"
 #include "Cameras.hpp"
 #include "Screen.hpp"
+#include "Object.hpp"
 
 // Turn on debugging if it's been requested of us by the Makefile environment.
 #ifndef DEBUG
@@ -38,13 +39,14 @@ std::vector<point4> pointVector;
 
 Screen myScreen( 800, 600 );
 GLuint gShader;
-struct timeval _T1;
-struct timeval _T2;
+GLenum draw_mode = GL_TRIANGLE_STRIP;
+Object *terrain;
+
 
 void landGen( std::vector<point4> &vec ) {
 
   const int _N = 7;
-  const int SIZE = pow(2,_N) + 1;
+  const int S = pow(2,_N) + 1;
 
   if (DEBUG) printf( "\nEntering landGen()...\n");
   // the range (-h -> h) for the average offset
@@ -53,116 +55,89 @@ void landGen( std::vector<point4> &vec ) {
   // a look more similar to rolling hill tops.
   double h = 8.0;  
   double magnitude = (h*(2 - pow(2,-(_N))));
-  fprintf( stderr, "landGen magnitude: %f\n", magnitude );
+  fprintf( stderr, "landGen theoretical magnitude: %f\n", magnitude );
 
-  // Create 2D Array of point4 
-  point4 **terrainPoints = (point4 **)calloc( SIZE, sizeof(point4 *) );
-  for ( int i = 0; i < SIZE; ++i ) terrainPoints[i] = (point4 *)calloc( SIZE, sizeof(point4));
-  /*point4 terrainPoints[SIZE][SIZE];*/
-   
+  /* Create and initialize an S x S array. */
+  std::vector< vec4 > tPoints;
+  tPoints.reserve( S * S );
+  for ( int i = 0; i < S; ++i )
+    for ( int j = 0; j < S; ++j ) 
+      tPoints.push_back( vec4( j, 0, i, 1 ) );
+
+  /* Simulate a 2D array in this 1D array. */
+#define VertexAt(X,Z) (tPoints.at((X)*S + (Z)))
+#define HeightAt(X,Z) (tPoints[(X)*S + (Z)].y)
+
   // Initialize the corners of the grid
-  terrainPoints[0][0]           = point4(   0.0, 0.0,    0.0, 1);
-  terrainPoints[SIZE-1][0]      = point4(SIZE-1, 0.0,    0.0, 1);
-  terrainPoints[0][SIZE-1]      = point4(   0.0, 0.0, SIZE-1, 1);
-  terrainPoints[SIZE-1][SIZE-1] = point4(SIZE-1, 0.0, SIZE-1, 1);
- 
+  HeightAt( 0, 0 )     = 0;
+  HeightAt( S-1, 0 )   = 0;
+  HeightAt( 0, S-1 )   = 0;
+  HeightAt( S-1, S-1 ) = 0;
+
   // Populate the (x, y, z) values of vec4 according to the
   // Diamond-Square algorithm
   // sideLength is the distance of a single square side or
   // distance of diagonal in diamond.
   if (DEBUG) printf("\nEntering for( sideLength...) ...\n");
-  for (int sideLength = SIZE -1; sideLength >= 2; sideLength /= 2, h /= 2.0){
- 
+  for (int sideLength = S-1; sideLength >= 2; sideLength /= 2, h /= 2.0) { 
     int halfSide = sideLength / 2;
- 
     // generate new square values
-    for ( int x = 0 ; x < SIZE-1 ; x += sideLength ) {
-      for ( int z = 0 ; z < SIZE-1 ; z += sideLength) {
- 
-        // x,z is uper left corner of square
-        // calculate average of existing corners
-        double avg = terrainPoints[x][z].y +           // top left
-          terrainPoints[x+sideLength][z].y +           // top right
-          terrainPoints[x][z+sideLength].y +           // lower left
-          terrainPoints[x+sideLength][z+sideLength].y; // lower right
- 
-        avg /= 4.0;
- 
+    for ( int x = 0 ; x < S-1 ; x += sideLength ) {
+      for ( int z = 0 ; z < S-1 ; z += sideLength) { 
+	double avg = \
+	  (HeightAt( x, z ) + HeightAt( x + sideLength, z ) +
+	   HeightAt( x, z + sideLength ) + HeightAt( x + sideLength, z + sideLength ))/4.0;
         // Center is average plus random offset in the range (-h, h)
         double offset = (-h) + rand() * (h - (-h)) / RAND_MAX;
-        terrainPoints[x+halfSide][z+halfSide] = point4( x, avg + offset, z, 1 );
- 
+	HeightAt( x + halfSide, z + halfSide ) = avg + offset; 
       } // for z
     } // for x
    
     // Generate the diamond values
     // Since diamonds are staggered, we only move x by half side
     // NOTE: If the data shouldn't wrap the x < SIZE and y < SIZE
-    for ( int x = 0 ; x < SIZE-1 ; x += halfSide ) {
-      for (int z = ( x+halfSide ) % sideLength ; z < SIZE-1 ; z += sideLength ) {
+    for ( int x = 0 ; x < S-1 ; x += halfSide ) {
+      for (int z = ( x+halfSide ) % sideLength ; z < S-1 ; z += sideLength ) {
  
         // x,z is center of diamond
         // We must use mod and add SIZE for subtraction
         // so that we can wrap around the array to find the corners
- 
-        double avg =
-          terrainPoints[(x-halfSide+SIZE)%SIZE][z].y +    // left of center  
-          terrainPoints[(x+halfSide)%SIZE][z].y      +    // right of center
-          terrainPoints[x][(z+halfSide)%SIZE].y      +    // below center
-          terrainPoints[x][(z-halfSide+SIZE)%SIZE].y;
- 
-        avg /= 4.0;
+
+	double avg = 
+	  (HeightAt( (x-halfSide + S) % S, z ) +
+	   HeightAt( x + halfSide % S, z ) +
+	   HeightAt( x, z + halfSide % S ) +
+	   HeightAt( x, (z - halfSide + S) % S )) / 4.0;
  
         // new value = average plus random offset
         // calculate random value in the range (-h, h)
         double offset = (-h) + rand() * (h - (-h)) / RAND_MAX;
-        avg += offset;
- 
-        // update value for center of diamond
-        terrainPoints[x][z] = point4( x, avg, z, 1 );
- 
-        // wrap values on the edges
-        // Allows seamless tiling of generated terrain. MOAR LAND!
-        if ( x == 0 ) terrainPoints[SIZE-1][z] = point4( SIZE-1, avg, z, 1 );
-        if ( z == 0 ) terrainPoints[x][SIZE-1] = point4( x, avg, SIZE-1, 1 );
+	HeightAt( x, z ) = avg + offset;
+
+	// Wrapping:
+	if (x == 0) HeightAt( S-1, z ) = avg + offset;
+	if (z == 0) HeightAt( x, S-1 ) = avg + offset;
       } // for z
     } // for x
   } // for sideLength
 
-  for ( int i = 0; i < SIZE; ++i ) {
-    for ( int j = 0; j < SIZE; ++j ) {
-      terrainPoints[i][j].z = i;
-      terrainPoints[i][j].x = j;
-    }
-  }
 
-
-  vec.reserve(2*SIZE*SIZE - 2*SIZE);
+  vec.reserve(2*S*S - 2*S);
   // Convert 2D array into 1D array to pass to shaders
   // Size of 1D array is 2*SIZE^2 - 2SIZE for
   // the sake of proper parsing by glTriangleStrips
-  int S = SIZE;
-  int i, j;
-  //  point4 points[S];
-  for ( i = 0 ; i + 1 < S ; i++ ) {
+  for ( int i = 0, j = 0 ; i + 1 < S ; i++ ) {
     for ( j = 0 ; j < S ; j++ ) {
-      if (0) fprintf( stderr, "A(%d,%d) (X:%f,Y:%f,Z:%f)\n", i, j, 
-	       terrainPoints[i][j].x, terrainPoints[i][j].y, terrainPoints[i][j].z );
-      vec.push_back( terrainPoints[i][j] );
-      if (0) fprintf( stderr, "A(%d,%d) (X:%f,Y:%f,Z:%f)\n", i+1, j,
-	       terrainPoints[i+1][j].x, terrainPoints[i+1][j].y, terrainPoints[i+1][j].z );
-      vec.push_back( terrainPoints[i+1][j] );
+      vec.push_back(VertexAt(i,j));
+      vec.push_back(VertexAt(i+1,j));
     }
 
+    /* If we're out of rows to serialize, give up. */
     if (++i == S) break;
 
     for ( ; j > 0 ; j-- ){
-      if (0) fprintf( stderr, "B(%d,%d) (X:%f,Y:%f,Z:%f)\n", i, j-1,
-	       terrainPoints[i][j-1].x, terrainPoints[i][j-1].y, terrainPoints[i][j-1].z );
-      vec.push_back( terrainPoints[i][j-1] );
-      if (0) fprintf( stderr, "B(%d,%d) (X:%f,Y:%f,Z:%f)\n", i+1, j-1,
-	       terrainPoints[i+1][j-1].x, terrainPoints[i+1][j-1].y, terrainPoints[i+1][j-1].z );
-      vec.push_back( terrainPoints[i+1][j-1] );
+      vec.push_back(VertexAt(i,j-1));
+      vec.push_back(VertexAt(i+1,j-1));
     }
   }
   if (DEBUG) printf("\nExiting landGen()...\n");
@@ -186,6 +161,8 @@ void cameraInit( Camera& cam ) {
 }
 
 void init() {
+
+  terrain = new( Object );
 
   /** Fill points[...] with terrain map **/
   landGen( pointVector );
@@ -219,8 +196,6 @@ void init() {
   myScreen.camList.LinkAll( gShader, Camera::VIEW, "P" );
   myScreen.camList.LinkAll( gShader, Camera::CTM, "CTM" );
 
-  gettimeofday( &_T1, NULL );
-
   glEnable( GL_DEPTH_TEST );
   glClearColor( 0.6, 0.6, 0.6, 1.0 );
   
@@ -230,10 +205,8 @@ void init() {
 
 /** A function that takes no arguments.
     Is responsible for drawing a SINGLE VIEWPORT. **/
-void displayViewport( void ) {
-  
-  //glDrawArrays( GL_LINE_LOOP, 0, pointVector.size() );
-  glDrawArrays( GL_TRIANGLE_STRIP, 0, pointVector.size() );
+void displayViewport( void ) {  
+  glDrawArrays( draw_mode, 0, pointVector.size() );
 }
 
 void display( void ) {
@@ -328,6 +301,16 @@ void keyboard_ctrl( int key, int x, int y ) {
 
   case GLUT_KEY_PAGE_DOWN:
     myScreen.camList.Next();
+    break;
+
+  case GLUT_KEY_F1:
+    draw_mode = GL_POINTS;
+    break;
+  case GLUT_KEY_F2:
+    draw_mode = GL_LINE_STRIP;
+    break;
+  case GLUT_KEY_F3:
+    draw_mode = GL_TRIANGLE_STRIP;
     break;
   }
 }
