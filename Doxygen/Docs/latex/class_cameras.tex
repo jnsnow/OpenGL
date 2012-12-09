@@ -1,0 +1,111 @@
+\hypertarget{class_cameras}{\section{Cameras Class Reference}
+\label{class_cameras}\index{Cameras@{Cameras}}
+}
+
+
+The \hyperlink{class_cameras}{Cameras} class represents a group of logical cameras for a model view. Each camera posesses its own current viewing angle, and an absolute position in space.  
+
+
+
+
+{\ttfamily \#include $<$Cameras.\-hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_cameras_a35c195ae1a970836e7192bac0f34fb54}{{\bfseries Cameras} (const size\-\_\-t \&num\-Cameras=1)}\label{class_cameras_a35c195ae1a970836e7192bac0f34fb54}
+
+\item 
+\hypertarget{class_cameras_ae6eb54cc68dd582db6f808a603031c56}{size\-\_\-t {\bfseries add\-Camera} (void)}\label{class_cameras_ae6eb54cc68dd582db6f808a603031c56}
+
+\item 
+\hypertarget{class_cameras_ac5292f6f0d6c151390e5564548b72935}{size\-\_\-t {\bfseries add\-Camera} (\hyperlink{class_camera}{Camera} const \&new\-Camera)}\label{class_cameras_ac5292f6f0d6c151390e5564548b72935}
+
+\item 
+\hypertarget{class_cameras_aaa690f1a47ebe431dbda55fba958ca38}{void {\bfseries del\-Camera} (size\-\_\-t n)}\label{class_cameras_aaa690f1a47ebe431dbda55fba958ca38}
+
+\item 
+\hypertarget{class_cameras_a9dee7bf1f2c56176c461fa2617ce4549}{void {\bfseries pop\-Camera} (void)}\label{class_cameras_a9dee7bf1f2c56176c461fa2617ce4549}
+
+\item 
+\hypertarget{class_cameras_a0e5181cf91f009ae2709533f2184ddb0}{\hyperlink{class_camera}{Camera} \& {\bfseries get\-Camera} (size\-\_\-t n)}\label{class_cameras_a0e5181cf91f009ae2709533f2184ddb0}
+
+\item 
+\hypertarget{class_cameras_aeee13e4cc6eb085a65af9ef6bf3a549a}{\hyperlink{class_camera}{Camera} \& {\bfseries operator\mbox{[}$\,$\mbox{]}} (size\-\_\-t n)}\label{class_cameras_aeee13e4cc6eb085a65af9ef6bf3a549a}
+
+\item 
+\hypertarget{class_cameras_a91bd6744be5f876bd74e65134da8653a}{\hyperlink{class_camera}{Camera} $\ast$ {\bfseries iter} (size\-\_\-t n)}\label{class_cameras_a91bd6744be5f876bd74e65134da8653a}
+
+\item 
+\hypertarget{class_cameras_acb3907c96b7d147b7bcc1aad42f8da6f}{void {\bfseries Idle\-Motion} (void)}\label{class_cameras_acb3907c96b7d147b7bcc1aad42f8da6f}
+
+\item 
+\hypertarget{class_cameras_a5300fe1aefc42b41151dbb55aff1c978}{void {\bfseries Link\-All} (const G\-Luint \&program, const \hyperlink{class_camera_a6ff726a75a430e4f17e5dec42e4d4405}{Camera\-::glsl\-\_\-var} \&which, const string \&glsl\-Var\-Name)}\label{class_cameras_a5300fe1aefc42b41151dbb55aff1c978}
+
+\item 
+\hypertarget{class_cameras_aaf404448da0f438645827ee3558bf077}{size\-\_\-t {\bfseries Active\-N} (void)}\label{class_cameras_aaf404448da0f438645827ee3558bf077}
+
+\item 
+\hypertarget{class_cameras_a66a0741c023da5ef362f501ea255d65e}{\hyperlink{class_camera}{Camera} \& {\bfseries Active} (void)}\label{class_cameras_a66a0741c023da5ef362f501ea255d65e}
+
+\item 
+\hypertarget{class_cameras_a8e6b90d6a3f2b3654ee02c703172c98d}{\hyperlink{class_camera}{Camera} \& {\bfseries Active} (size\-\_\-t n)}\label{class_cameras_a8e6b90d6a3f2b3654ee02c703172c98d}
+
+\item 
+\hypertarget{class_cameras_a60d90887fd811a6cdfe0ffab75e63594}{\hyperlink{class_camera}{Camera} \& {\bfseries Next} (void)}\label{class_cameras_a60d90887fd811a6cdfe0ffab75e63594}
+
+\item 
+\hypertarget{class_cameras_a9f13d3876229fdcf19640af01be1b95f}{\hyperlink{class_camera}{Camera} \& {\bfseries Prev} (void)}\label{class_cameras_a9f13d3876229fdcf19640af01be1b95f}
+
+\item 
+\hypertarget{class_cameras_a72155a9003f5976b455482d65d0a61ff}{void {\bfseries Resize} (int width, int height)}\label{class_cameras_a72155a9003f5976b455482d65d0a61ff}
+
+\item 
+\hypertarget{class_cameras_ab3bdf41248da9246efeeea4302136c11}{void {\bfseries Calculate\-Viewports} (void)}\label{class_cameras_ab3bdf41248da9246efeeea4302136c11}
+
+\item 
+\hypertarget{class_cameras_adaca996b6dac14e2db89c31ff369d3b4}{void {\bfseries Draw} (void($\ast$draw\-\_\-func)(void))}\label{class_cameras_adaca996b6dac14e2db89c31ff369d3b4}
+
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_cameras_ab3b5bb710ab76cacf8c9177a29b1bc8b}{void {\bfseries common\-Init} (void)}\label{class_cameras_ab3b5bb710ab76cacf8c9177a29b1bc8b}
+
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_cameras_a7411a5eef4362af369217ea8e37cffd3}{vector$<$ \hyperlink{class_camera}{Camera} $>$ {\bfseries cam\-List}}\label{class_cameras_a7411a5eef4362af369217ea8e37cffd3}
+
+\item 
+\hypertarget{class_cameras_a3327a3104975b11b6f144ccba0720c49}{size\-\_\-t {\bfseries active\-Camera}}\label{class_cameras_a3327a3104975b11b6f144ccba0720c49}
+
+\item 
+\hypertarget{class_cameras_af3a40020076cbdbffbbbddf4b83e6f74}{size\-\_\-t {\bfseries Width}}\label{class_cameras_af3a40020076cbdbffbbbddf4b83e6f74}
+
+\item 
+\hypertarget{class_cameras_a073073118b02de2c7c4aa29dcff1587a}{size\-\_\-t {\bfseries Height}}\label{class_cameras_a073073118b02de2c7c4aa29dcff1587a}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_cameras}{Cameras} class represents a group of logical cameras for a model view. Each camera posesses its own current viewing angle, and an absolute position in space. 
+
+\begin{DoxyAuthor}{Author}
+John Huston, \href{mailto:jhuston@cs.uml.edu}{\tt jhuston@cs.\-uml.\-edu} 
+\end{DoxyAuthor}
+\begin{DoxySince}{Since}
+28 Nov 2012
+\end{DoxySince}
+Each \hyperlink{class_camera}{Camera} posesses its own C\-T\-M which can be resent to the G\-P\-U at will. 
+
+Definition at line 20 of file Cameras.\-hpp.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Cameras.\-hpp\item 
+\hyperlink{_cameras_8cpp}{Cameras.\-cpp}\end{DoxyCompactItemize}

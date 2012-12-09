@@ -1,0 +1,177 @@
+.TH "fly.cpp" 3 "Sun Dec 9 2012" "Version 9001" "OpenGL Flythrough" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+fly.cpp \- 
+.PP
+This is our main project file, \fBfly\&.cpp\fP\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'globals\&.h'\fP
+.br
+\fC#include <cmath>\fP
+.br
+\fC#include <cstdio>\fP
+.br
+\fC#include <cstdlib>\fP
+.br
+\fC#include 'platform\&.h'\fP
+.br
+\fC#include 'vec\&.hpp'\fP
+.br
+\fC#include 'mat\&.hpp'\fP
+.br
+\fC#include 'model\&.hpp'\fP
+.br
+\fC#include 'Camera\&.hpp'\fP
+.br
+\fC#include 'InitShader\&.hpp'\fP
+.br
+\fC#include 'Cameras\&.hpp'\fP
+.br
+\fC#include 'Screen\&.hpp'\fP
+.br
+\fC#include 'Object\&.hpp'\fP
+.br
+\fC#include 'Timer\&.hpp'\fP
+.br
+
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef \fBAngel::vec4\fP \fBcolor4\fP"
+.br
+.ti -1c
+.RI "typedef \fBAngel::vec4\fP \fBpoint4\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBinit_lights\fP (GLuint program)"
+.br
+.ti -1c
+.RI "void \fBcameraInit\fP (\fBCamera\fP &cam)"
+.br
+.ti -1c
+.RI "void \fBinit\fP ()"
+.br
+.ti -1c
+.RI "void \fBlightEffects\fP (int frameNumber)"
+.br
+.ti -1c
+.RI "void \fBdisplayViewport\fP (void)"
+.br
+.RI "\fIA function that takes no arguments\&. \fP"
+.ti -1c
+.RI "void \fBdisplay\fP (void)"
+.br
+.ti -1c
+.RI "void \fBkeylift\fP (unsigned char key, int x, int y)"
+.br
+.ti -1c
+.RI "void \fBkeyboard\fP (unsigned char key, int x, int y)"
+.br
+.ti -1c
+.RI "void \fBkeyboard_ctrl\fP (int key, int x, int y)"
+.br
+.ti -1c
+.RI "void \fBmouse\fP (int button, int state, int x, int y)"
+.br
+.ti -1c
+.RI "void \fBmouseroll\fP (int x, int y)"
+.br
+.ti -1c
+.RI "void \fBmouselook\fP (int x, int y)"
+.br
+.ti -1c
+.RI "void \fBresizeEvent\fP (int width, int height)"
+.br
+.ti -1c
+.RI "void \fBmovelight\fP (void)"
+.br
+.ti -1c
+.RI "void \fBidle\fP (void)"
+.br
+.ti -1c
+.RI "int \fBmain\fP (int argc, char **argv)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBObject\fP * \fBpyramid\fP"
+.br
+.ti -1c
+.RI "\fBScreen\fP \fBmyScreen\fP (800, 600)"
+.br
+.ti -1c
+.RI "GLuint \fBgShader\fP"
+.br
+.ti -1c
+.RI "\fBpoint4\fP \fBlight_position\fP (0\&.0, 1\&.0, 0\&.0, 1\&.0)"
+.br
+.ti -1c
+.RI "\fBpoint4\fP \fBlight_position2\fP (0\&.0, 1\&.0, 0\&.1, 1\&.0)"
+.br
+.ti -1c
+.RI "int \fBlightMode\fP = 0"
+.br
+.ti -1c
+.RI "int \fBlightOrbit\fP = 1"
+.br
+.ti -1c
+.RI "GLuint \fBgl_light_position\fP"
+.br
+.ti -1c
+.RI "GLuint \fBgl_AmbientProduct\fP"
+.br
+.ti -1c
+.RI "GLuint \fBgl_DiffuseProduct\fP"
+.br
+.ti -1c
+.RI "GLuint \fBgl_SpecularProduct\fP"
+.br
+.ti -1c
+.RI "GLuint \fBgl_AmbientProduct2\fP"
+.br
+.ti -1c
+.RI "GLuint \fBgl_DiffuseProduct2\fP"
+.br
+.ti -1c
+.RI "GLuint \fBgl_SpecularProduct2\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+This is our main project file, \fBfly\&.cpp\fP\&. 
+
+\fBAuthors:\fP
+.RS 4
+John Huston, Nicholas StPierre, Chris Compton 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+2012-12-06
+.RE
+.PP
+Oh my god, I am a frog -- what is happening 
+.PP
+Definition in file \fBfly\&.cpp\fP\&.
+.SH "Function Documentation"
+.PP 
+.SS "void displayViewport (void)"
+
+.PP
+A function that takes no arguments\&. Is responsible for drawing a SINGLE VIEWPORT\&. 
+.PP
+Definition at line 271 of file fly\&.cpp\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for OpenGL Flythrough from the source code\&.

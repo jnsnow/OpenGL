@@ -1,0 +1,138 @@
+.TH "MLData" 3 "Sun Dec 9 2012" "Version 9001" "OpenGL Flythrough" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+MLData \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBMLData\fP (const vector< int > &mask)"
+.br
+.ti -1c
+.RI "bool \fBopen\fP (const vector< string > &vf)"
+.br
+.ti -1c
+.RI "bool \fBsave\fP (string savefile, bool add_flag=false)"
+.br
+.ti -1c
+.RI "bool \fBloadTraining\fP (const \fBTraining\fP *t)"
+.br
+.ti -1c
+.RI "bool \fBloadTraining\fP (const \fBTraining\fP *t, float timeDelta)"
+.br
+.ti -1c
+.RI "void \fBgenerateTrainingAndValidationData\fP (float perc)"
+.br
+.ti -1c
+.RI "void \fBclean\fP ()"
+.br
+.ti -1c
+.RI "int \fBgetNumFeatures\fP ()"
+.br
+.ti -1c
+.RI "int \fBgetNumCategories\fP ()"
+.br
+.ti -1c
+.RI "int \fBgetNumSamples\fP ()"
+.br
+.ti -1c
+.RI "string \fBcategoryName\fP (int i)"
+.br
+.ti -1c
+.RI "CvMat * \fBgetTrainingInputData\fP ()"
+.br
+.ti -1c
+.RI "CvMat * \fBgetTrainingOutputData\fP ()"
+.br
+.ti -1c
+.RI "CvMat * \fBgetValidationInputData\fP ()"
+.br
+.ti -1c
+.RI "CvMat * \fBgetValidationOutputData\fP ()"
+.br
+.ti -1c
+.RI "CvMat * \fBgetInputData\fP ()"
+.br
+.ti -1c
+.RI "CvMat * \fBgetOutputData\fP ()"
+.br
+.ti -1c
+.RI "void \fBgetRandomSample\fP (CvMat *sample, float &cat)"
+.br
+.ti -1c
+.RI "void \fBnormalize\fP (const int minN=0, const int maxN=1)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBcomputeDisplacement\fP (const \fBTraining\fP *t, vector< double > &features)"
+.br
+.ti -1c
+.RI "void \fBcomputeAttitude\fP (const \fBTraining\fP *t, vector< double > &features)"
+.br
+.ti -1c
+.RI "void \fBcomputeSpeed\fP (const \fBTraining\fP *t, vector< double > &features)"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "CvMat * \fBall_in\fP"
+.br
+.ti -1c
+.RI "CvMat * \fBtrain_in\fP"
+.br
+.ti -1c
+.RI "CvMat * \fBvalidation_in\fP"
+.br
+.ti -1c
+.RI "CvMat * \fBall_out\fP"
+.br
+.ti -1c
+.RI "CvMat * \fBtrain_out\fP"
+.br
+.ti -1c
+.RI "CvMat * \fBvalidation_out\fP"
+.br
+.ti -1c
+.RI "vector< string > \fBcategoryNames\fP"
+.br
+.ti -1c
+.RI "vector< int > \fBfeatureMask\fP"
+.br
+.ti -1c
+.RI "int \fBncategories\fP"
+.br
+.ti -1c
+.RI "int \fBnfeatures\fP"
+.br
+.ti -1c
+.RI "int \fBnsamples\fP"
+.br
+.ti -1c
+.RI "float \fBmin\fP"
+.br
+.ti -1c
+.RI "float \fBmax\fP"
+.br
+.ti -1c
+.RI "float \fBtimeDelta_\fP"
+.br
+.ti -1c
+.RI "CvRNG \fBrng\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Definition at line 21 of file MLData\&.h\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for OpenGL Flythrough from the source code\&.

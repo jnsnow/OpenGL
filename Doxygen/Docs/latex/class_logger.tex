@@ -1,0 +1,115 @@
+\hypertarget{class_logger}{\section{Logger Class Reference}
+\label{class_logger}\index{Logger@{Logger}}
+}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_logger_a2c5d5039e76ef20903ce7cfbc8030d47}{{\bfseries Logger} (const \hyperlink{class_logger}{Logger} \&logger)}\label{class_logger_a2c5d5039e76ef20903ce7cfbc8030d47}
+
+\item 
+\hypertarget{class_logger_a400dd030dcec25d075f87202e880c5b9}{\hyperlink{class_logger}{Logger} \& {\bfseries operator=} (const \hyperlink{class_logger}{Logger} \&logger)}\label{class_logger_a400dd030dcec25d075f87202e880c5b9}
+
+\item 
+\hypertarget{class_logger_ab0e0c798082dce3c3f805a3b92baef10}{void {\bfseries Init\-Log} ()}\label{class_logger_ab0e0c798082dce3c3f805a3b92baef10}
+
+\item 
+\hypertarget{class_logger_a7085c6904ef225d6d3475c803c553570}{void {\bfseries Log\-Acc} (float x, float y, float z)}\label{class_logger_a7085c6904ef225d6d3475c803c553570}
+
+\item 
+\hypertarget{class_logger_ac667db7ddb53dff68e409858fdca1faa}{void {\bfseries Log\-Gyro} (float x, float y, float z)}\label{class_logger_ac667db7ddb53dff68e409858fdca1faa}
+
+\item 
+void \hyperlink{class_logger_a221bdfa77db049b43ee048d0c17abcce}{Save\-Log\-Header} ()
+\begin{DoxyCompactList}\small\item\em Save the dataset header into a file. \end{DoxyCompactList}\item 
+\hypertarget{class_logger_a45f7ca2bd55bfc1867f97b3e96c234d6}{void {\bfseries Set\-Log\-Level} (Log\-Status status, int type=W\-I\-I\-C\-\_\-\-L\-O\-G\-\_\-\-N\-O\-N\-E, const string \&file=\char`\"{}\char`\"{})}\label{class_logger_a45f7ca2bd55bfc1867f97b3e96c234d6}
+
+\item 
+\hypertarget{class_logger_aca399821afdcdc5913b56c7a1180399f}{int {\bfseries Get\-Log\-Type} () const }\label{class_logger_aca399821afdcdc5913b56c7a1180399f}
+
+\item 
+\hypertarget{class_logger_a17657ebe893d22cf1052448785123651}{string {\bfseries Get\-Log\-Filename} () const }\label{class_logger_a17657ebe893d22cf1052448785123651}
+
+\item 
+\hypertarget{class_logger_a2b697478ebf7af4cc87cd874a1da740c}{void {\bfseries Set\-Log\-Status} (const Log\-Status status)}\label{class_logger_a2b697478ebf7af4cc87cd874a1da740c}
+
+\item 
+\hypertarget{class_logger_a9c698f7ca23bf3ed8c33b95626f3d3ac}{bool {\bfseries is\-Log\-Enabled} ()}\label{class_logger_a9c698f7ca23bf3ed8c33b95626f3d3ac}
+
+\item 
+\hypertarget{class_logger_a7cc0f69aa4a1b166a2fc5995d07854f7}{void {\bfseries Reset\-Timestamp} ()}\label{class_logger_a7cc0f69aa4a1b166a2fc5995d07854f7}
+
+\item 
+\hypertarget{class_logger_af050a335c60943edfc6a20661ce4fb0d}{void {\bfseries Set\-Device\-Address} (const string \&addr)}\label{class_logger_af050a335c60943edfc6a20661ce4fb0d}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_logger_adeb4634aa851e28223a009ea084151ad}{bool {\bfseries Check\-Log\-File} ()}\label{class_logger_adeb4634aa851e28223a009ea084151ad}
+
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_logger_a73099a7a544561b915ce5d2ded948f21}{string {\bfseries device\-Addr}}\label{class_logger_a73099a7a544561b915ce5d2ded948f21}
+
+\item 
+\hypertarget{class_logger_a8b200289dbdecb5185f2ac0bb4c1b99e}{string {\bfseries log\-File}}\label{class_logger_a8b200289dbdecb5185f2ac0bb4c1b99e}
+
+\item 
+\hypertarget{class_logger_ae902fa4a195223c0b746972ee46ca9aa}{ofstream {\bfseries out}}\label{class_logger_ae902fa4a195223c0b746972ee46ca9aa}
+
+\item 
+\hypertarget{class_logger_a28e321ba8244aa0f18433f8088502512}{struct timeval {\bfseries start\-Ts}}\label{class_logger_a28e321ba8244aa0f18433f8088502512}
+
+\item 
+\hypertarget{class_logger_ae8f07f0a62335b17156f72e0345adf82}{double {\bfseries relative\-Ts}}\label{class_logger_ae8f07f0a62335b17156f72e0345adf82}
+
+\item 
+\hypertarget{class_logger_a9fa4816586d6587deeebb2a090122273}{bool {\bfseries log\-Enabled}}\label{class_logger_a9fa4816586d6587deeebb2a090122273}
+
+\item 
+\hypertarget{class_logger_a1f167002b52baf4d1fdd4c996524ee84}{int {\bfseries log\-Type}}\label{class_logger_a1f167002b52baf4d1fdd4c996524ee84}
+
+\item 
+\hypertarget{class_logger_a7d49d3a9adc13ffb45bce2251a1afe53}{Log\-Status {\bfseries log\-Status}}\label{class_logger_a7d49d3a9adc13ffb45bce2251a1afe53}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 22 of file logger.\-h.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_logger_a221bdfa77db049b43ee048d0c17abcce}{\index{Logger@{Logger}!Save\-Log\-Header@{Save\-Log\-Header}}
+\index{Save\-Log\-Header@{Save\-Log\-Header}!Logger@{Logger}}
+\subsubsection[{Save\-Log\-Header}]{\setlength{\rightskip}{0pt plus 5cm}void Logger\-::\-Save\-Log\-Header (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_logger_a221bdfa77db049b43ee048d0c17abcce}
+
+
+Save the dataset header into a file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em out} & Output file stream \\
+\hline
+{\em addr} & Wii device M\-A\-C address \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 93 of file log/logger.\-cpp.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+logger.\-h\item 
+log/logger.\-cpp\end{DoxyCompactItemize}

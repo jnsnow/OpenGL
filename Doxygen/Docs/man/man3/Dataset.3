@@ -1,0 +1,235 @@
+.TH "Dataset" 3 "Sun Dec 9 2012" "Version 9001" "OpenGL Flythrough" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Dataset \- 
+.PP
+A \fBDataset\fP is a collection of trainings, which can represent multiple gestures acquired over time, with different lenghts, and with different approaches\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <dataset\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBDataset\fP ()"
+.br
+.RI "\fIDefault constructor\&. \fP"
+.ti -1c
+.RI "\fBDataset\fP (const string &filename)"
+.br
+.RI "\fICreates a \fBDataset\fP object from a log file\&. \fP"
+.ti -1c
+.RI "\fB~Dataset\fP ()"
+.br
+.RI "\fI\fBDataset\fP destructor, which calls clear\&. \fP"
+.ti -1c
+.RI "unsigned int \fBsize\fP () const "
+.br
+.RI "\fIRetrieves the dataset's size\&. \fP"
+.ti -1c
+.RI "const \fBTraining\fP * \fBtrainingAt\fP (const unsigned int i) const "
+.br
+.RI "\fIReturns a training in the dataset as a constant pointer\&. \fP"
+.ti -1c
+.RI "\fBTraining\fP * \fBtrainingAt\fP (const unsigned int i)"
+.br
+.RI "\fIReturns a training in the dataset as a pointer\&. \fP"
+.ti -1c
+.RI "void \fBaddTraining\fP (\fBTraining\fP *training)"
+.br
+.RI "\fIAdds a training to the dataset\&. \fP"
+.ti -1c
+.RI "bool \fBloadDataset\fP (const string &filename)"
+.br
+.RI "\fILoads a new dataset from file, erasing the current one (if not saved on file)\&. \fP"
+.ti -1c
+.RI "bool \fBsave\fP (const char *filename, const char *addr) const "
+.br
+.RI "\fISaves the current dataset in a file\&. \fP"
+.ti -1c
+.RI "void \fBclear\fP ()"
+.br
+.RI "\fIDeallocates and deletes all the current trainings in the dataset\&. \fP"
+.ti -1c
+.RI "bool \fBisValid\fP () const "
+.br
+.RI "\fIChecks if the instance has a valid dataset loaded\&. \fP"
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBsaveHeader\fP (ofstream &out, const char *addr) const "
+.br
+.RI "\fISaves the initial header of WiiC's log files\&. \fP"
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "vector< \fBTraining\fP * > \fBtrainings\fP"
+.br
+.ti -1c
+.RI "bool \fBloaded\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+A \fBDataset\fP is a collection of trainings, which can represent multiple gestures acquired over time, with different lenghts, and with different approaches\&. 
+.PP
+Definition at line 15 of file dataset\&.h\&.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Dataset::Dataset (const string &filename)\fC [inline]\fP"
+
+.PP
+Creates a \fBDataset\fP object from a log file\&. \fBParameters:\fP
+.RS 4
+\fIfilename\fP Pathname of the dataset to load 
+.RE
+.PP
+
+.PP
+Definition at line 28 of file dataset\&.h\&.
+.SH "Member Function Documentation"
+.PP 
+.SS "void Dataset::addTraining (\fBTraining\fP *t)"
+
+.PP
+Adds a training to the dataset\&. Add a new training to the dataset\&.
+.PP
+The new element will be indexed as the last element and will not be copied\&. It will be responsability of the destructor of the class \fBDataset\fP to deallocate this element\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fItraining\fP The training to add
+.br
+\fItraining\fP Add a training to the dataset\&. 
+.RE
+.PP
+
+.PP
+Definition at line 17 of file dataset\&.cpp\&.
+.SS "void Dataset::clear ()"
+
+.PP
+Deallocates and deletes all the current trainings in the dataset\&. Delete all trainings and clear the buffer\&.
+.PP
+This method will take care of freeing the memory of each training in the dataset, hence you don't need to free them in your code\&. 
+.PP
+Definition at line 87 of file dataset\&.cpp\&.
+.SS "bool Dataset::isValid () const\fC [inline]\fP"
+
+.PP
+Checks if the instance has a valid dataset loaded\&. \fBReturns:\fP
+.RS 4
+TRUE if a dataset is correctly loaded, FALSE otherwise 
+.RE
+.PP
+
+.PP
+Definition at line 104 of file dataset\&.h\&.
+.SS "bool Dataset::loadDataset (const string &nomefile)"
+
+.PP
+Loads a new dataset from file, erasing the current one (if not saved on file)\&. Load a dataset stored in a file\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfilename\fP Filename of the dataset to load
+.br
+\fIfilename\fP \fBDataset\fP filename 
+.RE
+.PP
+
+.PP
+Definition at line 30 of file dataset\&.cpp\&.
+.SS "bool Dataset::save (const char *file, const char *addr) const"
+
+.PP
+Saves the current dataset in a file\&. Save the dataset into a file for training and recognition\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfilename\fP Desired filename of the saved dataset 
+.br
+\fIaddr\fP MAC address of the source device for the dataset
+.br
+\fIfilename\fP Pathname of the destination file 
+.br
+\fIaddr\fP Wii device mac address 
+.RE
+.PP
+
+.PP
+Definition at line 105 of file dataset\&.cpp\&.
+.SS "void Dataset::saveHeader (ofstream &out, const char *addr) const\fC [protected]\fP"
+
+.PP
+Saves the initial header of WiiC's log files\&. Save the dataset header into a file\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIout\fP The output stream of the log file 
+.br
+\fIaddr\fP MAC address of the source device for the dataset
+.br
+\fIout\fP Output file stream 
+.br
+\fIaddr\fP Wii device MAC address 
+.RE
+.PP
+
+.PP
+Definition at line 135 of file dataset\&.cpp\&.
+.SS "unsigned int Dataset::size () const\fC [inline]\fP"
+
+.PP
+Retrieves the dataset's size\&. \fBReturns:\fP
+.RS 4
+the number of trainings collected in the current dataset 
+.RE
+.PP
+
+.PP
+Definition at line 36 of file dataset\&.h\&.
+.SS "const \fBTraining\fP* Dataset::trainingAt (const unsigned inti) const\fC [inline]\fP"
+
+.PP
+Returns a training in the dataset as a constant pointer\&. \fBParameters:\fP
+.RS 4
+\fIi\fP The training index in the dataset
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+A constant pointer to the \fBTraining\fP object corresponding to the i-th element in the dataset 
+.RE
+.PP
+
+.PP
+Definition at line 45 of file dataset\&.h\&.
+.SS "\fBTraining\fP* Dataset::trainingAt (const unsigned inti)\fC [inline]\fP"
+
+.PP
+Returns a training in the dataset as a pointer\&. \fBParameters:\fP
+.RS 4
+\fIi\fP The training index in the dataset
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+A pointer to the \fBTraining\fP object corresponding to the i-th element in the dataset 
+.RE
+.PP
+
+.PP
+Definition at line 61 of file dataset\&.h\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for OpenGL Flythrough from the source code\&.

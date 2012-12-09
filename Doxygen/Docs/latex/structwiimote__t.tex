@@ -1,0 +1,99 @@
+\hypertarget{structwiimote__t}{\section{wiimote\-\_\-t Struct Reference}
+\label{structwiimote__t}\index{wiimote\-\_\-t@{wiimote\-\_\-t}}
+}
+
+
+Wiimote structure.  
+
+
+
+
+{\ttfamily \#include $<$wiic\-\_\-structs.\-h$>$}
+
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{structwiimote__t_af8d0abc503b7117566f8f36427ba558e}{W\-C\-O\-N\-S\-T int \hyperlink{structwiimote__t_af8d0abc503b7117566f8f36427ba558e}{unid}}\label{structwiimote__t_af8d0abc503b7117566f8f36427ba558e}
+
+\begin{DoxyCompactList}\small\item\em user specified id \end{DoxyCompactList}\item 
+\hypertarget{structwiimote__t_aeaefc436546e371cc5fa15cc866ba802}{W\-C\-O\-N\-S\-T char \hyperlink{structwiimote__t_aeaefc436546e371cc5fa15cc866ba802}{bdaddr\-\_\-str} \mbox{[}18\mbox{]}}\label{structwiimote__t_aeaefc436546e371cc5fa15cc866ba802}
+
+\begin{DoxyCompactList}\small\item\em readable bt address \end{DoxyCompactList}\item 
+\hypertarget{structwiimote__t_a1b18fd0743add3b1bdb97f2bb2e41679}{W\-C\-O\-N\-S\-T struct \hyperlink{structwiimote__state__t}{wiimote\-\_\-state\-\_\-t} \hyperlink{structwiimote__t_a1b18fd0743add3b1bdb97f2bb2e41679}{lstate}}\label{structwiimote__t_a1b18fd0743add3b1bdb97f2bb2e41679}
+
+\begin{DoxyCompactList}\small\item\em last saved state \end{DoxyCompactList}\item 
+\hypertarget{structwiimote__t_aa8d3f1b4b7c6b5d4de3cb5750f0e509a}{W\-C\-O\-N\-S\-T int \hyperlink{structwiimote__t_aa8d3f1b4b7c6b5d4de3cb5750f0e509a}{state}}\label{structwiimote__t_aa8d3f1b4b7c6b5d4de3cb5750f0e509a}
+
+\begin{DoxyCompactList}\small\item\em various state flags \end{DoxyCompactList}\item 
+\hypertarget{structwiimote__t_a463ca22284e245c6fe431340f7d94631}{W\-C\-O\-N\-S\-T int \hyperlink{structwiimote__t_a463ca22284e245c6fe431340f7d94631}{flags}}\label{structwiimote__t_a463ca22284e245c6fe431340f7d94631}
+
+\begin{DoxyCompactList}\small\item\em options flag \end{DoxyCompactList}\item 
+\hypertarget{structwiimote__t_a483762d7737311fa5e4c8d90ef531875}{W\-C\-O\-N\-S\-T int \hyperlink{structwiimote__t_a483762d7737311fa5e4c8d90ef531875}{autoreconnect}}\label{structwiimote__t_a483762d7737311fa5e4c8d90ef531875}
+
+\begin{DoxyCompactList}\small\item\em auto-\/reconnect the device in case of unexpected disconnection \end{DoxyCompactList}\item 
+\hypertarget{structwiimote__t_a0944f61c49aa42236f7ae1fa1b077d4f}{W\-C\-O\-N\-S\-T \hyperlink{wiic__macros_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte} \hyperlink{structwiimote__t_a0944f61c49aa42236f7ae1fa1b077d4f}{handshake\-\_\-state}}\label{structwiimote__t_a0944f61c49aa42236f7ae1fa1b077d4f}
+
+\begin{DoxyCompactList}\small\item\em the state of the connection handshake \end{DoxyCompactList}\item 
+\hypertarget{structwiimote__t_a2c675b51cfe63d1ebbff11ee342c725e}{W\-C\-O\-N\-S\-T \hyperlink{wiic__macros_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte} \hyperlink{structwiimote__t_a2c675b51cfe63d1ebbff11ee342c725e}{leds}}\label{structwiimote__t_a2c675b51cfe63d1ebbff11ee342c725e}
+
+\begin{DoxyCompactList}\small\item\em currently lit leds \end{DoxyCompactList}\item 
+\hypertarget{structwiimote__t_a25ea5811c72f4fe7daba2273b4694fa8}{W\-C\-O\-N\-S\-T float \hyperlink{structwiimote__t_a25ea5811c72f4fe7daba2273b4694fa8}{battery\-\_\-level}}\label{structwiimote__t_a25ea5811c72f4fe7daba2273b4694fa8}
+
+\begin{DoxyCompactList}\small\item\em battery level \end{DoxyCompactList}\item 
+\hypertarget{structwiimote__t_ac192abc14dc9355c9a161f9390a803ae}{W\-C\-O\-N\-S\-T struct \hyperlink{structread__req__t}{read\-\_\-req\-\_\-t} $\ast$ \hyperlink{structwiimote__t_ac192abc14dc9355c9a161f9390a803ae}{read\-\_\-req}}\label{structwiimote__t_ac192abc14dc9355c9a161f9390a803ae}
+
+\begin{DoxyCompactList}\small\item\em list of data read requests \end{DoxyCompactList}\item 
+\hypertarget{structwiimote__t_a50eb2a01ebd5e702c38890459070899e}{W\-C\-O\-N\-S\-T struct \hyperlink{structexpansion__t}{expansion\-\_\-t} \hyperlink{structwiimote__t_a50eb2a01ebd5e702c38890459070899e}{exp}}\label{structwiimote__t_a50eb2a01ebd5e702c38890459070899e}
+
+\begin{DoxyCompactList}\small\item\em wiimote expansion device \end{DoxyCompactList}\item 
+\hypertarget{structwiimote__t_a70eedb03dbfcfdc6e588110a680d177d}{W\-C\-O\-N\-S\-T struct \hyperlink{structaccel__t}{accel\-\_\-t} \hyperlink{structwiimote__t_a70eedb03dbfcfdc6e588110a680d177d}{accel\-\_\-calib}}\label{structwiimote__t_a70eedb03dbfcfdc6e588110a680d177d}
+
+\begin{DoxyCompactList}\small\item\em wiimote accelerometer calibration \end{DoxyCompactList}\item 
+\hypertarget{structwiimote__t_a479d5a06ad78fc175ef5876b9686867c}{W\-C\-O\-N\-S\-T struct \hyperlink{structvec3b__t}{vec3b\-\_\-t} \hyperlink{structwiimote__t_a479d5a06ad78fc175ef5876b9686867c}{accel}}\label{structwiimote__t_a479d5a06ad78fc175ef5876b9686867c}
+
+\begin{DoxyCompactList}\small\item\em current raw acceleration data \end{DoxyCompactList}\item 
+\hypertarget{structwiimote__t_a793dc495a39c2ae4a4a6cd875094070d}{W\-C\-O\-N\-S\-T struct \hyperlink{structorient__t}{orient\-\_\-t} \hyperlink{structwiimote__t_a793dc495a39c2ae4a4a6cd875094070d}{orient}}\label{structwiimote__t_a793dc495a39c2ae4a4a6cd875094070d}
+
+\begin{DoxyCompactList}\small\item\em current orientation on each axis (smoothed and unsmoothed) \end{DoxyCompactList}\item 
+\hypertarget{structwiimote__t_ab2ccaf1bd030bfb24aa60c474b34d1f4}{W\-C\-O\-N\-S\-T struct \hyperlink{structgforce__t}{gforce\-\_\-t} \hyperlink{structwiimote__t_ab2ccaf1bd030bfb24aa60c474b34d1f4}{gforce}}\label{structwiimote__t_ab2ccaf1bd030bfb24aa60c474b34d1f4}
+
+\begin{DoxyCompactList}\small\item\em current gravity forces on each axis (smoothed and unsmoothed) \end{DoxyCompactList}\item 
+\hypertarget{structwiimote__t_ab8e07b8b47e89082b89396d10100db9a}{W\-C\-O\-N\-S\-T float \hyperlink{structwiimote__t_ab8e07b8b47e89082b89396d10100db9a}{orient\-\_\-threshold}}\label{structwiimote__t_ab8e07b8b47e89082b89396d10100db9a}
+
+\begin{DoxyCompactList}\small\item\em threshold for orient to generate an event \end{DoxyCompactList}\item 
+\hypertarget{structwiimote__t_a078b9e0aeeacfdabad482db1214d0a88}{W\-C\-O\-N\-S\-T int \hyperlink{structwiimote__t_a078b9e0aeeacfdabad482db1214d0a88}{accel\-\_\-threshold}}\label{structwiimote__t_a078b9e0aeeacfdabad482db1214d0a88}
+
+\begin{DoxyCompactList}\small\item\em threshold for accel to generate an event \end{DoxyCompactList}\item 
+\hypertarget{structwiimote__t_a1435415306dac952f29a70d4c3ff206c}{W\-C\-O\-N\-S\-T struct \hyperlink{structir__t}{ir\-\_\-t} \hyperlink{structwiimote__t_a1435415306dac952f29a70d4c3ff206c}{ir}}\label{structwiimote__t_a1435415306dac952f29a70d4c3ff206c}
+
+\begin{DoxyCompactList}\small\item\em I\-R data. \end{DoxyCompactList}\item 
+\hypertarget{structwiimote__t_a2e9cbb4da318589efc65ceadc62aca6c}{W\-C\-O\-N\-S\-T unsigned short \hyperlink{structwiimote__t_a2e9cbb4da318589efc65ceadc62aca6c}{btns}}\label{structwiimote__t_a2e9cbb4da318589efc65ceadc62aca6c}
+
+\begin{DoxyCompactList}\small\item\em what buttons have just been pressed \end{DoxyCompactList}\item 
+\hypertarget{structwiimote__t_a61d9434f6f5fd46adf1d4eed944c9d18}{W\-C\-O\-N\-S\-T unsigned short \hyperlink{structwiimote__t_a61d9434f6f5fd46adf1d4eed944c9d18}{btns\-\_\-held}}\label{structwiimote__t_a61d9434f6f5fd46adf1d4eed944c9d18}
+
+\begin{DoxyCompactList}\small\item\em what buttons are being held down \end{DoxyCompactList}\item 
+\hypertarget{structwiimote__t_ad1796e2e88f095bf34366c6f04f2ab64}{W\-C\-O\-N\-S\-T unsigned short \hyperlink{structwiimote__t_ad1796e2e88f095bf34366c6f04f2ab64}{btns\-\_\-released}}\label{structwiimote__t_ad1796e2e88f095bf34366c6f04f2ab64}
+
+\begin{DoxyCompactList}\small\item\em what buttons were just released this \end{DoxyCompactList}\item 
+\hypertarget{structwiimote__t_a43531392613c6cea17ceae6b39d02f26}{W\-C\-O\-N\-S\-T \hyperlink{wiic__structs_8h_a92b4719b236159a5112164b33263b64c}{W\-I\-I\-C\-\_\-\-E\-V\-E\-N\-T\-\_\-\-T\-Y\-P\-E} \hyperlink{structwiimote__t_a43531392613c6cea17ceae6b39d02f26}{event}}\label{structwiimote__t_a43531392613c6cea17ceae6b39d02f26}
+
+\begin{DoxyCompactList}\small\item\em type of event that occured \end{DoxyCompactList}\item 
+\hypertarget{structwiimote__t_a5c6264ca2b7df67c2b747e87657512c9}{W\-C\-O\-N\-S\-T \hyperlink{wiic__macros_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte} \hyperlink{structwiimote__t_a5c6264ca2b7df67c2b747e87657512c9}{event\-\_\-buf} \mbox{[}M\-A\-X\-\_\-\-P\-A\-Y\-L\-O\-A\-D\mbox{]}}\label{structwiimote__t_a5c6264ca2b7df67c2b747e87657512c9}
+
+\begin{DoxyCompactList}\small\item\em event buffer \end{DoxyCompactList}\item 
+\hypertarget{structwiimote__t_ac2c9f22c51c73d6b4c029504baa320a8}{struct timeval \hyperlink{structwiimote__t_ac2c9f22c51c73d6b4c029504baa320a8}{timestamp}}\label{structwiimote__t_ac2c9f22c51c73d6b4c029504baa320a8}
+
+\begin{DoxyCompactList}\small\item\em Absolute timestamp (relative to the most recent data) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Wiimote structure. 
+
+Definition at line 428 of file wiic\-\_\-structs.\-h.
+
+
+
+The documentation for this struct was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{wiic__structs_8h}{wiic\-\_\-structs.\-h}\end{DoxyCompactItemize}

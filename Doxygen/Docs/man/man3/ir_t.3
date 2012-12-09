@@ -1,0 +1,80 @@
+.TH "ir_t" 3 "Sun Dec 9 2012" "Version 9001" "OpenGL Flythrough" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ir_t \- 
+.PP
+IR struct\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <wiic_structs\&.h>\fP
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBir_dot_t\fP \fBdot\fP [4]"
+.br
+.RI "\fIIR dots\&. \fP"
+.ti -1c
+.RI "\fBbyte\fP \fBnum_dots\fP"
+.br
+.RI "\fInumber of dots at this time \fP"
+.ti -1c
+.RI "enum \fBaspect_t\fP \fBaspect\fP"
+.br
+.RI "\fIaspect ratio of the screen \fP"
+.ti -1c
+.RI "enum ir_position_t \fBpos\fP"
+.br
+.RI "\fIIR sensor bar position\&. \fP"
+.ti -1c
+.RI "unsigned int \fBvres\fP [2]"
+.br
+.RI "\fIIR virtual screen resolution\&. \fP"
+.ti -1c
+.RI "int \fBoffset\fP [2]"
+.br
+.RI "\fIIR XY correction offset\&. \fP"
+.ti -1c
+.RI "int \fBstate\fP"
+.br
+.RI "\fIkeeps track of the IR state \fP"
+.ti -1c
+.RI "int \fBax\fP"
+.br
+.RI "\fIabsolute X coordinate \fP"
+.ti -1c
+.RI "int \fBay\fP"
+.br
+.RI "\fIabsolute Y coordinate \fP"
+.ti -1c
+.RI "int \fBx\fP"
+.br
+.RI "\fIcalculated X coordinate \fP"
+.ti -1c
+.RI "int \fBy\fP"
+.br
+.RI "\fIcalculated Y coordinate \fP"
+.ti -1c
+.RI "float \fBdistance\fP"
+.br
+.RI "\fIpixel distance between first 2 dots \fP"
+.ti -1c
+.RI "float \fBz\fP"
+.br
+.RI "\fIcalculated distance \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+IR struct\&. 
+
+Hold all data related to the IR tracking\&. 
+.PP
+Definition at line 214 of file wiic_structs\&.h\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for OpenGL Flythrough from the source code\&.

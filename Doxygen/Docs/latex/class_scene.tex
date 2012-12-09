@@ -1,0 +1,95 @@
+\hypertarget{class_scene}{\section{Scene Class Reference}
+\label{class_scene}\index{Scene@{Scene}}
+}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_scene_a3010030e68d0468b8d18c1323e072e80}{void {\bfseries Set\-Shader} (G\-Luint g\-Shader)}\label{class_scene_a3010030e68d0468b8d18c1323e072e80}
+
+\item 
+\hypertarget{class_scene_a1183da422d278456867460fb11ac8dc8}{\hyperlink{class_object}{Object} $\ast$ {\bfseries Add\-Object} (std\-::string obj\-Name)}\label{class_scene_a1183da422d278456867460fb11ac8dc8}
+
+\item 
+\hypertarget{class_scene_a1643bca3e943c5865c0aecb037006f58}{void {\bfseries Del\-Object} (std\-::string obj\-Name)}\label{class_scene_a1643bca3e943c5865c0aecb037006f58}
+
+\item 
+\hypertarget{class_scene_a43fd3c56db5dc940d1724b9573c9a360}{void {\bfseries Del\-Object} (void)}\label{class_scene_a43fd3c56db5dc940d1724b9573c9a360}
+
+\item 
+\hypertarget{class_scene_abdfd15e7987aa261840d5ecc265170df}{void {\bfseries Pop\-Object} (void)}\label{class_scene_abdfd15e7987aa261840d5ecc265170df}
+
+\item 
+\hypertarget{class_scene_a0a57ee2c15864c55cf3284b937440330}{\hyperlink{class_object}{Object} $\ast$ {\bfseries Next} (void)}\label{class_scene_a0a57ee2c15864c55cf3284b937440330}
+
+\item 
+\hypertarget{class_scene_a955c5c984cc6bc5fb532752e43256211}{\hyperlink{class_object}{Object} $\ast$ {\bfseries Prev} (void)}\label{class_scene_a955c5c984cc6bc5fb532752e43256211}
+
+\item 
+\hypertarget{class_scene_a50f6c9e9aa2e243da5e86bf3470c809e}{\hyperlink{class_object}{Object} $\ast$ {\bfseries Active} (void)}\label{class_scene_a50f6c9e9aa2e243da5e86bf3470c809e}
+
+\item 
+\hypertarget{class_scene_ad5a91c929b569b9111061eec16b3febf}{void {\bfseries Draw} (void)}\label{class_scene_ad5a91c929b569b9111061eec16b3febf}
+
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_scene_a54a7aee3ada3309584dd979bd82c159a}{{\bfseries Scene} (\hyperlink{class_scene}{Scene} \&copy)}\label{class_scene_a54a7aee3ada3309584dd979bd82c159a}
+
+\item 
+\hypertarget{class_scene_af43eeff7e8d0d450c68341c73f9b1ab4}{\hyperlink{class_scene}{Scene} \& {\bfseries operator=} (const \hyperlink{class_scene}{Scene} \&copy)}\label{class_scene_af43eeff7e8d0d450c68341c73f9b1ab4}
+
+\item 
+void \hyperlink{class_scene_a8bbe0e5b1bfc71034b18e240e86aa285}{Delete\-Object} (\hyperlink{class_object}{Object} $\ast$obj)
+\begin{DoxyCompactList}\small\item\em Delete\-Object is the actual implementation function that will remove an \hyperlink{class_object}{Object} from the \hyperlink{class_scene}{Scene} list and \hyperlink{class_scene}{Scene} map, then free the object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_scene_ad4f10706155e3e956fe36a4b5f0ef731}{std\-::map$<$ std\-::string, \hyperlink{class_object}{Object} $\ast$ $>$ {\bfseries map}}\label{class_scene_ad4f10706155e3e956fe36a4b5f0ef731}
+
+\item 
+\hypertarget{class_scene_ac04ab16dd305db619afe5f8ec6a02ebc}{std\-::list$<$ \hyperlink{class_object}{Object} $\ast$ $>$ {\bfseries list}}\label{class_scene_ac04ab16dd305db619afe5f8ec6a02ebc}
+
+\item 
+\hypertarget{class_scene_acbf527a005c67461e03d343a9f853807}{std\-::list$<$ \hyperlink{class_object}{Object} $\ast$ $>$\-::iterator {\bfseries current\-Obj}}\label{class_scene_acbf527a005c67461e03d343a9f853807}
+
+\item 
+\hypertarget{class_scene_aece20244e3987065f05057452a14d81f}{G\-Luint {\bfseries g\-Shader}}\label{class_scene_aece20244e3987065f05057452a14d81f}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 8 of file Scene.\-hpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_scene_a8bbe0e5b1bfc71034b18e240e86aa285}{\index{Scene@{Scene}!Delete\-Object@{Delete\-Object}}
+\index{Delete\-Object@{Delete\-Object}!Scene@{Scene}}
+\subsubsection[{Delete\-Object}]{\setlength{\rightskip}{0pt plus 5cm}void Scene\-::\-Delete\-Object (
+\begin{DoxyParamCaption}
+\item[{{\bf Object} $\ast$}]{obj}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [private]}}}\label{class_scene_a8bbe0e5b1bfc71034b18e240e86aa285}
+
+
+Delete\-Object is the actual implementation function that will remove an \hyperlink{class_object}{Object} from the \hyperlink{class_scene}{Scene} list and \hyperlink{class_scene}{Scene} map, then free the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em obj} & The pointer to the object to free. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 37 of file Scene.\-cpp.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Scene.\-hpp\item 
+Scene.\-cpp\end{DoxyCompactItemize}

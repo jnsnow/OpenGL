@@ -1,0 +1,157 @@
+\hypertarget{fly_8cpp}{\section{fly.\-cpp File Reference}
+\label{fly_8cpp}\index{fly.\-cpp@{fly.\-cpp}}
+}
+
+
+This is our main project file, \hyperlink{fly_8cpp}{fly.\-cpp}.  
+
+
+{\ttfamily \#include \char`\"{}globals.\-h\char`\"{}}\\*
+{\ttfamily \#include $<$cmath$>$}\\*
+{\ttfamily \#include $<$cstdio$>$}\\*
+{\ttfamily \#include $<$cstdlib$>$}\\*
+{\ttfamily \#include \char`\"{}platform.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}vec.\-hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}mat.\-hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}model.\-hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Camera.\-hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Init\-Shader.\-hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Cameras.\-hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Screen.\-hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Object.\-hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Timer.\-hpp\char`\"{}}\\*
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{fly_8cpp_a5c48af6a06eb70709fe4ce950c3015e3}{typedef \hyperlink{struct_angel_1_1vec4}{Angel\-::vec4} {\bfseries color4}}\label{fly_8cpp_a5c48af6a06eb70709fe4ce950c3015e3}
+
+\item 
+\hypertarget{fly_8cpp_acd96474ea1ee15dc164c05371abfd25b}{typedef \hyperlink{struct_angel_1_1vec4}{Angel\-::vec4} {\bfseries point4}}\label{fly_8cpp_acd96474ea1ee15dc164c05371abfd25b}
+
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{fly_8cpp_acdecbb5a91faa0ad0f9e565bf27c19bd}{void {\bfseries init\-\_\-lights} (G\-Luint program)}\label{fly_8cpp_acdecbb5a91faa0ad0f9e565bf27c19bd}
+
+\item 
+\hypertarget{fly_8cpp_add81313f7abf44642aca53d9670bb57c}{void {\bfseries camera\-Init} (\hyperlink{class_camera}{Camera} \&cam)}\label{fly_8cpp_add81313f7abf44642aca53d9670bb57c}
+
+\item 
+\hypertarget{fly_8cpp_a02fd73d861ef2e4aabb38c0c9ff82947}{void {\bfseries init} ()}\label{fly_8cpp_a02fd73d861ef2e4aabb38c0c9ff82947}
+
+\item 
+\hypertarget{fly_8cpp_a5e74ffd1784711edd181b890888186cb}{void {\bfseries light\-Effects} (int frame\-Number)}\label{fly_8cpp_a5e74ffd1784711edd181b890888186cb}
+
+\item 
+void \hyperlink{fly_8cpp_af3c12d5391e754508338373c5071b2ed}{display\-Viewport} (void)
+\begin{DoxyCompactList}\small\item\em A function that takes no arguments. \end{DoxyCompactList}\item 
+\hypertarget{fly_8cpp_a4ea013001a5fb47853d0fab8f8de35cd}{void {\bfseries display} (void)}\label{fly_8cpp_a4ea013001a5fb47853d0fab8f8de35cd}
+
+\item 
+\hypertarget{fly_8cpp_a254e97178a2df1da3e435a01f778e475}{void {\bfseries keylift} (unsigned char key, int x, int y)}\label{fly_8cpp_a254e97178a2df1da3e435a01f778e475}
+
+\item 
+\hypertarget{fly_8cpp_aef7ba2f69afb2d954545f64c7fe24b14}{void {\bfseries keyboard} (unsigned char key, int x, int y)}\label{fly_8cpp_aef7ba2f69afb2d954545f64c7fe24b14}
+
+\item 
+\hypertarget{fly_8cpp_a6f3a97ed034be467bc035242d2486e00}{void {\bfseries keyboard\-\_\-ctrl} (int key, int x, int y)}\label{fly_8cpp_a6f3a97ed034be467bc035242d2486e00}
+
+\item 
+\hypertarget{fly_8cpp_ac76a5d78172a826cd6ee9512b89a86c0}{void {\bfseries mouse} (int button, int state, int x, int y)}\label{fly_8cpp_ac76a5d78172a826cd6ee9512b89a86c0}
+
+\item 
+\hypertarget{fly_8cpp_ad373689e6b9dcfe1b99692b43a759d40}{void {\bfseries mouseroll} (int x, int y)}\label{fly_8cpp_ad373689e6b9dcfe1b99692b43a759d40}
+
+\item 
+\hypertarget{fly_8cpp_af04567427614c77718ed14b8450a3438}{void {\bfseries mouselook} (int x, int y)}\label{fly_8cpp_af04567427614c77718ed14b8450a3438}
+
+\item 
+\hypertarget{fly_8cpp_ace248343c050c709b645c42012d68f18}{void {\bfseries resize\-Event} (int width, int height)}\label{fly_8cpp_ace248343c050c709b645c42012d68f18}
+
+\item 
+\hypertarget{fly_8cpp_a9997599613caa06ef6ae1912313131ba}{void {\bfseries movelight} (void)}\label{fly_8cpp_a9997599613caa06ef6ae1912313131ba}
+
+\item 
+\hypertarget{fly_8cpp_a01131b63acf241e9db91704d89ce15d2}{void {\bfseries idle} (void)}\label{fly_8cpp_a01131b63acf241e9db91704d89ce15d2}
+
+\item 
+\hypertarget{fly_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{int {\bfseries main} (int argc, char $\ast$$\ast$argv)}\label{fly_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}
+
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{fly_8cpp_a8d0997749c16790367b0731e9f7d15f8}{\hyperlink{class_object}{Object} $\ast$ {\bfseries pyramid}}\label{fly_8cpp_a8d0997749c16790367b0731e9f7d15f8}
+
+\item 
+\hypertarget{fly_8cpp_a62b7d42cce12a3599d27065ed3056d52}{\hyperlink{class_screen}{Screen} {\bfseries my\-Screen} (800, 600)}\label{fly_8cpp_a62b7d42cce12a3599d27065ed3056d52}
+
+\item 
+\hypertarget{fly_8cpp_a7ed35d06b42fcb55510b57a1eec2d949}{G\-Luint {\bfseries g\-Shader}}\label{fly_8cpp_a7ed35d06b42fcb55510b57a1eec2d949}
+
+\item 
+\hypertarget{fly_8cpp_a2cafabba4b5a019c37b81f84c5c3f43a}{\hyperlink{struct_angel_1_1vec4}{point4} {\bfseries light\-\_\-position} (0.\-0, 1.\-0, 0.\-0, 1.\-0)}\label{fly_8cpp_a2cafabba4b5a019c37b81f84c5c3f43a}
+
+\item 
+\hypertarget{fly_8cpp_aed00d7051d34313ded91966e18e0ba31}{\hyperlink{struct_angel_1_1vec4}{point4} {\bfseries light\-\_\-position2} (0.\-0, 1.\-0, 0.\-1, 1.\-0)}\label{fly_8cpp_aed00d7051d34313ded91966e18e0ba31}
+
+\item 
+\hypertarget{fly_8cpp_a6e0273d43c429ca5369108478993d7b0}{int {\bfseries light\-Mode} = 0}\label{fly_8cpp_a6e0273d43c429ca5369108478993d7b0}
+
+\item 
+\hypertarget{fly_8cpp_a6cb1c77fe6eb980f8427947f52edf058}{int {\bfseries light\-Orbit} = 1}\label{fly_8cpp_a6cb1c77fe6eb980f8427947f52edf058}
+
+\item 
+\hypertarget{fly_8cpp_ae010fce90700a069f28027fdd11ede68}{G\-Luint {\bfseries gl\-\_\-light\-\_\-position}}\label{fly_8cpp_ae010fce90700a069f28027fdd11ede68}
+
+\item 
+\hypertarget{fly_8cpp_a7e909425f2a638045ecf1815131cafae}{G\-Luint {\bfseries gl\-\_\-\-Ambient\-Product}}\label{fly_8cpp_a7e909425f2a638045ecf1815131cafae}
+
+\item 
+\hypertarget{fly_8cpp_a58c444094da4bd60ef838f4c20910d4f}{G\-Luint {\bfseries gl\-\_\-\-Diffuse\-Product}}\label{fly_8cpp_a58c444094da4bd60ef838f4c20910d4f}
+
+\item 
+\hypertarget{fly_8cpp_a49ef6cfeb9bc365e144a11a2db32f5af}{G\-Luint {\bfseries gl\-\_\-\-Specular\-Product}}\label{fly_8cpp_a49ef6cfeb9bc365e144a11a2db32f5af}
+
+\item 
+\hypertarget{fly_8cpp_a9cdc5790df0cdd646e833d13517c8693}{G\-Luint {\bfseries gl\-\_\-\-Ambient\-Product2}}\label{fly_8cpp_a9cdc5790df0cdd646e833d13517c8693}
+
+\item 
+\hypertarget{fly_8cpp_a7b39af905ac71e3e2966495fc9e5d2f2}{G\-Luint {\bfseries gl\-\_\-\-Diffuse\-Product2}}\label{fly_8cpp_a7b39af905ac71e3e2966495fc9e5d2f2}
+
+\item 
+\hypertarget{fly_8cpp_a634e9d0ef82c9eacfd5fdf6fe8ad1fe2}{G\-Luint {\bfseries gl\-\_\-\-Specular\-Product2}}\label{fly_8cpp_a634e9d0ef82c9eacfd5fdf6fe8ad1fe2}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This is our main project file, \hyperlink{fly_8cpp}{fly.\-cpp}. \begin{DoxyAuthor}{Authors}
+John Huston, Nicholas St\-Pierre, Chris Compton 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2012-\/12-\/06
+\end{DoxyDate}
+Oh my god, I am a frog -- what is happening 
+
+Definition in file \hyperlink{fly_8cpp_source}{fly.\-cpp}.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{fly_8cpp_af3c12d5391e754508338373c5071b2ed}{\index{fly.\-cpp@{fly.\-cpp}!display\-Viewport@{display\-Viewport}}
+\index{display\-Viewport@{display\-Viewport}!fly.cpp@{fly.\-cpp}}
+\subsubsection[{display\-Viewport}]{\setlength{\rightskip}{0pt plus 5cm}void display\-Viewport (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{fly_8cpp_af3c12d5391e754508338373c5071b2ed}
+
+
+A function that takes no arguments. 
+
+Is responsible for drawing a S\-I\-N\-G\-L\-E V\-I\-E\-W\-P\-O\-R\-T. 
+
+Definition at line 271 of file fly.\-cpp.
+

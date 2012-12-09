@@ -1,0 +1,101 @@
+\hypertarget{classic_8h}{\section{classic.\-h File Reference}
+\label{classic_8h}\index{classic.\-h@{classic.\-h}}
+}
+
+
+Classic controller expansion device.  
+
+
+{\ttfamily \#include \char`\"{}wiic\-\_\-internal.\-h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{classic_8h_a8d346a78459a8b8d47352876dd487dba}{classic\-\_\-ctrl\-\_\-handshake} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, struct \hyperlink{structclassic__ctrl__t}{classic\-\_\-ctrl\-\_\-t} $\ast$cc, \hyperlink{wiic__macros_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte} $\ast$data, unsigned short len)
+\begin{DoxyCompactList}\small\item\em Handle the handshake data from the classic controller. \end{DoxyCompactList}\item 
+void \hyperlink{classic_8h_acaf43c2aa4cbf7eeba0785a05eb73e2a}{classic\-\_\-ctrl\-\_\-disconnected} (struct \hyperlink{structclassic__ctrl__t}{classic\-\_\-ctrl\-\_\-t} $\ast$cc)
+\begin{DoxyCompactList}\small\item\em The classic controller disconnected. \end{DoxyCompactList}\item 
+void \hyperlink{classic_8h_a30fdb853bbecfc8e5580e1499d83a82e}{classic\-\_\-ctrl\-\_\-event} (struct \hyperlink{structclassic__ctrl__t}{classic\-\_\-ctrl\-\_\-t} $\ast$cc, \hyperlink{wiic__macros_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte} $\ast$msg)
+\begin{DoxyCompactList}\small\item\em Handle classic controller event. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Classic controller expansion device. 
+
+Definition in file \hyperlink{classic_8h_source}{classic.\-h}.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{classic_8h_acaf43c2aa4cbf7eeba0785a05eb73e2a}{\index{classic.\-h@{classic.\-h}!classic\-\_\-ctrl\-\_\-disconnected@{classic\-\_\-ctrl\-\_\-disconnected}}
+\index{classic\-\_\-ctrl\-\_\-disconnected@{classic\-\_\-ctrl\-\_\-disconnected}!classic.h@{classic.\-h}}
+\subsubsection[{classic\-\_\-ctrl\-\_\-disconnected}]{\setlength{\rightskip}{0pt plus 5cm}void classic\-\_\-ctrl\-\_\-disconnected (
+\begin{DoxyParamCaption}
+\item[{struct {\bf classic\-\_\-ctrl\-\_\-t} $\ast$}]{cc}
+\end{DoxyParamCaption}
+)}}\label{classic_8h_acaf43c2aa4cbf7eeba0785a05eb73e2a}
+
+
+The classic controller disconnected. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cc} & A pointer to a \hyperlink{structclassic__ctrl__t}{classic\-\_\-ctrl\-\_\-t} structure. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 123 of file classic.\-c.
+
+\hypertarget{classic_8h_a30fdb853bbecfc8e5580e1499d83a82e}{\index{classic.\-h@{classic.\-h}!classic\-\_\-ctrl\-\_\-event@{classic\-\_\-ctrl\-\_\-event}}
+\index{classic\-\_\-ctrl\-\_\-event@{classic\-\_\-ctrl\-\_\-event}!classic.h@{classic.\-h}}
+\subsubsection[{classic\-\_\-ctrl\-\_\-event}]{\setlength{\rightskip}{0pt plus 5cm}void classic\-\_\-ctrl\-\_\-event (
+\begin{DoxyParamCaption}
+\item[{struct {\bf classic\-\_\-ctrl\-\_\-t} $\ast$}]{cc, }
+\item[{{\bf byte} $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}}\label{classic_8h_a30fdb853bbecfc8e5580e1499d83a82e}
+
+
+Handle classic controller event. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cc} & A pointer to a \hyperlink{structclassic__ctrl__t}{classic\-\_\-ctrl\-\_\-t} structure. \\
+\hline
+{\em msg} & The message specified in the event packet. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 135 of file classic.\-c.
+
+\hypertarget{classic_8h_a8d346a78459a8b8d47352876dd487dba}{\index{classic.\-h@{classic.\-h}!classic\-\_\-ctrl\-\_\-handshake@{classic\-\_\-ctrl\-\_\-handshake}}
+\index{classic\-\_\-ctrl\-\_\-handshake@{classic\-\_\-ctrl\-\_\-handshake}!classic.h@{classic.\-h}}
+\subsubsection[{classic\-\_\-ctrl\-\_\-handshake}]{\setlength{\rightskip}{0pt plus 5cm}int classic\-\_\-ctrl\-\_\-handshake (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
+\item[{struct {\bf classic\-\_\-ctrl\-\_\-t} $\ast$}]{cc, }
+\item[{{\bf byte} $\ast$}]{data, }
+\item[{unsigned short}]{len}
+\end{DoxyParamCaption}
+)}}\label{classic_8h_a8d346a78459a8b8d47352876dd487dba}
+
+
+Handle the handshake data from the classic controller. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cc} & A pointer to a \hyperlink{structclassic__ctrl__t}{classic\-\_\-ctrl\-\_\-t} structure. \\
+\hline
+{\em data} & The data read in from the device. \\
+\hline
+{\em len} & The length of the data block, in bytes.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns 1 if handshake was successful, 0 if not. 
+\end{DoxyReturn}
+
+
+Definition at line 58 of file classic.\-c.
+
