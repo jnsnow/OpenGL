@@ -1,5 +1,11 @@
 var NAVTREEINDEX1 =
 {
+"class_c_g_h3_buttons.html#ae759f1224f68e51f58018fe451f2052eadc524820e13fbd44624fc6a23603959b":[1,0,16,0,4],
+"class_c_guitar_hero3.html":[1,0,17],
+"class_c_guitar_hero3.html#a2a91b61b396cf329e979a66c729c3768":[1,0,17,3],
+"class_c_guitar_hero3.html#a70e8e38de7e281c5a7af18cf09747d48":[1,0,17,2],
+"class_c_guitar_hero3.html#acc60e4790cac101dfc4812371efcd476":[1,0,17,4],
+"class_c_guitar_hero3.html#ae4066620ae4ba771306e6439968504e6":[1,0,17,1],
 "class_c_guitar_hero3.html#afbef4e83211e146d2aef1064fcc24bb7":[1,0,17,0],
 "class_c_gyroscope.html":[1,0,18],
 "class_c_gyroscope.html#a065f7be42b432dbc9f57c0a3a9e2b88b":[1,0,18,0],
@@ -243,11 +249,5 @@ var NAVTREEINDEX1 =
 "class_camera.html#a80cb65605322d27ad3b6d973484509eca598314a9e09a69a76e93a3cfaa64b4a7":[1,0,8,0,6],
 "class_camera.html#a80cb65605322d27ad3b6d973484509eca5e915de32fec621852ef915bf5030cba":[1,0,8,0,0],
 "class_camera.html#a80cb65605322d27ad3b6d973484509eca628165fda0ec4ae69d83aab35c24efb0":[1,0,8,0,7],
-"class_camera.html#a80cb65605322d27ad3b6d973484509eca75a19c746d87ee2091237f031dd8ad0c":[1,0,8,0,3],
-"class_camera.html#a80cb65605322d27ad3b6d973484509eca9f55780b3556dc9a198ca80fe11e26fa":[1,0,8,0,5],
-"class_camera.html#a80cb65605322d27ad3b6d973484509ecabbe3f3250295458287d080a1bd22836a":[1,0,8,0,4],
-"class_camera.html#a80cb65605322d27ad3b6d973484509ecad0cf797c6cff06ef21213c2080d9f10c":[1,0,8,0,1],
-"class_camera.html#a8817ea073431268d8c0e522cdc30026c":[1,0,8,20],
-"class_camera.html#a8eb4ebda2379e7289bb2bb942a2796b4":[1,0,8,7],
-"class_camera.html#a8fd028120b18556c43ad86756e637fbc":[1,0,8,55]
+"class_camera.html#a80cb65605322d27ad3b6d973484509eca75a19c746d87ee2091237f031dd8ad0c":[1,0,8,0,3]
 };

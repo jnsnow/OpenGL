@@ -46,6 +46,7 @@ var hierarchy =
     [ "MLData", "class_m_l_data.html", null ],
     [ "motion_plus_t", "structmotion__plus__t.html", null ],
     [ "nunchuk_t", "structnunchuk__t.html", null ],
+    [ "Object", "class_object.html", null ],
     [ "orient_t", "structorient__t.html", null ],
     [ "pressure_t", "structpressure__t.html", null ],
     [ "pressure_weight_t", "structpressure__weight__t.html", null ],
@@ -55,6 +56,7 @@ var hierarchy =
       [ "GyroSample", "class_gyro_sample.html", null ]
     ] ],
     [ "Screen", "class_screen.html", null ],
+    [ "Timer", "class_timer.html", null ],
     [ "Training", "class_training.html", null ],
     [ "Angel::vec2", "struct_angel_1_1vec2.html", null ],
     [ "vec2b_t", "structvec2b__t.html", null ],

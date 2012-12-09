@@ -1,4 +1,4 @@
-.TH "Camera" 3 "Wed Dec 5 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.TH "Camera" 3 "Sat Dec 8 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -334,7 +334,7 @@ Initialization Constructor; sets the X,Y,Z coordinates explicitly\&. \fBParamete
 .PP
 
 .PP
-Definition at line 55 of file Camera\&.cpp\&.
+Definition at line 56 of file Camera\&.cpp\&.
 .SS "Camera::Camera (\fBvec3\fP &in)"
 
 .PP
@@ -345,7 +345,7 @@ Initialization Constructor, uses a vec3 as its initial coordinates\&. \fBParamet
 .PP
 
 .PP
-Definition at line 66 of file Camera\&.cpp\&.
+Definition at line 67 of file Camera\&.cpp\&.
 .SS "Camera::Camera (\fBvec4\fP &in)"
 
 .PP
@@ -356,13 +356,13 @@ Initialization Constructor, uses a vec4 as its initial coordinates\&. \fBParamet
 .PP
 
 .PP
-Definition at line 76 of file Camera\&.cpp\&.
+Definition at line 77 of file Camera\&.cpp\&.
 .SS "Camera::~Camera (void)\fC [virtual]\fP"
 
 .PP
 Default destructor\&. Nothing of note\&. 
 .PP
-Definition at line 85 of file Camera\&.cpp\&.
+Definition at line 86 of file Camera\&.cpp\&.
 .SH "Member Function Documentation"
 .PP 
 .SS "void Camera::Accel (const \fBvec3\fP &raw_accel)"
@@ -380,7 +380,7 @@ Void\&.
 .PP
 
 .PP
-Definition at line 373 of file Camera\&.cpp\&.
+Definition at line 374 of file Camera\&.cpp\&.
 .SS "void Camera::adjustRotation (const \fBmat4\fP &adjustment, const bool &fixed = \fCfalse\fP)\fC [private]\fP"
 
 .PP
@@ -400,7 +400,7 @@ Void\&.
 .PP
 
 .PP
-Definition at line 242 of file Camera\&.cpp\&.
+Definition at line 243 of file Camera\&.cpp\&.
 .SS "void Camera::changePerspective (const \fBview_type\fP &vType)"
 
 .PP
@@ -416,7 +416,7 @@ Void\&.
 .PP
 
 .PP
-Definition at line 503 of file Camera\&.cpp\&.
+Definition at line 528 of file Camera\&.cpp\&.
 .SS "void Camera::commonInit (void)\fC [private]\fP"
 
 .PP
@@ -429,7 +429,7 @@ Void\&.
 .PP
 
 .PP
-Definition at line 33 of file Camera\&.cpp\&.
+Definition at line 34 of file Camera\&.cpp\&.
 .SS "void Camera::dFOV (const float &by)"
 
 .PP
@@ -445,7 +445,7 @@ Void\&.
 .PP
 
 .PP
-Definition at line 548 of file Camera\&.cpp\&.
+Definition at line 573 of file Camera\&.cpp\&.
 .SS "void Camera::dPos (const float &x, const float &y, const float &z)"
 
 .PP
@@ -465,7 +465,7 @@ Void\&.
 .PP
 
 .PP
-Definition at line 206 of file Camera\&.cpp\&.
+Definition at line 207 of file Camera\&.cpp\&.
 .SS "void Camera::dPos (const \fBvec3\fP &by)"
 
 .PP
@@ -481,7 +481,7 @@ Void\&.
 .PP
 
 .PP
-Definition at line 220 of file Camera\&.cpp\&.
+Definition at line 221 of file Camera\&.cpp\&.
 .SS "void Camera::dPos (const \fBvec4\fP &by)"
 
 .PP
@@ -497,7 +497,7 @@ Void\&.
 .PP
 
 .PP
-Definition at line 230 of file Camera\&.cpp\&.
+Definition at line 231 of file Camera\&.cpp\&.
 .SS "void Camera::Draw (void)"
 
 .PP
@@ -508,7 +508,7 @@ Void\&.
 .PP
 
 .PP
-Definition at line 628 of file Camera\&.cpp\&.
+Definition at line 653 of file Camera\&.cpp\&.
 .SS "void Camera::dX (const float &by, const bool &update = \fCtrue\fP)"
 
 .PP
@@ -526,7 +526,7 @@ void\&.
 .PP
 
 .PP
-Definition at line 170 of file Camera\&.cpp\&.
+Definition at line 171 of file Camera\&.cpp\&.
 .SS "void Camera::dY (const float &by, const bool &update = \fCtrue\fP)"
 
 .PP
@@ -544,7 +544,7 @@ Void\&.
 .PP
 
 .PP
-Definition at line 182 of file Camera\&.cpp\&.
+Definition at line 183 of file Camera\&.cpp\&.
 .SS "void Camera::dZ (const float &by, const bool &update = \fCtrue\fP)"
 
 .PP
@@ -562,7 +562,7 @@ Void\&.
 .PP
 
 .PP
-Definition at line 194 of file Camera\&.cpp\&.
+Definition at line 195 of file Camera\&.cpp\&.
 .SS "void Camera::FOV (const float &in)"
 
 .PP
@@ -580,7 +580,7 @@ Void\&.
 .PP
 
 .PP
-Definition at line 491 of file Camera\&.cpp\&.
+Definition at line 516 of file Camera\&.cpp\&.
 .SS "float Camera::FOV (void) const"
 
 .PP
@@ -591,7 +591,7 @@ A float that is the y axis viewing angle\&.
 .PP
 
 .PP
-Definition at line 482 of file Camera\&.cpp\&.
+Definition at line 507 of file Camera\&.cpp\&.
 .SS "void Camera::heave (const float &by)"
 
 .PP
@@ -609,7 +609,7 @@ Void\&.
 .PP
 
 .PP
-Definition at line 310 of file Camera\&.cpp\&.
+Definition at line 311 of file Camera\&.cpp\&.
 .SS "void Camera::Idle (void)"
 
 .PP
@@ -622,7 +622,7 @@ Void\&.
 .PP
 
 .PP
-Definition at line 418 of file Camera\&.cpp\&.
+Definition at line 435 of file Camera\&.cpp\&.
 .SS "void Camera::link (const GLuint &program, const \fBglsl_var\fP &which, const string &glslVarName)"
 
 .PP
@@ -642,7 +642,7 @@ Void\&.
 .PP
 
 .PP
-Definition at line 614 of file Camera\&.cpp\&.
+Definition at line 639 of file Camera\&.cpp\&.
 .SS "void Camera::Move (const \fBCamera::Direction\fP &Dir)"
 
 .PP
@@ -658,7 +658,7 @@ Void\&.
 .PP
 
 .PP
-Definition at line 398 of file Camera\&.cpp\&.
+Definition at line 415 of file Camera\&.cpp\&.
 .SS "void Camera::pitch (const float &by, const bool &fixed = \fCfalse\fP)"
 
 .PP
@@ -678,7 +678,7 @@ Void\&.
 .PP
 
 .PP
-Definition at line 323 of file Camera\&.cpp\&.
+Definition at line 324 of file Camera\&.cpp\&.
 .SS "void Camera::pos (const float &x, const float &y, const float &z, const bool &update = \fCtrue\fP)"
 
 .PP
@@ -700,7 +700,7 @@ Void\&.
 .PP
 
 .PP
-Definition at line 132 of file Camera\&.cpp\&.
+Definition at line 133 of file Camera\&.cpp\&.
 .SS "void Camera::pos (const \fBvec3\fP &in, const bool &update = \fCtrue\fP)"
 
 .PP
@@ -718,7 +718,7 @@ Void\&.
 .PP
 
 .PP
-Definition at line 158 of file Camera\&.cpp\&.
+Definition at line 159 of file Camera\&.cpp\&.
 .SS "void Camera::pos (const \fBvec4\fP &in, const bool &update = \fCtrue\fP)"
 
 .PP
@@ -736,7 +736,7 @@ Void\&.
 .PP
 
 .PP
-Definition at line 147 of file Camera\&.cpp\&.
+Definition at line 148 of file Camera\&.cpp\&.
 .SS "\fBvec4\fP Camera::pos (void) const"
 
 .PP
@@ -747,7 +747,7 @@ A vec4 that represents the current camera coordinates\&.
 .PP
 
 .PP
-Definition at line 475 of file Camera\&.cpp\&.
+Definition at line 500 of file Camera\&.cpp\&.
 .SS "void Camera::refreshPerspective (void)"
 
 .PP
@@ -760,7 +760,7 @@ Void\&.
 .PP
 
 .PP
-Definition at line 516 of file Camera\&.cpp\&.
+Definition at line 541 of file Camera\&.cpp\&.
 .SS "void Camera::roll (const float &by, const bool &fixed = \fCfalse\fP)"
 
 .PP
@@ -780,7 +780,7 @@ Void\&.
 .PP
 
 .PP
-Definition at line 362 of file Camera\&.cpp\&.
+Definition at line 363 of file Camera\&.cpp\&.
 .SS "void Camera::send (const \fBglsl_var\fP &which)"
 
 .PP
@@ -796,7 +796,7 @@ Void\&.
 .PP
 
 .PP
-Definition at line 578 of file Camera\&.cpp\&.
+Definition at line 603 of file Camera\&.cpp\&.
 .SS "void Camera::Stop (const \fBCamera::Direction\fP &Dir)"
 
 .PP
@@ -812,7 +812,7 @@ Void\&.
 .PP
 
 .PP
-Definition at line 408 of file Camera\&.cpp\&.
+Definition at line 425 of file Camera\&.cpp\&.
 .SS "void Camera::surge (const float &by)"
 
 .PP
@@ -830,7 +830,7 @@ Void\&.
 .PP
 
 .PP
-Definition at line 298 of file Camera\&.cpp\&.
+Definition at line 299 of file Camera\&.cpp\&.
 .SS "void Camera::sway (const float &by)"
 
 .PP
@@ -848,7 +848,7 @@ Void\&.
 .PP
 
 .PP
-Definition at line 284 of file Camera\&.cpp\&.
+Definition at line 285 of file Camera\&.cpp\&.
 .SS "void Camera::viewport (size_t_X, size_t_Y, size_t_Width, size_t_Height)"
 
 .PP
@@ -872,7 +872,7 @@ Void\&.
 .PP
 
 .PP
-Definition at line 563 of file Camera\&.cpp\&.
+Definition at line 588 of file Camera\&.cpp\&.
 .SS "void Camera::X (const float &in, const bool &update = \fCtrue\fP)"
 
 .PP
@@ -890,7 +890,7 @@ Void\&.
 .PP
 
 .PP
-Definition at line 94 of file Camera\&.cpp\&.
+Definition at line 95 of file Camera\&.cpp\&.
 .SS "float Camera::X (void) const"
 
 .PP
@@ -901,7 +901,7 @@ The current X coordinate of the camera in model coordinates\&.
 .PP
 
 .PP
-Definition at line 454 of file Camera\&.cpp\&.
+Definition at line 479 of file Camera\&.cpp\&.
 .SS "void Camera::Y (const float &in, const bool &update = \fCtrue\fP)"
 
 .PP
@@ -919,7 +919,7 @@ Void\&.
 .PP
 
 .PP
-Definition at line 106 of file Camera\&.cpp\&.
+Definition at line 107 of file Camera\&.cpp\&.
 .SS "float Camera::Y (void) const"
 
 .PP
@@ -930,7 +930,7 @@ The current Y coordinate of the camera in model coordinates\&.
 .PP
 
 .PP
-Definition at line 461 of file Camera\&.cpp\&.
+Definition at line 486 of file Camera\&.cpp\&.
 .SS "void Camera::yaw (const float &by, const bool &fixed = \fCfalse\fP)"
 
 .PP
@@ -950,7 +950,7 @@ Void\&.
 .PP
 
 .PP
-Definition at line 343 of file Camera\&.cpp\&.
+Definition at line 344 of file Camera\&.cpp\&.
 .SS "void Camera::Z (const float &in, const bool &update = \fCtrue\fP)"
 
 .PP
@@ -968,7 +968,7 @@ Void\&.
 .PP
 
 .PP
-Definition at line 118 of file Camera\&.cpp\&.
+Definition at line 119 of file Camera\&.cpp\&.
 .SS "float Camera::Z (void) const"
 
 .PP
@@ -979,7 +979,7 @@ The current Z coordinate of the camera in model coordinates\&.
 .PP
 
 .PP
-Definition at line 468 of file Camera\&.cpp\&.
+Definition at line 493 of file Camera\&.cpp\&.
 .SH "Member Data Documentation"
 .PP 
 .SS "GLfloat Camera::aspect\fC [private]\fP"

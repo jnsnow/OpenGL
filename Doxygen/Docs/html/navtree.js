@@ -29,12 +29,12 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 ".html",
-"class_c_guitar_hero3.html#afbef4e83211e146d2aef1064fcc24bb7",
-"class_camera.html#a928de59670f0b31264307a8a0888b99d",
-"class_training.html#a34cd1e59fb499746963c510de4ea8a31",
-"motionplus_8c.html#a3c14c2a2ada82d49933a8fbf6fefe0aa",
-"structvec3f__t.html",
-"wiic__macros_8h.html#a26f15633eeb25c7e92210a2624c66526"
+"class_c_g_h3_buttons.html#ae759f1224f68e51f58018fe451f2052eadc524820e13fbd44624fc6a23603959b",
+"class_camera.html#a80cb65605322d27ad3b6d973484509eca9f55780b3556dc9a198ca80fe11e26fa",
+"class_object.html#ac6ccf69d21c4c902c62829c48ef6cf5b",
+"mat_8cpp.html#a1a4a07580fa9c63f32cca223177496dd",
+"structnunchuk__t.html#a2b144556040fab37446afe3da5611ced",
+"wiic__internal_8h.html#a7be464171ab3c34b06e77e113ad4b585"
 ];
 
 var navTreeSubIndices = new Array();
