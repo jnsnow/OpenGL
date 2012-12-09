@@ -26,6 +26,10 @@ HSC
       developed out of the (now defunct) WiiUse library, authored by
       Michael Laforest.
 
+  - Dan Lecocq:
+      For a really great blog post on how to draw a mesh with
+      GL_TRIANGLE_STRIPs.
+
 
 - To build the project, pushd Flythrough && make;
   To run, pushd Flythrough && ./fly;

@@ -13,6 +13,7 @@
 #include "InitShader.hpp"
 #include "Cameras.hpp"
 #include "Screen.hpp"
+#include "Object.hpp"
 #include "Timer.hpp"
 
 // Turn on debugging if it's been requested of us by the Makefile environment.
@@ -38,20 +39,7 @@ bool usingWii = false;
 #endif
 ////
 
-/** Disgusting, horrible, awful Globals **/
-#ifndef __CUBE__ // Globals for Pyramid Model
-const int NumTimesToSubdivide = 4;
-const int NumTetrahedrons = 4*4*4*4;//intPow(4, NumTimesToSubdivide) ;
-const int NumTriangles = 4*NumTetrahedrons;
-const int NumVertices = 3*NumTriangles+6;
-#endif
-#ifdef __CUBE__ // Globals for Cube Model
-const int NumVertices = 36;
-#endif
-
-extern point4 points[NumVertices];
-extern color4 colors[NumVertices];
-extern vec3  normals[NumVertices];
+Object *pyramid;
 Screen myScreen( 800, 600 );
 GLuint gShader;
 
@@ -153,82 +141,33 @@ void cameraInit( Camera& cam ) {
 }
 
 void init() {
-  
-#ifndef __CUBE__
-  divide_tetra( //  divide_tetra_alt( 
-	       vec4(  0,      1,  0, 1 ),
-	       vec4( -1, -0.999,  1, 1 ),
-	       vec4(  1, -0.999,  1, 1 ),
-	       vec4(  0, -0.999, -1, 1 ),
-	       NumTimesToSubdivide );
-  
-  // Draw a "floor" or something for reference.
-  quad(       
-       vec4( -1, -1, -1, 1.0 ),
-       vec4( -1, -1, 1, 1.0 ),
-       vec4( 1, -1, 1, 1.0 ),
-       vec4( 1, -1, -1, 1.0 ),
-       vec4( 0.8, 0.1, 0.6, 1 ),
-       vec4( 0.8, 0.1, 0.6, 1 ),
-       vec4( 0.8, 0.1, 0.6, 1 ),
-       vec4( 0.8, 0.1, 0.6, 1 ) );
-#endif
-  
-#ifdef __CUBE__
-  colorcube(GLfloat(0.5));
-#endif
-  
-  GLuint vao;
-  glGenVertexArrays( 1, &vao );
-  glBindVertexArray( vao );
-  
-  // Create and initialize a buffer object
-  GLuint buffer;
-  glGenBuffers( 1, &buffer );
-  glBindBuffer( GL_ARRAY_BUFFER, buffer );
-  
-  // First, we create an empty buffer of the size we need by passing
-  //   a NULL pointer for the data values
-  glBufferData( GL_ARRAY_BUFFER, sizeof(points) + sizeof(colors) + sizeof(normals),
-		NULL, GL_STATIC_DRAW );
-  
-  // Next, we load the real data in parts.  We need to specify the
-  //   correct byte offset for placing the color data after the point
-  //   data in the buffer.  Conveniently, the byte offset we need is
-  //   the same as the size (in bytes) of the points array, which is
-  //   returned from "sizeof(points)".
-  glBufferSubData( GL_ARRAY_BUFFER,                             0, sizeof(points),   points );
-  glBufferSubData( GL_ARRAY_BUFFER,                sizeof(points), sizeof(colors),   colors );
-  glBufferSubData( GL_ARRAY_BUFFER, sizeof(points)+sizeof(colors), sizeof(normals), normals );
 
-  // Load shaders and use the resulting shader program
   gShader = Angel::InitShader( "vshader.glsl", "fshader.glsl" );
   glUseProgram( gShader );
+
+  pyramid = new Object( gShader );
+  Sierpinski_Pyramid( pyramid,
+		      vec4(  0,      1,  0, 1 ),
+		      vec4( -1, -0.999,  1, 1 ),
+		      vec4(  1, -0.999,  1, 1 ),
+		      vec4(  0, -0.999, -1, 1 ),
+		      4 );
+  // Draw a "floor" or something for reference.
+  quad( pyramid,
+	vec4( -1, -1, -1, 1.0 ),
+	vec4( -1, -1, 1, 1.0 ),
+	vec4( 1, -1, 1, 1.0 ),
+	vec4( 1, -1, -1, 1.0 ),
+	vec4( 0.8, 0.1, 0.6, 1 ),
+	vec4( 0.8, 0.1, 0.6, 1 ),
+	vec4( 0.8, 0.1, 0.6, 1 ),
+	vec4( 0.8, 0.1, 0.6, 1 ) );
+  pyramid->Buffer();
+  pyramid->Mode( GL_TRIANGLES );
 
   // More init stuff, but only lighting-related.
   init_lights( gShader );
   
-  // Initialize the vertex position attribute from the vertex shader  
-  GLuint vPosition = glGetAttribLocation( gShader, "vPosition" );
-  glEnableVertexAttribArray( vPosition );
-  glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0,
-			 (GLvoid*)0 );
-  
-  // Likewise, initialize the vertex color attribute.  Once again, we
-  //    need to specify the starting offset (in bytes) for the color
-  //    data.  Just like loading the array, we use "sizeof(points)"
-  //    to determine the correct value.
-  GLuint vColor = glGetAttribLocation( gShader, "vColor" );
-  glEnableVertexAttribArray( vColor );
-  glVertexAttribPointer( vColor, 4, GL_FLOAT, GL_FALSE, 0,
-			 (GLvoid*)sizeof(points) );
-
-  // Again, initialize another attribute: vNormal.
-  GLuint vNormal = glGetAttribLocation( gShader, "vNormal" );
-  glEnableVertexAttribArray( vNormal );
-  glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0,
-			 (GLvoid*)(sizeof(points)+sizeof(colors)));
-
   // Link however many cameras we have at this point to the shader.
   myScreen.camList.LinkAll( gShader, Camera::TRANSLATION, "T" );
   myScreen.camList.LinkAll( gShader, Camera::ROTATION, "R" );
@@ -321,8 +260,9 @@ void lightEffects(int frameNumber){
 /** A function that takes no arguments.
     Is responsible for drawing a SINGLE VIEWPORT. **/
 void displayViewport( void ) {
-  
-  glDrawArrays( GL_TRIANGLES, 0, NumVertices );
+
+  pyramid->Draw();
+  //glDrawArrays( GL_TRIANGLES, 0, NumVertices );
 
 }
 
@@ -406,21 +346,6 @@ void keyboard( unsigned char key, int x, int y ) {
     break;
   case 'e':
     cam.Move( Camera::Down );
-    break;
-    
-  case 'p': // Print Info
-    fprintf( stderr, "POS: (%f,%f,%f)\n", cam.X(), cam.Y(), cam.Z() );
-    break;
-  case 'n': // Print normals
-    //light_position = point4( 0.0, 0.2, 0.0, 0.0 );
-    light_position.y = -light_position.y ;
-    break;
-
-  case ';':
-    for( int l = 0; l < NumVertices ; l+=3 ) {
-      fprintf( stderr, "POS: (%f, %f, %f)\n",
-	       normals[l].x, normals[l].y, normals[l].z );
-    }
     break;
 
   case '0':
@@ -596,4 +521,5 @@ int main( int argc, char **argv ) {
   /* PULL THE TRIGGER */
   glutMainLoop();
   return EXIT_SUCCESS;
+
 }

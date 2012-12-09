@@ -105,8 +105,8 @@ realclean: clean
 
 # Make documentation ...
 .PHONY: docs
-docs: $(SOURCES) $(RELDIR)/Doxygen/Doxyfile
-	cd $(RELDIR)/Doxygen; doxygen
+docs:
+	cd $(RELDIR)/../gh-pages/Doxygen; doxygen
 
 print-%:
 	@echo $* = $($*)
