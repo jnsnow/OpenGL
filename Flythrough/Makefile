@@ -31,7 +31,7 @@ CFLAGS=-Wall -pedantic -I $(RELDIR)/include
 EXECS=terrain
 BIN_SOURCES=terrain.cpp
 COMMON_SOURCES=model.cpp InitShader.cpp
-CLASS_SOURCES=Camera.cpp vec.cpp mat.cpp Cameras.cpp Screen.cpp Timer.cpp Object.cpp
+CLASS_SOURCES=Camera.cpp vec.cpp mat.cpp Cameras.cpp Screen.cpp Timer.cpp Object.cpp Scene.cpp
 SOURCES=$(BIN_SOURCES) \
 	$(addprefix $(COMMON_DIR)/, $(COMMON_SOURCES)) \
 	$(addprefix $(CLASSES_DIR)/, $(CLASS_SOURCES))

@@ -26,6 +26,7 @@
 #include "Screen.hpp"
 #include "Object.hpp"
 #include "Timer.hpp"
+#include "Scene.hpp"
 
 // Type Aliases
 using Angel::vec3;
@@ -43,10 +44,8 @@ bool usingWii = false;
 ////
 
 Screen myScreen( 800, 600 );
+Scene theScene;
 GLuint gShader;
-// Must create a POINTER, because if we try to initialize it before OpenGL, W.W.III.
-Object *terrain;
-Object *pyramid;
 
 void cameraInit( Camera& cam ) {
 
@@ -62,13 +61,16 @@ void init() {
 
   // Load shaders and use the resulting shader program
   gShader = Angel::InitShader( "vterrain.glsl", "fterrain.glsl" );
-  terrain = new Object( gShader );
-  pyramid = new Object( gShader );
-  glUseProgram( gShader );
+  theScene.SetShader( gShader );
+
+
+  Object *terrain = theScene.AddObject( "terrain" );
+  Object *pyramid = theScene.AddObject( "pyramid" );
 
   /** Fill points[...] with terrain map **/
   landGen( terrain, 6, 10.0 );
   terrain->Buffer();
+  terrain->Mode( GL_TRIANGLE_STRIP );
 
   Sierpinski_Pyramid( pyramid,
 		      vec4(  0,      1,  0, 1 ),
@@ -77,7 +79,7 @@ void init() {
 		      vec4(  0, -0.999, -1, 1 ),
 		      4 );
   pyramid->Buffer();
-  pyramid->Mode( GL_TRIANGLES );
+  pyramid->Mode( GL_LINE_LOOP );
     
   // Link however many cameras we have at this point to the shader.
   myScreen.camList.LinkAll( gShader, Camera::TRANSLATION, "T" );
@@ -95,10 +97,7 @@ void init() {
 /** A function that takes no arguments.
     Is responsible for drawing a SINGLE VIEWPORT. **/
 void displayViewport( void ) {  
-  terrain->Draw();
-  pyramid->Draw();
-  //glDrawArrays( draw_mode, 0, pointVector.size() );
-  //glDrawElements( draw_mode, pointIndices.size(), GL_UNSIGNED_INT, 0 );
+  theScene.Draw();
 }
 
 void display( void ) {
@@ -172,8 +171,10 @@ void keyboard( unsigned char key, int x, int y ) {
     cam.Move( Camera::Down );
     break;
     
-  case 'p': // Print Info
-    fprintf( stderr, "POS: (%f,%f,%f)\n", cam.X(), cam.Y(), cam.Z() );
+  case ';': // Print Info
+    fprintf( stderr, "Active Object: %s\n",
+	     theScene.Active()->Name().c_str() );
+    fprintf( stderr, "Camera Position: (%f,%f,%f)\n", cam.X(), cam.Y(), cam.Z() );
     break;
     
     //Perspectives
@@ -194,15 +195,26 @@ void keyboard_ctrl( int key, int x, int y ) {
   case GLUT_KEY_PAGE_DOWN:
     myScreen.camList.Next();
     break;
+   
+  case GLUT_KEY_LEFT:
+    theScene.Prev();
+    break;
+    
+  case GLUT_KEY_RIGHT:
+    theScene.Next();
+    break;
 
   case GLUT_KEY_F1:
-    terrain->Mode( GL_POINTS );
+    theScene.Active()->Mode( GL_POINTS );
     break;
   case GLUT_KEY_F2:
-    terrain->Mode( GL_LINE_STRIP );
+    theScene.Active()->Mode( GL_LINE_STRIP );
     break;
   case GLUT_KEY_F3:
-    terrain->Mode( GL_TRIANGLE_STRIP );
+    theScene.Active()->Mode( GL_TRIANGLE_STRIP );
+    break;
+  case GLUT_KEY_F4:
+    theScene.Active()->Mode( GL_TRIANGLES );
     break;
   }
 }

@@ -1,9 +1,10 @@
+#include <string>
 #include <vector>
 #include "platform.h"
 #include "vec.hpp"
 #include "Object.hpp"
 
-Object::Object( GLuint gShader ) {
+Object::Object( const std::string &name, GLuint gShader ) {
 
   /* The constructor is going to initialize the VAO and a series of VBOs.
      The VAO is our general handle to this collection of VBOs.
@@ -13,6 +14,7 @@ Object::Object( GLuint gShader ) {
     
   /* Associate this Object with the Shader. */
   this->gShader = gShader;
+  this->name = name;
   GLuint glsl_uniform;
 
   /* Initialize our draw mode to GL_LINE_STRIP until informed otherwise. */
@@ -108,4 +110,8 @@ void Object::Mode( GLenum new_mode ) {
 
   this->draw_mode = new_mode;
 
+}
+
+const std::string &Object::Name( void ) const {
+  return name;
 }

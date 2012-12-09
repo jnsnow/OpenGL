@@ -2,6 +2,7 @@
 #define __OBJECT_HPP
 
 #include <vector>
+#include <string>
 #include "platform.h"
 #include "vec.hpp"
 #include "mat.hpp"
@@ -16,11 +17,12 @@ class Object {
     TEXCOORDS };
 
 public:
-  Object( GLuint gShader );
+  Object( const std::string &name, GLuint gShader );
   ~Object( void );
   void Draw( void );
   void Buffer( void );
   void Mode( GLenum new_node );
+  const std::string &Name( void ) const;
 
   /* Bad. Bad! Protect these. ...Later? :( */
   std::vector<Angel::vec4> points;
@@ -29,11 +31,12 @@ public:
   std::vector<Angel::vec4> colors;
   std::vector<Angel::vec2> texcoords;
 
-protected:  
-  GLuint vao;
-  GLuint buffer[5];
-  GLenum draw_mode;
-  GLuint gShader;
+protected:
+  std::string name; /* name is used as an identifying handle for the object. */
+  GLuint vao;  /* Vertex Array Object handle identifying our buffers */
+  GLuint buffer[5]; /* Our buffer handles. */
+  GLenum draw_mode; /* How should we draw? GL_TRIANGLES? GL_LINE_LOOP? etc. */
+  GLuint gShader; /* A handle to the shader program. */
 
   /* Per-Object CTM */
   Angel::mat4 CTM;
