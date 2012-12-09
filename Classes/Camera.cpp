@@ -13,6 +13,7 @@
 #include "vec.hpp"
 #include "Camera.hpp"
 #include "globals.h" //Math constants and macros (SQRT2, POW5)
+#include "Timer.hpp" //Global timer to sync with framerate.
 using namespace Angel;
 
 #ifdef POSTMULT
@@ -39,7 +40,7 @@ void Camera::commonInit( void ) {
   this->speed = 0;
   this->speed_cap = 0;
   this->MaxAccel = 10;
-  this->MaxSpeed = 200;
+  this->MaxSpeed = 500;
   this->FrictionMagnitude = 2;
   this->aspect = 1;
   this->currView = PERSPECTIVE;
@@ -372,13 +373,29 @@ void Camera::roll( const float &by, const bool &fixed ) {
 **/
 void Camera::Accel( const vec3 &raw_accel ) {
 
-  //Accel comes in as a vector with a length between -sqrt(3) and sqrt(3).
-  //We change it to be between -MAX_ACCEL and MAX_ACCEL.
-  vec3 accel = raw_accel * (MaxAccel/SQRT3);
+  /*
+    This scale factor is the cumulation of several scaling factors.
+    (A) (MaxAccel/SQRT3) 
+    scales the vector so that it has a magnitude
+    Between -MAX_ACCEL and MAX_ACCEL.
 
-  //Now, we scale our accel vector so that we accelerate less when we are near MaxSpeed.
-  accel *= (1-POW5(speed_cap));
-  
+    (B) (1-POW5(speed_cap)) 
+    scales the vector with relation to the 
+    current speed. This effectively models "Drag".
+    The closer we are to maximum speed, this scaling factor
+    Will approach 0, so that if we are at MAX SPEED,
+    our acceleration will be scaled to (nearly) zero.
+
+    (C) (Tick.Delta() / KeyFrameRate)
+    This scales the amount of acceleration by an amount [0,1]
+    so that if we are drawing many frames, we'll apply less acceleration.
+    If we are drawing not so many, we'll apply more.
+    This should keep the animation relatively consistent across platforms.
+  */
+
+  float Scale = (MaxAccel/SQRT3) * (1-POW5(speed_cap)) * (Tick.Delta() / KeyFrameRate);
+  vec3 accel = raw_accel * Scale;
+
   //The acceleration is finally applied to the velocity vector.
   velocity += accel;
 
@@ -428,10 +445,17 @@ void Camera::Idle( void ) {
 
   /* Apply the velocity vectors computed from Accel,
      which includes instructions from keyboard and the Balance Board. */
+  /* 1/20000 is a magic constant which converts our velocity units
+     into model units. */
+  /* Tick.Delta()/KeyFrameRate helps keep animation speed consistent
+     between different hardware. */
+  float TimeScale = (Tick.Delta()/KeyFrameRate);
+  float UnitScale = (1.0/20000.0);
+  float Scale = TimeScale * UnitScale;
 
-  heave( velocity.x / 20000 );
-  sway( velocity.y / 20000 );
-  surge( velocity.z / 20000 );
+  heave( velocity.x * Scale );
+  sway( velocity.y * Scale );
+  surge( velocity.z * Scale );
 
   // We can only apply friction if we are moving. 
   if (speed) {
@@ -440,9 +464,10 @@ void Camera::Idle( void ) {
     /* By dividing friction by (speed/FrictionMagnitude), 
        we guarantee that the magnitude is FrictionMagnitude. */
     frictionVec = frictionVec / (speed/FrictionMagnitude);
-    velocity += frictionVec;
+    velocity += (frictionVec * TimeScale);
     speed = length(velocity);
     speed_cap = speed/MaxSpeed;
+
   }
 }
 

@@ -1,5 +1,6 @@
 // attributes
 attribute vec4 vPosition;
+attribute vec4 vColor;
 // sent to the fshader
 varying vec4 color;
 
@@ -13,7 +14,8 @@ varying float color_scale;
 
 void main() {
      gl_Position = CTM * vPosition;
-     color_scale = 0.5 * vPosition.y;     
-     color = color_scale * vec4( 0.65, 0.31, 0.0, 1.0 );
+     color = vColor;
+     //color_scale = 0.5 * vPosition.y;     
+     //color = color_scale * vec4( 0.65, 0.31, 0.0, 1.0 );
      //color = vec4( 0,0,0,1);
 }

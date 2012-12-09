@@ -49,8 +49,14 @@ Screen myScreen( 800, 600 );
 GLuint gShader;
 // Must create a POINTER, because if we try to initialize it before OpenGL, W.W.III.
 Object *terrain;
-// Draw a key frame every 16667 usec or so.
-ulong KeyFrameRate = 16667;
+
+float rand_float( void ) {
+  return rand() / (float)RAND_MAX;
+}
+double jitter( double H ) {
+  return (-H) + rand() * (H - (-H)) / RAND_MAX;
+}
+
 
 void landGen( std::vector<point4> &vec, std::vector<unsigned int> &drawIndex ) {
 
@@ -64,21 +70,31 @@ void landGen( std::vector<point4> &vec, std::vector<unsigned int> &drawIndex ) {
   // This determines the jaggedness of the peaks and valleys.
   // A smaller initial value will create smaller peaks and shollow valleys for
   // a look more similar to rolling hill tops.
-  double h = 8.0;  
+  double h = 5.0;
+  double CH = 0.5;
   double magnitude = (h*(2 - pow(2,-(_N))));
   fprintf( stderr, "landGen theoretical magnitude: %f\n", magnitude );
 
+  /* Initialize all points in the vector to have their X,Z (and w) coordinates. */
   if (vec.size()) vec.clear();
   vec.reserve( S * S );
   for ( int i = 0; i < S; ++i )
     for ( int j = 0; j < S; ++j ) 
       vec.push_back( vec4( j, 0, i, 1 ) );
 
+  /* Initialize our color vectors. */
+  std::vector< vec4 > &col = terrain->colors;
+  if (col.size()) col.clear();
+  col.reserve( S*S );
+  for ( int i = 0; i < S; ++i )
+    for ( int j = 0; j < S; ++j )
+      col.push_back( vec4( 0.5, 0.5, 0.5, 1.0 ) );
+
   /* Simulate a 2D array in this 1D array. Use these Macros to help. */
 #define OffsetAt(X,Z) ((X)*S+(Z))
 #define VertexAt(X,Z) (vec.at(OffsetAt(X,Z)))
 #define HeightAt(X,Z) (VertexAt(X,Z).y)
-
+#define ColorAt(X,Z) (col.at(OffsetAt(X,Z)))
 
   // Initialize the corners of the grid
   HeightAt( 0, 0 )     = 0;
@@ -91,17 +107,22 @@ void landGen( std::vector<point4> &vec, std::vector<unsigned int> &drawIndex ) {
   // sideLength is the distance of a single square side or
   // distance of diagonal in diamond.
   if (DEBUG) printf("\nEntering for( sideLength...) ...\n");
-  for (int sideLength = S-1; sideLength >= 2; sideLength /= 2, h /= 2.0) { 
+  for (int sideLength = S-1; sideLength >= 2; sideLength /= 2, h /= 2.0, CH /= 2.0) { 
     int halfSide = sideLength / 2;
     // generate new square values
     for ( int x = 0 ; x < S-1 ; x += sideLength ) {
       for ( int z = 0 ; z < S-1 ; z += sideLength) { 
-	double avg = \
+	double avg =						\
 	  (HeightAt( x, z ) + HeightAt( x + sideLength, z ) +
 	   HeightAt( x, z + sideLength ) + HeightAt( x + sideLength, z + sideLength ))/4.0;
-        // Center is average plus random offset in the range (-h, h)
-        double offset = (-h) + rand() * (h - (-h)) / RAND_MAX;
-	HeightAt( x + halfSide, z + halfSide ) = avg + offset; 
+	
+	vec4 color_avg =				\
+	  (ColorAt(x,z) + ColorAt(x+sideLength,z) +
+	   ColorAt(x,z+sideLength) + ColorAt(x+sideLength,z+sideLength))/4.0;
+	vec4 color_jitter = vec4( jitter(CH), jitter(CH), jitter(CH), 0 );
+	
+	HeightAt( x + halfSide, z + halfSide ) = avg + jitter(h);
+	ColorAt( x + halfSide, z + halfSide ) = color_avg + color_jitter;
       } // for z
     } // for x
    
@@ -120,15 +141,26 @@ void landGen( std::vector<point4> &vec, std::vector<unsigned int> &drawIndex ) {
 	   HeightAt( x + halfSide % S, z ) +
 	   HeightAt( x, z + halfSide % S ) +
 	   HeightAt( x, (z - halfSide + S) % S )) / 4.0;
+
+	vec4 color_avg = 
+	  (ColorAt( (x-halfSide + S) % S, z ) +
+	   ColorAt( x + halfSide % S, z ) +
+	   ColorAt( x, z + halfSide % S ) +
+	   ColorAt( x, (z - halfSide + S) % S )) / 4.0;
+	vec4 color_jitter = vec4( jitter(CH), jitter(CH), jitter(CH), 0 );
  
-        // new value = average plus random offset
-        // calculate random value in the range (-h, h)
-        double offset = (-h) + rand() * (h - (-h)) / RAND_MAX;
-	HeightAt( x, z ) = avg + offset;
+	HeightAt( x, z ) = avg + jitter(h);
+	ColorAt( x, z ) = color_avg + color_jitter;
 
 	// Wrapping:
-	if (x == 0) HeightAt( S-1, z ) = avg + offset;
-	if (z == 0) HeightAt( x, S-1 ) = avg + offset;
+	if (x == 0) {
+	  HeightAt( S-1, z ) = HeightAt( x, z );
+	  ColorAt( S-1, z ) = ColorAt( x, z );
+	}
+	if (z == 0) {
+	  HeightAt( x, S-1 ) = HeightAt( x, z );
+	  ColorAt( x, S-1 ) = ColorAt( x, z );
+	}
       } // for z
     } // for x
   } // for sideLength
@@ -152,6 +184,11 @@ void landGen( std::vector<point4> &vec, std::vector<unsigned int> &drawIndex ) {
       drawIndex.push_back(OffsetAt(i+1,j-1));
     }
   }
+
+  for ( int i = 0; i < S*S; i++ ) {
+    terrain->colors.push_back(vec4(rand_float(),rand_float(),rand_float(),1.0));
+  }
+				    
   if (DEBUG) printf("\nExiting landGen()...\n");
 
   Tick.Tock();
@@ -364,7 +401,7 @@ void resizeEvent( int width, int height ) {
 void idle( void ) {
 
   Tick.Tock();
-  fprintf( stderr, "Time since last idle: %lu\n", Tick.Delta() );
+  //fprintf( stderr, "Time since last idle: %lu\n", Tick.Delta() );
 
 #ifdef WII
   if (usingWii) {

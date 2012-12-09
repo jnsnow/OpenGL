@@ -527,7 +527,7 @@ void movelight(void) {
 
 void idle( void ) {
 
-  static Timer Tock;
+  Tick.Tock();
   movelight();
 
 #ifdef WII

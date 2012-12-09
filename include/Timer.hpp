@@ -23,5 +23,7 @@ private:
 };
 
 extern Timer Tick;
+#define KeyFrameRate (16667.0)
+// Key Frame is every 1/60th sec, 16.67 ms or 16667 usec
 
 #endif
