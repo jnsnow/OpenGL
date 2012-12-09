@@ -1,0 +1,218 @@
+.TH "wiic_structs.h" 3 "Wed Dec 5 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+wiic_structs.h \- 
+.PP
+WiiC structures\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBread_req_t\fP"
+.br
+.RI "\fIData read request structure\&. \fP"
+.ti -1c
+.RI "struct \fBvec2b_t\fP"
+.br
+.RI "\fIUnsigned x,y byte vector\&. \fP"
+.ti -1c
+.RI "struct \fBvec3b_t\fP"
+.br
+.RI "\fIUnsigned x,y,z byte vector\&. \fP"
+.ti -1c
+.RI "struct \fBvec3f_t\fP"
+.br
+.RI "\fISigned x,y,z float struct\&. \fP"
+.ti -1c
+.RI "struct \fBang3s_t\fP"
+.br
+.RI "\fIRPY short int angles\&. \fP"
+.ti -1c
+.RI "struct \fBang3f_t\fP"
+.br
+.RI "\fIRPY float angles\&. \fP"
+.ti -1c
+.RI "struct \fBorient_t\fP"
+.br
+.RI "\fIOrientation struct\&. \fP"
+.ti -1c
+.RI "struct \fBang_rate_t\fP"
+.br
+.RI "\fIAngular rate struct\&. \fP"
+.ti -1c
+.RI "struct \fBvel_t\fP"
+.br
+.RI "\fIVelocity struct\&. \fP"
+.ti -1c
+.RI "struct \fBgforce_t\fP"
+.br
+.RI "\fIGravity force struct\&. \fP"
+.ti -1c
+.RI "struct \fBaccel_t\fP"
+.br
+.RI "\fIAccelerometer struct\&. \fP"
+.ti -1c
+.RI "struct \fBgyro_t\fP"
+.br
+.RI "\fIGyro struct\&. \fP"
+.ti -1c
+.RI "struct \fBpressure_t\fP"
+.br
+.RI "\fIPressure sensor struct\&. \fP"
+.ti -1c
+.RI "struct \fBpressure_weight_t\fP"
+.br
+.RI "\fIPressure sensor weight struct\&. \fP"
+.ti -1c
+.RI "struct \fBir_dot_t\fP"
+.br
+.RI "\fIA single IR source\&. \fP"
+.ti -1c
+.RI "struct \fBir_t\fP"
+.br
+.RI "\fIIR struct\&. \fP"
+.ti -1c
+.RI "struct \fBjoystick_t\fP"
+.br
+.RI "\fIJoystick calibration structure\&. \fP"
+.ti -1c
+.RI "struct \fBnunchuk_t\fP"
+.br
+.RI "\fINunchuk expansion device\&. \fP"
+.ti -1c
+.RI "struct \fBclassic_ctrl_t\fP"
+.br
+.RI "\fIClassic controller expansion device\&. \fP"
+.ti -1c
+.RI "struct \fBguitar_hero_3_t\fP"
+.br
+.RI "\fIGuitar Hero 3 expansion device\&. \fP"
+.ti -1c
+.RI "struct \fBbalance_board_t\fP"
+.br
+.RI "\fIBalance Board expansion device\&. \fP"
+.ti -1c
+.RI "struct \fBmotion_plus_t\fP"
+.br
+.RI "\fIMotion Plus expansion device\&. \fP"
+.ti -1c
+.RI "struct \fBexpansion_t\fP"
+.br
+.RI "\fIGeneric expansion device plugged into wiimote\&. \fP"
+.ti -1c
+.RI "struct \fBwiimote_state_t\fP"
+.br
+.RI "\fISignificant data from the previous event\&. \fP"
+.ti -1c
+.RI "struct \fBwiimote_t\fP"
+.br
+.RI "\fIWiimote structure\&. \fP"
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef struct \fBvec2b_t\fP \fBvec2b_t\fP"
+.br
+.ti -1c
+.RI "typedef struct \fBvec3b_t\fP \fBvec3b_t\fP"
+.br
+.ti -1c
+.RI "typedef struct \fBvec3f_t\fP \fBvec3f_t\fP"
+.br
+.ti -1c
+.RI "typedef struct \fBang3s_t\fP \fBang3s_t\fP"
+.br
+.ti -1c
+.RI "typedef struct \fBang3f_t\fP \fBang3f_t\fP"
+.br
+.ti -1c
+.RI "typedef struct \fBorient_t\fP \fBorient_t\fP"
+.br
+.ti -1c
+.RI "typedef struct \fBang_rate_t\fP \fBang_rate_t\fP"
+.br
+.ti -1c
+.RI "typedef struct \fBvel_t\fP \fBvel_t\fP"
+.br
+.ti -1c
+.RI "typedef struct \fBgforce_t\fP \fBgforce_t\fP"
+.br
+.ti -1c
+.RI "typedef struct \fBaccel_t\fP \fBaccel_t\fP"
+.br
+.ti -1c
+.RI "typedef struct \fBgyro_t\fP \fBgyro_t\fP"
+.br
+.ti -1c
+.RI "typedef struct \fBpressure_t\fP \fBpressure_t\fP"
+.br
+.ti -1c
+.RI "typedef struct \fBpressure_weight_t\fP \fBpressure_weight_t\fP"
+.br
+.ti -1c
+.RI "typedef enum ir_position_t \fBir_position_t\fP"
+.br
+.ti -1c
+.RI "typedef struct \fBir_dot_t\fP \fBir_dot_t\fP"
+.br
+.ti -1c
+.RI "typedef struct \fBir_t\fP \fBir_t\fP"
+.br
+.ti -1c
+.RI "typedef struct \fBjoystick_t\fP \fBjoystick_t\fP"
+.br
+.ti -1c
+.RI "typedef struct \fBnunchuk_t\fP \fBnunchuk_t\fP"
+.br
+.ti -1c
+.RI "typedef struct \fBclassic_ctrl_t\fP \fBclassic_ctrl_t\fP"
+.br
+.ti -1c
+.RI "typedef struct \fBguitar_hero_3_t\fP \fBguitar_hero_3_t\fP"
+.br
+.ti -1c
+.RI "typedef struct \fBbalance_board_t\fP \fBbalance_board_t\fP"
+.br
+.ti -1c
+.RI "typedef struct \fBmotion_plus_t\fP \fBmotion_plus_t\fP"
+.br
+.ti -1c
+.RI "typedef struct \fBexpansion_t\fP \fBexpansion_t\fP"
+.br
+.ti -1c
+.RI "typedef struct \fBwiimote_state_t\fP \fBwiimote_state_t\fP"
+.br
+.ti -1c
+.RI "typedef enum \fBWIIC_EVENT_TYPE\fP \fBWIIC_EVENT_TYPE\fP"
+.br
+.ti -1c
+.RI "typedef struct \fBwiimote_t\fP \fBwiimote\fP"
+.br
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fBir_position_t\fP { \fBWIIC_IR_ABOVE\fP, \fBWIIC_IR_BELOW\fP }"
+.br
+.ti -1c
+.RI "enum \fBWIIC_EVENT_TYPE\fP { \fBWIIC_NONE\fP =  0, \fBWIIC_EVENT\fP, \fBWIIC_STATUS\fP, \fBWIIC_CONNECT\fP, \fBWIIC_DISCONNECT\fP, \fBWIIC_UNEXPECTED_DISCONNECT\fP, \fBWIIC_READ_DATA\fP, \fBWIIC_NUNCHUK_INSERTED\fP, \fBWIIC_NUNCHUK_REMOVED\fP, \fBWIIC_CLASSIC_CTRL_INSERTED\fP, \fBWIIC_CLASSIC_CTRL_REMOVED\fP, \fBWIIC_GUITAR_HERO_3_CTRL_INSERTED\fP, \fBWIIC_GUITAR_HERO_3_CTRL_REMOVED\fP, \fBWIIC_MOTION_PLUS_INSERTED\fP, \fBWIIC_MOTION_PLUS_REMOVED\fP, \fBWIIC_BALANCE_BOARD_INSERTED\fP, \fBWIIC_BALANCE_BOARD_REMOVED\fP }"
+.br
+.RI "\fIEvents that wiic can generate from a poll\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+WiiC structures\&. 
+
+Contains all the data structures, that represents devices, sensors, and everything necessary\&. This header is included in \fBwiic\&.h\fP\&. 
+.PP
+Definition in file \fBwiic_structs\&.h\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for OpenGL Flythrough from the source code\&.

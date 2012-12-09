@@ -1,0 +1,109 @@
+.TH "Logger" 3 "Wed Dec 5 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Logger \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBLogger\fP (const \fBLogger\fP &logger)"
+.br
+.ti -1c
+.RI "\fBLogger\fP & \fBoperator=\fP (const \fBLogger\fP &logger)"
+.br
+.ti -1c
+.RI "void \fBInitLog\fP ()"
+.br
+.ti -1c
+.RI "void \fBLogAcc\fP (float x, float y, float z)"
+.br
+.ti -1c
+.RI "void \fBLogGyro\fP (float x, float y, float z)"
+.br
+.ti -1c
+.RI "void \fBSaveLogHeader\fP ()"
+.br
+.RI "\fISave the dataset header into a file\&. \fP"
+.ti -1c
+.RI "void \fBSetLogLevel\fP (LogStatus status, int type=WIIC_LOG_NONE, const string &file='')"
+.br
+.ti -1c
+.RI "int \fBGetLogType\fP () const "
+.br
+.ti -1c
+.RI "string \fBGetLogFilename\fP () const "
+.br
+.ti -1c
+.RI "void \fBSetLogStatus\fP (const LogStatus status)"
+.br
+.ti -1c
+.RI "bool \fBisLogEnabled\fP ()"
+.br
+.ti -1c
+.RI "void \fBResetTimestamp\fP ()"
+.br
+.ti -1c
+.RI "void \fBSetDeviceAddress\fP (const string &addr)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "bool \fBCheckLogFile\fP ()"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "string \fBdeviceAddr\fP"
+.br
+.ti -1c
+.RI "string \fBlogFile\fP"
+.br
+.ti -1c
+.RI "ofstream \fBout\fP"
+.br
+.ti -1c
+.RI "struct timeval \fBstartTs\fP"
+.br
+.ti -1c
+.RI "double \fBrelativeTs\fP"
+.br
+.ti -1c
+.RI "bool \fBlogEnabled\fP"
+.br
+.ti -1c
+.RI "int \fBlogType\fP"
+.br
+.ti -1c
+.RI "LogStatus \fBlogStatus\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Definition at line 22 of file logger\&.h\&.
+.SH "Member Function Documentation"
+.PP 
+.SS "void Logger::SaveLogHeader ()"
+
+.PP
+Save the dataset header into a file\&. \fBParameters:\fP
+.RS 4
+\fIout\fP Output file stream 
+.br
+\fIaddr\fP Wii device MAC address 
+.RE
+.PP
+
+.PP
+Definition at line 93 of file log/logger\&.cpp\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for OpenGL Flythrough from the source code\&.

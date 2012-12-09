@@ -1,0 +1,120 @@
+.TH "dynamics.c" 3 "Sat Dec 1 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dynamics.c \- 
+.PP
+Handles the dynamics of the wiimote\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdio\&.h>\fP
+.br
+\fC#include <stdlib\&.h>\fP
+.br
+\fC#include <math\&.h>\fP
+.br
+\fC#include 'definitions\&.h'\fP
+.br
+\fC#include 'wiic_internal\&.h'\fP
+.br
+\fC#include 'ir\&.h'\fP
+.br
+\fC#include 'dynamics\&.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBcalculate_orientation\fP (struct \fBvec3f_t\fP *in, struct \fBang3f_t\fP *out)"
+.br
+.RI "\fICalculate the roll, pitch, yaw\&. \fP"
+.ti -1c
+.RI "void \fBcalculate_gforce\fP (struct \fBaccel_t\fP *ac, struct \fBvec3b_t\fP *accel, struct \fBgforce_t\fP *gforce, int smooth)"
+.br
+.RI "\fICalculate the gravity forces on each axis\&. \fP"
+.ti -1c
+.RI "void \fBcalc_joystick_state\fP (struct \fBjoystick_t\fP *js, float x, float y)"
+.br
+.RI "\fICalculate the angle and magnitude of a joystick\&. \fP"
+.ti -1c
+.RI "void \fBapply_smoothing\fP (struct \fBgforce_t\fP *gforce, float alpha)"
+.br
+.RI "\fIApply a smooth factor to accelerometer angles\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Handles the dynamics of the wiimote\&. 
+
+The file includes functions that handle the dynamics of the wiimote\&. Such dynamics include orientation and motion sensing\&. 
+.PP
+Definition in file \fBwiic_r90/src/wiic/dynamics\&.c\fP\&.
+.SH "Function Documentation"
+.PP 
+.SS "void apply_smoothing (struct \fBgforce_t\fP *gforce, floatalpha)"
+
+.PP
+Apply a smooth factor to accelerometer angles\&. \fBParameters:\fP
+.RS 4
+\fIaccel\fP Last acceleration measured and normalized to +/-g\&. 
+.br
+\fIgforce\fP [out] gravity vector after smoothing 
+.RE
+.PP
+
+.PP
+Definition at line 192 of file wiic_r90/src/wiic/dynamics\&.c\&.
+.SS "void calc_joystick_state (struct \fBjoystick_t\fP *js, floatx, floaty)"
+
+.PP
+Calculate the angle and magnitude of a joystick\&. \fBParameters:\fP
+.RS 4
+\fIjs\fP [out] Pointer to a \fBjoystick_t\fP structure\&. 
+.br
+\fIx\fP The raw x-axis value\&. 
+.br
+\fIy\fP The raw y-axis value\&. 
+.RE
+.PP
+
+.PP
+Definition at line 143 of file wiic_r90/src/wiic/dynamics\&.c\&.
+.SS "void calculate_gforce (struct \fBaccel_t\fP *ac, struct \fBvec3b_t\fP *accel, struct \fBgforce_t\fP *gforce, intsmooth)"
+
+.PP
+Calculate the gravity forces on each axis\&. \fBParameters:\fP
+.RS 4
+\fIac\fP An accelerometer (\fBaccel_t\fP) structure\&. 
+.br
+\fIaccel\fP [in] Pointer to a \fBvec3b_t\fP structure that holds the raw acceleration data\&. 
+.br
+\fIgforce\fP [out] Pointer to a \fBgforce_t\fP structure that will hold the gravity force data\&. 
+.RE
+.PP
+
+.PP
+Definition at line 112 of file wiic_r90/src/wiic/dynamics\&.c\&.
+.SS "void calculate_orientation (struct \fBvec3f_t\fP *in, struct \fBang3f_t\fP *out)"
+
+.PP
+Calculate the roll, pitch, yaw\&. \fBParameters:\fP
+.RS 4
+\fIac\fP An accelerometer (\fBaccel_t\fP) structure\&. 
+.br
+\fIaccel\fP [in] Pointer to a \fBvec3b_t\fP structure that holds the raw acceleration data\&. 
+.br
+\fIorient\fP [out] Pointer to a \fBorient_t\fP structure that will hold the orientation data\&. 
+.br
+\fIrorient\fP [out] Pointer to a \fBorient_t\fP structure that will hold the non-smoothed orientation data\&. 
+.br
+\fIsmooth\fP If smoothing should be performed on the angles calculated\&. 1 to enable, 0 to disable\&.
+.RE
+.PP
+Given the raw acceleration data from the accelerometer struct, calculate the orientation of the device and set it in the \fIorient\fP parameter\&. 
+.PP
+Definition at line 63 of file wiic_r90/src/wiic/dynamics\&.c\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for OpenGL Flythrough from the source code\&.

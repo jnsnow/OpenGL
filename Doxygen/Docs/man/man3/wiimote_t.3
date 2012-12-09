@@ -1,0 +1,122 @@
+.TH "wiimote_t" 3 "Wed Dec 5 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+wiimote_t \- 
+.PP
+Wiimote structure\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <wiic_structs\&.h>\fP
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "WCONST int \fBunid\fP"
+.br
+.RI "\fIuser specified id \fP"
+.ti -1c
+.RI "WCONST char \fBbdaddr_str\fP [18]"
+.br
+.RI "\fIreadable bt address \fP"
+.ti -1c
+.RI "WCONST struct \fBwiimote_state_t\fP \fBlstate\fP"
+.br
+.RI "\fIlast saved state \fP"
+.ti -1c
+.RI "WCONST int \fBstate\fP"
+.br
+.RI "\fIvarious state flags \fP"
+.ti -1c
+.RI "WCONST int \fBflags\fP"
+.br
+.RI "\fIoptions flag \fP"
+.ti -1c
+.RI "WCONST int \fBautoreconnect\fP"
+.br
+.RI "\fIauto-reconnect the device in case of unexpected disconnection \fP"
+.ti -1c
+.RI "WCONST \fBbyte\fP \fBhandshake_state\fP"
+.br
+.RI "\fIthe state of the connection handshake \fP"
+.ti -1c
+.RI "WCONST \fBbyte\fP \fBleds\fP"
+.br
+.RI "\fIcurrently lit leds \fP"
+.ti -1c
+.RI "WCONST float \fBbattery_level\fP"
+.br
+.RI "\fIbattery level \fP"
+.ti -1c
+.RI "WCONST struct \fBread_req_t\fP * \fBread_req\fP"
+.br
+.RI "\fIlist of data read requests \fP"
+.ti -1c
+.RI "WCONST struct \fBexpansion_t\fP \fBexp\fP"
+.br
+.RI "\fIwiimote expansion device \fP"
+.ti -1c
+.RI "WCONST struct \fBaccel_t\fP \fBaccel_calib\fP"
+.br
+.RI "\fIwiimote accelerometer calibration \fP"
+.ti -1c
+.RI "WCONST struct \fBvec3b_t\fP \fBaccel\fP"
+.br
+.RI "\fIcurrent raw acceleration data \fP"
+.ti -1c
+.RI "WCONST struct \fBorient_t\fP \fBorient\fP"
+.br
+.RI "\fIcurrent orientation on each axis (smoothed and unsmoothed) \fP"
+.ti -1c
+.RI "WCONST struct \fBgforce_t\fP \fBgforce\fP"
+.br
+.RI "\fIcurrent gravity forces on each axis (smoothed and unsmoothed) \fP"
+.ti -1c
+.RI "WCONST float \fBorient_threshold\fP"
+.br
+.RI "\fIthreshold for orient to generate an event \fP"
+.ti -1c
+.RI "WCONST int \fBaccel_threshold\fP"
+.br
+.RI "\fIthreshold for accel to generate an event \fP"
+.ti -1c
+.RI "WCONST struct \fBir_t\fP \fBir\fP"
+.br
+.RI "\fIIR data\&. \fP"
+.ti -1c
+.RI "WCONST unsigned short \fBbtns\fP"
+.br
+.RI "\fIwhat buttons have just been pressed \fP"
+.ti -1c
+.RI "WCONST unsigned short \fBbtns_held\fP"
+.br
+.RI "\fIwhat buttons are being held down \fP"
+.ti -1c
+.RI "WCONST unsigned short \fBbtns_released\fP"
+.br
+.RI "\fIwhat buttons were just released this \fP"
+.ti -1c
+.RI "WCONST \fBWIIC_EVENT_TYPE\fP \fBevent\fP"
+.br
+.RI "\fItype of event that occured \fP"
+.ti -1c
+.RI "WCONST \fBbyte\fP \fBevent_buf\fP [MAX_PAYLOAD]"
+.br
+.RI "\fIevent buffer \fP"
+.ti -1c
+.RI "struct timeval \fBtimestamp\fP"
+.br
+.RI "\fIAbsolute timestamp (relative to the most recent data) \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Wiimote structure\&. 
+.PP
+Definition at line 428 of file wiic_structs\&.h\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for OpenGL Flythrough from the source code\&.

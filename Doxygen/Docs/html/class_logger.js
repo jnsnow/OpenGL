@@ -1,0 +1,27 @@
+var class_logger =
+[
+    [ "Logger", "class_logger.html#abc41bfb031d896170c7675fa96a6b30c", null ],
+    [ "Logger", "class_logger.html#a2c5d5039e76ef20903ce7cfbc8030d47", null ],
+    [ "~Logger", "class_logger.html#acb668a9e186a25fbaad2e4af6d1ed00a", null ],
+    [ "CheckLogFile", "class_logger.html#adeb4634aa851e28223a009ea084151ad", null ],
+    [ "GetLogFilename", "class_logger.html#a17657ebe893d22cf1052448785123651", null ],
+    [ "GetLogType", "class_logger.html#aca399821afdcdc5913b56c7a1180399f", null ],
+    [ "InitLog", "class_logger.html#ab0e0c798082dce3c3f805a3b92baef10", null ],
+    [ "isLogEnabled", "class_logger.html#a9c698f7ca23bf3ed8c33b95626f3d3ac", null ],
+    [ "LogAcc", "class_logger.html#a7085c6904ef225d6d3475c803c553570", null ],
+    [ "LogGyro", "class_logger.html#ac667db7ddb53dff68e409858fdca1faa", null ],
+    [ "operator=", "class_logger.html#a400dd030dcec25d075f87202e880c5b9", null ],
+    [ "ResetTimestamp", "class_logger.html#a7cc0f69aa4a1b166a2fc5995d07854f7", null ],
+    [ "SaveLogHeader", "class_logger.html#a221bdfa77db049b43ee048d0c17abcce", null ],
+    [ "SetDeviceAddress", "class_logger.html#af050a335c60943edfc6a20661ce4fb0d", null ],
+    [ "SetLogLevel", "class_logger.html#a45f7ca2bd55bfc1867f97b3e96c234d6", null ],
+    [ "SetLogStatus", "class_logger.html#a2b697478ebf7af4cc87cd874a1da740c", null ],
+    [ "deviceAddr", "class_logger.html#a73099a7a544561b915ce5d2ded948f21", null ],
+    [ "logEnabled", "class_logger.html#a9fa4816586d6587deeebb2a090122273", null ],
+    [ "logFile", "class_logger.html#a8b200289dbdecb5185f2ac0bb4c1b99e", null ],
+    [ "logStatus", "class_logger.html#a7d49d3a9adc13ffb45bce2251a1afe53", null ],
+    [ "logType", "class_logger.html#a1f167002b52baf4d1fdd4c996524ee84", null ],
+    [ "out", "class_logger.html#ae902fa4a195223c0b746972ee46ca9aa", null ],
+    [ "relativeTs", "class_logger.html#ae8f07f0a62335b17156f72e0345adf82", null ],
+    [ "startTs", "class_logger.html#a28e321ba8244aa0f18433f8088502512", null ]
+];

@@ -1,0 +1,141 @@
+\hypertarget{wiic__r90_2src_2wiic_2dynamics_8c}{\section{dynamics.\-c File Reference}
+\label{wiic__r90_2src_2wiic_2dynamics_8c}\index{dynamics.\-c@{dynamics.\-c}}
+}
+
+
+Handles the dynamics of the wiimote.  
+
+
+{\ttfamily \#include $<$stdio.\-h$>$}\\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include $<$math.\-h$>$}\\*
+{\ttfamily \#include \char`\"{}definitions.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}wiic\-\_\-internal.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}ir.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}dynamics.\-h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{wiic__r90_2src_2wiic_2dynamics_8c_a0275bd51e31ff27b681a2a8f4f0515e1}{calculate\-\_\-orientation} (struct \hyperlink{structvec3f__t}{vec3f\-\_\-t} $\ast$in, struct \hyperlink{structang3f__t}{ang3f\-\_\-t} $\ast$out)
+\begin{DoxyCompactList}\small\item\em Calculate the roll, pitch, yaw. \end{DoxyCompactList}\item 
+void \hyperlink{wiic__r90_2src_2wiic_2dynamics_8c_af59db1961923ac3cfce8c578c4acc989}{calculate\-\_\-gforce} (struct \hyperlink{structaccel__t}{accel\-\_\-t} $\ast$ac, struct \hyperlink{structvec3b__t}{vec3b\-\_\-t} $\ast$accel, struct \hyperlink{structgforce__t}{gforce\-\_\-t} $\ast$gforce, int smooth)
+\begin{DoxyCompactList}\small\item\em Calculate the gravity forces on each axis. \end{DoxyCompactList}\item 
+void \hyperlink{wiic__r90_2src_2wiic_2dynamics_8c_abe6c24a15c108aa5d0ab81c3712c8fbc}{calc\-\_\-joystick\-\_\-state} (struct \hyperlink{structjoystick__t}{joystick\-\_\-t} $\ast$js, float x, float y)
+\begin{DoxyCompactList}\small\item\em Calculate the angle and magnitude of a joystick. \end{DoxyCompactList}\item 
+void \hyperlink{wiic__r90_2src_2wiic_2dynamics_8c_a4d1519f08494ec2f66665617ca419de8}{apply\-\_\-smoothing} (struct \hyperlink{structgforce__t}{gforce\-\_\-t} $\ast$gforce, float alpha)
+\begin{DoxyCompactList}\small\item\em Apply a smooth factor to accelerometer angles. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Handles the dynamics of the wiimote. The file includes functions that handle the dynamics of the wiimote. Such dynamics include orientation and motion sensing. 
+
+Definition in file \hyperlink{wiic__r90_2src_2wiic_2dynamics_8c_source}{wiic\-\_\-r90/src/wiic/dynamics.\-c}.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{wiic__r90_2src_2wiic_2dynamics_8c_a4d1519f08494ec2f66665617ca419de8}{\index{wiic\-\_\-r90/src/wiic/dynamics.\-c@{wiic\-\_\-r90/src/wiic/dynamics.\-c}!apply\-\_\-smoothing@{apply\-\_\-smoothing}}
+\index{apply\-\_\-smoothing@{apply\-\_\-smoothing}!wiic_r90/src/wiic/dynamics.c@{wiic\-\_\-r90/src/wiic/dynamics.\-c}}
+\subsubsection[{apply\-\_\-smoothing}]{\setlength{\rightskip}{0pt plus 5cm}void apply\-\_\-smoothing (
+\begin{DoxyParamCaption}
+\item[{struct {\bf gforce\-\_\-t} $\ast$}]{gforce, }
+\item[{float}]{alpha}
+\end{DoxyParamCaption}
+)}}\label{wiic__r90_2src_2wiic_2dynamics_8c_a4d1519f08494ec2f66665617ca419de8}
+
+
+Apply a smooth factor to accelerometer angles. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em accel} & Last acceleration measured and normalized to +/-\/g. \\
+\hline
+{\em gforce} & \mbox{[}out\mbox{]} gravity vector after smoothing \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 192 of file wiic\-\_\-r90/src/wiic/dynamics.\-c.
+
+\hypertarget{wiic__r90_2src_2wiic_2dynamics_8c_abe6c24a15c108aa5d0ab81c3712c8fbc}{\index{wiic\-\_\-r90/src/wiic/dynamics.\-c@{wiic\-\_\-r90/src/wiic/dynamics.\-c}!calc\-\_\-joystick\-\_\-state@{calc\-\_\-joystick\-\_\-state}}
+\index{calc\-\_\-joystick\-\_\-state@{calc\-\_\-joystick\-\_\-state}!wiic_r90/src/wiic/dynamics.c@{wiic\-\_\-r90/src/wiic/dynamics.\-c}}
+\subsubsection[{calc\-\_\-joystick\-\_\-state}]{\setlength{\rightskip}{0pt plus 5cm}void calc\-\_\-joystick\-\_\-state (
+\begin{DoxyParamCaption}
+\item[{struct {\bf joystick\-\_\-t} $\ast$}]{js, }
+\item[{float}]{x, }
+\item[{float}]{y}
+\end{DoxyParamCaption}
+)}}\label{wiic__r90_2src_2wiic_2dynamics_8c_abe6c24a15c108aa5d0ab81c3712c8fbc}
+
+
+Calculate the angle and magnitude of a joystick. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em js} & \mbox{[}out\mbox{]} Pointer to a \hyperlink{structjoystick__t}{joystick\-\_\-t} structure. \\
+\hline
+{\em x} & The raw x-\/axis value. \\
+\hline
+{\em y} & The raw y-\/axis value. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 143 of file wiic\-\_\-r90/src/wiic/dynamics.\-c.
+
+\hypertarget{wiic__r90_2src_2wiic_2dynamics_8c_af59db1961923ac3cfce8c578c4acc989}{\index{wiic\-\_\-r90/src/wiic/dynamics.\-c@{wiic\-\_\-r90/src/wiic/dynamics.\-c}!calculate\-\_\-gforce@{calculate\-\_\-gforce}}
+\index{calculate\-\_\-gforce@{calculate\-\_\-gforce}!wiic_r90/src/wiic/dynamics.c@{wiic\-\_\-r90/src/wiic/dynamics.\-c}}
+\subsubsection[{calculate\-\_\-gforce}]{\setlength{\rightskip}{0pt plus 5cm}void calculate\-\_\-gforce (
+\begin{DoxyParamCaption}
+\item[{struct {\bf accel\-\_\-t} $\ast$}]{ac, }
+\item[{struct {\bf vec3b\-\_\-t} $\ast$}]{accel, }
+\item[{struct {\bf gforce\-\_\-t} $\ast$}]{gforce, }
+\item[{int}]{smooth}
+\end{DoxyParamCaption}
+)}}\label{wiic__r90_2src_2wiic_2dynamics_8c_af59db1961923ac3cfce8c578c4acc989}
+
+
+Calculate the gravity forces on each axis. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ac} & An accelerometer (\hyperlink{structaccel__t}{accel\-\_\-t}) structure. \\
+\hline
+{\em accel} & \mbox{[}in\mbox{]} Pointer to a \hyperlink{structvec3b__t}{vec3b\-\_\-t} structure that holds the raw acceleration data. \\
+\hline
+{\em gforce} & \mbox{[}out\mbox{]} Pointer to a \hyperlink{structgforce__t}{gforce\-\_\-t} structure that will hold the gravity force data. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 112 of file wiic\-\_\-r90/src/wiic/dynamics.\-c.
+
+\hypertarget{wiic__r90_2src_2wiic_2dynamics_8c_a0275bd51e31ff27b681a2a8f4f0515e1}{\index{wiic\-\_\-r90/src/wiic/dynamics.\-c@{wiic\-\_\-r90/src/wiic/dynamics.\-c}!calculate\-\_\-orientation@{calculate\-\_\-orientation}}
+\index{calculate\-\_\-orientation@{calculate\-\_\-orientation}!wiic_r90/src/wiic/dynamics.c@{wiic\-\_\-r90/src/wiic/dynamics.\-c}}
+\subsubsection[{calculate\-\_\-orientation}]{\setlength{\rightskip}{0pt plus 5cm}void calculate\-\_\-orientation (
+\begin{DoxyParamCaption}
+\item[{struct {\bf vec3f\-\_\-t} $\ast$}]{in, }
+\item[{struct {\bf ang3f\-\_\-t} $\ast$}]{out}
+\end{DoxyParamCaption}
+)}}\label{wiic__r90_2src_2wiic_2dynamics_8c_a0275bd51e31ff27b681a2a8f4f0515e1}
+
+
+Calculate the roll, pitch, yaw. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ac} & An accelerometer (\hyperlink{structaccel__t}{accel\-\_\-t}) structure. \\
+\hline
+{\em accel} & \mbox{[}in\mbox{]} Pointer to a \hyperlink{structvec3b__t}{vec3b\-\_\-t} structure that holds the raw acceleration data. \\
+\hline
+{\em orient} & \mbox{[}out\mbox{]} Pointer to a \hyperlink{structorient__t}{orient\-\_\-t} structure that will hold the orientation data. \\
+\hline
+{\em rorient} & \mbox{[}out\mbox{]} Pointer to a \hyperlink{structorient__t}{orient\-\_\-t} structure that will hold the non-\/smoothed orientation data. \\
+\hline
+{\em smooth} & If smoothing should be performed on the angles calculated. 1 to enable, 0 to disable.\\
+\hline
+\end{DoxyParams}
+Given the raw acceleration data from the accelerometer struct, calculate the orientation of the device and set it in the {\itshape orient} parameter. 
+
+Definition at line 63 of file wiic\-\_\-r90/src/wiic/dynamics.\-c.
+

@@ -1,0 +1,319 @@
+.TH "ir.c" 3 "Sat Dec 1 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ir.c \- 
+.PP
+Handles IR data\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdio\&.h>\fP
+.br
+\fC#include <math\&.h>\fP
+.br
+\fC#include <unistd\&.h>\fP
+.br
+\fC#include 'definitions\&.h'\fP
+.br
+\fC#include 'wiic_internal\&.h'\fP
+.br
+\fC#include 'ir\&.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "static int \fBget_ir_sens\fP (struct \fBwiimote_t\fP *wm, char **block1, char **block2)"
+.br
+.RI "\fIGet the IR sensitivity settings\&. \fP"
+.ti -1c
+.RI "static void \fBinterpret_ir_data\fP (struct \fBwiimote_t\fP *wm)"
+.br
+.RI "\fIInterpret IR data into more user friendly variables\&. \fP"
+.ti -1c
+.RI "static void \fBfix_rotated_ir_dots\fP (struct \fBir_dot_t\fP *dot, float ang)"
+.br
+.RI "\fIFix the rotation of the IR dots\&. \fP"
+.ti -1c
+.RI "static void \fBget_ir_dot_avg\fP (struct \fBir_dot_t\fP *dot, int *x, int *y)"
+.br
+.RI "\fIAverage IR dots\&. \fP"
+.ti -1c
+.RI "static void \fBreorder_ir_dots\fP (struct \fBir_dot_t\fP *dot)"
+.br
+.RI "\fIReorder the IR dots\&. \fP"
+.ti -1c
+.RI "static float \fBir_distance\fP (struct \fBir_dot_t\fP *dot)"
+.br
+.RI "\fICalculate the distance between the first 2 visible IR dots\&. \fP"
+.ti -1c
+.RI "static int \fBir_correct_for_bounds\fP (int *x, int *y, enum \fBaspect_t\fP aspect, int offset_x, int offset_y)"
+.br
+.RI "\fICorrect for the IR bounding box\&. \fP"
+.ti -1c
+.RI "static void \fBir_convert_to_vres\fP (int *x, int *y, enum \fBaspect_t\fP aspect, int vx, int vy)"
+.br
+.RI "\fIInterpolate the point to the user defined virtual screen resolution\&. \fP"
+.ti -1c
+.RI "void \fBwiic_set_ir\fP (struct \fBwiimote_t\fP *wm, int status)"
+.br
+.RI "\fISet if the wiimote should track IR targets\&. \fP"
+.ti -1c
+.RI "void \fBwiic_set_ir_vres\fP (struct \fBwiimote_t\fP *wm, unsigned int x, unsigned int y)"
+.br
+.RI "\fISet the virtual screen resolution for IR tracking\&. \fP"
+.ti -1c
+.RI "void \fBwiic_set_ir_position\fP (struct \fBwiimote_t\fP *wm, enum ir_position_t pos)"
+.br
+.RI "\fISet the XY position for the IR cursor\&. \fP"
+.ti -1c
+.RI "void \fBwiic_set_aspect_ratio\fP (struct \fBwiimote_t\fP *wm, enum \fBaspect_t\fP aspect)"
+.br
+.RI "\fISet the aspect ratio of the TV/monitor\&. \fP"
+.ti -1c
+.RI "void \fBwiic_set_ir_sensitivity\fP (struct \fBwiimote_t\fP *wm, int level)"
+.br
+.RI "\fISet the IR sensitivity\&. \fP"
+.ti -1c
+.RI "void \fBcalculate_basic_ir\fP (struct \fBwiimote_t\fP *wm, \fBbyte\fP *data)"
+.br
+.RI "\fICalculate the data from the IR spots\&. \fP"
+.ti -1c
+.RI "void \fBcalculate_extended_ir\fP (struct \fBwiimote_t\fP *wm, \fBbyte\fP *data)"
+.br
+.RI "\fICalculate the data from the IR spots\&. \fP"
+.ti -1c
+.RI "float \fBcalc_yaw\fP (struct \fBir_t\fP *ir)"
+.br
+.RI "\fICalculate yaw given the IR data\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Handles IR data\&. 
+
+
+.PP
+Definition in file \fBwiic_v1\&.1/src/wiic/ir\&.c\fP\&.
+.SH "Function Documentation"
+.PP 
+.SS "float calc_yaw (struct \fBir_t\fP *ir)"
+
+.PP
+Calculate yaw given the IR data\&. \fBParameters:\fP
+.RS 4
+\fIir\fP IR data structure\&. 
+.RE
+.PP
+
+.PP
+Definition at line 735 of file wiic_v1\&.1/src/wiic/ir\&.c\&.
+.SS "void calculate_basic_ir (struct \fBwiimote_t\fP *wm, \fBbyte\fP *data)"
+
+.PP
+Calculate the data from the IR spots\&. Basic IR mode\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIwm\fP Pointer to a \fBwiimote_t\fP structure\&. 
+.br
+\fIdata\fP Data returned by the wiimote for the IR spots\&. 
+.RE
+.PP
+
+.PP
+Definition at line 317 of file wiic_v1\&.1/src/wiic/ir\&.c\&.
+.SS "void calculate_extended_ir (struct \fBwiimote_t\fP *wm, \fBbyte\fP *data)"
+
+.PP
+Calculate the data from the IR spots\&. Extended IR mode\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIwm\fP Pointer to a \fBwiimote_t\fP structure\&. 
+.br
+\fIdata\fP Data returned by the wiimote for the IR spots\&. 
+.RE
+.PP
+
+.PP
+Definition at line 353 of file wiic_v1\&.1/src/wiic/ir\&.c\&.
+.SS "static void fix_rotated_ir_dots (struct \fBir_dot_t\fP *dot, floatang)\fC [static]\fP"
+
+.PP
+Fix the rotation of the IR dots\&. \fBParameters:\fP
+.RS 4
+\fIdot\fP An array of 4 \fBir_dot_t\fP objects\&. 
+.br
+\fIang\fP The roll angle to correct by (-180, 180)
+.RE
+.PP
+If there is roll then the dots are rotated around the origin and give a false cursor position\&. Correct for the roll\&.
+.PP
+If the accelerometer is off then obviously this will not do anything and the cursor position may be inaccurate\&. 
+.PP
+Definition at line 544 of file wiic_v1\&.1/src/wiic/ir\&.c\&.
+.SS "static void get_ir_dot_avg (struct \fBir_dot_t\fP *dot, int *x, int *y)\fC [static]\fP"
+
+.PP
+Average IR dots\&. \fBParameters:\fP
+.RS 4
+\fIdot\fP An array of 4 \fBir_dot_t\fP objects\&. 
+.br
+\fIx\fP [out] Average X 
+.br
+\fIy\fP [out] Average Y 
+.RE
+.PP
+
+.PP
+Definition at line 588 of file wiic_v1\&.1/src/wiic/ir\&.c\&.
+.SS "static int get_ir_sens (struct \fBwiimote_t\fP *wm, char **block1, char **block2)\fC [static]\fP"
+
+.PP
+Get the IR sensitivity settings\&. \fBParameters:\fP
+.RS 4
+\fIwm\fP Pointer to a \fBwiimote_t\fP structure\&. 
+.br
+\fIblock1\fP [out] Pointer to where block1 will be set\&. 
+.br
+\fIblock2\fP [out] Pointer to where block2 will be set\&.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Returns the sensitivity level\&. 
+.RE
+.PP
+
+.PP
+Definition at line 150 of file wiic_v1\&.1/src/wiic/ir\&.c\&.
+.SS "static void interpret_ir_data (struct \fBwiimote_t\fP *wm)\fC [static]\fP"
+
+.PP
+Interpret IR data into more user friendly variables\&. \fBParameters:\fP
+.RS 4
+\fIwm\fP Pointer to a \fBwiimote_t\fP structure\&. 
+.RE
+.PP
+
+.PP
+Definition at line 379 of file wiic_v1\&.1/src/wiic/ir\&.c\&.
+.SS "static int ir_correct_for_bounds (int *x, int *y, enum \fBaspect_t\fPaspect, intoffset_x, intoffset_y)\fC [static]\fP"
+
+.PP
+Correct for the IR bounding box\&. \fBParameters:\fP
+.RS 4
+\fIx\fP [out] The current X, it will be updated if valid\&. 
+.br
+\fIy\fP [out] The current Y, it will be updated if valid\&. 
+.br
+\fIaspect\fP Aspect ratio of the screen\&. 
+.br
+\fIoffset_x\fP The X offset of the bounding box\&. 
+.br
+\fIoffset_y\fP The Y offset of the bounding box\&.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Returns 1 if the point is valid and was updated\&.
+.RE
+.PP
+Nintendo was smart with this bit\&. They sacrifice a little precision for a big increase in usability\&. 
+.PP
+Definition at line 678 of file wiic_v1\&.1/src/wiic/ir\&.c\&.
+.SS "static float ir_distance (struct \fBir_dot_t\fP *dot)\fC [static]\fP"
+
+.PP
+Calculate the distance between the first 2 visible IR dots\&. \fBParameters:\fP
+.RS 4
+\fIdot\fP An array of 4 \fBir_dot_t\fP objects\&. 
+.RE
+.PP
+
+.PP
+Definition at line 641 of file wiic_v1\&.1/src/wiic/ir\&.c\&.
+.SS "static void reorder_ir_dots (struct \fBir_dot_t\fP *dot)\fC [static]\fP"
+
+.PP
+Reorder the IR dots\&. \fBParameters:\fP
+.RS 4
+\fIdot\fP An array of 4 \fBir_dot_t\fP objects\&. 
+.RE
+.PP
+
+.PP
+Definition at line 612 of file wiic_v1\&.1/src/wiic/ir\&.c\&.
+.SS "void wiic_set_aspect_ratio (struct \fBwiimote_t\fP *wm, enum \fBaspect_t\fPaspect)"
+
+.PP
+Set the aspect ratio of the TV/monitor\&. \fBParameters:\fP
+.RS 4
+\fIwm\fP Pointer to a \fBwiimote_t\fP structure\&. 
+.br
+\fIaspect\fP Either WIIC_ASPECT_16_9 or WIIC_ASPECT_4_3 
+.RE
+.PP
+
+.PP
+Definition at line 239 of file wiic_v1\&.1/src/wiic/ir\&.c\&.
+.SS "void wiic_set_ir (struct \fBwiimote_t\fP *wm, intstatus)"
+
+.PP
+Set if the wiimote should track IR targets\&. \fBParameters:\fP
+.RS 4
+\fIwm\fP Pointer to a \fBwiimote_t\fP structure\&. 
+.br
+\fIstatus\fP 1 to enable, 0 to disable\&. 
+.RE
+.PP
+
+.PP
+Definition at line 61 of file wiic_v1\&.1/src/wiic/ir\&.c\&.
+.SS "void wiic_set_ir_position (struct \fBwiimote_t\fP *wm, enum ir_position_tpos)"
+
+.PP
+Set the XY position for the IR cursor\&. \fBParameters:\fP
+.RS 4
+\fIwm\fP Pointer to a \fBwiimote_t\fP structure\&. 
+.br
+\fIpos\fP The position of the IR emitter (WIIC_IR_ABOVE or WIIC_IR_BELOW) 
+.RE
+.PP
+
+.PP
+Definition at line 200 of file wiic_v1\&.1/src/wiic/ir\&.c\&.
+.SS "void wiic_set_ir_sensitivity (struct \fBwiimote_t\fP *wm, intlevel)"
+
+.PP
+Set the IR sensitivity\&. \fBParameters:\fP
+.RS 4
+\fIwm\fP Pointer to a \fBwiimote_t\fP structure\&. 
+.br
+\fIlevel\fP 1-5, same as Wii system sensitivity setting\&.
+.RE
+.PP
+If the level is < 1, then level will be set to 1\&. If the level is > 5, then level will be set to 5\&. 
+.PP
+Definition at line 266 of file wiic_v1\&.1/src/wiic/ir\&.c\&.
+.SS "void wiic_set_ir_vres (struct \fBwiimote_t\fP *wm, unsigned intx, unsigned inty)"
+
+.PP
+Set the virtual screen resolution for IR tracking\&. \fBParameters:\fP
+.RS 4
+\fIwm\fP Pointer to a \fBwiimote_t\fP structure\&. 
+.br
+\fIx\fP Screen resolution width\&. 
+.br
+\fIy\fP Screen resolution height\&. 
+.RE
+.PP
+
+.PP
+Definition at line 186 of file wiic_v1\&.1/src/wiic/ir\&.c\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for OpenGL Flythrough from the source code\&.

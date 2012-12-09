@@ -1,0 +1,151 @@
+.TH "nunchuk.c" 3 "Sat Dec 1 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+nunchuk.c \- 
+.PP
+Nunchuk expansion device\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdio\&.h>\fP
+.br
+\fC#include <stdlib\&.h>\fP
+.br
+\fC#include <math\&.h>\fP
+.br
+\fC#include 'definitions\&.h'\fP
+.br
+\fC#include 'wiic_internal\&.h'\fP
+.br
+\fC#include 'dynamics\&.h'\fP
+.br
+\fC#include 'events\&.h'\fP
+.br
+\fC#include 'nunchuk\&.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBnunchuk_pressed_buttons\fP (struct \fBnunchuk_t\fP *nc, \fBbyte\fP now)"
+.br
+.RI "\fIFind what buttons are pressed\&. \fP"
+.ti -1c
+.RI "int \fBnunchuk_handshake\fP (struct \fBwiimote_t\fP *wm, struct \fBnunchuk_t\fP *nc, \fBbyte\fP *data, unsigned short len)"
+.br
+.RI "\fIHandle the handshake data from the nunchuk\&. \fP"
+.ti -1c
+.RI "void \fBnunchuk_disconnected\fP (struct \fBnunchuk_t\fP *nc)"
+.br
+.RI "\fIThe nunchuk disconnected\&. \fP"
+.ti -1c
+.RI "void \fBnunchuk_event\fP (struct \fBnunchuk_t\fP *nc, \fBbyte\fP *msg)"
+.br
+.RI "\fIHandle nunchuk event\&. \fP"
+.ti -1c
+.RI "void \fBwiic_set_nunchuk_orient_threshold\fP (struct \fBwiimote_t\fP *wm, float threshold)"
+.br
+.RI "\fISet the orientation event threshold for the nunchuk\&. \fP"
+.ti -1c
+.RI "void \fBwiic_set_nunchuk_accel_threshold\fP (struct \fBwiimote_t\fP *wm, int threshold)"
+.br
+.RI "\fISet the accelerometer event threshold for the nunchuk\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Nunchuk expansion device\&. 
+
+
+.PP
+Definition in file \fBwiic_r90/src/wiic/nunchuk\&.c\fP\&.
+.SH "Function Documentation"
+.PP 
+.SS "void nunchuk_disconnected (struct \fBnunchuk_t\fP *nc)"
+
+.PP
+The nunchuk disconnected\&. \fBParameters:\fP
+.RS 4
+\fInc\fP A pointer to a \fBnunchuk_t\fP structure\&. 
+.RE
+.PP
+
+.PP
+Definition at line 126 of file wiic_r90/src/wiic/nunchuk\&.c\&.
+.SS "void nunchuk_event (struct \fBnunchuk_t\fP *nc, \fBbyte\fP *msg)"
+
+.PP
+Handle nunchuk event\&. \fBParameters:\fP
+.RS 4
+\fInc\fP A pointer to a \fBnunchuk_t\fP structure\&. 
+.br
+\fImsg\fP The message specified in the event packet\&. 
+.RE
+.PP
+
+.PP
+Definition at line 138 of file wiic_r90/src/wiic/nunchuk\&.c\&.
+.SS "int nunchuk_handshake (struct \fBwiimote_t\fP *wm, struct \fBnunchuk_t\fP *nc, \fBbyte\fP *data, unsigned shortlen)"
+
+.PP
+Handle the handshake data from the nunchuk\&. \fBParameters:\fP
+.RS 4
+\fInc\fP A pointer to a \fBnunchuk_t\fP structure\&. 
+.br
+\fIdata\fP The data read in from the device\&. 
+.br
+\fIlen\fP The length of the data block, in bytes\&.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Returns 1 if handshake was successful, 0 if not\&. 
+.RE
+.PP
+
+.PP
+Definition at line 58 of file wiic_r90/src/wiic/nunchuk\&.c\&.
+.SS "static void nunchuk_pressed_buttons (struct \fBnunchuk_t\fP *nc, \fBbyte\fPnow)\fC [static]\fP"
+
+.PP
+Find what buttons are pressed\&. \fBParameters:\fP
+.RS 4
+\fInc\fP Pointer to a \fBnunchuk_t\fP structure\&. 
+.br
+\fImsg\fP The message byte specified in the event packet\&. 
+.RE
+.PP
+
+.PP
+Definition at line 167 of file wiic_r90/src/wiic/nunchuk\&.c\&.
+.SS "void wiic_set_nunchuk_accel_threshold (struct \fBwiimote_t\fP *wm, intthreshold)"
+
+.PP
+Set the accelerometer event threshold for the nunchuk\&. \fBParameters:\fP
+.RS 4
+\fIwm\fP Pointer to a \fBwiimote_t\fP structure with a nunchuk attached\&. 
+.br
+\fIthreshold\fP The decimal place that should be considered a significant change\&.
+.RE
+.PP
+See \fBwiic_set_orient_threshold()\fP for details\&. 
+.PP
+Definition at line 205 of file wiic_r90/src/wiic/nunchuk\&.c\&.
+.SS "void wiic_set_nunchuk_orient_threshold (struct \fBwiimote_t\fP *wm, floatthreshold)"
+
+.PP
+Set the orientation event threshold for the nunchuk\&. \fBParameters:\fP
+.RS 4
+\fIwm\fP Pointer to a \fBwiimote_t\fP structure with a nunchuk attached\&. 
+.br
+\fIthreshold\fP The decimal place that should be considered a significant change\&.
+.RE
+.PP
+See \fBwiic_set_orient_threshold()\fP for details\&. 
+.PP
+Definition at line 190 of file wiic_r90/src/wiic/nunchuk\&.c\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for OpenGL Flythrough from the source code\&.

@@ -1,0 +1,48 @@
+\hypertarget{structread__req__t}{\section{read\-\_\-req\-\_\-t Struct Reference}
+\label{structread__req__t}\index{read\-\_\-req\-\_\-t@{read\-\_\-req\-\_\-t}}
+}
+
+
+Data read request structure.  
+
+
+
+
+{\ttfamily \#include $<$wiic\-\_\-structs.\-h$>$}
+
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{structread__req__t_a4572a771af572f727eb4dac66ee6630b}{wiic\-\_\-read\-\_\-cb \hyperlink{structread__req__t_a4572a771af572f727eb4dac66ee6630b}{cb}}\label{structread__req__t_a4572a771af572f727eb4dac66ee6630b}
+
+\begin{DoxyCompactList}\small\item\em read data callback \end{DoxyCompactList}\item 
+\hypertarget{structread__req__t_ac4d1c24fdaa2afe8496bb20f979e2cea}{\hyperlink{wiic__macros_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte} $\ast$ \hyperlink{structread__req__t_ac4d1c24fdaa2afe8496bb20f979e2cea}{buf}}\label{structread__req__t_ac4d1c24fdaa2afe8496bb20f979e2cea}
+
+\begin{DoxyCompactList}\small\item\em buffer where read data is written \end{DoxyCompactList}\item 
+\hypertarget{structread__req__t_a9d0e60fd85e0590ad1fdf03eac17bea6}{unsigned int \hyperlink{structread__req__t_a9d0e60fd85e0590ad1fdf03eac17bea6}{addr}}\label{structread__req__t_a9d0e60fd85e0590ad1fdf03eac17bea6}
+
+\begin{DoxyCompactList}\small\item\em the offset that the read started at \end{DoxyCompactList}\item 
+\hypertarget{structread__req__t_a1ba9dc32f81a628129a499cd67367fec}{unsigned short \hyperlink{structread__req__t_a1ba9dc32f81a628129a499cd67367fec}{size}}\label{structread__req__t_a1ba9dc32f81a628129a499cd67367fec}
+
+\begin{DoxyCompactList}\small\item\em the length of the data read \end{DoxyCompactList}\item 
+\hypertarget{structread__req__t_aa0e807ee1e193efc139b48c2acd8bdf7}{unsigned short \hyperlink{structread__req__t_aa0e807ee1e193efc139b48c2acd8bdf7}{wait}}\label{structread__req__t_aa0e807ee1e193efc139b48c2acd8bdf7}
+
+\begin{DoxyCompactList}\small\item\em num bytes still needed to finish read \end{DoxyCompactList}\item 
+\hypertarget{structread__req__t_a8ac72c3b91e371aaeadb4d01ed0fb303}{\hyperlink{wiic__macros_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte} \hyperlink{structread__req__t_a8ac72c3b91e371aaeadb4d01ed0fb303}{dirty}}\label{structread__req__t_a8ac72c3b91e371aaeadb4d01ed0fb303}
+
+\begin{DoxyCompactList}\small\item\em set to 1 if not using callback and needs to be cleaned up \end{DoxyCompactList}\item 
+\hypertarget{structread__req__t_a42e28e162a2c16885a00cf6e01177a9e}{struct \hyperlink{structread__req__t}{read\-\_\-req\-\_\-t} $\ast$ \hyperlink{structread__req__t_a42e28e162a2c16885a00cf6e01177a9e}{next}}\label{structread__req__t_a42e28e162a2c16885a00cf6e01177a9e}
+
+\begin{DoxyCompactList}\small\item\em next read request in the queue \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Data read request structure. 
+
+Definition at line 49 of file wiic\-\_\-structs.\-h.
+
+
+
+The documentation for this struct was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{wiic__structs_8h}{wiic\-\_\-structs.\-h}\end{DoxyCompactItemize}

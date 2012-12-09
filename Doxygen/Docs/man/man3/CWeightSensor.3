@@ -1,0 +1,59 @@
+.TH "CWeightSensor" 3 "Wed Dec 5 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+CWeightSensor \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBCWeightSensor\fP (struct \fBpressure_t\fP *RawWeight, struct \fBpressure_t\fP *LowCalWeight, struct \fBpressure_t\fP *MediumCalWeight, struct \fBpressure_t\fP *HighCalWeight, struct \fBpressure_weight_t\fP *Weight, struct \fBbalance_board_t\fP *BBPtr)"
+.br
+.ti -1c
+.RI "void \fBGetRawWeight\fP (int &TopLeft, int &TopRight, int &BottomLeft, int &BottomRight)"
+.br
+.ti -1c
+.RI "void \fBGetWeight\fP (float &TotalWeight, float &TopLeft, float &TopRight, float &BottomLeft, float &BottomRight)"
+.br
+.ti -1c
+.RI "void \fBGetLowCalWeight\fP (int &TopLeft, int &TopRight, int &BottomLeft, int &BottomRight)"
+.br
+.ti -1c
+.RI "void \fBGetMediumCalWeight\fP (int &TopLeft, int &TopRight, int &BottomLeft, int &BottomRight)"
+.br
+.ti -1c
+.RI "void \fBGetHighCalWeight\fP (int &TopLeft, int &TopRight, int &BottomLeft, int &BottomRight)"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBpressure_t\fP * \fBmpRawWeight\fP"
+.br
+.ti -1c
+.RI "struct \fBpressure_t\fP * \fBmpLowCalWeight\fP"
+.br
+.ti -1c
+.RI "struct \fBpressure_t\fP * \fBmpMediumCalWeight\fP"
+.br
+.ti -1c
+.RI "struct \fBpressure_t\fP * \fBmpHighCalWeight\fP"
+.br
+.ti -1c
+.RI "struct \fBpressure_weight_t\fP * \fBmpWeight\fP"
+.br
+.ti -1c
+.RI "struct \fBbalance_board_t\fP * \fBmpBBPtr\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Definition at line 219 of file wiicpp\&.h\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for OpenGL Flythrough from the source code\&.

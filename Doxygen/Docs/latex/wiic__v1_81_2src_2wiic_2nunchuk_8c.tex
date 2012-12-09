@@ -1,0 +1,183 @@
+\hypertarget{wiic__v1_81_2src_2wiic_2nunchuk_8c}{\section{nunchuk.\-c File Reference}
+\label{wiic__v1_81_2src_2wiic_2nunchuk_8c}\index{nunchuk.\-c@{nunchuk.\-c}}
+}
+
+
+Nunchuk expansion device.  
+
+
+{\ttfamily \#include $<$stdio.\-h$>$}\\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include $<$math.\-h$>$}\\*
+{\ttfamily \#include \char`\"{}definitions.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}wiic\-\_\-internal.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}dynamics.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}events.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}nunchuk.\-h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{wiic__v1_81_2src_2wiic_2nunchuk_8c_af881c6ea57c492e704be1e71c4e4069f}{nunchuk\-\_\-pressed\-\_\-buttons} (struct \hyperlink{structnunchuk__t}{nunchuk\-\_\-t} $\ast$nc, \hyperlink{wiic__r90_2src_2wiic_2wiic__macros_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte} now)
+\begin{DoxyCompactList}\small\item\em Find what buttons are pressed. \end{DoxyCompactList}\item 
+int \hyperlink{wiic__v1_81_2src_2wiic_2nunchuk_8c_a1d81662126d49b7f3ef269a8e4a97e3c}{nunchuk\-\_\-handshake} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, struct \hyperlink{structnunchuk__t}{nunchuk\-\_\-t} $\ast$nc, \hyperlink{wiic__r90_2src_2wiic_2wiic__macros_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte} $\ast$data, unsigned short len)
+\begin{DoxyCompactList}\small\item\em Handle the handshake data from the nunchuk. \end{DoxyCompactList}\item 
+void \hyperlink{wiic__v1_81_2src_2wiic_2nunchuk_8c_a1bca9c217d6a21be8e261fccc9181943}{nunchuk\-\_\-disconnected} (struct \hyperlink{structnunchuk__t}{nunchuk\-\_\-t} $\ast$nc)
+\begin{DoxyCompactList}\small\item\em The nunchuk disconnected. \end{DoxyCompactList}\item 
+void \hyperlink{wiic__v1_81_2src_2wiic_2nunchuk_8c_a4f807481274fb3fcc2286a8fa26fed3f}{nunchuk\-\_\-event} (struct \hyperlink{structnunchuk__t}{nunchuk\-\_\-t} $\ast$nc, \hyperlink{wiic__r90_2src_2wiic_2wiic__macros_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte} $\ast$msg)
+\begin{DoxyCompactList}\small\item\em Handle nunchuk event. \end{DoxyCompactList}\item 
+void \hyperlink{wiic__v1_81_2src_2wiic_2nunchuk_8c_acdefb11cde8a04865a21435507fe679e}{wiic\-\_\-set\-\_\-nunchuk\-\_\-orient\-\_\-threshold} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, float threshold)
+\begin{DoxyCompactList}\small\item\em Set the orientation event threshold for the nunchuk. \end{DoxyCompactList}\item 
+void \hyperlink{wiic__v1_81_2src_2wiic_2nunchuk_8c_a31c67233808df66b8f2f985b4e5edc3a}{wiic\-\_\-set\-\_\-nunchuk\-\_\-accel\-\_\-threshold} (struct \hyperlink{structwiimote__t}{wiimote\-\_\-t} $\ast$wm, int threshold)
+\begin{DoxyCompactList}\small\item\em Set the accelerometer event threshold for the nunchuk. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Nunchuk expansion device. 
+
+Definition in file \hyperlink{wiic__v1_81_2src_2wiic_2nunchuk_8c_source}{wiic\-\_\-v1.\-1/src/wiic/nunchuk.\-c}.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{wiic__v1_81_2src_2wiic_2nunchuk_8c_a1bca9c217d6a21be8e261fccc9181943}{\index{wiic\-\_\-v1.\-1/src/wiic/nunchuk.\-c@{wiic\-\_\-v1.\-1/src/wiic/nunchuk.\-c}!nunchuk\-\_\-disconnected@{nunchuk\-\_\-disconnected}}
+\index{nunchuk\-\_\-disconnected@{nunchuk\-\_\-disconnected}!wiic_v1.1/src/wiic/nunchuk.c@{wiic\-\_\-v1.\-1/src/wiic/nunchuk.\-c}}
+\subsubsection[{nunchuk\-\_\-disconnected}]{\setlength{\rightskip}{0pt plus 5cm}void nunchuk\-\_\-disconnected (
+\begin{DoxyParamCaption}
+\item[{struct {\bf nunchuk\-\_\-t} $\ast$}]{nc}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2nunchuk_8c_a1bca9c217d6a21be8e261fccc9181943}
+
+
+The nunchuk disconnected. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nc} & A pointer to a \hyperlink{structnunchuk__t}{nunchuk\-\_\-t} structure. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 126 of file wiic\-\_\-v1.\-1/src/wiic/nunchuk.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2nunchuk_8c_a4f807481274fb3fcc2286a8fa26fed3f}{\index{wiic\-\_\-v1.\-1/src/wiic/nunchuk.\-c@{wiic\-\_\-v1.\-1/src/wiic/nunchuk.\-c}!nunchuk\-\_\-event@{nunchuk\-\_\-event}}
+\index{nunchuk\-\_\-event@{nunchuk\-\_\-event}!wiic_v1.1/src/wiic/nunchuk.c@{wiic\-\_\-v1.\-1/src/wiic/nunchuk.\-c}}
+\subsubsection[{nunchuk\-\_\-event}]{\setlength{\rightskip}{0pt plus 5cm}void nunchuk\-\_\-event (
+\begin{DoxyParamCaption}
+\item[{struct {\bf nunchuk\-\_\-t} $\ast$}]{nc, }
+\item[{{\bf byte} $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2nunchuk_8c_a4f807481274fb3fcc2286a8fa26fed3f}
+
+
+Handle nunchuk event. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nc} & A pointer to a \hyperlink{structnunchuk__t}{nunchuk\-\_\-t} structure. \\
+\hline
+{\em msg} & The message specified in the event packet. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 138 of file wiic\-\_\-v1.\-1/src/wiic/nunchuk.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2nunchuk_8c_a1d81662126d49b7f3ef269a8e4a97e3c}{\index{wiic\-\_\-v1.\-1/src/wiic/nunchuk.\-c@{wiic\-\_\-v1.\-1/src/wiic/nunchuk.\-c}!nunchuk\-\_\-handshake@{nunchuk\-\_\-handshake}}
+\index{nunchuk\-\_\-handshake@{nunchuk\-\_\-handshake}!wiic_v1.1/src/wiic/nunchuk.c@{wiic\-\_\-v1.\-1/src/wiic/nunchuk.\-c}}
+\subsubsection[{nunchuk\-\_\-handshake}]{\setlength{\rightskip}{0pt plus 5cm}int nunchuk\-\_\-handshake (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
+\item[{struct {\bf nunchuk\-\_\-t} $\ast$}]{nc, }
+\item[{{\bf byte} $\ast$}]{data, }
+\item[{unsigned short}]{len}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2nunchuk_8c_a1d81662126d49b7f3ef269a8e4a97e3c}
+
+
+Handle the handshake data from the nunchuk. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nc} & A pointer to a \hyperlink{structnunchuk__t}{nunchuk\-\_\-t} structure. \\
+\hline
+{\em data} & The data read in from the device. \\
+\hline
+{\em len} & The length of the data block, in bytes.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns 1 if handshake was successful, 0 if not. 
+\end{DoxyReturn}
+
+
+Definition at line 58 of file wiic\-\_\-v1.\-1/src/wiic/nunchuk.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2nunchuk_8c_af881c6ea57c492e704be1e71c4e4069f}{\index{wiic\-\_\-v1.\-1/src/wiic/nunchuk.\-c@{wiic\-\_\-v1.\-1/src/wiic/nunchuk.\-c}!nunchuk\-\_\-pressed\-\_\-buttons@{nunchuk\-\_\-pressed\-\_\-buttons}}
+\index{nunchuk\-\_\-pressed\-\_\-buttons@{nunchuk\-\_\-pressed\-\_\-buttons}!wiic_v1.1/src/wiic/nunchuk.c@{wiic\-\_\-v1.\-1/src/wiic/nunchuk.\-c}}
+\subsubsection[{nunchuk\-\_\-pressed\-\_\-buttons}]{\setlength{\rightskip}{0pt plus 5cm}static void nunchuk\-\_\-pressed\-\_\-buttons (
+\begin{DoxyParamCaption}
+\item[{struct {\bf nunchuk\-\_\-t} $\ast$}]{nc, }
+\item[{{\bf byte}}]{now}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{wiic__v1_81_2src_2wiic_2nunchuk_8c_af881c6ea57c492e704be1e71c4e4069f}
+
+
+Find what buttons are pressed. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nc} & Pointer to a \hyperlink{structnunchuk__t}{nunchuk\-\_\-t} structure. \\
+\hline
+{\em msg} & The message byte specified in the event packet. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 167 of file wiic\-\_\-v1.\-1/src/wiic/nunchuk.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2nunchuk_8c_a31c67233808df66b8f2f985b4e5edc3a}{\index{wiic\-\_\-v1.\-1/src/wiic/nunchuk.\-c@{wiic\-\_\-v1.\-1/src/wiic/nunchuk.\-c}!wiic\-\_\-set\-\_\-nunchuk\-\_\-accel\-\_\-threshold@{wiic\-\_\-set\-\_\-nunchuk\-\_\-accel\-\_\-threshold}}
+\index{wiic\-\_\-set\-\_\-nunchuk\-\_\-accel\-\_\-threshold@{wiic\-\_\-set\-\_\-nunchuk\-\_\-accel\-\_\-threshold}!wiic_v1.1/src/wiic/nunchuk.c@{wiic\-\_\-v1.\-1/src/wiic/nunchuk.\-c}}
+\subsubsection[{wiic\-\_\-set\-\_\-nunchuk\-\_\-accel\-\_\-threshold}]{\setlength{\rightskip}{0pt plus 5cm}void wiic\-\_\-set\-\_\-nunchuk\-\_\-accel\-\_\-threshold (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
+\item[{int}]{threshold}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2nunchuk_8c_a31c67233808df66b8f2f985b4e5edc3a}
+
+
+Set the accelerometer event threshold for the nunchuk. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure with a nunchuk attached. \\
+\hline
+{\em threshold} & The decimal place that should be considered a significant change.\\
+\hline
+\end{DoxyParams}
+See \hyperlink{wiic__r90_2src_2wiic_2wiic_8c_aa65bb4d505fa8faf60d7a8125a100e87}{wiic\-\_\-set\-\_\-orient\-\_\-threshold()} for details. 
+
+Definition at line 205 of file wiic\-\_\-v1.\-1/src/wiic/nunchuk.\-c.
+
+\hypertarget{wiic__v1_81_2src_2wiic_2nunchuk_8c_acdefb11cde8a04865a21435507fe679e}{\index{wiic\-\_\-v1.\-1/src/wiic/nunchuk.\-c@{wiic\-\_\-v1.\-1/src/wiic/nunchuk.\-c}!wiic\-\_\-set\-\_\-nunchuk\-\_\-orient\-\_\-threshold@{wiic\-\_\-set\-\_\-nunchuk\-\_\-orient\-\_\-threshold}}
+\index{wiic\-\_\-set\-\_\-nunchuk\-\_\-orient\-\_\-threshold@{wiic\-\_\-set\-\_\-nunchuk\-\_\-orient\-\_\-threshold}!wiic_v1.1/src/wiic/nunchuk.c@{wiic\-\_\-v1.\-1/src/wiic/nunchuk.\-c}}
+\subsubsection[{wiic\-\_\-set\-\_\-nunchuk\-\_\-orient\-\_\-threshold}]{\setlength{\rightskip}{0pt plus 5cm}void wiic\-\_\-set\-\_\-nunchuk\-\_\-orient\-\_\-threshold (
+\begin{DoxyParamCaption}
+\item[{struct {\bf wiimote\-\_\-t} $\ast$}]{wm, }
+\item[{float}]{threshold}
+\end{DoxyParamCaption}
+)}}\label{wiic__v1_81_2src_2wiic_2nunchuk_8c_acdefb11cde8a04865a21435507fe679e}
+
+
+Set the orientation event threshold for the nunchuk. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wm} & Pointer to a \hyperlink{structwiimote__t}{wiimote\-\_\-t} structure with a nunchuk attached. \\
+\hline
+{\em threshold} & The decimal place that should be considered a significant change.\\
+\hline
+\end{DoxyParams}
+See \hyperlink{wiic__r90_2src_2wiic_2wiic_8c_aa65bb4d505fa8faf60d7a8125a100e87}{wiic\-\_\-set\-\_\-orient\-\_\-threshold()} for details. 
+
+Definition at line 190 of file wiic\-\_\-v1.\-1/src/wiic/nunchuk.\-c.
+

@@ -1,0 +1,71 @@
+.TH "WiiSearch" 3 "Wed Dec 5 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+WiiSearch \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "(BOOL) - \fBisDiscovering\fP"
+.br
+.ti -1c
+.RI "(void) - \fBsetDiscovering:\fP"
+.br
+.ti -1c
+.RI "(void) - \fBsetWiimoteStruct:\fP"
+.br
+.ti -1c
+.RI "(int) - \fBgetFoundWiimotes\fP"
+.br
+.ti -1c
+.RI "(IOReturn) - \fBstart:maxWiimotes:\fP"
+.br
+.ti -1c
+.RI "(IOReturn) - \fBstop\fP"
+.br
+.ti -1c
+.RI "(IOReturn) - \fBclose\fP"
+.br
+.ti -1c
+.RI "(void) - \fBretrieveWiimoteInfo:\fP"
+.br
+.ti -1c
+.RI "(void) - \fBdeviceInquiryStarted:\fP"
+.br
+.ti -1c
+.RI "(void) - \fBdeviceInquiryDeviceFound:device:\fP"
+.br
+.ti -1c
+.RI "(void) - \fBdeviceInquiryComplete:error:aborted:\fP"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "IOBluetoothDeviceInquiry * \fBinquiry\fP"
+.br
+.ti -1c
+.RI "BOOL \fBisDiscovering\fP"
+.br
+.ti -1c
+.RI "int \fBfoundWiimotes\fP"
+.br
+.ti -1c
+.RI "int \fBmaxWiimotes\fP"
+.br
+.ti -1c
+.RI "\fBwiimote\fP ** \fBwiimotes\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Definition at line 52 of file io_mac\&.h\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for OpenGL Flythrough from the source code\&.

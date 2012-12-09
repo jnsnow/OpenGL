@@ -1,0 +1,115 @@
+.TH "Cameras" 3 "Wed Dec 5 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Cameras \- 
+.PP
+The \fBCameras\fP class represents a group of logical cameras for a model view\&. Each camera posesses its own current viewing angle, and an absolute position in space\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Cameras\&.hpp>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBCameras\fP (const size_t &numCameras=1)"
+.br
+.ti -1c
+.RI "size_t \fBaddCamera\fP (void)"
+.br
+.ti -1c
+.RI "size_t \fBaddCamera\fP (\fBCamera\fP const &newCamera)"
+.br
+.ti -1c
+.RI "void \fBdelCamera\fP (size_t n)"
+.br
+.ti -1c
+.RI "void \fBpopCamera\fP (void)"
+.br
+.ti -1c
+.RI "\fBCamera\fP & \fBgetCamera\fP (size_t n)"
+.br
+.ti -1c
+.RI "\fBCamera\fP & \fBoperator[]\fP (size_t n)"
+.br
+.ti -1c
+.RI "\fBCamera\fP * \fBiter\fP (size_t n)"
+.br
+.ti -1c
+.RI "void \fBIdleMotion\fP (void)"
+.br
+.ti -1c
+.RI "void \fBLinkAll\fP (const GLuint &program, const \fBCamera::glsl_var\fP &which, const string &glslVarName)"
+.br
+.ti -1c
+.RI "size_t \fBActiveN\fP (void)"
+.br
+.ti -1c
+.RI "\fBCamera\fP & \fBActive\fP (void)"
+.br
+.ti -1c
+.RI "\fBCamera\fP & \fBActive\fP (size_t n)"
+.br
+.ti -1c
+.RI "\fBCamera\fP & \fBNext\fP (void)"
+.br
+.ti -1c
+.RI "\fBCamera\fP & \fBPrev\fP (void)"
+.br
+.ti -1c
+.RI "void \fBResize\fP (int width, int height)"
+.br
+.ti -1c
+.RI "void \fBCalculateViewports\fP (void)"
+.br
+.ti -1c
+.RI "void \fBDraw\fP (void(*draw_func)(void))"
+.br
+.in -1c
+.SS "Private Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBcommonInit\fP (void)"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "vector< \fBCamera\fP > \fBcamList\fP"
+.br
+.ti -1c
+.RI "size_t \fBactiveCamera\fP"
+.br
+.ti -1c
+.RI "size_t \fBWidth\fP"
+.br
+.ti -1c
+.RI "size_t \fBHeight\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBCameras\fP class represents a group of logical cameras for a model view\&. Each camera posesses its own current viewing angle, and an absolute position in space\&. 
+
+\fBAuthor:\fP
+.RS 4
+John Huston, jhuston@cs.uml.edu 
+.RE
+.PP
+\fBSince:\fP
+.RS 4
+28 Nov 2012
+.RE
+.PP
+Each \fBCamera\fP posesses its own CTM which can be resent to the GPU at will\&. 
+.PP
+Definition at line 20 of file Cameras\&.hpp\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for OpenGL Flythrough from the source code\&.

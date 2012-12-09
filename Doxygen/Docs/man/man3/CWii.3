@@ -1,0 +1,92 @@
+.TH "CWii" 3 "Wed Dec 5 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+CWii \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBCWii\fP (int MaxNumCWiimotes)"
+.br
+.ti -1c
+.RI "int \fBGetNumConnectedWiimotes\fP ()"
+.br
+.ti -1c
+.RI "void \fBRefreshWiimotes\fP ()"
+.br
+.ti -1c
+.RI "\fBCWiimote\fP & \fBGetByID\fP (int ID, int Refresh=1)"
+.br
+.ti -1c
+.RI "std::vector< \fBCWiimote\fP > & \fBGetWiimotes\fP (int Refresh=1)"
+.br
+.ti -1c
+.RI "int \fBFind\fP (int timeout)"
+.br
+.ti -1c
+.RI "int \fBLoadRegisteredWiimotes\fP ()"
+.br
+.ti -1c
+.RI "std::vector< \fBCWiimote\fP > & \fBConnect\fP (bool autoreconnect=false)"
+.br
+.RI "\fIConnects to the found Wii devices\&. \fP"
+.ti -1c
+.RI "std::vector< \fBCWiimote\fP > & \fBFindAndConnect\fP (int timeout=5, bool rumbleAck=true, bool autoreconnect=false)"
+.br
+.RI "\fIFinds up to five devices and automatically connect to all of them\&. \fP"
+.ti -1c
+.RI "int \fBPoll\fP ()"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBwiimote_t\fP ** \fBmpWiimoteArray\fP"
+.br
+.ti -1c
+.RI "int \fBmpWiimoteArraySize\fP"
+.br
+.ti -1c
+.RI "std::vector< \fBCWiimote\fP > \fBmpWiimotesVector\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Definition at line 531 of file wiicpp\&.h\&.
+.SH "Member Function Documentation"
+.PP 
+.SS "std::vector< \fBCWiimote\fP > & CWii::Connect (boolautoreconnect = \fCfalse\fP)"
+
+.PP
+Connects to the found Wii devices\&. \fBParameters:\fP
+.RS 4
+\fIautoreconnect\fP [in] Automatically attempt to re-connect a Wii device in case of unexpected disconnection (default is disabled) 
+.RE
+.PP
+
+.PP
+Definition at line 928 of file wiicpp\&.cpp\&.
+.SS "std::vector< \fBCWiimote\fP > & CWii::FindAndConnect (inttimeout = \fC5\fP, boolrumbleAck = \fCtrue\fP, boolautoreconnect = \fCfalse\fP)"
+
+.PP
+Finds up to five devices and automatically connect to all of them\&. \fBParameters:\fP
+.RS 4
+\fItimeout\fP [in] Timeout for the discovery step (default is 5 seconds) 
+.br
+\fIrumbleAck\fP [in] Each found and connected device will receive a small rumble ack (deafult is enabled) 
+.br
+\fIautoreconnect\fP [in] Automatically attempt to re-connect a Wii device in case of unexpected disconnection (default is disabled) 
+.RE
+.PP
+
+.PP
+Definition at line 954 of file wiicpp\&.cpp\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for OpenGL Flythrough from the source code\&.
