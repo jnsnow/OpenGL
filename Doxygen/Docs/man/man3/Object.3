@@ -1,0 +1,79 @@
+.TH "Object" 3 "Sat Dec 8 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Object \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBObject\fP (GLuint gShader)"
+.br
+.ti -1c
+.RI "void \fBDraw\fP (void)"
+.br
+.ti -1c
+.RI "void \fBBuffer\fP (void)"
+.br
+.ti -1c
+.RI "void \fBMode\fP (GLenum new_node)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "std::vector< \fBAngel::vec4\fP > \fBpoints\fP"
+.br
+.ti -1c
+.RI "std::vector< \fBAngel::vec3\fP > \fBnormals\fP"
+.br
+.ti -1c
+.RI "std::vector< unsigned int > \fBindices\fP"
+.br
+.ti -1c
+.RI "std::vector< \fBAngel::vec4\fP > \fBcolors\fP"
+.br
+.ti -1c
+.RI "std::vector< \fBAngel::vec2\fP > \fBtexcoords\fP"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "GLuint \fBvao\fP"
+.br
+.ti -1c
+.RI "GLuint \fBbuffer\fP [5]"
+.br
+.ti -1c
+.RI "GLenum \fBdraw_mode\fP"
+.br
+.ti -1c
+.RI "GLuint \fBgShader\fP"
+.br
+.ti -1c
+.RI "\fBAngel::mat4\fP \fBCTM\fP"
+.br
+.ti -1c
+.RI "std::vector< \fBObject\fP > \fBchildren\fP"
+.br
+.in -1c
+.SS "Private Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBbufferType\fP { \fBVERTICES\fP, \fBNORMALS\fP, \fBINDICES\fP, \fBCOLORS\fP, \fBTEXCOORDS\fP }"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Definition at line 9 of file Object\&.hpp\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for OpenGL Flythrough from the source code\&.

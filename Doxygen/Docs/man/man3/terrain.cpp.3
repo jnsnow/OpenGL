@@ -1,0 +1,165 @@
+.TH "terrain.cpp" 3 "Sat Dec 8 2012" "Version 001" "OpenGL Flythrough" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+terrain.cpp \- 
+.PP
+This is a derivative of our main project file, \fBfly\&.cpp\fP\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <vector>\fP
+.br
+\fC#include <sys/time\&.h>\fP
+.br
+\fC#include <cmath>\fP
+.br
+\fC#include 'platform\&.h'\fP
+.br
+\fC#include 'vec\&.hpp'\fP
+.br
+\fC#include 'mat\&.hpp'\fP
+.br
+\fC#include 'model\&.hpp'\fP
+.br
+\fC#include 'Camera\&.hpp'\fP
+.br
+\fC#include 'InitShader\&.hpp'\fP
+.br
+\fC#include 'Cameras\&.hpp'\fP
+.br
+\fC#include 'Screen\&.hpp'\fP
+.br
+\fC#include 'Object\&.hpp'\fP
+.br
+\fC#include 'Timer\&.hpp'\fP
+.br
+
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBDEBUG\fP   false"
+.br
+.ti -1c
+.RI "#define \fBOffsetAt\fP(X, Z)   ((X)*S+(Z))"
+.br
+.ti -1c
+.RI "#define \fBVertexAt\fP(X, Z)   (vec\&.at(OffsetAt(X,Z)))"
+.br
+.ti -1c
+.RI "#define \fBHeightAt\fP(X, Z)   (VertexAt(X,Z)\&.y)"
+.br
+.ti -1c
+.RI "#define \fBColorAt\fP(X, Z)   (col\&.at(OffsetAt(X,Z)))"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef \fBAngel::vec4\fP \fBcolor4\fP"
+.br
+.ti -1c
+.RI "typedef \fBAngel::vec4\fP \fBpoint4\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "float \fBrand_float\fP (void)"
+.br
+.ti -1c
+.RI "double \fBjitter\fP (double H)"
+.br
+.ti -1c
+.RI "void \fBlandGen\fP (std::vector< \fBpoint4\fP > &vec, std::vector< unsigned int > &drawIndex)"
+.br
+.ti -1c
+.RI "void \fBcameraInit\fP (\fBCamera\fP &cam)"
+.br
+.ti -1c
+.RI "void \fBinit\fP ()"
+.br
+.ti -1c
+.RI "void \fBdisplayViewport\fP (void)"
+.br
+.RI "\fIA function that takes no arguments\&. \fP"
+.ti -1c
+.RI "void \fBdisplay\fP (void)"
+.br
+.ti -1c
+.RI "void \fBkeylift\fP (unsigned char key, int x, int y)"
+.br
+.ti -1c
+.RI "void \fBkeyboard\fP (unsigned char key, int x, int y)"
+.br
+.ti -1c
+.RI "void \fBkeyboard_ctrl\fP (int key, int x, int y)"
+.br
+.ti -1c
+.RI "void \fBmouse\fP (int button, int state, int x, int y)"
+.br
+.ti -1c
+.RI "void \fBmouseroll\fP (int x, int y)"
+.br
+.ti -1c
+.RI "void \fBmouselook\fP (int x, int y)"
+.br
+.ti -1c
+.RI "void \fBresizeEvent\fP (int width, int height)"
+.br
+.ti -1c
+.RI "void \fBidle\fP (void)"
+.br
+.ti -1c
+.RI "int \fBmain\fP (int argc, char **argv)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBScreen\fP \fBmyScreen\fP (800, 600)"
+.br
+.ti -1c
+.RI "GLuint \fBgShader\fP"
+.br
+.ti -1c
+.RI "\fBObject\fP * \fBterrain\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+This is a derivative of our main project file, \fBfly\&.cpp\fP\&. 
+
+\fBAuthors:\fP
+.RS 4
+John Huston, Nicholas StPierre, Chris Compton 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+2012-12-06
+.RE
+.PP
+This is a tech demo for terrain generation using an udpated engine derived from \fBfly\&.cpp\fP, which was mostly based on Ed Angel's code from his book\&. 
+.PP
+Definition in file \fBterrain\&.cpp\fP\&.
+.SH "Function Documentation"
+.PP 
+.SS "void displayViewport (void)"
+
+.PP
+A function that takes no arguments\&. Is responsible for drawing a SINGLE VIEWPORT\&. 
+.PP
+Definition at line 243 of file terrain\&.cpp\&.
+.SS "void init ()"
+Fill points[\&.\&.\&.] with terrain map 
+.PP
+Definition at line 217 of file terrain\&.cpp\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for OpenGL Flythrough from the source code\&.
