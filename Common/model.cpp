@@ -164,11 +164,10 @@ double jitter( double H ) {
   return (-H) + rand() * (H - (-H)) / RAND_MAX;
 }
 
-void landGen( Object *obj ) {
+void landGen( Object *obj, int N, float H ) {
 
   Timer Tick;
-  const int _N = 5;
-  const int S = pow(2,_N) + 1;
+  const int S = pow(2,N) + 1;
   std::vector< point4 > &vec = obj->points;
   std::vector< point4 > &col = obj->colors;
   std::vector< unsigned int > &drawIndex = obj->indices;
@@ -176,19 +175,18 @@ void landGen( Object *obj ) {
   if (DEBUG) printf( "\nEntering landGen()...\n");
   // the range (-h -> h) for the average offset
   // This determines the jaggedness of the peaks and valleys.
-  // A smaller initial value will create smaller peaks and shollow valleys for
+  // A smaller initial value will create smaller peaks and shallow valleys for
   // a look more similar to rolling hill tops.
-  double h = 5.0;
   double CH = 0.5;
-  double magnitude = (h*(2 - pow(2,-(_N))));
-  fprintf( stderr, "landGen theoretical magnitude: %f\n", magnitude );
+  double magnitude = (H*(2 - pow(2,-(N))));
+  if (DEBUG) fprintf( stderr, "landGen theoretical magnitude: %f\n", magnitude );
 
   /* Initialize all points in the vector to have their X,Z (and w) coordinates. */
   if (vec.size()) vec.clear();
   vec.reserve( S * S );
   for ( int i = 0; i < S; ++i )
     for ( int j = 0; j < S; ++j ) 
-      vec.push_back( vec4( j, 0, i, 1 ) );
+      vec.push_back( vec4( j - (S/2), 0, i - (S/2), 1 ) );
 
   /* Initialize our color vectors. */
   if (col.size()) col.clear();
@@ -214,7 +212,7 @@ void landGen( Object *obj ) {
   // sideLength is the distance of a single square side or
   // distance of diagonal in diamond.
   if (DEBUG) printf("\nEntering for( sideLength...) ...\n");
-  for (int sideLength = S-1; sideLength >= 2; sideLength /= 2, h /= 2.0, CH /= 2.0) { 
+  for (int sideLength = S-1; sideLength >= 2; sideLength /= 2, H /= 2.0, CH /= 2.0) { 
     int halfSide = sideLength / 2;
     // generate new square values
     for ( int x = 0 ; x < S-1 ; x += sideLength ) {
@@ -228,7 +226,7 @@ void landGen( Object *obj ) {
 	   ColorAt(x,z+sideLength) + ColorAt(x+sideLength,z+sideLength))/4.0;
 	vec4 color_jitter = vec4( jitter(CH), jitter(CH), jitter(CH), 0 );
 	
-	HeightAt( x + halfSide, z + halfSide ) = avg + jitter(h);
+	HeightAt( x + halfSide, z + halfSide ) = avg + jitter(H);
 	ColorAt( x + halfSide, z + halfSide ) = color_avg + color_jitter;
       } // for z
     } // for x
@@ -256,7 +254,7 @@ void landGen( Object *obj ) {
 	   ColorAt( x, (z - halfSide + S) % S )) / 4.0;
 	vec4 color_jitter = vec4( jitter(CH), jitter(CH), jitter(CH), 0 );
  
-	HeightAt( x, z ) = avg + jitter(h);
+	HeightAt( x, z ) = avg + jitter(H);
 	ColorAt( x, z ) = color_avg + color_jitter;
 
 	// Wrapping:

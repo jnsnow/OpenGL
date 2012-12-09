@@ -1,3 +1,12 @@
+/**
+   @file fly.cpp
+   @authors John Huston, Nicholas StPierre, Chris Compton
+   @date 2012-12-06
+   @brief This is our main project file, fly.cpp.
+   @details Oh my god, I am a frog -- what is happening
+**/
+
+#include "globals.h"
 /* System Headers */
 #include <cmath>
 #include <cstdio>
@@ -15,14 +24,6 @@
 #include "Screen.hpp"
 #include "Object.hpp"
 #include "Timer.hpp"
-
-// Turn on debugging if it's been requested of us by the Makefile environment.
-#ifndef DEBUG
-#define DEBUG false
-#else
-#undef DEBUG
-#define DEBUG true
-#endif
 
 // Type Aliases
 using Angel::vec3;
@@ -43,8 +44,10 @@ Object *pyramid;
 Screen myScreen( 800, 600 );
 GLuint gShader;
 
-//--------------------------------------------------------------------
-// OpenGL's disgusting, terrible globals initialization
+
+/******************************************************************************/
+/* Nick StPierre's Tremendous Lighting Glob                                   */
+/******************************************************************************/
 
 // Moving light source
 point4 light_position( 0.0, 1.0, 0.0, 1.0 );
@@ -54,6 +57,10 @@ point4 light_position2( 0.0, 1.0, 0.1, 1.0 );
 
 // 11/26 changes: mode of the static light source.
 int lightMode = 0;
+
+// 11/26 changes:
+// adding a light source, and some controls.
+int lightOrbit = 1 ; // this is a multiplier for the radius of the light source's orbit
 
 //glGetUniformLocation(program, "LightPosition");
 // this one corresponds to the moving light source
@@ -129,6 +136,7 @@ void init_lights( GLuint program ) {
   glShadeModel(GL_FLAT); // ??? I forget if/why we need this
 
 }
+/******************************************************************************/
 
 void cameraInit( Camera& cam ) {
 
@@ -143,7 +151,6 @@ void cameraInit( Camera& cam ) {
 void init() {
 
   gShader = Angel::InitShader( "vshader.glsl", "fshader.glsl" );
-  glUseProgram( gShader );
 
   pyramid = new Object( gShader );
   Sierpinski_Pyramid( pyramid,
@@ -152,6 +159,7 @@ void init() {
 		      vec4(  1, -0.999,  1, 1 ),
 		      vec4(  0, -0.999, -1, 1 ),
 		      4 );
+
   // Draw a "floor" or something for reference.
   quad( pyramid,
 	vec4( -1, -1, -1, 1.0 ),
@@ -162,6 +170,7 @@ void init() {
 	vec4( 0.8, 0.1, 0.6, 1 ),
 	vec4( 0.8, 0.1, 0.6, 1 ),
 	vec4( 0.8, 0.1, 0.6, 1 ) );
+
   pyramid->Buffer();
   pyramid->Mode( GL_TRIANGLES );
 
@@ -262,7 +271,6 @@ void lightEffects(int frameNumber){
 void displayViewport( void ) {
 
   pyramid->Draw();
-  //glDrawArrays( GL_TRIANGLES, 0, NumVertices );
 
 }
 
@@ -304,12 +312,6 @@ void keylift( unsigned char key, int x, int y ) {
     break;
   }
 }
-
-// 11/26 changes:
-// adding a light source, and some controls.
-int lightOrbit = 1 ; // this is a multiplier for the radius of the light source's orbit
-
-
 
 void keyboard( unsigned char key, int x, int y ) {
 

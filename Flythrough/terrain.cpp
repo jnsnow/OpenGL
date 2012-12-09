@@ -8,6 +8,7 @@
    from his book.
 **/
 
+#include "globals.h"
 /* System Headers */
 #include <cmath>
 #include <cstdio>
@@ -18,7 +19,6 @@
 #include "vec.hpp"
 #include "mat.hpp"
 /* Utilities and Classes */
-#include "globals.h"
 #include "model.hpp"
 #include "Camera.hpp"
 #include "InitShader.hpp"
@@ -67,7 +67,7 @@ void init() {
   glUseProgram( gShader );
 
   /** Fill points[...] with terrain map **/
-  landGen( terrain );
+  landGen( terrain, 6, 10.0 );
   terrain->Buffer();
 
   Sierpinski_Pyramid( pyramid,

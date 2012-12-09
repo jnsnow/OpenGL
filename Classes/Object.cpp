@@ -22,6 +22,9 @@ Object::Object( GLuint gShader ) {
   glGenVertexArrays( 1, &vao );
   glBindVertexArray( vao );
 
+  /* Does this go here? I have no real idea. */
+  glUseProgram( gShader );
+
   /* Create five VBOs: One each for Positions, Colors, Normals, Textures and Draw Order. */
   glGenBuffers( 5, buffer );
 
