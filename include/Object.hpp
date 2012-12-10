@@ -6,8 +6,9 @@
 #include "platform.h"
 #include "vec.hpp"
 #include "mat.hpp"
+#include "Scene.hpp"
 
-class Object {
+class Object : public Scene {
 
   enum bufferType { 
     VERTICES,
@@ -36,13 +37,7 @@ protected:
   GLuint vao;  /* Vertex Array Object handle identifying our buffers */
   GLuint buffer[5]; /* Our buffer handles. */
   GLenum draw_mode; /* How should we draw? GL_TRIANGLES? GL_LINE_LOOP? etc. */
-  GLuint gShader; /* A handle to the shader program. */
 
-  /* Per-Object CTM */
-  Angel::mat4 CTM;
-  
-  /* Hello, Children! */
-  std::vector<Object> children;
 };
 
 #endif

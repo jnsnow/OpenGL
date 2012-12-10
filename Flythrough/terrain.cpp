@@ -66,6 +66,7 @@ void init() {
 
   Object *terrain = theScene.AddObject( "terrain" );
   Object *pyramid = theScene.AddObject( "pyramid" );
+  Object *cube = pyramid->AddObject( "colorcube" );
 
   /** Fill points[...] with terrain map **/
   landGen( terrain, 6, 10.0 );
@@ -80,6 +81,10 @@ void init() {
 		      4 );
   pyramid->Buffer();
   pyramid->Mode( GL_LINE_LOOP );
+
+  colorcube( cube, 2.0 );
+  cube->Buffer();
+  cube->Mode( GL_TRIANGLES );
     
   // Link however many cameras we have at this point to the shader.
   myScreen.camList.LinkAll( gShader, Camera::TRANSLATION, "T" );

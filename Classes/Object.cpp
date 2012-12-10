@@ -13,7 +13,7 @@ Object::Object( const std::string &name, GLuint gShader ) {
      Position, Color, Direction (Normal), Texture and Draw Order. */
     
   /* Associate this Object with the Shader. */
-  this->gShader = gShader;
+  SetShader( gShader );
   this->name = name;
   GLuint glsl_uniform;
 
@@ -103,6 +103,9 @@ void Object::Draw( void ) {
   else
     glDrawArrays( draw_mode, 0, points.size() );
   glBindVertexArray(0);
+
+  /* Draw all of our children...? */
+  Scene::Draw();
   
 }
 

@@ -1,15 +1,20 @@
+#ifndef __SCENE_HPP
+#define __SCENE_HPP
+
 #include <string>
 #include <map>
 #include <list>
-
 #include "platform.h" // for GLuint
-#include "Object.hpp"
+
+/* Forward reference so that our scene can return
+   pointers to Objects, and not more scenes. */
+class Object;
 
 class Scene {
 
  public:
   Scene( );
-  ~Scene();
+  ~Scene( );
 
   void SetShader( GLuint gShader );
 
@@ -38,3 +43,5 @@ class Scene {
   void DeleteObject( Object *obj );
 
 };
+
+#endif
