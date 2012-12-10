@@ -60,7 +60,7 @@ void cameraInit( Camera& cam ) {
 void init() {
 
   // Load shaders and use the resulting shader program
-  gShader = Angel::InitShader( "vterrain.glsl", "fterrain.glsl" );
+  gShader = Angel::InitShader( "shaders/vterrain.glsl", "shaders/fterrain.glsl" );
   theScene.SetShader( gShader );
 
 

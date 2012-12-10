@@ -288,6 +288,7 @@ void landGen( Object *obj, int N, float H ) {
   std::vector< point4 > &vec = obj->points;
   std::vector< point4 > &col = obj->colors;
   std::vector< unsigned int > &drawIndex = obj->indices;
+  std::vector< Angel::vec2 > &txy = obj->texcoords;
 
   if (DEBUG) printf( "\nEntering landGen()...\n");
   // the range (-h -> h) for the average offset
@@ -312,11 +313,18 @@ void landGen( Object *obj, int N, float H ) {
     for ( int j = 0; j < S; ++j )
       col.push_back( vec4( 0.5, 0.5, 0.5, 1.0 ) );
 
+  if (txy.size()) txy.clear();
+  txy.reserve( S*S );
+  for ( int z = 0; z < S; ++z )
+    for ( int x = 0; x < S; ++x )
+      txy.push_back(vec2((float)x/(float)S, (float)z/(float)S));
+
   /* Simulate a 2D array in this 1D array. Use these Macros to help. */
 #define OffsetAt(X,Z) ((X)*S+(Z))
 #define VertexAt(X,Z) (vec.at(OffsetAt(X,Z)))
 #define HeightAt(X,Z) (VertexAt(X,Z).y)
 #define ColorAt(X,Z) (col.at(OffsetAt(X,Z)))
+#define TXYAt(X,Z) (txy.at(OffsetAt(X,Z)))
 
   // Initialize the corners of the grid
   HeightAt( 0, 0 )     = 0;
@@ -407,9 +415,11 @@ void landGen( Object *obj, int N, float H ) {
     }
   }
 
+  /*
   for ( int i = 0; i < S*S; i++ ) {
     col.push_back(vec4(rand_float(),rand_float(),rand_float(),1.0));
   }
+  */
 
   Tick.Tock();
   if (DEBUG)

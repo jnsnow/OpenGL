@@ -184,14 +184,8 @@ void cameraInit( Camera& cam ) {
 void init() {
 
   // Load shaders and use the resulting shader program
-
-
-  //gShader = Angel::InitShader( "vterrain.glsl", "fterrain.glsl" );
-  gShader = Angel::InitShader( "vgenericsimple.glsl", "fgenericsimple.glsl" );
-
-
+  gShader = Angel::InitShader( "shaders/vgenericsimple.glsl", "shaders/fgenericsimple.glsl" );
   theScene.SetShader( gShader );
-
 
   Object *terrain = theScene.AddObject( "terrain" );
   Object *pyramid = theScene.AddObject( "pyramid" );
