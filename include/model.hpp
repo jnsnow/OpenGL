@@ -4,12 +4,6 @@
 // Needed for model loader
 #include <vector>
 using std::vector;
-
-//#include <fstream>
-//#include <sstream>
-//#include <string>
-
-
 #include "vec.hpp"
 #include "Object.hpp"
 
@@ -18,18 +12,8 @@ using Angel::vec3;
 typedef Angel::vec4 color4;
 typedef Angel::vec4 point4;
 
-
-
-
-extern point4  points[];
-extern color4  colors[];
-extern vec3  normals[];
-
-//void createPoint( point4 const &the_point, color4 const &the_color, vec3 const &the_normal );
-
 void createPoint( Object *obj, 
 		  point4 const &the_point, color4 const &the_color, vec3 const &the_normal );
-
 
 void triangle( Object *obj,
 	       const point4& a, const point4& b, 
