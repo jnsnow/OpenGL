@@ -47,6 +47,9 @@ Screen myScreen( 800, 600 );
 Scene theScene;
 GLuint gShader;
 
+// Textures
+const char* terrainTex = "../Textures/GrassGreenTexture0006.jpg";
+
 void cameraInit( Camera& cam ) {
 
   /* Link this camera to our standard shader variables. */
@@ -67,6 +70,15 @@ void init() {
   Object *terrain = theScene.AddObject( "terrain" );
   Object *pyramid = theScene.AddObject( "pyramid" );
   Object *cube = pyramid->AddObject( "colorcube" );
+  GLuint tex2D = SOIL_load_OGL_texture( terrainTex,
+					SOIL_LOAD_AUTO,
+					SOIL_CREATE_NEW_ID,
+					SOIL_FLAG_MIPMAPS );
+  if (tex2D == -1 ) 
+    {
+      fprintf( stderr, "Failed to load texture file." );
+      exit(0);
+    }
 
   /** Fill points[...] with terrain map **/
   landGen( terrain, 6, 10.0 );
