@@ -32,7 +32,7 @@ EXECS=fly terrain
 #EXEC sources are implied to be $EXEC.cpp !!
 
 COMMON_SOURCES=model.cpp InitShader.cpp
-CLASS_SOURCES=Camera.cpp vec.cpp mat.cpp Cameras.cpp Screen.cpp Timer.cpp Object.cpp Scene.cpp
+CLASS_SOURCES=Camera.cpp vec.cpp mat.cpp Cameras.cpp Screen.cpp Timer.cpp Object.cpp Scene.cpp TransMat.cpp
 SOURCES=$(addprefix $(COMMON_DIR)/, $(COMMON_SOURCES)) \
 	$(addprefix $(CLASSES_DIR)/, $(CLASS_SOURCES))
 
@@ -64,7 +64,7 @@ else
 endif
 
 OBJS=$(subst .$(EXT),.o,$(SOURCES))
-DEPS=$(subst .$(EXT),.d,$(SOURCES))
+DEPS=$(subst .$(EXT),.d,$(SOURCES)) $(addsuffix .d,$(EXECS))
 BIN_OBJS=$(addsuffix .o,$(EXECS))
 
 # This .PHONY is required to prevent Makefile's built-in rules from processing it.

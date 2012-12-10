@@ -140,13 +140,13 @@ namespace Angel {
     const vec4& operator [] ( int i ) const;
 
     //  --- (non-modifying) Arithematic Operators ---
-    mat4 operator + ( const mat4& m ) const;
-    mat4 operator - ( const mat4& m ) const;
-    mat4 operator * ( const GLfloat s ) const;
-    mat4 operator / ( const GLfloat s ) const;
-    friend mat4 operator * ( const GLfloat s, const mat4& m );
+    mat4 operator+( const mat4& m ) const;
+    mat4 operator-( const mat4& m ) const;
+    mat4 operator*( const GLfloat s ) const;
+    mat4 operator/( const GLfloat s ) const;
+    friend mat4 operator* ( const GLfloat s, const mat4& m );
     friend vec4 operator* ( const vec4 &v, const mat4& _m );
-    mat4 operator * ( const mat4& m ) const;
+    mat4 operator*( const mat4& m ) const;
 
     //  --- (modifying) Arithematic Operators ---
     mat4& operator += ( const mat4& m );
