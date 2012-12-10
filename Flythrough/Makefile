@@ -28,11 +28,11 @@ EXT=cpp
 CC=g++
 CFLAGS=-Wall -pedantic -I $(RELDIR)/include
 
-EXECS=fly terrain
+EXECS=fly terrain terrainLit
 #EXEC sources are implied to be $EXEC.cpp !!
 
 COMMON_SOURCES=model.cpp InitShader.cpp
-CLASS_SOURCES=Camera.cpp vec.cpp mat.cpp Cameras.cpp Screen.cpp Timer.cpp Object.cpp Scene.cpp Transformation.cpp
+CLASS_SOURCES=Camera.cpp vec.cpp mat.cpp Cameras.cpp Screen.cpp Timer.cpp Object.cpp Scene.cpp Transformation.cpp LightSource.cpp Lights.cpp
 SOURCES=$(addprefix $(COMMON_DIR)/, $(COMMON_SOURCES)) \
 	$(addprefix $(CLASSES_DIR)/, $(CLASS_SOURCES))
 
