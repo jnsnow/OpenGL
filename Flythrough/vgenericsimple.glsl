@@ -1,6 +1,9 @@
+///////////////////////////////////////////////////////////////////////////////
 // GENERIC VSHADER
 // Adadapted from this magnificent web site
 // http://ogldev.atspace.co.uk/www/tutorial20/tutorial20.html
+
+// MAX LIGHTS = 20
 
 // attributes
 attribute vec4 vPosition ;
@@ -9,6 +12,8 @@ attribute vec4 vNormal   ;
 // sent to the fshader
 varying vec4 color;
 varying vec3 cameraVector;
+varying vec3 fragmentNormal;
+varying vec3 lightVector[20];
 
 // position/movement
 uniform mat4 P   ;
@@ -18,25 +23,26 @@ uniform mat4 CTM ; // CTM is either PRT or TRP, depending.
 
 // Lighting 
 uniform int numLights ;
-uniform vec3 LightPositionArray[] ;
+uniform vec3 LightPositionArray[20] ;
 
 
-varying vec3 LightVector[numLights];
 
 
 void main() {
 
      int i;
 
-     for ( i = 0 ; i < numLights ; i ++ ) {
+     for ( i = 0 ; i < numLights && i < 20 ; i ++ ) {
 
-     // BWAH BULLET
-
-          // http://3.bp.blogspot.com/-Sr2O0lM68ZM/TV5aVB1jF7I/AAAAAAAAAvw/e1OO6avilKU/s1600/swallowtail_caterpillar_big.jpg
+     	 // BWAH BULLET
 	  
-	  LightVector[i] = LightPositionArray[i] - vPosition.xyz ;
+	  lightVector[i] = LightPositionArray[i] - vPosition.xyz ;
 
      }
+
+     //fragmentNormal = vNormal ;
+
+     fragmentNormal = vec3(0.0,1.0,0.0) ;
 
      cameraVector = (R * vec4(0.0,0.0,1.0,1.0)).xyz;
      gl_Position = CTM * vPosition ;

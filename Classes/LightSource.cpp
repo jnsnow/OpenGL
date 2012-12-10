@@ -68,6 +68,10 @@ LightSource::~ LightSource() {
 
 }
 
+bool LightSource::GetComplexSwitch() const {
+  return complexSwitch ;
+}
+
 void LightSource::SetLight_specular(color4 &light_specular) {
   this->light_specular = light_specular ;
 }
@@ -91,7 +95,7 @@ void LightSource::SetLight_ambient(color4 &light_ambient) {
 color4 LightSource::GetLight_ambient() const {
   return light_ambient ;
 }
-//GetLight_color
+
 void LightSource::SetLight_color(color4 &c) {
   this->light_color = c;
 }

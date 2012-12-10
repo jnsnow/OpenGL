@@ -87,6 +87,9 @@ class LightSource
    void SetPosition(point4 &z);
    point4 GetPosition() const;
 
+   bool GetComplexSwitch() const ;
+
+
    //void SetShaderHandle(GLuint);
    //GLuint GetShaderHandle() const;
 

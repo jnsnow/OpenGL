@@ -99,17 +99,17 @@ void main() {
        h = vPosition.y;
 
 //###
-//     color = vec4( 0.375*h, sqrt(h*h*0.625), (1.0-h)/2.0, 1.0 ) ;
+     color = vec4( 0.375*h, sqrt(h*h*0.625), (1.0-h)/2.0, 1.0 ) ;
 //###
 
 
 //PIC:
 //     color = vec4( 0.375*h, 0.625, 1.0-h, 1.0 ) ;
 
-       color = vec4( h*h -0.675*h - 0.2,
-       	       	     0.625+( h * 0.125 ),
-		     1.0-h, 
-		     1.0 ) ;
+//       color = vec4( h*h -0.675*h - 0.2,
+//       	       	     0.625+( h * 0.125 ),
+//		     1.0-h, 
+//		     1.0 ) ;
 
 //   color = color * color_scale * vec4( 1.0, 1.0, 0.0, 1.0 ) ;
 

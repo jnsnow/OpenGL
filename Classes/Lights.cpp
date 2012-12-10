@@ -29,7 +29,9 @@ using std::out_of_range ;
 /**
    Default constructor.
  **/
-Lights::Lights() {
+Lights::Lights(bool cSwitch) 
+  : complexSwitch(cSwitch)
+{
 
 }
 
@@ -39,7 +41,9 @@ Lights::Lights() {
    If you can use this one, please do!
    @param g_program A program object that we can link our arrays with.
  **/
-Lights::Lights( GLuint &g_program, bool complexSwitch ) {
+Lights::Lights( GLuint &g_program, bool cSwitch ) 
+  : complexSwitch(cSwitch)
+{
 
   if ( complexSwitch )
     {
@@ -68,6 +72,14 @@ Lights::~Lights(){
 }
 
 /**
+   Get the lighting mode.
+ **/
+bool Lights::getComplex() const {
+  return this->complexSwitch ;
+}
+
+
+/**
    Removes the u'th element from the list of lights.
    This function is 1-indexed.
    @param u the index of the light to remove.
@@ -80,10 +92,19 @@ void Lights::removeLightSource( const unsigned int u ){
 
 }
 
+
+/**
+   Removes the last light added to the container.
+ **/
+void Lights::removeLastLightSource(){
+
+  if ( getNumLights() > 0 ) theLights.pop_back() ;
+
+}
+
 /**
    Add a light source to the list.
    @param l light source to add to the list.
-
  **/
 void Lights::addLightSource( const LightSource &l ){
 
@@ -93,7 +114,7 @@ void Lights::addLightSource( const LightSource &l ){
 
 /**
    Change an existing light source.
-   @param ONE INDEXED index to select a light source.
+   @param u ONE INDEXED index to select a light source.
    @param l light source to replace the existing light with.
  **/
 void Lights::modifyLightSource( const unsigned int u, const LightSource &l ){
@@ -105,14 +126,15 @@ void Lights::modifyLightSource( const unsigned int u, const LightSource &l ){
 
 }
 
+// void Lights::init_lights( GLuint &g_program, bool complexSwitch ) {
+
 /**
    Initializes members in the object to link with shader uniform variables.
    IF YOU DON'T USE THE INITILIZATION CONSTRUCTOR,
    THIS MUST BE CALLED BEFORE TRYING TO CALL sendAll();
    @param g_program A gl program to use for linking with the shader.
  **/
-void Lights::init_lights( GLuint &g_program, bool complexSwitch ) {
-
+void Lights::init_lights( GLuint &g_program ) {
 
   // To get the arrays to the shader, we are going to need handles to them.
   // These variables will hold the handles.
@@ -120,14 +142,13 @@ void Lights::init_lights( GLuint &g_program, bool complexSwitch ) {
   // Note, we must use these names in the shader.
   if ( complexSwitch )
     {
-    g_ambient  = glGetUniformLocation( g_program, "LightAmbientArray" ) ;
-    g_diffuse  = glGetUniformLocation( g_program, "LightDiffuseArray" ) ;
-    g_specular = glGetUniformLocation( g_program, "LightSpecularArray" ) ;
-  
+      g_ambient  = glGetUniformLocation( g_program, "LightAmbientArray" ) ;
+      g_diffuse  = glGetUniformLocation( g_program, "LightDiffuseArray" ) ;
+      g_specular = glGetUniformLocation( g_program, "LightSpecularArray" ) ;  
     } 
   else 
     {
-       g_color = glGetUniformLocation( g_program, "LightColor" )  ;
+      g_color = glGetUniformLocation( g_program, "LightColor" )  ;
     }
 
 
@@ -153,10 +174,10 @@ unsigned int Lights::getNumLights() const {
    If you make any changes to the lighting, you must call this function again.
    In fact, it probably belongs in your glutRedisplay() callback.
  **/
-void Lights::sendAll( bool complexSwitch ) {
+void Lights::sendAll() {
 
   unsigned int i ;
-  vec4 temp4;
+  vec4 temp4 ;
 
   for ( i = 0 ; i < theLights.size() && i < MAX_LIGHTS ; i++ ) {
 
@@ -240,19 +261,10 @@ void Lights::sendAll( bool complexSwitch ) {
 
 
 /*
-color4 LightSource::GetLight_specular() const {
-  return light_specular ;
-}
-color4 LightSource::GetLight_diffuse() const {
-  return light_diffuse ;
-}
-color4 LightSource::GetLight_ambient() const {
-  return light_ambient ;
-}
-vec3 LightSource::GetDirection() const {
-  return direction ;
-}
-point4 LightSource::GetPoint() const {
-  return position ;
-}
+color4 LightSource::GetLight_specular() const ;
+color4 LightSource::GetLight_diffuse() const ;
+color4 LightSource::GetLight_ambient() const ;
+vec3 LightSource::GetDirection() const ;
+point4 LightSource::GetPoint() const ;
+
 */

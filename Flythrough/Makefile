@@ -28,7 +28,7 @@ EXT=cpp
 CC=g++
 CFLAGS=-Wall -pedantic -I $(RELDIR)/include
 
-EXECS=fly terrain
+EXECS=fly terrain terrainLit
 #EXEC sources are implied to be $EXEC.cpp !!
 
 COMMON_SOURCES=model.cpp InitShader.cpp

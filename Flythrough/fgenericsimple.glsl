@@ -3,12 +3,14 @@
 // http://ogldev.atspace.co.uk/www/tutorial20/tutorial20.html
 
 // attributes
-attribute vec4 vPosition ;
-attribute vec4 vNormal   ;
+//attribute vec4 vPosition ;
+//attribute vec4 vNormal   ;
 
 // sent to the fshader
 varying vec4 color;
 varying vec3 cameraVector;
+varying vec3 fragmentNormal;
+varying vec3 lightVector[20];
 
 const float MAX_DIST = 2.5;
 const float MAX_DIST_SQUARED = MAX_DIST * MAX_DIST;
@@ -23,16 +25,13 @@ const float MAX_DIST_SQUARED = MAX_DIST * MAX_DIST;
 uniform int numLights ;
 
 
-uniform vec3 LightColor[];
+uniform vec3 lightColor[20];
 //uniform vec3 LightAmbientArray[];
 //uniform vec3 LightDiffuseArray[];
 //uniform vec3 LightSpecularArray[];
 
-uniform vec3 LightPositionArray[] ;
-uniform vec3 LightDirectionArray[];
-
-
-varying vec3 LightVector[numLights];
+uniform vec3 LightPositionArray[20] ;
+uniform vec3 LightDirectionArray[20];
 
 
 
@@ -46,7 +45,8 @@ void main() {
 
      vec3 lightDir, halfAngle, specularColor ;
 
-     floar specularDot ;
+     float specularDot ;
+     float diffuseDot ;
 
      // initialize diffuse/specular lighting
      diffuse = vec3(0.0, 0.0, 0.0);
@@ -78,7 +78,7 @@ void main() {
      }
 
      sample = vec4(1.0, 1.0, 1.0, 1.0);
-     gl_FragColor = vec4(clamp(sample.rgb * (diffuse + AMBIENT) + specular, 0.0, 1.0), sample.a);
+     gl_FragColor = vec4(clamp(sample.rgb * ( diffuse  ) + specular, 0.0, 1.0), sample.a);
 
 
      
