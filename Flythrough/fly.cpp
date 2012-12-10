@@ -40,7 +40,7 @@ bool usingWii = false;
 #endif
 ////
 
-Object *pyramid;
+Scene theScene;
 Screen myScreen( 800, 600 );
 GLuint gShader;
 
@@ -151,8 +151,9 @@ void cameraInit( Camera& cam ) {
 void init() {
 
   gShader = Angel::InitShader( "vshader.glsl", "fshader.glsl" );
+  theScene.SetShader( gShader );
 
-  pyramid = new Object( gShader );
+  Object *pyramid = theScene.AddObject( "pyramid" );
   Sierpinski_Pyramid( pyramid,
 		      vec4(  0,      1,  0, 1 ),
 		      vec4( -1, -0.999,  1, 1 ),
@@ -270,7 +271,7 @@ void lightEffects(int frameNumber){
     Is responsible for drawing a SINGLE VIEWPORT. **/
 void displayViewport( void ) {
 
-  pyramid->Draw();
+  theScene.Draw();
 
 }
 
@@ -369,7 +370,9 @@ void keyboard( unsigned char key, int x, int y ) {
 
     // Pressing m cycles through the light modes for the static light source.
   case 'm':  lightMode = (lightMode+1) % 4; break;
-   
+  case 'n':
+    light_position.y = -light_position.y ; break;
+
     //Perspectives
   case 'z': cam.changePerspective( Camera::PERSPECTIVE ); break;
   case 'x': cam.changePerspective( Camera::ORTHO ); break;
