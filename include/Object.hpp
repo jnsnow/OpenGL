@@ -23,6 +23,7 @@ public:
   void Draw( void );
   void Buffer( void );
   void Mode( GLenum new_node );
+  void Texture( const char* filename );
   const std::string &Name( void ) const;
 
   /* Bad. Bad! Protect these. ...Later? :( */

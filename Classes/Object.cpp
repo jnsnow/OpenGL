@@ -95,6 +95,24 @@ void Object::Buffer( void ) {
 
 }
 
+void Object::Texture( const char* filename ) {
+
+  glBindVertexArray( vao );
+  GLuint tex2d = SOIL_load_OGL_texture( filename,
+					SOIL_LOAD_AUTO,
+					SOIL_CREATE_NEW_ID,
+					SOIL_FLAG_MIPMAPS );
+  
+  glActiveTexture( GL_TEXTURE0 );
+  glBindTexture( GL_TEXTURE_2D, tex2d );
+  glEnable( GL_TEXTURE_2D );
+  glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
+  glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+  
+  glBindVertexArray( 0 );
+ 
+}
+
 void Object::Draw( void ) {
 
   glBindVertexArray( vao );
