@@ -1,7 +1,35 @@
-OpenGL
-======
+HSC
+===
 
-- Hello, I don't have much to say about this, yet!
+- This is our Graphics I final project for Prof. Grinstein,
+  at UMass Lowell, Fall 2012.
+
+- This project utilizes a lot of code snippets, libraries and ideas from
+  a variety of authors. They are credited in-line where appropriate, but here's a list:
+  
+  - Etay Mieri, olgdev.atspace.co.uk:
+    	 Invaluable tutorials on OpenGL.  
+
+  - Daniel Beard, Paul Boxley and Paul Martz:
+    	   Information and code for generating random terrain.
+	   The code we eventually implemented is heavily modified
+	   from Daniel Beard's implementation, using Boxley and Martz's 
+	   writeups as guidelines.
+
+  - Ed Angel:
+      Author of "Interactive Computer Graphics: A Top-Down Approach,"
+      Provided the basis of our executable's main skeleton, 
+      and 99.9% of our vec and mat classes, from his book's code.
+
+  - Gabriele Randelli:
+      Lead developer of the WiiC/PP library, which itself has been
+      developed out of the (now defunct) WiiUse library, authored by
+      Michael Laforest.
+
+  - Dan Lecocq:
+      For a really great blog post on how to draw a mesh with
+      GL_TRIANGLE_STRIPs.
+
 
 - To build the project, pushd Flythrough && make;
   To run, pushd Flythrough && ./fly;

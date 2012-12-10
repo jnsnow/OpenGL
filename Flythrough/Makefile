@@ -28,12 +28,12 @@ EXT=cpp
 CC=g++
 CFLAGS=-Wall -pedantic -I $(RELDIR)/include
 
-EXECS=terrain
-BIN_SOURCES=terrain.cpp
+EXECS=fly terrain
+#EXEC sources are implied to be $EXEC.cpp !!
+
 COMMON_SOURCES=model.cpp InitShader.cpp
-CLASS_SOURCES=Camera.cpp vec.cpp mat.cpp Cameras.cpp Screen.cpp Timer.cpp Object.cpp Lights.cpp LightSource.cpp
-SOURCES=$(BIN_SOURCES) \
-	$(addprefix $(COMMON_DIR)/, $(COMMON_SOURCES)) \
+CLASS_SOURCES=Camera.cpp vec.cpp mat.cpp Cameras.cpp Screen.cpp Timer.cpp Object.cpp Scene.cpp LightSource.cpp Lights.cpp
+SOURCES=$(addprefix $(COMMON_DIR)/, $(COMMON_SOURCES)) \
 	$(addprefix $(CLASSES_DIR)/, $(CLASS_SOURCES))
 
 # Platform-dependent configuration.
@@ -63,9 +63,9 @@ else
 	CFLAGS += -O3
 endif
 
-
 OBJS=$(subst .$(EXT),.o,$(SOURCES))
 DEPS=$(subst .$(EXT),.d,$(SOURCES))
+BIN_OBJS=$(addsuffix .o,$(EXECS))
 
 # This .PHONY is required to prevent Makefile's built-in rules from processing it.
 .PHONY: all
@@ -85,11 +85,11 @@ all: $(EXECS)
 %.o:
 	$(CC) $(CFLAGS) -c -o $@ $*.$(EXT)
 
-$(EXECS): $(OBJS)
+$(EXECS): %: %.o $(OBJS)
 	$(CC) $(CFLAGS) -o $@ $^ $(LDLIBS)
 
 clean:
-	rm -f *~ $(OBJS) $(EXECS)
+	rm -f *~ $(OBJS) $(BIN_OBJS) $(EXECS)
 
 
 .PHONY: scrub
@@ -105,8 +105,8 @@ realclean: clean
 
 # Make documentation ...
 .PHONY: docs
-docs: $(SOURCES) $(RELDIR)/Doxygen/Doxyfile
-	cd $(RELDIR)/Doxygen; doxygen
+docs:
+	cd $(RELDIR)/../gh-pages/Doxygen; doxygen
 
 print-%:
 	@echo $* = $($*)

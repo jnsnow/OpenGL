@@ -1,10 +1,24 @@
-#include <vector>
+/**
+   @file terrain.cpp
+   @authors John Huston, Nicholas StPierre, Chris Compton
+   @date 2012-12-06
+   @brief This is a derivative of our main project file, fly.cpp.
+   @details This is a tech demo for terrain generation using an udpated
+   engine derived from fly.cpp, which was mostly based on Ed Angel's code
+   from his book.
+**/
 
-#include <sys/time.h>
+#include "globals.h"
+/* System Headers */
 #include <cmath>
-#include "platform.h" /* Multi-platform support and OpenGL headers */
+#include <cstdio>
+#include <cstdlib>
+/* Multi-platform support and OpenGL headers. */
+#include "platform.h"
+/* Ed Angel's Math Classes */
 #include "vec.hpp"
 #include "mat.hpp"
+/* Utilities and Classes */
 #include "model.hpp"
 #include "Camera.hpp"
 #include "InitShader.hpp"
@@ -12,14 +26,7 @@
 #include "Screen.hpp"
 #include "Object.hpp"
 #include "Timer.hpp"
-
-// Turn on debugging if it's been requested of us by the Makefile environment.
-#ifndef DEBUG
-#define DEBUG false
-#else
-#undef DEBUG
-#define DEBUG true
-#endif
+#include "Scene.hpp"
 
 // Type Aliases
 using Angel::vec3;
@@ -36,11 +43,10 @@ bool usingWii = false;
 #endif
 ////
 
-std::vector<point4> pointVector;
-std::vector<unsigned int> pointIndices;
-
 Screen myScreen( 800, 600 );
+Scene theScene;
 GLuint gShader;
+//<<<<<<< HEAD
 GLenum draw_mode = GL_TRIANGLE_STRIP;
 Object *terrain;
 
@@ -159,6 +165,8 @@ void landGen( std::vector<point4> &vec, std::vector<unsigned int> &drawIndex ) {
 
 // this file and its shaders have NO lighting, for sake of simplicity and debugging for implementing the terrain gen.
 
+// the above comment is not true as of nick's latest tomfoolery.
+
 
 
 void cameraInit( Camera& cam ) {
@@ -173,39 +181,33 @@ void cameraInit( Camera& cam ) {
 
 void init() {
 
-  terrain = new( Object );
-
-  /** Fill points[...] with terrain map **/
-  landGen( pointVector, pointIndices );
-  
-  GLuint vao;
-  glGenVertexArrays( 1, &vao );
-  glBindVertexArray( vao );
-  
-  // Create and initialize a buffer object
-  GLuint buffer;
-  glGenBuffers( 1, &buffer );
-  glBindBuffer( GL_ARRAY_BUFFER, buffer );
-  glBufferData( GL_ARRAY_BUFFER, sizeof(point4) * pointVector.size(),
-		&(pointVector[0]), GL_STATIC_DRAW );
-  
   // Load shaders and use the resulting shader program
   gShader = Angel::InitShader( "vterrain.glsl", "fterrain.glsl" );
-  glUseProgram( gShader );
+  theScene.SetShader( gShader );
 
-  // Initialize the vertex position attribute from the vertex shader  
-  GLuint vPosition = glGetAttribLocation( gShader, "vPosition" );
-  glEnableVertexAttribArray( vPosition );
-  glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0,
-			 (GLvoid*)0 );
 
-  GLuint IBO;
-  glGenBuffers( 1, &IBO );
-  glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, IBO );
-  glBufferData( GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * pointIndices.size(),
-		&(pointIndices[0]), GL_STATIC_DRAW );
+  Object *terrain = theScene.AddObject( "terrain" );
+  Object *pyramid = theScene.AddObject( "pyramid" );
+  Object *cube = pyramid->AddObject( "colorcube" );
 
-  
+  /** Fill points[...] with terrain map **/
+  landGen( terrain, 6, 10.0 );
+  terrain->Buffer();
+  terrain->Mode( GL_TRIANGLE_STRIP );
+
+  Sierpinski_Pyramid( pyramid,
+		      vec4(  0,      1,  0, 1 ),
+		      vec4( -1, -0.999,  1, 1 ),
+		      vec4(  1, -0.999,  1, 1 ),
+		      vec4(  0, -0.999, -1, 1 ),
+		      4 );
+  pyramid->Buffer();
+  pyramid->Mode( GL_LINE_LOOP );
+
+  colorcube( cube, 2.0 );
+  cube->Buffer();
+  cube->Mode( GL_TRIANGLES );
+    
   // Link however many cameras we have at this point to the shader.
   myScreen.camList.LinkAll( gShader, Camera::TRANSLATION, "T" );
   myScreen.camList.LinkAll( gShader, Camera::ROTATION, "R" );
@@ -223,8 +225,7 @@ void init() {
 /** A function that takes no arguments.
     Is responsible for drawing a SINGLE VIEWPORT. **/
 void displayViewport( void ) {  
-  //glDrawArrays( draw_mode, 0, pointVector.size() );
-  glDrawElements( draw_mode, pointIndices.size(), GL_UNSIGNED_INT, 0 );
+  theScene.Draw();
 }
 
 void display( void ) {
@@ -298,8 +299,10 @@ void keyboard( unsigned char key, int x, int y ) {
     cam.Move( Camera::Down );
     break;
     
-  case 'p': // Print Info
-    fprintf( stderr, "POS: (%f,%f,%f)\n", cam.X(), cam.Y(), cam.Z() );
+  case ';': // Print Info
+    fprintf( stderr, "Active Object: %s\n",
+	     theScene.Active()->Name().c_str() );
+    fprintf( stderr, "Camera Position: (%f,%f,%f)\n", cam.X(), cam.Y(), cam.Z() );
     break;
     
     //Perspectives
@@ -320,15 +323,26 @@ void keyboard_ctrl( int key, int x, int y ) {
   case GLUT_KEY_PAGE_DOWN:
     myScreen.camList.Next();
     break;
+   
+  case GLUT_KEY_LEFT:
+    theScene.Prev();
+    break;
+    
+  case GLUT_KEY_RIGHT:
+    theScene.Next();
+    break;
 
   case GLUT_KEY_F1:
-    draw_mode = GL_POINTS;
+    theScene.Active()->Mode( GL_POINTS );
     break;
   case GLUT_KEY_F2:
-    draw_mode = GL_LINE_STRIP;
+    theScene.Active()->Mode( GL_LINE_STRIP );
     break;
   case GLUT_KEY_F3:
-    draw_mode = GL_TRIANGLE_STRIP;
+    theScene.Active()->Mode( GL_TRIANGLE_STRIP );
+    break;
+  case GLUT_KEY_F4:
+    theScene.Active()->Mode( GL_TRIANGLES );
     break;
   }
 }
@@ -380,6 +394,9 @@ void resizeEvent( int width, int height ) {
 
 
 void idle( void ) {
+
+  Tick.Tock();
+  //fprintf( stderr, "Time since last idle: %lu\n", Tick.Delta() );
 
 #ifdef WII
   if (usingWii) {

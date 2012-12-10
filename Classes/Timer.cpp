@@ -2,6 +2,9 @@
 #include <sys/time.h>
 #include "Timer.hpp"
 
+/* Globally provided Timer. */
+Timer Tick;
+
 #define SecToNSec (1000000000)
 #define SecTouSec (1000000)
 #define SecToMSec (1000)
@@ -16,7 +19,24 @@ Timer::Timer( void ) {
   #endif
 }
 
+/**
+   Tick is an alias for Tock.
+   Ha, Ha, Ha.
+   @return An unsigned long corresponding to how much
+   time has passed since the last Tick. Microseconds normally,
+   Nanoseconds if _RT was enabled.
+**/
 unsigned long Timer::Tick( void ) {
+  return this->Tock();
+}
+
+/**
+   Tock returns the time elapsed since the last Tock.
+   @return An unsigned long corresponding to how much time
+   has passed since the last Tock. Microseconds normally,
+   Nanoseconds if _RT was enabled.
+**/
+unsigned long Timer::Tock( void ) {
 #ifdef _RT
   clock_gettime( CLOCK_REALTIME, &_T2 );
   this->delta = (_T2.tv_nsec - _T1.tv_nsec) + (SecToNSec * (_T2.tv_sec - _T1.tv_sec));
@@ -28,6 +48,11 @@ unsigned long Timer::Tick( void ) {
   return delta;
 }
 
+/**
+   Delta returns the time elapsed between the last Tick and the last Tock.
+   Does not start a new timer.
+   @return Time elapsed in Microseconds, or Nanoseconds if _RT was enabled.
+**/
 unsigned long Timer::Delta( void ) const {
   return delta;
 }

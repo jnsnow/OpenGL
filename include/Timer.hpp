@@ -8,6 +8,7 @@ class Timer {
 public:
   Timer();  
   unsigned long Tick();
+  unsigned long Tock();
   unsigned long Delta() const;
 
 private:
@@ -20,5 +21,9 @@ private:
 #endif
   unsigned long delta;
 };
+
+extern Timer Tick;
+#define KeyFrameRate (16667.0)
+// Key Frame is every 1/60th sec, 16.67 ms or 16667 usec
 
 #endif
