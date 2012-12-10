@@ -95,7 +95,6 @@ void init() {
 
   glEnable( GL_DEPTH_TEST );
   glClearColor( 0.06, 0.06, 0.06, 1.0 );
-  //  glClearColor( 0.6, 0.6, 0.6, 1.0 );
   
 }
 

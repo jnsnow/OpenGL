@@ -11,28 +11,10 @@ using namespace Angel;
 typedef Angel::vec4  color4;
 typedef Angel::vec4  point4;
 
-//<<<<<<< HEAD
-/*
-#ifndef __CUBE__ // Globals for Pyramid Model
-const int NumTimesToSubdivide = 4;
-const int NumTetrahedrons = 4*4*4*4;//intPow(4, NumTimesToSubdivide);
-const int NumTriangles = 4*NumTetrahedrons;
-const int NumVertices = 3*NumTriangles+6;
-#endif
-#ifdef __CUBE__ // Globals for Cube Model 
-const int NumVertices = 36;
-#endif
-
-point4 points[NumVertices];
-color4 colors[NumVertices];
-vec3  normals[NumVertices];
-*/
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <vector>
-
-
 using std::vector       ;
 using std::fstream      ;
 using std::ifstream     ;
@@ -42,24 +24,12 @@ using std::ios          ;
 using std::cerr         ;
 using std::endl         ;
 
-
-
-/*
-void createPoint( point4 const &the_point, color4 const &the_color, vec3 const &the_normal ) {
-  static int Index = 0;
-  points[Index]  = the_point ;
-  colors[Index]  = the_color ;
-  normals[Index] = the_normal;//vec3( 0.0, 1.0, 0.0);//the_normal;
-  Index++;
-=======*/
-
 void createPoint( Object *obj, point4 const &the_point, 
 		  color4 const &the_color, vec3 const &the_normal ) {
 
   obj->points.push_back( the_point );
   obj->colors.push_back( the_color );
   obj->normals.push_back( the_normal );
-
 
 }
 
@@ -448,4 +418,3 @@ void landGen( Object *obj, int N, float H ) {
 
   return;
 }
-
