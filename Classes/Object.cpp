@@ -96,7 +96,7 @@ void Object::Buffer( void ) {
 }
 
 void Object::Texture( const char* filename ) {
-
+  /*
   glBindVertexArray( vao );
   GLuint tex2d = SOIL_load_OGL_texture( filename,
 					SOIL_LOAD_AUTO,
@@ -110,7 +110,7 @@ void Object::Texture( const char* filename ) {
   glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
   
   glBindVertexArray( 0 );
- 
+  */
 }
 
 void Object::Draw( void ) {
