@@ -167,7 +167,7 @@ void Object::Texture( const char** filename ) {
   glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
   
   glBindVertexArray( 0 );
- 
+  */
 }
 
 void Object::Draw( void ) {

@@ -7,6 +7,7 @@
 #include "vec.hpp"
 #include "mat.hpp"
 #include "Scene.hpp"
+#include "TransCache.hpp"
 
 class Object : public Scene {
 
@@ -32,6 +33,8 @@ public:
   std::vector<unsigned int> indices;
   std::vector<Angel::vec4> colors;
   std::vector<Angel::vec2> texcoords;
+
+  TransCache trans;
 
 protected:
   std::string name; /* name is used as an identifying handle for the object. */
