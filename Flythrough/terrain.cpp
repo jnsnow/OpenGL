@@ -63,25 +63,16 @@ void cameraInit( Camera& cam ) {
 void init() {
 
   // Load shaders and use the resulting shader program
-  gShader = Angel::InitShader( "vterrain.glsl", "fterrain.glsl" );
+  gShader = Angel::InitShader( "shaders/vterrain.glsl", "shaders/fterrain.glsl" );
   theScene.SetShader( gShader );
-
 
   Object *terrain = theScene.AddObject( "terrain" );
   Object *pyramid = theScene.AddObject( "pyramid" );
   Object *cube = pyramid->AddObject( "colorcube" );
-  GLuint tex2D = SOIL_load_OGL_texture( terrainTex,
-					SOIL_LOAD_AUTO,
-					SOIL_CREATE_NEW_ID,
-					SOIL_FLAG_MIPMAPS );
-  if (tex2D == -1 ) 
-    {
-      fprintf( stderr, "Failed to load texture file." );
-      exit(0);
-    }
 
   /** Fill points[...] with terrain map **/
   landGen( terrain, 6, 10.0 );
+  terrain->Texture( terrainTex );
   terrain->Buffer();
   terrain->Mode( GL_TRIANGLE_STRIP );
 
@@ -96,7 +87,7 @@ void init() {
 
   colorcube( cube, 2.0 );
   cube->Buffer();
-  cube->Mode( GL_TRIANGLES );
+  cube->Mode( GL_LINE_LOOP );
     
   // Link however many cameras we have at this point to the shader.
   myScreen.camList.LinkAll( gShader, Camera::TRANSLATION, "T" );
@@ -105,7 +96,7 @@ void init() {
   myScreen.camList.LinkAll( gShader, Camera::CTM, "CTM" );
 
   glEnable( GL_DEPTH_TEST );
-  glClearColor( 0.06, 0.06, 0.06, 1.0 );
+  glClearColor( 0.7, 0.7, 0.7, 1.0 );
   
 }
 

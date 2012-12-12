@@ -314,17 +314,22 @@ void landGen( Object *obj, int N, float H ) {
       col.push_back( vec4( 0.5, 0.5, 0.5, 1.0 ) );
 
   if (txy.size()) txy.clear();
-  txy.reserver( S*S );
-  for (int z = 0 ; z < S ; ++z)
-    for (int x = 0 ; x < S ; ++x)
-      txy.push_back(vec2((float)x/(float)S, (float)z/(float)S));
+  txy.reserve( S*S );
+  for ( int z = 0; z < S; ++z )
+    for ( int x = 0; x < S; ++x )
+      // Set coordinates so that the texture applied to 
+      // smaller model coords.
+      txy.push_back(vec2( fmod( 100*(float)x/(float)S, 100), 
+			  fmod(100*(float)z/(float)S, 100)));
+  
 
   /* Simulate a 2D array in this 1D array. Use these Macros to help. */
 #define OffsetAt(X,Z) ((X)*S+(Z))
 #define VertexAt(X,Z) (vec.at(OffsetAt(X,Z)))
 #define HeightAt(X,Z) (VertexAt(X,Z).y)
 #define ColorAt(X,Z) (col.at(OffsetAt(X,Z)))
-#define TXYAT(X,Z) (txy.at(OffsetAt(X,Z)))
+#define TXYAt(X,Z) (txy.at(OffsetAt(X,Z)))
+
   // Initialize the corners of the grid
   HeightAt( 0, 0 )     = 0;
   HeightAt( S-1, 0 )   = 0;
@@ -414,9 +419,11 @@ void landGen( Object *obj, int N, float H ) {
     }
   }
 
+  /*
   for ( int i = 0; i < S*S; i++ ) {
     col.push_back(vec4(rand_float(),rand_float(),rand_float(),1.0));
   }
+  */
 
   Tick.Tock();
   if (DEBUG)

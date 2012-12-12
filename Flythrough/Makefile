@@ -43,7 +43,7 @@ LDLIBS = -lGL -lGLU -lGLEW -lglut -lXmu -lX11 -lm
 endif
 
 ifeq ($(UNAME), Darwin)
-LDLIBS = -framework Carbon -framework OpenGL -framework GLUT
+LDLIBS = -framework Carbon -framework OpenGL -framework GLUT -lSOIL
 endif
 
 # Configuration Options

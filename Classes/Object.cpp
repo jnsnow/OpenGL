@@ -3,6 +3,7 @@
 #include "platform.h"
 #include "vec.hpp"
 #include "Object.hpp"
+#include <SOIL.h>
 
 Object::Object( const std::string &name, GLuint gShader ) {
 
@@ -50,9 +51,15 @@ Object::Object( const std::string &name, GLuint gShader ) {
 
   /* Create the Texture Coordinate buffer and link it with the shader. */
   glBindBuffer( GL_ARRAY_BUFFER, buffer[TEXCOORDS] );
-  glsl_uniform = glGetAttribLocation( gShader, "TexXY" );
+  glsl_uniform = glGetAttribLocation( gShader, "vTex" );
   glEnableVertexAttribArray( glsl_uniform );
   glVertexAttribPointer( glsl_uniform, 2, GL_FLOAT, GL_FALSE, 0, 0 );
+
+  fprintf( stderr,
+	   "buffhandles: %u %u %u %u %u\n",
+	   buffer[VERTICES], buffer[NORMALS],
+	   buffer[COLORS], buffer[TEXCOORDS],
+	   buffer[INDICES] );
 
   /* Create the Drawing Order buffer, but we don't need to link it with the shader,
      because we won't be accessing this data directly. (I.e, the numbers here
@@ -83,6 +90,11 @@ void Object::Buffer( void ) {
   glBufferData( GL_ARRAY_BUFFER, sizeof(Angel::vec4) * colors.size(),
 		&(colors[0]), GL_STATIC_DRAW );
 
+  if (texcoords.size() < points.size()) {
+    fprintf( stderr, "Resizing texcoords array prior to buffer.\n" );
+    texcoords.resize( points.size(), Angel::vec2(0,0) );
+  }
+
   glBindBuffer( GL_ARRAY_BUFFER, buffer[TEXCOORDS] );
   glBufferData( GL_ARRAY_BUFFER, sizeof(Angel::vec2) * texcoords.size(),
 		&(texcoords[0]), GL_STATIC_DRAW );
@@ -93,6 +105,35 @@ void Object::Buffer( void ) {
 
   glBindVertexArray( 0 );
 
+}
+
+void Object::Texture( const char* filename ) {
+
+  glBindVertexArray( vao );
+  GLuint tex2d = SOIL_load_OGL_texture( filename,
+					SOIL_LOAD_AUTO,
+					SOIL_CREATE_NEW_ID,
+					SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT );
+
+
+  if (tex2d < 0) {
+    fprintf( stderr, "WARNING: tex2d is bullshit\n" );
+    exit( 255 );
+  }
+
+  GLuint gSampler = glGetUniformLocation( GetShader(), "gSampler" );
+  glUniform1i( gSampler, 0 );
+  
+  glActiveTexture( GL_TEXTURE0 );
+  glBindTexture( GL_TEXTURE_2D, tex2d );
+  glEnable( GL_TEXTURE_2D );
+  glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
+  glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+  glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
+  glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
+  
+  glBindVertexArray( 0 );
+ 
 }
 
 void Object::Draw( void ) {
@@ -106,7 +147,7 @@ void Object::Draw( void ) {
 
   /* Draw all of our children...? */
   Scene::Draw();
-  
+
 }
 
 void Object::Mode( GLenum new_mode ) {
