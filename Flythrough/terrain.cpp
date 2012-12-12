@@ -48,7 +48,11 @@ Scene theScene;
 GLuint gShader;
 
 // Textures
-const char* terrainTex = "../Textures/GrassGreenTexture0006.jpg";
+const char* terrainTex[] = {
+  "../Textures/GrassGreenTexture0006.jpg", // Grass (who'da thunk?)
+  "../Textures/GoodTextures_0013418.jpg",  // Rock
+  "../Textures/GoodTextures_0013291.jpg"   // Snow
+};
 
 void cameraInit( Camera& cam ) {
 
@@ -71,7 +75,7 @@ void init() {
   Object *cube = pyramid->AddObject( "colorcube" );
 
   /** Fill points[...] with terrain map **/
-  landGen( terrain, 6, 10.0 );
+  landGen( terrain, 9, 60.0 );
   terrain->Texture( terrainTex );
   terrain->Buffer();
   terrain->Mode( GL_TRIANGLE_STRIP );
@@ -96,7 +100,7 @@ void init() {
   myScreen.camList.LinkAll( gShader, Camera::CTM, "CTM" );
 
   glEnable( GL_DEPTH_TEST );
-  glClearColor( 0.7, 0.7, 0.7, 1.0 );
+  glClearColor( 0.5, 0.7, 1.0, 1.0 );
   
 }
 

@@ -107,25 +107,59 @@ void Object::Buffer( void ) {
 
 }
 
-void Object::Texture( const char* filename ) {
+void Object::Texture( const char** filename ) {
 
   glBindVertexArray( vao );
-  GLuint tex2d = SOIL_load_OGL_texture( filename,
-					SOIL_LOAD_AUTO,
-					SOIL_CREATE_NEW_ID,
-					SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT );
 
+  GLuint tex2dgrass = SOIL_load_OGL_texture( filename[0],
+					     SOIL_LOAD_AUTO,
+					     SOIL_CREATE_NEW_ID,
+					     SOIL_FLAG_MIPMAPS | 
+					     SOIL_FLAG_INVERT_Y | 
+					     SOIL_FLAG_NTSC_SAFE_RGB | 
+					     SOIL_FLAG_COMPRESS_TO_DXT );
 
-  if (tex2d < 0) {
-    fprintf( stderr, "WARNING: tex2d is bullshit\n" );
-    exit( 255 );
-  }
+  GLuint tex2drock = SOIL_load_OGL_texture( filename[1],
+					    SOIL_LOAD_AUTO,
+					    SOIL_CREATE_NEW_ID,
+					    SOIL_FLAG_MIPMAPS | 
+					    SOIL_FLAG_INVERT_Y | 
+					    SOIL_FLAG_NTSC_SAFE_RGB | 
+					    SOIL_FLAG_COMPRESS_TO_DXT );
 
-  GLuint gSampler = glGetUniformLocation( GetShader(), "gSampler" );
-  glUniform1i( gSampler, 0 );
+  GLuint tex2dsnow = SOIL_load_OGL_texture( filename[2],
+					    SOIL_LOAD_AUTO,
+					    SOIL_CREATE_NEW_ID,
+					    SOIL_FLAG_MIPMAPS | 
+					    SOIL_FLAG_INVERT_Y | 
+					    SOIL_FLAG_NTSC_SAFE_RGB | 
+					    SOIL_FLAG_COMPRESS_TO_DXT );
   
+  GLuint gSampler0 = glGetUniformLocation( GetShader(), "gSampler0" );
+  glUniform1i( gSampler0, 0 );
+  GLuint gSampler1 = glGetUniformLocation( GetShader(), "gSampler1" );
+  glUniform1i( gSampler1, 1 );
+  GLuint gSampler2 = glGetUniformLocation( GetShader(), "gSampler2" );
+  glUniform1i( gSampler2, 2 );
+
   glActiveTexture( GL_TEXTURE0 );
-  glBindTexture( GL_TEXTURE_2D, tex2d );
+  glBindTexture( GL_TEXTURE_2D, tex2dgrass );
+  glEnable( GL_TEXTURE_2D );
+  glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
+  glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+  glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
+  glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
+
+  glActiveTexture( GL_TEXTURE1 );
+  glBindTexture( GL_TEXTURE_2D, tex2drock );
+  glEnable( GL_TEXTURE_2D );
+  glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
+  glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+  glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
+  glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
+
+  glActiveTexture( GL_TEXTURE2 );
+  glBindTexture( GL_TEXTURE_2D, tex2dsnow );
   glEnable( GL_TEXTURE_2D );
   glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
   glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
