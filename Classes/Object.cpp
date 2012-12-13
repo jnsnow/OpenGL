@@ -21,6 +21,8 @@ Object::Object( const std::string &name, GLuint gShader ) {
   // Associate this Object with the Shader.
   SetShader( gShader );
   this->name = name;
+  /* Does this go here? I have no real idea. */
+  glUseProgram( gShader );
 
   // Load 
   Link( Object::IsTextured, "fIsTextured" );
@@ -33,9 +35,6 @@ Object::Object( const std::string &name, GLuint gShader ) {
   glGenVertexArrays( 1, &vao );
   glBindVertexArray( vao );
   GLuint glsl_uniform;
-
-  /* Does this go here? I have no real idea. */
-  glUseProgram( gShader );
 
   /* Create five VBOs: One each for Positions, Colors, Normals, Textures and Draw Order. */
   glGenBuffers( 5, buffer );
