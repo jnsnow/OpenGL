@@ -317,7 +317,11 @@ void landGen( Object *obj, int N, float H ) {
   txy.reserve( S*S );
   for ( int z = 0; z < S; ++z )
     for ( int x = 0; x < S; ++x )
-      txy.push_back(vec2((float)x/(float)S, (float)z/(float)S));
+      // Set coordinates so that the texture applied to 
+      // smaller model coords.
+      txy.push_back(vec2( fmod( 100*(float)x/(float)S, 100), 
+			  fmod(100*(float)z/(float)S, 100)));
+  
 
   /* Simulate a 2D array in this 1D array. Use these Macros to help. */
 #define OffsetAt(X,Z) ((X)*S+(Z))

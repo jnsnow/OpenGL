@@ -47,6 +47,13 @@ Screen myScreen( 800, 600 );
 Scene theScene;
 GLuint gShader;
 
+// Textures
+const char* terrainTex[] = {
+  "../Textures/GrassGreenTexture0006.jpg", // Grass (who'da thunk?)
+  "../Textures/GoodTextures_0013418.jpg",  // Rock
+  "../Textures/GoodTextures_0013291.jpg"   // Snow
+};
+
 
 void cameraInit( Camera& cam ) {
 
@@ -64,13 +71,13 @@ void init() {
   gShader = Angel::InitShader( "shaders/vterrain.glsl", "shaders/fterrain.glsl" );
   theScene.SetShader( gShader );
 
-
   Object *terrain = theScene.AddObject( "terrain" );
   Object *pyramid = theScene.AddObject( "pyramid" );
   Object *cube = pyramid->AddObject( "colorcube" );
 
   /** Fill points[...] with terrain map **/
-  landGen( terrain, 6, 10.0 );
+  landGen( terrain, 9, 60.0 );
+  terrain->Texture( terrainTex );
   terrain->Buffer();
   terrain->Mode( GL_TRIANGLE_STRIP );
 
@@ -85,7 +92,7 @@ void init() {
 
   colorcube( cube, 2.0 );
   cube->Buffer();
-  cube->Mode( GL_TRIANGLES );
+  cube->Mode( GL_LINE_LOOP );
     
   // Link however many cameras we have at this point to the shader.
   myScreen.camList.LinkAll( gShader, Camera::TRANSLATION, "T" );
@@ -94,7 +101,7 @@ void init() {
   myScreen.camList.LinkAll( gShader, Camera::CTM, "CTM" );
 
   glEnable( GL_DEPTH_TEST );
-  glClearColor( 0.06, 0.06, 0.06, 1.0 );
+  glClearColor( 0.5, 0.7, 1.0, 1.0 );
   
 }
 

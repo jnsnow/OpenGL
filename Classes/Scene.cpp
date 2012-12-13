@@ -28,6 +28,10 @@ void Scene::SetShader( GLuint gShader ) {
   this->gShader = gShader;
 }
 
+GLuint Scene::GetShader( void ) {
+  return gShader;
+}
+
 /**
    DeleteObject is the actual implementation function that will
    remove an Object from the Scene list and Scene map,

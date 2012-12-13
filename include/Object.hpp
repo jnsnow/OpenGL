@@ -7,6 +7,7 @@
 #include "vec.hpp"
 #include "mat.hpp"
 #include "Scene.hpp"
+#include "TransCache.hpp"
 
 class Object : public Scene {
 
@@ -23,6 +24,7 @@ public:
   void Draw( void );
   void Buffer( void );
   void Mode( GLenum new_node );
+  void Texture( const char** filename );
   const std::string &Name( void ) const;
 
   /* Bad. Bad! Protect these. ...Later? :( */
@@ -31,6 +33,8 @@ public:
   std::vector<unsigned int> indices;
   std::vector<Angel::vec4> colors;
   std::vector<Angel::vec2> texcoords;
+
+  TransCache trans;
 
 protected:
   std::string name; /* name is used as an identifying handle for the object. */

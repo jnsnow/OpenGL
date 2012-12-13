@@ -17,6 +17,7 @@ class Scene {
   ~Scene( );
 
   void SetShader( GLuint gShader );
+  GLuint GetShader( void );
 
   Object *AddObject( std::string objName );
   void DelObject( std::string objName );
