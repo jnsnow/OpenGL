@@ -40,7 +40,7 @@ void Camera::commonInit( void ) {
   this->speed = 0;
   this->speed_cap = 0;
   this->MaxAccel = 10;
-  this->MaxSpeed = 500;
+  this->MaxSpeed = 2000;
   this->FrictionMagnitude = 2;
   this->aspect = 1;
   this->currView = PERSPECTIVE;
@@ -458,7 +458,11 @@ void Camera::Idle( void ) {
   surge( velocity.z * Scale );
 
   // We can only apply friction if we are moving. 
-  if (speed) {
+  if (speed < FrictionMagnitude) {
+    velocity = vec3(0,0,0);
+    speed = 0;
+    speed_cap = 0;
+  } else if (speed) {
     // Friction is a vector that is the opposite of velocity.
     vec3 frictionVec = -velocity;
     /* By dividing friction by (speed/FrictionMagnitude), 
@@ -467,7 +471,6 @@ void Camera::Idle( void ) {
     velocity += (frictionVec * TimeScale);
     speed = length(velocity);
     speed_cap = speed/MaxSpeed;
-
   }
 }
 

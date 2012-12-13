@@ -9,7 +9,7 @@ uniform sampler2D gSampler2;
 
 void main() 
 {
-    
+
     // Snow!
     if ( fPosition.y > 5.0 ){	
         gl_FragColor = texture2D( gSampler2, outtexture );
@@ -36,6 +36,6 @@ void main()
         gl_FragColor = texture2D( gSampler0, outtexture );  
     }
 
-    //gl_FragColor = color;
+    //    gl_FragColor = color;
 
 }

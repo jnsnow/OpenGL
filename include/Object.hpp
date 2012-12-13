@@ -19,6 +19,14 @@ class Object : public Scene {
     TEXCOORDS };
 
 public:
+
+  typedef enum Uniforms {
+    Begin,
+    IsTextured = Begin,
+    ObjectCTM,
+    End
+  } Uniform;
+
   Object( const std::string &name, GLuint gShader );
   ~Object( void );
   void Draw( void );
@@ -37,10 +45,13 @@ public:
   TransCache trans;
 
 protected:
-  std::string name; /* name is used as an identifying handle for the object. */
-  GLuint vao;  /* Vertex Array Object handle identifying our buffers */
-  GLuint buffer[5]; /* Our buffer handles. */
-  GLenum draw_mode; /* How should we draw? GL_TRIANGLES? GL_LINE_LOOP? etc. */
+  std::string name;     /* name is used as an identifying handle for the object. */
+  GLuint vao;           /* Vertex Array Object handle identifying our buffers */
+  GLuint buffer[5];     /* Our buffer handles. */
+  GLenum draw_mode;     /* How should we draw? GL_TRIANGLES? GL_LINE_LOOP? etc. */
+
+  GLuint octm_handle;   /* Object CTM Handle */
+  GLuint istext_handle; /* "Is Textured?" shader var handle */
 
 };
 

@@ -4,8 +4,12 @@
 #include "vec.hpp"
 #include "Object.hpp"
 #include <SOIL.h>
+#include "globals.h"
 
 Object::Object( const std::string &name, GLuint gShader ) {
+
+  fprintf( stderr, "Uniforms: Begin: %d; IsTextured %d; ObjectCTM %d; End: %d\n",
+	   Begin, IsTextured, ObjectCTM, End );
 
   /* The constructor is going to initialize the VAO and a series of VBOs.
      The VAO is our general handle to this collection of VBOs.
@@ -55,12 +59,13 @@ Object::Object( const std::string &name, GLuint gShader ) {
   glEnableVertexAttribArray( glsl_uniform );
   glVertexAttribPointer( glsl_uniform, 2, GL_FLOAT, GL_FALSE, 0, 0 );
 
-  fprintf( stderr,
-	   "buffhandles: %u %u %u %u %u\n",
-	   buffer[VERTICES], buffer[NORMALS],
-	   buffer[COLORS], buffer[TEXCOORDS],
-	   buffer[INDICES] );
-
+  if (DEBUG) 
+    fprintf( stderr,
+	     "buffhandles: %u %u %u %u %u\n",
+	     buffer[VERTICES], buffer[NORMALS],
+	     buffer[COLORS], buffer[TEXCOORDS],
+	     buffer[INDICES] );
+  
   /* Create the Drawing Order buffer, but we don't need to link it with the shader,
      because we won't be accessing this data directly. (I.e, the numbers here
      are not important once we are in the Vertex Shader. */
@@ -91,7 +96,8 @@ void Object::Buffer( void ) {
 		&(colors[0]), GL_STATIC_DRAW );
 
   if (texcoords.size() < points.size()) {
-    fprintf( stderr, "Resizing texcoords array prior to buffer.\n" );
+    if (DEBUG) 
+      fprintf( stderr, "Resizing texcoords array prior to buffer.\n" );
     texcoords.resize( points.size(), Angel::vec2(0,0) );
   }
 
@@ -167,7 +173,7 @@ void Object::Texture( const char** filename ) {
   glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
   
   glBindVertexArray( 0 );
-  */
+
 }
 
 void Object::Draw( void ) {

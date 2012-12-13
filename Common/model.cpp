@@ -404,6 +404,8 @@ void landGen( Object *obj, int N, float H ) {
   // Convert 2D array into 1D array to pass to shaders
   // Size of 1D array is 2*SIZE^2 - 2SIZE for
   // the sake of proper parsing by glTriangleStrips
+  if (drawIndex.size()) drawIndex.clear();
+  drawIndex.reserve( 2*S*S - 2*S );
   for ( int i = 0, j = 0 ; i + 1 < S ; i++ ) {
     for ( j = 0 ; j < S ; j++ ) {
       drawIndex.push_back(OffsetAt(i,j));

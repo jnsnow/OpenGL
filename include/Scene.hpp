@@ -30,6 +30,8 @@ class Scene {
   
   void Draw( void );
 
+  Object *operator[]( const std::string &objname );
+
  private:
   std::map< std::string, Object* > map;
   std::list< Object* > list;
