@@ -49,6 +49,7 @@ Scene theScene;
 GLuint gShader;
 
 // Textures
+// Obtained from www.goodtextures.com
 const char* terrainTex[] = {
   "../Textures/GrassGreenTexture0002.jpg", // Grass (who'da thunk?)
   "../Textures/GoodTextures_0013418.jpg",  // Rock
