@@ -53,9 +53,6 @@ protected:
   GLenum draw_mode;     /* How should we draw? GL_TRIANGLES? GL_LINE_LOOP? etc. */
 
   GLuint *handles;      /* Handles to the shader, we hope. */
-  GLuint octm_handle;   /* Object CTM Handle */
-  GLuint istext_handle; /* "Is Textured?" shader var handle */
-
 };
 
 #endif

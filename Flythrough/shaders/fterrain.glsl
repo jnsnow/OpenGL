@@ -1,24 +1,23 @@
-varying vec4 color;
 varying vec2 outtexture;
-
 varying vec4 fPosition;
+varying vec4 color;
 
 uniform sampler2D gSampler0;
 uniform sampler2D gSampler1;
 uniform sampler2D gSampler2;
-
+uniform bool fIsTextured;
 
 vec4 textureGradient( sampler2D a, sampler2D b, float upper, float lower )
 {
     float diff = upper - lower ;
     return ((texture2D( a, outtexture) * (fPosition.y - lower)) +
             (texture2D( b, outtexture) * (upper - fPosition.y))) / diff ;
-
 }
 
 void main() 
 {
 
+  if ( fIsTextured ){
     // Snow!
     if ( fPosition.y > 6.0 )
         gl_FragColor = texture2D( gSampler2, outtexture ); 
@@ -39,6 +38,6 @@ void main()
     else if ( fPosition.y <= -2.0 )
         gl_FragColor = texture2D( gSampler0, outtexture );  
 
-    //    gl_FragColor = color;
-
+    } 
+    else gl_FragColor = color;
 }

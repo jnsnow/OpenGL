@@ -9,24 +9,22 @@
 
 Object::Object( const std::string &name, GLuint gShader ) {
 
-  handles = new GLuint [Object::End];
-
-  fprintf( stderr, "Uniforms: Begin: %d; IsTextured %d; ObjectCTM %d; End: %d\n",
-	   Begin, IsTextured, ObjectCTM, End );
-
-  Link( Object::IsTextured, "fIsTextured" );
-  Link( Object::ObjectCTM, "OCTM" );
-
   /* The constructor is going to initialize the VAO and a series of VBOs.
      The VAO is our general handle to this collection of VBOs.
 
      Each VBO contains some component data for how to render the vertex:
      Position, Color, Direction (Normal), Texture and Draw Order. */
     
-  /* Associate this Object with the Shader. */
+  // Create room for our GLUniform handles
+  handles = new GLuint [Object::End];
+
+  // Associate this Object with the Shader.
   SetShader( gShader );
   this->name = name;
-  GLuint glsl_uniform;
+
+  // Load 
+  Link( Object::IsTextured, "fIsTextured" );
+  Link( Object::ObjectCTM, "OCTM" );
 
   /* Initialize our draw mode to GL_LINE_STRIP until informed otherwise. */
   draw_mode = GL_LINE_STRIP;
@@ -34,6 +32,7 @@ Object::Object( const std::string &name, GLuint gShader ) {
   /* Create our VAO, which is our handle to all the rest of the following information. */
   glGenVertexArrays( 1, &vao );
   glBindVertexArray( vao );
+  GLuint glsl_uniform;
 
   /* Does this go here? I have no real idea. */
   glUseProgram( gShader );
@@ -101,21 +100,19 @@ void Object::Buffer( void ) {
   glBufferData( GL_ARRAY_BUFFER, sizeof(Angel::vec4) * colors.size(),
 		&(colors[0]), GL_STATIC_DRAW );
 
+  /*
   if (texcoords.size() < points.size()) {
     if (DEBUG) 
       fprintf( stderr, "Resizing texcoords array prior to buffer.\n" );
     texcoords.resize( points.size(), Angel::vec2(0,0) );
   }
+  */
 
   if (texcoords.size()) {
     glBindBuffer( GL_ARRAY_BUFFER, buffer[TEXCOORDS] );
     glBufferData( GL_ARRAY_BUFFER, sizeof(Angel::vec2) * texcoords.size(),
 		  &(texcoords[0]), GL_STATIC_DRAW );
-    glUniform1i( handles[Object::IsTextured], 1 );
-  } else {
-    glUniform1i( handles[Object::IsTextured], 0 );
   }
-
   
   glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, buffer[INDICES] );
   glBufferData( GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * indices.size(),
@@ -128,8 +125,6 @@ void Object::Buffer( void ) {
 
 void Object::Link( Object::Uniform which, const std::string &name ) {
 
-  fprintf( stderr, "Setting handles[%d] to link with var %s\n",
-	   which, name.c_str() );
   handles[which] = glGetUniformLocation( GetShader(), name.c_str() );
 
 }
@@ -201,13 +196,19 @@ void Object::Texture( const char** filename ) {
 void Object::Draw( void ) {
 
   glBindVertexArray( vao );
+
+  /* Inform the shader if it should texture this object or not. */
+  glUniform1i( handles[Object::IsTextured],
+	       (texcoords.size() > 0) ? 1 : 0 );
+
   if (indices.size() > 0)
     glDrawElements( draw_mode, indices.size(), GL_UNSIGNED_INT, 0 );
   else
     glDrawArrays( draw_mode, 0, points.size() );
   glBindVertexArray(0);
 
-  /* Draw all of our children...? */
+  // Draw all of our Children.
+  // (With clothes on, pervert.)
   Scene::Draw();
 
 }

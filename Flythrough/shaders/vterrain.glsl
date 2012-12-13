@@ -8,11 +8,6 @@ varying vec4 color;
 varying vec4 fPosition;
 varying vec2 outtexture;
 
-// The below samplers are not needed in this shader.. tested and confirmed.
-//uniform sampler2D gSampler0;
-//uniform sampler2D gSampler1;
-//uniform sampler2D gSampler2;
-
 // position/movement
 uniform mat4 P;
 uniform mat4 R;
@@ -26,5 +21,4 @@ void main() {
      color = vColor;
      outtexture = vTex;
      fPosition = vPosition;
-
 }
