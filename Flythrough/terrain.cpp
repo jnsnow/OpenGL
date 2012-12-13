@@ -344,7 +344,7 @@ int main( int argc, char **argv ) {
   glutInitDisplayMode( GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH );
   glutInitWindowSize( myScreen.Width(), myScreen.Height() );
   glutCreateWindow( "Gasket Flythrough" );
-  //glutFullScreen();
+  glutFullScreen();
   glutSetCursor( GLUT_CURSOR_NONE );
 
   GLEW_INIT();

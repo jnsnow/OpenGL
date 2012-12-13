@@ -6,10 +6,16 @@
 #include <SOIL.h>
 #include "globals.h"
 
+
 Object::Object( const std::string &name, GLuint gShader ) {
+
+  handles = new GLuint [Object::End];
 
   fprintf( stderr, "Uniforms: Begin: %d; IsTextured %d; ObjectCTM %d; End: %d\n",
 	   Begin, IsTextured, ObjectCTM, End );
+
+  Link( Object::IsTextured, "fIsTextured" );
+  Link( Object::ObjectCTM, "OCTM" );
 
   /* The constructor is going to initialize the VAO and a series of VBOs.
      The VAO is our general handle to this collection of VBOs.
@@ -101,9 +107,15 @@ void Object::Buffer( void ) {
     texcoords.resize( points.size(), Angel::vec2(0,0) );
   }
 
-  glBindBuffer( GL_ARRAY_BUFFER, buffer[TEXCOORDS] );
-  glBufferData( GL_ARRAY_BUFFER, sizeof(Angel::vec2) * texcoords.size(),
-		&(texcoords[0]), GL_STATIC_DRAW );
+  if (texcoords.size()) {
+    glBindBuffer( GL_ARRAY_BUFFER, buffer[TEXCOORDS] );
+    glBufferData( GL_ARRAY_BUFFER, sizeof(Angel::vec2) * texcoords.size(),
+		  &(texcoords[0]), GL_STATIC_DRAW );
+    glUniform1i( handles[Object::IsTextured], 1 );
+  } else {
+    glUniform1i( handles[Object::IsTextured], 0 );
+  }
+
   
   glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, buffer[INDICES] );
   glBufferData( GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * indices.size(),
@@ -112,6 +124,16 @@ void Object::Buffer( void ) {
   glBindVertexArray( 0 );
 
 }
+
+
+void Object::Link( Object::Uniform which, const std::string &name ) {
+
+  fprintf( stderr, "Setting handles[%d] to link with var %s\n",
+	   which, name.c_str() );
+  handles[which] = glGetUniformLocation( GetShader(), name.c_str() );
+
+}
+
 
 void Object::Texture( const char** filename ) {
 

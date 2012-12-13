@@ -14,7 +14,7 @@ class Scene {
 
  public:
   Scene( );
-  ~Scene( );
+  virtual ~Scene( );
 
   void SetShader( GLuint gShader );
   GLuint GetShader( void );

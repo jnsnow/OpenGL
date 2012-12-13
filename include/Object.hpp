@@ -28,12 +28,14 @@ public:
   } Uniform;
 
   Object( const std::string &name, GLuint gShader );
-  ~Object( void );
+  virtual ~Object( void );
   void Draw( void );
   void Buffer( void );
   void Mode( GLenum new_node );
   void Texture( const char** filename );
   const std::string &Name( void ) const;
+
+  virtual void Link( Object::Uniform which, const std::string &name );
 
   /* Bad. Bad! Protect these. ...Later? :( */
   std::vector<Angel::vec4> points;
@@ -50,6 +52,7 @@ protected:
   GLuint buffer[5];     /* Our buffer handles. */
   GLenum draw_mode;     /* How should we draw? GL_TRIANGLES? GL_LINE_LOOP? etc. */
 
+  GLuint *handles;      /* Handles to the shader, we hope. */
   GLuint octm_handle;   /* Object CTM Handle */
   GLuint istext_handle; /* "Is Textured?" shader var handle */
 
