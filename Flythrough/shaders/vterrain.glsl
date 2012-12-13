@@ -14,6 +14,7 @@ uniform mat4 R;
 uniform mat4 T;
 uniform mat4 CTM; // CTM is either PRT or TRP, depending.
 
+
 void main() {
 
      gl_Position = CTM * vPosition;

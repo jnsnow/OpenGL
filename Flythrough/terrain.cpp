@@ -47,6 +47,7 @@ bool usingWii = false;
 Screen myScreen( 800, 600 );
 Scene theScene;
 GLuint gShader;
+bool fixed_yaw = true;
 
 // Textures
 // Obtained from www.goodtextures.com
@@ -78,7 +79,7 @@ void init() {
   Object *cube = pyramid->AddObject( "colorcube" );
 
   /** Fill points[...] with terrain map **/
-  landGen( terrain, 9, 60.0 );
+  landGen( terrain, 8, 40.0 );
   terrain->Texture( terrainTex );
   terrain->Buffer();
   terrain->Mode( GL_TRIANGLE_STRIP );
@@ -198,6 +199,12 @@ void keyboard( unsigned char key, int x, int y ) {
   case 'c': cam.changePerspective( Camera::ORTHO2D ); break;
   case 'v': cam.changePerspective( Camera::FRUSTUM ); break;
   case 'b': cam.changePerspective( Camera::IDENTITY ); break;
+
+  case 'l':
+    landGen( theScene["terrain"], 8, 40.0 );
+    theScene["terrain"]->Buffer();
+    break;
+
   }
 }
 
@@ -263,7 +270,7 @@ void mouselook( int x, int y ) {
     const double dy = ((double)y - myScreen.MidpointY());
     
     myScreen.camList.Active().pitch( dy );
-    myScreen.camList.Active().yaw( dx, true ); // Fixed Yaw
+    myScreen.camList.Active().yaw( dx, fixed_yaw );
     
     glutWarpPointer( myScreen.MidpointX(), myScreen.MidpointY() );
   }
@@ -302,6 +309,21 @@ void idle( void ) {
 
 
 //--------------------------------------------------------------------
+
+void menufunc( int value ) {
+
+  switch (value) {
+  case 0:
+    landGen( theScene["terrain"], 8, 40.0 );
+    theScene["terrain"]->Buffer();
+    break;
+  case 1:
+    if (fixed_yaw) fixed_yaw = false;
+    else fixed_yaw = true;
+    break;
+  }
+    
+}
 
 int main( int argc, char **argv ) {
 
@@ -347,6 +369,12 @@ int main( int argc, char **argv ) {
     fprintf( stderr, "GL_SHADING_LANGUAGE_VERSION: %s\n", 
 	     glGetString( GL_SHADING_LANGUAGE_VERSION ));
   }
+
+  int menu = glutCreateMenu( menufunc );
+  glutSetMenu( menu );
+  glutAddMenuEntry( "Randomize Terrain", 0 );
+  glutAddMenuEntry( "Toggle Free Rotation", 1 );
+  glutAttachMenu( GLUT_RIGHT_BUTTON );
 
   /* PULL THE TRIGGER */
   glutMainLoop();
