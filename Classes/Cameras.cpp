@@ -47,6 +47,8 @@ void Cameras::delCamera( size_t n ) {
 }
 
 void Cameras::popCamera( void ) {
+  if (camList.size() == 0)
+    return;
   this->camList.pop_back();
   CalculateViewports();
 }
