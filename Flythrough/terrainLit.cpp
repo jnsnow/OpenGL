@@ -157,9 +157,13 @@ void keylift( unsigned char key, int x, int y ) {
 
 // WHAT IS THE SYNTAX FOR MAKING AN ARRAY WITH STUFF IN IT
 
-vec4 lightValues[4]= {
+vec4 lightValues[8]= {
 
   vec4(0.0, 0.0, 0.0, 1.0),
+  vec4(0.1, 0.0, 0.0, 1.0),
+  vec4(0.1, 0.1, 0.0, 1.0),
+  vec4(0.1, 0.2, 0.1, 1.0),
+  vec4(-0.1, -0.1, 0.0, 1.0),
   vec4(0.5,0.5,0.5,1.0),
   vec4(1.0,1.0,1.0,1.0),
   vec4(0.0,0.6,0.1,1.0) };
@@ -181,7 +185,7 @@ void keyboard( unsigned char key, int x, int y ) {
 
   case 't':
 
-    lights.addLightSource(lightValues[i]);
+    lights.addLightSource(LightSource(lightValues[i], color4(1.0,1.0,1.0,1.0)));
     i++;
     break;
 
