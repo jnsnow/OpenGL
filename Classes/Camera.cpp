@@ -604,18 +604,21 @@ void Camera::viewport( size_t _X, size_t _Y,
    @return Void.
 **/
 void Camera::send( const glsl_var &which ) {
-
+  
   switch (which) {
   case TRANSLATION:
-    glUniformMatrix4fv( glsl_handles[which], 1, GL_FALSE, T );
+    if (glsl_handles[which] != -1)
+      glUniformMatrix4fv( glsl_handles[which], 1, GL_FALSE, T );
     send( CTM );
     break;
   case ROTATION:
-    glUniformMatrix4fv( glsl_handles[which], 1, GL_FALSE, R );
+    if (glsl_handles[which] != -1)
+      glUniformMatrix4fv( glsl_handles[which], 1, GL_FALSE, R );
     send( CTM );
     break;
   case VIEW:
-    glUniformMatrix4fv( glsl_handles[which], 1, GL_FALSE, P );
+    if (glsl_handles[which] != -1)
+      glUniformMatrix4fv( glsl_handles[which], 1, GL_FALSE, P );
     send( CTM );
     break;
   case CTM:
@@ -624,7 +627,8 @@ void Camera::send( const glsl_var &which ) {
 #else
     ctm = P*R*T;
 #endif
-    glUniformMatrix4fv( glsl_handles[which], 1, GL_TRUE, ctm );
+    if (glsl_handles[which] != -1)
+      glUniformMatrix4fv( glsl_handles[which], 1, GL_TRUE, ctm );
     break;
   default:
     throw std::invalid_argument( "Unknown GLSL variable handle." );
@@ -642,8 +646,11 @@ void Camera::send( const glsl_var &which ) {
 void Camera::link( const GLuint &program, const glsl_var &which, 
 		   const string &glslVarName ) {
   
+
   glsl_handles[which] = glGetUniformLocation( program, 
 					      glslVarName.c_str() );
+  fprintf( stderr, "Camera: Linking glsl_handles[%d] to %s, got handle %d\n",
+	   which, glslVarName.c_str(), glsl_handles[which] );
   send( which );
 
 }

@@ -197,7 +197,7 @@ private:
   bool Motion[ Camera::End ];
   
   /** Handles for communicating with the shader. **/
-  GLuint glsl_handles[ Camera::NumGlslVars ];
+  GLint glsl_handles[ Camera::NumGlslVars ];
 
 };
 
