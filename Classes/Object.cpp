@@ -100,14 +100,14 @@ void Object::Buffer( void ) {
   glBufferData( GL_ARRAY_BUFFER, sizeof(Angel::vec4) * colors.size(),
 		&(colors[0]), GL_STATIC_DRAW );
 
-  /*
-  if (texcoords.size() < points.size()) {
+  
+  if (texcoords.size() < 1) {
     if (DEBUG) 
-      fprintf( stderr, "Resizing texcoords array prior to buffer.\n" );
-    texcoords.resize( points.size(), Angel::vec2(0,0) );
+      fprintf( stderr, "Resizing texcoords array prior to buffer... because macs?\n" );
+    //texcoords.resize( points.size(), Angel::vec2(0,0) );
+    //texcoords.push_back( Angel::vec2( 0, 0 ) );
   }
-  */
-
+  
   if (texcoords.size()) {
     glBindBuffer( GL_ARRAY_BUFFER, buffer[TEXCOORDS] );
     glBufferData( GL_ARRAY_BUFFER, sizeof(Angel::vec2) * texcoords.size(),
@@ -202,10 +202,18 @@ void Object::Draw( void ) {
   glBindVertexArray( vao );
 
   /* Inform the shader if it should texture this object or not. */
-  glUniform1i( handles[Object::IsTextured],
-	       (texcoords.size() > 0) ? 1 : 0 );
+  //fprintf( stderr, "Drawing for %s, texcoords.size: %d; IsText Handle: %d;",
+  //name.c_str(), texcoords.size(), handles[Object::IsTextured] );
+  if (texcoords.size() == 0) {
+    glUniform1i( handles[Object::IsTextured], 0 );
+    //fprintf( stderr, "Turning textures OFF.\n" );
+  } else {
+    glUniform1i( handles[Object::IsTextured], 1 );
+    //fprintf( stderr, "Turning textures ON.\n" );
+  }
+  // (texcoords.size() > 0) ? 1 : 0 );
 
-  if (indices.size() > 0)
+  if (indices.size() > 1)
     glDrawElements( draw_mode, indices.size(), GL_UNSIGNED_INT, 0 );
   else
     glDrawArrays( draw_mode, 0, points.size() );
