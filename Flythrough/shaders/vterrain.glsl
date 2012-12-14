@@ -12,13 +12,14 @@ varying vec2 outtexture;
 uniform mat4 P;
 uniform mat4 R;
 uniform mat4 T;
-uniform mat4 CTM; // CTM is either PRT or TRP, depending.
-
+uniform mat4 CTM;
+uniform mat4 vObjMat;
 
 void main() {
 
      gl_Position = CTM * vPosition;
      color = vColor;
      outtexture = vTex;
-     fPosition = vPosition;
+     fPosition = vPosition + vObjMat[0][0];
+
 }

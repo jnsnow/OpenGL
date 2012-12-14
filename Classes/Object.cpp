@@ -14,9 +14,10 @@ Object::Object( const std::string &name, GLuint gShader ) {
 
      Each VBO contains some component data for how to render the vertex:
      Position, Color, Direction (Normal), Texture and Draw Order. */
-    
+
+  fprintf( stderr, "Creating %d handles for uniforms\n", Object::End );
   // Create room for our GLUniform handles
-  handles = new GLuint [Object::End];
+  handles = new GLint [Object::End];
 
   // Associate this Object with the Shader.
   SetShader( gShader );
@@ -26,7 +27,7 @@ Object::Object( const std::string &name, GLuint gShader ) {
 
   // Load 
   Link( Object::IsTextured, "fIsTextured" );
-  Link( Object::ObjectCTM, "OCTM" );
+  Link( Object::ObjectCTM, "vObjMat" );
 
   /* Initialize our draw mode to GL_LINE_STRIP until informed otherwise. */
   draw_mode = GL_LINE_STRIP;
@@ -124,7 +125,11 @@ void Object::Buffer( void ) {
 
 void Object::Link( Object::Uniform which, const std::string &name ) {
 
+  fprintf( stderr, "\nLinking handles[%d] to %s\n",
+	   which, name.c_str() );
   handles[which] = glGetUniformLocation( GetShader(), name.c_str() );
+  fprintf( stderr, "handles[%d] now %d.\n",
+	   which, handles[which] );
 
 }
 

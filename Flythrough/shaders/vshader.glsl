@@ -3,6 +3,9 @@ attribute vec4 vPosition;
 attribute vec4 vColor;
 attribute vec3 vNormal;
 
+uniform bool vIsTextured;
+uniform mat4 vObjMat;
+
 // sent to the fshader
 varying vec4 color;
 
@@ -11,6 +14,9 @@ uniform mat4 P;
 uniform mat4 R;
 uniform mat4 T;
 uniform mat4 CTM; // CTM is either PRT or TRP, depending.
+
+
+
 
 
 // color/lighting

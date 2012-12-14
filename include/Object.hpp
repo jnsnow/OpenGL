@@ -52,7 +52,7 @@ protected:
   GLuint buffer[5];     /* Our buffer handles. */
   GLenum draw_mode;     /* How should we draw? GL_TRIANGLES? GL_LINE_LOOP? etc. */
 
-  GLuint *handles;      /* Handles to the shader, we hope. */
+  GLint *handles;      /* Handles to the shader, we hope. */
 };
 
 #endif
