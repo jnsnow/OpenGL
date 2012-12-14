@@ -142,15 +142,15 @@ void cameraInit( Camera& cam ) {
 
   /* Link this camera to our standard shader variables. */
   cam.link( gShader, Camera::TRANSLATION, "T" );
-  cam.link( gShader, Camera::ROTATION, "R" );
-  cam.link( gShader, Camera::VIEW, "P" );
+  cam.link( gShader, Camera::ROTATION, "RMat" );
+  cam.link( gShader, Camera::VIEW, "PMat" );
   cam.link( gShader, Camera::CTM, "CTM" );
 
 }
 
 void init() {
 
-  gShader = Angel::InitShader( "shaders/vshader.glsl", "shaders/fshader.glsl" );
+  gShader = Angel::InitShader( "shaders/vvv.glsl", "shaders/fshader.glsl" );
   theScene.SetShader( gShader );
 
   Object *pyramid = theScene.AddObject( "pyramid" );

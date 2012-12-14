@@ -4,6 +4,8 @@
 #include "vec.hpp"
 #include "Object.hpp"
 #include <SOIL.h>
+#include "globals.h"
+
 
 Object::Object( const std::string &name, GLuint gShader ) {
 
@@ -12,21 +14,32 @@ Object::Object( const std::string &name, GLuint gShader ) {
 
      Each VBO contains some component data for how to render the vertex:
      Position, Color, Direction (Normal), Texture and Draw Order. */
-    
-  /* Associate this Object with the Shader. */
+
+  if (DEBUG)
+    fprintf( stderr, "Creating %d handles for uniforms\n", Object::End );
+
+  // Create room for our GLUniform handles
+  handles = new GLint [Object::End];
+
+  // Associate this Object with the Shader.
   SetShader( gShader );
+  glUseProgram( gShader );
+
+  // Set our name from the constructor...
   this->name = name;
-  GLuint glsl_uniform;
 
   /* Initialize our draw mode to GL_LINE_STRIP until informed otherwise. */
   draw_mode = GL_LINE_STRIP;
 
+  // Load 
+  Link( Object::IsTextured, "fIsTextured" );
+  Link( Object::ObjectCTM, "vObjMat" );
+
+
   /* Create our VAO, which is our handle to all the rest of the following information. */
   glGenVertexArrays( 1, &vao );
   glBindVertexArray( vao );
-
-  /* Does this go here? I have no real idea. */
-  glUseProgram( gShader );
+  GLuint glsl_uniform;
 
   /* Create five VBOs: One each for Positions, Colors, Normals, Textures and Draw Order. */
   glGenBuffers( 5, buffer );
@@ -55,12 +68,13 @@ Object::Object( const std::string &name, GLuint gShader ) {
   glEnableVertexAttribArray( glsl_uniform );
   glVertexAttribPointer( glsl_uniform, 2, GL_FLOAT, GL_FALSE, 0, 0 );
 
-  fprintf( stderr,
-	   "buffhandles: %u %u %u %u %u\n",
-	   buffer[VERTICES], buffer[NORMALS],
-	   buffer[COLORS], buffer[TEXCOORDS],
-	   buffer[INDICES] );
-
+  if (DEBUG) 
+    fprintf( stderr,
+	     "buffhandles: %u %u %u %u %u\n",
+	     buffer[VERTICES], buffer[NORMALS],
+	     buffer[COLORS], buffer[TEXCOORDS],
+	     buffer[INDICES] );
+  
   /* Create the Drawing Order buffer, but we don't need to link it with the shader,
      because we won't be accessing this data directly. (I.e, the numbers here
      are not important once we are in the Vertex Shader. */
@@ -89,15 +103,10 @@ void Object::Buffer( void ) {
   glBindBuffer( GL_ARRAY_BUFFER, buffer[COLORS] );
   glBufferData( GL_ARRAY_BUFFER, sizeof(Angel::vec4) * colors.size(),
 		&(colors[0]), GL_STATIC_DRAW );
-
-  if (texcoords.size() < points.size()) {
-    fprintf( stderr, "Resizing texcoords array prior to buffer.\n" );
-    texcoords.resize( points.size(), Angel::vec2(0,0) );
-  }
-
+  
   glBindBuffer( GL_ARRAY_BUFFER, buffer[TEXCOORDS] );
   glBufferData( GL_ARRAY_BUFFER, sizeof(Angel::vec2) * texcoords.size(),
-		&(texcoords[0]), GL_STATIC_DRAW );
+		(texcoords.size() ? &(texcoords[0]) : NULL), GL_STATIC_DRAW );
   
   glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, buffer[INDICES] );
   glBufferData( GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * indices.size(),
@@ -106,6 +115,18 @@ void Object::Buffer( void ) {
   glBindVertexArray( 0 );
 
 }
+
+
+void Object::Link( Object::Uniform which, const std::string &name ) {
+
+
+  handles[which] = glGetUniformLocation( GetShader(), name.c_str() );
+  if (DEBUG)
+    fprintf( stderr, "\nLinking handles[%d] to %s; got %d.\n",
+	     which, name.c_str(), handles[which] );
+
+}
+
 
 void Object::Texture( const char** filename ) {
 
@@ -173,13 +194,20 @@ void Object::Texture( const char** filename ) {
 void Object::Draw( void ) {
 
   glBindVertexArray( vao );
-  if (indices.size() > 0)
+
+  /* Inform the shader if it should texture this object or not. */
+  glUniform1i( handles[Object::IsTextured],
+	       (texcoords.size() > 0) ? 1 : 0 );
+
+  /* Are we using a draw order? */
+  if (indices.size() > 1)
     glDrawElements( draw_mode, indices.size(), GL_UNSIGNED_INT, 0 );
   else
     glDrawArrays( draw_mode, 0, points.size() );
   glBindVertexArray(0);
 
-  /* Draw all of our children...? */
+  // Draw all of our Children.
+  // (With clothes on, pervert.)
   Scene::Draw();
 
 }
@@ -191,5 +219,7 @@ void Object::Mode( GLenum new_mode ) {
 }
 
 const std::string &Object::Name( void ) const {
+
   return name;
+
 }

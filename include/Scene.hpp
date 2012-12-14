@@ -14,7 +14,7 @@ class Scene {
 
  public:
   Scene( );
-  ~Scene( );
+  virtual ~Scene( );
 
   void SetShader( GLuint gShader );
   GLuint GetShader( void );
@@ -29,6 +29,8 @@ class Scene {
   Object *Active( void );
   
   void Draw( void );
+
+  Object *operator[]( const std::string &objname );
 
  private:
   std::map< std::string, Object* > map;

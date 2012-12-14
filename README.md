@@ -30,6 +30,9 @@ HSC
       For a really great blog post on how to draw a mesh with
       GL_TRIANGLE_STRIPs.
 
+  - Simon Murray:
+      Founder of www.goodtextures.com from which we obtained
+      all of our terrain textures.
 
 - To build the project, pushd Flythrough && make;
   To run, pushd Flythrough && ./fly;

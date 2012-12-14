@@ -8,11 +8,6 @@ varying vec4 color;
 varying vec4 fPosition;
 varying vec2 outtexture;
 
-// The below samplers are not needed in this shader.. tested and confirmed.
-//uniform sampler2D gSampler0;
-//uniform sampler2D gSampler1;
-//uniform sampler2D gSampler2;
-
 // position/movement
 uniform mat4 P;
 uniform mat4 R;
@@ -29,11 +24,21 @@ varying vec3 fragmentNormal;
 varying vec3 lightVector[8];
 
 
+uniform mat4 vObjMat;
+uniform bool fIsTextured;
+
+
 void main() {
 
      gl_Position = CTM * vPosition;
      color = vColor;
-     outtexture = vTex;
+     if (fIsTextured) {
+       outtexture = vTex;
+       //       IsTextured = 1;
+     } else {
+       outtexture = vec2( -1.0, -1.0 );
+       //IsTextured = 0;
+     }
      fPosition = vPosition;
 
      int i;

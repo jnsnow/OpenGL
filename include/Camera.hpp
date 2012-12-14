@@ -5,6 +5,7 @@
 #include <string>
 #include "mat.hpp"
 #include "vec.hpp"
+//#include "Object.hpp"
 
 using Angel::vec2;
 using Angel::vec3;
@@ -27,7 +28,7 @@ using std::string;
    Move(), Stop(), and Idle() are provided to help the camera
    automatically move along the X, Y, or Z axes.
 **/
-class Camera {
+class Camera /*: public Object */ {
 
 public:
 
@@ -196,7 +197,7 @@ private:
   bool Motion[ Camera::End ];
   
   /** Handles for communicating with the shader. **/
-  GLuint glsl_handles[ Camera::NumGlslVars ];
+  GLint glsl_handles[ Camera::NumGlslVars ];
 
 };
 

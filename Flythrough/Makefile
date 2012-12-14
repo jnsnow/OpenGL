@@ -27,6 +27,7 @@ CLASSES_DIR = $(RELDIR)/Classes
 EXT=cpp
 CC=g++
 CFLAGS=-Wall -pedantic -I $(RELDIR)/include
+LDLIBS=-lSOIL
 
 EXECS=fly terrain terrainLit
 #EXEC sources are implied to be $EXEC.cpp !!
@@ -41,11 +42,12 @@ SOURCES=$(addprefix $(COMMON_DIR)/, $(COMMON_SOURCES)) \
 # Platform-dependent configuration.
 UNAME := $(shell uname)
 ifeq ($(UNAME), Linux)
-LDLIBS = -lGL -lGLU -lGLEW -lglut -lXmu -lX11 -lm
+CFLAGS += -I /usr/include/SOIL
+LDLIBS += -lGL -lGLU -lGLEW -lglut -lXmu -lX11 -lm
 endif
 
 ifeq ($(UNAME), Darwin)
-LDLIBS = -framework Carbon -framework OpenGL -framework GLUT -lSOIL
+LDLIBS += -framework Carbon -framework OpenGL -framework GLUT
 endif
 
 # Configuration Options

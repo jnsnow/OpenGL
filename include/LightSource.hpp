@@ -57,10 +57,10 @@ class LightSource
  public:
 
    LightSource();
-   LightSource(point4);
-   LightSource(point4, color4);
-   LightSource(point4, color4, color4, color4);
-   LightSource(point4, vec4, color4, color4, color4);
+   LightSource(const point4&);
+   LightSource(const point4&, const color4&);
+   LightSource(const point4&, const color4&, const color4&, const color4&);
+   LightSource(const point4&, const vec4&, const color4&, const color4&, const color4&);
   //LightSource(point4, vec4, color4, color4, color4, unsigned int);
 
    LightSource(const LightSource& orig);

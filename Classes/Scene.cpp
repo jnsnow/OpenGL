@@ -90,3 +90,7 @@ void Scene::Draw( void ) {
     (*it)->Draw();
   }
 }
+
+Object *Scene::operator[]( std::string const &objname ) {
+  return map[ objname ];
+}

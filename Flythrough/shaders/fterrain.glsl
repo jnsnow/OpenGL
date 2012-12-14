@@ -20,24 +20,25 @@ uniform vec3 LightPositionArray[8];
 uniform vec3 LightDirectionArray[8];
 
 varying vec2 outtexture;
-
 varying vec4 fPosition;
 
 uniform sampler2D gSampler0;
 uniform sampler2D gSampler1;
 uniform sampler2D gSampler2;
 
+uniform bool fIsTextured;
 
 vec4 textureGradient( sampler2D a, sampler2D b, float upper, float lower )
 {
     float diff = upper - lower ;
     return ((texture2D( a, outtexture) * (fPosition.y - lower)) +
             (texture2D( b, outtexture) * (upper - fPosition.y))) / diff ;
-
 }
 
 void main() 
 {
+
+  if (fIsTextured) {
 
     float gradupper1 =   7.0 ;
     float gradlower1 =   4.0 ;
@@ -64,6 +65,13 @@ void main()
     // Grass
     else if ( fPosition.y <= gradlower2 )
         gl_FragColor = texture2D( gSampler0, outtexture );  
+
+    }
+
+    else gl_FragColor = color;
+
+
+
 
 /*
  // else gl_FragColor = color4(0.0, 0.0, 0.0, 1.0) ;
@@ -116,4 +124,5 @@ void main()
      gl_FragColor = gl_FragColor * vec4(clamp(sample.rgb * ( diffuse  ) + specular, 0.0, 1.0), sample.a) ;
      gl_FragColor = gl_FragColor * vec4(clamp(sample.rgb * ( diffuse  ) + specular, 0.0, 1.0), sample.a) ;
 */
+
 }
