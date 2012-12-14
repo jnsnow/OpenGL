@@ -106,7 +106,7 @@ void Object::Buffer( void ) {
   
   glBindBuffer( GL_ARRAY_BUFFER, buffer[TEXCOORDS] );
   glBufferData( GL_ARRAY_BUFFER, sizeof(Angel::vec2) * texcoords.size(),
-		  &(texcoords[0]), GL_STATIC_DRAW );
+		(texcoords.size() ? &(texcoords[0]) : NULL), GL_STATIC_DRAW );
   
   glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, buffer[INDICES] );
   glBufferData( GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * indices.size(),
