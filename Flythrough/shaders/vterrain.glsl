@@ -21,10 +21,12 @@ void main() {
      gl_Position = CTM * vPosition;
      color = vColor;
      if (fIsTextured) {
-     	outtexture = vTex;
+       outtexture = vTex;
+       //       IsTextured = 1;
      } else {
-        outtexture = vec2( -1.0, -1.0 );
-     }    
+       outtexture = vec2( -1.0, -1.0 );
+       //IsTextured = 0;
+     }
      fPosition = vPosition;
 
 }

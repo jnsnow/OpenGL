@@ -15,22 +15,26 @@ Object::Object( const std::string &name, GLuint gShader ) {
      Each VBO contains some component data for how to render the vertex:
      Position, Color, Direction (Normal), Texture and Draw Order. */
 
-  fprintf( stderr, "Creating %d handles for uniforms\n", Object::End );
+  if (DEBUG)
+    fprintf( stderr, "Creating %d handles for uniforms\n", Object::End );
+
   // Create room for our GLUniform handles
   handles = new GLint [Object::End];
 
   // Associate this Object with the Shader.
   SetShader( gShader );
-  this->name = name;
-  /* Does this go here? I have no real idea. */
   glUseProgram( gShader );
+
+  // Set our name from the constructor...
+  this->name = name;
+
+  /* Initialize our draw mode to GL_LINE_STRIP until informed otherwise. */
+  draw_mode = GL_LINE_STRIP;
 
   // Load 
   Link( Object::IsTextured, "fIsTextured" );
   Link( Object::ObjectCTM, "vObjMat" );
 
-  /* Initialize our draw mode to GL_LINE_STRIP until informed otherwise. */
-  draw_mode = GL_LINE_STRIP;
 
   /* Create our VAO, which is our handle to all the rest of the following information. */
   glGenVertexArrays( 1, &vao );
@@ -99,20 +103,10 @@ void Object::Buffer( void ) {
   glBindBuffer( GL_ARRAY_BUFFER, buffer[COLORS] );
   glBufferData( GL_ARRAY_BUFFER, sizeof(Angel::vec4) * colors.size(),
 		&(colors[0]), GL_STATIC_DRAW );
-
   
-  if (texcoords.size() < 1) {
-    if (DEBUG) 
-      fprintf( stderr, "Resizing texcoords array prior to buffer... because macs?\n" );
-    //texcoords.resize( points.size(), Angel::vec2(0,0) );
-    //texcoords.push_back( Angel::vec2( 0, 0 ) );
-  }
-  
-  if (texcoords.size()) {
-    glBindBuffer( GL_ARRAY_BUFFER, buffer[TEXCOORDS] );
-    glBufferData( GL_ARRAY_BUFFER, sizeof(Angel::vec2) * texcoords.size(),
+  glBindBuffer( GL_ARRAY_BUFFER, buffer[TEXCOORDS] );
+  glBufferData( GL_ARRAY_BUFFER, sizeof(Angel::vec2) * texcoords.size(),
 		  &(texcoords[0]), GL_STATIC_DRAW );
-  }
   
   glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, buffer[INDICES] );
   glBufferData( GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * indices.size(),
@@ -125,11 +119,11 @@ void Object::Buffer( void ) {
 
 void Object::Link( Object::Uniform which, const std::string &name ) {
 
-  fprintf( stderr, "\nLinking handles[%d] to %s\n",
-	   which, name.c_str() );
+
   handles[which] = glGetUniformLocation( GetShader(), name.c_str() );
-  fprintf( stderr, "handles[%d] now %d.\n",
-	   which, handles[which] );
+  if (DEBUG)
+    fprintf( stderr, "\nLinking handles[%d] to %s; got %d.\n",
+	     which, name.c_str(), handles[which] );
 
 }
 
@@ -202,17 +196,10 @@ void Object::Draw( void ) {
   glBindVertexArray( vao );
 
   /* Inform the shader if it should texture this object or not. */
-  //fprintf( stderr, "Drawing for %s, texcoords.size: %d; IsText Handle: %d;",
-  //name.c_str(), texcoords.size(), handles[Object::IsTextured] );
-  if (texcoords.size() == 0) {
-    glUniform1i( handles[Object::IsTextured], 0 );
-    //fprintf( stderr, "Turning textures OFF.\n" );
-  } else {
-    glUniform1i( handles[Object::IsTextured], 1 );
-    //fprintf( stderr, "Turning textures ON.\n" );
-  }
-  // (texcoords.size() > 0) ? 1 : 0 );
+  glUniform1i( handles[Object::IsTextured],
+	       (texcoords.size() > 0) ? 1 : 0 );
 
+  /* Are we using a draw order? */
   if (indices.size() > 1)
     glDrawElements( draw_mode, indices.size(), GL_UNSIGNED_INT, 0 );
   else
@@ -232,5 +219,7 @@ void Object::Mode( GLenum new_mode ) {
 }
 
 const std::string &Object::Name( void ) const {
+
   return name;
+
 }

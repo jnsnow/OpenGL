@@ -79,7 +79,7 @@ void init() {
   Object *cube = pyramid->AddObject( "colorcube" );
 
   /** Fill points[...] with terrain map **/
-  landGen( terrain, 8, 40.0 );
+  landGen( terrain, 8, 35.0 );
   terrain->Texture( terrainTex );
   terrain->Buffer();
   terrain->Mode( GL_TRIANGLE_STRIP );
