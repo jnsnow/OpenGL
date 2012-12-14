@@ -13,6 +13,7 @@
 #include <cmath>
 #include <cstdio>
 #include <cstdlib>
+#include <time.h>
 /* Multi-platform support and OpenGL headers. */
 #include "platform.h"
 /* Ed Angel's Math Classes */
@@ -49,7 +50,7 @@ GLuint gShader;
 
 // Textures
 const char* terrainTex[] = {
-  "../Textures/GrassGreenTexture0006.jpg", // Grass (who'da thunk?)
+  "../Textures/GrassGreenTexture0002.jpg", // Grass (who'da thunk?)
   "../Textures/GoodTextures_0013418.jpg",  // Rock
   "../Textures/GoodTextures_0013291.jpg"   // Snow
 };
@@ -67,6 +68,7 @@ void cameraInit( Camera& cam ) {
 
 void init() {
 
+  srand( time(NULL));
   // Load shaders and use the resulting shader program
   gShader = Angel::InitShader( "shaders/vterrain.glsl", "shaders/fterrain.glsl" );
   theScene.SetShader( gShader );

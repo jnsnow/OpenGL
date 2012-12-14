@@ -3,8 +3,6 @@
 // Adadapted from this magnificent web site
 // http://ogldev.atspace.co.uk/www/tutorial20/tutorial20.html
 
-// MAX LIGHTS = 20
-
 // attributes
 attribute vec4 vPosition ;
 attribute vec4 vNormal   ;
@@ -26,17 +24,12 @@ uniform int numLights ;
 uniform vec3 LightPositionArray[8] ;
 
 
-
 void main() {
 
      int i;
 
      for ( i = 0 ; i < numLights && i < 8 ; i ++ ) {
-
-     	 // BWAH BULLET
-	  
 	  lightVector[i] = LightPositionArray[i] - vPosition.xyz ;
-
      }
 
      //fragmentNormal = vNormal ;

@@ -13,6 +13,7 @@
 #include <cmath>
 #include <cstdio>
 #include <cstdlib>
+#include <time.h>
 /* Multi-platform support and OpenGL headers. */
 #include "platform.h"
 /* Ed Angel's Math Classes */
@@ -29,7 +30,6 @@
 #include "Scene.hpp"
 #include "LightSource.hpp"
 #include "Lights.hpp"
-
 
 // Type Aliases
 using Angel::vec3;
@@ -50,8 +50,14 @@ Screen myScreen( 800, 600 );
 Scene theScene;
 GLuint gShader;
 
-Lights lights(false) ;
+Lights lights(false);
 
+// Textures
+const char* terrainTex[] = {
+  "../Textures/GrassGreenTexture0002.jpg", // Grass (who'da thunk?)
+  "../Textures/GoodTextures_0013418.jpg",  // Rock
+  "../Textures/GoodTextures_0013291.jpg"   // Snow
+};
 
 
 void cameraInit( Camera& cam ) {
@@ -66,21 +72,18 @@ void cameraInit( Camera& cam ) {
 
 void init() {
 
+  srand( time(NULL));
   // Load shaders and use the resulting shader program
-  gShader = Angel::InitShader( "shaders/vgenericsimple.glsl", "shaders/fgenericsimple.glsl" );
+  gShader = Angel::InitShader( "shaders/vterrain.glsl", "shaders/fterrain.glsl" );
   theScene.SetShader( gShader );
 
   Object *terrain = theScene.AddObject( "terrain" );
   Object *pyramid = theScene.AddObject( "pyramid" );
   Object *cube = pyramid->AddObject( "colorcube" );
 
-
-  // Super-happy-worry-free Lights initialization
-  lights.init_lights(gShader); // takes a shader thingy and a bool:
-  
-
   /** Fill points[...] with terrain map **/
-  landGen( terrain, 6, 10.0 );
+  landGen( terrain, 9, 60.0 );
+  terrain->Texture( terrainTex );
   terrain->Buffer();
   terrain->Mode( GL_TRIANGLE_STRIP );
 
@@ -95,7 +98,7 @@ void init() {
 
   colorcube( cube, 2.0 );
   cube->Buffer();
-  cube->Mode( GL_TRIANGLES );
+  cube->Mode( GL_LINE_LOOP );
     
   // Link however many cameras we have at this point to the shader.
   myScreen.camList.LinkAll( gShader, Camera::TRANSLATION, "T" );
@@ -103,9 +106,13 @@ void init() {
   myScreen.camList.LinkAll( gShader, Camera::VIEW, "P" );
   myScreen.camList.LinkAll( gShader, Camera::CTM, "CTM" );
 
+
+  // Lighting Initialization!!
+  lights.init_lights(gShader);
+
+
   glEnable( GL_DEPTH_TEST );
-  glClearColor( 0.08, 0.08, 0.08, 1.0 );
-  //  glClearColor( 0.6, 0.6, 0.6, 1.0 );
+  glClearColor( 0.5, 0.7, 1.0, 1.0 );
   
 }
 
@@ -118,9 +125,18 @@ void displayViewport( void ) {
 }
 
 void display( void ) {
+
+
+
   glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
-  // Send our lights to the shader!
+
+  fprintf(stderr, "%f %f %f", myScreen.camList.Active().X(),
+	                      myScreen.camList.Active().Y(),
+	                      myScreen.camList.Active().Z() );
+
+
+  // Tell lights to dump into the pre-defined buffer in the lights object...
   lights.sendAll();
 
   // Tell camList to draw using our displayViewport rendering function.
@@ -154,47 +170,21 @@ void keylift( unsigned char key, int x, int y ) {
   }
 }
 
-
-// WHAT IS THE SYNTAX FOR MAKING AN ARRAY WITH STUFF IN IT
-
-vec4 lightValues[8]= {
-
-  vec4(0.0, 0.0, 0.0, 1.0),
-  vec4(0.1, 0.0, 0.0, 1.0),
-  vec4(0.1, 0.1, 0.0, 1.0),
-  vec4(0.1, 0.2, 0.1, 1.0),
-  vec4(-0.1, -0.1, 0.0, 1.0),
-  vec4(0.5,0.5,0.5,1.0),
-  vec4(1.0,1.0,1.0,1.0),
-  vec4(0.0,0.6,0.1,1.0) };
-
 void keyboard( unsigned char key, int x, int y ) {
+
+
+  // tell nick he is bad 
+  //  static float lightoffset = 0.0;
 
   /* A shorthand variable with local scope that refers to "The Active Camera." */
   Camera &cam = myScreen.camList.Active();
-
-
-  // bad nick
-  static int i = 0;
 
   switch( key ) {
 
   case 033: // Escape Key	  
     exit( EXIT_SUCCESS );
     break;
-
-  case 't':
-
-    lights.addLightSource(LightSource(lightValues[i], color4(1.0,1.0,1.0,1.0)));
-    i++;
-    break;
-
-  case 'y':
-
-    lights.removeLastLightSource();
-    i--;
-    break;
-
+    
   case '+':
     cameraInit(myScreen.camList[myScreen.camList.addCamera()]);
     break;
@@ -219,6 +209,13 @@ void keyboard( unsigned char key, int x, int y ) {
     break;
   case 'e':
     cam.Move( Camera::Down );
+    break;
+  case 't': // add light
+    lights.addLightSource( LightSource( point4(cam.X() /* lightoffset*/, cam.Y(), cam.Z(), 1.0), color4(1.0, 1.0, 1.0, 1.0) ));
+    //    lightoffset+=20.0;
+    break;
+  case 'y': // remove light
+    lights.removeLastLightSource();
     break;
     
   case ';': // Print Info
@@ -329,7 +326,6 @@ void idle( void ) {
   }
 #endif
 
-
   // Move all camera(s).
   myScreen.camList.IdleMotion();
   glutPostRedisplay();
@@ -386,7 +382,6 @@ int main( int argc, char **argv ) {
 
   /* PULL THE TRIGGER */
   glutMainLoop();
-
   return EXIT_SUCCESS;
 
 }
