@@ -397,13 +397,14 @@ void Camera::Accel( const vec3 &raw_accel ) {
   vec3 accel = raw_accel * Scale;
 
   if (DEBUG_MOTION) {
+
     fprintf( stderr,
 	     "Accel(); raw_accel = (%f,%f,%f)\n",
 	     raw_accel.x, raw_accel.y, raw_accel.z );
     fprintf( stderr,
 	     "Accel(); Scale = (MaxAccel/SQRT3) * (1-POW5(speed_cap)) * Tick.Scale()\n" );
     fprintf( stderr,
-	     "Accel(); Scale = (%d/%f) * (%f) * (%f)\n",
+	     "Accel(); Scale = (%f/%f) * (%f) * (%f)\n",
 	     MaxAccel, SQRT3, (1-POW5(speed_cap)), Tick.Scale() );
     fprintf( stderr,
 	     "Accel(); Scale = %f\n", Scale );
@@ -461,27 +462,28 @@ void Camera::Idle( void ) {
   if (Motion[Camera::Up]) Accel(vec3(1,0,0));
   if (Motion[Camera::Down]) Accel(vec3(-1,0,0));
 
-  /* Apply the velocity vectors computed from Accel,
-     which includes instructions from keyboard and the Balance Board. */
-  /* 1/20000 is a magic constant which converts our velocity units
-     into model units. */
-  /* Tick.Delta()/KeyFrameRate helps keep animation speed consistent
-     between different hardware. */
-  float TimeScale = (Tick.Delta()/KeyFrameRate);
-  float UnitScale = (1.0/20000.0);
-  float Scale = TimeScale * UnitScale;
-
-  if (DEBUG_MOTION)
-    fprintf( stderr, "Applying Translation: + (%f,%f,%f)\n",
-	     velocity.x * Scale, velocity.y * Scale,
-	     velocity.z * Scale );
-
-  heave( velocity.x * Scale );
-  sway( velocity.y * Scale );
-  surge( velocity.z * Scale );
-
 
   if (speed) {
+    /* Apply the velocity vectors computed from Accel,
+       which includes instructions from keyboard and the Balance Board. */
+    /* 1/20000 is a magic constant which converts our velocity units
+       into model units. */
+    /* Tick.Delta()/KeyFrameRate helps keep animation speed consistent
+       between different hardware. */
+    float UnitScale = (1.0/20000.0);
+    float Scale = Tick.Scale() * UnitScale;
+    
+    if (DEBUG_MOTION)
+      fprintf( stderr, "Applying Translation: + (%f,%f,%f)\n",
+	       velocity.x * Scale, velocity.y * Scale,
+	       velocity.z * Scale );
+    
+    heave( velocity.x * Scale );
+    sway( velocity.y * Scale );
+    surge( velocity.z * Scale );
+    
+
+    // Friction Calculations
     if (speed < FrictionMagnitude) {
       if (DEBUG_MOTION)
 	fprintf( stderr, "Friction has stopped all movement.\n" );
