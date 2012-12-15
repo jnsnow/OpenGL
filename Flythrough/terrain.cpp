@@ -58,6 +58,7 @@ const char* terrainTex[] = {
 };
 
 
+
 void cameraInit( Camera& cam ) {
 
   /* Link this camera to our standard shader variables. */
@@ -65,6 +66,7 @@ void cameraInit( Camera& cam ) {
   cam.link( gShader, Camera::ROTATION, "R" );
   cam.link( gShader, Camera::VIEW, "P" );
   cam.link( gShader, Camera::CTM, "CTM" );
+
 
 }
 

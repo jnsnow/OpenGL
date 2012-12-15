@@ -7,7 +7,9 @@
 #include "globals.h"
 
 
-Object::Object( const std::string &name, GLuint gShader ) {
+Object::Object( const std::string &name, GLuint gShader )
+  : useTextures(true)
+{
 
   /* The constructor is going to initialize the VAO and a series of VBOs.
      The VAO is our general handle to this collection of VBOs.
@@ -34,6 +36,7 @@ Object::Object( const std::string &name, GLuint gShader ) {
   // Load 
   Link( Object::IsTextured, "fIsTextured" );
   Link( Object::ObjectCTM, "vObjMat" );
+
 
 
   /* Create our VAO, which is our handle to all the rest of the following information. */
@@ -90,6 +93,14 @@ Object::~Object( void ) {
 
 void Object::Buffer( void ) {
 
+
+  // Mac bug workaround.
+  if ( texcoords.size() == 0 ) {
+
+    this -> useTextures = false ;    
+
+  }
+
   glBindVertexArray( vao );
   
   glBindBuffer( GL_ARRAY_BUFFER, buffer[VERTICES] );
@@ -104,13 +115,13 @@ void Object::Buffer( void ) {
   glBufferData( GL_ARRAY_BUFFER, sizeof(Angel::vec4) * colors.size(),
 		&(colors[0]), GL_STATIC_DRAW );
   
-  glBindBuffer( GL_ARRAY_BUFFER, buffer[TEXCOORDS] );
-  glBufferData( GL_ARRAY_BUFFER, sizeof(Angel::vec2) * texcoords.size(),
-		(texcoords.size() ? &(texcoords[0]) : NULL), GL_STATIC_DRAW );
-  
   glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, buffer[INDICES] );
   glBufferData( GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * indices.size(),
 		&(indices[0]), GL_STATIC_DRAW );
+
+  glBindBuffer( GL_ARRAY_BUFFER, buffer[TEXCOORDS] );
+  glBufferData( GL_ARRAY_BUFFER, sizeof(Angel::vec2) * texcoords.size(),
+		(useTextures ? &(texcoords[0]) : NULL), GL_STATIC_DRAW );
 
   glBindVertexArray( 0 );
 
@@ -197,7 +208,8 @@ void Object::Draw( void ) {
 
   /* Inform the shader if it should texture this object or not. */
   glUniform1i( handles[Object::IsTextured],
-	       (texcoords.size() > 0) ? 1 : 0 );
+	       this->useTextures ? 1 : 0 );
+  //	       (texcoords.size() > 0) ? 1 : 0 );
 
   /* Are we using a draw order? */
   if (indices.size() > 1)
@@ -223,3 +235,5 @@ const std::string &Object::Name( void ) const {
   return name;
 
 }
+
+void Object::doNormals

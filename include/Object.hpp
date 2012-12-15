@@ -46,6 +46,7 @@ public:
 
   TransCache trans;
 
+
 protected:
   std::string name;     /* name is used as an identifying handle for the object. */
   GLuint vao;           /* Vertex Array Object handle identifying our buffers */
@@ -53,6 +54,8 @@ protected:
   GLenum draw_mode;     /* How should we draw? GL_TRIANGLES? GL_LINE_LOOP? etc. */
 
   GLint *handles;      /* Handles to the shader, we hope. */
+
+  bool useTextures ;
 };
 
 #endif
