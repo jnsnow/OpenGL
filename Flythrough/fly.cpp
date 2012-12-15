@@ -150,7 +150,7 @@ void cameraInit( Camera& cam ) {
 
 void init() {
 
-  gShader = Angel::InitShader( "shaders/vvv.glsl", "shaders/fshader.glsl" );
+  gShader = Angel::InitShader( "shaders/vshader.glsl", "shaders/fshader.glsl" );
   theScene.SetShader( gShader );
 
   Object *pyramid = theScene.AddObject( "pyramid" );

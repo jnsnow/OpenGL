@@ -79,7 +79,7 @@ void init() {
   Object *cube = pyramid->AddObject( "colorcube" );
 
   /** Fill points[...] with terrain map **/
-  landGen( terrain, 8, 35.0 );
+  landGen( terrain, 8, 40.0 );
   terrain->Texture( terrainTex );
   terrain->Buffer();
   terrain->Mode( GL_TRIANGLE_STRIP );
@@ -289,8 +289,13 @@ void resizeEvent( int width, int height ) {
 
 void idle( void ) {
 
+  static unsigned int frameNo = 0;
+
   Tick.Tock();
   //fprintf( stderr, "Time since last idle: %lu\n", Tick.Delta() );
+
+  theScene[ "pyramid" ]->trans.scale.Adjust( 1.001 );
+  theScene[ "pyramid" ]->trans.CalcCTM();
 
 #ifdef WII
   if (usingWii) {
@@ -314,7 +319,7 @@ void menufunc( int value ) {
 
   switch (value) {
   case 0:
-    landGen( theScene["terrain"], 8, 40.0 );
+    landGen( theScene["terrain"], 12, 40.0 );
     theScene["terrain"]->Buffer();
     break;
   case 1:

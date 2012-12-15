@@ -608,17 +608,17 @@ void Camera::send( const glsl_var &which ) {
   switch (which) {
   case TRANSLATION:
     if (glsl_handles[which] != -1)
-      glUniformMatrix4fv( glsl_handles[which], 1, GL_FALSE, T );
+      glUniformMatrix4fv( glsl_handles[which], 1, GL_TRUE, T );
     send( CTM );
     break;
   case ROTATION:
     if (glsl_handles[which] != -1)
-      glUniformMatrix4fv( glsl_handles[which], 1, GL_FALSE, R );
+      glUniformMatrix4fv( glsl_handles[which], 1, GL_TRUE, R );
     send( CTM );
     break;
   case VIEW:
     if (glsl_handles[which] != -1)
-      glUniformMatrix4fv( glsl_handles[which], 1, GL_FALSE, P );
+      glUniformMatrix4fv( glsl_handles[which], 1, GL_TRUE, P );
     send( CTM );
     break;
   case CTM:
