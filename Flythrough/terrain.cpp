@@ -323,7 +323,8 @@ void animationTest( TransCache &obj ) {
 void idle( void ) {
 
   Tick.Tock();
-  if (0) fprintf( stderr, "Time since last idle: %lu\n", Tick.Delta() );
+  if (DEBUG_MOTION) 
+    fprintf( stderr, "Time since last idle: %lu\n", Tick.Delta() );
 
   // Apply the animation "animationTest" to the "pyramid" object.
   theScene[ "pyramid" ]->Animation( animationTest );

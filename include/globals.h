@@ -16,4 +16,6 @@ const float DivideByZeroTolerance = float(1.0e-07);
 #define DEBUG true
 #endif
 
+#define DEBUG_MOTION (true)
+
 #endif

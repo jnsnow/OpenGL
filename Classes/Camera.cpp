@@ -402,7 +402,9 @@ void Camera::Accel( const vec3 &raw_accel ) {
   //speed and speed_cap must now be recalculated.
   speed_cap = (speed = length(velocity))/MaxSpeed;
 
-  if (0) fprintf( stderr, "Velocity: (%f,%f,%f)\n", velocity.x, velocity.y, velocity.z );
+  if (DEBUG_MOTION) 
+    fprintf( stderr, "Velocity: (%f,%f,%f)\n", 
+	     velocity.x, velocity.y, velocity.z );
 }
 
 
@@ -453,25 +455,41 @@ void Camera::Idle( void ) {
   float UnitScale = (1.0/20000.0);
   float Scale = TimeScale * UnitScale;
 
+  if (DEBUG_MOTION)
+    fprintf( stderr, "Applying Motion: + (%f,%f,%f)\n",
+	     velocity.x * Scale, velocity.y * Scale,
+	     velocity.z * Scale );
+
   heave( velocity.x * Scale );
   sway( velocity.y * Scale );
   surge( velocity.z * Scale );
 
-  // We can only apply friction if we are moving. 
-  if (speed < FrictionMagnitude) {
-    velocity = vec3(0,0,0);
-    speed = 0;
-    speed_cap = 0;
-  } else if (speed) {
-    // Friction is a vector that is the opposite of velocity.
-    vec3 frictionVec = -velocity;
-    /* By dividing friction by (speed/FrictionMagnitude), 
-       we guarantee that the magnitude is FrictionMagnitude. */
-    frictionVec = frictionVec / (speed/FrictionMagnitude);
-    velocity += (frictionVec * TimeScale);
-    speed = length(velocity);
-    speed_cap = speed/MaxSpeed;
+
+  if (speed) {
+    if (speed < FrictionMagnitude) {
+      if (DEBUG_MOTION)
+	fprintf( stderr, "Friction has stopped all movement.\n" );
+      velocity = vec3(0,0,0);
+      speed = 0;
+      speed_cap = 0;
+    } else {
+      // Friction is a vector that is the opposite of velocity.
+      vec3 frictionVec = -velocity;
+      /* By dividing friction by (speed/FrictionMagnitude), 
+	 we guarantee that the magnitude is FrictionMagnitude. */
+      frictionVec = frictionVec / (speed/FrictionMagnitude);
+      frictionVec *= Tick.Scale();
+
+      if (DEBUG_MOTION)
+	fprintf( stderr, "Applying friction: + (%f,%f,%f)\n",
+		 frictionVec.x, frictionVec.y, frictionVec.z );
+      //velocity += (frictionVec * TimeScale);
+      velocity += frictionVec;
+      speed = length(velocity);
+      speed_cap = speed/MaxSpeed;
+    }
   }
+
 }
 
 
