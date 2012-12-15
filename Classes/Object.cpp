@@ -249,3 +249,10 @@ const std::string &Object::Name( void ) const {
   return name;
 
 }
+
+void Object::Animation(void (*anim_func)( TransCache &arg )) {
+
+  anim_func( this->trans );
+  this->trans.CalcCTM();
+
+}

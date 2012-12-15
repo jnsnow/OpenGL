@@ -41,7 +41,7 @@ void Camera::commonInit( void ) {
   this->speed_cap = 0;
   this->MaxAccel = 10;
   this->MaxSpeed = 2000;
-  this->FrictionMagnitude = 2;
+  this->FrictionMagnitude = 4;
   this->aspect = 1;
   this->currView = PERSPECTIVE;
   this->fovy = 45.0;

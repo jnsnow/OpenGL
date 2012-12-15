@@ -10,6 +10,7 @@ public:
   unsigned long Tick();
   unsigned long Tock();
   unsigned long Delta() const;
+  double Scale() const;
 
 private:
 #ifdef _RT
@@ -20,6 +21,7 @@ private:
   struct timeval _T2;
 #endif
   unsigned long delta;
+  double scale;
 };
 
 extern Timer Tick;
