@@ -37,6 +37,13 @@ void Camera::commonInit( void ) {
 	++i) {
     Motion[i] = false;
   }
+
+  for ( size_t i = (size_t)Camera::LastGlslVar;
+	  i != (size_t)LastGlslVar;
+	++i) {
+    glsl_handles[ i ] = -1;
+  }
+
   this->speed = 0;
   this->speed_cap = 0;
   this->MaxAccel = 10;
@@ -482,9 +489,10 @@ void Camera::Idle( void ) {
     sway( velocity.y * Scale );
     surge( velocity.z * Scale );
     
-
+    
+    
     // Friction Calculations
-    if (speed < FrictionMagnitude) {
+    if (speed < (FrictionMagnitude * Tick.Scale())) {
       if (DEBUG_MOTION)
 	fprintf( stderr, "Friction has stopped all movement.\n" );
       velocity = vec3(0,0,0);
@@ -501,7 +509,6 @@ void Camera::Idle( void ) {
       if (DEBUG_MOTION)
 	fprintf( stderr, "Applying friction to Velocity: + (%f,%f,%f)\n",
 		 frictionVec.x, frictionVec.y, frictionVec.z );
-      //velocity += (frictionVec * TimeScale);
       velocity += frictionVec;
       speed = length(velocity);
       speed_cap = speed/MaxSpeed;
@@ -685,9 +692,11 @@ void Camera::link( const GLuint &program, const glsl_var &which,
 
   glsl_handles[which] = glGetUniformLocation( program, 
 					      glslVarName.c_str() );
-  fprintf( stderr, "Camera: Linking glsl_handles[%d] to %s, got handle %d\n",
-	   which, glslVarName.c_str(), glsl_handles[which] );
-  send( which );
+  if (DEBUG)
+    fprintf( stderr, "Camera: Linking glsl_handles[%d] to %s, got handle %d\n",
+	     which, glslVarName.c_str(), glsl_handles[which] );
+  
+  //send( which );
 
 }
 

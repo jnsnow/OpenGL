@@ -291,7 +291,6 @@ void animationTest( TransCache &obj ) {
 
   double timeScale = Tick.Scale();
   double theta = timeScale * 0.1;
-  double multTimeScale = pow( 1.001, timeScale );
   if (0) fprintf( stderr, "Timescale: %f\n", timeScale );
 
   //Object increasingly grows. 

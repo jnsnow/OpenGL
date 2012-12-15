@@ -164,5 +164,3 @@
 
 (define BTAT
   (M* (transpose B) (transpose A)))
-
-(define AB_T
