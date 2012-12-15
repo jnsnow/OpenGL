@@ -91,7 +91,7 @@ void init() {
 		      vec4(  0, -0.999, -1, 1 ),
 		      4 );
   pyramid->Buffer();
-  pyramid->Mode( GL_LINE_LOOP );
+  pyramid->Mode( GL_TRIANGLES );
 
   colorcube( cube, 2.0 );
   cube->Buffer();
@@ -287,6 +287,29 @@ void resizeEvent( int width, int height ) {
 }
 
 
+void animationTest( TransCache &obj ) {
+
+  //Object increasingly grows. 
+  //obj.scale.Adjust( 1.001 );
+
+  //Object rotates in-place.
+  obj.rotation.RotateX( 0.1 );
+  obj.rotation.RotateY( 0.1 );
+  obj.rotation.RotateZ( 0.1 );
+
+  //Object increasingly moves away from origin, x += 0.01
+  obj.offset.Delta( 0.01, 0, 0 );
+
+  //Object orbits about the origin
+  obj.orbit.RotateX( 0.2 );
+  obj.orbit.RotateY( 0.5 );
+  obj.orbit.RotateZ( 0.3 );
+
+  // Object moves its focal orbit-point, x = 5.
+  //obj.displacement.Set( 5, 0, 0 );
+  
+}
+
 void idle( void ) {
 
   static unsigned int frameNo = 0;
@@ -294,8 +317,9 @@ void idle( void ) {
   Tick.Tock();
   //fprintf( stderr, "Time since last idle: %lu\n", Tick.Delta() );
 
-  theScene[ "pyramid" ]->trans.scale.Adjust( 1.001 );
+  animationTest( theScene["pyramid"]->trans );
   theScene[ "pyramid" ]->trans.CalcCTM();
+
 
 #ifdef WII
   if (usingWii) {
