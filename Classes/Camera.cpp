@@ -393,9 +393,25 @@ void Camera::Accel( const vec3 &raw_accel ) {
     This should keep the animation relatively consistent across platforms.
   */
 
-  float Scale = (MaxAccel/SQRT3) * (1-POW5(speed_cap)) * (Tick.Delta() / KeyFrameRate);
+  float Scale = (MaxAccel/SQRT3) * (1-POW5(speed_cap)) * (Tick.Scale());
   vec3 accel = raw_accel * Scale;
 
+  if (DEBUG_MOTION) {
+    fprintf( stderr,
+	     "Accel(); raw_accel = (%f,%f,%f)\n",
+	     raw_accel.x, raw_accel.y, raw_accel.z );
+    fprintf( stderr,
+	     "Accel(); Scale = (MaxAccel/SQRT3) * (1-POW5(speed_cap)) * Tick.Scale()\n" );
+    fprintf( stderr,
+	     "Accel(); Scale = (%d/%f) * (%f) * (%f)\n",
+	     MaxAccel, SQRT3, (1-POW5(speed_cap)), Tick.Scale() );
+    fprintf( stderr,
+	     "Accel(); Scale = %f\n", Scale );
+    fprintf( stderr,
+	     "Accle(); accel = raw_accel * Scale = (%f,%f,%f)\n",
+	     accel.x, accel.y, accel.z );
+  }
+  
   //The acceleration is finally applied to the velocity vector.
   velocity += accel;
 
@@ -403,7 +419,7 @@ void Camera::Accel( const vec3 &raw_accel ) {
   speed_cap = (speed = length(velocity))/MaxSpeed;
 
   if (DEBUG_MOTION) 
-    fprintf( stderr, "Velocity: (%f,%f,%f)\n", 
+    fprintf( stderr, "Applied Acceleration to Velocity, Is now: (%f,%f,%f)\n", 
 	     velocity.x, velocity.y, velocity.z );
 }
 
@@ -456,7 +472,7 @@ void Camera::Idle( void ) {
   float Scale = TimeScale * UnitScale;
 
   if (DEBUG_MOTION)
-    fprintf( stderr, "Applying Motion: + (%f,%f,%f)\n",
+    fprintf( stderr, "Applying Translation: + (%f,%f,%f)\n",
 	     velocity.x * Scale, velocity.y * Scale,
 	     velocity.z * Scale );
 
@@ -481,7 +497,7 @@ void Camera::Idle( void ) {
       frictionVec *= Tick.Scale();
 
       if (DEBUG_MOTION)
-	fprintf( stderr, "Applying friction: + (%f,%f,%f)\n",
+	fprintf( stderr, "Applying friction to Velocity: + (%f,%f,%f)\n",
 		 frictionVec.x, frictionVec.y, frictionVec.z );
       //velocity += (frictionVec * TimeScale);
       velocity += frictionVec;
