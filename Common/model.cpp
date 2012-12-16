@@ -297,14 +297,11 @@ vec3 calcNormal( point4 &a, point4 &b, point4 &c, point4 &d ) {
 
 }
 
-void makeAgua( Object *land_obj  ) {
 
-  Object *agua_obj ;
-  int S ;
+void makeAgua( Object *land_obj, Object *agua_obj ) {
 
-  agua_obj = land_obj->AddObject( "agua" );
-
-  S = sqrt( land_obj->points.size() );
+  // Ensure that the size of agua_obj == land_obj
+  int S = sqrt( land_obj->points.size() );
   
   // Push the vertices
   agua_obj->points.push_back( vec4( -S/2, 0 , S/2, 1) );
@@ -321,8 +318,7 @@ void makeAgua( Object *land_obj  ) {
   agua_obj->colors.push_back( vec4( 0.0, 0.0, 0.8, 0.6 ) );
   agua_obj->colors.push_back( vec4( 0.0, 0.0, 0.8, 0.6 ) );
 
-  agua_obj->Buffer();
-  agua_obj->Mode( GL_TRIANGLES );
+  return;
 }
 
 void landGen( Object *obj, int N, float H ) {

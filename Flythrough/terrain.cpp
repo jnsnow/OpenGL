@@ -98,6 +98,7 @@ void init() {
   Object *pyramid   = theScene.AddObject( "pyramid" ) ;
   Object *cube_base = theScene.AddObject( "basecube" );
   Object *moon_cube = pyramid->AddObject( "moon" )    ;
+  Object *agua      = theScene.AddObject( "agua" )   ;
 
   /** Fill points[...] with terrain map **/
   landGen( terrain, 8, 40.0 );
@@ -105,8 +106,6 @@ void init() {
   terrain->Buffer();
   terrain->Mode( GL_TRIANGLE_STRIP );
 
-  makeAgua( terrain ) ;
-  
   Sierpinski_Pyramid( pyramid,
 		      vec4(  0,      1,  0, 1 ),
 		      vec4( -1, -0.999,  1, 1 ),
@@ -123,6 +122,10 @@ void init() {
   colorcube( moon_cube, 0.5 );
   moon_cube->Buffer();
   moon_cube->Mode( GL_TRIANGLES );
+
+  makeAgua( terrain, agua ) ;
+  agua->Buffer();
+  agua->Mode( GL_TRIANGLES );
     
   // Link however many cameras we have at this point to the shader.
   myScreen.camList.LinkAll( Camera::TRANSLATION, "T" );
