@@ -301,21 +301,30 @@ void resizeEvent( int width, int height ) {
 
 void animationTest( TransCache &obj ) {
 
+  double timeScale = Tick.Scale();
+  double theta = timeScale * 0.1;
+  if (0) fprintf( stderr, "Timescale: %f\n", timeScale );
+
   //Object increasingly grows. 
-  //obj.scale.Adjust( 1.001 );
+  /* Note that, Scaling Adjustment, unlike Rotation and Translation,
+     is a multiplicative adjustment, which means that
+     we can't just multiply by our time scaling factor,
+     we have to take pow( scaleFactor, timeScale ) instead.
+     This is, of course, incredibly inefficient. */
+  obj.scale.Adjust( pow( 1.001, timeScale ) );
 
   //Object rotates in-place.
-  obj.rotation.RotateX( 0.1 );
-  obj.rotation.RotateY( 0.1 );
-  obj.rotation.RotateZ( 0.1 );
+  obj.rotation.RotateX( theta );
+  obj.rotation.RotateY( theta );
+  obj.rotation.RotateZ( theta );
 
   //Object increasingly moves away from origin, x += 0.01
-  obj.offset.Delta( 0.01, 0, 0 );
+  obj.offset.Delta( timeScale * 0.01, 0, 0 );
 
   //Object orbits about the origin
-  obj.orbit.RotateX( 0.2 );
-  obj.orbit.RotateY( 0.5 );
-  obj.orbit.RotateZ( 0.3 );
+  obj.orbit.RotateX( timeScale * 0.2 );
+  obj.orbit.RotateY( timeScale * 0.5 );
+  obj.orbit.RotateZ( timeScale * 0.3 );
 
   // Object moves its focal orbit-point, x = 5.
   //obj.displacement.Set( 5, 0, 0 );
@@ -324,14 +333,13 @@ void animationTest( TransCache &obj ) {
 
 void idle( void ) {
 
-  //static unsigned int frameNo = 0;
 
   Tick.Tock();
-  //fprintf( stderr, "Time since last idle: %lu\n", Tick.Delta() );
+  if (DEBUG_MOTION) 
+    fprintf( stderr, "Time since last idle: %lu\n", Tick.Delta() );
 
-  animationTest( theScene["pyramid"]->trans );
-  theScene[ "pyramid" ]->trans.CalcCTM();
-
+  // Apply the animation "animationTest" to the "pyramid" object.
+  theScene[ "pyramid" ]->Animation( animationTest );
 
 #ifdef WII
   if (usingWii) {

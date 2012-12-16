@@ -36,14 +36,14 @@ public:
   const std::string &Name( void ) const;
   virtual void Link( Object::Uniform which, const std::string &name );
 
+  void Animation(void (*anim_func)( TransCache &arg ));
+
   /* Bad. Bad! Protect these. ...Later? :( */
   std::vector<Angel::vec4> points;
   std::vector<Angel::vec3> normals;
   std::vector<unsigned int> indices;
   std::vector<Angel::vec4> colors;
   std::vector<Angel::vec2> texcoords;
-
-  TransCache trans;
 
 
 protected:
@@ -63,6 +63,9 @@ protected:
   GLint *handles;
 
   bool isTextured;
+
+  /** Transformation State **/
+  TransCache trans;
 
 };
 

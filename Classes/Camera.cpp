@@ -37,11 +37,18 @@ void Camera::commonInit( void ) {
 	++i) {
     Motion[i] = false;
   }
+
+  for ( size_t i = (size_t)Camera::LastGlslVar;
+	  i != (size_t)LastGlslVar;
+	++i) {
+    glsl_handles[ i ] = -1;
+  }
+
   this->speed = 0;
   this->speed_cap = 0;
   this->MaxAccel = 10;
   this->MaxSpeed = 2000;
-  this->FrictionMagnitude = 2;
+  this->FrictionMagnitude = 4;
   this->aspect = 1;
   this->currView = PERSPECTIVE;
   this->fovy = 45.0;
@@ -393,16 +400,35 @@ void Camera::Accel( const vec3 &raw_accel ) {
     This should keep the animation relatively consistent across platforms.
   */
 
-  float Scale = (MaxAccel/SQRT3) * (1-POW5(speed_cap)) * (Tick.Delta() / KeyFrameRate);
+  float Scale = (MaxAccel/SQRT3) * (1-POW5(speed_cap)) * (Tick.Scale());
   vec3 accel = raw_accel * Scale;
 
+  if (DEBUG_MOTION) {
+
+    fprintf( stderr,
+	     "Accel(); raw_accel = (%f,%f,%f)\n",
+	     raw_accel.x, raw_accel.y, raw_accel.z );
+    fprintf( stderr,
+	     "Accel(); Scale = (MaxAccel/SQRT3) * (1-POW5(speed_cap)) * Tick.Scale()\n" );
+    fprintf( stderr,
+	     "Accel(); Scale = (%f/%f) * (%f) * (%f)\n",
+	     MaxAccel, SQRT3, (1-POW5(speed_cap)), Tick.Scale() );
+    fprintf( stderr,
+	     "Accel(); Scale = %f\n", Scale );
+    fprintf( stderr,
+	     "Accle(); accel = raw_accel * Scale = (%f,%f,%f)\n",
+	     accel.x, accel.y, accel.z );
+  }
+  
   //The acceleration is finally applied to the velocity vector.
   velocity += accel;
 
   //speed and speed_cap must now be recalculated.
   speed_cap = (speed = length(velocity))/MaxSpeed;
 
-  if (0) fprintf( stderr, "Velocity: (%f,%f,%f)\n", velocity.x, velocity.y, velocity.z );
+  if (DEBUG_MOTION) 
+    fprintf( stderr, "Applied Acceleration to Velocity, Is now: (%f,%f,%f)\n", 
+	     velocity.x, velocity.y, velocity.z );
 }
 
 
@@ -443,35 +469,52 @@ void Camera::Idle( void ) {
   if (Motion[Camera::Up]) Accel(vec3(1,0,0));
   if (Motion[Camera::Down]) Accel(vec3(-1,0,0));
 
-  /* Apply the velocity vectors computed from Accel,
-     which includes instructions from keyboard and the Balance Board. */
-  /* 1/20000 is a magic constant which converts our velocity units
-     into model units. */
-  /* Tick.Delta()/KeyFrameRate helps keep animation speed consistent
-     between different hardware. */
-  float TimeScale = (Tick.Delta()/KeyFrameRate);
-  float UnitScale = (1.0/20000.0);
-  float Scale = TimeScale * UnitScale;
 
-  heave( velocity.x * Scale );
-  sway( velocity.y * Scale );
-  surge( velocity.z * Scale );
+  if (speed) {
+    /* Apply the velocity vectors computed from Accel,
+       which includes instructions from keyboard and the Balance Board. */
+    /* 1/20000 is a magic constant which converts our velocity units
+       into model units. */
+    /* Tick.Delta()/KeyFrameRate helps keep animation speed consistent
+       between different hardware. */
+    float UnitScale = (1.0/20000.0);
+    float Scale = Tick.Scale() * UnitScale;
+    
+    if (DEBUG_MOTION)
+      fprintf( stderr, "Applying Translation: + (%f,%f,%f)\n",
+	       velocity.x * Scale, velocity.y * Scale,
+	       velocity.z * Scale );
+    
+    heave( velocity.x * Scale );
+    sway( velocity.y * Scale );
+    surge( velocity.z * Scale );
+    
+    
+    
+    // Friction Calculations
+    if (speed < (FrictionMagnitude * Tick.Scale())) {
+      if (DEBUG_MOTION)
+	fprintf( stderr, "Friction has stopped all movement.\n" );
+      velocity = vec3(0,0,0);
+      speed = 0;
+      speed_cap = 0;
+    } else {
+      // Friction is a vector that is the opposite of velocity.
+      vec3 frictionVec = -velocity;
+      /* By dividing friction by (speed/FrictionMagnitude), 
+	 we guarantee that the magnitude is FrictionMagnitude. */
+      frictionVec = frictionVec / (speed/FrictionMagnitude);
+      frictionVec *= Tick.Scale();
 
-  // We can only apply friction if we are moving. 
-  if (speed < FrictionMagnitude) {
-    velocity = vec3(0,0,0);
-    speed = 0;
-    speed_cap = 0;
-  } else if (speed) {
-    // Friction is a vector that is the opposite of velocity.
-    vec3 frictionVec = -velocity;
-    /* By dividing friction by (speed/FrictionMagnitude), 
-       we guarantee that the magnitude is FrictionMagnitude. */
-    frictionVec = frictionVec / (speed/FrictionMagnitude);
-    velocity += (frictionVec * TimeScale);
-    speed = length(velocity);
-    speed_cap = speed/MaxSpeed;
+      if (DEBUG_MOTION)
+	fprintf( stderr, "Applying friction to Velocity: + (%f,%f,%f)\n",
+		 frictionVec.x, frictionVec.y, frictionVec.z );
+      velocity += frictionVec;
+      speed = length(velocity);
+      speed_cap = speed/MaxSpeed;
+    }
   }
+
 }
 
 
@@ -649,9 +692,11 @@ void Camera::link( const GLuint &program, const glsl_var &which,
 
   glsl_handles[which] = glGetUniformLocation( program, 
 					      glslVarName.c_str() );
-  fprintf( stderr, "Camera: Linking glsl_handles[%d] to %s, got handle %d\n",
-	   which, glslVarName.c_str(), glsl_handles[which] );
-  send( which );
+  if (DEBUG)
+    fprintf( stderr, "Camera: Linking glsl_handles[%d] to %s, got handle %d\n",
+	     which, glslVarName.c_str(), glsl_handles[which] );
+  
+  //send( which );
 
 }
 

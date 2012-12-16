@@ -61,7 +61,8 @@ public:
     ROTATION,
     VIEW,
     CTM, /* CTM is either P*R*T or T*R*P, depending */
-    NumGlslVars
+    LastGlslVar, /* One past the end, Iterator style. */
+    FirstGlslVar = TRANSLATION /* Same as the beginning. */
   } glsl_var;
 
   /**
@@ -197,7 +198,7 @@ private:
   bool Motion[ Camera::End ];
   
   /** Handles for communicating with the shader. **/
-  GLint glsl_handles[ Camera::NumGlslVars ];
+  GLint glsl_handles[ Camera::LastGlslVar ];
 
 };
 
