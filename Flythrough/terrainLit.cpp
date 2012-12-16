@@ -1,11 +1,12 @@
 /**
-   @file terrain.cpp
+   @file terrainLit.cpp
    @authors John Huston, Nicholas StPierre, Chris Compton
    @date 2012-12-06
-   @brief This is a derivative of our main project file, fly.cpp.
+   @brief This is a derivative of our main project file, terrain.cpp.
    @details This is a tech demo for terrain generation using an udpated
    engine derived from fly.cpp, which was mostly based on Ed Angel's code
-   from his book.
+   from his book. There is lighting.
+
 **/
 
 #include "globals.h"
@@ -49,7 +50,6 @@ bool usingWii = false;
 Screen myScreen( 800, 600 );
 Scene theScene;
 GLuint gShader;
-
 Lights lights(false);
 
 // Textures
@@ -99,7 +99,7 @@ void init() {
   colorcube( cube, 2.0 );
   cube->Buffer();
   cube->Mode( GL_LINE_LOOP );
-    
+
   // Link however many cameras we have at this point to the shader.
   myScreen.camList.LinkAll( gShader, Camera::TRANSLATION, "T" );
   myScreen.camList.LinkAll( gShader, Camera::ROTATION, "R" );
@@ -125,7 +125,6 @@ void displayViewport( void ) {
 }
 
 void display( void ) {
-
 
 
   glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
@@ -339,7 +338,7 @@ int main( int argc, char **argv ) {
 
 #ifdef WII
   if (!(usingWii = initWii( Wii ))) {
-    std::cerr << "Not using Wii controls for this runthrough.\n";
+    std::cerr << "Not using Wii controls for this runthrough.\n";/
   }
 #endif
 

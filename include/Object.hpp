@@ -34,7 +34,6 @@ public:
   void Mode( GLenum new_node );
   void Texture( const char** filename );
   const std::string &Name( void ) const;
-
   virtual void Link( Object::Uniform which, const std::string &name );
 
   /* Bad. Bad! Protect these. ...Later? :( */
@@ -48,14 +47,23 @@ public:
 
 
 protected:
-  std::string name;     /* name is used as an identifying handle for the object. */
-  GLuint vao;           /* Vertex Array Object handle identifying our buffers */
-  GLuint buffer[5];     /* Our buffer handles. */
-  GLenum draw_mode;     /* How should we draw? GL_TRIANGLES? GL_LINE_LOOP? etc. */
+  /** name is used as an identifying handle for the object. **/
+  std::string name;     
 
-  GLint *handles;      /* Handles to the shader, we hope. */
+  /** Vertex Array Object handle identifying our buffers/object. **/
+  GLuint vao;
 
-  bool useTextures ;
+  /** Handles to our five buffers **/
+  GLuint buffer[5];
+  
+  /** Drawing mode for this object. GL_TRIANGLES, GL_LINE_LOOP, etc. **/
+  GLenum draw_mode;
+
+  /** Handles to Uniforms on the shader. **/
+  GLint *handles;
+
+  bool isTextured;
+
 };
 
 #endif

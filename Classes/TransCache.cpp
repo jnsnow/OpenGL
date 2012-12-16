@@ -10,7 +10,7 @@ void TransCache::PTM( const Angel::mat4 &new_ptm ) {
   this->ptm = new_ptm;
 
   /* Update our Result Matrix. */
-  crtm = ctm * ptm;
+  otm = ctm * ptm;
 }
 
 void TransCache::CalcCTM( void ) {
@@ -19,9 +19,16 @@ void TransCache::CalcCTM( void ) {
   ctm = displacement * orbit * offset * rotation * scale;
 
   /* Recompute our Cached Result Transformation Matrix */
-  crtm = ctm * ptm;
+  otm = ctm * ptm;
+
+  /*
+  fprintf( stderr, "CalcCTM: \n" );
+  std::cerr << "OTM {" << otm << "}\n";
+  std::cerr << "CTM {" << ctm << "}\n";
+  std::cerr << "PTM {" << ptm << "}\n";
+  */
 }
 
 const Angel::mat4 &TransCache::PTM( void ) const { return ptm; }
 const Angel::mat4 &TransCache::CTM( void ) const { return ctm; }
-const Angel::mat4 &TransCache::CRTM( void ) const { return crtm; }
+const Angel::mat4 &TransCache::OTM( void ) const { return otm; }

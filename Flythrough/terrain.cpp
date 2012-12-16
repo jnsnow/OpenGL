@@ -29,6 +29,8 @@
 #include "Timer.hpp"
 #include "Scene.hpp"
 
+#include "OpenGL.h"
+
 // Type Aliases
 using Angel::vec3;
 using Angel::vec4;
@@ -73,16 +75,24 @@ void cameraInit( Camera& cam ) {
 void init() {
 
   srand( time(NULL));
+
   // Load shaders and use the resulting shader program
+
+  // Trying to use a GSHADER!
+  // The arguments are V -> G -> F shader, the same order in which they are invoked inside the pipeline.
+  // If this causes problems, we can fallback by between the following two lines of code:  
+  //gShader = Angel::InitShader( "shaders/vterrain.glsl", "shaders/gterrain.glsl", "shaders/fterrain.glsl");
+
   gShader = Angel::InitShader( "shaders/vterrain.glsl", "shaders/fterrain.glsl" );
+
   theScene.SetShader( gShader );
 
   Object *terrain = theScene.AddObject( "terrain" );
   Object *pyramid = theScene.AddObject( "pyramid" );
-  Object *cube = pyramid->AddObject( "colorcube" );
+  Object *cube    = pyramid->AddObject( "colorcube" );
 
   /** Fill points[...] with terrain map **/
-  landGen( terrain, 8, 35.0 );
+  landGen( terrain, 8, 40.0 );
   terrain->Texture( terrainTex );
   terrain->Buffer();
   terrain->Mode( GL_TRIANGLE_STRIP );
@@ -94,7 +104,7 @@ void init() {
 		      vec4(  0, -0.999, -1, 1 ),
 		      4 );
   pyramid->Buffer();
-  pyramid->Mode( GL_LINE_LOOP );
+  pyramid->Mode( GL_TRIANGLES );
 
   colorcube( cube, 2.0 );
   cube->Buffer();
@@ -107,8 +117,7 @@ void init() {
   myScreen.camList.LinkAll( gShader, Camera::CTM, "CTM" );
 
   glEnable( GL_DEPTH_TEST );
-  glClearColor( 0.5, 0.7, 1.0, 1.0 );
-  
+  glClearColor( 0.4, 0.6, 1.0, 1.0 );
 }
 
 //--------------------------------------------------------------------
@@ -290,10 +299,39 @@ void resizeEvent( int width, int height ) {
 }
 
 
+void animationTest( TransCache &obj ) {
+
+  //Object increasingly grows. 
+  //obj.scale.Adjust( 1.001 );
+
+  //Object rotates in-place.
+  obj.rotation.RotateX( 0.1 );
+  obj.rotation.RotateY( 0.1 );
+  obj.rotation.RotateZ( 0.1 );
+
+  //Object increasingly moves away from origin, x += 0.01
+  obj.offset.Delta( 0.01, 0, 0 );
+
+  //Object orbits about the origin
+  obj.orbit.RotateX( 0.2 );
+  obj.orbit.RotateY( 0.5 );
+  obj.orbit.RotateZ( 0.3 );
+
+  // Object moves its focal orbit-point, x = 5.
+  //obj.displacement.Set( 5, 0, 0 );
+  
+}
+
 void idle( void ) {
+
+  //static unsigned int frameNo = 0;
 
   Tick.Tock();
   //fprintf( stderr, "Time since last idle: %lu\n", Tick.Delta() );
+
+  animationTest( theScene["pyramid"]->trans );
+  theScene[ "pyramid" ]->trans.CalcCTM();
+
 
 #ifdef WII
   if (usingWii) {
@@ -317,7 +355,7 @@ void menufunc( int value ) {
 
   switch (value) {
   case 0:
-    landGen( theScene["terrain"], 8, 40.0 );
+    landGen( theScene["terrain"], 12, 40.0 );
     theScene["terrain"]->Buffer();
     break;
   case 1:

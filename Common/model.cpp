@@ -1,6 +1,10 @@
-/* oh god please no */
-/* no               */
-/* nooooooooooo     */
+/*
+
+  model.cpp
+
+  code to generate/load models
+
+ */
 
 #include "globals.h"
 #include "Object.hpp"
@@ -281,12 +285,25 @@ double jitter( double H ) {
   return (-H) + rand() * (H - (-H)) / RAND_MAX;
 }
 
+vec3 calcNormal( point4 &a, point4 &b, point4 &c ) {
+
+  return cross( c-b, b-a ) ;
+
+}
+
+vec3 calcNormal( point4 &a, point4 &b, point4 &c, point4 &d ) {
+
+  return cross( c-b, b-a ) ;
+
+}
+
 void landGen( Object *obj, int N, float H ) {
 
   Timer Tick;
   const int S = pow(2,N) + 1;
   std::vector< point4 > &vec = obj->points;
   std::vector< point4 > &col = obj->colors;
+  std::vector< vec3 > &nor = obj->normals;
   std::vector< unsigned int > &drawIndex = obj->indices;
   std::vector< Angel::vec2 > &txy = obj->texcoords;
 
@@ -330,6 +347,7 @@ void landGen( Object *obj, int N, float H ) {
 #define HeightAt(X,Z) (VertexAt(X,Z).y)
 #define ColorAt(X,Z) (col.at(OffsetAt(X,Z)))
 #define TXYAt(X,Z) (txy.at(OffsetAt(X,Z)))
+#define NormalAt(X,Z) (nor.at(OffsetAt(X,Z)))
 
   // Initialize the corners of the grid
   HeightAt( 0, 0 )     = 0;
@@ -350,23 +368,23 @@ void landGen( Object *obj, int N, float H ) {
 	double avg =						\
 	  (HeightAt( x, z ) + HeightAt( x + sideLength, z ) +
 	   HeightAt( x, z + sideLength ) + HeightAt( x + sideLength, z + sideLength ))/4.0;
-	
+
 	vec4 color_avg =				\
 	  (ColorAt(x,z) + ColorAt(x+sideLength,z) +
 	   ColorAt(x,z+sideLength) + ColorAt(x+sideLength,z+sideLength))/4.0;
 	vec4 color_jitter = vec4( jitter(CH), jitter(CH), jitter(CH), 0 );
-	
+
 	HeightAt( x + halfSide, z + halfSide ) = avg + jitter(H);
 	ColorAt( x + halfSide, z + halfSide ) = color_avg + color_jitter;
       } // for z
     } // for x
-   
+
     // Generate the diamond values
     // Since diamonds are staggered, we only move x by half side
     // NOTE: If the data shouldn't wrap the x < SIZE and y < SIZE
     for ( int x = 0 ; x < S-1 ; x += halfSide ) {
       for (int z = ( x+halfSide ) % sideLength ; z < S-1 ; z += sideLength ) {
- 
+
         // x,z is center of diamond
         // We must use mod and add SIZE for subtraction
         // so that we can wrap around the array to find the corners
@@ -383,7 +401,7 @@ void landGen( Object *obj, int N, float H ) {
 	   ColorAt( x, z + halfSide % S ) +
 	   ColorAt( x, (z - halfSide + S) % S )) / 4.0;
 	vec4 color_jitter = vec4( jitter(CH), jitter(CH), jitter(CH), 0 );
- 
+
 	HeightAt( x, z ) = avg + jitter(H);
 	ColorAt( x, z ) = color_avg + color_jitter;
 

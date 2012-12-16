@@ -6,9 +6,9 @@
 #include <SOIL.h>
 #include "globals.h"
 
+#include "Timer.hpp"
 
 Object::Object( const std::string &name, GLuint gShader )
-  : useTextures(true)
 {
 
   /* The constructor is going to initialize the VAO and a series of VBOs.
@@ -35,16 +35,21 @@ Object::Object( const std::string &name, GLuint gShader )
 
   // Load 
   Link( Object::IsTextured, "fIsTextured" );
-  Link( Object::ObjectCTM, "vObjMat" );
+  Link( Object::ObjectCTM, "OTM" );
+
+  //Default to "Not Textured"
+  this->isTextured = false;
 
 
+  /* Create our VAO, which is our handle to all 
+     the rest of the following information. */
 
-  /* Create our VAO, which is our handle to all the rest of the following information. */
   glGenVertexArrays( 1, &vao );
   glBindVertexArray( vao );
   GLuint glsl_uniform;
 
-  /* Create five VBOs: One each for Positions, Colors, Normals, Textures and Draw Order. */
+  /* Create five VBOs: One each for Positions, Colors, Normals, 
+     Textures and Draw Order. */
   glGenBuffers( 5, buffer );
 
   /* Create the Vertex buffer and link it with the shader. */
@@ -78,7 +83,8 @@ Object::Object( const std::string &name, GLuint gShader )
 	     buffer[COLORS], buffer[TEXCOORDS],
 	     buffer[INDICES] );
   
-  /* Create the Drawing Order buffer, but we don't need to link it with the shader,
+  /* Create the Drawing Order buffer, but we don't need to link it 
+     with any uniform,
      because we won't be accessing this data directly. (I.e, the numbers here
      are not important once we are in the Vertex Shader. */
   glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, buffer[INDICES] );
@@ -94,13 +100,6 @@ Object::~Object( void ) {
 void Object::Buffer( void ) {
 
 
-  // Mac bug workaround.
-  if ( texcoords.size() == 0 ) {
-
-    this -> useTextures = false ;    
-
-  }
-
   glBindVertexArray( vao );
   
   glBindBuffer( GL_ARRAY_BUFFER, buffer[VERTICES] );
@@ -115,14 +114,31 @@ void Object::Buffer( void ) {
   glBufferData( GL_ARRAY_BUFFER, sizeof(Angel::vec4) * colors.size(),
 		&(colors[0]), GL_STATIC_DRAW );
   
-  glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, buffer[INDICES] );
-  glBufferData( GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * indices.size(),
-		&(indices[0]), GL_STATIC_DRAW );
+
+  /* Without the following workaround code,
+     Mac OSX will segfault attempting to access
+     the texcoordinate buffers on nontextured objects. */
+  if (texcoords.size() == 0 && isTextured == false) {
+    texcoords.push_back(Angel::vec2( -1, -1 ));
+  } else if (texcoords.size() > 1) {
+    /* Yes, this workaround prevents us from having
+       textured objects with only one point.
+       Oops. */
+    isTextured = true;
+  }
 
   glBindBuffer( GL_ARRAY_BUFFER, buffer[TEXCOORDS] );
   glBufferData( GL_ARRAY_BUFFER, sizeof(Angel::vec2) * texcoords.size(),
+		(texcoords.size() ? &(texcoords[0]) : NULL), GL_STATIC_DRAW );
+  
+  glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, buffer[INDICES] );
+  glBufferData( GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * indices.size(),
+		&(indices[0]), GL_STATIC_DRAW );
+  /*
+  glBindBuffer( GL_ARRAY_BUFFER, buffer[TEXCOORDS] );
+  glBufferData( GL_ARRAY_BUFFER, sizeof(Angel::vec2) * texcoords.size(),
 		(useTextures ? &(texcoords[0]) : NULL), GL_STATIC_DRAW );
-
+  */
   glBindVertexArray( 0 );
 
 }
@@ -140,6 +156,8 @@ void Object::Link( Object::Uniform which, const std::string &name ) {
 
 
 void Object::Texture( const char** filename ) {
+
+  Tick.Tock();
 
   glBindVertexArray( vao );
 
@@ -200,6 +218,9 @@ void Object::Texture( const char** filename ) {
   
   glBindVertexArray( 0 );
 
+  Tick.Tock();
+  fprintf( stderr, "took %lu usec to load textures.\n", Tick.Delta() );
+
 }
 
 void Object::Draw( void ) {
@@ -208,8 +229,11 @@ void Object::Draw( void ) {
 
   /* Inform the shader if it should texture this object or not. */
   glUniform1i( handles[Object::IsTextured],
-	       this->useTextures ? 1 : 0 );
-  //	       (texcoords.size() > 0) ? 1 : 0 );
+	       (isTextured) ? 1 : 0 );
+
+  glUniformMatrix4fv( handles[Object::ObjectCTM], 1, GL_TRUE, 
+		      this->trans.OTM() );
+
 
   /* Are we using a draw order? */
   if (indices.size() > 1)
@@ -235,5 +259,3 @@ const std::string &Object::Name( void ) const {
   return name;
 
 }
-
-void Object::doNormals

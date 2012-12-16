@@ -3,6 +3,8 @@
 
 namespace Angel {
   GLuint InitShader(const char* vShaderFile, const char* fShaderFile);
+
+  GLuint InitShader(const char* vShaderFile, const char* gShaderFile, const char* fShaderFile);
 }
 
 #endif
