@@ -67,6 +67,8 @@ Object::Object( const std::string &name, GLuint gShader )
 
   /* Create the Color buffer and link it with the shader. */
   glBindBuffer( GL_ARRAY_BUFFER, buffer[COLORS] );
+  glEnable( GL_BLEND );
+  glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
   glsl_uniform = glGetAttribLocation( gShader, "vColor" );
   glEnableVertexAttribArray( glsl_uniform );
   glVertexAttribPointer( glsl_uniform, 4, GL_FLOAT, GL_FALSE, 0, 0 );

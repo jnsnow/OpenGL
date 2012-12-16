@@ -314,12 +314,12 @@ void makeAgua( Object *land_obj  ) {
   agua_obj->points.push_back( vec4( -S/2, 0 ,-S/2, 1) );
   agua_obj->points.push_back( vec4(  S/2, 0 ,-S/2, 1) );
 
-  agua_obj->colors.push_back( vec4( 0.0, 0.0, 0.8, 0.3 ) );
-  agua_obj->colors.push_back( vec4( 0.0, 0.0, 0.8, 0.3 ) );
-  agua_obj->colors.push_back( vec4( 0.0, 0.0, 0.8, 0.3 ) );
-  agua_obj->colors.push_back( vec4( 0.0, 0.0, 0.8, 0.3 ) );
-  agua_obj->colors.push_back( vec4( 0.0, 0.0, 0.8, 0.3 ) );
-  agua_obj->colors.push_back( vec4( 0.0, 0.0, 0.8, 0.3 ) );
+  agua_obj->colors.push_back( vec4( 0.0, 0.0, 0.8, 0.6 ) );
+  agua_obj->colors.push_back( vec4( 0.0, 0.0, 0.8, 0.6 ) );
+  agua_obj->colors.push_back( vec4( 0.0, 0.0, 0.8, 0.6 ) );
+  agua_obj->colors.push_back( vec4( 0.0, 0.0, 0.8, 0.6 ) );
+  agua_obj->colors.push_back( vec4( 0.0, 0.0, 0.8, 0.6 ) );
+  agua_obj->colors.push_back( vec4( 0.0, 0.0, 0.8, 0.6 ) );
 
   agua_obj->Buffer();
   agua_obj->Mode( GL_TRIANGLES );
