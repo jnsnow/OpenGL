@@ -45,6 +45,9 @@ public:
   std::vector<Angel::vec4> colors;
   std::vector<Angel::vec2> texcoords;
 
+  /** Transformation State **/
+  TransCache trans;
+
 protected:
   /** name is used as an identifying handle for the object. **/
   std::string name;     
@@ -65,8 +68,6 @@ protected:
       This is a workaround for Mac OSX. **/
   bool isTextured;
 
-  /** Transformation State **/
-  TransCache trans;
 };
 
 #endif

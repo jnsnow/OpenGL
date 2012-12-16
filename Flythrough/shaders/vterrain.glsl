@@ -18,9 +18,10 @@ uniform bool fIsTextured;
 
 void main() {
 
-     //gl_Position = OTM * CTM * vPosition;
-     //gl_Position = P * OTM * R * T * vPosition;
-     gl_Position = P * R * T * OTM * vPosition;
+     // P * R * T
+     //gl_Position = CTM * OTM * vPosition;
+     gl_Position = CTM * OTM * vPosition;
+
      color = vColor;
      if (fIsTextured) outtexture = vTex;
      //else outtexture = vec2( -1.0, -1.0 );

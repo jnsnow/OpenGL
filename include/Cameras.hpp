@@ -21,7 +21,7 @@ class Cameras {
 
 public:
 
-  Cameras( const size_t &numCameras = 1 );
+  Cameras( const GLuint gShader, const size_t &numCameras = 1 );
   ~Cameras( void );
 
   size_t addCamera( void );
@@ -55,6 +55,7 @@ private:
   size_t activeCamera;
   size_t Width;
   size_t Height;
+  GLuint gShader; /* Ugh, this is everywhere. */
 
 };
 

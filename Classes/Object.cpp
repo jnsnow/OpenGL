@@ -255,4 +255,10 @@ void Object::Animation(void (*anim_func)( TransCache &arg )) {
   anim_func( this->trans );
   this->trans.CalcCTM();
 
+  /* Propagate Changes. */
+  std::list<Object *>::iterator it;
+  for ( it = list.begin(); it != list.end(); ++it ) {
+    (*it)->trans.PTM( this->trans.OTM() );
+  }
+
 }
