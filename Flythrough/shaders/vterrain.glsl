@@ -42,9 +42,9 @@ void main() {
 
      int i;
 
-     for ( i = 0 ; i < numLights && i < 8 ; i ++ ) {
-          lightVector[i] = LightPositionArray[i] - vPosition.xyz ;
-     }
+     //for ( i = 0 ; i < numLights && i < 8 ; i ++ ) {
+     //     lightVector[i] = LightPositionArray[i] - vPosition.xyz ;
+     //}
 
      //fragmentNormal = vNormal ;
 

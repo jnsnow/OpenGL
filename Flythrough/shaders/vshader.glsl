@@ -16,9 +16,6 @@ uniform mat4 T;
 uniform mat4 CTM; // CTM is either PRT or TRP, depending.
 
 
-
-
-
 // color/lighting
 uniform vec4 AmbientProduct,  DiffuseProduct,  SpecularProduct  ;
 uniform vec4 AmbientProduct2, DiffuseProduct2, SpecularProduct2 ;
