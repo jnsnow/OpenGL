@@ -157,6 +157,7 @@ namespace Angel {
   GLfloat length( const vec4& v );
   vec4 normalize( const vec4& v );
   vec3 cross(const vec4& a, const vec4& b );
+  vec3 XYZ(const vec4& a );
 
 }  // namespace Angel
 

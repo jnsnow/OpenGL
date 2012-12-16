@@ -1,11 +1,12 @@
 /**
-   @file terrain.cpp
+   @file terrainLit.cpp
    @authors John Huston, Nicholas StPierre, Chris Compton
    @date 2012-12-06
-   @brief This is a derivative of our main project file, fly.cpp.
+   @brief This is a derivative of our main project file, terrain.cpp.
    @details This is a tech demo for terrain generation using an udpated
    engine derived from fly.cpp, which was mostly based on Ed Angel's code
-   from his book.
+   from his book. There is lighting.
+
 **/
 
 #include "globals.h"
@@ -13,6 +14,7 @@
 #include <cmath>
 #include <cstdio>
 #include <cstdlib>
+#include <time.h>
 /* Multi-platform support and OpenGL headers. */
 #include "platform.h"
 /* Ed Angel's Math Classes */
@@ -29,7 +31,6 @@
 #include "Scene.hpp"
 #include "LightSource.hpp"
 #include "Lights.hpp"
-
 
 // Type Aliases
 using Angel::vec3;
@@ -49,126 +50,14 @@ bool usingWii = false;
 Screen myScreen( 800, 600 );
 Scene theScene;
 GLuint gShader;
-//GLenum draw_mode = GL_TRIANGLE_STRIP;
-//Object *terrain;
-Lights lights(false) ;
+Lights lights(false);
 
-void landGen( std::vector<point4> &vec, std::vector<unsigned int> &drawIndex ) {
-
-  Timer Tock;
-
-  const int _N = 10;
-  const int S = pow(2,_N) + 1;
-
-  if (DEBUG) printf( "\nEntering landGen()...\n");
-  // the range (-h -> h) for the average offset
-  // This determines the jaggedness of the peaks and valleys.
-  // A smaller initial value will create smaller peaks and shollow valleys for
-  // a look more similar to rolling hill tops.
-
-  double h = 30.0;  
-
-  double magnitude = (h*(2 - pow(2,-(_N))));
-  fprintf( stderr, "landGen theoretical magnitude: %f\n", magnitude );
-
-  if (vec.size()) vec.clear();
-  vec.reserve( S * S );
-  for ( int i = 0; i < S; ++i )
-    for ( int j = 0; j < S; ++j ) 
-      vec.push_back( vec4( j, 0, i, 1 ) );
-
-  /* Simulate a 2D array in this 1D array. Use these Macros to help. */
-#define OffsetAt(X,Z) ((X)*S+(Z))
-#define VertexAt(X,Z) (vec.at(OffsetAt(X,Z)))
-#define HeightAt(X,Z) (VertexAt(X,Z).y)
-
-
-  // Initialize the corners of the grid
-  HeightAt( 0, 0 )     = 0;
-  HeightAt( S-1, 0 )   = 0;
-  HeightAt( 0, S-1 )   = 0;
-  HeightAt( S-1, S-1 ) = 0;
-
-  // Populate the (x, y, z) values of vec4 according to the
-  // Diamond-Square algorithm
-  // sideLength is the distance of a single square side or
-  // distance of diagonal in diamond.
-  if (DEBUG) printf("\nEntering for( sideLength...) ...\n");
-  for (int sideLength = S-1; sideLength >= 2; sideLength /= 2, h /= 2.0) { 
-    int halfSide = sideLength / 2;
-    // generate new square values
-    for ( int x = 0 ; x < S-1 ; x += sideLength ) {
-      for ( int z = 0 ; z < S-1 ; z += sideLength) { 
-	double avg = \
-	  (HeightAt( x, z ) + HeightAt( x + sideLength, z ) +
-	   HeightAt( x, z + sideLength ) + HeightAt( x + sideLength, z + sideLength ))/4.0;
-        // Center is average plus random offset in the range (-h, h)
-        double offset = (-h) + rand() * (h - (-h)) / RAND_MAX;
-	HeightAt( x + halfSide, z + halfSide ) = avg + offset; 
-      } // for z
-    } // for x
-   
-    // Generate the diamond values
-    // Since diamonds are staggered, we only move x by half side
-    // NOTE: If the data shouldn't wrap the x < SIZE and y < SIZE
-    for ( int x = 0 ; x < S-1 ; x += halfSide ) {
-      for (int z = ( x+halfSide ) % sideLength ; z < S-1 ; z += sideLength ) {
- 
-        // x,z is center of diamond
-        // We must use mod and add SIZE for subtraction
-        // so that we can wrap around the array to find the corners
-
-	double avg = 
-	  (HeightAt( (x-halfSide + S) % S, z ) +
-	   HeightAt( x + halfSide % S, z ) +
-	   HeightAt( x, z + halfSide % S ) +
-	   HeightAt( x, (z - halfSide + S) % S )) / 4.0;
- 
-        // new value = average plus random offset
-        // calculate random value in the range (-h, h)
-        double offset = (-h) + rand() * (h - (-h)) / RAND_MAX;
-	HeightAt( x, z ) = avg + offset;
-
-	// Wrapping:
-	if (x == 0) HeightAt( S-1, z ) = avg + offset;
-	if (z == 0) HeightAt( x, S-1 ) = avg + offset;
-      } // for z
-    } // for x
-  } // for sideLength
-
-
-  //vec.reserve(2*S*S - 2*S);
-  // Convert 2D array into 1D array to pass to shaders
-  // Size of 1D array is 2*SIZE^2 - 2SIZE for
-  // the sake of proper parsing by glTriangleStrips
-  for ( int i = 0, j = 0 ; i + 1 < S ; i++ ) {
-    for ( j = 0 ; j < S ; j++ ) {
-      drawIndex.push_back(OffsetAt(i,j));
-      drawIndex.push_back(OffsetAt(i+1,j));
-    }
-
-    /* If we're out of rows to serialize, give up. */
-    if (++i == S) break;
-
-    for ( ; j > 0 ; j-- ){
-      drawIndex.push_back(OffsetAt(i,j-1));
-      drawIndex.push_back(OffsetAt(i+1,j-1));
-    }
-  }
-  if (DEBUG) printf("\nExiting landGen()...\n");
-  Tock.Tick();
-  fprintf( stderr, "Landgen took %lu usec, %lu msec, %f sec to generate %d vertices.\n", 
-	   Tock.Delta(), Tock.Delta()/1000, Tock.Delta()/1000000.0, S*S );
-
-  return;
-}
-
-
-
-// this file and its shaders have NO lighting, for sake of simplicity and debugging for implementing the terrain gen.
-
-// the above comment is not true as of nick's latest tomfoolery.
-
+// Textures
+const char* terrainTex[] = {
+  "../Textures/GrassGreenTexture0002.jpg", // Grass (who'da thunk?)
+  "../Textures/GoodTextures_0013418.jpg",  // Rock
+  "../Textures/GoodTextures_0013291.jpg"   // Snow
+};
 
 
 void cameraInit( Camera& cam ) {
@@ -183,21 +72,18 @@ void cameraInit( Camera& cam ) {
 
 void init() {
 
+  srand( time(NULL));
   // Load shaders and use the resulting shader program
-  gShader = Angel::InitShader( "shaders/vgenericsimple.glsl", "shaders/fgenericsimple.glsl" );
+  gShader = Angel::InitShader( "shaders/vterrain.glsl", "shaders/fterrain.glsl" );
   theScene.SetShader( gShader );
 
   Object *terrain = theScene.AddObject( "terrain" );
   Object *pyramid = theScene.AddObject( "pyramid" );
   Object *cube = pyramid->AddObject( "colorcube" );
 
-
-  // Super-happy-worry-free Lights initialization
-  lights.init_lights(gShader); // takes a shader thingy and a bool:
-  
-
   /** Fill points[...] with terrain map **/
-  landGen( terrain, 6, 10.0 );
+  landGen( terrain, 9, 60.0 );
+  terrain->Texture( terrainTex );
   terrain->Buffer();
   terrain->Mode( GL_TRIANGLE_STRIP );
 
@@ -212,17 +98,21 @@ void init() {
 
   colorcube( cube, 2.0 );
   cube->Buffer();
-  cube->Mode( GL_TRIANGLES );
-    
+  cube->Mode( GL_LINE_LOOP );
+
   // Link however many cameras we have at this point to the shader.
   myScreen.camList.LinkAll( gShader, Camera::TRANSLATION, "T" );
   myScreen.camList.LinkAll( gShader, Camera::ROTATION, "R" );
   myScreen.camList.LinkAll( gShader, Camera::VIEW, "P" );
   myScreen.camList.LinkAll( gShader, Camera::CTM, "CTM" );
 
+
+  // Lighting Initialization!!
+  lights.init_lights(gShader);
+
+
   glEnable( GL_DEPTH_TEST );
-  glClearColor( 0.08, 0.08, 0.08, 1.0 );
-  //  glClearColor( 0.6, 0.6, 0.6, 1.0 );
+  glClearColor( 0.5, 0.7, 1.0, 1.0 );
   
 }
 
@@ -235,9 +125,17 @@ void displayViewport( void ) {
 }
 
 void display( void ) {
+
+
   glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
-  // Send our lights to the shader!
+
+  fprintf(stderr, "%f %f %f", myScreen.camList.Active().X(),
+	                      myScreen.camList.Active().Y(),
+	                      myScreen.camList.Active().Z() );
+
+
+  // Tell lights to dump into the pre-defined buffer in the lights object...
   lights.sendAll();
 
   // Tell camList to draw using our displayViewport rendering function.
@@ -271,43 +169,21 @@ void keylift( unsigned char key, int x, int y ) {
   }
 }
 
-
-// WHAT IS THE SYNTAX FOR MAKING AN ARRAY WITH STUFF IN IT
-
-vec4 lightValues[4]= {
-
-  vec4(0.0, 0.0, 0.0, 1.0),
-  vec4(0.5,0.5,0.5,1.0),
-  vec4(1.0,1.0,1.0,1.0),
-  vec4(0.0,0.6,0.1,1.0) };
-
 void keyboard( unsigned char key, int x, int y ) {
+
+
+  // tell nick he is bad 
+  //  static float lightoffset = 0.0;
 
   /* A shorthand variable with local scope that refers to "The Active Camera." */
   Camera &cam = myScreen.camList.Active();
-
-
-  // bad nick
-  static int i = 0;
 
   switch( key ) {
 
   case 033: // Escape Key	  
     exit( EXIT_SUCCESS );
     break;
-
-  case 't':
-
-    lights.addLightSource(lightValues[i]);
-    i++;
-    break;
-
-  case 'y':
-
-    lights.removeLastLightSource();
-    i--;
-    break;
-
+    
   case '+':
     cameraInit(myScreen.camList[myScreen.camList.addCamera()]);
     break;
@@ -332,6 +208,13 @@ void keyboard( unsigned char key, int x, int y ) {
     break;
   case 'e':
     cam.Move( Camera::Down );
+    break;
+  case 't': // add light
+    lights.addLightSource( LightSource( point4(cam.X() /* lightoffset*/, cam.Y(), cam.Z(), 1.0), color4(1.0, 1.0, 1.0, 1.0) ));
+    //    lightoffset+=20.0;
+    break;
+  case 'y': // remove light
+    lights.removeLastLightSource();
     break;
     
   case ';': // Print Info
@@ -442,7 +325,6 @@ void idle( void ) {
   }
 #endif
 
-
   // Move all camera(s).
   myScreen.camList.IdleMotion();
   glutPostRedisplay();
@@ -456,7 +338,7 @@ int main( int argc, char **argv ) {
 
 #ifdef WII
   if (!(usingWii = initWii( Wii ))) {
-    std::cerr << "Not using Wii controls for this runthrough.\n";
+    std::cerr << "Not using Wii controls for this runthrough.\n";/
   }
 #endif
 
@@ -499,7 +381,6 @@ int main( int argc, char **argv ) {
 
   /* PULL THE TRIGGER */
   glutMainLoop();
-
   return EXIT_SUCCESS;
 
 }

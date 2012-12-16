@@ -29,6 +29,8 @@
 #include "Timer.hpp"
 #include "Scene.hpp"
 
+#include "OpenGL.h"
+
 // Type Aliases
 using Angel::vec3;
 using Angel::vec4;
@@ -58,6 +60,8 @@ const char* terrainTex[] = {
   "../Textures/GoodTextures_0013291.jpg"   // Snow
 };
 
+
+
 void cameraInit( Camera& cam ) {
 
   /* Link this camera to our standard shader variables. */
@@ -66,6 +70,7 @@ void cameraInit( Camera& cam ) {
   cam.link( gShader, Camera::VIEW, "P" );
   cam.link( gShader, Camera::CTM, "CTM" );
 
+
 }
 
 void init() {
@@ -73,7 +78,12 @@ void init() {
   srand( time(NULL));
   // Load shaders and use the resulting shader program. 
 
+  // Trying to use a GSHADER!
+  // The arguments are V -> G -> F shader, the same order in which they are invoked inside the pipeline.
+  // If this causes problems, we can fallback by between the following two lines of code:  
+  //gShader = Angel::InitShader( "shaders/vterrain.glsl", "shaders/gterrain.glsl", "shaders/fterrain.glsl");
   gShader = Angel::InitShader( "shaders/vterrain.glsl", "shaders/fterrain.glsl" );
+
   theScene.SetShader( gShader );
   myScreen = new Screen( gShader, 800, 600 ); 
 
@@ -112,8 +122,7 @@ void init() {
   myScreen->camList.LinkAll( gShader, Camera::CTM, "CTM" );
 
   glEnable( GL_DEPTH_TEST );
-  glClearColor( 0.5, 0.7, 1.0, 1.0 );
-  
+  glClearColor( 0.4, 0.6, 1.0, 1.0 );
 }
 
 
@@ -339,8 +348,8 @@ void animationTest( TransCache &obj ) {
 
   //Object orbits about the origin
   obj.orbit.RotateX( timeScale * 0.2 );
-  obj.orbit.RotateY( timeScale * 0.5 );
-  obj.orbit.RotateZ( timeScale * 0.3 );
+  obj.orbit.RotateY( timeScale * 0.2 );
+  obj.orbit.RotateZ( timeScale * 0.2 );
 
   // Object moves its focal orbit-point, x = 5.
   //obj.displacement.Set( 5, 0, 0 );
@@ -348,6 +357,7 @@ void animationTest( TransCache &obj ) {
 }
 
 void idle( void ) {
+
 
   Tick.Tock();
   if (DEBUG_MOTION) 

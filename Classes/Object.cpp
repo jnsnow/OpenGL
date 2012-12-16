@@ -8,7 +8,8 @@
 
 #include "Timer.hpp"
 
-Object::Object( const std::string &name, GLuint gShader ) {
+Object::Object( const std::string &name, GLuint gShader )
+{
 
   /* The constructor is going to initialize the VAO and a series of VBOs.
      The VAO is our general handle to this collection of VBOs.
@@ -39,8 +40,10 @@ Object::Object( const std::string &name, GLuint gShader ) {
   //Default to "Not Textured"
   this->isTextured = false;
 
+
   /* Create our VAO, which is our handle to all 
      the rest of the following information. */
+
   glGenVertexArrays( 1, &vao );
   glBindVertexArray( vao );
   GLuint glsl_uniform;
@@ -96,6 +99,7 @@ Object::~Object( void ) {
 
 void Object::Buffer( void ) {
 
+
   glBindVertexArray( vao );
   
   glBindBuffer( GL_ARRAY_BUFFER, buffer[VERTICES] );
@@ -110,6 +114,7 @@ void Object::Buffer( void ) {
   glBufferData( GL_ARRAY_BUFFER, sizeof(Angel::vec4) * colors.size(),
 		&(colors[0]), GL_STATIC_DRAW );
   
+
   /* Without the following workaround code,
      Mac OSX will segfault attempting to access
      the texcoordinate buffers on nontextured objects. */
@@ -129,7 +134,11 @@ void Object::Buffer( void ) {
   glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, buffer[INDICES] );
   glBufferData( GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * indices.size(),
 		&(indices[0]), GL_STATIC_DRAW );
-
+  /*
+  glBindBuffer( GL_ARRAY_BUFFER, buffer[TEXCOORDS] );
+  glBufferData( GL_ARRAY_BUFFER, sizeof(Angel::vec2) * texcoords.size(),
+		(useTextures ? &(texcoords[0]) : NULL), GL_STATIC_DRAW );
+  */
   glBindVertexArray( 0 );
 
 }
@@ -224,6 +233,7 @@ void Object::Draw( void ) {
 
   glUniformMatrix4fv( handles[Object::ObjectCTM], 1, GL_TRUE, 
 		      this->trans.OTM() );
+
 
   /* Are we using a draw order? */
   if (indices.size() > 1)

@@ -17,34 +17,33 @@ using Angel::vec4 ;
 using Angel::mat4 ;
 
 
-LightSource::LightSource() {
-
+LightSource::LightSource()
+{
   //id = nextId ;
   //nextId++;
-
 }
 
-LightSource::LightSource(const LightSource& orig) {
+LightSource::LightSource(const LightSource& orig)
+{
 
   //  id = nextId ;
   //  nextId++;
 
 }
 
-LightSource::LightSource(point4 pos)
+LightSource::LightSource(const point4& pos)
   : position(pos) //, id(nextId) 
 {  
     //nextId++;
 }
 
-LightSource::LightSource(point4 pos, color4 color)
+LightSource::LightSource(const point4& pos, const color4& color)
   : position(pos), light_color(color), complexSwitch(false)
 {
 
-
 }
 
-LightSource::LightSource(point4 pos, color4 ambient, color4 diffuse, color4 specular)
+LightSource::LightSource(const point4& pos, const color4& ambient, const color4& diffuse, const color4& specular)
   : position(pos), light_ambient(ambient), light_diffuse(diffuse), light_specular(specular), complexSwitch(true)
  //, id(nextId)
 {
@@ -54,7 +53,8 @@ LightSource::LightSource(point4 pos, color4 ambient, color4 diffuse, color4 spec
 
 }
 
-LightSource::LightSource(point4 pos, vec4 dir, color4 ambient, color4 diffuse, color4 specular)
+LightSource::LightSource(const point4& pos, const vec4& dir, const color4& ambient, 
+			 const color4& diffuse, const color4& specular)
   : position(pos), direction(dir), light_ambient(ambient), light_diffuse(diffuse), light_specular(specular), complexSwitch(true) //id(nextId)
 {
   //id = nextId ;
@@ -62,10 +62,9 @@ LightSource::LightSource(point4 pos, vec4 dir, color4 ambient, color4 diffuse, c
 
 }
 
-//LightSource(point4, vec4, color4, color4, color4, unsigned int);
-
-LightSource::~ LightSource() {
-
+LightSource::~ LightSource()
+{
+  // nothing special
 }
 
 bool LightSource::GetComplexSwitch() const {
@@ -124,7 +123,6 @@ point4 LightSource::GetPosition() const {
 void LightSource::SetShaderHandle( GLuint g ) {
   shaderHandle = g ;
 }
-
 GLuint LightSource::GetShaderHandle() const {
   return shaderHandle ;
 }

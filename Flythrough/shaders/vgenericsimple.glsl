@@ -3,8 +3,6 @@
 // Adadapted from this magnificent web site
 // http://ogldev.atspace.co.uk/www/tutorial20/tutorial20.html
 
-// MAX LIGHTS = 20
-
 // attributes
 attribute vec4 vPosition ;
 attribute vec4 vNormal   ;
@@ -13,7 +11,7 @@ attribute vec4 vNormal   ;
 varying vec4 color;
 varying vec3 cameraVector;
 varying vec3 fragmentNormal;
-varying vec3 lightVector[20];
+varying vec3 lightVector[8];
 
 // position/movement
 uniform mat4 P   ;
@@ -23,21 +21,15 @@ uniform mat4 CTM ; // CTM is either PRT or TRP, depending.
 
 // Lighting 
 uniform int numLights ;
-uniform vec3 LightPositionArray[20] ;
-
-
+uniform vec3 LightPositionArray[8] ;
 
 
 void main() {
 
      int i;
 
-     for ( i = 0 ; i < numLights && i < 20 ; i ++ ) {
-
-     	 // BWAH BULLET
-	  
+     for ( i = 0 ; i < numLights && i < 8 ; i ++ ) {
 	  lightVector[i] = LightPositionArray[i] - vPosition.xyz ;
-
      }
 
      //fragmentNormal = vNormal ;

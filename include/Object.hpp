@@ -64,8 +64,6 @@ protected:
   /** Handles to Uniforms on the shader. **/
   GLint *handles;
 
-  /** Boolean for if this model is textured or not. 
-      This is a workaround for Mac OSX. **/
   bool isTextured;
 
 };

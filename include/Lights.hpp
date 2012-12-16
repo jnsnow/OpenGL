@@ -34,7 +34,7 @@ using std::vector;
    const unsigned int id;
 */
 
-#define MAX_LIGHTS 16
+#define MAX_LIGHTS 8
 
 class Lights 
 {

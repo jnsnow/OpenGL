@@ -12,19 +12,40 @@ varying vec2 outtexture;
 uniform mat4 P;
 uniform mat4 R;
 uniform mat4 T;
-uniform mat4 CTM;
+uniform mat4 CTM; // CTM is either PRT or TRP, depending.
 uniform mat4 OTM;
+
+// IsTextured boolean.
 uniform bool fIsTextured;
+
+// Lighting, dammit.
+uniform int numLights ;
+uniform vec3 LightPositionArray[8] ;
+
+// fshader lighting vars
+varying vec3 cameraVector;
+varying vec3 fragmentNormal;
+varying vec3 lightVector[8];
+
 
 void main() {
 
-     // P * R * T
-     //gl_Position = CTM * OTM * vPosition;
-     gl_Position = CTM * OTM * vPosition;
+  gl_Position = CTM * OTM * vPosition;
+  color = vColor;
+  if (fIsTextured) outtexture = vTex;
+  //else outtexture = vec2( -1.0, -1.0 );
+  fPosition = vPosition;
 
-     color = vColor;
-     if (fIsTextured) outtexture = vTex;
-     //else outtexture = vec2( -1.0, -1.0 );
-     fPosition = vPosition;
+  /*
+  int i;
+  for ( i = 0 ; i < numLights && i < 8 ; i ++ ) {
+    lightVector[i] = LightPositionArray[i] - vPosition.xyz ;
+  }
+  */
+
+  //fragmentNormal = vNormal;
+
+  cameraVector = (R * vec4(0.0,0.0,1.0,1.0)).xyz;
+  fragmentNormal = vec3(0.0,1.0,0.0) ;
 
 }

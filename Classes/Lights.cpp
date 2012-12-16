@@ -232,11 +232,9 @@ void Lights::sendAll() {
     direction[i*3 +2] = temp4.z ;
 
 
-    // theLights[i].SetShaderHandle( );
-
   }
 
-  // send the light arrays
+  // send the light color arrays
 
   if (  complexSwitch  ) {
     glUniform3fv( g_ambient,  i,  ambient  ) ;
@@ -249,7 +247,7 @@ void Lights::sendAll() {
 
   }
 
-  // more light arrays
+  // more light arrays: position information
   glUniform3fv( g_position ,  i, position  ) ;
   glUniform3fv( g_direction,  i, direction ) ;
 
@@ -258,13 +256,3 @@ void Lights::sendAll() {
 
 }
 
-
-
-/*
-color4 LightSource::GetLight_specular() const ;
-color4 LightSource::GetLight_diffuse() const ;
-color4 LightSource::GetLight_ambient() const ;
-vec3 LightSource::GetDirection() const ;
-point4 LightSource::GetPoint() const ;
-
-*/

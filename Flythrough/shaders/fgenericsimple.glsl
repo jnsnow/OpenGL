@@ -10,7 +10,7 @@
 varying vec4 color;
 varying vec3 cameraVector;
 varying vec3 fragmentNormal;
-varying vec3 lightVector[20];
+varying vec3 lightVector[8];
 
 const float MAX_DIST = 2.5;
 const float MAX_DIST_SQUARED = MAX_DIST * MAX_DIST;
@@ -25,13 +25,13 @@ const float MAX_DIST_SQUARED = MAX_DIST * MAX_DIST;
 uniform int numLights ;
 
 
-uniform vec3 lightColor[20];
+uniform vec3 lightColor[8];
 //uniform vec3 LightAmbientArray[];
 //uniform vec3 LightDiffuseArray[];
 //uniform vec3 LightSpecularArray[];
 
-uniform vec3 LightPositionArray[20] ;
-uniform vec3 LightDirectionArray[20];
+uniform vec3 LightPositionArray[12] ;
+uniform vec3 LightDirectionArray[8];
 
 
 
@@ -59,7 +59,7 @@ void main() {
      vec4 sample ;
 
      // loop through each light
-     for ( i = 0; i < numLights; ++i) {
+     for ( i = 0; i < numLights && i < 8; ++i) {
 
        // calculate distance between 0.0 and 1.0
        dist = min(dot(lightVector[i], lightVector[i]), MAX_DIST_SQUARED) / MAX_DIST_SQUARED;
