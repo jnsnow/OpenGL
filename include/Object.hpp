@@ -20,6 +20,8 @@ class Object : public Scene {
 
 public:
 
+  typedef const unsigned int UniformEnum;
+
   typedef enum Uniforms {
     Begin,
     IsTextured = Begin,
@@ -34,7 +36,10 @@ public:
   void Mode( GLenum new_node );
   void Texture( const char** filename );
   const std::string &Name( void ) const;
-  virtual void Link( Object::Uniform which, const std::string &name );
+
+  /* OpenGL Methods */
+  virtual void Link( UniformEnum which, const std::string &name );
+  virtual void Send( UniformEnum which );
 
   void Animation(void (*anim_func)( TransCache &arg ));
 
@@ -48,6 +53,13 @@ public:
   /** Transformation State **/
   TransCache trans;
 
+  /** 
+      Handles to Uniforms on the shader. 
+      Private to allow derived classes
+      to extend it as needed.
+  **/
+  std::vector< GLint > handles;
+
 protected:
   /** name is used as an identifying handle for the object. **/
   std::string name;     
@@ -60,9 +72,6 @@ protected:
   
   /** Drawing mode for this object. GL_TRIANGLES, GL_LINE_LOOP, etc. **/
   GLenum draw_mode;
-
-  /** Handles to Uniforms on the shader. **/
-  GLint *handles;
 
   bool isTextured;
 

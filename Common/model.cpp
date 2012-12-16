@@ -331,7 +331,8 @@ void landGen( Object *obj, int N, float H ) {
   const int S = pow(2,N) + 1;
   std::vector< point4 > &vec = obj->points;
   std::vector< point4 > &col = obj->colors;
-  //  std::vector< vec3 > &nor = obj->normals;
+  //std::vector< vec3 > &nor = obj->normals;
+
   std::vector< unsigned int > &drawIndex = obj->indices;
   std::vector< Angel::vec2 > &txy = obj->texcoords;
 

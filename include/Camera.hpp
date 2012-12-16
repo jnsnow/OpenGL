@@ -45,25 +45,10 @@ public:
     Right,
     Up,
     Down,
-    End,
-    Begin = Forward
+    Direction_End,
+    Direction_Begin = Forward
   } Direction;
 
-
-  /** 
-      The glsl_var enumeration lists the various variables the
-      Camera class is capable of sending to the shader.
-      The NumGlslVars variable is a sentinel value that is ignored
-      by any functions that accept a glsl_var.
-  **/
-  typedef enum { 
-    TRANSLATION,
-    ROTATION,
-    VIEW,
-    CTM, /* CTM is either P*R*T or T*R*P, depending */
-    LastGlslVar, /* One past the end, Iterator style. */
-    FirstGlslVar = TRANSLATION /* Same as the beginning. */
-  } glsl_var;
 
   /**
      The view_type enumeration lists the various possibilities
@@ -77,8 +62,24 @@ public:
     IDENTITY,
     FRUSTUM
   } view_type;
+
+
+  /** 
+      The glsl_var enumeration lists the various variables the
+      Camera class is capable of sending to the shader.
+      The NumGlslVars variable is a sentinel value that is ignored
+      by any functions that accept a glsl_var.
+  **/
+  typedef enum Uniforms {
+    Begin = Object::End,
+    TRANSLATION = Begin,
+    ROTATION,
+    VIEW,
+    CTM,
+    End
+  } Uniform;
   
-  
+
   Camera( const std::string &name, GLuint gShader,
 	  float x = 0.0, float y = 0.0, float z = 0.0 );
   Camera( const std::string &name, GLuint gShader, vec3 &in );
@@ -135,11 +136,8 @@ public:
   vec4 pos( void ) const;
 
   /* OpenGL Methods */
-  void send( const glsl_var &which );
-  void link( const GLuint &program,
-	     const glsl_var &which,
-	     const string &glslVarName );
-  void Draw( void );
+  virtual void Send( Object::UniformEnum which );
+  void View( void );
     
 private:
 
@@ -183,24 +181,15 @@ private:
   /** Current field-of-view angle for perspective view. **/
   GLfloat fovy;
 
-  /** Camera's drawbox width, used for computing (some) perspectives **/
-  size_t width;
+  /** Camera's Drawbox Width and Height **/
+  Angel::vec2 size;
 
-  /** Camera's drawbox height, used for computing (some) perspectives **/
-  size_t height;
-
-  /** Camera's Viewport's X-Position Offset **/
-  size_t XPos;
-
-  /** Camera's Viewport's Y-Position Offset **/
-  size_t YPos;
+  /** Camera's Drawbox X,Y Coordinate (Upper-Left Pixel) **/
+  Angel::vec2 position; /* XPos and YPos */
 
   /** Booleans correlating to the different motion directions. **/
-  bool Motion[ Camera::End ];
+  bool Motion[ Camera::Direction_End ];
   
-  /** Handles for communicating with the shader. **/
-  GLint glsl_handles[ Camera::LastGlslVar ];
-
 };
 
 #endif

@@ -29,22 +29,50 @@ const RotMat &RotMat::Reset( const Angel::mat4 &NewState ) {
   return (*this);
 }
 
-const RotMat &RotMat::RotateX( GLfloat theta ) {
-  mat = Angel::RotateX( theta ) * mat;
+const RotMat &RotMat::RotateX( GLfloat theta, bool order ) {
+  if (order) mat = Angel::RotateX( theta ) * mat;
+  else mat = mat * Angel::RotateX( theta );
   return (*this); 
 }
 
-const RotMat &RotMat::RotateY( GLfloat theta ) {
-  mat = Angel::RotateY( theta ) * mat;
+const RotMat &RotMat::RotateY( GLfloat theta, bool order ) {
+  if (order) mat = Angel::RotateY( theta ) * mat;
+  else mat = mat * Angel::RotateY( theta );
   return (*this);
 }
 
-const RotMat &RotMat::RotateZ( GLfloat theta ) {
-  mat = Angel::RotateZ( theta ) * mat;
+const RotMat &RotMat::RotateZ( GLfloat theta, bool order ) {
+  if (order) mat = Angel::RotateZ( theta ) * mat;
+  else mat = mat * Angel::RotateZ( theta );
+  return (*this);
+}
+
+const RotMat &RotMat::Adjust( const Angel::mat4 &adjustment, bool order ) {
+  if (order) mat = adjustment * mat;
+  else mat = mat * adjustment;
   return (*this);
 }
 
 /* TRANSLATION */
+
+
+const TransMat &TransMat::SetX( const float x ) {
+  //fprintf( stderr, "SetX( %f )\n", x );
+  mat[0][3] = x;
+  return (*this);
+}
+
+const TransMat &TransMat::SetY( const float y ) {
+  //fprintf( stderr, "SetY( %f )\n", y );
+  mat[1][3] = y;
+  return (*this);
+}
+
+const TransMat &TransMat::SetZ( const float z ) {
+  //fprintf( stderr, "SetZ( %f )\n", z );
+  mat[2][3] = z;
+  return (*this);
+}
 
 const TransMat &TransMat::Set( const float x, const float y, const float z ) {
   mat[0][3] = x;

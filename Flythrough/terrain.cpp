@@ -46,7 +46,7 @@ bool usingWii = false;
 #endif
 ////
 
-Screen *myScreen; /* Cannot create yet, requires a shader object */
+Screen myScreen( 800, 600 );
 Scene theScene;
 
 GLuint gShader;
@@ -64,16 +64,15 @@ const char* terrainTex[] = {
 
 
 
-void cameraInit( Camera& cam ) {
+/*void cameraInit( Camera& cam ) {
+  // Link this camera to our standard shader variables.
+  cam.Link( Camera::TRANSLATION, "T" );
+  cam.Link( Camera::ROTATION, "R" );
+  cam.Link( Camera::VIEW, "P" );
+  cam.Link( Camera::CTM, "CTM" );
+}*/
 
-  /* Link this camera to our standard shader variables. */
-  cam.link( gShader, Camera::TRANSLATION, "T" );
-  cam.link( gShader, Camera::ROTATION, "R" );
-  cam.link( gShader, Camera::VIEW, "P" );
-  cam.link( gShader, Camera::CTM, "CTM" );
-
-
-}
+//Camera *VisCam;
 
 void init() {
 
@@ -85,9 +84,15 @@ void init() {
   // If this causes problems, we can fallback by between the following two lines of code:  
   //gShader = Angel::InitShader( "shaders/vterrain.glsl", "shaders/gterrain.glsl", "shaders/fterrain.glsl");
   gShader = Angel::InitShader( "shaders/vterrain.glsl", "shaders/fterrain.glsl" );
-
   theScene.SetShader( gShader );
-  myScreen = new Screen( gShader, 800, 600 ); 
+  myScreen.camList.Shader( gShader );
+  myScreen.camList.addCamera();
+
+  // Witchcraft:
+  /*VisCam = &(myScreen.camList.Active());
+  colorcube( VisCam, 0.25 );
+  VisCam->Buffer();
+  VisCam->Mode( GL_TRIANGLES );*/
 
   Object *terrain   = theScene.AddObject( "terrain" ) ;
   Object *pyramid   = theScene.AddObject( "pyramid" ) ;
@@ -120,10 +125,10 @@ void init() {
   moon_cube->Mode( GL_TRIANGLES );
     
   // Link however many cameras we have at this point to the shader.
-  myScreen->camList.LinkAll( gShader, Camera::TRANSLATION, "T" );
-  myScreen->camList.LinkAll( gShader, Camera::ROTATION, "R" );
-  myScreen->camList.LinkAll( gShader, Camera::VIEW, "P" );
-  myScreen->camList.LinkAll( gShader, Camera::CTM, "CTM" );
+  myScreen.camList.LinkAll( Camera::TRANSLATION, "T" );
+  myScreen.camList.LinkAll( Camera::ROTATION, "R" );
+  myScreen.camList.LinkAll( Camera::VIEW, "P" );
+  myScreen.camList.LinkAll( Camera::CTM, "CTM" );
 
   glEnable( GL_DEPTH_TEST );
   glClearColor( 0.4, 0.6, 1.0, 1.0 );
@@ -132,7 +137,7 @@ void init() {
 
 void cleanup( void ) {
 
-  delete myScreen;
+  theScene.DestroyObject();
 
 }
 
@@ -142,19 +147,21 @@ void cleanup( void ) {
     Is responsible for drawing a SINGLE VIEWPORT. **/
 void displayViewport( void ) {  
   theScene.Draw();
+  //VisCam->trans.CalcCTM();
+  //VisCam->Draw();
 }
 
 void display( void ) {
   glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
   // Tell camList to draw using our displayViewport rendering function.
-  myScreen->camList.Draw( displayViewport );
+  myScreen.camList.View( displayViewport );
   glutSwapBuffers();
 }
 
 void keylift( unsigned char key, int x, int y ) {
   
-  Camera &cam = myScreen->camList.Active();
+  Camera &cam = myScreen.camList.Active();
 
   switch( key ) {
   case 'w':
@@ -181,7 +188,7 @@ void keylift( unsigned char key, int x, int y ) {
 void keyboard( unsigned char key, int x, int y ) {
 
   /* A shorthand variable with local scope that refers to "The Active Camera." */
-  Camera &cam = myScreen->camList.Active();
+  Camera &cam = myScreen.camList.Active();
 
   switch( key ) {
 
@@ -191,10 +198,11 @@ void keyboard( unsigned char key, int x, int y ) {
     break;
     
   case '+':
-    cameraInit(myScreen->camList[myScreen->camList.addCamera()]);
+    myScreen.camList.addCamera();
+    //cameraInit(myScreen.camList[myScreen.camList.addCamera()]);
     break;
   case '-':
-    myScreen->camList.popCamera();
+    myScreen.camList.popCamera();
     break;
     
   case 'w':
@@ -240,11 +248,11 @@ void keyboard( unsigned char key, int x, int y ) {
 void keyboard_ctrl( int key, int x, int y ) {
   switch (key) {
   case GLUT_KEY_PAGE_UP:
-    myScreen->camList.Prev();
+    myScreen.camList.Prev();
     break;
 
   case GLUT_KEY_PAGE_DOWN:
-    myScreen->camList.Next();
+    myScreen.camList.Next();
     break;
    
   case GLUT_KEY_LEFT:
@@ -274,8 +282,8 @@ void mouse( int button, int state, int x, int y ) {
 
   if ( state == GLUT_DOWN ) {
     switch( button ) {
-    case 3: myScreen->camList.Active().dFOV( 1 ); break;
-    case 4: myScreen->camList.Active().dFOV( -1 ); break;
+    case 3: myScreen.camList.Active().dFOV( 1 ); break;
+    case 4: myScreen.camList.Active().dFOV( -1 ); break;
     }
   }
 
@@ -284,9 +292,9 @@ void mouse( int button, int state, int x, int y ) {
 
 void mouseroll( int x, int y ) {
 
-  if ((x != myScreen->MidpointX()) || (y != myScreen->MidpointY())) {
-    myScreen->camList.Active().roll( x - myScreen->MidpointX() );
-    glutWarpPointer( myScreen->MidpointX(), myScreen->MidpointY() );
+  if ((x != myScreen.MidpointX()) || (y != myScreen.MidpointY())) {
+    myScreen.camList.Active().roll( x - myScreen.MidpointX() );
+    glutWarpPointer( myScreen.MidpointX(), myScreen.MidpointY() );
   }
 
 }
@@ -294,14 +302,14 @@ void mouseroll( int x, int y ) {
 
 void mouselook( int x, int y ) {
 
-  if ((x != myScreen->MidpointX()) || (y != myScreen->MidpointY())) {
-    const double dx = ((double)x - myScreen->MidpointX());
-    const double dy = ((double)y - myScreen->MidpointY());
+  if ((x != myScreen.MidpointX()) || (y != myScreen.MidpointY())) {
+    const double dx = ((double)x - myScreen.MidpointX());
+    const double dy = ((double)y - myScreen.MidpointY());
     
-    myScreen->camList.Active().pitch( dy );
-    myScreen->camList.Active().yaw( dx, fixed_yaw );
+    myScreen.camList.Active().pitch( dy );
+    myScreen.camList.Active().yaw( dx, fixed_yaw );
     
-    glutWarpPointer( myScreen->MidpointX(), myScreen->MidpointY() );
+    glutWarpPointer( myScreen.MidpointX(), myScreen.MidpointY() );
   }
   
 }
@@ -310,8 +318,8 @@ void mouselook( int x, int y ) {
 void resizeEvent( int width, int height ) {
 
   /* Handles resizing the child cameras as well. */
-  myScreen->Size( width, height );
-  glutWarpPointer( myScreen->MidpointX(), myScreen->MidpointY() );
+  myScreen.Size( width, height );
+  glutWarpPointer( myScreen.MidpointX(), myScreen.MidpointY() );
 
 }
 
@@ -376,13 +384,13 @@ void idle( void ) {
   if (usingWii) {
     for (size_t i = 0; i < 20; ++i) {
       pollWii( Wii );
-      myScreen->camList.Active().Accel( bb_magnitudes );
+      myScreen.camList.Active().Accel( bb_magnitudes );
     }
   }
 #endif
 
   // Move all camera(s).
-  myScreen->camList.IdleMotion();
+  myScreen.camList.IdleMotion();
   glutPostRedisplay();
     
 }
@@ -423,7 +431,7 @@ int main( int argc, char **argv ) {
 
   glutInit( &argc, argv );
   glutInitDisplayMode( GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH );
-  glutInitWindowSize( 800, 600 );
+  glutInitWindowSize( myScreen.Width(), myScreen.Height() );
   glutCreateWindow( "Gasket Flythrough" );
   glutFullScreen();
   glutSetCursor( GLUT_CURSOR_NONE );

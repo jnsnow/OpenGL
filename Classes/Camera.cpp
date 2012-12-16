@@ -27,22 +27,26 @@ static const bool PREMULT = true;
 #endif
 
 /**
-   comminInit is a private function that initializes local object attributes.
+   commonInit is a private function that initializes local object attributes.
    It should be called by all available constructors.
    @return Void.
 **/
 void Camera::commonInit( void ) {
-  for ( size_t i = (size_t)Begin;
-	i != (size_t)End;
-	++i) {
-    Motion[i] = false;
-  }
 
-  for ( size_t i = (size_t)Camera::LastGlslVar;
-	  i != (size_t)LastGlslVar;
-	++i) {
-    glsl_handles[ i ] = -1;
-  }
+  // Extend the Uniforms array.
+  if (DEBUG)
+    fprintf( stderr, "Extending Uniforms Array to %d\n", Camera::End );
+  this->handles.resize( Camera::End, -1 );
+
+  /* Default Variable Links */
+  Link( Camera::TRANSLATION, "T" );
+  Link( Camera::ROTATION, "R" );
+  Link( Camera::VIEW, "P" );
+  Link( Camera::CTM, "CTM" );
+
+  for ( size_t i = (size_t) Camera::Direction_Begin; 
+	i != (size_t)Direction_End; ++i )
+    Motion[i] = false;
 
   this->speed = 0;
   this->speed_cap = 0;
@@ -93,7 +97,9 @@ Camera::Camera( const std::string &name, GLuint gShader, vec4 &in ) :
 /**
    Default destructor. Nothing of note.
 **/
-Camera::~Camera( void ) { }
+Camera::~Camera( void ) { 
+  
+}
 
 
 /**
@@ -104,7 +110,11 @@ Camera::~Camera( void ) { }
 **/
 void Camera::X( const float &in, const bool &update ) { 
   ctm[0][3] = T[0][3] = -in;
-  if (update) send( TRANSLATION );
+  trans.offset.SetX( in );
+  if (update) {
+    Send( TRANSLATION );
+    trans.CalcCTM();
+  }
 }
 
 
@@ -116,7 +126,11 @@ void Camera::X( const float &in, const bool &update ) {
 **/
 void Camera::Y( const float &in, const bool &update ) { 
   ctm[1][3] = T[1][3] = -in;
-  if (update) send( TRANSLATION );
+  trans.offset.SetY( in );
+  if (update) {
+    Send( TRANSLATION );
+    trans.CalcCTM();
+  }
 }
 
 
@@ -128,7 +142,11 @@ void Camera::Y( const float &in, const bool &update ) {
 **/
 void Camera::Z( const float &in, const bool &update ) { 
   ctm[2][3] = T[2][3] = -in;
-  if (update) send( TRANSLATION );
+  trans.offset.SetZ( in );
+  if (update) {
+    Send( TRANSLATION );
+    trans.CalcCTM();
+  }
 }
 
 
@@ -145,7 +163,10 @@ void Camera::pos( const float &x, const float &y,
   X(x, false);
   Y(y, false);
   Z(z, false);
-  if (update) send( TRANSLATION );
+  if (update) {
+    Send( TRANSLATION );
+    trans.CalcCTM();
+  }
 }
 
 
@@ -219,7 +240,7 @@ void Camera::dPos( const float &x, const float &y,
   dX( x, false );
   dY( y, false );
   dZ( z, false );
-  send( TRANSLATION );
+  Send( TRANSLATION );
 }
 
 
@@ -270,8 +291,13 @@ void Camera::adjustRotation( const mat4 &adjustment, const bool &fixed ) {
     R = adjustment * R;
   }
 
-  send( ROTATION );
+  // The model needs to apply the OPPOSITE rotations, so Transpose AGAIN!
+  // We want to rotate only the object, not his position in space,
+  // So use the 'Rotate' object, not the 'Orbit'.
+  trans.rotation.Adjust( transpose(adjustment), fixed );
+  trans.CalcCTM();
 
+  Send( ROTATION );
 }
 
 
@@ -565,7 +591,7 @@ float Camera::FOV( void ) const { return fovy; }
 void Camera::FOV( const float &in ) { 
   fovy = in;
   if (currView == Camera::PERSPECTIVE)
-    send( VIEW );
+    Send( VIEW );
 }
 
 
@@ -636,11 +662,9 @@ void Camera::dFOV( const float &by ) {
 **/
 void Camera::viewport( size_t _X, size_t _Y,
 		       size_t _Width, size_t _Height ) {
-  this->XPos = _X;
-  this->YPos = _Y;
-  this->width = _Width;
-  this->height = _Height;
-  this->aspect = (double)(this->width) / (double)(this->height);
+  this->position = Angel::vec2( _X, _Y );
+  this->size = Angel::vec2( _Width, _Height );
+  this->aspect = (double)_Width / (double)_Height;
   refreshPerspective();
 }
 
@@ -649,23 +673,23 @@ void Camera::viewport( size_t _X, size_t _Y,
    @param which The parameter to send. Can be any from enum glsl_var.
    @return Void.
 **/
-void Camera::send( const glsl_var &which ) {
+void Camera::Send( Object::UniformEnum which ) {
   
   switch (which) {
   case TRANSLATION:
-    if (glsl_handles[which] != -1)
-      glUniformMatrix4fv( glsl_handles[which], 1, GL_TRUE, T );
-    send( CTM );
+    if (handles[which] != -1)
+      glUniformMatrix4fv( handles[which], 1, GL_TRUE, T );
+    Send( CTM );
     break;
   case ROTATION:
-    if (glsl_handles[which] != -1)
-      glUniformMatrix4fv( glsl_handles[which], 1, GL_TRUE, R );
-    send( CTM );
+    if (handles[which] != -1)
+      glUniformMatrix4fv( handles[which], 1, GL_TRUE, R );
+    Send( CTM );
     break;
   case VIEW:
-    if (glsl_handles[which] != -1)
-      glUniformMatrix4fv( glsl_handles[which], 1, GL_TRUE, P );
-    send( CTM );
+    if (handles[which] != -1)
+      glUniformMatrix4fv( handles[which], 1, GL_TRUE, P );
+    Send( CTM );
     break;
   case CTM:
 #ifdef POSTMULT
@@ -673,48 +697,45 @@ void Camera::send( const glsl_var &which ) {
 #else
     ctm = P*R*T;
 #endif
-    if (glsl_handles[which] != -1)
-      glUniformMatrix4fv( glsl_handles[which], 1, GL_TRUE, ctm );
+    if (handles[which] != -1)
+      glUniformMatrix4fv( handles[which], 1, GL_TRUE, ctm );
     break;
   default:
-    throw std::invalid_argument( "Unknown GLSL variable handle." );
+    Object::Send( which );
+    //throw std::invalid_argument( "Unknown GLSL variable handle." );
   }
 }
 
 
-/**
+/*
    Link associates the camera with a glsl uniform variable.
    @param program a GLuint handle to the shader application.
    @param which A glsl_var enumeration indication which variable to link.
    @param glslVarName The name of the variable in the shader.
    @return Void.
-**/
-void Camera::link( const GLuint &program, const glsl_var &which, 
+void Camera::link( const GLuint &program, const Camera::Uniform &which, 
 		   const string &glslVarName ) {
-  
-
   glsl_handles[which] = glGetUniformLocation( program, 
 					      glslVarName.c_str() );
   if (DEBUG)
     fprintf( stderr, "Camera: Linking glsl_handles[%d] to %s, got handle %d\n",
 	     which, glslVarName.c_str(), glsl_handles[which] );
-  
   //send( which );
-
 }
+*/
 
 /**
-   Draw will instruct OpenGL of the viewport we want, and then send all of our
+   View will instruct OpenGL of the viewport we want, and then send all of our
    current matrices to the shader for rendering.
    @return Void.
 **/
-void Camera::Draw( void ) {
+void Camera::View( void ) {
 
-  glViewport( XPos, YPos, width, height );
+  glViewport( position.x, position.y, size.x, size.y );
   /* Send all of our matrices, who knows what the shader's gonna do with 'em */
-  send( TRANSLATION );
-  send( ROTATION );
-  send( VIEW );
-  send( CTM );
+  Send( TRANSLATION );
+  Send( ROTATION );
+  Send( VIEW );
+  Send( CTM );
 
 }
