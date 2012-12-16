@@ -48,6 +48,13 @@ public:
   /** Transformation State **/
   TransCache trans;
 
+  /** 
+      Handles to Uniforms on the shader. 
+      Private to allow derived classes
+      to extend it as needed.
+  **/
+  std::vector< GLint > handles;
+
 protected:
   /** name is used as an identifying handle for the object. **/
   std::string name;     
@@ -60,9 +67,6 @@ protected:
   
   /** Drawing mode for this object. GL_TRIANGLES, GL_LINE_LOOP, etc. **/
   GLenum draw_mode;
-
-  /** Handles to Uniforms on the shader. **/
-  GLint *handles;
 
   bool isTextured;
 

@@ -14,18 +14,12 @@
 using std::vector;
 
 
-Cameras::Cameras( const GLuint gShader, const size_t &numCameras ) {
+Cameras::Cameras( void ) {
 
-  this->gShader = gShader;
   this->Width = 0;
   this->Height = 0;
+  this->activeCamera = -1;
 
-  for ( size_t i = 0; i < numCameras; ++i ) addCamera();
-
-  /* Do not use Active(n) to set the initial active camera.
-     This will attempt to send data to the GPU, and we may
-     not have done that yet. */
-  activeCamera = 0;
 }
 
 Cameras::~Cameras( void ) {
@@ -39,6 +33,7 @@ size_t Cameras::addCamera( void ) {
 size_t Cameras::addCamera( const Camera &newCamera ) {
   // Add the new camera.
   this->camList.push_back( newCamera );
+  Active( camList.size() - 1 );
   //Recalculate our splitscreen viewports.
   CalculateViewports();
   return (this->camList.size()) - 1;
@@ -73,7 +68,7 @@ void Cameras::IdleMotion( void ) {
 }
 
 void Cameras::LinkAll( const GLuint &program, 
-		       const Camera::glsl_var &which, const string &glslVarName ) {
+		       const Camera::Uniform &which, const string &glslVarName ) {
   vector<Camera>::iterator it;
   for (it = camList.begin(); it != camList.end(); ++it) {
     it->link( program, which, glslVarName );
@@ -84,7 +79,7 @@ Camera *Cameras::iter( size_t n ) {
   
   vector<Camera>::iterator it;
   if (n < camList.size()) {
-    return &camList[n];
+    return &(camList.at(n));
   } else {
     return NULL;
   }
@@ -96,14 +91,14 @@ size_t Cameras::ActiveN( void ) {
 }
 
 Camera &Cameras::Active( void ) {
-  return camList[activeCamera];
+  return camList.at(activeCamera);
 }
 
 Camera &Cameras::Active( size_t n ) {
   if (n < camList.size()) {
     activeCamera = n;
   } 
-  camList[activeCamera].send( Camera::CTM );
+  camList.at(activeCamera).send( Camera::CTM );
   return Active();
 }
 
@@ -198,4 +193,13 @@ void Cameras::CalculateViewports( void ) {
     // Increment our allocated height counter.
     allocHeight += ((this->Height)/numRows);
   }
+}
+
+
+GLuint Cameras::Shader( void ) const {
+  return this->gShader;
+}
+
+void Cameras::Shader( GLuint gShader ) {
+  this->gShader = gShader;
 }

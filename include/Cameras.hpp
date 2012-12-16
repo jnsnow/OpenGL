@@ -21,7 +21,7 @@ class Cameras {
 
 public:
 
-  Cameras( const GLuint gShader, const size_t &numCameras = 1 );
+  Cameras( void );
   ~Cameras( void );
 
   size_t addCamera( void );
@@ -36,7 +36,7 @@ public:
 
   void IdleMotion( void );
   void LinkAll( const GLuint &program, 
-		const Camera::glsl_var &which, const string &glslVarName ); 
+		const Camera::Uniform &which, const string &glslVarName ); 
 
   size_t ActiveN( void );
   Camera &Active( void );
@@ -47,6 +47,9 @@ public:
   void Resize( int width, int height );
   void CalculateViewports( void );
   void Draw(void (*draw_func)(void));
+
+  GLuint Shader( void ) const;
+  void Shader( GLuint gShader );
 
 private:
   

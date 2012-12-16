@@ -18,10 +18,10 @@ Object::Object( const std::string &name, GLuint gShader )
      Position, Color, Direction (Normal), Texture and Draw Order. */
 
   if (DEBUG)
-    fprintf( stderr, "Creating %d handles for uniforms\n", Object::End );
+    fprintf( stderr, "Creating %d handles for uniforms\n", Uniforms() );
 
   // Create room for our GLUniform handles
-  handles = new GLint [Object::End];
+  handles.resize( Object::End );
 
   // Associate this Object with the Shader.
   SetShader( gShader );
@@ -94,7 +94,7 @@ Object::Object( const std::string &name, GLuint gShader )
 }
 
 Object::~Object( void ) {
-  /* Noooothing? */
+
 }
 
 void Object::Buffer( void ) {
@@ -134,11 +134,7 @@ void Object::Buffer( void ) {
   glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, buffer[INDICES] );
   glBufferData( GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * indices.size(),
 		&(indices[0]), GL_STATIC_DRAW );
-  /*
-  glBindBuffer( GL_ARRAY_BUFFER, buffer[TEXCOORDS] );
-  glBufferData( GL_ARRAY_BUFFER, sizeof(Angel::vec2) * texcoords.size(),
-		(useTextures ? &(texcoords[0]) : NULL), GL_STATIC_DRAW );
-  */
+
   glBindVertexArray( 0 );
 
 }
@@ -158,9 +154,7 @@ void Object::Link( Object::Uniform which, const std::string &name ) {
 void Object::Texture( const char** filename ) {
 
   Tick.Tock();
-
   glBindVertexArray( vao );
-
   GLuint tex2dgrass = SOIL_load_OGL_texture( filename[0],
 					     SOIL_LOAD_AUTO,
 					     SOIL_CREATE_NEW_ID,
@@ -184,6 +178,9 @@ void Object::Texture( const char** filename ) {
 					    SOIL_FLAG_INVERT_Y | 
 					    SOIL_FLAG_NTSC_SAFE_RGB | 
 					    SOIL_FLAG_COMPRESS_TO_DXT );
+  Tick.Tock();
+  fprintf( stderr, "took %lu usec to load textures.\n", Tick.Delta() );
+
   
   GLuint gSampler0 = glGetUniformLocation( GetShader(), "gSampler0" );
   glUniform1i( gSampler0, 0 );
@@ -219,8 +216,7 @@ void Object::Texture( const char** filename ) {
   glBindVertexArray( 0 );
 
   Tick.Tock();
-  fprintf( stderr, "took %lu usec to load textures.\n", Tick.Delta() );
-
+  fprintf( stderr, "took %lu usec to finalize textures.\n", Tick.Delta() );
 }
 
 void Object::Draw( void ) {

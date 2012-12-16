@@ -27,22 +27,22 @@ static const bool PREMULT = true;
 #endif
 
 /**
-   comminInit is a private function that initializes local object attributes.
+   commonInit is a private function that initializes local object attributes.
    It should be called by all available constructors.
    @return Void.
 **/
 void Camera::commonInit( void ) {
-  for ( size_t i = (size_t)Begin;
-	i != (size_t)End;
-	++i) {
-    Motion[i] = false;
-  }
 
-  for ( size_t i = (size_t)Camera::LastGlslVar;
-	  i != (size_t)LastGlslVar;
-	++i) {
+  // Extend the Uniforms array.
+  this->handles.resize( Camera::End, -1 );
+
+  for ( size_t i = (size_t) Camera::Direction_Begin; 
+	i != (size_t)Direction_End; ++i )
+    Motion[i] = false;
+
+  for ( size_t i = (size_t) Camera::Begin;
+	i != (size_t) Camera::End; ++i )
     glsl_handles[ i ] = -1;
-  }
 
   this->speed = 0;
   this->speed_cap = 0;
@@ -93,7 +93,9 @@ Camera::Camera( const std::string &name, GLuint gShader, vec4 &in ) :
 /**
    Default destructor. Nothing of note.
 **/
-Camera::~Camera( void ) { }
+Camera::~Camera( void ) { 
+  
+}
 
 
 /**
@@ -649,7 +651,7 @@ void Camera::viewport( size_t _X, size_t _Y,
    @param which The parameter to send. Can be any from enum glsl_var.
    @return Void.
 **/
-void Camera::send( const glsl_var &which ) {
+void Camera::send( const Camera::Uniform &which ) {
   
   switch (which) {
   case TRANSLATION:
@@ -689,7 +691,7 @@ void Camera::send( const glsl_var &which ) {
    @param glslVarName The name of the variable in the shader.
    @return Void.
 **/
-void Camera::link( const GLuint &program, const glsl_var &which, 
+void Camera::link( const GLuint &program, const Camera::Uniform &which, 
 		   const string &glslVarName ) {
   
 

@@ -29,7 +29,7 @@ CC=g++
 CFLAGS=-Wall -pedantic -I $(RELDIR)/include
 LDLIBS=-lSOIL
 
-EXECS=fly terrain terrainLit
+EXECS=fly terrain
 #EXEC sources are implied to be $EXEC.cpp !!
 
 COMMON_SOURCES=model.cpp InitShader.cpp

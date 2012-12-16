@@ -41,7 +41,7 @@ bool usingWii = false;
 ////
 
 Scene theScene;
-Screen myScreen( 800, 600 );
+Screen *myScreen;
 GLuint gShader;
 
 
@@ -152,6 +152,8 @@ void init() {
 
   gShader = Angel::InitShader( "shaders/vshader.glsl", "shaders/fshader.glsl" );
   theScene.SetShader( gShader );
+  myScreen = new Screen( 800, 600 );
+  myScreen->camList.Shader( gShader );
 
   Object *pyramid = theScene.AddObject( "pyramid" );
   Sierpinski_Pyramid( pyramid,
@@ -179,10 +181,10 @@ void init() {
   init_lights( gShader );
   
   // Link however many cameras we have at this point to the shader.
-  myScreen.camList.LinkAll( gShader, Camera::TRANSLATION, "T" );
-  myScreen.camList.LinkAll( gShader, Camera::ROTATION, "R" );
-  myScreen.camList.LinkAll( gShader, Camera::VIEW, "P" );
-  myScreen.camList.LinkAll( gShader, Camera::CTM, "CTM" );
+  myScreen->camList.LinkAll( gShader, Camera::TRANSLATION, "T" );
+  myScreen->camList.LinkAll( gShader, Camera::ROTATION, "R" );
+  myScreen->camList.LinkAll( gShader, Camera::VIEW, "P" );
+  myScreen->camList.LinkAll( gShader, Camera::CTM, "CTM" );
 
   glEnable( GL_DEPTH_TEST );
   glClearColor( 0.1, 0.1, 0.1, 1.0 );
@@ -282,7 +284,7 @@ void display( void ) {
   glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
   // Tell camList to draw using our displayViewport rendering function.
-  myScreen.camList.Draw( displayViewport );
+  myScreen->camList.Draw( displayViewport );
 
   glutSwapBuffers();
   frameNumber = (frameNumber + 1) % 180 ;
@@ -290,7 +292,7 @@ void display( void ) {
 
 void keylift( unsigned char key, int x, int y ) {
   
-  Camera &cam = myScreen.camList.Active();
+  Camera &cam = myScreen->camList.Active();
 
   switch( key ) {
   case 'w':
@@ -317,7 +319,7 @@ void keylift( unsigned char key, int x, int y ) {
 void keyboard( unsigned char key, int x, int y ) {
 
   /* A shorthand variable with local scope that refers to "The Active Camera." */
-  Camera &cam = myScreen.camList.Active();
+  Camera &cam = myScreen->camList.Active();
 
   switch( key ) {
 
@@ -326,10 +328,10 @@ void keyboard( unsigned char key, int x, int y ) {
     break;
     
   case '+':
-    cameraInit(myScreen.camList[myScreen.camList.addCamera()]);
+    cameraInit(myScreen->camList[myScreen->camList.addCamera()]);
     break;
   case '-':
-    myScreen.camList.popCamera();
+    myScreen->camList.popCamera();
     break;
     
   case 'w':
@@ -385,11 +387,11 @@ void keyboard( unsigned char key, int x, int y ) {
 void keyboard_ctrl( int key, int x, int y ) {
   switch (key) {
   case GLUT_KEY_PAGE_UP:
-    myScreen.camList.Prev();
+    myScreen->camList.Prev();
     break;
 
   case GLUT_KEY_PAGE_DOWN:
-    myScreen.camList.Next();
+    myScreen->camList.Next();
     break;
   }
 }
@@ -398,8 +400,8 @@ void mouse( int button, int state, int x, int y ) {
 
   if ( state == GLUT_DOWN ) {
     switch( button ) {
-    case 3: myScreen.camList.Active().dFOV( 1 ); break;
-    case 4: myScreen.camList.Active().dFOV( -1 ); break;
+    case 3: myScreen->camList.Active().dFOV( 1 ); break;
+    case 4: myScreen->camList.Active().dFOV( -1 ); break;
     }
   }
 
@@ -408,9 +410,9 @@ void mouse( int button, int state, int x, int y ) {
 
 void mouseroll( int x, int y ) {
 
-  if ((x != myScreen.MidpointX()) || (y != myScreen.MidpointY())) {
-    myScreen.camList.Active().roll( x - myScreen.MidpointX() );
-    glutWarpPointer( myScreen.MidpointX(), myScreen.MidpointY() );
+  if ((x != myScreen->MidpointX()) || (y != myScreen->MidpointY())) {
+    myScreen->camList.Active().roll( x - myScreen->MidpointX() );
+    glutWarpPointer( myScreen->MidpointX(), myScreen->MidpointY() );
   }
 
 }
@@ -418,14 +420,14 @@ void mouseroll( int x, int y ) {
 
 void mouselook( int x, int y ) {
 
-  if ((x != myScreen.MidpointX()) || (y != myScreen.MidpointY())) {
-    const double dx = ((double)x - myScreen.MidpointX());
-    const double dy = ((double)y - myScreen.MidpointY());
+  if ((x != myScreen->MidpointX()) || (y != myScreen->MidpointY())) {
+    const double dx = ((double)x - myScreen->MidpointX());
+    const double dy = ((double)y - myScreen->MidpointY());
     
-    myScreen.camList.Active().pitch( dy );
-    myScreen.camList.Active().yaw( dx, true ); // Fixed Yaw
+    myScreen->camList.Active().pitch( dy );
+    myScreen->camList.Active().yaw( dx, true ); // Fixed Yaw
     
-    glutWarpPointer( myScreen.MidpointX(), myScreen.MidpointY() );
+    glutWarpPointer( myScreen->MidpointX(), myScreen->MidpointY() );
   }
   
 }
@@ -434,8 +436,8 @@ void mouselook( int x, int y ) {
 void resizeEvent( int width, int height ) {
 
   /* Handles resizing the child cameras as well. */
-  myScreen.Size( width, height );
-  glutWarpPointer( myScreen.MidpointX(), myScreen.MidpointY() );
+  myScreen->Size( width, height );
+  glutWarpPointer( myScreen->MidpointX(), myScreen->MidpointY() );
 
 }
 
@@ -464,13 +466,13 @@ void idle( void ) {
   if (usingWii) {
     for (size_t i = 0; i < 20; ++i) {
       pollWii( Wii );
-      myScreen.camList.Active().Accel( bb_magnitudes );
+      myScreen->camList.Active().Accel( bb_magnitudes );
     }
   }
 #endif
 
   // Move all camera(s).
-  myScreen.camList.IdleMotion();
+  myScreen->camList.IdleMotion();
   glutPostRedisplay();
     
 }
@@ -496,7 +498,7 @@ int main( int argc, char **argv ) {
 
   glutInit( &argc, argv );
   glutInitDisplayMode( GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH );
-  glutInitWindowSize( myScreen.Width(), myScreen.Height() );
+  glutInitWindowSize( 800, 600 );
   glutCreateWindow( "Gasket Flythrough" );
   glutFullScreen();
   glutSetCursor( GLUT_CURSOR_NONE );
