@@ -18,14 +18,10 @@ public:
   RotMat orbit;          /* Rotation about the origin */
   TransMat displacement; /* Offset of entire animation from origin. */
 
-
   /* Updates our CTM. Private Use. */
   void CalcCTM( void );
 
-
 private:
-
-
   
   // Cached Result Matrices
   Angel::mat4 ptm;   /* Parent's Cumulative Transformation Matrix */

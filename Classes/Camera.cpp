@@ -34,7 +34,15 @@ static const bool PREMULT = true;
 void Camera::commonInit( void ) {
 
   // Extend the Uniforms array.
+  if (DEBUG)
+    fprintf( stderr, "Extending Uniforms Array to %d\n", Camera::End );
   this->handles.resize( Camera::End, -1 );
+
+  /* Default Variable Links */
+  Link( Camera::TRANSLATION, "T" );
+  Link( Camera::ROTATION, "R" );
+  Link( Camera::VIEW, "P" );
+  Link( Camera::CTM, "CTM" );
 
   for ( size_t i = (size_t) Camera::Direction_Begin; 
 	i != (size_t)Direction_End; ++i )
@@ -102,7 +110,11 @@ Camera::~Camera( void ) {
 **/
 void Camera::X( const float &in, const bool &update ) { 
   ctm[0][3] = T[0][3] = -in;
-  if (update) Send( TRANSLATION );
+  trans.offset.SetX( in );
+  if (update) {
+    Send( TRANSLATION );
+    trans.CalcCTM();
+  }
 }
 
 
@@ -114,7 +126,11 @@ void Camera::X( const float &in, const bool &update ) {
 **/
 void Camera::Y( const float &in, const bool &update ) { 
   ctm[1][3] = T[1][3] = -in;
-  if (update) Send( TRANSLATION );
+  trans.offset.SetY( in );
+  if (update) {
+    Send( TRANSLATION );
+    trans.CalcCTM();
+  }
 }
 
 
@@ -126,7 +142,11 @@ void Camera::Y( const float &in, const bool &update ) {
 **/
 void Camera::Z( const float &in, const bool &update ) { 
   ctm[2][3] = T[2][3] = -in;
-  if (update) Send( TRANSLATION );
+  trans.offset.SetZ( in );
+  if (update) {
+    Send( TRANSLATION );
+    trans.CalcCTM();
+  }
 }
 
 
@@ -143,7 +163,10 @@ void Camera::pos( const float &x, const float &y,
   X(x, false);
   Y(y, false);
   Z(z, false);
-  if (update) Send( TRANSLATION );
+  if (update) {
+    Send( TRANSLATION );
+    trans.CalcCTM();
+  }
 }
 
 
@@ -268,8 +291,13 @@ void Camera::adjustRotation( const mat4 &adjustment, const bool &fixed ) {
     R = adjustment * R;
   }
 
-  Send( ROTATION );
+  // The model needs to apply the OPPOSITE rotations, so Transpose AGAIN!
+  // We want to rotate only the object, not his position in space,
+  // So use the 'Rotate' object, not the 'Orbit'.
+  trans.rotation.Adjust( transpose(adjustment), fixed );
+  trans.CalcCTM();
 
+  Send( ROTATION );
 }
 
 
@@ -635,11 +663,7 @@ void Camera::dFOV( const float &by ) {
 void Camera::viewport( size_t _X, size_t _Y,
 		       size_t _Width, size_t _Height ) {
   this->position = Angel::vec2( _X, _Y );
-  //this->XPos = _X;
-  //this->YPos = _Y;
   this->size = Angel::vec2( _Width, _Height );
-  //this->width = _Width;
-  //this->height = _Height;
   this->aspect = (double)_Width / (double)_Height;
   refreshPerspective();
 }

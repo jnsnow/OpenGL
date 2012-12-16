@@ -19,7 +19,7 @@ Object::Object( const std::string &name, GLuint gShader )
      Position, Color, Direction (Normal), Texture and Draw Order. */
 
   if (DEBUG)
-    fprintf( stderr, "Creating %d handles for uniforms\n", Uniforms() );
+    fprintf( stderr, "\nCreating %d handles for uniforms\n", Object::End );
 
   // Create room for our GLUniform handles
   handles.resize( Object::End );
@@ -151,7 +151,7 @@ void Object::Link( UniformEnum which, const std::string &name ) {
 
   handles[which] = glGetUniformLocation( GetShader(), name.c_str() );
   if (DEBUG)
-    fprintf( stderr, "\nLinking handles[%d] to %s; got %d.\n",
+    fprintf( stderr, "Linking handles[%d] to %s; got %d.\n",
 	     which, name.c_str(), handles[which] );
 
 }

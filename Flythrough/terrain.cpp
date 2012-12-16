@@ -62,16 +62,15 @@ const char* terrainTex[] = {
 
 
 
-void cameraInit( Camera& cam ) {
-
-  /* Link this camera to our standard shader variables. */
+/*void cameraInit( Camera& cam ) {
+  // Link this camera to our standard shader variables.
   cam.Link( Camera::TRANSLATION, "T" );
   cam.Link( Camera::ROTATION, "R" );
   cam.Link( Camera::VIEW, "P" );
   cam.Link( Camera::CTM, "CTM" );
+}*/
 
-
-}
+//Camera *VisCam;
 
 void init() {
 
@@ -88,10 +87,10 @@ void init() {
   myScreen.camList.addCamera();
 
   // Witchcraft:
-  //colorcube( &(myScreen.camList.Active()), 0.25 );
-  //myScreen.camList.Active().Buffer();
-  //myScreen.camList.Active().Mode( GL_TRIANGLES );
-
+  /*VisCam = &(myScreen.camList.Active());
+  colorcube( VisCam, 0.25 );
+  VisCam->Buffer();
+  VisCam->Mode( GL_TRIANGLES );*/
 
   Object *terrain = theScene.AddObject( "terrain" );
   Object *pyramid = theScene.AddObject( "pyramid" );
@@ -135,7 +134,6 @@ void init() {
 void cleanup( void ) {
 
   theScene.DestroyObject();
-  /* nihil */
 
 }
 
@@ -145,6 +143,8 @@ void cleanup( void ) {
     Is responsible for drawing a SINGLE VIEWPORT. **/
 void displayViewport( void ) {  
   theScene.Draw();
+  //VisCam->trans.CalcCTM();
+  //VisCam->Draw();
 }
 
 void display( void ) {
@@ -194,7 +194,8 @@ void keyboard( unsigned char key, int x, int y ) {
     break;
     
   case '+':
-    cameraInit(myScreen.camList[myScreen.camList.addCamera()]);
+    myScreen.camList.addCamera();
+    //cameraInit(myScreen.camList[myScreen.camList.addCamera()]);
     break;
   case '-':
     myScreen.camList.popCamera();

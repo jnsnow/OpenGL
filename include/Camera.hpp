@@ -71,7 +71,7 @@ public:
       by any functions that accept a glsl_var.
   **/
   typedef enum Uniforms {
-    Begin = Object::Begin,
+    Begin = Object::End,
     TRANSLATION = Begin,
     ROTATION,
     VIEW,
