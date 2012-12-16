@@ -161,15 +161,7 @@ void Object::Texture( const char** filename ) {
 
   glBindVertexArray( vao );
 
-  GLuint tex2dgrass = SOIL_load_OGL_texture( filename[0],
-					     SOIL_LOAD_AUTO,
-					     SOIL_CREATE_NEW_ID,
-					     SOIL_FLAG_MIPMAPS | 
-					     SOIL_FLAG_INVERT_Y | 
-					     SOIL_FLAG_NTSC_SAFE_RGB | 
-					     SOIL_FLAG_COMPRESS_TO_DXT );
-
-  GLuint tex2drock = SOIL_load_OGL_texture( filename[1],
+  GLuint tex2ddirt = SOIL_load_OGL_texture( filename[0],
 					    SOIL_LOAD_AUTO,
 					    SOIL_CREATE_NEW_ID,
 					    SOIL_FLAG_MIPMAPS | 
@@ -177,7 +169,31 @@ void Object::Texture( const char** filename ) {
 					    SOIL_FLAG_NTSC_SAFE_RGB | 
 					    SOIL_FLAG_COMPRESS_TO_DXT );
 
-  GLuint tex2dsnow = SOIL_load_OGL_texture( filename[2],
+  GLuint tex2dsand = SOIL_load_OGL_texture( filename[1],
+					    SOIL_LOAD_AUTO,
+					    SOIL_CREATE_NEW_ID,
+					    SOIL_FLAG_MIPMAPS | 
+					    SOIL_FLAG_INVERT_Y | 
+					    SOIL_FLAG_NTSC_SAFE_RGB | 
+					    SOIL_FLAG_COMPRESS_TO_DXT );
+
+  GLuint tex2dgrass = SOIL_load_OGL_texture( filename[2],
+					     SOIL_LOAD_AUTO,
+					     SOIL_CREATE_NEW_ID,
+					     SOIL_FLAG_MIPMAPS | 
+					     SOIL_FLAG_INVERT_Y | 
+					     SOIL_FLAG_NTSC_SAFE_RGB | 
+					     SOIL_FLAG_COMPRESS_TO_DXT );
+
+  GLuint tex2drock = SOIL_load_OGL_texture( filename[3],
+					    SOIL_LOAD_AUTO,
+					    SOIL_CREATE_NEW_ID,
+					    SOIL_FLAG_MIPMAPS | 
+					    SOIL_FLAG_INVERT_Y | 
+					    SOIL_FLAG_NTSC_SAFE_RGB | 
+					    SOIL_FLAG_COMPRESS_TO_DXT );
+
+  GLuint tex2dsnow = SOIL_load_OGL_texture( filename[4],
 					    SOIL_LOAD_AUTO,
 					    SOIL_CREATE_NEW_ID,
 					    SOIL_FLAG_MIPMAPS | 
@@ -191,9 +207,13 @@ void Object::Texture( const char** filename ) {
   glUniform1i( gSampler1, 1 );
   GLuint gSampler2 = glGetUniformLocation( GetShader(), "gSampler2" );
   glUniform1i( gSampler2, 2 );
+  GLuint gSampler3 = glGetUniformLocation( GetShader(), "gSampler3" );
+  glUniform1i( gSampler3, 3 );
+  GLuint gSampler4 = glGetUniformLocation( GetShader(), "gSampler4" );
+  glUniform1i( gSampler4, 4 );
 
   glActiveTexture( GL_TEXTURE0 );
-  glBindTexture( GL_TEXTURE_2D, tex2dgrass );
+  glBindTexture( GL_TEXTURE_2D, tex2ddirt );
   glEnable( GL_TEXTURE_2D );
   glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
   glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
@@ -201,7 +221,7 @@ void Object::Texture( const char** filename ) {
   glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
 
   glActiveTexture( GL_TEXTURE1 );
-  glBindTexture( GL_TEXTURE_2D, tex2drock );
+  glBindTexture( GL_TEXTURE_2D, tex2dsand );
   glEnable( GL_TEXTURE_2D );
   glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
   glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
@@ -209,6 +229,22 @@ void Object::Texture( const char** filename ) {
   glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
 
   glActiveTexture( GL_TEXTURE2 );
+  glBindTexture( GL_TEXTURE_2D, tex2dgrass );
+  glEnable( GL_TEXTURE_2D );
+  glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
+  glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+  glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
+  glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
+
+  glActiveTexture( GL_TEXTURE3 );
+  glBindTexture( GL_TEXTURE_2D, tex2drock );
+  glEnable( GL_TEXTURE_2D );
+  glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
+  glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+  glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
+  glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
+
+  glActiveTexture( GL_TEXTURE4 );
   glBindTexture( GL_TEXTURE_2D, tex2dsnow );
   glEnable( GL_TEXTURE_2D );
   glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );

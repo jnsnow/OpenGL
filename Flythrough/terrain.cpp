@@ -55,6 +55,8 @@ bool fixed_yaw = true;
 // Textures
 // Obtained from www.goodtextures.com
 const char* terrainTex[] = {
+  "../Textures/GoodTextures_0013423.jpg",  // Dirt/Mud
+  "../Textures/GoodTextures_0013779.jpg",  // Sand
   "../Textures/GrassGreenTexture0002.jpg", // Grass (who'da thunk?)
   "../Textures/GoodTextures_0013418.jpg",  // Rock
   "../Textures/GoodTextures_0013291.jpg"   // Snow
@@ -87,10 +89,10 @@ void init() {
   theScene.SetShader( gShader );
   myScreen = new Screen( gShader, 800, 600 ); 
 
-  Object *terrain = theScene.AddObject( "terrain" );
-  Object *pyramid = theScene.AddObject( "pyramid" );
+  Object *terrain   = theScene.AddObject( "terrain" ) ;
+  Object *pyramid   = theScene.AddObject( "pyramid" ) ;
   Object *cube_base = theScene.AddObject( "basecube" );
-  Object *moon_cube = pyramid->AddObject( "moon" );
+  Object *moon_cube = pyramid->AddObject( "moon" )    ;
 
   /** Fill points[...] with terrain map **/
   landGen( terrain, 8, 40.0 );
@@ -98,6 +100,8 @@ void init() {
   terrain->Buffer();
   terrain->Mode( GL_TRIANGLE_STRIP );
 
+  makeAgua( terrain ) ;
+  
   Sierpinski_Pyramid( pyramid,
 		      vec4(  0,      1,  0, 1 ),
 		      vec4( -1, -0.999,  1, 1 ),
@@ -334,7 +338,7 @@ void animationTest( TransCache &obj ) {
      we can't just multiply by our time scaling factor,
      we have to take pow( scaleFactor, timeScale ) instead.
      This is, of course, incredibly inefficient. */
-  //obj.scale.Adjust( pow( 1.001, timeScale ) );
+  // obj.scale.Adjust( pow( 1.001, timeScale ) );
 
   //Object rotates in-place.
   obj.rotation.RotateX( theta );
