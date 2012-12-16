@@ -102,7 +102,7 @@ Camera::~Camera( void ) {
 **/
 void Camera::X( const float &in, const bool &update ) { 
   ctm[0][3] = T[0][3] = -in;
-  if (update) send( TRANSLATION );
+  if (update) Send( TRANSLATION );
 }
 
 
@@ -114,7 +114,7 @@ void Camera::X( const float &in, const bool &update ) {
 **/
 void Camera::Y( const float &in, const bool &update ) { 
   ctm[1][3] = T[1][3] = -in;
-  if (update) send( TRANSLATION );
+  if (update) Send( TRANSLATION );
 }
 
 
@@ -126,7 +126,7 @@ void Camera::Y( const float &in, const bool &update ) {
 **/
 void Camera::Z( const float &in, const bool &update ) { 
   ctm[2][3] = T[2][3] = -in;
-  if (update) send( TRANSLATION );
+  if (update) Send( TRANSLATION );
 }
 
 
@@ -143,7 +143,7 @@ void Camera::pos( const float &x, const float &y,
   X(x, false);
   Y(y, false);
   Z(z, false);
-  if (update) send( TRANSLATION );
+  if (update) Send( TRANSLATION );
 }
 
 
@@ -217,7 +217,7 @@ void Camera::dPos( const float &x, const float &y,
   dX( x, false );
   dY( y, false );
   dZ( z, false );
-  send( TRANSLATION );
+  Send( TRANSLATION );
 }
 
 
@@ -268,7 +268,7 @@ void Camera::adjustRotation( const mat4 &adjustment, const bool &fixed ) {
     R = adjustment * R;
   }
 
-  send( ROTATION );
+  Send( ROTATION );
 
 }
 
@@ -563,7 +563,7 @@ float Camera::FOV( void ) const { return fovy; }
 void Camera::FOV( const float &in ) { 
   fovy = in;
   if (currView == Camera::PERSPECTIVE)
-    send( VIEW );
+    Send( VIEW );
 }
 
 
@@ -649,23 +649,23 @@ void Camera::viewport( size_t _X, size_t _Y,
    @param which The parameter to send. Can be any from enum glsl_var.
    @return Void.
 **/
-void Camera::send( const Camera::Uniform &which ) {
+void Camera::Send( Object::UniformEnum which ) {
   
   switch (which) {
   case TRANSLATION:
     if (handles[which] != -1)
       glUniformMatrix4fv( handles[which], 1, GL_TRUE, T );
-    send( CTM );
+    Send( CTM );
     break;
   case ROTATION:
     if (handles[which] != -1)
       glUniformMatrix4fv( handles[which], 1, GL_TRUE, R );
-    send( CTM );
+    Send( CTM );
     break;
   case VIEW:
     if (handles[which] != -1)
       glUniformMatrix4fv( handles[which], 1, GL_TRUE, P );
-    send( CTM );
+    Send( CTM );
     break;
   case CTM:
 #ifdef POSTMULT
@@ -677,7 +677,8 @@ void Camera::send( const Camera::Uniform &which ) {
       glUniformMatrix4fv( handles[which], 1, GL_TRUE, ctm );
     break;
   default:
-    throw std::invalid_argument( "Unknown GLSL variable handle." );
+    Object::Send( which );
+    //throw std::invalid_argument( "Unknown GLSL variable handle." );
   }
 }
 
@@ -708,9 +709,9 @@ void Camera::View( void ) {
 
   glViewport( position.x, position.y, size.x, size.y );
   /* Send all of our matrices, who knows what the shader's gonna do with 'em */
-  send( TRANSLATION );
-  send( ROTATION );
-  send( VIEW );
-  send( CTM );
+  Send( TRANSLATION );
+  Send( ROTATION );
+  Send( VIEW );
+  Send( CTM );
 
 }

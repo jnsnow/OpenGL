@@ -136,7 +136,7 @@ public:
   vec4 pos( void ) const;
 
   /* OpenGL Methods */
-  void send( const Uniform &which );
+  virtual void Send( Object::UniformEnum which );
   void View( void );
     
 private:

@@ -97,7 +97,7 @@ Camera &Cameras::Active( size_t n ) {
   if (n < camList.size()) {
     activeCamera = n;
   } 
-  camList.at(activeCamera).send( Camera::CTM );
+  camList.at(activeCamera).Send( Camera::CTM );
   return Active();
 }
 

@@ -5,6 +5,7 @@
 #include "Object.hpp"
 #include <SOIL.h>
 #include "globals.h"
+#include <stdexcept>
 
 #include "Timer.hpp"
 
@@ -224,17 +225,38 @@ void Object::Texture( const char** filename ) {
   fprintf( stderr, "took %lu usec to finalize textures.\n", Tick.Delta() );
 }
 
+
+void Object::Send( Object::UniformEnum which ) {
+  switch (which) {
+    
+  case Object::IsTextured:
+    glUniform1i( handles[Object::IsTextured],
+		 (isTextured) ? 1 : 0 );
+    break;
+    
+  case Object::ObjectCTM:
+    glUniformMatrix4fv( handles[Object::ObjectCTM], 1, GL_TRUE,
+			this->trans.OTM() );
+    break;
+    
+  default:
+    throw std::invalid_argument( "Unknown Uniform Handle Enumeration." );
+  }
+}
+
 void Object::Draw( void ) {
 
   glBindVertexArray( vao );
 
+  Send( Object::IsTextured );
+  Send( Object::ObjectCTM );
+
   /* Inform the shader if it should texture this object or not. */
-  glUniform1i( handles[Object::IsTextured],
+  /*glUniform1i( handles[Object::IsTextured],
 	       (isTextured) ? 1 : 0 );
 
   glUniformMatrix4fv( handles[Object::ObjectCTM], 1, GL_TRUE, 
-		      this->trans.OTM() );
-
+  this->trans.OTM() );*/
 
   /* Are we using a draw order? */
   if (indices.size() > 1)

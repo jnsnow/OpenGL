@@ -36,7 +36,10 @@ public:
   void Mode( GLenum new_node );
   void Texture( const char** filename );
   const std::string &Name( void ) const;
+
+  /* OpenGL Methods */
   virtual void Link( UniformEnum which, const std::string &name );
+  virtual void Send( UniformEnum which );
 
   void Animation(void (*anim_func)( TransCache &arg ));
 
