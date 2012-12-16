@@ -20,6 +20,8 @@ class Object : public Scene {
 
 public:
 
+  typedef const unsigned int UniformEnum;
+
   typedef enum Uniforms {
     Begin,
     IsTextured = Begin,
@@ -34,7 +36,7 @@ public:
   void Mode( GLenum new_node );
   void Texture( const char** filename );
   const std::string &Name( void ) const;
-  virtual void Link( Object::Uniform which, const std::string &name );
+  virtual void Link( UniformEnum which, const std::string &name );
 
   void Animation(void (*anim_func)( TransCache &arg ));
 

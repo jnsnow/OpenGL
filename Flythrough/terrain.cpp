@@ -65,10 +65,10 @@ const char* terrainTex[] = {
 void cameraInit( Camera& cam ) {
 
   /* Link this camera to our standard shader variables. */
-  cam.link( gShader, Camera::TRANSLATION, "T" );
-  cam.link( gShader, Camera::ROTATION, "R" );
-  cam.link( gShader, Camera::VIEW, "P" );
-  cam.link( gShader, Camera::CTM, "CTM" );
+  cam.Link( Camera::TRANSLATION, "T" );
+  cam.Link( Camera::ROTATION, "R" );
+  cam.Link( Camera::VIEW, "P" );
+  cam.Link( Camera::CTM, "CTM" );
 
 
 }
@@ -86,6 +86,12 @@ void init() {
   theScene.SetShader( gShader );
   myScreen.camList.Shader( gShader );
   myScreen.camList.addCamera();
+
+  // Witchcraft:
+  //colorcube( &(myScreen.camList.Active()), 0.25 );
+  //myScreen.camList.Active().Buffer();
+  //myScreen.camList.Active().Mode( GL_TRIANGLES );
+
 
   Object *terrain = theScene.AddObject( "terrain" );
   Object *pyramid = theScene.AddObject( "pyramid" );
@@ -116,10 +122,10 @@ void init() {
   moon_cube->Mode( GL_TRIANGLES );
     
   // Link however many cameras we have at this point to the shader.
-  myScreen.camList.LinkAll( gShader, Camera::TRANSLATION, "T" );
-  myScreen.camList.LinkAll( gShader, Camera::ROTATION, "R" );
-  myScreen.camList.LinkAll( gShader, Camera::VIEW, "P" );
-  myScreen.camList.LinkAll( gShader, Camera::CTM, "CTM" );
+  myScreen.camList.LinkAll( Camera::TRANSLATION, "T" );
+  myScreen.camList.LinkAll( Camera::ROTATION, "R" );
+  myScreen.camList.LinkAll( Camera::VIEW, "P" );
+  myScreen.camList.LinkAll( Camera::CTM, "CTM" );
 
   glEnable( GL_DEPTH_TEST );
   glClearColor( 0.4, 0.6, 1.0, 1.0 );
@@ -145,7 +151,7 @@ void display( void ) {
   glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
   // Tell camList to draw using our displayViewport rendering function.
-  myScreen.camList.Draw( displayViewport );
+  myScreen.camList.View( displayViewport );
   glutSwapBuffers();
 }
 

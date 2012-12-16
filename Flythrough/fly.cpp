@@ -141,10 +141,10 @@ void init_lights( GLuint program ) {
 void cameraInit( Camera& cam ) {
 
   /* Link this camera to our standard shader variables. */
-  cam.link( gShader, Camera::TRANSLATION, "T" );
-  cam.link( gShader, Camera::ROTATION, "RMat" );
-  cam.link( gShader, Camera::VIEW, "PMat" );
-  cam.link( gShader, Camera::CTM, "CTM" );
+  cam.Link( Camera::TRANSLATION, "T" );
+  cam.Link( Camera::ROTATION, "RMat" );
+  cam.Link( Camera::VIEW, "PMat" );
+  cam.Link( Camera::CTM, "CTM" );
 
 }
 
@@ -181,10 +181,10 @@ void init() {
   init_lights( gShader );
   
   // Link however many cameras we have at this point to the shader.
-  myScreen->camList.LinkAll( gShader, Camera::TRANSLATION, "T" );
-  myScreen->camList.LinkAll( gShader, Camera::ROTATION, "R" );
-  myScreen->camList.LinkAll( gShader, Camera::VIEW, "P" );
-  myScreen->camList.LinkAll( gShader, Camera::CTM, "CTM" );
+  myScreen->camList.LinkAll( Camera::TRANSLATION, "T" );
+  myScreen->camList.LinkAll( Camera::ROTATION, "R" );
+  myScreen->camList.LinkAll( Camera::VIEW, "P" );
+  myScreen->camList.LinkAll( Camera::CTM, "CTM" );
 
   glEnable( GL_DEPTH_TEST );
   glClearColor( 0.1, 0.1, 0.1, 1.0 );
@@ -284,7 +284,7 @@ void display( void ) {
   glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
   // Tell camList to draw using our displayViewport rendering function.
-  myScreen->camList.Draw( displayViewport );
+  myScreen->camList.View( displayViewport );
 
   glutSwapBuffers();
   frameNumber = (frameNumber + 1) % 180 ;

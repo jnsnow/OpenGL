@@ -40,10 +40,6 @@ void Camera::commonInit( void ) {
 	i != (size_t)Direction_End; ++i )
     Motion[i] = false;
 
-  for ( size_t i = (size_t) Camera::Begin;
-	i != (size_t) Camera::End; ++i )
-    glsl_handles[ i ] = -1;
-
   this->speed = 0;
   this->speed_cap = 0;
   this->MaxAccel = 10;
@@ -638,11 +634,13 @@ void Camera::dFOV( const float &by ) {
 **/
 void Camera::viewport( size_t _X, size_t _Y,
 		       size_t _Width, size_t _Height ) {
-  this->XPos = _X;
-  this->YPos = _Y;
-  this->width = _Width;
-  this->height = _Height;
-  this->aspect = (double)(this->width) / (double)(this->height);
+  this->position = Angel::vec2( _X, _Y );
+  //this->XPos = _X;
+  //this->YPos = _Y;
+  this->size = Angel::vec2( _Width, _Height );
+  //this->width = _Width;
+  //this->height = _Height;
+  this->aspect = (double)_Width / (double)_Height;
   refreshPerspective();
 }
 
@@ -655,18 +653,18 @@ void Camera::send( const Camera::Uniform &which ) {
   
   switch (which) {
   case TRANSLATION:
-    if (glsl_handles[which] != -1)
-      glUniformMatrix4fv( glsl_handles[which], 1, GL_TRUE, T );
+    if (handles[which] != -1)
+      glUniformMatrix4fv( handles[which], 1, GL_TRUE, T );
     send( CTM );
     break;
   case ROTATION:
-    if (glsl_handles[which] != -1)
-      glUniformMatrix4fv( glsl_handles[which], 1, GL_TRUE, R );
+    if (handles[which] != -1)
+      glUniformMatrix4fv( handles[which], 1, GL_TRUE, R );
     send( CTM );
     break;
   case VIEW:
-    if (glsl_handles[which] != -1)
-      glUniformMatrix4fv( glsl_handles[which], 1, GL_TRUE, P );
+    if (handles[which] != -1)
+      glUniformMatrix4fv( handles[which], 1, GL_TRUE, P );
     send( CTM );
     break;
   case CTM:
@@ -675,8 +673,8 @@ void Camera::send( const Camera::Uniform &which ) {
 #else
     ctm = P*R*T;
 #endif
-    if (glsl_handles[which] != -1)
-      glUniformMatrix4fv( glsl_handles[which], 1, GL_TRUE, ctm );
+    if (handles[which] != -1)
+      glUniformMatrix4fv( handles[which], 1, GL_TRUE, ctm );
     break;
   default:
     throw std::invalid_argument( "Unknown GLSL variable handle." );
@@ -684,35 +682,31 @@ void Camera::send( const Camera::Uniform &which ) {
 }
 
 
-/**
+/*
    Link associates the camera with a glsl uniform variable.
    @param program a GLuint handle to the shader application.
    @param which A glsl_var enumeration indication which variable to link.
    @param glslVarName The name of the variable in the shader.
    @return Void.
-**/
 void Camera::link( const GLuint &program, const Camera::Uniform &which, 
 		   const string &glslVarName ) {
-  
-
   glsl_handles[which] = glGetUniformLocation( program, 
 					      glslVarName.c_str() );
   if (DEBUG)
     fprintf( stderr, "Camera: Linking glsl_handles[%d] to %s, got handle %d\n",
 	     which, glslVarName.c_str(), glsl_handles[which] );
-  
   //send( which );
-
 }
+*/
 
 /**
-   Draw will instruct OpenGL of the viewport we want, and then send all of our
+   View will instruct OpenGL of the viewport we want, and then send all of our
    current matrices to the shader for rendering.
    @return Void.
 **/
-void Camera::Draw( void ) {
+void Camera::View( void ) {
 
-  glViewport( XPos, YPos, width, height );
+  glViewport( position.x, position.y, size.x, size.y );
   /* Send all of our matrices, who knows what the shader's gonna do with 'em */
   send( TRANSLATION );
   send( ROTATION );

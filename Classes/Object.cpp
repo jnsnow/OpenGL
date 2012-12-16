@@ -140,8 +140,13 @@ void Object::Buffer( void ) {
 }
 
 
-void Object::Link( Object::Uniform which, const std::string &name ) {
+void Object::Link( UniformEnum which, const std::string &name ) {
 
+  if (which >= handles.size()) {
+    fprintf( stderr, "WARNING: Ignoring request to link a uniform (#%u) beyond our handles array [%u].\n",
+	     which, handles.size() );
+    return;
+  }
 
   handles[which] = glGetUniformLocation( GetShader(), name.c_str() );
   if (DEBUG)

@@ -67,11 +67,10 @@ void Cameras::IdleMotion( void ) {
   }
 }
 
-void Cameras::LinkAll( const GLuint &program, 
-		       const Camera::Uniform &which, const string &glslVarName ) {
+void Cameras::LinkAll( Object::UniformEnum which, const string &glslVarName ) {
   vector<Camera>::iterator it;
   for (it = camList.begin(); it != camList.end(); ++it) {
-    it->link( program, which, glslVarName );
+    it->Link( which, glslVarName );
   }
 }
 
@@ -112,13 +111,13 @@ Camera &Cameras::Prev( void ) {
   return Active();
 }
 
-void Cameras::Draw(void (*draw_func)(void)) {
+void Cameras::View(void (*draw_func)(void)) {
 
   vector<Camera>::iterator it;
   for (it = camList.begin();
        it != camList.end();
        ++it) {
-    it->Draw();
+    it->View();
     (*draw_func)();
   }
 }

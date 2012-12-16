@@ -137,10 +137,7 @@ public:
 
   /* OpenGL Methods */
   void send( const Uniform &which );
-  void link( const GLuint &program,
-	     const Uniform &which,
-	     const string &glslVarName );
-  void Draw( void );
+  void View( void );
     
 private:
 
@@ -184,24 +181,15 @@ private:
   /** Current field-of-view angle for perspective view. **/
   GLfloat fovy;
 
-  /** Camera's drawbox width, used for computing (some) perspectives **/
-  size_t width;
+  /** Camera's Drawbox Width and Height **/
+  Angel::vec2 size;
 
-  /** Camera's drawbox height, used for computing (some) perspectives **/
-  size_t height;
-
-  /** Camera's Viewport's X-Position Offset **/
-  size_t XPos;
-
-  /** Camera's Viewport's Y-Position Offset **/
-  size_t YPos;
+  /** Camera's Drawbox X,Y Coordinate (Upper-Left Pixel) **/
+  Angel::vec2 position; /* XPos and YPos */
 
   /** Booleans correlating to the different motion directions. **/
   bool Motion[ Camera::Direction_End ];
   
-  /** Handles for communicating with the shader. **/
-  GLint glsl_handles[ Camera::End ];
-
 };
 
 #endif
