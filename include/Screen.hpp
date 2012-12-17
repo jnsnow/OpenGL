@@ -9,8 +9,8 @@ class Screen {
 
 public:
 
-  Screen( int x, int y );
-  Screen( const vec2 &newSize );
+  Screen( const GLuint gShader, int x, int y );
+  Screen( const GLuint gShader, const vec2 &newSize );
 
   // Set the size
   void Size( int x, int y );
@@ -31,6 +31,7 @@ private:
 	
   vec2 size;
   vec2 center;
+  GLuint gShader;
 	
 };
 

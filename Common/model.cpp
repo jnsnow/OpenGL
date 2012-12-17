@@ -19,14 +19,17 @@ typedef Angel::vec4  point4;
 #include <fstream>
 #include <sstream>
 #include <vector>
+
+
 using std::vector       ;
 using std::fstream      ;
-using std::ifstream     ;
-using std::istringstream;
-using std::string       ;
+using std::ifstream      ;
+using std::istringstream  ;
+using std::string        ;
 using std::ios          ;
 using std::cerr         ;
 using std::endl         ;
+
 
 void createPoint( Object *obj, point4 const &the_point, 
 		  color4 const &the_color, vec3 const &the_normal ) {
@@ -61,7 +64,7 @@ void triangle( Object *obj, const point4& a, const point4& b,
   createPoint( obj, a, base_colors[ color ], normal );
   createPoint( obj, b, base_colors[ color ], normal );
   createPoint( obj, c, base_colors[ color ], normal );
-  
+
 }
 
 void tetra( Object *obj,
@@ -74,6 +77,79 @@ void tetra( Object *obj,
   triangle( obj, d, c, b, 3 );
 
 }
+
+///////////////////////////////////////////////////////////////////////////////
+
+// I have no idea where this comes from, what it does, why need it. etc.
+
+point4 unit(const point4 &p)
+{
+  point4 c ;
+  double d = 0.0;
+
+  for( int i=0; i<3; i++ ) d+=p[i]*p[i];
+
+  d=sqrt(d);
+
+  if( d > 0.0 ) for( int i=0; i<3; i++ ) c[i] = p[i]/d;
+
+  c[3] = 1.0;
+
+  return c;
+
+}
+
+point4 initialSpherePoints[4] = { point4(0.0, 0.0, 1.0, 1.0),
+				  point4(0.0, 0.942809, -0.333333, 1.0),
+				  point4(-0.816497, -0.471405, -0.333333, 1.0),
+				  point4(0.816497, -0.471405, -0.333333, 1.0)};
+
+void divide_triangle(Object *obj, const point4& a, const point4& b, const point4& c, int timesToRecurse)
+{
+
+  point4 v1, v2, v3;
+
+  if ( timesToRecurse > 0 )
+    {
+      v1 = unit( a + b ) ;
+      v2 = unit( a + c ) ;
+      v3 = unit( b + c ) ;
+
+      divide_triangle( obj, a , v2, v1, timesToRecurse-1 );
+      divide_triangle( obj, c , v3, v2, timesToRecurse-1 );
+      divide_triangle( obj, b , v1, v3, timesToRecurse-1 );
+      divide_triangle( obj, v1, v2, v3, timesToRecurse-1 );
+    }
+  else triangle( obj, a, b, c, 4 ) ;
+}
+
+
+void recursiveModelGen( Object *obj,
+		        const point4& a, const point4& b, 
+		        const point4& c, const point4& d,
+		        int timesToRecurse ) {
+
+  divide_triangle( obj, a, b, c, timesToRecurse );
+  divide_triangle( obj, d, c, b, timesToRecurse );
+  divide_triangle( obj, a, d, b, timesToRecurse );
+  divide_triangle( obj, a, d, c, timesToRecurse );
+}
+
+
+void sphere( Object *obj ){
+
+
+  recursiveModelGen(obj,
+		    initialSpherePoints[0],
+		    initialSpherePoints[1],
+		    initialSpherePoints[2],
+		    initialSpherePoints[3],
+		    4 ) ;
+
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
 
 void Sierpinski_Pyramid( Object *obj,
 			 const point4& a,
@@ -275,7 +351,75 @@ void load_obj(const char* filename, vector<vec4> &vertices,
 
 }
 
+float rand_float( void ) ;
 
+void loadModelFromFile( Object *obj, const char* filename )
+{
+
+  /*
+    void load_obj(const char* filename, vector<vec4> &vertices,
+              vector<vec3> &normals, vector<GLushort> &v_elements,
+              vector<GLushort> &n_elements)
+  */
+
+  vector<vec4> raw_vertices;
+  vector<vec4> vertices;
+  vector<vec3> normals;
+  vector<vec3> raw_normals;
+  vector<GLushort> v_elements;
+  vector<GLushort> n_elements;
+  vector<vec4> colors;
+
+
+  load_obj(filename, raw_vertices, raw_normals, v_elements, n_elements);
+
+  if ( v_elements.size() != n_elements.size() ) { 
+    fprintf( stderr,
+	     "\nload_obj: loaded different number of normals and vertices\n"); 
+  }
+
+  for(unsigned int i = 0; i < v_elements.size() ; i ++ ){
+    colors.push_back(color4(rand_float(),
+			    rand_float(),
+			    rand_float(),
+			    1.0));
+  }
+
+  //push vertices obtained from the model loader in the order specified in the .obj elements section
+  for (unsigned int i = 0; i < v_elements.size(); i++)
+    {
+      obj->points.push_back(raw_vertices[v_elements[i] - 1]);
+      obj->colors.push_back(colors[v_elements[i]-1]);
+
+    }
+  //numVertices = vertices.size();
+
+
+  //push normals obtained from the model loader in the order specified in the .obj elements section
+  for (unsigned int i = 0; i < n_elements.size(); i++)
+    {
+      obj->normals.push_back(raw_normals[n_elements[i] - 1]);
+    }
+  
+
+  //colors.resize(vertices.size());
+  /*for (unsigned int i = 0; i < obj->points.size(); i++)
+    {
+      obj->colors.push_back(
+    }
+  */
+  /*
+  std::vector<Angel::vec4> points;
+  std::vector<Angel::vec3> normals;
+  std::vector<unsigned int> indices;
+  std::vector<Angel::vec4> colors;
+  std::vector<Angel::vec2> texcoords;
+  */
+  
+}
+
+
+// Helpers for landGen:
 
 float rand_float( void ) {
   return rand() / (float)RAND_MAX;
@@ -286,15 +430,11 @@ double jitter( double H ) {
 }
 
 vec3 calcNormal( point4 &a, point4 &b, point4 &c ) {
-
   return cross( c-b, b-a ) ;
-
 }
 
 vec3 calcNormal( point4 &a, point4 &b, point4 &c, point4 &d ) {
-
   return cross( c-b, b-a ) ;
-
 }
 
 void landGen( Object *obj, int N, float H ) {

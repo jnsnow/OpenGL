@@ -94,3 +94,17 @@ void Scene::Draw( void ) {
 Object *Scene::operator[]( std::string const &objname ) {
   return map[ objname ];
 }
+
+Scene &Scene::operator=( const Scene &copy ) {
+
+  this->gShader = copy.gShader;
+  this->map.clear();
+  this->list.clear();
+  this->currentObj = list.end();
+  return *this;
+
+}
+
+Scene::Scene( const Scene &copy ) {
+  (*this) = copy;
+}

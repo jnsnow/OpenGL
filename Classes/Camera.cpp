@@ -60,8 +60,9 @@ void Camera::commonInit( void ) {
    @param y The initial Y coordinate.
    @param z The initial Z coordinate.
 **/
-Camera::Camera( float x, float y, 
-		float z ) {
+Camera::Camera( const std::string &name, GLuint gShader,
+		float x, float y, float z ) :
+  Object( name, gShader ) {
   commonInit();
   this->pos( x, y, z, false );
 }
@@ -71,7 +72,8 @@ Camera::Camera( float x, float y,
    Initialization Constructor, uses a vec3 as its initial coordinates.
    @param in A vec3 representing the initial coordinates.
 **/
-Camera::Camera( vec3 &in ) {
+Camera::Camera( const std::string &name, GLuint gShader, vec3 &in ) :
+  Object( name, gShader ) {
   commonInit();
   this->pos( in, false );
 }
@@ -81,7 +83,8 @@ Camera::Camera( vec3 &in ) {
    Initialization Constructor, uses a vec4 as its initial coordinates.
    @param in A vec4 representing the initial coordinates. The w component is ignored.
 **/
-Camera::Camera( vec4 &in ) {
+Camera::Camera( const std::string &name, GLuint gShader, vec4 &in ) :
+  Object( name, gShader ) {
   commonInit();
   this->pos( in, false );
 }

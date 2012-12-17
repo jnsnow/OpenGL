@@ -32,16 +32,20 @@ class Scene {
 
   Object *operator[]( const std::string &objname );
 
- private:
-  std::map< std::string, Object* > map;
-  std::list< Object* > list;
-  std::list< Object* >::iterator currentObj;
-  GLuint gShader;
-
-  /* Copies are forbidden right now. */
-  Scene( Scene &copy );
+  /* WARNING: Copies do NOT copy Children... ! */
+  Scene( const Scene &copy );
   Scene &operator=( const Scene &copy );
 
+protected:
+  std::list< Object* > list;
+
+private:
+  std::map< std::string, Object* > map;
+  std::list< Object* >::iterator currentObj;
+  
+  /* Handle to the shader ... */
+  GLuint gShader;
+  
   /* Internal use */
   void DeleteObject( Object *obj );
 

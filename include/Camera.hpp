@@ -5,7 +5,7 @@
 #include <string>
 #include "mat.hpp"
 #include "vec.hpp"
-//#include "Object.hpp"
+#include "Object.hpp"
 
 using Angel::vec2;
 using Angel::vec3;
@@ -28,7 +28,7 @@ using std::string;
    Move(), Stop(), and Idle() are provided to help the camera
    automatically move along the X, Y, or Z axes.
 **/
-class Camera /*: public Object */ {
+class Camera : public Object {
 
 public:
 
@@ -78,10 +78,11 @@ public:
     FRUSTUM
   } view_type;
   
-  Camera( float x = 0.0, float y = 0.0,
-	  float z = 0.0 );
-  Camera( vec3 &in );
-  Camera( vec4 &in );
+  
+  Camera( const std::string &name, GLuint gShader,
+	  float x = 0.0, float y = 0.0, float z = 0.0 );
+  Camera( const std::string &name, GLuint gShader, vec3 &in );
+  Camera( const std::string &name, GLuint gShader, vec4 &in );
   virtual ~Camera( void );
   
   /* Set positionals: forcibly move the camera */

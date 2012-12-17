@@ -46,10 +46,14 @@ bool usingWii = false;
 #endif
 ////
 
-Screen myScreen( 800, 600 );
+Screen *myScreen; /* Cannot create yet, requires a shader object */
 Scene theScene;
+
 GLuint gShader;
 bool fixed_yaw = true;
+
+
+//Lights lights(false); // Bool controls the lighting mode. False indicates the simpler, faster one.
 
 // Textures
 // Obtained from www.goodtextures.com
@@ -75,21 +79,34 @@ void cameraInit( Camera& cam ) {
 void init() {
 
   srand( time(NULL));
-
-  // Load shaders and use the resulting shader program
+  // Load shaders and use the resulting shader program. 
 
   // Trying to use a GSHADER!
   // The arguments are V -> G -> F shader, the same order in which they are invoked inside the pipeline.
   // If this causes problems, we can fallback by between the following two lines of code:  
   //gShader = Angel::InitShader( "shaders/vterrain.glsl", "shaders/gterrain.glsl", "shaders/fterrain.glsl");
-
   gShader = Angel::InitShader( "shaders/vterrain.glsl", "shaders/fterrain.glsl" );
 
   theScene.SetShader( gShader );
+  myScreen = new Screen( gShader, 800, 600 ); 
 
   Object *terrain = theScene.AddObject( "terrain" );
   Object *pyramid = theScene.AddObject( "pyramid" );
-  Object *cube    = pyramid->AddObject( "colorcube" );
+  Object *cube_base = theScene.AddObject( "basecube" );
+  Object *moon_cube = pyramid->AddObject( "moon" );
+  Object *heavy = theScene.AddObject( "heavy" ) ;
+
+  /* 
+     When the scene graph is fixed, switch to:
+
+     Object *medic = heavy->AddObject( "medic" ) ;
+     Object *spy = medic->AddObject( "spy" ) ;
+     Object *ball = spy->AddObject( "ball" );
+  */
+
+  Object *medic = theScene.AddObject( "medic" ) ;
+  Object *spy = theScene.AddObject( "spy" ) ;
+  Object *ball = theScene.AddObject( "ball" );
 
   /** Fill points[...] with terrain map **/
   landGen( terrain, 8, 40.0 );
@@ -106,18 +123,62 @@ void init() {
   pyramid->Buffer();
   pyramid->Mode( GL_TRIANGLES );
 
-  colorcube( cube, 2.0 );
-  cube->Buffer();
-  cube->Mode( GL_LINE_LOOP );
-    
+  colorcube( cube_base, 1.0 );
+  cube_base->Buffer();
+  cube_base->Mode( GL_TRIANGLES );
+  
+  colorcube( moon_cube, 0.5 );
+  moon_cube->Buffer();
+  moon_cube->Mode( GL_TRIANGLES );
+
+  sphere( ball );
+  ball->Buffer();
+  ball->Mode( GL_TRIANGLES );
+
+  // These models came from VALVE,
+  // The model processing was done in Blender.
+
+  loadModelFromFile( heavy, "../models/heavyT.obj" );
+  heavy->Buffer();
+  heavy->Mode( GL_TRIANGLES );
+  
+  loadModelFromFile( medic, "../models/medicT.obj" );
+  medic->Buffer();
+  medic->Mode( GL_TRIANGLES );
+
+  loadModelFromFile( spy, "../models/spyT.obj" );
+  spy->Buffer();
+  spy->Mode( GL_TRIANGLES );
+
+
   // Link however many cameras we have at this point to the shader.
-  myScreen.camList.LinkAll( gShader, Camera::TRANSLATION, "T" );
-  myScreen.camList.LinkAll( gShader, Camera::ROTATION, "R" );
-  myScreen.camList.LinkAll( gShader, Camera::VIEW, "P" );
-  myScreen.camList.LinkAll( gShader, Camera::CTM, "CTM" );
+  myScreen->camList.LinkAll( gShader, Camera::TRANSLATION, "T" );
+  myScreen->camList.LinkAll( gShader, Camera::ROTATION, "R" );
+  myScreen->camList.LinkAll( gShader, Camera::VIEW, "P" );
+  myScreen->camList.LinkAll( gShader, Camera::CTM, "CTM" );
 
   glEnable( GL_DEPTH_TEST );
-  glClearColor( 0.4, 0.6, 1.0, 1.0 );
+  glClearColor( 0.3, 0.5, 0.9, 1.0 );
+
+  theScene[ "heavy" ]->trans.scale.Set( 0.10 );
+  theScene[ "spy"   ]->trans.scale.Set( 0.10 );
+  theScene[ "medic" ]->trans.scale.Set( 0.10 );
+
+  theScene[ "heavy" ]->trans.offset.Set(  2.00 );
+  theScene[ "spy"   ]->trans.offset.Set(  4.00 );
+  theScene[ "medic" ]->trans.offset.Set(  6.00 );
+
+  theScene[ "heavy" ]->trans.CalcCTM();
+  theScene[ "spy"   ]->trans.CalcCTM();
+  theScene[ "medic" ]->trans.CalcCTM();
+
+}
+
+
+void cleanup( void ) {
+
+  delete myScreen;
+
 }
 
 //--------------------------------------------------------------------
@@ -132,13 +193,13 @@ void display( void ) {
   glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
   // Tell camList to draw using our displayViewport rendering function.
-  myScreen.camList.Draw( displayViewport );
+  myScreen->camList.Draw( displayViewport );
   glutSwapBuffers();
 }
 
 void keylift( unsigned char key, int x, int y ) {
   
-  Camera &cam = myScreen.camList.Active();
+  Camera &cam = myScreen->camList.Active();
 
   switch( key ) {
   case 'w':
@@ -165,19 +226,20 @@ void keylift( unsigned char key, int x, int y ) {
 void keyboard( unsigned char key, int x, int y ) {
 
   /* A shorthand variable with local scope that refers to "The Active Camera." */
-  Camera &cam = myScreen.camList.Active();
+  Camera &cam = myScreen->camList.Active();
 
   switch( key ) {
 
   case 033: // Escape Key	  
+    cleanup();
     exit( EXIT_SUCCESS );
     break;
     
   case '+':
-    cameraInit(myScreen.camList[myScreen.camList.addCamera()]);
+    cameraInit(myScreen->camList[myScreen->camList.addCamera()]);
     break;
   case '-':
-    myScreen.camList.popCamera();
+    myScreen->camList.popCamera();
     break;
     
   case 'w':
@@ -223,11 +285,11 @@ void keyboard( unsigned char key, int x, int y ) {
 void keyboard_ctrl( int key, int x, int y ) {
   switch (key) {
   case GLUT_KEY_PAGE_UP:
-    myScreen.camList.Prev();
+    myScreen->camList.Prev();
     break;
 
   case GLUT_KEY_PAGE_DOWN:
-    myScreen.camList.Next();
+    myScreen->camList.Next();
     break;
    
   case GLUT_KEY_LEFT:
@@ -257,8 +319,8 @@ void mouse( int button, int state, int x, int y ) {
 
   if ( state == GLUT_DOWN ) {
     switch( button ) {
-    case 3: myScreen.camList.Active().dFOV( 1 ); break;
-    case 4: myScreen.camList.Active().dFOV( -1 ); break;
+    case 3: myScreen->camList.Active().dFOV( 1 ); break;
+    case 4: myScreen->camList.Active().dFOV( -1 ); break;
     }
   }
 
@@ -267,9 +329,9 @@ void mouse( int button, int state, int x, int y ) {
 
 void mouseroll( int x, int y ) {
 
-  if ((x != myScreen.MidpointX()) || (y != myScreen.MidpointY())) {
-    myScreen.camList.Active().roll( x - myScreen.MidpointX() );
-    glutWarpPointer( myScreen.MidpointX(), myScreen.MidpointY() );
+  if ((x != myScreen->MidpointX()) || (y != myScreen->MidpointY())) {
+    myScreen->camList.Active().roll( x - myScreen->MidpointX() );
+    glutWarpPointer( myScreen->MidpointX(), myScreen->MidpointY() );
   }
 
 }
@@ -277,14 +339,14 @@ void mouseroll( int x, int y ) {
 
 void mouselook( int x, int y ) {
 
-  if ((x != myScreen.MidpointX()) || (y != myScreen.MidpointY())) {
-    const double dx = ((double)x - myScreen.MidpointX());
-    const double dy = ((double)y - myScreen.MidpointY());
+  if ((x != myScreen->MidpointX()) || (y != myScreen->MidpointY())) {
+    const double dx = ((double)x - myScreen->MidpointX());
+    const double dy = ((double)y - myScreen->MidpointY());
     
-    myScreen.camList.Active().pitch( dy );
-    myScreen.camList.Active().yaw( dx, fixed_yaw );
+    myScreen->camList.Active().pitch( dy );
+    myScreen->camList.Active().yaw( dx, fixed_yaw );
     
-    glutWarpPointer( myScreen.MidpointX(), myScreen.MidpointY() );
+    glutWarpPointer( myScreen->MidpointX(), myScreen->MidpointY() );
   }
   
 }
@@ -293,11 +355,21 @@ void mouselook( int x, int y ) {
 void resizeEvent( int width, int height ) {
 
   /* Handles resizing the child cameras as well. */
-  myScreen.Size( width, height );
-  glutWarpPointer( myScreen.MidpointX(), myScreen.MidpointY() );
+  myScreen->Size( width, height );
+  glutWarpPointer( myScreen->MidpointX(), myScreen->MidpointY() );
 
 }
 
+
+
+void simpleRotateAnim( TransCache &obj ) {
+
+  obj.rotation.RotateY( Tick.Scale() * 1.5 );
+  obj.offset.Set( 1.5, 0, 0 );
+  obj.orbit.RotateY( Tick.Scale() * -1.0 );
+
+}
+  
 
 void animationTest( TransCache &obj ) {
 
@@ -311,26 +383,33 @@ void animationTest( TransCache &obj ) {
      we can't just multiply by our time scaling factor,
      we have to take pow( scaleFactor, timeScale ) instead.
      This is, of course, incredibly inefficient. */
-  obj.scale.Adjust( pow( 1.001, timeScale ) );
+  //obj.scale.Adjust( pow( 1.001, timeScale ) );
 
   //Object rotates in-place.
   obj.rotation.RotateX( theta );
   obj.rotation.RotateY( theta );
   obj.rotation.RotateZ( theta );
 
+  obj.offset.Set( 5, 0, 0 );
+
   //Object increasingly moves away from origin, x += 0.01
-  obj.offset.Delta( timeScale * 0.01, 0, 0 );
+  //obj.offset.Delta( timeScale * 0.01, 0, 0 );
 
   //Object orbits about the origin
   obj.orbit.RotateX( timeScale * 0.2 );
-  obj.orbit.RotateY( timeScale * 0.5 );
-  obj.orbit.RotateZ( timeScale * 0.3 );
+  obj.orbit.RotateY( timeScale * 0.2 );
+  obj.orbit.RotateZ( timeScale * 0.2 );
 
   // Object moves its focal orbit-point, x = 5.
   //obj.displacement.Set( 5, 0, 0 );
   
 }
 
+/*
+void sunAndMoon(void){
+ball
+}
+*/
 void idle( void ) {
 
 
@@ -338,20 +417,22 @@ void idle( void ) {
   if (DEBUG_MOTION) 
     fprintf( stderr, "Time since last idle: %lu\n", Tick.Delta() );
 
-  // Apply the animation "animationTest" to the "pyramid" object.
-  theScene[ "pyramid" ]->Animation( animationTest );
+  Object &Base = *(theScene[ "pyramid" ]);
+  Base.Animation( animationTest );
+  Base["moon"]->Animation( simpleRotateAnim );
+
 
 #ifdef WII
   if (usingWii) {
     for (size_t i = 0; i < 20; ++i) {
       pollWii( Wii );
-      myScreen.camList.Active().Accel( bb_magnitudes );
+      myScreen->camList.Active().Accel( bb_magnitudes );
     }
   }
 #endif
 
   // Move all camera(s).
-  myScreen.camList.IdleMotion();
+  myScreen->camList.IdleMotion();
   glutPostRedisplay();
     
 }
@@ -392,7 +473,7 @@ int main( int argc, char **argv ) {
 
   glutInit( &argc, argv );
   glutInitDisplayMode( GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH );
-  glutInitWindowSize( myScreen.Width(), myScreen.Height() );
+  glutInitWindowSize( 800, 600 );
   glutCreateWindow( "Gasket Flythrough" );
   glutFullScreen();
   glutSetCursor( GLUT_CURSOR_NONE );

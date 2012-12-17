@@ -14,10 +14,14 @@
 using std::vector;
 
 
-Cameras::Cameras( const size_t &numCameras ) {
-  for ( size_t i = 0; i < numCameras; ++i ) {
-    addCamera( Camera() );
-  }
+Cameras::Cameras( const GLuint gShader, const size_t &numCameras ) {
+
+  this->gShader = gShader;
+  this->Width = 0;
+  this->Height = 0;
+
+  for ( size_t i = 0; i < numCameras; ++i ) addCamera();
+
   /* Do not use Active(n) to set the initial active camera.
      This will attempt to send data to the GPU, and we may
      not have done that yet. */
@@ -29,10 +33,10 @@ Cameras::~Cameras( void ) {
 }
      
 size_t Cameras::addCamera( void ) {
-  return this->addCamera( Camera() );
+  return this->addCamera(Camera("Camera" + (camList.size() + 1), gShader));
 }
 
-size_t Cameras::addCamera( Camera const &newCamera ) {
+size_t Cameras::addCamera( const Camera &newCamera ) {
   // Add the new camera.
   this->camList.push_back( newCamera );
   //Recalculate our splitscreen viewports.
