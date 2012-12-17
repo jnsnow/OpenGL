@@ -19,6 +19,10 @@ void triangle( Object *obj,
 	       const point4& a, const point4& b, 
 	       const point4& c, const int color );
 
+void divide_triangle( Object *obj,
+	       const point4& a, const point4& b, 
+	       const point4& c, const int color );
+
 void tetra( Object *obj,
 	    const point4& a, const point4& b, 
 	    const point4& c, const point4& d );
@@ -27,6 +31,13 @@ void Sierpinski_Pyramid( Object *obj,
 			 const point4& a, const point4& b,
 			 const point4& c, const point4& d, int count );
 
+void recursiveModelGen( Object *obj,
+			const point4& a, const point4& b,
+			const point4& c, const point4& d,
+			int timesToRecurse ) ;
+
+
+void sphere( Object *obj );
 
 void quad( Object *obj,
 	   const point4 &a, const point4 &b,
@@ -42,8 +53,7 @@ void landGen( Object *obj, int N, float H );
 void makeAgua( Object *land_obj, Object *agua_obj );
 // Model loader
 
-void load_obj( const char* filename, vector<vec4> &vertices,
-	       vector<vec3> &normals, vector<GLushort> &v_elements,
-	       vector<GLushort> &n_elements);
+void loadModelFromFile( Object *obj, const char* filename);
+
 
 #endif

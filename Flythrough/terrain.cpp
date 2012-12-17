@@ -51,6 +51,9 @@ Scene theScene;
 GLuint gShader;
 bool fixed_yaw = true;
 
+
+//Lights lights(false); // Bool controls the lighting mode. False indicates the simpler, faster one.
+
 // Textures
 // Obtained from www.goodtextures.com
 const char* terrainTex[] = {
@@ -83,10 +86,21 @@ void init() {
   myScreen.camList.Active()->Mode( GL_TRIANGLES );
 
   Object *terrain   = theScene.AddObject( "terrain" ) ;
-  Object *pyramid   = terrain->AddObject( "pyramid" ) ;
+
   Object *cube_base = terrain->AddObject( "basecube" );
+  Object *pony      = terrain->AddObject( "pony" ) ;
+
+  Object *pyramid   = terrain->AddObject( "pyramid" ) ;
   Object *moon_cube = pyramid->AddObject( "moon" )    ;
+
+  Object *heavy     = terrain->AddObject( "heavy" ) ;
+  Object *medic     = heavy->AddObject( "medic" );
+  Object *spy       = medic->AddObject( "spy" );
+  Object *ball      = spy->AddObject( "ball" );
+
+  // Water comes last.
   Object *agua      = terrain->AddObject( "agua" )    ;
+
 
   /** Fill points[...] with terrain map **/
   landGen( terrain, 8, 40.0 );
@@ -111,12 +125,55 @@ void init() {
   moon_cube->Buffer();
   moon_cube->Mode( GL_TRIANGLES );
 
+
+  sphere( ball );
+  ball->Buffer();
+  ball->Mode( GL_TRIANGLES );
+
+  // These models came from VALVE,
+  // They are from the popular game, team fortress 2.
+  // They are property of valve. etc, etc, lol, lol.
+  // The model processing was done in Blender.
+
+  loadModelFromFile( heavy, "../models/heavyT.obj" );
+  heavy->Buffer();
+  heavy->Mode( GL_TRIANGLES );
+  
+  loadModelFromFile( medic, "../models/medicT.obj" );
+  medic->Buffer();
+  medic->Mode( GL_TRIANGLES );
+
+  loadModelFromFile( spy, "../models/spyT.obj" );
+  spy->Buffer();
+  spy->Mode( GL_TRIANGLES );
+
+  // model credit
+  // http://kp-shadowsquirrel.deviantart.com/art/Pony-Model-Download-Center-215266264
+  loadModelFromFile( pony, "../models/rainbow_dashT.obj" );
+  pony->Buffer();
+  pony->Mode( GL_TRIANGLES );
+
   makeAgua( terrain, agua ) ;
   agua->Buffer();
   agua->Mode( GL_TRIANGLES );
     
   glEnable( GL_DEPTH_TEST );
-  glClearColor( 0.4, 0.6, 1.0, 1.0 );
+  glClearColor( 0.3, 0.5, 0.9, 1.0 );
+  
+  heavy->trans.scale.Set( 0.10 );
+  pony->trans.scale.Set( 0.40 );
+
+  heavy->trans.offset.Set( 2.00 );
+  spy->trans.offset.Set( 2.00 );
+  medic->trans.offset.Set( 2.00 );
+  pony->trans.offset.Set( -2.00 );
+
+  heavy->trans.CalcCTM();
+  medic->trans.CalcCTM();
+  spy->trans.CalcCTM();
+  ball->trans.CalcCTM();
+  pony->trans.CalcCTM();
+
 }
 
 
@@ -351,8 +408,13 @@ void animationTest( TransCache &obj ) {
   
 }
 
-void idle( void ) {
+/*
+void sunAndMoon(void){
+ball
+}
+*/
 
+void idle( void ) {
 
   Tick.Tock();
   if (DEBUG_MOTION) 
@@ -363,6 +425,7 @@ void idle( void ) {
   Pyramid.Animation( animationTest );
   Pyramid["moon"]->Animation( simpleRotateAnim );
 
+  //#cool
 
 #ifdef WII
   if (usingWii) {
