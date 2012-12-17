@@ -35,9 +35,10 @@ class RotMat : public Transformation {
 public:
 
   const RotMat &Reset( const Angel::mat4 &NewState );
-  const RotMat &RotateX( const GLfloat theta );
-  const RotMat &RotateY( const GLfloat theta );
-  const RotMat &RotateZ( const GLfloat theta );
+  const RotMat &RotateX( const GLfloat theta, bool order = true );
+  const RotMat &RotateY( const GLfloat theta, bool order = true );
+  const RotMat &RotateZ( const GLfloat theta, bool order = true );
+  const RotMat &Adjust( const Angel::mat4 &Adjustment, bool order = true );
   
 };
 
@@ -46,6 +47,10 @@ public:
 class TransMat : public Transformation {
   
 public:
+
+  const TransMat &SetX( const float x );
+  const TransMat &SetY( const float y );
+  const TransMat &SetZ( const float z );
   
   const TransMat &Set( const float x, const float y, const float z );
   const TransMat &Set( const Angel::vec3 &arg );

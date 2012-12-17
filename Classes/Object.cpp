@@ -5,6 +5,7 @@
 #include "Object.hpp"
 #include <SOIL.h>
 #include "globals.h"
+#include <stdexcept>
 
 #include "Timer.hpp"
 
@@ -18,10 +19,10 @@ Object::Object( const std::string &name, GLuint gShader )
      Position, Color, Direction (Normal), Texture and Draw Order. */
 
   if (DEBUG)
-    fprintf( stderr, "Creating %d handles for uniforms\n", Object::End );
+    fprintf( stderr, "\nCreating %d handles for uniforms\n", Object::End );
 
   // Create room for our GLUniform handles
-  handles = new GLint [Object::End];
+  handles.resize( Object::End );
 
   // Associate this Object with the Shader.
   SetShader( gShader );
@@ -66,6 +67,8 @@ Object::Object( const std::string &name, GLuint gShader )
 
   /* Create the Color buffer and link it with the shader. */
   glBindBuffer( GL_ARRAY_BUFFER, buffer[COLORS] );
+  glEnable( GL_BLEND );
+  glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
   glsl_uniform = glGetAttribLocation( gShader, "vColor" );
   glEnableVertexAttribArray( glsl_uniform );
   glVertexAttribPointer( glsl_uniform, 4, GL_FLOAT, GL_FALSE, 0, 0 );
@@ -94,7 +97,7 @@ Object::Object( const std::string &name, GLuint gShader )
 }
 
 Object::~Object( void ) {
-  /* Noooothing? */
+
 }
 
 void Object::Buffer( void ) {
@@ -134,22 +137,23 @@ void Object::Buffer( void ) {
   glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, buffer[INDICES] );
   glBufferData( GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * indices.size(),
 		&(indices[0]), GL_STATIC_DRAW );
-  /*
-  glBindBuffer( GL_ARRAY_BUFFER, buffer[TEXCOORDS] );
-  glBufferData( GL_ARRAY_BUFFER, sizeof(Angel::vec2) * texcoords.size(),
-		(useTextures ? &(texcoords[0]) : NULL), GL_STATIC_DRAW );
-  */
+
   glBindVertexArray( 0 );
 
 }
 
 
-void Object::Link( Object::Uniform which, const std::string &name ) {
+void Object::Link( UniformEnum which, const std::string &name ) {
 
+  if (which >= handles.size()) {
+    fprintf( stderr, "WARNING: Ignoring request to link a uniform (#%u) beyond our handles array [%u].\n",
+	     which, handles.size() );
+    return;
+  }
 
   handles[which] = glGetUniformLocation( GetShader(), name.c_str() );
   if (DEBUG)
-    fprintf( stderr, "\nLinking handles[%d] to %s; got %d.\n",
+    fprintf( stderr, "Linking handles[%d] to %s; got %d.\n",
 	     which, name.c_str(), handles[which] );
 
 }
@@ -158,10 +162,25 @@ void Object::Link( Object::Uniform which, const std::string &name ) {
 void Object::Texture( const char** filename ) {
 
   Tick.Tock();
-
   glBindVertexArray( vao );
 
-  GLuint tex2dgrass = SOIL_load_OGL_texture( filename[0],
+  GLuint tex2ddirt = SOIL_load_OGL_texture( filename[0],
+					    SOIL_LOAD_AUTO,
+					    SOIL_CREATE_NEW_ID,
+					    SOIL_FLAG_MIPMAPS | 
+					    SOIL_FLAG_INVERT_Y | 
+					    SOIL_FLAG_NTSC_SAFE_RGB | 
+					    SOIL_FLAG_COMPRESS_TO_DXT );
+
+  GLuint tex2dsand = SOIL_load_OGL_texture( filename[1],
+					    SOIL_LOAD_AUTO,
+					    SOIL_CREATE_NEW_ID,
+					    SOIL_FLAG_MIPMAPS | 
+					    SOIL_FLAG_INVERT_Y | 
+					    SOIL_FLAG_NTSC_SAFE_RGB | 
+					    SOIL_FLAG_COMPRESS_TO_DXT );
+
+  GLuint tex2dgrass = SOIL_load_OGL_texture( filename[2],
 					     SOIL_LOAD_AUTO,
 					     SOIL_CREATE_NEW_ID,
 					     SOIL_FLAG_MIPMAPS | 
@@ -169,7 +188,7 @@ void Object::Texture( const char** filename ) {
 					     SOIL_FLAG_NTSC_SAFE_RGB | 
 					     SOIL_FLAG_COMPRESS_TO_DXT );
 
-  GLuint tex2drock = SOIL_load_OGL_texture( filename[1],
+  GLuint tex2drock = SOIL_load_OGL_texture( filename[3],
 					    SOIL_LOAD_AUTO,
 					    SOIL_CREATE_NEW_ID,
 					    SOIL_FLAG_MIPMAPS | 
@@ -177,13 +196,16 @@ void Object::Texture( const char** filename ) {
 					    SOIL_FLAG_NTSC_SAFE_RGB | 
 					    SOIL_FLAG_COMPRESS_TO_DXT );
 
-  GLuint tex2dsnow = SOIL_load_OGL_texture( filename[2],
+  GLuint tex2dsnow = SOIL_load_OGL_texture( filename[4],
 					    SOIL_LOAD_AUTO,
 					    SOIL_CREATE_NEW_ID,
 					    SOIL_FLAG_MIPMAPS | 
 					    SOIL_FLAG_INVERT_Y | 
 					    SOIL_FLAG_NTSC_SAFE_RGB | 
 					    SOIL_FLAG_COMPRESS_TO_DXT );
+  Tick.Tock();
+  fprintf( stderr, "took %lu usec to load textures.\n", Tick.Delta() );
+
   
   GLuint gSampler0 = glGetUniformLocation( GetShader(), "gSampler0" );
   glUniform1i( gSampler0, 0 );
@@ -191,9 +213,13 @@ void Object::Texture( const char** filename ) {
   glUniform1i( gSampler1, 1 );
   GLuint gSampler2 = glGetUniformLocation( GetShader(), "gSampler2" );
   glUniform1i( gSampler2, 2 );
+  GLuint gSampler3 = glGetUniformLocation( GetShader(), "gSampler3" );
+  glUniform1i( gSampler3, 3 );
+  GLuint gSampler4 = glGetUniformLocation( GetShader(), "gSampler4" );
+  glUniform1i( gSampler4, 4 );
 
   glActiveTexture( GL_TEXTURE0 );
-  glBindTexture( GL_TEXTURE_2D, tex2dgrass );
+  glBindTexture( GL_TEXTURE_2D, tex2ddirt );
   glEnable( GL_TEXTURE_2D );
   glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
   glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
@@ -201,7 +227,7 @@ void Object::Texture( const char** filename ) {
   glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
 
   glActiveTexture( GL_TEXTURE1 );
-  glBindTexture( GL_TEXTURE_2D, tex2drock );
+  glBindTexture( GL_TEXTURE_2D, tex2dsand );
   glEnable( GL_TEXTURE_2D );
   glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
   glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
@@ -209,6 +235,22 @@ void Object::Texture( const char** filename ) {
   glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
 
   glActiveTexture( GL_TEXTURE2 );
+  glBindTexture( GL_TEXTURE_2D, tex2dgrass );
+  glEnable( GL_TEXTURE_2D );
+  glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
+  glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+  glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
+  glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
+
+  glActiveTexture( GL_TEXTURE3 );
+  glBindTexture( GL_TEXTURE_2D, tex2drock );
+  glEnable( GL_TEXTURE_2D );
+  glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
+  glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+  glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
+  glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
+
+  glActiveTexture( GL_TEXTURE4 );
   glBindTexture( GL_TEXTURE_2D, tex2dsnow );
   glEnable( GL_TEXTURE_2D );
   glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
@@ -219,21 +261,41 @@ void Object::Texture( const char** filename ) {
   glBindVertexArray( 0 );
 
   Tick.Tock();
-  fprintf( stderr, "took %lu usec to load textures.\n", Tick.Delta() );
+  fprintf( stderr, "took %lu usec to finalize textures.\n", Tick.Delta() );
+}
 
+
+void Object::Send( Object::UniformEnum which ) {
+  switch (which) {
+    
+  case Object::IsTextured:
+    glUniform1i( handles[Object::IsTextured],
+		 (isTextured) ? 1 : 0 );
+    break;
+    
+  case Object::ObjectCTM:
+    glUniformMatrix4fv( handles[Object::ObjectCTM], 1, GL_TRUE,
+			this->trans.OTM() );
+    break;
+    
+  default:
+    throw std::invalid_argument( "Unknown Uniform Handle Enumeration." );
+  }
 }
 
 void Object::Draw( void ) {
 
   glBindVertexArray( vao );
 
+  Send( Object::IsTextured );
+  Send( Object::ObjectCTM );
+
   /* Inform the shader if it should texture this object or not. */
-  glUniform1i( handles[Object::IsTextured],
+  /*glUniform1i( handles[Object::IsTextured],
 	       (isTextured) ? 1 : 0 );
 
   glUniformMatrix4fv( handles[Object::ObjectCTM], 1, GL_TRUE, 
-		      this->trans.OTM() );
-
+  this->trans.OTM() );*/
 
   /* Are we using a draw order? */
   if (indices.size() > 1)

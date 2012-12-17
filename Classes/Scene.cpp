@@ -12,7 +12,12 @@ Scene::Scene() {
 }
 
 Scene::~Scene() {
-  /* Traverse the list and free all Objects. */
+
+  /* Traverse the list and free all Objects. */  
+  std::list< Object* >::reverse_iterator it;
+  for (it = list.rbegin(); it != list.rend(); ++it)
+    delete *it;
+
 }
 
 Object *Scene::AddObject( std::string objName ) {
@@ -52,6 +57,20 @@ void Scene::DelObject( std::string objName ) {
 void Scene::DelObject( void ) {
   DeleteObject(*(list.begin()));
 }
+
+
+/**
+   Completely remove this object and all his children.
+**/
+void Scene::DestroyObject( void ) {
+  /*  std::list< Object* >::iterator it;
+  for (it = list.begin(); it != list.end(); ++it) {
+    (*it)->DestroyObject();
+    DeleteObject( *it );
+  }
+  */
+}
+  
 
 void Scene::PopObject( void ) {
   DeleteObject(*(--list.end()));

@@ -50,7 +50,7 @@ void cube( Object *obj, const GLfloat &size, const color4 colors[8] );
 void colorcube( Object *obj, GLfloat size );
 
 void landGen( Object *obj, int N, float H );
-
+void makeAgua( Object *land_obj, Object *agua_obj );
 // Model loader
 
 void loadModelFromFile( Object *obj, const char* filename);

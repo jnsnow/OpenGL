@@ -23,6 +23,7 @@ class Scene {
   void DelObject( std::string objName );
   void DelObject( void );
   void PopObject( void );
+  void DestroyObject( void );
 
   Object *Next( void );
   Object *Prev( void );

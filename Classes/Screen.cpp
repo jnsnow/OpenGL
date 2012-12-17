@@ -3,16 +3,11 @@
 #include "vec.hpp"
 using Angel::vec2;
 
-Screen::Screen( const GLuint gShader, int x, int y ) :
-  camList( gShader, 1 ) {
-  // camList already defaults to having one (and active) camera.
-  this->gShader = gShader;
+Screen::Screen( int x, int y ) {
   this->Size( x, y );
 }
 
-Screen::Screen( const GLuint gShader, const vec2 &startSize ) :
-  camList( gShader, 1 ) {
-  this->gShader = gShader;
+Screen::Screen( const vec2 &startSize ) {
   this->Size( startSize );
 }
  
