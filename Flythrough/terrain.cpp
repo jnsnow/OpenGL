@@ -48,7 +48,6 @@ bool usingWii = false;
 
 Screen myScreen( 800, 600 );
 Scene theScene;
-
 GLuint gShader;
 bool fixed_yaw = true;
 
@@ -61,16 +60,6 @@ const char* terrainTex[] = {
   "../Textures/GoodTextures_0013418.jpg",  // Rock
   "../Textures/GoodTextures_0013291.jpg"   // Snow
 };
-
-
-
-/*void cameraInit( Camera& cam ) {
-  // Link this camera to our standard shader variables.
-  cam.Link( Camera::TRANSLATION, "T" );
-  cam.Link( Camera::ROTATION, "R" );
-  cam.Link( Camera::VIEW, "P" );
-  cam.Link( Camera::CTM, "CTM" );
-}*/
 
 //Camera *VisCam;
 
@@ -85,20 +74,19 @@ void init() {
   //gShader = Angel::InitShader( "shaders/vterrain.glsl", "shaders/gterrain.glsl", "shaders/fterrain.glsl");
   gShader = Angel::InitShader( "shaders/vterrain.glsl", "shaders/fterrain.glsl" );
   theScene.SetShader( gShader );
-  myScreen.camList.Shader( gShader );
-  myScreen.camList.addCamera();
+  myScreen.camList.SetShader( gShader );
+  myScreen.camList.AddCamera( "Camera1" );
+  myScreen.camList.Next();
 
-  // Witchcraft:
-  /*VisCam = &(myScreen.camList.Active());
-  colorcube( VisCam, 0.25 );
-  VisCam->Buffer();
-  VisCam->Mode( GL_TRIANGLES );*/
+  colorcube( myScreen.camList.Active(), 0.25 );
+  myScreen.camList.Active()->Buffer();
+  myScreen.camList.Active()->Mode( GL_TRIANGLES );
 
   Object *terrain   = theScene.AddObject( "terrain" ) ;
-  Object *pyramid   = theScene.AddObject( "pyramid" ) ;
-  Object *cube_base = theScene.AddObject( "basecube" );
+  Object *pyramid   = terrain->AddObject( "pyramid" ) ;
+  Object *cube_base = terrain->AddObject( "basecube" );
   Object *moon_cube = pyramid->AddObject( "moon" )    ;
-  Object *agua      = theScene.AddObject( "agua" )   ;
+  Object *agua      = terrain->AddObject( "agua" )    ;
 
   /** Fill points[...] with terrain map **/
   landGen( terrain, 8, 40.0 );
@@ -127,12 +115,6 @@ void init() {
   agua->Buffer();
   agua->Mode( GL_TRIANGLES );
     
-  // Link however many cameras we have at this point to the shader.
-  myScreen.camList.LinkAll( Camera::TRANSLATION, "T" );
-  myScreen.camList.LinkAll( Camera::ROTATION, "R" );
-  myScreen.camList.LinkAll( Camera::VIEW, "P" );
-  myScreen.camList.LinkAll( Camera::CTM, "CTM" );
-
   glEnable( GL_DEPTH_TEST );
   glClearColor( 0.4, 0.6, 1.0, 1.0 );
 }
@@ -149,9 +131,8 @@ void cleanup( void ) {
 /** A function that takes no arguments.
     Is responsible for drawing a SINGLE VIEWPORT. **/
 void displayViewport( void ) {  
-  theScene.Draw();
-  //VisCam->trans.CalcCTM();
-  //VisCam->Draw();
+  theScene.Draw(); /* Draw free-floating objects */
+  myScreen.camList.Draw(); /* Draw camera-attached objects */
 }
 
 void display( void ) {
@@ -164,7 +145,7 @@ void display( void ) {
 
 void keylift( unsigned char key, int x, int y ) {
   
-  Camera &cam = myScreen.camList.Active();
+  Camera &cam = *(myScreen.camList.Active());
 
   switch( key ) {
   case 'w':
@@ -191,21 +172,20 @@ void keylift( unsigned char key, int x, int y ) {
 void keyboard( unsigned char key, int x, int y ) {
 
   /* A shorthand variable with local scope that refers to "The Active Camera." */
-  Camera &cam = myScreen.camList.Active();
+  Camera &cam = *(myScreen.camList.Active());
 
   switch( key ) {
 
   case 033: // Escape Key	  
     cleanup();
-    exit( EXIT_SUCCESS );
+    glutLeaveMainLoop();
     break;
     
   case '+':
-    myScreen.camList.addCamera();
-    //cameraInit(myScreen.camList[myScreen.camList.addCamera()]);
+    myScreen.camList.AddCamera( "AutoCamera" + myScreen.camList.NumCameras() );
     break;
   case '-':
-    myScreen.camList.popCamera();
+    myScreen.camList.PopCamera();
     break;
     
   case 'w':
@@ -285,8 +265,8 @@ void mouse( int button, int state, int x, int y ) {
 
   if ( state == GLUT_DOWN ) {
     switch( button ) {
-    case 3: myScreen.camList.Active().dFOV( 1 ); break;
-    case 4: myScreen.camList.Active().dFOV( -1 ); break;
+    case 3: myScreen.camList.Active()->dFOV( 1 ); break;
+    case 4: myScreen.camList.Active()->dFOV( -1 ); break;
     }
   }
 
@@ -296,7 +276,7 @@ void mouse( int button, int state, int x, int y ) {
 void mouseroll( int x, int y ) {
 
   if ((x != myScreen.MidpointX()) || (y != myScreen.MidpointY())) {
-    myScreen.camList.Active().roll( x - myScreen.MidpointX() );
+    myScreen.camList.Active()->roll( x - myScreen.MidpointX() );
     glutWarpPointer( myScreen.MidpointX(), myScreen.MidpointY() );
   }
 
@@ -309,8 +289,8 @@ void mouselook( int x, int y ) {
     const double dx = ((double)x - myScreen.MidpointX());
     const double dy = ((double)y - myScreen.MidpointY());
     
-    myScreen.camList.Active().pitch( dy );
-    myScreen.camList.Active().yaw( dx, fixed_yaw );
+    myScreen.camList.Active()->pitch( dy );
+    myScreen.camList.Active()->yaw( dx, fixed_yaw );
     
     glutWarpPointer( myScreen.MidpointX(), myScreen.MidpointY() );
   }
@@ -378,9 +358,10 @@ void idle( void ) {
   if (DEBUG_MOTION) 
     fprintf( stderr, "Time since last idle: %lu\n", Tick.Delta() );
 
-  Object &Base = *(theScene[ "pyramid" ]);
-  Base.Animation( animationTest );
-  Base["moon"]->Animation( simpleRotateAnim );
+  Object &Terrain = *(theScene["terrain"]);
+  Object &Pyramid = *(Terrain["pyramid"]);
+  Pyramid.Animation( animationTest );
+  Pyramid["moon"]->Animation( simpleRotateAnim );
 
 
 #ifdef WII

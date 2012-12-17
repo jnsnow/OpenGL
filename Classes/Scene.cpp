@@ -20,11 +20,17 @@ Scene::~Scene() {
 
 }
 
-Object *Scene::AddObject( std::string objName ) {
+void Scene::InsertObject( const std::string name, Object *obj ) {
+  list.push_back( obj );
+  map.insert( mapping( name, obj ) );
+}
+
+Object *Scene::AddObject( const std::string &objName ) {
 
   Object *obj = new Object( objName, gShader );
-  list.push_back( obj );
-  map.insert( mapping( objName, obj ) );
+  InsertObject( objName, obj );
+  //list.push_back( obj );
+  //map.insert( mapping( objName, obj ) );
   return obj;
 
 }
@@ -44,12 +50,15 @@ GLuint Scene::GetShader( void ) {
    @param obj The pointer to the object to free.
 **/
 void Scene::DeleteObject( Object *obj ) {
+
+  if (obj == Active()) Prev();
   list.remove( obj );
   map.erase( obj->Name() );
   delete obj;
+
 }
 
-void Scene::DelObject( std::string objName ) {
+void Scene::DelObject( const std::string &objName ) {
   Object *obj = map[ objName ];
   DeleteObject( obj );
 }

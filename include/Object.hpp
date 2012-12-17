@@ -41,6 +41,7 @@ public:
   virtual void Link( UniformEnum which, const std::string &name );
   virtual void Send( UniformEnum which );
 
+  /* Animation and Related */
   void Animation(void (*anim_func)( TransCache &arg ));
 
   /* Bad. Bad! Protect these. ...Later? :( */

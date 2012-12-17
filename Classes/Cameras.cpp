@@ -11,140 +11,94 @@
 #include <vector>
 #include "Camera.hpp"
 #include "Cameras.hpp"
-using std::vector;
-
+#include "globals.h"
 
 Cameras::Cameras( void ) {
-
-  this->Width = 0;
-  this->Height = 0;
-  this->activeCamera = -1;
-
+  this->Size = Angel::vec2( 0, 0 );
 }
 
 Cameras::~Cameras( void ) {
   /* Nothing special here, either! */
 }
-     
-size_t Cameras::addCamera( void ) {
-  return this->addCamera(Camera("Camera" + (camList.size() + 1), gShader));
-}
 
-size_t Cameras::addCamera( const Camera &newCamera ) {
-  // Add the new camera.
-  this->camList.push_back( newCamera );
-  Active( camList.size() - 1 );
-  //Recalculate our splitscreen viewports.
+Camera *Cameras::AddCamera( const std::string &name ) {
+
+  Camera *cam = new Camera( name, gShader );
+  Scene::InsertObject( name, cam );
   CalculateViewports();
-  return (this->camList.size()) - 1;
+  return cam;
+  //Set Active Camera?
+
 }
 
-void Cameras::delCamera( size_t n ) {
-  this->camList.erase(camList.begin()+n);
-  //Recalculate our splitscreen viewports.
-  CalculateViewports();
+size_t Cameras::NumCameras( void ) const {
+  return list.size();
 }
 
-void Cameras::popCamera( void ) {
-  if (camList.size() == 0)
-    return;
+//DelCamera( const std::string &name );
+//DelCamera( void );
+//DestroyCamera( void );
 
-  if (camList.begin() + 1 + activeCamera == camList.end())
-    Prev();
-
-  this->camList.pop_back();
+void Cameras::PopCamera( void ) {
+  Scene::PopObject();
   CalculateViewports();
 }
 
-Camera &Cameras::getCamera( size_t n ) {
-  return this->camList.at( n );
+Camera *Cameras::Obj2Cam( std::list< Object* >::iterator &it ) {
+  return dynamic_cast< Camera* >( *it );
 }
 
-Camera &Cameras::operator[]( size_t n ) {
-  return getCamera( n );
+Camera *Cameras::Active( void ) {
+  return Obj2Cam( currentObj );
 }
-  
+
+Camera *Cameras::Prev( void ) {
+  Scene::Prev();
+  Active()->Send( Camera::CTM );
+  return Active();
+}
+
+Camera *Cameras::Next( void ) {
+  Scene::Next();
+  Active()->Send( Camera::CTM );
+  return Active();
+}
+
 void Cameras::IdleMotion( void ) {
-  vector<Camera>::iterator it;
-  for (it = camList.begin(); it != camList.end(); ++it) {
-    it->Idle();
+  std::list<Object*>::iterator it;
+  for (it = list.begin(); it != list.end(); ++it) {
+    Obj2Cam(it)->Idle();
   }
-}
-
-void Cameras::LinkAll( Object::UniformEnum which, const string &glslVarName ) {
-  vector<Camera>::iterator it;
-  for (it = camList.begin(); it != camList.end(); ++it) {
-    it->Link( which, glslVarName );
-  }
-}
-
-Camera *Cameras::iter( size_t n ) {
-  
-  vector<Camera>::iterator it;
-  if (n < camList.size()) {
-    return &(camList.at(n));
-  } else {
-    return NULL;
-  }
-
-}
-
-size_t Cameras::ActiveN( void ) {
-  return activeCamera;
-}
-
-Camera &Cameras::Active( void ) {
-  return camList.at(activeCamera);
-}
-
-Camera &Cameras::Active( size_t n ) {
-  if (n < camList.size()) {
-    activeCamera = n;
-  } 
-  camList.at(activeCamera).Send( Camera::CTM );
-  return Active();
-}
-
-Camera &Cameras::Next( void ) {
-  activeCamera = (activeCamera + 1) % camList.size();
-  return Active();
-}
-Camera &Cameras::Prev( void ) {
-  if (activeCamera == 0) activeCamera = camList.size() - 1;
-  else activeCamera--;
-  return Active();
 }
 
 void Cameras::View(void (*draw_func)(void)) {
-
-  vector<Camera>::iterator it;
-  for (it = camList.begin();
-       it != camList.end();
-       ++it) {
-    it->View();
+  std::list< Object* >::iterator it;
+  for (it = list.begin(); it != list.end(); ++it) {
+    Obj2Cam(it)->View();
     (*draw_func)();
   }
 }
 
 void Cameras::Resize( int width, int height ) {
-  
-  this->Width = width;
-  this->Height = height;
-  if (0)
-    std::cerr << "Setting Cameras WxH: " << Width << "x" << Height << "\n";
+  this->Size = Angel::vec2( width, height );
+  if (DEBUG)
+    std::cerr << "Setting Cameras WxH: " << width << "x" << height << "\n";
   CalculateViewports();
-
 }
 
 void Cameras::CalculateViewports( void ) {
 
+  unsigned Width = Size.x;
+  unsigned Height = Size.y;
+
   /* Let's not try to distribute Viewports if the window system
      hasn't been initialized yet, i.e, if Resize() has not yet
      been called. */
-  if (!Height || !Width) return;
+  if (!Size.x || !Size.y) return;
   
   // How many cameras do we have?
-  size_t numCameras = camList.size();
+  size_t numCameras = NumCameras();
+
   // Let's not try to resize zero cameras.
   if (numCameras == 0) return;
 
@@ -162,10 +116,11 @@ void Cameras::CalculateViewports( void ) {
     ((int)(numCameras - (numRows * numMaxCols)) / (int)(numMinCols - numMaxCols)) :
     0;
 
-  vector<Camera>::iterator it = camList.begin();
+  std::list< Object * >::iterator it = list.begin();
+
   /* This is confusing as hell. Good luck! */
   for (size_t allocHeight = 0, row = 0;
-       (row < numRows) || (it != camList.end()); //Terminate on either cond. Just in case.
+       (row < numRows) || (it != list.end()); //Terminate on either cond. Just in case.
        ++row) {
     size_t myWidth;
     size_t myHeight;
@@ -175,34 +130,25 @@ void Cameras::CalculateViewports( void ) {
 
     for (size_t col = 0; col < colsThisRow; ++col, ++it) {
       // Is this the last column? Use the remaining width.
-      if (col + 1 == colsThisRow) myWidth = (this->Width) - allocWidth;
-      else myWidth = (this->Width)/colsThisRow;
+      if (col + 1 == colsThisRow) myWidth = (Width) - allocWidth;
+      else myWidth = (Width)/colsThisRow;
       // Is this the last row? Use the remaining height.
-      if (row + 1 == numRows) myHeight = (this->Height) - allocHeight;
-      else myHeight = (this->Height)/numRows;
+      if (row + 1 == numRows) myHeight = (Height) - allocHeight;
+      else myHeight = (Height)/numRows;
 
       // Tell this camera his new viewport.
       // height looks a little goofy because we are allocating height
       // from the top of the coordinate system and working down,
       // so we have to take the complement.
-      it->viewport( allocWidth, ((this->Height)-(allocHeight+myHeight)), myWidth, myHeight );
+      Obj2Cam(it)->viewport( allocWidth, ((Height)-(allocHeight+myHeight)), myWidth, myHeight );
       if (0) fprintf( stderr, "Camera: (%lu x %lu) @ (%lu,%lu)\n",
 		      myWidth, myHeight,
-		      allocWidth, ((this->Height)-(allocHeight+myHeight)));
+		      allocWidth, ((Height)-(allocHeight+myHeight)));
 
       // Increment our allocated width counter.
       allocWidth += myWidth;
     }
     // Increment our allocated height counter.
-    allocHeight += ((this->Height)/numRows);
+    allocHeight += ((Height)/numRows);
   }
-}
-
-
-GLuint Cameras::Shader( void ) const {
-  return this->gShader;
-}
-
-void Cameras::Shader( GLuint gShader ) {
-  this->gShader = gShader;
 }

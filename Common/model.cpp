@@ -328,7 +328,6 @@ void landGen( Object *obj, int N, float H ) {
   std::vector< point4 > &vec = obj->points;
   std::vector< point4 > &col = obj->colors;
   //std::vector< vec3 > &nor = obj->normals;
-
   std::vector< unsigned int > &drawIndex = obj->indices;
   std::vector< Angel::vec2 > &txy = obj->texcoords;
 

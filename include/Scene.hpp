@@ -19,8 +19,8 @@ class Scene {
   void SetShader( GLuint gShader );
   GLuint GetShader( void );
 
-  Object *AddObject( std::string objName );
-  void DelObject( std::string objName );
+  Object *AddObject( const std::string &objName );
+  void DelObject( const std::string &objName );
   void DelObject( void );
   void PopObject( void );
   void DestroyObject( void );
@@ -39,8 +39,6 @@ class Scene {
 
 protected:
   std::list< Object* > list;
-
-private:
   std::map< std::string, Object* > map;
   std::list< Object* >::iterator currentObj;
   
@@ -49,6 +47,7 @@ private:
   
   /* Internal use */
   void DeleteObject( Object *obj );
+  void InsertObject( const std::string name, Object *obj );
 
 };
 

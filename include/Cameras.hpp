@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "Camera.hpp"
+#include "Scene.hpp"
 using std::vector;
 
 /**
@@ -17,57 +18,40 @@ using std::vector;
 
 **/
 
-class Cameras {
+class Cameras : public Scene {
 
 public:
 
   Cameras( void );
   ~Cameras( void );
 
-  size_t addCamera( void );
-  size_t addCamera( Camera const &newCamera );
-  void delCamera( size_t n );
-  void popCamera( void );
+  /* Proxies */
+  Camera *AddCamera( const std::string &name );
+  void DelCamera( const std::string &name );
+  void DelCamera( void );
+  void PopCamera( void );
+  void DestroyCamera( void );
+ 
+  /* Inherited and Overloaded */
+  Camera *Next( void );
+  Camera *Prev( void );
+  Camera *Active( void );
 
-  Camera &getCamera( size_t n );
-  Camera &operator[]( size_t n );
-
-  Camera *iter( size_t n );
-
+  /* New Definitions */
+  size_t NumCameras( void ) const;
   void IdleMotion( void );
-  void LinkAll( Object::UniformEnum which, const string &glslVarName ); 
-
-  size_t ActiveN( void );
-  Camera &Active( void );
-  Camera &Active( size_t n );
-  Camera &Next( void );
-  Camera &Prev( void );
-
   void Resize( int width, int height );
   void CalculateViewports( void );
   void View(void (*draw_func)(void));
 
-  GLuint Shader( void ) const;
-  void Shader( GLuint gShader );
+  /* Utility */
+  Camera *Obj2Cam( std::list<Object*>::iterator &it );
 
-private:
-  
-  void commonInit( void );
-  vector< Camera > camList;
-  size_t activeCamera;
-  size_t Width;
-  size_t Height;
-  GLuint gShader; /* Ugh, this is everywhere. */
+private:  
+
+  /* The size of our screen. */
+  Angel::vec2 Size;
 
 };
 
 #endif
-
-
-#define CAMERAS_MSG( LST, MSG )						\
-  {									\
-    Camera *__PTR = NULL;						\
-    for (size_t __N = 0; (__PTR = LST.iter(__N)) != NULL; ++__N) {	\
-      (__PTR)->MSG;							\
-    }									\
-  }
