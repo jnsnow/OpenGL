@@ -86,7 +86,7 @@ bool initWii( CWii &wii ) {
    Not currently used,
    But here for reference.
 **/
-void HandleEvent(CWiimote &wm) {
+void HandleEvent( CWiimote &wm ) {
   char prefixString[64];
   sprintf(prefixString, "Controller [%i]: ", wm.GetID());
   int exType = wm.ExpansionDevice.GetType();
@@ -95,6 +95,7 @@ void HandleEvent(CWiimote &wm) {
     wm.SetMotionSensingMode(CWiimote::ON);
     wm.IR.SetMode(CIR::ON);
     wm.EnableMotionPlus(CWiimote::ON);
+    PollResults.Reset_Camera = true;
   }
 
   // if the accelerometer is turned on then print angles
@@ -104,11 +105,9 @@ void HandleEvent(CWiimote &wm) {
     PollResults.wr_thetas.x = pitch;
     PollResults.wr_thetas.y = yaw;
     PollResults.wr_thetas.z = roll;
-    /*
     printf("%s wiimote roll = %f\n", prefixString, roll);
     printf("%s wiimote pitch = %f\n", prefixString, pitch);
     printf("%s wiimote yaw = %f\n", prefixString, yaw);
-    */
   }
   
   // if the Motion Plus is turned on then print angles
@@ -118,11 +117,9 @@ void HandleEvent(CWiimote &wm) {
     PollResults.wr_rates.x = pitch_rate;
     PollResults.wr_rates.y = yaw_rate;
     PollResults.wr_rates.z = roll_rate;
-    /*
     printf("%s motion plus roll rate = %f\n", prefixString,roll_rate);
     printf("%s motion plus pitch rate = %f\n", prefixString,pitch_rate);
     printf("%s motion plus yaw rate = %f\n", prefixString,yaw_rate);
-    */
   }
 
   // if(IR tracking is on then print the coordinates
@@ -270,9 +267,25 @@ void enableRemote( CWiimote &wm ) {
 }
 
 
-void pollWii( CWii &wii ) {
+void CalibrateGyro( CWii &wii ) {
+
+    std::vector<CWiimote>& wiimotes = wii.GetWiimotes();
+    std::vector<CWiimote>::iterator it;
+
+    for(it = wiimotes.begin(); it != wiimotes.end(); ++it) {
+      CWiimote& wiimote = *it;
+      if (wiimote.isUsingMotionPlus()) {
+	wiimote.EnableMotionPlus(CWiimote::ON);
+      }  
+    }
+
+}
+
+
+void pollWii( CWii &wii, bool CalibrateGyro ) {
 
   struct timeval start, end;
+  PollResults.Reset_Camera = false;
 
   //Poll the wiimotes to get the status like pitch or roll
   if (0) gettimeofday(&start,NULL);
@@ -282,15 +295,17 @@ void pollWii( CWii &wii ) {
     std::vector<CWiimote>::iterator it;
 
     for(it = wiimotes.begin(); it != wiimotes.end(); ++it) {
+
       // Use a reference to make working with the iterator handy.
       CWiimote& wiimote = *it;
+      
       switch(wiimote.GetEvent()) {
 	
       case CWiimote::EVENT_EVENT:
 	if (wiimote.ExpansionDevice.GetType() ==
 	    wiimote.ExpansionDevice.TYPE_BALANCE_BOARD)
 	  WiiHandleBB(wiimote);
-	  HandleEvent(wiimote);
+	HandleEvent( wiimote );
 	break;
 
       case CWiimote::EVENT_CONNECT:

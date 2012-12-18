@@ -319,6 +319,9 @@ void MakeFlatToRegular( TransCache &obj ) {
 
 void keyboard( unsigned char key, int x, int y ) {
 
+  // Hacky, for the wii reset, below.
+  Camera *camptr = dynamic_cast< Camera* >( myScreen.camList["AutoCamera2"] );
+
   switch( key ) {
 
   case 033: // Escape Key	  
@@ -331,6 +334,13 @@ void keyboard( unsigned char key, int x, int y ) {
 	     theScene.Active()->Name().c_str() );
     break;
 
+  case '~':
+#ifdef WII
+    CalibrateGyro( Wii );
+    if (camptr) camptr->resetRotation();
+#endif
+    break;
+    
   case 'l':
     switchingTerrain = true ; 
     // GLOBAL State variable used to control the terrain animation
@@ -451,14 +461,25 @@ void mouseroll( int x, int y ) {
 }
 
 
-void wiilook( Camera &WiiCamera, const Angel::vec3 &NewTheta ) {
+void wiilook( Camera &WiiCamera, const Angel::vec3 &NewTheta,
+	      const Angel::vec3 &MovementRates ) {
 
-  static Angel::vec3 OldTheta; /* Defaults to 0,0,0 */
-  
+  static Angel::vec3 OldTheta; /* Defaults to 0,0,0 */  
   // Rotation Order: Y-X-Z looks the best, I think.
-  WiiCamera.yaw( NewTheta.y - OldTheta.y );
-  WiiCamera.pitch( OldTheta.x - NewTheta.x );
-  WiiCamera.roll( NewTheta.z - OldTheta.z );
+  //WiiCamera.yaw( NewTheta.y - OldTheta.y );
+  //WiiCamera.pitch( OldTheta.x - NewTheta.x );
+  //WiiCamera.roll( NewTheta.z - OldTheta.z );
+
+  float yaw = -MovementRates.y / 20;
+  float pitch = -MovementRates.x / 20;
+  float roll = MovementRates.z / 20;
+
+  if (abs(yaw) >= 0.1)
+    WiiCamera.yaw( -MovementRates.y / 20, fixed_yaw );
+  if (abs(pitch) >= 0.1)
+    WiiCamera.pitch( -MovementRates.x / 20 );
+  if (abs(roll) >= 0.1)
+    WiiCamera.roll( MovementRates.z / 20 );
 
   OldTheta = NewTheta;
 
@@ -581,16 +602,17 @@ void idle( void ) {
     // (2) Average/Sample to "smooth" the data.
     for (size_t i = 0; i < NumPolls; ++i) {
       pollWii( Wii );
+      if (PollResults.Reset_Camera && camptr != NULL) camptr->resetRotation();
       theta_diff += PollResults.wr_thetas;
       accel_mag += PollResults.bb_magnitudes;
     }
 
-    Angel::vec3 normal_accel = accel_mag / NumPolls;
-    fprintf( stderr, "bbXL: (%f,%f,%f)\n", normal_accel.x, normal_accel.y, normal_accel.z );
+    //Angel::vec3 normal_accel = accel_mag / NumPolls;
+    //fprintf( stderr, "bbXL: (%f,%f,%f)\n", normal_accel.x, normal_accel.y, normal_accel.z );
 
     if (camptr) {
-      camptr->Accel( accel_mag / NumPolls );
-      wiilook( *camptr, theta_diff / NumPolls );
+      camptr->Accel( (accel_mag / NumPolls) * 2.0 );
+      wiilook( *camptr, theta_diff / NumPolls, PollResults.wr_rates );
     }
 
   }
