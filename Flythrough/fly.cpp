@@ -451,7 +451,7 @@ void idle( void ) {
   if (usingWii) {
     for (size_t i = 0; i < 20; ++i) {
       pollWii( Wii );
-      myScreen->camList.Active().Accel( bb_magnitudes );
+      myScreen->camList.Active()->Accel( bb_magnitudes );
     }
   }
 #endif

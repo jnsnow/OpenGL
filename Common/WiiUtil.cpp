@@ -90,6 +90,12 @@ void HandleEvent(CWiimote &wm) {
   sprintf(prefixString, "Controller [%i]: ", wm.GetID());
   int exType = wm.ExpansionDevice.GetType();
 
+  if(wm.Buttons.isJustPressed(CButtons::BUTTON_MINUS)) {
+    wm.SetMotionSensingMode(CWiimote::ON);
+    wm.IR.SetMode(CIR::ON);
+    wm.EnableMotionPlus(CWiimote::ON);
+  }
+
   // if the accelerometer is turned on then print angles
   if(wm.isUsingACC()) {
     float pitch, roll, yaw;
@@ -113,12 +119,9 @@ void HandleEvent(CWiimote &wm) {
     std::vector<CIRDot>::iterator it;
     int x, y;
     int index;
-    
     printf("%s Num IR Dots: %i\n", prefixString, wm.IR.GetNumDots());
     printf("%s IR State: %u\n", prefixString, wm.IR.GetState());
-    
     std::vector<CIRDot>& dots = wm.IR.GetDots();
-    
     for(index = 0, it = dots.begin(); it != dots.end(); ++index, ++it) {
       if((*it).isVisible()) {
 	(*it).GetCoordinate(x, y);
@@ -276,8 +279,7 @@ void pollWii( CWii &wii ) {
 	if (wiimote.ExpansionDevice.GetType() ==
 	    wiimote.ExpansionDevice.TYPE_BALANCE_BOARD)
 	  WiiHandleBB(wiimote);
-	/*else
-	  HandleEvent(wiimote);*/
+	  HandleEvent(wiimote);
 	break;
 
       case CWiimote::EVENT_CONNECT:

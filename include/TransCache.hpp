@@ -11,6 +11,8 @@ public:
   const Angel::mat4 &CTM( void ) const;
   const Angel::mat4 &OTM( void ) const;
 
+  // Hacky: For Camera.
+  TransMat PreOffset; 
   // Component Transformations //
   ScaleMat scale;        /* Scale Matrix */
   RotMat rotation;       /* Rotation-in-place Matrix */

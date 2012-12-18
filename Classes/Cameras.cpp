@@ -23,6 +23,8 @@ Cameras::~Cameras( void ) {
 
 Camera *Cameras::AddCamera( const std::string &name ) {
 
+  std::cerr << "Camera Name: " << name << "\n";
+
   Camera *cam = new Camera( name, gShader );
   Scene::InsertObject( name, cam );
   CalculateViewports();
@@ -150,5 +152,23 @@ void Cameras::CalculateViewports( void ) {
     }
     // Increment our allocated height counter.
     allocHeight += ((Height)/numRows);
+  }
+}
+
+void Cameras::TellMeYourSecrets( void ) {
+  std::list<Object *>::iterator it;
+  for ( it = list.begin(); it != list.end(); ++it ) {
+    fprintf( stderr, "Camera: [%s]; Ptr: [%p]\n",
+	     Obj2Cam(it)->Name().c_str(),
+	     (void*)(*it) );
+  }
+
+  std::map<std::string, Object*>::iterator it2;
+  for (it2 = map.begin(); it2 != map.end(); ++it2 ) {
+    fprintf( stderr, "[M]Camera: {%p}[%s]-->[%s]\n",
+	     (void*)(it2->second),
+	     it2->first.c_str(),
+	     "..."
+	     /*((*it2).second)->Name().c_str()*/ );
   }
 }
