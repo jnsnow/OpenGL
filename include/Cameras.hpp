@@ -46,6 +46,7 @@ public:
 
   /* Utility */
   Camera *Obj2Cam( std::list<Object*>::iterator &it );
+  void TellMeYourSecrets( void );
 
 private:  
 

@@ -241,6 +241,7 @@ void Camera::dPos( const float &x, const float &y,
   dY( y, false );
   dZ( z, false );
   Send( TRANSLATION );
+  trans.CalcCTM();
 }
 
 

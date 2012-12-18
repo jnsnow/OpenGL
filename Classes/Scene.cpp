@@ -26,11 +26,9 @@ void Scene::InsertObject( const std::string name, Object *obj ) {
 }
 
 Object *Scene::AddObject( const std::string &objName ) {
-
+  
   Object *obj = new Object( objName, gShader );
   InsertObject( objName, obj );
-  //list.push_back( obj );
-  //map.insert( mapping( objName, obj ) );
   return obj;
 
 }
@@ -52,6 +50,7 @@ GLuint Scene::GetShader( void ) {
 void Scene::DeleteObject( Object *obj ) {
 
   if (obj == Active()) Prev();
+
   list.remove( obj );
   map.erase( obj->Name() );
   delete obj;
@@ -120,7 +119,13 @@ void Scene::Draw( void ) {
 }
 
 Object *Scene::operator[]( std::string const &objname ) {
-  return map[ objname ];
+  
+  std::map< std::string, Object* >::iterator ret;
+  ret = map.find( objname );
+  
+  if (ret == map.end()) return NULL;
+  return ret->second;
+
 }
 
 Scene &Scene::operator=( const Scene &copy ) {

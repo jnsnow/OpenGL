@@ -3,25 +3,30 @@
 #include "mat.hpp"
 
 void TransCache::PTM( const Angel::mat4 &new_ptm ) {
-  /* Apply right-to-left.
-     PTM applies first, then CTM. */
-
   /* Update our cached PTM. */
   this->ptm = new_ptm;
-
   /* Update our Result Matrix. */
   otm = ptm * ctm;
-  //otm = ctm * ptm;
 }
 
 void TransCache::CalcCTM( void ) {
+  /*
+  std::cerr << "displacement" << displacement.Matrix() << "\n";
+  std::cerr << "orbit" << orbit.Matrix() << "\n";
+  std::cerr << "offset" << offset.Matrix() << "\n";
+  std::cerr << "rotation" << rotation.Matrix() << "\n";
+  std::cerr << "scale" << scale.Matrix() << "\n";
+  */
 
   /* Recompute our CTM */
-  ctm = displacement * orbit * offset * rotation * scale;
-
+  ctm = displacement * orbit * offset * PreOffset * rotation * scale;
   /* Recompute our Cached Result Transformation Matrix */
-  //otm = ctm * ptm;
   otm = ptm * ctm;
+  
+  /*
+    std::cerr << "CTM:" << ctm << "\n";
+    std::cerr << "---------------\n";
+  */
 
 }
 

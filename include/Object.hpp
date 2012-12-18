@@ -43,6 +43,7 @@ public:
 
   /* Animation and Related */
   void Animation(void (*anim_func)( TransCache &arg ));
+  void Propegate( void );
 
   /* Bad. Bad! Protect these. ...Later? :( */
   std::vector<Angel::vec4> points;
