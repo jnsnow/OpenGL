@@ -50,7 +50,8 @@ void triangle( Object *obj, const point4& a, const point4& b,
     vec4( 0.0, 1.0, 0.0, 1.0 ), /* G */
     vec4( 0.0, 0.0, 1.0, 1.0 ), /* B */
     vec4( 1.0, 1.0, 0.0, 1.0 ), /* Y */
-    vec4( 0.4, 0.1, 0.8, 1.0 )  /* P */
+    vec4( 0.4, 0.1, 0.8, 1.0 ),  /* P */
+    vec4( 1.0, 1.0, 1.0, 1.0 )  /* W */
   };
 
   // Initialize temporary vectors along the quad's edge to
@@ -135,6 +136,10 @@ void recursiveModelGen( Object *obj,
   divide_triangle( obj, a, d, c, timesToRecurse );
 }
 
+/**
+   Creates a white sphere.
+   @param obj the object-object to create/push verticies and colors to
+ */
 
 void sphere( Object *obj ){
 
@@ -144,7 +149,7 @@ void sphere( Object *obj ){
 		    initialSpherePoints[1],
 		    initialSpherePoints[2],
 		    initialSpherePoints[3],
-		    4 ) ;
+		    5 ) ;
 
 }
 
@@ -437,16 +442,18 @@ vec3 calcNormal( point4 &a, point4 &b, point4 &c, point4 &d ) {
 
 void makeAgua( Object *land_obj, Object *agua_obj ) {
 
+  float wh = 0.1;
+
   // Ensure that the size of agua_obj == land_obj
   int S = sqrt( land_obj->points.size() );
   
   // Push the vertices
-  agua_obj->points.push_back( vec4( -S/2, 0 , S/2, 1) );
-  agua_obj->points.push_back( vec4( -S/2, 0 ,-S/2, 1) );
-  agua_obj->points.push_back( vec4(  S/2, 0 , S/2, 1) );
-  agua_obj->points.push_back( vec4(  S/2, 0 , S/2, 1) );
-  agua_obj->points.push_back( vec4( -S/2, 0 ,-S/2, 1) );
-  agua_obj->points.push_back( vec4(  S/2, 0 ,-S/2, 1) );
+  agua_obj->points.push_back( vec4( -S/2, wh , S/2, 1) );
+  agua_obj->points.push_back( vec4( -S/2, wh ,-S/2, 1) );
+  agua_obj->points.push_back( vec4(  S/2, wh , S/2, 1) );
+  agua_obj->points.push_back( vec4(  S/2, wh , S/2, 1) );
+  agua_obj->points.push_back( vec4( -S/2, wh ,-S/2, 1) );
+  agua_obj->points.push_back( vec4(  S/2, wh ,-S/2, 1) );
 
   agua_obj->colors.push_back( vec4( 0.0, 0.0, 0.8, 0.6 ) );
   agua_obj->colors.push_back( vec4( 0.0, 0.0, 0.8, 0.6 ) );

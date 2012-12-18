@@ -8,6 +8,7 @@
 #define glGenVertexArrays( X, Y ) glGenVertexArraysAPPLE( X, Y )
 #define glBindVertexArray( X ) glBindVertexArrayAPPLE( X )
 #define GLEW_INIT() ;
+#define glutLeaveMainLoop() exit( EXIT_SUCCESS )
 #else
 /* Peasant Code */
 #define GLEW_INIT()				\

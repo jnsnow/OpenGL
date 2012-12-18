@@ -30,13 +30,19 @@ varying vec3 lightVector[8];
 
 void main() {
 
+// hak hak hak
+//  vec4 magic  = vPosition ;
+  //magic.y = vPosition.y * heightScale ;
+  //gl_Position = CTM * OTM * magic;
 
   gl_Position = CTM * OTM * vPosition;
+
+
   color = vColor;
   if (fIsTextured) outtexture = vTex;
   //else outtexture = vec2( -1.0, -1.0 );
-  fPosition = vPosition;
-
+  //fPosition = vPosition;
+  fPosition = OTM * vPosition;
 
   /*
   int i;

@@ -89,13 +89,24 @@ void init() {
   myScreen.camList.AddCamera( "Camera1" );
   myScreen.camList.Next();
 
+  /*
+    SUPER IMPORTANT NOTE DAMMIT
+    ==========================
+    Please do not give the Terrain children. 
+    The animation is currently scaling the Y values of the 
+    terrain to grow/shrink it.
+    Any and all Children will inherit this.
+    I've turned rainbow dash into a pancake over and over....
+    Poor little pony....
+  */
+
   /* Create some Objects ... */
   Object *terrain   = theScene.AddObject( "terrain" ) ;
   terrain->Texture( terrainTex );
   terrain->Mode( GL_TRIANGLE_STRIP );
   randomize_terrain();
   
-  Object *pyramid   = terrain->AddObject( "pyramid" ) ;
+  Object *pyramid   = theScene.AddObject( "pyramid" ) ;
   Sierpinski_Pyramid( pyramid,
 		      vec4(  0,      1,  0, 1 ),
 		      vec4( -1, -0.999,  1, 1 ),
@@ -104,7 +115,7 @@ void init() {
 		      4 );
   pyramid->Buffer();
 
-  Object *cube_base = terrain->AddObject( "basecube" );
+  Object *cube_base = theScene.AddObject( "basecube" );
   colorcube( cube_base, 1.0 );
   cube_base->Buffer();
   
@@ -115,7 +126,7 @@ void init() {
   // These models came from VALVE,
   // From their game "Team Fortress 2."
   // The model processing was done in Blender.
-  Object *heavy     = terrain->AddObject( "heavy" ) ;
+  Object *heavy     = theScene.AddObject( "heavy" ) ;
   loadModelFromFile( heavy, "../models/heavyT.obj" );
   heavy->Buffer();
   heavy->trans.scale.Set( 0.10 );
@@ -133,7 +144,7 @@ void init() {
   spy->trans.offset.Set( 0, 20, 0 );
   spy->Buffer();
 
-  Object *ball = terrain->AddObject( "ball" );
+  Object *ball = theScene.AddObject( "ball" );
   sphere( ball );
   ball->trans.scale.Set( 1000 );
   ball->Buffer();
@@ -152,7 +163,12 @@ void init() {
   Object *agua      = terrain->AddObject( "agua" )    ;
   makeAgua( terrain, agua ) ;
   agua->Buffer();
-  
+  agua->Mode( GL_TRIANGLES );
+
+  glEnable( GL_DEPTH_TEST );
+  glClearColor( 0.3, 0.5, 0.9, 1.0 );
+
+ 
   /*
   //Attach a model to the Camera.
   Object *cam = myScreen.camList.Active();
@@ -166,9 +182,6 @@ void init() {
   */
 
   terrain->Propegate();
-
-  glEnable( GL_DEPTH_TEST );
-  glClearColor( 0.3, 0.5, 0.9, 1.0 );
 
 }
 
@@ -224,6 +237,89 @@ void keylift( unsigned char key, int x, int y ) {
   }
 }
 
+
+
+typedef enum {
+
+  SHRINKING,
+  TRANSITIONING,
+  GROWING,
+  DONE
+
+} TSTATE ;
+
+TSTATE terrainState = SHRINKING ;
+
+// These belong to MakeFlatToRegular()
+bool switchingTerrain = false ;
+float CurrentScale = 0.0;
+
+void MakeFlatToRegular( TransCache &obj ) {
+
+  if ( switchingTerrain ) {
+
+    terrainState = SHRINKING ;
+    switchingTerrain = false ;
+    CurrentScale = 0.0       ;
+  }
+
+  //float f ;
+  switch ( terrainState ) {
+
+  case SHRINKING:
+
+    //    f = CurrentScale / 180 ;
+    obj.scale.Set(1.0,
+		  ((1.0+cos(CurrentScale*DegreesToRadians))/2.0),
+		  1.0);
+    
+    CurrentScale += 1.0 * Tick.Scale() ;
+
+    if ( CurrentScale >= 180.0 ) {
+      terrainState = TRANSITIONING ;
+    }
+
+    break;
+
+
+  case TRANSITIONING:
+
+    // Multithread this for graphics 2 project
+    randomize_terrain();
+    //landGen( theScene["terrain"], 8, 40.0 );
+    //theScene["terrain"]->Buffer();
+    terrainState = GROWING ;
+    // CurrentScale = 0.0 ;
+    break;
+
+  case GROWING:
+
+
+    //f = CurrentScale/360.0;
+
+    obj.scale.Set(1.0,
+		  ((1.0+cos(CurrentScale*DegreesToRadians))/2.0),
+		  1.0);
+
+    CurrentScale += 1.0 * Tick.Scale() ;
+
+    if ( CurrentScale >= 360.0 ) terrainState = DONE ;
+    break;
+
+
+  case DONE:
+    return;
+
+
+  default: 
+    return;
+
+  }
+
+    // bottom
+
+}
+
 void keyboard( unsigned char key, int x, int y ) {
 
   switch( key ) {
@@ -239,7 +335,9 @@ void keyboard( unsigned char key, int x, int y ) {
     break;
 
   case 'l':
-    randomize_terrain();
+    switchingTerrain = true ; 
+    // GLOBAL State variable used to control the terrain animation
+    //randomize_terrain();
     break;
     
   case '+':
@@ -437,19 +535,29 @@ ball
 }
 */
 
+/// hackity hack hack hackey doo!
+float heightScale = 0.0 ;
+float ticker = 0.0 ;
+
 void idle( void ) {
 
   Tick.Tock();
   if (DEBUG_MOTION) 
     fprintf( stderr, "Time since last idle: %lu\n", Tick.Delta() );
 
+
   Object &Terrain = *(theScene["terrain"]);
-  Object &Pyramid = *(Terrain["pyramid"]);
+  Object &Pyramid = *(theScene["pyramid"]);
   Pyramid.Animation( animationTest );
   Pyramid["moon"]->Animation( simpleRotateAnim );
-  Terrain["heavy"]->Animation( simpleRotateAnim );
-  (*Terrain["heavy"])["medic"]->Animation( simpleRotateY );
-  (*(*Terrain["heavy"])["medic"])["spy"]->Animation( simpleRotateY );
+
+  Object &Heavy = *(theScene["heavy"]);
+  Object &Medic = *(Heavy["medic"]);
+  Object &Spy =   *(Medic["spy"]);
+  Heavy.Animation( simpleRotateAnim );
+  Medic.Animation( simpleRotateY );
+  Spy.Animation( simpleRotateY );
+  Terrain.Animation( MakeFlatToRegular );
 
 #ifdef WII
   if (usingWii) {
@@ -466,7 +574,7 @@ void idle( void ) {
   // Move all camera(s).
   myScreen.camList.IdleMotion();
   glutPostRedisplay();
-    
+
 }
 
 
