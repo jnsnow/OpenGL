@@ -29,6 +29,7 @@ uniform sampler2D gSampler3; // Rock
 uniform sampler2D gSampler4; // Snow
 
 uniform bool fIsTextured;
+uniform float terrainMag;
 
 vec4 textureGradient( sampler2D a, sampler2D b, float upper, float lower )
 {
@@ -41,44 +42,44 @@ void main()
 {
 
   if (fIsTextured) {
-    float gradupper1 = 13.0 ; // Between here..
-    float gradlower1 = 11.0 ; // and here is Snow->Rock
+    float snowLower = 13.0 ; // Between here..
+    float rockUpper = 11.0 ; // and here is Snow->Rock
         // Rock is between ^^ THESE vv values
-    float gradupper2 =  8.0 ; // Between here...
-    float gradlower2 =  6.0 ; // and here is Rock->grass
+    float rockLower =  8.0 ; // Between here...
+    float grassUpper =  6.0 ; // and here is Rock->grass
         // Grass is between ^^ THESE vv values
-    float gradupper3 =  3.0 ; // Between here...
-    float gradlower3 =  0.5 ; // and here is Grass->Sand
+    float grassLower =  3.0 ; // Between here...
+    float sandUpper =  0.5 ; // and here is Grass->Sand
         // Sand is between ^^ THESE vv values
-    float gradupper4 = -1.0 ; // Between here...
-    float gradlower4 = -3.0 ; // and here is Sand->dirt
+    float sandLower = -1.0 ; // Between here...
+    float dirtUpper = -3.0 ; // and here is Sand->dirt
 
     // Snow!
-    if ( fPosition.y > gradupper1 )
+    if ( fPosition.y > snowLower )
         gl_FragColor = texture2D( gSampler4, outtexture ); 
     // Snow->Rock
-    else if ((fPosition.y > gradlower1) && (fPosition.y < gradupper1) )
-	gl_FragColor = textureGradient( gSampler4, gSampler3, gradupper1, gradlower1);
+    else if ((fPosition.y > rockUpper) && (fPosition.y < snowLower) )
+	gl_FragColor = textureGradient( gSampler4, gSampler3, snowLower, rockUpper);
     // Rock
-    else if ((fPosition.y > gradupper2) && (fPosition.y <= gradlower1)) 
+    else if ((fPosition.y > rockLower) && (fPosition.y <= rockUpper)) 
         gl_FragColor = texture2D( gSampler3, outtexture );
     // Rock->Grass
-    else if ((fPosition.y > gradlower2) && (fPosition.y < gradupper2))
-        gl_FragColor = textureGradient( gSampler3, gSampler2, gradupper2, gradlower2 );
+    else if ((fPosition.y > grassUpper) && (fPosition.y < rockLower))
+        gl_FragColor = textureGradient( gSampler3, gSampler2, rockLower, grassUpper );
     // Grass
-    else if (( fPosition.y > gradupper3 ) && (fPosition.y <= gradlower2 ))
+    else if (( fPosition.y > grassLower ) && (fPosition.y <= grassUpper ))
         gl_FragColor = texture2D( gSampler2, outtexture );  
     // Grass->Sand
-    else if ((fPosition.y > gradlower3) && (fPosition.y < gradupper3))
-        gl_FragColor = textureGradient( gSampler2, gSampler1, gradupper3, gradlower3 );
+    else if ((fPosition.y > sandUpper) && (fPosition.y < grassLower))
+        gl_FragColor = textureGradient( gSampler2, gSampler1, grassLower, sandUpper );
     // Sand
-    else if ((fPosition.y > gradupper4 ) && (fPosition.y <= gradlower3 ))
+    else if ((fPosition.y > sandLower ) && (fPosition.y <= sandUpper ))
         gl_FragColor = texture2D( gSampler1, outtexture );  
     // Sand->Dirt
-    else if ((fPosition.y > gradlower4) && (fPosition.y < gradupper4))
-        gl_FragColor = textureGradient( gSampler1, gSampler0, gradupper4, gradlower4 );
+    else if ((fPosition.y > dirtUpper) && (fPosition.y < sandLower))
+        gl_FragColor = textureGradient( gSampler1, gSampler0, sandLower, dirtUpper );
     // Dirt
-    else if ( fPosition.y <= gradlower4 )
+    else if ( fPosition.y <= dirtUpper )
         gl_FragColor = texture2D( gSampler0, outtexture );  
     }
 
