@@ -105,7 +105,7 @@ point4 initialSpherePoints[4] = { point4(0.0, 0.0, 1.0, 1.0),
 				  point4(-0.816497, -0.471405, -0.333333, 1.0),
 				  point4(0.816497, -0.471405, -0.333333, 1.0)};
 
-void divide_triangle(Object *obj, const point4& a, const point4& b, const point4& c, int timesToRecurse)
+void divide_triangle(Object *obj, const point4& a, const point4& b, const point4& c, int timesToRecurse, int color )
 {
 
   point4 v1, v2, v3;
@@ -116,24 +116,25 @@ void divide_triangle(Object *obj, const point4& a, const point4& b, const point4
       v2 = unit( a + c ) ;
       v3 = unit( b + c ) ;
 
-      divide_triangle( obj, a , v2, v1, timesToRecurse-1 );
-      divide_triangle( obj, c , v3, v2, timesToRecurse-1 );
-      divide_triangle( obj, b , v1, v3, timesToRecurse-1 );
-      divide_triangle( obj, v1, v2, v3, timesToRecurse-1 );
+      divide_triangle( obj, a , v2, v1, timesToRecurse-1, color );
+      divide_triangle( obj, c , v3, v2, timesToRecurse-1, color );
+      divide_triangle( obj, b , v1, v3, timesToRecurse-1, color );
+      divide_triangle( obj, v1, v2, v3, timesToRecurse-1, color );
     }
-  else triangle( obj, a, b, c, 4 ) ;
+  else triangle( obj, a, b, c, color ) ;
 }
 
 
 void recursiveModelGen( Object *obj,
 		        const point4& a, const point4& b, 
 		        const point4& c, const point4& d,
-		        int timesToRecurse ) {
+		        int timesToRecurse,
+			int color ) {
 
-  divide_triangle( obj, a, b, c, timesToRecurse );
-  divide_triangle( obj, d, c, b, timesToRecurse );
-  divide_triangle( obj, a, d, b, timesToRecurse );
-  divide_triangle( obj, a, d, c, timesToRecurse );
+  divide_triangle( obj, a, b, c, timesToRecurse, color );
+  divide_triangle( obj, d, c, b, timesToRecurse, color );
+  divide_triangle( obj, a, d, b, timesToRecurse, color );
+  divide_triangle( obj, a, d, c, timesToRecurse, color );
 }
 
 /**
@@ -149,6 +150,7 @@ void sphere( Object *obj ){
 		    initialSpherePoints[1],
 		    initialSpherePoints[2],
 		    initialSpherePoints[3],
+		    4,
 		    5 ) ;
 
 }

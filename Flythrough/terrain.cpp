@@ -69,10 +69,12 @@ const char* terrainTex[] = {
 };
 
 void randomize_terrain() {
-  
+
+  float H = fmod( (float)random(), 200 ) + 50.0 ;
+
   Object *Terrain = theScene["terrain"];
   // 8, 40
-  double magnitude = landGen( Terrain, 8, 40.0 );
+  double magnitude = landGen( Terrain, 10, H /*40.0*/ );
   Terrain->Buffer();
 
   GLint handle = glGetUniformLocation( gShader, "terrainMag" );
@@ -83,6 +85,7 @@ void randomize_terrain() {
 
 
 void init() {
+
   srand(time(NULL));
   
   // Load shaders and use the resulting shader program. 
@@ -102,9 +105,9 @@ void init() {
     Please do not give the Terrain children. 
     The animation is currently scaling the Y values of the 
     terrain to grow/shrink it.
-    Any and all Children will inherit this.
-    I've turned rainbow dash into a pancake over and over....
-    Poor little pony....
+    Any and all Children will inherit this,
+    and become flat.
+
   */
 
   /* Create some Objects ... */
@@ -121,7 +124,7 @@ void init() {
 		      vec4(  0, -0.999, -1, 1 ),
 		      4 );
   pyramid->Buffer();
-
+  /*
   Object *cube_base = theScene.AddObject( "basecube" );
   colorcube( cube_base, 1.0 );
   cube_base->Buffer();
@@ -129,11 +132,11 @@ void init() {
   Object *moon_cube = pyramid->AddObject( "moon" )    ;
   colorcube( moon_cube, 0.5 );
   moon_cube->Buffer();
-
+  */
   // These models came from VALVE,
   // From their game "Team Fortress 2."
   // The model processing was done in Blender.
-  Object *heavy     = theScene.AddObject( "heavy" ) ;
+  /*  Object *heavy     = theScene.AddObject( "heavy" ) ;
   loadModelFromFile( heavy, "../models/heavyT.obj" );
   heavy->Buffer();
   heavy->trans.scale.Set( 0.10 );
@@ -155,36 +158,31 @@ void init() {
   sphere( ball );
   ball->trans.scale.Set( 1000 );
   ball->Buffer();
-
+  */
   Object *sun = theScene.AddObject ("sun");
   //loadModelFromFile( sun, "../models/heavyT.obj" );
   sphere(sun);
-  sun->trans.offset.Set(80.0);
-  sun->trans.scale.Set(10.0) ;
+  sun->trans.offset.SetX(500.0);
+  sun->trans.scale.Set(16.0) ;
   sun->Buffer();
 
+  /*
   Object *actualMoon = theScene.AddObject ("actualMoon");
   //loadModelFromFile( actualMoon, "../models/spyT.obj" );
   sphere(actualMoon);
-  actualMoon->trans.offset.Set(-80.0);
-  actualMoon->trans.scale.Set(8.0);
+  actualMoon->trans.offset.SetX(-500.0);
+  actualMoon->trans.scale.Set(12.0);
   actualMoon->Buffer();
+  */
 
+  lights.addLightSource( LightSource( point4(0.0, 30.0, 0.0, 1.0), 
+				      color4(1.0, 1.0, 0.0, 1.0)));
 
-  //  for ( int z = 0 ; z < 2 ; z++ ){
+  lights.addLightSource( LightSource( point4(0.0, -1.0, 0.0, 1.0), 
+				      color4(1.0, 0.0, 1.0, 1.0)));
 
-    lights.addLightSource( LightSource( point4(0.0, 30.0, 0.0, 1.0), 
-					color4(1.0, 1.0, 1.0, 1.0)));
-
-    lights.addLightSource( LightSource( point4(0.0, -1.0, 0.0, 1.0), 
-					color4(1.0, 1.0, 1.0, 1.0)));
-
-    lights.addLightSource( LightSource( point4(10.0, 10.0, 10.0, 1.0), 
-					color4(1.0, 1.0, 1.0, 1.0)));
-
-    //    lights.addLightSource( LightSource( point4(0.0, 0.0, 0.0, 1.0), 
-    //				color4(1.0, 1.0, 1.0, 1.0)));
-    
+  lights.addLightSource( LightSource( point4(10.0, 10.0, 10.0, 1.0), 
+				      color4(0.0, 1.0, 1.0, 1.0)));
 
   /*
   Object *pony      = terrain->AddObject( "pony" ) ;  
@@ -197,7 +195,7 @@ void init() {
   */
   
   // The water gets generated last.
-  Object *agua      = terrain->AddObject( "agua" )    ;
+  Object *agua      = terrain->AddObject( "agua" ) ;
   makeAgua( terrain, agua ) ;
   agua->Buffer();
   agua->Mode( GL_TRIANGLES );
@@ -286,11 +284,59 @@ typedef enum {
 
 } TSTATE ;
 
-TSTATE terrainState = SHRINKING ;
+TSTATE terrainState = DONE ;
+TSTATE sunState = DONE ;
 
 // These belong to MakeFlatToRegular()
 bool switchingTerrain = false ;
 float CurrentScale = 0.0;
+
+bool pushSun = false ;
+
+void moveSun(TransCache &sun){
+
+  switch ( sunState ) {
+
+  case SHRINKING:
+
+    sun.orbit.RotateZ( timeOfDay*0.1 );
+    timeOfDay += 0.001 * Tick.Scale();
+    if ( timeOfDay > 90.0 ) sunState = TRANSITIONING ;
+
+    break;
+
+
+  case TRANSITIONING:
+
+    if ( pushSun ) {
+      sunState = GROWING ;
+      pushSun = false ;
+    }
+
+    return;
+
+  case GROWING:
+
+    sun.orbit.RotateZ( timeOfDay*0.1 ) ;
+    timeOfDay += 0.001 * Tick.Scale( ) ;
+
+    if ( timeOfDay > 360.0 ) sunState = DONE ;
+
+    break;
+
+  case DONE:
+
+    if ( pushSun ) {
+      sunState = SHRINKING ;
+      pushSun = false ;
+    }
+
+    return;
+
+  }
+
+
+}
 
 void MakeFlatToRegular( TransCache &obj ) {
 
@@ -347,7 +393,6 @@ void MakeFlatToRegular( TransCache &obj ) {
 
   case DONE:
     return;
-
 
   default: 
     return;
@@ -426,6 +471,7 @@ void keyboard( unsigned char key, int x, int y ) {
 
  // case 't': lights.addLightSource( randomLight() /*! not defined !*/ ) ; break;
 
+  case 't': pushSun = true; break;
   }
 }
 
@@ -533,7 +579,7 @@ void simpleRotateAnim( TransCache &obj ) {
   obj.orbit.RotateY( Tick.Scale() * -1.0 );
 
 }
-  
+
 
 void animationTest( TransCache &obj ) {
 
@@ -569,26 +615,32 @@ void animationTest( TransCache &obj ) {
   
 }
 
+//###
+//void sunOrbit(TransCache &sun ) {
 
-// TOD --> T.ime O.f D.ay
-void sunOrbit(TransCache &sun ) {
-  static float TOD = 0.0 ;
-  sun.orbit.RotateZ( TOD * 0.01 );
-  TOD += 0.01;
-  if ( TOD > 360.0 ) TOD = 0.0;
-}
+//}
 
+/*
 void moonOrbit(TransCache &moon) {
-  static float TOD = 0.0 ;
-  moon.orbit.RotateZ( TOD * 0.01);
-  TOD += 0.01;
-  if ( TOD > 360.0 ) TOD = 0.0;
+  moon.orbit.RotateZ( timeOfDay*0.1 );
 }
-
+*/
 
 void idle( void ) {
 
   Tick.Tock();
+
+
+  //  if ( timeOfDay > 360.0 ) timeOfDay = 0.0;
+
+  glClearColor( 
+	       0.4*(sin(timeOfDay*DegreesToRadians)*sin(timeOfDay*DegreesToRadians)),
+	       0.4,
+	       0.45*(1.0+cos(timeOfDay*DegreesToRadians)),
+	       1.0 );
+
+  //  glClearColor( 0.0,0.0,0.1,1.0);
+
   if (DEBUG_MOTION) 
     fprintf( stderr, "Time since last idle: %lu\n", Tick.Delta() );
 
@@ -596,23 +648,37 @@ void idle( void ) {
   Object &Terrain = *(theScene["terrain"]);
   Object &Pyramid = *(theScene["pyramid"]);
   Pyramid.Animation( animationTest );
-  Pyramid["moon"]->Animation( simpleRotateAnim );
 
+  /*
+  Pyramid["moon"]->Animation( simpleRotateAnim );
   Object &Heavy = *(theScene["heavy"]);
-  Object &Sun   = *(theScene["sun"]);
-  Object &Moon  = *(theScene["actualMoon"]);
   Object &Medic = *(Heavy["medic"]);
   Object &Spy   = *(Medic["spy"]);
   Heavy.Animation( simpleRotateAnim );
   Medic.Animation( simpleRotateY );
   Spy.Animation( simpleRotateY );
+  */
+
+  Object &Sun   = *(theScene["sun"]);
+  //  Object &Moon  = *(theScene["actualMoon"]);
+
   Terrain.Animation( MakeFlatToRegular );
 
-  Sun.Animation(  sunOrbit  );
-  Moon.Animation( moonOrbit );
+  Sun.Animation( moveSun ) ;// sunOrbit  );
+  //Moon.Animation( moonOrbit );
 
   // Move light absolutely, ie to the point given
   lights.moveLight( 0, Sun.GetPosition() ) ;
+
+
+  // Move light absolutely, ie to the point given
+  lights.moveLight( 0, Sun.GetPosition() ) ;
+
+
+  // lights hack
+  glUniform4fv( glGetUniformLocation(gShader, "sunHeight"), 1,
+	       Sun.GetPosition() );
+
 
 
 
@@ -649,7 +715,7 @@ void menufunc( int value ) {
     else fixed_yaw = true;
     break;
   }
-    
+
 }
 
 int main( int argc, char **argv ) {
@@ -671,7 +737,7 @@ int main( int argc, char **argv ) {
   glutInit( &argc, argv );
   glutInitDisplayMode( GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH );
   glutInitWindowSize( myScreen.Width(), myScreen.Height() );
-  glutCreateWindow( "Gasket Flythrough" );
+  glutCreateWindow( "Terrain" );
   glutFullScreen();
   glutSetCursor( GLUT_CURSOR_NONE );
 
