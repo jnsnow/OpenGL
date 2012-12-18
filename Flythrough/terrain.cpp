@@ -66,10 +66,12 @@ const char* terrainTex[] = {
 };
 
 void randomize_terrain() {
+
+  float H = fmod( (float)random(), 200 ) + 50.0 ;
   
   Object *Terrain = theScene["terrain"];
   // 8, 40
-  double magnitude = landGen( Terrain, 8, 40.0 );
+  double magnitude = landGen( Terrain, 10, H /*40.0*/ );
   Terrain->Buffer();
 
   GLint handle = glGetUniformLocation( gShader, "terrainMag" );
