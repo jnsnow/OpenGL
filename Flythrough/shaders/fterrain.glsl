@@ -1,35 +1,38 @@
 ///////////////////////////////////////////////////////////////////////////////
 
-// sent to the fshader
-varying vec4 color;
-varying vec3 cameraVector;
-varying vec3 fragmentNormal;
-varying vec3 lightVector[8];
-
-const float MAX_DIST = 2.5;
-const float MAX_DIST_SQUARED = MAX_DIST * MAX_DIST;
-
-uniform int numLights ;
-
-  uniform vec3 lightColor[8];
-//uniform vec3 LightAmbientArray[] ;
-//uniform vec3 LightDiffuseArray[] ;
-//uniform vec3 LightSpecularArray[];
-
-uniform vec3 LightPositionArray[8];
-uniform vec3 LightDirectionArray[8];
-
-varying vec2 outtexture;
-varying vec4 fPosition;
-
+uniform bool      fIsTextured;
 uniform sampler2D gSampler0; // Dirt
 uniform sampler2D gSampler1; // Sand
 uniform sampler2D gSampler2; // Grss
 uniform sampler2D gSampler3; // Rock
 uniform sampler2D gSampler4; // Snow
+uniform vec3      lightColor[8];
+uniform vec3      LightDirectionArray[8];
+uniform vec3      LightPositionArray[8];
+uniform int       numLights ;
+uniform float     terrainMag;
+//uniform vec3 LightAmbientArray[] ;
+//uniform vec3 LightDiffuseArray[] ;
+//uniform vec3 LightSpecularArray[];
 
-uniform bool fIsTextured;
-uniform float terrainMag;
+varying vec3 cameraVector;    
+varying vec4 color;           // in from vShader
+varying vec4 fPosition;       // in from vShader
+varying vec3 fragmentNormal;
+varying vec3 lightVector[8];
+varying vec2 outtexture;      // in from vshader
+
+const float MAX_DIST = 2.5;
+const float MAX_DIST_SQUARED = MAX_DIST * MAX_DIST;
+
+float dirtUpper;
+float grassUpper;
+float grassLower;
+float rockUpper;
+float rockLower;
+float sandUpper;
+float sandLower;
+float snowLower;
 
 vec4 textureGradient( sampler2D a, sampler2D b, float upper, float lower )
 {
@@ -38,21 +41,26 @@ vec4 textureGradient( sampler2D a, sampler2D b, float upper, float lower )
             (texture2D( b, outtexture) * (upper - fPosition.y))) / diff ;
 }
 
+void setTextureLimits( float mag ){
+
+    snowLower  = 0.1625  * mag;
+    rockUpper  = 0.1375  * mag;
+    rockLower  = 0.1     * mag;
+    grassUpper = 0.075   * mag;
+    grassLower = 0.0375  * mag;
+    sandUpper  = 0.00625 * mag;
+    sandLower  = 0.0125  * mag;
+    dirtUpper  = 0.0375  * mag;
+
+    return void;
+}
+
 void main() 
 {
 
   if (fIsTextured) {
-    float snowLower = 13.0 ; // Between here..
-    float rockUpper = 11.0 ; // and here is Snow->Rock
-        // Rock is between ^^ THESE vv values
-    float rockLower =  8.0 ; // Between here...
-    float grassUpper =  6.0 ; // and here is Rock->grass
-        // Grass is between ^^ THESE vv values
-    float grassLower =  3.0 ; // Between here...
-    float sandUpper =  0.5 ; // and here is Grass->Sand
-        // Sand is between ^^ THESE vv values
-    float sandLower = -1.0 ; // Between here...
-    float dirtUpper = -3.0 ; // and here is Sand->dirt
+
+     setTextureLimits( terrainMag );    
 
     // Snow!
     if ( fPosition.y > snowLower )
