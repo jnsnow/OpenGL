@@ -4,19 +4,79 @@
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_lights_a697efdeb33331a506a1a63a564f5f2e1}{void {\bfseries remove\-Light\-Source} ()}\label{class_lights_a697efdeb33331a506a1a63a564f5f2e1}
+\hypertarget{class_lights_a6efd204b85c962a046b9c1356d621050}{\hyperlink{class_lights_a6efd204b85c962a046b9c1356d621050}{Lights} (bool)}\label{class_lights_a6efd204b85c962a046b9c1356d621050}
 
-\item 
-\hypertarget{class_lights_a2b773cfaba5c662fb2a0344be70edc19}{void {\bfseries add\-Light\-Source} ()}\label{class_lights_a2b773cfaba5c662fb2a0344be70edc19}
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\hyperlink{class_lights_a00b1749bc399f2b9d092b8992a52b360}{Lights} (G\-Luint \&, bool complex\-Switch)
+\begin{DoxyCompactList}\small\item\em Initialization constructor. \end{DoxyCompactList}\item 
+\hypertarget{class_lights_aed5713f8069b09349e0f86e27a474d59}{virtual \hyperlink{class_lights_aed5713f8069b09349e0f86e27a474d59}{$\sim$\-Lights} ()}\label{class_lights_aed5713f8069b09349e0f86e27a474d59}
 
-\item 
-\hypertarget{class_lights_a47639f6fd64056f15b9372b80f9ef117}{void {\bfseries init\-\_\-lights} (G\-Luint program)}\label{class_lights_a47639f6fd64056f15b9372b80f9ef117}
+\begin{DoxyCompactList}\small\item\em Default destructor. \end{DoxyCompactList}\item 
+void \hyperlink{class_lights_a5383c1dbc70f74de74cd2b780ef90908}{add\-Light\-Source} (const \hyperlink{class_light_source}{Light\-Source} \&)
+\begin{DoxyCompactList}\small\item\em Add a light source to the list. \end{DoxyCompactList}\item 
+void \hyperlink{class_lights_a5c1870dad44d2e6cf48b9f8152e10a21}{remove\-Light\-Source} (const unsigned int)
+\begin{DoxyCompactList}\small\item\em Removes the u'th element from the list of lights. \end{DoxyCompactList}\item 
+\hypertarget{class_lights_a0640af4479575593544ea68115e40ea5}{void \hyperlink{class_lights_a0640af4479575593544ea68115e40ea5}{remove\-Last\-Light\-Source} ()}\label{class_lights_a0640af4479575593544ea68115e40ea5}
 
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Removes the last light added to the container. \end{DoxyCompactList}\item 
+void \hyperlink{class_lights_aaad7e3eb032a41ff4b60e3d0111d1031}{modify\-Light\-Source} (const unsigned int u, const \hyperlink{class_light_source}{Light\-Source} \&l)
+\begin{DoxyCompactList}\small\item\em Change an existing light source. \end{DoxyCompactList}\item 
+void \hyperlink{class_lights_addf8591af07eae51044c341a8e27959f}{init\-\_\-lights} (G\-Luint \&)
+\begin{DoxyCompactList}\small\item\em Initializes members in the object to link with shader uniform variables. \end{DoxyCompactList}\item 
+\hypertarget{class_lights_ae9b01f6463a6687c5300486878d61043}{unsigned int \hyperlink{class_lights_ae9b01f6463a6687c5300486878d61043}{get\-Num\-Lights} () const }\label{class_lights_ae9b01f6463a6687c5300486878d61043}
+
+\begin{DoxyCompactList}\small\item\em Get the number of lights we currently have active. \end{DoxyCompactList}\item 
+\hypertarget{class_lights_ac02fbea7a66a779bbdfa3be5d2b8a8dc}{bool \hyperlink{class_lights_ac02fbea7a66a779bbdfa3be5d2b8a8dc}{get\-Complex} () const }\label{class_lights_ac02fbea7a66a779bbdfa3be5d2b8a8dc}
+
+\begin{DoxyCompactList}\small\item\em Get the lighting mode. \end{DoxyCompactList}\item 
+void \hyperlink{class_lights_ab420d662b1c8425636e711d947614b15}{send\-All} ()
+\begin{DoxyCompactList}\small\item\em This function call updates all the lighting arrays in the shader. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \hypertarget{class_lights_a902e37f0512d3bf9771472fe564bdac1}{vector$<$ \hyperlink{class_light_source}{Light\-Source} $>$ {\bfseries the\-Lights}}\label{class_lights_a902e37f0512d3bf9771472fe564bdac1}
+
+\item 
+\hypertarget{class_lights_ad0f2d47f1de042ecbd83b70662e48245}{float {\bfseries ambient} \mbox{[}M\-A\-X\-\_\-\-L\-I\-G\-H\-T\-S $\ast$3\mbox{]}}\label{class_lights_ad0f2d47f1de042ecbd83b70662e48245}
+
+\item 
+\hypertarget{class_lights_ac4f62eef960d636cab994b47f184b98a}{float {\bfseries diffuse} \mbox{[}M\-A\-X\-\_\-\-L\-I\-G\-H\-T\-S $\ast$3\mbox{]}}\label{class_lights_ac4f62eef960d636cab994b47f184b98a}
+
+\item 
+\hypertarget{class_lights_a2d946118ffd51b769a205bb57d614d8f}{float {\bfseries specular} \mbox{[}M\-A\-X\-\_\-\-L\-I\-G\-H\-T\-S $\ast$3\mbox{]}}\label{class_lights_a2d946118ffd51b769a205bb57d614d8f}
+
+\item 
+\hypertarget{class_lights_afd97d2f8d29109ed6f5ce91fd2597590}{float {\bfseries color} \mbox{[}M\-A\-X\-\_\-\-L\-I\-G\-H\-T\-S $\ast$3\mbox{]}}\label{class_lights_afd97d2f8d29109ed6f5ce91fd2597590}
+
+\item 
+\hypertarget{class_lights_ad4a7fd9b32f053f20763ff848056a771}{float {\bfseries position} \mbox{[}M\-A\-X\-\_\-\-L\-I\-G\-H\-T\-S $\ast$3\mbox{]}}\label{class_lights_ad4a7fd9b32f053f20763ff848056a771}
+
+\item 
+\hypertarget{class_lights_ae61432466e301a6d2022a60b7a42f18f}{float {\bfseries direction} \mbox{[}M\-A\-X\-\_\-\-L\-I\-G\-H\-T\-S $\ast$3\mbox{]}}\label{class_lights_ae61432466e301a6d2022a60b7a42f18f}
+
+\item 
+\hypertarget{class_lights_af218e33519edf70135e4f67387438417}{G\-Luint {\bfseries g\-\_\-ambient}}\label{class_lights_af218e33519edf70135e4f67387438417}
+
+\item 
+\hypertarget{class_lights_aebfc32c653fd56af4e9181453b51bcc9}{G\-Luint {\bfseries g\-\_\-diffuse}}\label{class_lights_aebfc32c653fd56af4e9181453b51bcc9}
+
+\item 
+\hypertarget{class_lights_a877a8c42205f92aa1f9d560a2d26920d}{G\-Luint {\bfseries g\-\_\-specular}}\label{class_lights_a877a8c42205f92aa1f9d560a2d26920d}
+
+\item 
+\hypertarget{class_lights_a828207c65b87e5d746cab65dce2ca625}{G\-Luint {\bfseries g\-\_\-color}}\label{class_lights_a828207c65b87e5d746cab65dce2ca625}
+
+\item 
+\hypertarget{class_lights_a2fc6d74f5eaf0375c4f3c747e9eaa275}{G\-Luint {\bfseries g\-\_\-position}}\label{class_lights_a2fc6d74f5eaf0375c4f3c747e9eaa275}
+
+\item 
+\hypertarget{class_lights_a031590d656ed1b9c943c46246a71e6ff}{G\-Luint {\bfseries g\-\_\-direction}}\label{class_lights_a031590d656ed1b9c943c46246a71e6ff}
+
+\item 
+\hypertarget{class_lights_a82f8c4db3ffa1a38077fa2c8f0a8f683}{G\-Luint {\bfseries g\-\_\-num\-Lights}}\label{class_lights_a82f8c4db3ffa1a38077fa2c8f0a8f683}
+
+\item 
+\hypertarget{class_lights_a040252bb7d61b193446767c2a7ef3f3e}{const bool {\bfseries complex\-Switch}}\label{class_lights_a040252bb7d61b193446767c2a7ef3f3e}
 
 \end{DoxyCompactItemize}
 
@@ -24,10 +84,136 @@
 \subsection{Detailed Description}
 
 
-Definition at line 74 of file Light\-Source.\-hpp.
+Definition at line 39 of file Lights.\-hpp.
 
 
 
-The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_lights_a00b1749bc399f2b9d092b8992a52b360}{\index{Lights@{Lights}!Lights@{Lights}}
+\index{Lights@{Lights}!Lights@{Lights}}
+\subsubsection[{Lights}]{\setlength{\rightskip}{0pt plus 5cm}Lights\-::\-Lights (
+\begin{DoxyParamCaption}
+\item[{G\-Luint \&}]{g\-\_\-program, }
+\item[{bool}]{c\-Switch}
+\end{DoxyParamCaption}
+)}}\label{class_lights_a00b1749bc399f2b9d092b8992a52b360}
+
+
+Initialization constructor. 
+
+This constructor allows the implementor to forego a call to \hyperlink{class_lights_addf8591af07eae51044c341a8e27959f}{init\-\_\-lights()}; If you can use this one, please do! 
+\begin{DoxyParams}{Parameters}
+{\em g\-\_\-program} & A program object that we can link our arrays with. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 44 of file Lights.\-cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_lights_a5383c1dbc70f74de74cd2b780ef90908}{\index{Lights@{Lights}!add\-Light\-Source@{add\-Light\-Source}}
+\index{add\-Light\-Source@{add\-Light\-Source}!Lights@{Lights}}
+\subsubsection[{add\-Light\-Source}]{\setlength{\rightskip}{0pt plus 5cm}void Lights\-::add\-Light\-Source (
+\begin{DoxyParamCaption}
+\item[{const {\bf Light\-Source} \&}]{l}
+\end{DoxyParamCaption}
+)}}\label{class_lights_a5383c1dbc70f74de74cd2b780ef90908}
+
+
+Add a light source to the list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em l} & light source to add to the list. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 109 of file Lights.\-cpp.
+
+\hypertarget{class_lights_addf8591af07eae51044c341a8e27959f}{\index{Lights@{Lights}!init\-\_\-lights@{init\-\_\-lights}}
+\index{init\-\_\-lights@{init\-\_\-lights}!Lights@{Lights}}
+\subsubsection[{init\-\_\-lights}]{\setlength{\rightskip}{0pt plus 5cm}void Lights\-::init\-\_\-lights (
+\begin{DoxyParamCaption}
+\item[{G\-Luint \&}]{g\-\_\-program}
+\end{DoxyParamCaption}
+)}}\label{class_lights_addf8591af07eae51044c341a8e27959f}
+
+
+Initializes members in the object to link with shader uniform variables. 
+
+I\-F Y\-O\-U D\-O\-N'T U\-S\-E T\-H\-E I\-N\-I\-T\-I\-L\-I\-Z\-A\-T\-I\-O\-N C\-O\-N\-S\-T\-R\-U\-C\-T\-O\-R, T\-H\-I\-S M\-U\-S\-T B\-E C\-A\-L\-L\-E\-D B\-E\-F\-O\-R\-E T\-R\-Y\-I\-N\-G T\-O C\-A\-L\-L \hyperlink{class_lights_ab420d662b1c8425636e711d947614b15}{send\-All()}; 
+\begin{DoxyParams}{Parameters}
+{\em g\-\_\-program} & A gl program to use for linking with the shader. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 137 of file Lights.\-cpp.
+
+\hypertarget{class_lights_aaad7e3eb032a41ff4b60e3d0111d1031}{\index{Lights@{Lights}!modify\-Light\-Source@{modify\-Light\-Source}}
+\index{modify\-Light\-Source@{modify\-Light\-Source}!Lights@{Lights}}
+\subsubsection[{modify\-Light\-Source}]{\setlength{\rightskip}{0pt plus 5cm}void Lights\-::modify\-Light\-Source (
+\begin{DoxyParamCaption}
+\item[{const unsigned int}]{u, }
+\item[{const {\bf Light\-Source} \&}]{l}
+\end{DoxyParamCaption}
+)}}\label{class_lights_aaad7e3eb032a41ff4b60e3d0111d1031}
+
+
+Change an existing light source. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em u} & O\-N\-E I\-N\-D\-E\-X\-E\-D index to select a light source. \\
+\hline
+{\em l} & light source to replace the existing light with. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 120 of file Lights.\-cpp.
+
+\hypertarget{class_lights_a5c1870dad44d2e6cf48b9f8152e10a21}{\index{Lights@{Lights}!remove\-Light\-Source@{remove\-Light\-Source}}
+\index{remove\-Light\-Source@{remove\-Light\-Source}!Lights@{Lights}}
+\subsubsection[{remove\-Light\-Source}]{\setlength{\rightskip}{0pt plus 5cm}void Lights\-::remove\-Light\-Source (
+\begin{DoxyParamCaption}
+\item[{const unsigned int}]{u}
+\end{DoxyParamCaption}
+)}}\label{class_lights_a5c1870dad44d2e6cf48b9f8152e10a21}
+
+
+Removes the u'th element from the list of lights. 
+
+This function is 1-\/indexed. 
+\begin{DoxyParams}{Parameters}
+{\em u} & the index of the light to remove. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 87 of file Lights.\-cpp.
+
+\hypertarget{class_lights_ab420d662b1c8425636e711d947614b15}{\index{Lights@{Lights}!send\-All@{send\-All}}
+\index{send\-All@{send\-All}!Lights@{Lights}}
+\subsubsection[{send\-All}]{\setlength{\rightskip}{0pt plus 5cm}void Lights\-::send\-All (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_lights_ab420d662b1c8425636e711d947614b15}
+
+
+This function call updates all the lighting arrays in the shader. 
+
+If you make any changes to the lighting, you must call this function again. In fact, it probably belongs in your glut\-Redisplay() callback. 
+
+Definition at line 177 of file Lights.\-cpp.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
 \item 
-Light\-Source.\-hpp\end{DoxyCompactItemize}
+Lights.\-hpp\item 
+Lights.\-cpp\end{DoxyCompactItemize}

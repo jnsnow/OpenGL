@@ -6,8 +6,6 @@ var hierarchy =
     [ "ang_rate_t", "structang__rate__t.html", null ],
     [ "balance_board_t", "structbalance__board__t.html", null ],
     [ "CAccelerometer", "class_c_accelerometer.html", null ],
-    [ "Camera", "class_camera.html", null ],
-    [ "Cameras", "class_cameras.html", null ],
     [ "CBalanceBoard", "class_c_balance_board.html", null ],
     [ "CButtonBase", "class_c_button_base.html", [
       [ "CButtons", "class_c_buttons.html", null ],
@@ -46,7 +44,6 @@ var hierarchy =
     [ "MLData", "class_m_l_data.html", null ],
     [ "motion_plus_t", "structmotion__plus__t.html", null ],
     [ "nunchuk_t", "structnunchuk__t.html", null ],
-    [ "Object", "class_object.html", null ],
     [ "orient_t", "structorient__t.html", null ],
     [ "pressure_t", "structpressure__t.html", null ],
     [ "pressure_weight_t", "structpressure__weight__t.html", null ],
@@ -55,10 +52,22 @@ var hierarchy =
       [ "AccSample", "class_acc_sample.html", null ],
       [ "GyroSample", "class_gyro_sample.html", null ]
     ] ],
-    [ "Scene", "class_scene.html", null ],
+    [ "Scene", "class_scene.html", [
+      [ "Cameras", "class_cameras.html", null ],
+      [ "Object", "class_object.html", [
+        [ "Camera", "class_camera.html", null ]
+      ] ]
+    ] ],
     [ "Screen", "class_screen.html", null ],
     [ "Timer", "class_timer.html", null ],
     [ "Training", "class_training.html", null ],
+    [ "TransCache", "class_trans_cache.html", null ],
+    [ "Transformation", "class_transformation.html", [
+      [ "RotMat", "class_rot_mat.html", null ],
+      [ "ScaleMat", "class_scale_mat.html", null ],
+      [ "TransMat", "class_trans_mat.html", null ]
+    ] ],
+    [ "txload", "classtxload.html", null ],
     [ "Angel::vec2", "struct_angel_1_1vec2.html", null ],
     [ "vec2b_t", "structvec2b__t.html", null ],
     [ "Angel::vec3", "struct_angel_1_1vec3.html", null ],
@@ -69,5 +78,6 @@ var hierarchy =
     [ "WiiConnect", "interface_wii_connect.html", null ],
     [ "wiimote_state_t", "structwiimote__state__t.html", null ],
     [ "wiimote_t", "structwiimote__t.html", null ],
+    [ "wiiPollData", "structwii_poll_data.html", null ],
     [ "WiiSearch", "interface_wii_search.html", null ]
 ];

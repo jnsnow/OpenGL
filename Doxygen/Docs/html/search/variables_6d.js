@@ -5,5 +5,5 @@ var searchData=
   ['maxaccel',['MaxAccel',['../class_camera.html#a7817b2e83ad8f783e2822ec7771c6fe9',1,'Camera']]],
   ['maxspeed',['MaxSpeed',['../class_camera.html#a4e6866298a8e7a1ff2f529202892958e',1,'Camera']]],
   ['min',['min',['../structjoystick__t.html#aff984e44734968b8f8fdbd52ea8aeb4f',1,'joystick_t']]],
-  ['motion',['Motion',['../class_camera.html#a39746b4fadf30bba6bdc8aa6acfdc6f2',1,'Camera']]]
+  ['motion',['Motion',['../class_camera.html#a16f01b362cb7c18d203e468bf5483749',1,'Camera']]]
 ];

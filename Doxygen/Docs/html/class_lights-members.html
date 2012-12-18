@@ -109,16 +109,38 @@ $(document).ready(function(){initNavTree('class_lights.html','');});
 
 <p>This is the complete list of members for <a class="el" href="class_lights.html">Lights</a>, including all inherited members.</p>
 <table class="directory">
-  <tr bgcolor="#f0f0f0"class="even"><td class="entry"><b>addLightSource</b>() (defined in <a class="el" href="class_lights.html">Lights</a>)</td><td class="entry"><a class="el" href="class_lights.html">Lights</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>init_lights</b>(GLuint program) (defined in <a class="el" href="class_lights.html">Lights</a>)</td><td class="entry"><a class="el" href="class_lights.html">Lights</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"class="even"><td class="entry"><b>removeLightSource</b>() (defined in <a class="el" href="class_lights.html">Lights</a>)</td><td class="entry"><a class="el" href="class_lights.html">Lights</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>theLights</b> (defined in <a class="el" href="class_lights.html">Lights</a>)</td><td class="entry"><a class="el" href="class_lights.html">Lights</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_lights.html#a5383c1dbc70f74de74cd2b780ef90908">addLightSource</a>(const LightSource &amp;)</td><td class="entry"><a class="el" href="class_lights.html">Lights</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>ambient</b> (defined in <a class="el" href="class_lights.html">Lights</a>)</td><td class="entry"><a class="el" href="class_lights.html">Lights</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr bgcolor="#f0f0f0"class="even"><td class="entry"><b>color</b> (defined in <a class="el" href="class_lights.html">Lights</a>)</td><td class="entry"><a class="el" href="class_lights.html">Lights</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>complexSwitch</b> (defined in <a class="el" href="class_lights.html">Lights</a>)</td><td class="entry"><a class="el" href="class_lights.html">Lights</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr bgcolor="#f0f0f0"class="even"><td class="entry"><b>diffuse</b> (defined in <a class="el" href="class_lights.html">Lights</a>)</td><td class="entry"><a class="el" href="class_lights.html">Lights</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>direction</b> (defined in <a class="el" href="class_lights.html">Lights</a>)</td><td class="entry"><a class="el" href="class_lights.html">Lights</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr bgcolor="#f0f0f0"class="even"><td class="entry"><b>g_ambient</b> (defined in <a class="el" href="class_lights.html">Lights</a>)</td><td class="entry"><a class="el" href="class_lights.html">Lights</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>g_color</b> (defined in <a class="el" href="class_lights.html">Lights</a>)</td><td class="entry"><a class="el" href="class_lights.html">Lights</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr bgcolor="#f0f0f0"class="even"><td class="entry"><b>g_diffuse</b> (defined in <a class="el" href="class_lights.html">Lights</a>)</td><td class="entry"><a class="el" href="class_lights.html">Lights</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>g_direction</b> (defined in <a class="el" href="class_lights.html">Lights</a>)</td><td class="entry"><a class="el" href="class_lights.html">Lights</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr bgcolor="#f0f0f0"class="even"><td class="entry"><b>g_numLights</b> (defined in <a class="el" href="class_lights.html">Lights</a>)</td><td class="entry"><a class="el" href="class_lights.html">Lights</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>g_position</b> (defined in <a class="el" href="class_lights.html">Lights</a>)</td><td class="entry"><a class="el" href="class_lights.html">Lights</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr bgcolor="#f0f0f0"class="even"><td class="entry"><b>g_specular</b> (defined in <a class="el" href="class_lights.html">Lights</a>)</td><td class="entry"><a class="el" href="class_lights.html">Lights</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_lights.html#ac02fbea7a66a779bbdfa3be5d2b8a8dc">getComplex</a>() const </td><td class="entry"><a class="el" href="class_lights.html">Lights</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_lights.html#ae9b01f6463a6687c5300486878d61043">getNumLights</a>() const </td><td class="entry"><a class="el" href="class_lights.html">Lights</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_lights.html#addf8591af07eae51044c341a8e27959f">init_lights</a>(GLuint &amp;)</td><td class="entry"><a class="el" href="class_lights.html">Lights</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_lights.html#a6efd204b85c962a046b9c1356d621050">Lights</a>(bool)</td><td class="entry"><a class="el" href="class_lights.html">Lights</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_lights.html#a00b1749bc399f2b9d092b8992a52b360">Lights</a>(GLuint &amp;, bool complexSwitch)</td><td class="entry"><a class="el" href="class_lights.html">Lights</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_lights.html#aaad7e3eb032a41ff4b60e3d0111d1031">modifyLightSource</a>(const unsigned int u, const LightSource &amp;l)</td><td class="entry"><a class="el" href="class_lights.html">Lights</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>position</b> (defined in <a class="el" href="class_lights.html">Lights</a>)</td><td class="entry"><a class="el" href="class_lights.html">Lights</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_lights.html#a0640af4479575593544ea68115e40ea5">removeLastLightSource</a>()</td><td class="entry"><a class="el" href="class_lights.html">Lights</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_lights.html#a5c1870dad44d2e6cf48b9f8152e10a21">removeLightSource</a>(const unsigned int)</td><td class="entry"><a class="el" href="class_lights.html">Lights</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_lights.html#ab420d662b1c8425636e711d947614b15">sendAll</a>()</td><td class="entry"><a class="el" href="class_lights.html">Lights</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>specular</b> (defined in <a class="el" href="class_lights.html">Lights</a>)</td><td class="entry"><a class="el" href="class_lights.html">Lights</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr bgcolor="#f0f0f0"class="even"><td class="entry"><b>theLights</b> (defined in <a class="el" href="class_lights.html">Lights</a>)</td><td class="entry"><a class="el" href="class_lights.html">Lights</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_lights.html#aed5713f8069b09349e0f86e27a474d59">~Lights</a>()</td><td class="entry"><a class="el" href="class_lights.html">Lights</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Sun Dec 9 2012 17:14:28 for OpenGL Flythrough by
+    <li class="footer">Generated on Tue Dec 18 2012 01:46:34 for OpenGL Flythrough by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.1.2 </li>
   </ul>

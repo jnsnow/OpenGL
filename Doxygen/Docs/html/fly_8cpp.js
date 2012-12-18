@@ -2,7 +2,6 @@ var fly_8cpp =
 [
     [ "color4", "fly_8cpp.html#a5c48af6a06eb70709fe4ce950c3015e3", null ],
     [ "point4", "fly_8cpp.html#acd96474ea1ee15dc164c05371abfd25b", null ],
-    [ "cameraInit", "fly_8cpp.html#add81313f7abf44642aca53d9670bb57c", null ],
     [ "display", "fly_8cpp.html#a4ea013001a5fb47853d0fab8f8de35cd", null ],
     [ "displayViewport", "fly_8cpp.html#af3c12d5391e754508338373c5071b2ed", null ],
     [ "idle", "fly_8cpp.html#a01131b63acf241e9db91704d89ce15d2", null ],
@@ -30,6 +29,6 @@ var fly_8cpp =
     [ "light_position2", "fly_8cpp.html#aed00d7051d34313ded91966e18e0ba31", null ],
     [ "lightMode", "fly_8cpp.html#a6e0273d43c429ca5369108478993d7b0", null ],
     [ "lightOrbit", "fly_8cpp.html#a6cb1c77fe6eb980f8427947f52edf058", null ],
-    [ "myScreen", "fly_8cpp.html#a62b7d42cce12a3599d27065ed3056d52", null ],
-    [ "pyramid", "fly_8cpp.html#a8d0997749c16790367b0731e9f7d15f8", null ]
+    [ "myScreen", "fly_8cpp.html#afe65456923921d3a7bd5a440b1b90287", null ],
+    [ "theScene", "fly_8cpp.html#aa518aa63afd0348039536f0644bd7492", null ]
 ];

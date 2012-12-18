@@ -112,53 +112,77 @@ $(document).ready(function(){initNavTree('_object_8hpp_source.html','');});
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;platform.h&quot;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;vec.hpp&quot;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;mat.hpp&quot;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="code" href="class_object.html">   10</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_object.html">Object</a> {</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;Scene.hpp&quot;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;TransCache.hpp&quot;</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;  <span class="keyword">enum</span> bufferType { </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    VERTICES,</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    NORMALS,</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    INDICES,</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    COLORS,</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    TEXCOORDS };</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  <a class="code" href="class_object.html">Object</a>( <span class="keyword">const</span> std::string &amp;name, GLuint gShader );</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  ~<a class="code" href="class_object.html">Object</a>( <span class="keywordtype">void</span> );</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  <span class="keywordtype">void</span> Draw( <span class="keywordtype">void</span> );</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  <span class="keywordtype">void</span> Buffer( <span class="keywordtype">void</span> );</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <span class="keywordtype">void</span> Mode( GLenum new_node );</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <span class="keyword">const</span> std::string &amp;Name( <span class="keywordtype">void</span> ) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <span class="comment">/* Bad. Bad! Protect these. ...Later? :( */</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  std::vector&lt;Angel::vec4&gt; points;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  std::vector&lt;Angel::vec3&gt; normals;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  std::vector&lt;unsigned int&gt; indices;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  std::vector&lt;Angel::vec4&gt; colors;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  std::vector&lt;Angel::vec2&gt; texcoords;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  std::string name; <span class="comment">/* name is used as an identifying handle for the object. */</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  GLuint vao;  <span class="comment">/* Vertex Array Object handle identifying our buffers */</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  GLuint buffer[5]; <span class="comment">/* Our buffer handles. */</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  GLenum draw_mode; <span class="comment">/* How should we draw? GL_TRIANGLES? GL_LINE_LOOP? etc. */</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  GLuint gShader; <span class="comment">/* A handle to the shader program. */</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <span class="comment">/* Per-Object CTM */</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <a class="code" href="class_angel_1_1mat4.html">Angel::mat4</a> CTM;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <span class="comment">/* Hello, Children! */</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  std::vector&lt;Object&gt; children;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;};</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="code" href="class_object.html">   12</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_object.html">Object</a> : <span class="keyword">public</span> <a class="code" href="class_scene.html">Scene</a> {</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;  <span class="keyword">enum</span> bufferType { </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    VERTICES,</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    NORMALS,</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    INDICES,</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    COLORS,</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    TEXCOORDS };</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  <span class="keyword">typedef</span> <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> UniformEnum;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <span class="keyword">typedef</span> <span class="keyword">enum</span> Uniforms {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    Begin,</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    IsTextured = Begin,</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    ObjectCTM,</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    End</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  } Uniform;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <a class="code" href="class_object.html">Object</a>( <span class="keyword">const</span> std::string &amp;<a class="code" href="class_object.html#a24457e0a387492c80594aec7681a2277" title="name is used as an identifying handle for the object.">name</a>, GLuint gShader );</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <span class="keyword">virtual</span> ~<a class="code" href="class_object.html">Object</a>( <span class="keywordtype">void</span> );</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <span class="keywordtype">void</span> Draw( <span class="keywordtype">void</span> );</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keywordtype">void</span> Buffer( <span class="keywordtype">void</span> );</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <span class="keywordtype">void</span> Mode( GLenum new_node );</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <span class="keywordtype">void</span> Texture( <span class="keyword">const</span> <span class="keywordtype">char</span>** filename );</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="keyword">const</span> std::string &amp;Name( <span class="keywordtype">void</span> ) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="comment">/* OpenGL Methods */</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> Link( UniformEnum which, <span class="keyword">const</span> std::string &amp;name );</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> Send( UniformEnum which );</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <span class="comment">/* Animation and Related */</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <span class="keywordtype">void</span> Animation(<span class="keywordtype">void</span> (*anim_func)( <a class="code" href="class_trans_cache.html">TransCache</a> &amp;arg ));</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <span class="keywordtype">void</span> Propegate( <span class="keywordtype">void</span> );</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <span class="comment">/* Bad. Bad! Protect these. ...Later? :( */</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  std::vector&lt;Angel::vec4&gt; points;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  std::vector&lt;Angel::vec3&gt; normals;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  std::vector&lt;unsigned int&gt; indices;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  std::vector&lt;Angel::vec4&gt; colors;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  std::vector&lt;Angel::vec2&gt; texcoords;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="code" href="class_object.html#a1bb011587e4fa6e69984d5679546b1cb">   56</a></span>&#160;  <a class="code" href="class_trans_cache.html">TransCache</a> <a class="code" href="class_object.html#a1bb011587e4fa6e69984d5679546b1cb" title="Transformation State.">trans</a>;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="code" href="class_object.html#acd6c7021617ea334915a1525f9519bc5">   63</a></span>&#160;  std::vector&lt; GLint &gt; <a class="code" href="class_object.html#acd6c7021617ea334915a1525f9519bc5" title="Handles to Uniforms on the shader.">handles</a>;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00067"></a><span class="lineno"><a class="code" href="class_object.html#a24457e0a387492c80594aec7681a2277">   67</a></span>&#160;  std::string <a class="code" href="class_object.html#a24457e0a387492c80594aec7681a2277" title="name is used as an identifying handle for the object.">name</a>;     </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
+<div class="line"><a name="l00070"></a><span class="lineno"><a class="code" href="class_object.html#a66190fee29d03d6478516686cbd01eb8">   70</a></span>&#160;  GLuint <a class="code" href="class_object.html#a66190fee29d03d6478516686cbd01eb8" title="Vertex Array Object handle identifying our buffers/object.">vao</a>;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
+<div class="line"><a name="l00073"></a><span class="lineno"><a class="code" href="class_object.html#a5af1a967c6487d9a76f7a26c9c83e646">   73</a></span>&#160;  GLuint <a class="code" href="class_object.html#a5af1a967c6487d9a76f7a26c9c83e646" title="Handles to our five buffers.">buffer</a>[5];</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  </div>
+<div class="line"><a name="l00076"></a><span class="lineno"><a class="code" href="class_object.html#a82764b385767d989f27d301ab206acb8">   76</a></span>&#160;  GLenum <a class="code" href="class_object.html#a82764b385767d989f27d301ab206acb8" title="Drawing mode for this object.">draw_mode</a>;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  <span class="keywordtype">bool</span> isTextured;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;};</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_5c8cbb32c33392d7aefdbb31b9e0adb9.html">master</a></li><li class="navelem"><a class="el" href="dir_954c6161a0501c7785610b15d73143d2.html">include</a></li><li class="navelem"><b>Object.hpp</b></li>
-    <li class="footer">Generated on Sun Dec 9 2012 17:14:26 for OpenGL Flythrough by
+    <li class="navelem"><a class="el" href="dir_198e610de5e1ceb82c8cf341201db1a3.html">master</a></li><li class="navelem"><a class="el" href="dir_c2cba4632131db26f3585e2608dfffca.html">include</a></li><li class="navelem"><b>Object.hpp</b></li>
+    <li class="footer">Generated on Tue Dec 18 2012 01:46:33 for OpenGL Flythrough by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.1.2 </li>
   </ul>

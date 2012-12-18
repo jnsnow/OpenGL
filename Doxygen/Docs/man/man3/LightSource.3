@@ -1,4 +1,4 @@
-.TH "LightSource" 3 "Sun Dec 9 2012" "Version 9001" "OpenGL Flythrough" \" -*- nroff -*-
+.TH "LightSource" 3 "Tue Dec 18 2012" "Version 9001" "OpenGL Flythrough" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -10,55 +10,58 @@ LightSource \-
 
 .in +1c
 .ti -1c
-.RI "\fBLightSource\fP (\fBpoint4\fP)"
+.RI "\fBLightSource\fP (const \fBpoint4\fP &)"
 .br
 .ti -1c
-.RI "\fBLightSource\fP (\fBpoint4\fP, \fBcolor4\fP, \fBcolor4\fP, \fBcolor4\fP)"
+.RI "\fBLightSource\fP (const \fBpoint4\fP &, const \fBcolor4\fP &)"
 .br
 .ti -1c
-.RI "\fBLightSource\fP (\fBpoint4\fP, vec3, \fBcolor4\fP, \fBcolor4\fP, \fBcolor4\fP)"
+.RI "\fBLightSource\fP (const \fBpoint4\fP &, const \fBcolor4\fP &, const \fBcolor4\fP &, const \fBcolor4\fP &)"
 .br
 .ti -1c
-.RI "\fBLightSource\fP (\fBpoint4\fP, vec3, \fBcolor4\fP, \fBcolor4\fP, \fBcolor4\fP, unsigned int)"
+.RI "\fBLightSource\fP (const \fBpoint4\fP &, const \fBvec4\fP &, const \fBcolor4\fP &, const \fBcolor4\fP &, const \fBcolor4\fP &)"
 .br
 .ti -1c
 .RI "\fBLightSource\fP (const \fBLightSource\fP &orig)"
 .br
 .ti -1c
-.RI "void \fBSetLight_specular\fP (\fBcolor4\fP light_specular)"
+.RI "void \fBSetLight_specular\fP (\fBcolor4\fP &light_specular)"
 .br
 .ti -1c
 .RI "\fBcolor4\fP \fBGetLight_specular\fP () const "
 .br
 .ti -1c
-.RI "void \fBSetLight_diffuse\fP (\fBcolor4\fP light_diffuse)"
+.RI "void \fBSetLight_diffuse\fP (\fBcolor4\fP &light_diffuse)"
 .br
 .ti -1c
 .RI "\fBcolor4\fP \fBGetLight_diffuse\fP () const "
 .br
 .ti -1c
-.RI "void \fBSetLight_ambient\fP (\fBcolor4\fP light_ambient)"
+.RI "void \fBSetLight_ambient\fP (\fBcolor4\fP &light_ambient)"
 .br
 .ti -1c
 .RI "\fBcolor4\fP \fBGetLight_ambient\fP () const "
 .br
 .ti -1c
-.RI "void \fBSetDirection\fP (vec3 direction)"
+.RI "void \fBSetLight_color\fP (\fBcolor4\fP &light_color)"
 .br
 .ti -1c
-.RI "vec3 \fBGetDirection\fP () const "
+.RI "\fBcolor4\fP \fBGetLight_color\fP () const "
 .br
 .ti -1c
-.RI "void \fBSetPosition\fP (vec4 z)"
+.RI "void \fBSetDirection\fP (\fBvec4\fP &direction)"
 .br
 .ti -1c
-.RI "vec4 \fBGetPosition\fP () const "
+.RI "\fBvec4\fP \fBGetDirection\fP () const "
 .br
 .ti -1c
-.RI "void \fBSetId\fP (vec4 z)"
+.RI "void \fBSetPosition\fP (\fBpoint4\fP &z)"
 .br
 .ti -1c
-.RI "unsigned int \fBGetId\fP () const "
+.RI "\fBpoint4\fP \fBGetPosition\fP () const "
+.br
+.ti -1c
+.RI "bool \fBGetComplexSwitch\fP () const "
 .br
 .ti -1c
 .RI "void \fBDoEvents\fP (void)"
@@ -66,39 +69,45 @@ LightSource \-
 .ti -1c
 .RI "void \fBsetEffect\fP (int)"
 .br
-.ti -1c
-.RI "bool \fBisDistant\fP ()"
-.br
 .in -1c
-.SS "Private Member Functions"
+.SS "Private Types"
 
 .in +1c
 .ti -1c
-.RI "\fBpoint4\fP \fBposition\fP (0\&.0, 0\&.0, 0\&.0, 0\&.0)"
-.br
-.ti -1c
-.RI "vec3 \fBdirection\fP (0\&.0, 0\&.0, 0\&.0)"
-.br
-.ti -1c
-.RI "\fBcolor4\fP \fBlight_ambient\fP (0\&.0, 0\&.0, 0\&.0, 1\&.0)"
-.br
-.ti -1c
-.RI "\fBcolor4\fP \fBlight_diffuse\fP (0\&.0, 0\&.0, 0\&.0, 1\&.0)"
-.br
-.ti -1c
-.RI "\fBcolor4\fP \fBlight_specular\fP (0\&.0, 0\&.0, 0\&.0, 1\&.0)"
+.RI "enum \fBlight_effect\fP { \fBOFF\fP = 0, \fBON\fP, \fBBLINK\fP, \fBSTROBE\fP, \fBPULSE\fP }"
 .br
 .in -1c
 .SS "Private Attributes"
 
 .in +1c
 .ti -1c
-.RI "const unsigned int \fBid\fP"
+.RI "\fBpoint4\fP \fBposition\fP"
+.br
+.ti -1c
+.RI "\fBvec4\fP \fBdirection\fP"
+.br
+.ti -1c
+.RI "\fBcolor4\fP \fBlight_ambient\fP"
+.br
+.ti -1c
+.RI "\fBcolor4\fP \fBlight_diffuse\fP"
+.br
+.ti -1c
+.RI "\fBcolor4\fP \fBlight_specular\fP"
+.br
+.ti -1c
+.RI "\fBcolor4\fP \fBlight_color\fP"
+.br
+.ti -1c
+.RI "bool \fBcomplexSwitch\fP"
+.br
+.ti -1c
+.RI "light_effect \fBeffect\fP"
 .br
 .in -1c
 .SH "Detailed Description"
 .PP 
-Definition at line 18 of file LightSource\&.hpp\&.
+Definition at line 23 of file LightSource\&.hpp\&.
 
 .SH "Author"
 .PP 

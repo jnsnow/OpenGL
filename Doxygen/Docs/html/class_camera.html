@@ -105,6 +105,9 @@ $(document).ready(function(){initNavTree('class_camera.html','');});
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_camera-members.html">List of all members</a>  </div>
@@ -117,6 +120,16 @@ $(document).ready(function(){initNavTree('class_camera.html','');});
  <a href="class_camera.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_camera_8hpp_source.html">Camera.hpp</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for Camera:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="class_camera.png" usemap="#Camera_map" alt=""/>
+  <map id="Camera_map" name="Camera_map">
+<area href="class_object.html" alt="Object" shape="rect" coords="0,56,56,80"/>
+<area href="class_scene.html" alt="Scene" shape="rect" coords="0,0,56,24"/>
+</map>
+ </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pub-types"></a>
 Public Types</h2></td></tr>
@@ -128,21 +141,11 @@ Public Types</h2></td></tr>
 <br/>
 &#160;&#160;<b>Up</b>, 
 <b>Down</b>, 
-<b>End</b>, 
-<b>Begin</b> =  Forward
+<b>Direction_End</b>, 
+<b>Direction_Begin</b> =  Forward
 <br/>
  }</td></tr>
 <tr class="memdesc:a80cb65605322d27ad3b6d973484509ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Direction enumeration lists all of the possible directions the camera may travel in.  <a href="class_camera.html#a80cb65605322d27ad3b6d973484509ec">More...</a><br/></td></tr>
-<tr class="memitem:a6ff726a75a430e4f17e5dec42e4d4405"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#a6ff726a75a430e4f17e5dec42e4d4405">glsl_var</a> { <br/>
-&#160;&#160;<b>TRANSLATION</b>, 
-<b>ROTATION</b>, 
-<b>VIEW</b>, 
-<b>CTM</b>, 
-<br/>
-&#160;&#160;<b>NumGlslVars</b>
-<br/>
- }</td></tr>
-<tr class="memdesc:a6ff726a75a430e4f17e5dec42e4d4405"><td class="mdescLeft">&#160;</td><td class="mdescRight">The glsl_var enumeration lists the various variables the <a class="el" href="class_camera.html" title="The Camera class represents a logical camera in a model view, which posesses a current viewing angle ...">Camera</a> class is capable of sending to the shader.  <a href="class_camera.html#a6ff726a75a430e4f17e5dec42e4d4405">More...</a><br/></td></tr>
 <tr class="memitem:afdccec6d447490dcc80ab6b99f21d0e5"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#afdccec6d447490dcc80ab6b99f21d0e5">view_type</a> { <br/>
 &#160;&#160;<b>PERSPECTIVE</b>, 
 <b>ORTHO</b>, 
@@ -153,15 +156,30 @@ Public Types</h2></td></tr>
 <br/>
  }</td></tr>
 <tr class="memdesc:afdccec6d447490dcc80ab6b99f21d0e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">The view_type enumeration lists the various possibilities for the current viewing mode that can be switched between.  <a href="class_camera.html#afdccec6d447490dcc80ab6b99f21d0e5">More...</a><br/></td></tr>
+<tr class="memitem:a630738fd23098d44c0d15ee28d5649dd"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#a630738fd23098d44c0d15ee28d5649dd">Uniforms</a> { <br/>
+&#160;&#160;<b>Begin</b> =  Object::End, 
+<b>TRANSLATION</b> =  Begin, 
+<b>ROTATION</b>, 
+<b>VIEW</b>, 
+<br/>
+&#160;&#160;<b>CTM</b>, 
+<b>End</b>
+<br/>
+ }</td></tr>
+<tr class="memdesc:a630738fd23098d44c0d15ee28d5649dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">The glsl_var enumeration lists the various variables the <a class="el" href="class_camera.html" title="The Camera class represents a logical camera in a model view, which posesses a current viewing angle ...">Camera</a> class is capable of sending to the shader.  <a href="class_camera.html#a630738fd23098d44c0d15ee28d5649dd">More...</a><br/></td></tr>
+<tr class="memitem:a0ed19c96505cbb70625938d1e883af24"><td class="memItemLeft" align="right" valign="top">typedef enum <a class="el" href="class_camera.html#a630738fd23098d44c0d15ee28d5649dd">Camera::Uniforms</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#a0ed19c96505cbb70625938d1e883af24">Uniform</a></td></tr>
+<tr class="memdesc:a0ed19c96505cbb70625938d1e883af24"><td class="mdescLeft">&#160;</td><td class="mdescRight">The glsl_var enumeration lists the various variables the <a class="el" href="class_camera.html" title="The Camera class represents a logical camera in a model view, which posesses a current viewing angle ...">Camera</a> class is capable of sending to the shader.  <a href="#a0ed19c96505cbb70625938d1e883af24"></a><br/></td></tr>
+<tr class="memitem:a79b74057dbc5182b85c9c3ba8480fcf2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a79b74057dbc5182b85c9c3ba8480fcf2"></a>
+typedef const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>UniformEnum</b></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a47104bf17f448c97bf7bb34360ab8fcc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#a47104bf17f448c97bf7bb34360ab8fcc">Camera</a> (float x=0.0, float y=0.0, float z=0.0)</td></tr>
-<tr class="memdesc:a47104bf17f448c97bf7bb34360ab8fcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialization Constructor; sets the X,Y,Z coordinates explicitly.  <a href="#a47104bf17f448c97bf7bb34360ab8fcc"></a><br/></td></tr>
-<tr class="memitem:a388c39247312dc6850b2d1b007efb423"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#a388c39247312dc6850b2d1b007efb423">Camera</a> (<a class="el" href="struct_angel_1_1vec3.html">vec3</a> &amp;in)</td></tr>
-<tr class="memdesc:a388c39247312dc6850b2d1b007efb423"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialization Constructor, uses a vec3 as its initial coordinates.  <a href="#a388c39247312dc6850b2d1b007efb423"></a><br/></td></tr>
-<tr class="memitem:a30b637b0e81821106c16a8a299d24d3f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#a30b637b0e81821106c16a8a299d24d3f">Camera</a> (<a class="el" href="struct_angel_1_1vec4.html">vec4</a> &amp;in)</td></tr>
-<tr class="memdesc:a30b637b0e81821106c16a8a299d24d3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialization Constructor, uses a vec4 as its initial coordinates.  <a href="#a30b637b0e81821106c16a8a299d24d3f"></a><br/></td></tr>
+<tr class="memitem:a16516fa8c830cecef5c8eb43eff12783"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#a16516fa8c830cecef5c8eb43eff12783">Camera</a> (const std::string &amp;<a class="el" href="class_object.html#a24457e0a387492c80594aec7681a2277">name</a>, GLuint gShader, float x=0.0, float y=0.0, float z=0.0)</td></tr>
+<tr class="memdesc:a16516fa8c830cecef5c8eb43eff12783"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialization Constructor; sets the X,Y,Z coordinates explicitly.  <a href="#a16516fa8c830cecef5c8eb43eff12783"></a><br/></td></tr>
+<tr class="memitem:a24329612384948d2b64f78094fe84e75"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#a24329612384948d2b64f78094fe84e75">Camera</a> (const std::string &amp;<a class="el" href="class_object.html#a24457e0a387492c80594aec7681a2277">name</a>, GLuint gShader, <a class="el" href="struct_angel_1_1vec3.html">vec3</a> &amp;in)</td></tr>
+<tr class="memdesc:a24329612384948d2b64f78094fe84e75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialization Constructor, uses a vec3 as its initial coordinates.  <a href="#a24329612384948d2b64f78094fe84e75"></a><br/></td></tr>
+<tr class="memitem:aa131bc7f1bad2cc8baea463714c4485d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#aa131bc7f1bad2cc8baea463714c4485d">Camera</a> (const std::string &amp;<a class="el" href="class_object.html#a24457e0a387492c80594aec7681a2277">name</a>, GLuint gShader, <a class="el" href="struct_angel_1_1vec4.html">vec4</a> &amp;in)</td></tr>
+<tr class="memdesc:aa131bc7f1bad2cc8baea463714c4485d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialization Constructor, uses a vec4 as its initial coordinates.  <a href="#aa131bc7f1bad2cc8baea463714c4485d"></a><br/></td></tr>
 <tr class="memitem:a06211f202c145b3ec8253f96e1e654a6"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#a06211f202c145b3ec8253f96e1e654a6">~Camera</a> (void)</td></tr>
 <tr class="memdesc:a06211f202c145b3ec8253f96e1e654a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default destructor.  <a href="#a06211f202c145b3ec8253f96e1e654a6"></a><br/></td></tr>
 <tr class="memitem:a7ff7cf14bee873ac6cda7b2e42a60358"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#a7ff7cf14bee873ac6cda7b2e42a60358">X</a> (const float &amp;in, const bool &amp;update=true)</td></tr>
@@ -228,19 +246,105 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:abf1730e47e8e51c76acbddcaa85e2475"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_camera.html#abf1730e47e8e51c76acbddcaa85e2475" title="Z() returns the current position of the camera in model coordinates.">Z()</a> returns the current position of the camera in model coordinates.  <a href="#abf1730e47e8e51c76acbddcaa85e2475"></a><br/></td></tr>
 <tr class="memitem:a9982ac5f48fe0af97fefa725080d6da6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_angel_1_1vec4.html">vec4</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#a9982ac5f48fe0af97fefa725080d6da6">pos</a> (void) const </td></tr>
 <tr class="memdesc:a9982ac5f48fe0af97fefa725080d6da6"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_camera.html#a9982ac5f48fe0af97fefa725080d6da6" title="pos() gets the current camera position in model coordinates.">pos()</a> gets the current camera position in model coordinates.  <a href="#a9982ac5f48fe0af97fefa725080d6da6"></a><br/></td></tr>
-<tr class="memitem:a36cba68c08136242bf5d906f9c0b610c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#a36cba68c08136242bf5d906f9c0b610c">send</a> (const <a class="el" href="class_camera.html#a6ff726a75a430e4f17e5dec42e4d4405">glsl_var</a> &amp;which)</td></tr>
-<tr class="memdesc:a36cba68c08136242bf5d906f9c0b610c"><td class="mdescLeft">&#160;</td><td class="mdescRight">send will send a glsl variable to the shader.  <a href="#a36cba68c08136242bf5d906f9c0b610c"></a><br/></td></tr>
-<tr class="memitem:ad02f12a279c33e7e85dcaf88830d38c7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#ad02f12a279c33e7e85dcaf88830d38c7">link</a> (const GLuint &amp;program, const <a class="el" href="class_camera.html#a6ff726a75a430e4f17e5dec42e4d4405">glsl_var</a> &amp;which, const string &amp;glslVarName)</td></tr>
-<tr class="memdesc:ad02f12a279c33e7e85dcaf88830d38c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Link associates the camera with a glsl uniform variable.  <a href="#ad02f12a279c33e7e85dcaf88830d38c7"></a><br/></td></tr>
-<tr class="memitem:a9d96971546c610e534f603a0f41e32b2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#a9d96971546c610e534f603a0f41e32b2">Draw</a> (void)</td></tr>
-<tr class="memdesc:a9d96971546c610e534f603a0f41e32b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw will instruct OpenGL of the viewport we want, and then send all of our current matrices to the shader for rendering.  <a href="#a9d96971546c610e534f603a0f41e32b2"></a><br/></td></tr>
+<tr class="memitem:a9f20ff117467d437779d7b22f6f1ed9d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#a9f20ff117467d437779d7b22f6f1ed9d">Send</a> (Object::UniformEnum which)</td></tr>
+<tr class="memdesc:a9f20ff117467d437779d7b22f6f1ed9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">send will send a glsl variable to the shader.  <a href="#a9f20ff117467d437779d7b22f6f1ed9d"></a><br/></td></tr>
+<tr class="memitem:afea07d3100ca3b43655f4021fdece774"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#afea07d3100ca3b43655f4021fdece774">View</a> (void)</td></tr>
+<tr class="memdesc:afea07d3100ca3b43655f4021fdece774"><td class="mdescLeft">&#160;</td><td class="mdescRight">View will instruct OpenGL of the viewport we want, and then send all of our current matrices to the shader for rendering.  <a href="#afea07d3100ca3b43655f4021fdece774"></a><br/></td></tr>
+<tr class="memitem:a8ec7938c5e25068e5bff25aeb7038af4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8ec7938c5e25068e5bff25aeb7038af4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>resetRotation</b> (void)</td></tr>
+<tr class="memitem:a3afa1b9af32b78d81b5de0836c511aeb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3afa1b9af32b78d81b5de0836c511aeb"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Draw</b> (void)</td></tr>
+<tr class="memitem:a35c89a8eb8a5b742a9025331119bfc7c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a35c89a8eb8a5b742a9025331119bfc7c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Buffer</b> (void)</td></tr>
+<tr class="memitem:ac6ccf69d21c4c902c62829c48ef6cf5b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac6ccf69d21c4c902c62829c48ef6cf5b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Mode</b> (GLenum new_node)</td></tr>
+<tr class="memitem:aa104adfbcc2cae4bd68c053cc3dab721"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa104adfbcc2cae4bd68c053cc3dab721"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Texture</b> (const char **filename)</td></tr>
+<tr class="memitem:a890760dff9df547454112ff84510040c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a890760dff9df547454112ff84510040c"></a>
+const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>Name</b> (void) const </td></tr>
+<tr class="memitem:accde5aa6e8d0d582719e94c414c2341c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="accde5aa6e8d0d582719e94c414c2341c"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>Link</b> (UniformEnum which, const std::string &amp;<a class="el" href="class_object.html#a24457e0a387492c80594aec7681a2277">name</a>)</td></tr>
+<tr class="memitem:ae3226b31c80c9f276ffdee65101c8fa6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae3226b31c80c9f276ffdee65101c8fa6"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Animation</b> (void(*anim_func)(<a class="el" href="class_trans_cache.html">TransCache</a> &amp;arg))</td></tr>
+<tr class="memitem:a8fb20a8c2ad30c7d39c5396121bd210e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8fb20a8c2ad30c7d39c5396121bd210e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Propegate</b> (void)</td></tr>
+<tr class="memitem:a3010030e68d0468b8d18c1323e072e80"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3010030e68d0468b8d18c1323e072e80"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetShader</b> (GLuint gShader)</td></tr>
+<tr class="memitem:a1debf8bc8a9cb168ebbbcda1b4ffd605"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1debf8bc8a9cb168ebbbcda1b4ffd605"></a>
+GLuint&#160;</td><td class="memItemRight" valign="bottom"><b>GetShader</b> (void)</td></tr>
+<tr class="memitem:a2a3a5e4f5ea44d086ff73f2420663a10"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2a3a5e4f5ea44d086ff73f2420663a10"></a>
+<a class="el" href="class_object.html">Object</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>AddObject</b> (const std::string &amp;objName)</td></tr>
+<tr class="memitem:a3bd9fa1058f506c04162b9283e97d20e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3bd9fa1058f506c04162b9283e97d20e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>DelObject</b> (const std::string &amp;objName)</td></tr>
+<tr class="memitem:a43fd3c56db5dc940d1724b9573c9a360"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a43fd3c56db5dc940d1724b9573c9a360"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>DelObject</b> (void)</td></tr>
+<tr class="memitem:abdfd15e7987aa261840d5ecc265170df"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abdfd15e7987aa261840d5ecc265170df"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>PopObject</b> (void)</td></tr>
+<tr class="memitem:a82759ded1f6f87a91b8d10ed87501958"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a82759ded1f6f87a91b8d10ed87501958"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene.html#a82759ded1f6f87a91b8d10ed87501958">DestroyObject</a> (void)</td></tr>
+<tr class="memdesc:a82759ded1f6f87a91b8d10ed87501958"><td class="mdescLeft">&#160;</td><td class="mdescRight">Completely remove this object and all his children. <br/></td></tr>
+<tr class="memitem:a0a57ee2c15864c55cf3284b937440330"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0a57ee2c15864c55cf3284b937440330"></a>
+<a class="el" href="class_object.html">Object</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>Next</b> (void)</td></tr>
+<tr class="memitem:a955c5c984cc6bc5fb532752e43256211"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a955c5c984cc6bc5fb532752e43256211"></a>
+<a class="el" href="class_object.html">Object</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>Prev</b> (void)</td></tr>
+<tr class="memitem:a50f6c9e9aa2e243da5e86bf3470c809e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a50f6c9e9aa2e243da5e86bf3470c809e"></a>
+<a class="el" href="class_object.html">Object</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>Active</b> (void)</td></tr>
+<tr class="memitem:ae9b69d8db8a46991017635f22e45baad"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae9b69d8db8a46991017635f22e45baad"></a>
+<a class="el" href="class_object.html">Object</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>operator[]</b> (const std::string &amp;objname)</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a8dec70177d147f59ba10c9eba8e9191b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8dec70177d147f59ba10c9eba8e9191b"></a>
+std::vector&lt; <a class="el" href="struct_angel_1_1vec4.html">Angel::vec4</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>points</b></td></tr>
+<tr class="memitem:ad541a7bb180e24f59d752cc6d7f8c7e8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad541a7bb180e24f59d752cc6d7f8c7e8"></a>
+std::vector&lt; <a class="el" href="struct_angel_1_1vec3.html">Angel::vec3</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>normals</b></td></tr>
+<tr class="memitem:a9b2fb19d129ad79407f9af0eea05b96c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9b2fb19d129ad79407f9af0eea05b96c"></a>
+std::vector&lt; unsigned int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>indices</b></td></tr>
+<tr class="memitem:a4de4c1e2c4b621efb6f5d1b398ac6835"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4de4c1e2c4b621efb6f5d1b398ac6835"></a>
+std::vector&lt; <a class="el" href="struct_angel_1_1vec4.html">Angel::vec4</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>colors</b></td></tr>
+<tr class="memitem:a6d6c58ccb93f7a2bd7439d081134aaa0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6d6c58ccb93f7a2bd7439d081134aaa0"></a>
+std::vector&lt; <a class="el" href="struct_angel_1_1vec2.html">Angel::vec2</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>texcoords</b></td></tr>
+<tr class="memitem:a1bb011587e4fa6e69984d5679546b1cb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1bb011587e4fa6e69984d5679546b1cb"></a>
+<a class="el" href="class_trans_cache.html">TransCache</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_object.html#a1bb011587e4fa6e69984d5679546b1cb">trans</a></td></tr>
+<tr class="memdesc:a1bb011587e4fa6e69984d5679546b1cb"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_transformation.html">Transformation</a> State. <br/></td></tr>
+<tr class="memitem:acd6c7021617ea334915a1525f9519bc5"><td class="memItemLeft" align="right" valign="top">std::vector&lt; GLint &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_object.html#acd6c7021617ea334915a1525f9519bc5">handles</a></td></tr>
+<tr class="memdesc:acd6c7021617ea334915a1525f9519bc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles to Uniforms on the shader.  <a href="#acd6c7021617ea334915a1525f9519bc5"></a><br/></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a8bbe0e5b1bfc71034b18e240e86aa285"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene.html#a8bbe0e5b1bfc71034b18e240e86aa285">DeleteObject</a> (<a class="el" href="class_object.html">Object</a> *obj)</td></tr>
+<tr class="memdesc:a8bbe0e5b1bfc71034b18e240e86aa285"><td class="mdescLeft">&#160;</td><td class="mdescRight">DeleteObject is the actual implementation function that will remove an <a class="el" href="class_object.html">Object</a> from the <a class="el" href="class_scene.html">Scene</a> list and <a class="el" href="class_scene.html">Scene</a> map, then free the object.  <a href="#a8bbe0e5b1bfc71034b18e240e86aa285"></a><br/></td></tr>
+<tr class="memitem:ae8d51ddc196248a7cbd1f3640851dbd4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae8d51ddc196248a7cbd1f3640851dbd4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>InsertObject</b> (const std::string <a class="el" href="class_object.html#a24457e0a387492c80594aec7681a2277">name</a>, <a class="el" href="class_object.html">Object</a> *obj)</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:a24457e0a387492c80594aec7681a2277"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_object.html#a24457e0a387492c80594aec7681a2277">name</a></td></tr>
+<tr class="memdesc:a24457e0a387492c80594aec7681a2277"><td class="mdescLeft">&#160;</td><td class="mdescRight">name is used as an identifying handle for the object.  <a href="#a24457e0a387492c80594aec7681a2277"></a><br/></td></tr>
+<tr class="memitem:a66190fee29d03d6478516686cbd01eb8"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_object.html#a66190fee29d03d6478516686cbd01eb8">vao</a></td></tr>
+<tr class="memdesc:a66190fee29d03d6478516686cbd01eb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vertex Array <a class="el" href="class_object.html">Object</a> handle identifying our buffers/object.  <a href="#a66190fee29d03d6478516686cbd01eb8"></a><br/></td></tr>
+<tr class="memitem:a5af1a967c6487d9a76f7a26c9c83e646"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5af1a967c6487d9a76f7a26c9c83e646"></a>
+GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_object.html#a5af1a967c6487d9a76f7a26c9c83e646">buffer</a> [5]</td></tr>
+<tr class="memdesc:a5af1a967c6487d9a76f7a26c9c83e646"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles to our five buffers. <br/></td></tr>
+<tr class="memitem:a82764b385767d989f27d301ab206acb8"><td class="memItemLeft" align="right" valign="top">GLenum&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_object.html#a82764b385767d989f27d301ab206acb8">draw_mode</a></td></tr>
+<tr class="memdesc:a82764b385767d989f27d301ab206acb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Drawing mode for this object.  <a href="#a82764b385767d989f27d301ab206acb8"></a><br/></td></tr>
+<tr class="memitem:a2bbbe3a5b33cbcfc4c536b49d470a6b8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2bbbe3a5b33cbcfc4c536b49d470a6b8"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>isTextured</b></td></tr>
+<tr class="memitem:ac04ab16dd305db619afe5f8ec6a02ebc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac04ab16dd305db619afe5f8ec6a02ebc"></a>
+std::list&lt; <a class="el" href="class_object.html">Object</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>list</b></td></tr>
+<tr class="memitem:ad4f10706155e3e956fe36a4b5f0ef731"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad4f10706155e3e956fe36a4b5f0ef731"></a>
+std::map&lt; std::string, <a class="el" href="class_object.html">Object</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>map</b></td></tr>
+<tr class="memitem:acbf527a005c67461e03d343a9f853807"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acbf527a005c67461e03d343a9f853807"></a>
+std::list&lt; <a class="el" href="class_object.html">Object</a> * &gt;::iterator&#160;</td><td class="memItemRight" valign="bottom"><b>currentObj</b></td></tr>
+<tr class="memitem:aece20244e3987065f05057452a14d81f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aece20244e3987065f05057452a14d81f"></a>
+GLuint&#160;</td><td class="memItemRight" valign="bottom"><b>gShader</b></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:aba32f195cdb5bfcfd05c2ce74315b6c3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#aba32f195cdb5bfcfd05c2ce74315b6c3">adjustRotation</a> (const <a class="el" href="class_angel_1_1mat4.html">mat4</a> &amp;adjustment, const bool &amp;fixed=false)</td></tr>
 <tr class="memdesc:aba32f195cdb5bfcfd05c2ce74315b6c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">adjustRotation is an internal function that rotates the camera.  <a href="#aba32f195cdb5bfcfd05c2ce74315b6c3"></a><br/></td></tr>
 <tr class="memitem:a20243a7e3eb06ab1265118c5fb9cce9b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#a20243a7e3eb06ab1265118c5fb9cce9b">commonInit</a> (void)</td></tr>
-<tr class="memdesc:a20243a7e3eb06ab1265118c5fb9cce9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">comminInit is a private function that initializes local object attributes.  <a href="#a20243a7e3eb06ab1265118c5fb9cce9b"></a><br/></td></tr>
+<tr class="memdesc:a20243a7e3eb06ab1265118c5fb9cce9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">commonInit is a private function that initializes local object attributes.  <a href="#a20243a7e3eb06ab1265118c5fb9cce9b"></a><br/></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -251,7 +355,7 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a0bee6fbae6ec5960850a5fb858f3912a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_angel_1_1mat4.html">mat4</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#a0bee6fbae6ec5960850a5fb858f3912a">P</a></td></tr>
 <tr class="memdesc:a0bee6fbae6ec5960850a5fb858f3912a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The current view matrix (usually perspective) for this camera.  <a href="#a0bee6fbae6ec5960850a5fb858f3912a"></a><br/></td></tr>
 <tr class="memitem:a9b1e81e3f5531390bb6a599dca0d2444"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_angel_1_1mat4.html">mat4</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#a9b1e81e3f5531390bb6a599dca0d2444">ctm</a></td></tr>
-<tr class="memdesc:a9b1e81e3f5531390bb6a599dca0d2444"><td class="mdescLeft">&#160;</td><td class="mdescRight">The 'Current Transformation Matrix' for this camera.  <a href="#a9b1e81e3f5531390bb6a599dca0d2444"></a><br/></td></tr>
+<tr class="memdesc:a9b1e81e3f5531390bb6a599dca0d2444"><td class="mdescLeft">&#160;</td><td class="mdescRight">The 'Current <a class="el" href="class_transformation.html">Transformation</a> Matrix' for this camera.  <a href="#a9b1e81e3f5531390bb6a599dca0d2444"></a><br/></td></tr>
 <tr class="memitem:a1fe2ef68d26bb98f0aa736948304eb64"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_camera.html#afdccec6d447490dcc80ab6b99f21d0e5">view_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#a1fe2ef68d26bb98f0aa736948304eb64">currView</a></td></tr>
 <tr class="memdesc:a1fe2ef68d26bb98f0aa736948304eb64"><td class="mdescLeft">&#160;</td><td class="mdescRight">The current viewing mode type.  <a href="#a1fe2ef68d26bb98f0aa736948304eb64"></a><br/></td></tr>
 <tr class="memitem:a308e92b5d3ef0eea5cac7745df6e28f4"><td class="memItemLeft" align="right" valign="top">GLfloat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#a308e92b5d3ef0eea5cac7745df6e28f4">speed</a></td></tr>
@@ -273,22 +377,14 @@ GLfloat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <tr class="memdesc:af3fdbc52ba0f7af7d8091986d6303119"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current aspect ratio for certain perspectives.  <a href="#af3fdbc52ba0f7af7d8091986d6303119"></a><br/></td></tr>
 <tr class="memitem:acc8b97facc57059530efad534c2f8314"><td class="memItemLeft" align="right" valign="top">GLfloat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#acc8b97facc57059530efad534c2f8314">fovy</a></td></tr>
 <tr class="memdesc:acc8b97facc57059530efad534c2f8314"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current field-of-view angle for perspective view.  <a href="#acc8b97facc57059530efad534c2f8314"></a><br/></td></tr>
-<tr class="memitem:ad49d7cc9d3e2f90332702cf67f1d5357"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad49d7cc9d3e2f90332702cf67f1d5357"></a>
-size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#ad49d7cc9d3e2f90332702cf67f1d5357">width</a></td></tr>
-<tr class="memdesc:ad49d7cc9d3e2f90332702cf67f1d5357"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_camera.html" title="The Camera class represents a logical camera in a model view, which posesses a current viewing angle ...">Camera</a>'s drawbox width, used for computing (some) perspectives. <br/></td></tr>
-<tr class="memitem:a99ad71730dc8fb068b814ca6328e40fa"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a99ad71730dc8fb068b814ca6328e40fa"></a>
-size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#a99ad71730dc8fb068b814ca6328e40fa">height</a></td></tr>
-<tr class="memdesc:a99ad71730dc8fb068b814ca6328e40fa"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_camera.html" title="The Camera class represents a logical camera in a model view, which posesses a current viewing angle ...">Camera</a>'s drawbox height, used for computing (some) perspectives. <br/></td></tr>
-<tr class="memitem:a2e2fc28fcaa8222ac635a568950e6af3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2e2fc28fcaa8222ac635a568950e6af3"></a>
-size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#a2e2fc28fcaa8222ac635a568950e6af3">XPos</a></td></tr>
-<tr class="memdesc:a2e2fc28fcaa8222ac635a568950e6af3"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_camera.html" title="The Camera class represents a logical camera in a model view, which posesses a current viewing angle ...">Camera</a>'s Viewport's X-Position Offset. <br/></td></tr>
-<tr class="memitem:af15974390620818974704b6e88cfedbd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af15974390620818974704b6e88cfedbd"></a>
-size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#af15974390620818974704b6e88cfedbd">YPos</a></td></tr>
-<tr class="memdesc:af15974390620818974704b6e88cfedbd"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_camera.html" title="The Camera class represents a logical camera in a model view, which posesses a current viewing angle ...">Camera</a>'s Viewport's Y-Position Offset. <br/></td></tr>
-<tr class="memitem:a39746b4fadf30bba6bdc8aa6acfdc6f2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#a39746b4fadf30bba6bdc8aa6acfdc6f2">Motion</a> [Camera::End]</td></tr>
-<tr class="memdesc:a39746b4fadf30bba6bdc8aa6acfdc6f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Booleans correlating to the different motion directions.  <a href="#a39746b4fadf30bba6bdc8aa6acfdc6f2"></a><br/></td></tr>
-<tr class="memitem:a1635486d7f9e0d52b241899a270ee335"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#a1635486d7f9e0d52b241899a270ee335">glsl_handles</a> [Camera::NumGlslVars]</td></tr>
-<tr class="memdesc:a1635486d7f9e0d52b241899a270ee335"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles for communicating with the shader.  <a href="#a1635486d7f9e0d52b241899a270ee335"></a><br/></td></tr>
+<tr class="memitem:ac14470d1908bd4190a1b83ef0ff70193"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac14470d1908bd4190a1b83ef0ff70193"></a>
+<a class="el" href="struct_angel_1_1vec2.html">Angel::vec2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#ac14470d1908bd4190a1b83ef0ff70193">size</a></td></tr>
+<tr class="memdesc:ac14470d1908bd4190a1b83ef0ff70193"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_camera.html" title="The Camera class represents a logical camera in a model view, which posesses a current viewing angle ...">Camera</a>'s Drawbox Width and Height. <br/></td></tr>
+<tr class="memitem:ab817e0ffa85b419328739e6805b4485f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab817e0ffa85b419328739e6805b4485f"></a>
+<a class="el" href="struct_angel_1_1vec2.html">Angel::vec2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#ab817e0ffa85b419328739e6805b4485f">position</a></td></tr>
+<tr class="memdesc:ab817e0ffa85b419328739e6805b4485f"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_camera.html" title="The Camera class represents a logical camera in a model view, which posesses a current viewing angle ...">Camera</a>'s Drawbox X,Y Coordinate (Upper-Left Pixel) <br/></td></tr>
+<tr class="memitem:a16f01b362cb7c18d203e468bf5483749"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#a16f01b362cb7c18d203e468bf5483749">Motion</a> [Camera::Direction_End]</td></tr>
+<tr class="memdesc:a16f01b362cb7c18d203e468bf5483749"><td class="mdescLeft">&#160;</td><td class="mdescRight">Booleans correlating to the different motion directions.  <a href="#a16f01b362cb7c18d203e468bf5483749"></a><br/></td></tr>
 </table>
 <a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="class_camera.html" title="The Camera class represents a logical camera in a model view, which posesses a current viewing angle ...">Camera</a> class represents a logical camera in a model view, which posesses a current viewing angle and an absolute position in space as its state. </p>
@@ -297,8 +393,24 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 <p>Functions are provided to adjust the rotation according to <a class="el" href="class_camera.html#aac7dbb6201be7f17e014fc6fdf915560" title="pitch adjusts the X axis rotation; up/down look.">pitch()</a>, <a class="el" href="class_camera.html#a0ce7d12edbe47d9a8915d8af98d8f524" title="yaw adjusts the Y axis rotation; left/right look.">yaw()</a> and <a class="el" href="class_camera.html#a1ba0979fe0b2ec58085d5f9721858e5e" title="roll adjusts the Z axis rotation; tilt or lean left/right.">roll()</a> motions; <a class="el" href="class_camera.html#abb2251df65445bf8efd3fe0074fb5033" title="Adjusts the camera&#39;s Z coordinate relative to its current position.">surge()</a>, <a class="el" href="class_camera.html#abbe6fe82ed05e64e35b0c4ed2001b34e" title="Adjusts the camera&#39;s X coordinate relative to its current position.">sway()</a>, and <a class="el" href="class_camera.html#a2148d751f104d8e39c9832e2372df2d9" title="Adjusts the camera&#39;s Y coordinate relative to its current position.">heave()</a> are provided to adjust position in space.</p>
 <p><a class="el" href="class_camera.html#a421e03f93824e178d6e77ff547cd290e" title="Move instructs the camera to begin moving in the specified direction.">Move()</a>, <a class="el" href="class_camera.html#adf064f765f610684e0675bd67de013fd" title="Stop instructs the camera to stop moving in the specified direction.">Stop()</a>, and <a class="el" href="class_camera.html#aec3559fe43597656629fdb00157d3c73" title="Idle moves the camera forward in whichever directions it is configured to move in.">Idle()</a> are provided to help the camera automatically move along the X, Y, or Z axes. </p>
 
-<p>Definition at line <a class="el" href="_camera_8hpp_source.html#l00030">30</a> of file <a class="el" href="_camera_8hpp_source.html">Camera.hpp</a>.</p>
-</div><h2>Member Enumeration Documentation</h2>
+<p>Definition at line <a class="el" href="_camera_8hpp_source.html#l00031">31</a> of file <a class="el" href="_camera_8hpp_source.html">Camera.hpp</a>.</p>
+</div><h2>Member Typedef Documentation</h2>
+<a class="anchor" id="a0ed19c96505cbb70625938d1e883af24"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef enum <a class="el" href="class_camera.html#a630738fd23098d44c0d15ee28d5649dd">Camera::Uniforms</a>  <a class="el" href="class_camera.html#a0ed19c96505cbb70625938d1e883af24">Camera::Uniform</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The glsl_var enumeration lists the various variables the <a class="el" href="class_camera.html" title="The Camera class represents a logical camera in a model view, which posesses a current viewing angle ...">Camera</a> class is capable of sending to the shader. </p>
+<p>The NumGlslVars variable is a sentinel value that is ignored by any functions that accept a glsl_var. </p>
+
+</div>
+</div>
+<h2>Member Enumeration Documentation</h2>
 <a class="anchor" id="a80cb65605322d27ad3b6d973484509ec"></a>
 <div class="memitem">
 <div class="memproto">
@@ -312,16 +424,16 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 <p>The Direction enumeration lists all of the possible directions the camera may travel in. </p>
 <p>'Begin' and 'End' are special sentinel directions for the purposes of iteration, and are ignored by any functions that accept a Direction. </p>
 
-<p>Definition at line <a class="el" href="_camera_8hpp_source.html#l00040">40</a> of file <a class="el" href="_camera_8hpp_source.html">Camera.hpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8hpp_source.html#l00041">41</a> of file <a class="el" href="_camera_8hpp_source.html">Camera.hpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a6ff726a75a430e4f17e5dec42e4d4405"></a>
+<a class="anchor" id="a630738fd23098d44c0d15ee28d5649dd"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="class_camera.html#a6ff726a75a430e4f17e5dec42e4d4405">Camera::glsl_var</a></td>
+          <td class="memname">enum <a class="el" href="class_camera.html#a630738fd23098d44c0d15ee28d5649dd">Camera::Uniforms</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -329,7 +441,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 <p>The glsl_var enumeration lists the various variables the <a class="el" href="class_camera.html" title="The Camera class represents a logical camera in a model view, which posesses a current viewing angle ...">Camera</a> class is capable of sending to the shader. </p>
 <p>The NumGlslVars variable is a sentinel value that is ignored by any functions that accept a glsl_var. </p>
 
-<p>Definition at line <a class="el" href="_camera_8hpp_source.html#l00058">58</a> of file <a class="el" href="_camera_8hpp_source.html">Camera.hpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8hpp_source.html#l00073">73</a> of file <a class="el" href="_camera_8hpp_source.html">Camera.hpp</a>.</p>
 
 </div>
 </div>
@@ -346,18 +458,30 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 <p>The view_type enumeration lists the various possibilities for the current viewing mode that can be switched between. </p>
 <p>The default is PERSPECTIVE. </p>
 
-<p>Definition at line <a class="el" href="_camera_8hpp_source.html#l00071">71</a> of file <a class="el" href="_camera_8hpp_source.html">Camera.hpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8hpp_source.html#l00058">58</a> of file <a class="el" href="_camera_8hpp_source.html">Camera.hpp</a>.</p>
 
 </div>
 </div>
 <h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a47104bf17f448c97bf7bb34360ab8fcc"></a>
+<a class="anchor" id="a16516fa8c830cecef5c8eb43eff12783"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">Camera::Camera </td>
           <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLuint&#160;</td>
+          <td class="paramname"><em>gShader</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">float&#160;</td>
           <td class="paramname"><em>x</em> = <code>0.0</code>, </td>
         </tr>
@@ -391,20 +515,36 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00056">56</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00067">67</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a388c39247312dc6850b2d1b007efb423"></a>
+<a class="anchor" id="a24329612384948d2b64f78094fe84e75"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">Camera::Camera </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_angel_1_1vec3.html">vec3</a> &amp;&#160;</td>
-          <td class="paramname"><em>in</em></td><td>)</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">GLuint&#160;</td>
+          <td class="paramname"><em>gShader</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_angel_1_1vec3.html">vec3</a> &amp;&#160;</td>
+          <td class="paramname"><em>in</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -417,20 +557,36 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00067">67</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00079">79</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a30b637b0e81821106c16a8a299d24d3f"></a>
+<a class="anchor" id="aa131bc7f1bad2cc8baea463714c4485d"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">Camera::Camera </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_angel_1_1vec4.html">vec4</a> &amp;&#160;</td>
-          <td class="paramname"><em>in</em></td><td>)</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">GLuint&#160;</td>
+          <td class="paramname"><em>gShader</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_angel_1_1vec4.html">vec4</a> &amp;&#160;</td>
+          <td class="paramname"><em>in</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -443,7 +599,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00077">77</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00090">90</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -472,7 +628,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 <p>Default destructor. </p>
 <p>Nothing of note. </p>
 
-<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00086">86</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00100">100</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -500,7 +656,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
 
-<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00374">374</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00411">411</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -547,7 +703,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
 
-<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00243">243</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00275">275</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -574,7 +730,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
 
-<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00528">528</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00604">604</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -600,11 +756,45 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 </table>
 </div><div class="memdoc">
 
-<p>comminInit is a private function that initializes local object attributes. </p>
+<p>commonInit is a private function that initializes local object attributes. </p>
 <p>It should be called by all available constructors. </p>
 <dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
 
 <p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00034">34</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8bbe0e5b1bfc71034b18e240e86aa285"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Scene::DeleteObject </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_object.html">Object</a> *&#160;</td>
+          <td class="paramname"><em>obj</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>DeleteObject is the actual implementation function that will remove an <a class="el" href="class_object.html">Object</a> from the <a class="el" href="class_scene.html">Scene</a> list and <a class="el" href="class_scene.html">Scene</a> map, then free the object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj</td><td>The pointer to the object to free. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="_scene_8cpp_source.html#l00050">50</a> of file <a class="el" href="_scene_8cpp_source.html">Scene.cpp</a>.</p>
 
 </div>
 </div>
@@ -631,7 +821,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
 
-<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00573">573</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00649">649</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -676,7 +866,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
 
-<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00207">207</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00238">238</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -703,7 +893,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
 
-<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00221">221</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00253">253</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -730,28 +920,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
 
-<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00231">231</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a9d96971546c610e534f603a0f41e32b2"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Camera::Draw </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Draw will instruct OpenGL of the viewport we want, and then send all of our current matrices to the shader for rendering. </p>
-<dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
-
-<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00653">653</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00263">263</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -789,7 +958,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>void. </dd></dl>
 
-<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00171">171</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00202">202</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -827,7 +996,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
 
-<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00183">183</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00214">214</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -865,7 +1034,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
 
-<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00195">195</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00226">226</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -893,7 +1062,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
 
-<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00516">516</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00592">592</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -914,7 +1083,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 <p><a class="el" href="class_camera.html#a8817ea073431268d8c0e522cdc30026c" title="FOV() gets the current camera Field-of-view angle.">FOV()</a> gets the current camera Field-of-view angle. </p>
 <dl class="section return"><dt>Returns</dt><dd>A float that is the y axis viewing angle. </dd></dl>
 
-<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00507">507</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00583">583</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -942,7 +1111,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
 
-<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00311">311</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00348">348</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -964,52 +1133,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 <p>Call it in the glut Idle function. </p>
 <dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
 
-<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00435">435</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ad02f12a279c33e7e85dcaf88830d38c7"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Camera::link </td>
-          <td>(</td>
-          <td class="paramtype">const GLuint &amp;&#160;</td>
-          <td class="paramname"><em>program</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="class_camera.html#a6ff726a75a430e4f17e5dec42e4d4405">glsl_var</a> &amp;&#160;</td>
-          <td class="paramname"><em>which</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const string &amp;&#160;</td>
-          <td class="paramname"><em>glslVarName</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Link associates the camera with a glsl uniform variable. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">program</td><td>a GLuint handle to the shader application. </td></tr>
-    <tr><td class="paramname">which</td><td>A glsl_var enumeration indication which variable to link. </td></tr>
-    <tr><td class="paramname">glslVarName</td><td>The name of the variable in the shader. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
-
-<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00639">639</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00491">491</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -1036,7 +1160,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
 
-<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00415">415</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00471">471</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -1075,7 +1199,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
 
-<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00324">324</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00361">361</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -1127,7 +1251,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
 
-<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00133">133</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00161">161</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -1165,7 +1289,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
 
-<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00159">159</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00190">190</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -1203,7 +1327,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
 
-<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00148">148</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00179">179</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -1224,7 +1348,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 <p><a class="el" href="class_camera.html#a9982ac5f48fe0af97fefa725080d6da6" title="pos() gets the current camera position in model coordinates.">pos()</a> gets the current camera position in model coordinates. </p>
 <dl class="section return"><dt>Returns</dt><dd>A vec4 that represents the current camera coordinates. </dd></dl>
 
-<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00500">500</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00576">576</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -1246,7 +1370,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 <p>This function should be called after physical or virtual (viewport) screen resizes. </p>
 <dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
 
-<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00541">541</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00617">617</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -1285,22 +1409,30 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
 
-<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00363">363</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00400">400</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a36cba68c08136242bf5d906f9c0b610c"></a>
+<a class="anchor" id="a9f20ff117467d437779d7b22f6f1ed9d"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void Camera::send </td>
+          <td class="memname">void Camera::Send </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="class_camera.html#a6ff726a75a430e4f17e5dec42e4d4405">glsl_var</a> &amp;&#160;</td>
+          <td class="paramtype">Object::UniformEnum&#160;</td>
           <td class="paramname"><em>which</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>send will send a glsl variable to the shader. </p>
@@ -1312,7 +1444,9 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
 
-<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00603">603</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p>Reimplemented from <a class="el" href="class_object.html">Object</a>.</p>
+
+<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00677">677</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -1339,7 +1473,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
 
-<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00425">425</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00481">481</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -1367,7 +1501,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
 
-<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00299">299</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00336">336</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -1395,7 +1529,28 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
 
-<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00285">285</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00322">322</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="afea07d3100ca3b43655f4021fdece774"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Camera::View </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>View will instruct OpenGL of the viewport we want, and then send all of our current matrices to the shader for rendering. </p>
+<dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
+
+<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00733">733</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -1448,7 +1603,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
 
-<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00588">588</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00664">664</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -1486,7 +1641,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
 
-<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00095">95</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00111">111</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -1507,7 +1662,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 <p><a class="el" href="class_camera.html#a2f7fd64d5d6e0dfb5edcca53c7d15994" title="X() returns the current position of the camera in model coordinates.">X()</a> returns the current position of the camera in model coordinates. </p>
 <dl class="section return"><dt>Returns</dt><dd>The current X coordinate of the camera in model coordinates. </dd></dl>
 
-<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00479">479</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00555">555</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -1545,7 +1700,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
 
-<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00107">107</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00127">127</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -1566,7 +1721,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 <p><a class="el" href="class_camera.html#a37529ef93871f547ebfd5862bc6cce62" title="Y() returns the current position of the camera in model coordinates.">Y()</a> returns the current position of the camera in model coordinates. </p>
 <dl class="section return"><dt>Returns</dt><dd>The current Y coordinate of the camera in model coordinates. </dd></dl>
 
-<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00486">486</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00562">562</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -1605,7 +1760,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
 
-<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00344">344</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00381">381</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -1643,7 +1798,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
 
-<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00119">119</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00143">143</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -1664,7 +1819,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 <p><a class="el" href="class_camera.html#abf1730e47e8e51c76acbddcaa85e2475" title="Z() returns the current position of the camera in model coordinates.">Z()</a> returns the current position of the camera in model coordinates. </p>
 <dl class="section return"><dt>Returns</dt><dd>The current Z coordinate of the camera in model coordinates. </dd></dl>
 
-<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00493">493</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8cpp_source.html#l00569">569</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -1689,7 +1844,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 
 <p>Current aspect ratio for certain perspectives. </p>
 
-<p>Definition at line <a class="el" href="_camera_8hpp_source.html#l00178">178</a> of file <a class="el" href="_camera_8hpp_source.html">Camera.hpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8hpp_source.html#l00183">183</a> of file <a class="el" href="_camera_8hpp_source.html">Camera.hpp</a>.</p>
 
 </div>
 </div>
@@ -1711,10 +1866,10 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 </table>
 </div><div class="memdoc">
 
-<p>The 'Current Transformation Matrix' for this camera. </p>
+<p>The 'Current <a class="el" href="class_transformation.html">Transformation</a> Matrix' for this camera. </p>
 <p>May be P*R*T or T*R*P depending on the current POST/PRE mult configurations. </p>
 
-<p>Definition at line <a class="el" href="_camera_8hpp_source.html#l00154">154</a> of file <a class="el" href="_camera_8hpp_source.html">Camera.hpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8hpp_source.html#l00159">159</a> of file <a class="el" href="_camera_8hpp_source.html">Camera.hpp</a>.</p>
 
 </div>
 </div>
@@ -1738,7 +1893,32 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 
 <p>The current viewing mode type. </p>
 
-<p>Definition at line <a class="el" href="_camera_8hpp_source.html#l00157">157</a> of file <a class="el" href="_camera_8hpp_source.html">Camera.hpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8hpp_source.html#l00162">162</a> of file <a class="el" href="_camera_8hpp_source.html">Camera.hpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a82764b385767d989f27d301ab206acb8"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLenum Object::draw_mode</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Drawing mode for this object. </p>
+<p>GL_TRIANGLES, GL_LINE_LOOP, etc. </p>
+
+<p>Definition at line <a class="el" href="_object_8hpp_source.html#l00076">76</a> of file <a class="el" href="_object_8hpp_source.html">Object.hpp</a>.</p>
 
 </div>
 </div>
@@ -1762,7 +1942,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 
 <p>Current field-of-view angle for perspective view. </p>
 
-<p>Definition at line <a class="el" href="_camera_8hpp_source.html#l00181">181</a> of file <a class="el" href="_camera_8hpp_source.html">Camera.hpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8hpp_source.html#l00186">186</a> of file <a class="el" href="_camera_8hpp_source.html">Camera.hpp</a>.</p>
 
 </div>
 </div>
@@ -1787,11 +1967,11 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 <p>Friction. </p>
 <p>Should be less than MaxAccel. </p>
 
-<p>Definition at line <a class="el" href="_camera_8hpp_source.html#l00175">175</a> of file <a class="el" href="_camera_8hpp_source.html">Camera.hpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8hpp_source.html#l00180">180</a> of file <a class="el" href="_camera_8hpp_source.html">Camera.hpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a1635486d7f9e0d52b241899a270ee335"></a>
+<a class="anchor" id="acd6c7021617ea334915a1525f9519bc5"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1799,23 +1979,24 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">GLuint Camera::glsl_handles[Camera::NumGlslVars]</td>
+          <td class="memname">std::vector&lt; GLint &gt; Object::handles</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Handles for communicating with the shader. </p>
+<p>Handles to Uniforms on the shader. </p>
+<p>Private to allow derived classes to extend it as needed. </p>
 
-<p>Definition at line <a class="el" href="_camera_8hpp_source.html#l00199">199</a> of file <a class="el" href="_camera_8hpp_source.html">Camera.hpp</a>.</p>
+<p>Definition at line <a class="el" href="_object_8hpp_source.html#l00063">63</a> of file <a class="el" href="_object_8hpp_source.html">Object.hpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a39746b4fadf30bba6bdc8aa6acfdc6f2"></a>
+<a class="anchor" id="a16f01b362cb7c18d203e468bf5483749"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1823,7 +2004,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool Camera::Motion[Camera::End]</td>
+          <td class="memname">bool Camera::Motion[Camera::Direction_End]</td>
         </tr>
       </table>
   </td>
@@ -1835,7 +2016,31 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 
 <p>Booleans correlating to the different motion directions. </p>
 
-<p>Definition at line <a class="el" href="_camera_8hpp_source.html#l00196">196</a> of file <a class="el" href="_camera_8hpp_source.html">Camera.hpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8hpp_source.html#l00195">195</a> of file <a class="el" href="_camera_8hpp_source.html">Camera.hpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a24457e0a387492c80594aec7681a2277"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string Object::name</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>name is used as an identifying handle for the object. </p>
+
+<p>Definition at line <a class="el" href="_object_8hpp_source.html#l00067">67</a> of file <a class="el" href="_object_8hpp_source.html">Object.hpp</a>.</p>
 
 </div>
 </div>
@@ -1859,7 +2064,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 
 <p>The current view matrix (usually perspective) for this camera. </p>
 
-<p>Definition at line <a class="el" href="_camera_8hpp_source.html#l00151">151</a> of file <a class="el" href="_camera_8hpp_source.html">Camera.hpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8hpp_source.html#l00156">156</a> of file <a class="el" href="_camera_8hpp_source.html">Camera.hpp</a>.</p>
 
 </div>
 </div>
@@ -1883,7 +2088,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 
 <p>The current rotational matrix for this camera. </p>
 
-<p>Definition at line <a class="el" href="_camera_8hpp_source.html#l00149">149</a> of file <a class="el" href="_camera_8hpp_source.html">Camera.hpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8hpp_source.html#l00154">154</a> of file <a class="el" href="_camera_8hpp_source.html">Camera.hpp</a>.</p>
 
 </div>
 </div>
@@ -1907,7 +2112,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 
 <p>Current Speed of camera motion. </p>
 
-<p>Definition at line <a class="el" href="_camera_8hpp_source.html#l00160">160</a> of file <a class="el" href="_camera_8hpp_source.html">Camera.hpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8hpp_source.html#l00165">165</a> of file <a class="el" href="_camera_8hpp_source.html">Camera.hpp</a>.</p>
 
 </div>
 </div>
@@ -1931,7 +2136,31 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 
 <p>The current translation matrix for this camera. </p>
 
-<p>Definition at line <a class="el" href="_camera_8hpp_source.html#l00147">147</a> of file <a class="el" href="_camera_8hpp_source.html">Camera.hpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8hpp_source.html#l00152">152</a> of file <a class="el" href="_camera_8hpp_source.html">Camera.hpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a66190fee29d03d6478516686cbd01eb8"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLuint Object::vao</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vertex Array <a class="el" href="class_object.html">Object</a> handle identifying our buffers/object. </p>
+
+<p>Definition at line <a class="el" href="_object_8hpp_source.html#l00070">70</a> of file <a class="el" href="_object_8hpp_source.html">Object.hpp</a>.</p>
 
 </div>
 </div>
@@ -1955,7 +2184,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 
 <p>Current Velocity of camera motion. </p>
 
-<p>Definition at line <a class="el" href="_camera_8hpp_source.html#l00163">163</a> of file <a class="el" href="_camera_8hpp_source.html">Camera.hpp</a>.</p>
+<p>Definition at line <a class="el" href="_camera_8hpp_source.html#l00168">168</a> of file <a class="el" href="_camera_8hpp_source.html">Camera.hpp</a>.</p>
 
 </div>
 </div>
@@ -1969,7 +2198,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="class_camera.html">Camera</a></li>
-    <li class="footer">Generated on Sun Dec 9 2012 17:14:27 for OpenGL Flythrough by
+    <li class="footer">Generated on Tue Dec 18 2012 01:46:34 for OpenGL Flythrough by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.1.2 </li>
   </ul>

@@ -1,6 +1,7 @@
 var searchData=
 [
   ['main',['main',['../example_8c.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'example.c']]],
+  ['modifylightsource',['modifyLightSource',['../class_lights.html#aaad7e3eb032a41ff4b60e3d0111d1031',1,'Lights']]],
   ['motion_5fplus_5fapply_5fsmoothing',['motion_plus_apply_smoothing',['../motionplus_8c.html#a082ffa1679f8bed1d10e1c96f9319ea3',1,'motion_plus_apply_smoothing(struct motion_plus_t *mp):&#160;motionplus.c'],['../motionplus_8h.html#a082ffa1679f8bed1d10e1c96f9319ea3',1,'motion_plus_apply_smoothing(struct motion_plus_t *mp):&#160;motionplus.c']]],
   ['motion_5fplus_5fdisconnected',['motion_plus_disconnected',['../motionplus_8c.html#a76b05e15030cb08b17fab3e7c4d46e9c',1,'motion_plus_disconnected(struct motion_plus_t *mp):&#160;motionplus.c'],['../motionplus_8h.html#a76b05e15030cb08b17fab3e7c4d46e9c',1,'motion_plus_disconnected(struct motion_plus_t *mp):&#160;motionplus.c']]],
   ['motion_5fplus_5fevent',['motion_plus_event',['../motionplus_8c.html#a0f2f989bf76980a687ee493613fdc896',1,'motion_plus_event(struct motion_plus_t *mp, byte *msg):&#160;motionplus.c'],['../motionplus_8h.html#a0f2f989bf76980a687ee493613fdc896',1,'motion_plus_event(struct motion_plus_t *mp, byte *msg):&#160;motionplus.c']]],

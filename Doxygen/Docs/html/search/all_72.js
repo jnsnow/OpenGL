@@ -8,10 +8,13 @@ var searchData=
   ['read_5freq',['read_req',['../structwiimote__t.html#ac192abc14dc9355c9a161f9390a803ae',1,'wiimote_t']]],
   ['read_5freq_5ft',['read_req_t',['../structread__req__t.html',1,'']]],
   ['refreshperspective',['refreshPerspective',['../class_camera.html#a24c5346fc0dfaa93257b6716fe0f2421',1,'Camera']]],
+  ['removelastlightsource',['removeLastLightSource',['../class_lights.html#a0640af4479575593544ea68115e40ea5',1,'Lights']]],
+  ['removelightsource',['removeLightSource',['../class_lights.html#a5c1870dad44d2e6cf48b9f8152e10a21',1,'Lights']]],
   ['reorder_5fir_5fdots',['reorder_ir_dots',['../ir_8c.html#adad5ac421ba755f34f19f1e3985d918d',1,'ir.c']]],
   ['rjs',['rjs',['../structclassic__ctrl__t.html#aa27c616f6e84b2ca93e2a42bb7744fc8',1,'classic_ctrl_t']]],
   ['roll',['roll',['../class_camera.html#a1ba0979fe0b2ec58085d5f9721858e5e',1,'Camera']]],
   ['rotate_5foffset',['ROTATE_OFFSET',['../_camera_8cpp.html#a00e96bcc90e768c724477dbd2a3d9291',1,'Camera.cpp']]],
+  ['rotmat',['RotMat',['../class_rot_mat.html',1,'']]],
   ['rx',['rx',['../structir__dot__t.html#a046a0132b74da3c8c334c8e875a763d5',1,'ir_dot_t']]],
   ['ry',['ry',['../structir__dot__t.html#ab7fb2aacd27c03155935515907b49065',1,'ir_dot_t']]]
 ];

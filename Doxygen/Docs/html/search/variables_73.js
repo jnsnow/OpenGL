@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['size',['size',['../structread__req__t.html#a1ba9dc32f81a628129a499cd67367fec',1,'read_req_t::size()'],['../structir__dot__t.html#a009422c74d8c2a1dcfe64e669cb7aa91',1,'ir_dot_t::size()']]],
+  ['size',['size',['../class_camera.html#ac14470d1908bd4190a1b83ef0ff70193',1,'Camera::size()'],['../structread__req__t.html#a1ba9dc32f81a628129a499cd67367fec',1,'read_req_t::size()'],['../structir__dot__t.html#a009422c74d8c2a1dcfe64e669cb7aa91',1,'ir_dot_t::size()']]],
   ['smooth',['smooth',['../structmotion__plus__t.html#a897911489b87b7a5ff24861c00ba2332',1,'motion_plus_t']]],
   ['smooth_5falpha',['smooth_alpha',['../structmotion__plus__t.html#ab5eda5d43a79e927542d25338c3a7989',1,'motion_plus_t']]],
   ['speed',['speed',['../class_camera.html#a308e92b5d3ef0eea5cac7745df6e28f4',1,'Camera']]],

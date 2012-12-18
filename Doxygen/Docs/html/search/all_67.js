@@ -2,11 +2,11 @@ var searchData=
 [
   ['get_5fir_5fdot_5favg',['get_ir_dot_avg',['../ir_8c.html#a6c696bb1105b00fe08338f3cac4d5ffa',1,'ir.c']]],
   ['get_5fir_5fsens',['get_ir_sens',['../ir_8c.html#ac031b97fde782a38ef2dd5f6e6e103ca',1,'ir.c']]],
+  ['getcomplex',['getComplex',['../class_lights.html#ac02fbea7a66a779bbdfa3be5d2b8a8dc',1,'Lights']]],
+  ['getnumlights',['getNumLights',['../class_lights.html#ae9b01f6463a6687c5300486878d61043',1,'Lights']]],
   ['getorientation',['GetOrientation',['../class_c_accelerometer.html#ae332fb3f201d67f554328fadaa343fe0',1,'CAccelerometer']]],
   ['gforce',['gforce',['../structnunchuk__t.html#a79d598a365f147ca23c67e592776fde0',1,'nunchuk_t::gforce()'],['../structwiimote__t.html#ab2ccaf1bd030bfb24aa60c474b34d1f4',1,'wiimote_t::gforce()']]],
   ['gforce_5ft',['gforce_t',['../structgforce__t.html',1,'']]],
-  ['glsl_5fhandles',['glsl_handles',['../class_camera.html#a1635486d7f9e0d52b241899a270ee335',1,'Camera']]],
-  ['glsl_5fvar',['glsl_var',['../class_camera.html#a6ff726a75a430e4f17e5dec42e4d4405',1,'Camera']]],
   ['guitar_5fhero_5f3_2ec',['guitar_hero_3.c',['../guitar__hero__3_8c.html',1,'']]],
   ['guitar_5fhero_5f3_2eh',['guitar_hero_3.h',['../guitar__hero__3_8h.html',1,'']]],
   ['guitar_5fhero_5f3_5fdisconnected',['guitar_hero_3_disconnected',['../guitar__hero__3_8c.html#a07045f94eeb465afe6b6d2f035517571',1,'guitar_hero_3_disconnected(struct guitar_hero_3_t *gh3):&#160;guitar_hero_3.c'],['../guitar__hero__3_8h.html#a07045f94eeb465afe6b6d2f035517571',1,'guitar_hero_3_disconnected(struct guitar_hero_3_t *gh3):&#160;guitar_hero_3.c']]],

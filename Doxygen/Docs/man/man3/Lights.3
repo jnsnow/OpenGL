@@ -1,4 +1,4 @@
-.TH "Lights" 3 "Sun Dec 9 2012" "Version 9001" "OpenGL Flythrough" \" -*- nroff -*-
+.TH "Lights" 3 "Tue Dec 18 2012" "Version 9001" "OpenGL Flythrough" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -10,14 +10,49 @@ Lights \-
 
 .in +1c
 .ti -1c
-.RI "void \fBremoveLightSource\fP ()"
+.RI "\fBLights\fP (bool)"
 .br
+.RI "\fIDefault constructor\&. \fP"
 .ti -1c
-.RI "void \fBaddLightSource\fP ()"
+.RI "\fBLights\fP (GLuint &, bool complexSwitch)"
 .br
+.RI "\fIInitialization constructor\&. \fP"
 .ti -1c
-.RI "void \fBinit_lights\fP (GLuint program)"
+.RI "virtual \fB~Lights\fP ()"
 .br
+.RI "\fIDefault destructor\&. \fP"
+.ti -1c
+.RI "void \fBaddLightSource\fP (const \fBLightSource\fP &)"
+.br
+.RI "\fIAdd a light source to the list\&. \fP"
+.ti -1c
+.RI "void \fBremoveLightSource\fP (const unsigned int)"
+.br
+.RI "\fIRemoves the u'th element from the list of lights\&. \fP"
+.ti -1c
+.RI "void \fBremoveLastLightSource\fP ()"
+.br
+.RI "\fIRemoves the last light added to the container\&. \fP"
+.ti -1c
+.RI "void \fBmodifyLightSource\fP (const unsigned int u, const \fBLightSource\fP &l)"
+.br
+.RI "\fIChange an existing light source\&. \fP"
+.ti -1c
+.RI "void \fBinit_lights\fP (GLuint &)"
+.br
+.RI "\fIInitializes members in the object to link with shader uniform variables\&. \fP"
+.ti -1c
+.RI "unsigned int \fBgetNumLights\fP () const "
+.br
+.RI "\fIGet the number of lights we currently have active\&. \fP"
+.ti -1c
+.RI "bool \fBgetComplex\fP () const "
+.br
+.RI "\fIGet the lighting mode\&. \fP"
+.ti -1c
+.RI "void \fBsendAll\fP ()"
+.br
+.RI "\fIThis function call updates all the lighting arrays in the shader\&. \fP"
 .in -1c
 .SS "Private Attributes"
 
@@ -25,10 +60,125 @@ Lights \-
 .ti -1c
 .RI "vector< \fBLightSource\fP > \fBtheLights\fP"
 .br
+.ti -1c
+.RI "float \fBambient\fP [MAX_LIGHTS *3]"
+.br
+.ti -1c
+.RI "float \fBdiffuse\fP [MAX_LIGHTS *3]"
+.br
+.ti -1c
+.RI "float \fBspecular\fP [MAX_LIGHTS *3]"
+.br
+.ti -1c
+.RI "float \fBcolor\fP [MAX_LIGHTS *3]"
+.br
+.ti -1c
+.RI "float \fBposition\fP [MAX_LIGHTS *3]"
+.br
+.ti -1c
+.RI "float \fBdirection\fP [MAX_LIGHTS *3]"
+.br
+.ti -1c
+.RI "GLuint \fBg_ambient\fP"
+.br
+.ti -1c
+.RI "GLuint \fBg_diffuse\fP"
+.br
+.ti -1c
+.RI "GLuint \fBg_specular\fP"
+.br
+.ti -1c
+.RI "GLuint \fBg_color\fP"
+.br
+.ti -1c
+.RI "GLuint \fBg_position\fP"
+.br
+.ti -1c
+.RI "GLuint \fBg_direction\fP"
+.br
+.ti -1c
+.RI "GLuint \fBg_numLights\fP"
+.br
+.ti -1c
+.RI "const bool \fBcomplexSwitch\fP"
+.br
 .in -1c
 .SH "Detailed Description"
 .PP 
-Definition at line 74 of file LightSource\&.hpp\&.
+Definition at line 39 of file Lights\&.hpp\&.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Lights::Lights (GLuint &g_program, boolcSwitch)"
+
+.PP
+Initialization constructor\&. This constructor allows the implementor to forego a call to \fBinit_lights()\fP; If you can use this one, please do! 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIg_program\fP A program object that we can link our arrays with\&. 
+.RE
+.PP
+
+.PP
+Definition at line 44 of file Lights\&.cpp\&.
+.SH "Member Function Documentation"
+.PP 
+.SS "void Lights::addLightSource (const \fBLightSource\fP &l)"
+
+.PP
+Add a light source to the list\&. \fBParameters:\fP
+.RS 4
+\fIl\fP light source to add to the list\&. 
+.RE
+.PP
+
+.PP
+Definition at line 109 of file Lights\&.cpp\&.
+.SS "void Lights::init_lights (GLuint &g_program)"
+
+.PP
+Initializes members in the object to link with shader uniform variables\&. IF YOU DON'T USE THE INITILIZATION CONSTRUCTOR, THIS MUST BE CALLED BEFORE TRYING TO CALL \fBsendAll()\fP; 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIg_program\fP A gl program to use for linking with the shader\&. 
+.RE
+.PP
+
+.PP
+Definition at line 137 of file Lights\&.cpp\&.
+.SS "void Lights::modifyLightSource (const unsigned intu, const \fBLightSource\fP &l)"
+
+.PP
+Change an existing light source\&. \fBParameters:\fP
+.RS 4
+\fIu\fP ONE INDEXED index to select a light source\&. 
+.br
+\fIl\fP light source to replace the existing light with\&. 
+.RE
+.PP
+
+.PP
+Definition at line 120 of file Lights\&.cpp\&.
+.SS "void Lights::removeLightSource (const unsigned intu)"
+
+.PP
+Removes the u'th element from the list of lights\&. This function is 1-indexed\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIu\fP the index of the light to remove\&. 
+.RE
+.PP
+
+.PP
+Definition at line 87 of file Lights\&.cpp\&.
+.SS "void Lights::sendAll ()"
+
+.PP
+This function call updates all the lighting arrays in the shader\&. If you make any changes to the lighting, you must call this function again\&. In fact, it probably belongs in your glutRedisplay() callback\&. 
+.PP
+Definition at line 177 of file Lights\&.cpp\&.
 
 .SH "Author"
 .PP 

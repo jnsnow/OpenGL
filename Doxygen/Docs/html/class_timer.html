@@ -119,6 +119,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a2c58a2e04e1e30926805aa4e82d2a0a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tock returns the time elapsed since the last Tock.  <a href="#a2c58a2e04e1e30926805aa4e82d2a0a5"></a><br/></td></tr>
 <tr class="memitem:a4f68da5b62cb1d1b2dd0c8549eb6286d"><td class="memItemLeft" align="right" valign="top">unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_timer.html#a4f68da5b62cb1d1b2dd0c8549eb6286d">Delta</a> () const </td></tr>
 <tr class="memdesc:a4f68da5b62cb1d1b2dd0c8549eb6286d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delta returns the time elapsed between the last Tick and the last Tock.  <a href="#a4f68da5b62cb1d1b2dd0c8549eb6286d"></a><br/></td></tr>
+<tr class="memitem:a25ed035b0da5b177050c922660acf864"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_timer.html#a25ed035b0da5b177050c922660acf864">Scale</a> () const </td></tr>
+<tr class="memdesc:a25ed035b0da5b177050c922660acf864"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scale returns the relative lateness or eagerness of the <a class="el" href="class_timer.html">Timer</a>, Relative to a benchmark or Key Frame Rate (The default is 60FPS, or 16667 msec.)  <a href="#a25ed035b0da5b177050c922660acf864"></a><br/></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -128,6 +130,8 @@ struct timeval&#160;</td><td class="memItemRight" valign="bottom"><b>_T1</b></td
 struct timeval&#160;</td><td class="memItemRight" valign="bottom"><b>_T2</b></td></tr>
 <tr class="memitem:a3ded2a527b99c1fd983ea9583a7ebcdb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3ded2a527b99c1fd983ea9583a7ebcdb"></a>
 unsigned long&#160;</td><td class="memItemRight" valign="bottom"><b>delta</b></td></tr>
+<tr class="memitem:a5d8edd0ebb4a43487733e9df2d5b6865"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5d8edd0ebb4a43487733e9df2d5b6865"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>scale</b></td></tr>
 </table>
 <a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock">
@@ -151,7 +155,28 @@ unsigned long&#160;</td><td class="memItemRight" valign="bottom"><b>delta</b></t
 <p>Does not start a new timer. </p>
 <dl class="section return"><dt>Returns</dt><dd>Time elapsed in Microseconds, or Nanoseconds if _RT was enabled. </dd></dl>
 
-<p>Definition at line <a class="el" href="_timer_8cpp_source.html#l00056">56</a> of file <a class="el" href="_timer_8cpp_source.html">Timer.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_timer_8cpp_source.html#l00058">58</a> of file <a class="el" href="_timer_8cpp_source.html">Timer.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a25ed035b0da5b177050c922660acf864"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Timer::Scale </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Scale returns the relative lateness or eagerness of the <a class="el" href="class_timer.html">Timer</a>, Relative to a benchmark or Key Frame Rate (The default is 60FPS, or 16667 msec.) </p>
+<dl class="section return"><dt>Returns</dt><dd>A non-zero float that ranges from (0,1) indicating that the program is rendering faster than 60FPS, or from the range [1,+inf) indicating that the program is rendering slower than 60FPS. </dd></dl>
+
+<p>Definition at line <a class="el" href="_timer_8cpp_source.html#l00072">72</a> of file <a class="el" href="_timer_8cpp_source.html">Timer.cpp</a>.</p>
 
 </div>
 </div>
@@ -208,7 +233,7 @@ unsigned long&#160;</td><td class="memItemRight" valign="bottom"><b>delta</b></t
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="class_timer.html">Timer</a></li>
-    <li class="footer">Generated on Sun Dec 9 2012 17:14:29 for OpenGL Flythrough by
+    <li class="footer">Generated on Tue Dec 18 2012 01:46:34 for OpenGL Flythrough by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.1.2 </li>
   </ul>

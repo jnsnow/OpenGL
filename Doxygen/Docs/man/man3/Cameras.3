@@ -1,4 +1,4 @@
-.TH "Cameras" 3 "Sun Dec 9 2012" "Version 9001" "OpenGL Flythrough" \" -*- nroff -*-
+.TH "Cameras" 3 "Tue Dec 18 2012" "Version 9001" "OpenGL Flythrough" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -11,53 +11,40 @@ The \fBCameras\fP class represents a group of logical cameras for a model view\&
 .PP
 .PP
 \fC#include <Cameras\&.hpp>\fP
+.PP
+Inherits \fBScene\fP\&.
 .SS "Public Member Functions"
 
 .in +1c
 .ti -1c
-.RI "\fBCameras\fP (const size_t &numCameras=1)"
+.RI "\fBCamera\fP * \fBAddCamera\fP (const std::string &name)"
 .br
 .ti -1c
-.RI "size_t \fBaddCamera\fP (void)"
+.RI "void \fBDelCamera\fP (const std::string &name)"
 .br
 .ti -1c
-.RI "size_t \fBaddCamera\fP (\fBCamera\fP const &newCamera)"
+.RI "void \fBDelCamera\fP (void)"
 .br
 .ti -1c
-.RI "void \fBdelCamera\fP (size_t n)"
+.RI "void \fBPopCamera\fP (void)"
 .br
 .ti -1c
-.RI "void \fBpopCamera\fP (void)"
+.RI "void \fBDestroyCamera\fP (void)"
 .br
 .ti -1c
-.RI "\fBCamera\fP & \fBgetCamera\fP (size_t n)"
+.RI "\fBCamera\fP * \fBNext\fP (void)"
 .br
 .ti -1c
-.RI "\fBCamera\fP & \fBoperator[]\fP (size_t n)"
+.RI "\fBCamera\fP * \fBPrev\fP (void)"
 .br
 .ti -1c
-.RI "\fBCamera\fP * \fBiter\fP (size_t n)"
+.RI "\fBCamera\fP * \fBActive\fP (void)"
+.br
+.ti -1c
+.RI "size_t \fBNumCameras\fP (void) const "
 .br
 .ti -1c
 .RI "void \fBIdleMotion\fP (void)"
-.br
-.ti -1c
-.RI "void \fBLinkAll\fP (const GLuint &program, const \fBCamera::glsl_var\fP &which, const string &glslVarName)"
-.br
-.ti -1c
-.RI "size_t \fBActiveN\fP (void)"
-.br
-.ti -1c
-.RI "\fBCamera\fP & \fBActive\fP (void)"
-.br
-.ti -1c
-.RI "\fBCamera\fP & \fBActive\fP (size_t n)"
-.br
-.ti -1c
-.RI "\fBCamera\fP & \fBNext\fP (void)"
-.br
-.ti -1c
-.RI "\fBCamera\fP & \fBPrev\fP (void)"
 .br
 .ti -1c
 .RI "void \fBResize\fP (int width, int height)"
@@ -66,30 +53,75 @@ The \fBCameras\fP class represents a group of logical cameras for a model view\&
 .RI "void \fBCalculateViewports\fP (void)"
 .br
 .ti -1c
-.RI "void \fBDraw\fP (void(*draw_func)(void))"
+.RI "void \fBView\fP (void(*draw_func)(void))"
+.br
+.ti -1c
+.RI "\fBCamera\fP * \fBObj2Cam\fP (std::list< \fBObject\fP * >::iterator &it)"
+.br
+.ti -1c
+.RI "void \fBTellMeYourSecrets\fP (void)"
+.br
+.ti -1c
+.RI "void \fBSetShader\fP (GLuint gShader)"
+.br
+.ti -1c
+.RI "GLuint \fBGetShader\fP (void)"
+.br
+.ti -1c
+.RI "\fBObject\fP * \fBAddObject\fP (const std::string &objName)"
+.br
+.ti -1c
+.RI "void \fBDelObject\fP (const std::string &objName)"
+.br
+.ti -1c
+.RI "void \fBDelObject\fP (void)"
+.br
+.ti -1c
+.RI "void \fBPopObject\fP (void)"
+.br
+.ti -1c
+.RI "void \fBDestroyObject\fP (void)"
+.br
+.RI "\fICompletely remove this object and all his children\&. \fP"
+.ti -1c
+.RI "void \fBDraw\fP (void)"
+.br
+.ti -1c
+.RI "\fBObject\fP * \fBoperator[]\fP (const std::string &objname)"
 .br
 .in -1c
-.SS "Private Member Functions"
+.SS "Protected Member Functions"
 
 .in +1c
 .ti -1c
-.RI "void \fBcommonInit\fP (void)"
+.RI "void \fBDeleteObject\fP (\fBObject\fP *obj)"
+.br
+.RI "\fIDeleteObject is the actual implementation function that will remove an \fBObject\fP from the \fBScene\fP list and \fBScene\fP map, then free the object\&. \fP"
+.ti -1c
+.RI "void \fBInsertObject\fP (const std::string name, \fBObject\fP *obj)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "std::list< \fBObject\fP * > \fBlist\fP"
+.br
+.ti -1c
+.RI "std::map< std::string, \fBObject\fP * > \fBmap\fP"
+.br
+.ti -1c
+.RI "std::list< \fBObject\fP * >::iterator \fBcurrentObj\fP"
+.br
+.ti -1c
+.RI "GLuint \fBgShader\fP"
 .br
 .in -1c
 .SS "Private Attributes"
 
 .in +1c
 .ti -1c
-.RI "vector< \fBCamera\fP > \fBcamList\fP"
-.br
-.ti -1c
-.RI "size_t \fBactiveCamera\fP"
-.br
-.ti -1c
-.RI "size_t \fBWidth\fP"
-.br
-.ti -1c
-.RI "size_t \fBHeight\fP"
+.RI "\fBAngel::vec2\fP \fBSize\fP"
 .br
 .in -1c
 .SH "Detailed Description"
@@ -108,7 +140,20 @@ John Huston, jhuston@cs.uml.edu
 .PP
 Each \fBCamera\fP posesses its own CTM which can be resent to the GPU at will\&. 
 .PP
-Definition at line 20 of file Cameras\&.hpp\&.
+Definition at line 21 of file Cameras\&.hpp\&.
+.SH "Member Function Documentation"
+.PP 
+.SS "void Scene::DeleteObject (\fBObject\fP *obj)\fC [protected]\fP, \fC [inherited]\fP"
+
+.PP
+DeleteObject is the actual implementation function that will remove an \fBObject\fP from the \fBScene\fP list and \fBScene\fP map, then free the object\&. \fBParameters:\fP
+.RS 4
+\fIobj\fP The pointer to the object to free\&. 
+.RE
+.PP
+
+.PP
+Definition at line 50 of file Scene\&.cpp\&.
 
 .SH "Author"
 .PP 

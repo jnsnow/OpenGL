@@ -1,5 +1,9 @@
 var searchData=
 [
   ['timer',['Timer',['../class_timer.html',1,'']]],
-  ['training',['Training',['../class_training.html',1,'']]]
+  ['training',['Training',['../class_training.html',1,'']]],
+  ['transcache',['TransCache',['../class_trans_cache.html',1,'']]],
+  ['transformation',['Transformation',['../class_transformation.html',1,'']]],
+  ['transmat',['TransMat',['../class_trans_mat.html',1,'']]],
+  ['txload',['txload',['../classtxload.html',1,'']]]
 ];

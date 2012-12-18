@@ -7,9 +7,10 @@ var NAVTREE =
       [ "Class Index", "classes.html", null ],
       [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
       [ "Class Members", "functions.html", [
-        [ "All", "functions.html", null ],
+        [ "All", "functions.html", "functions_dup" ],
         [ "Functions", "functions_func.html", null ],
         [ "Variables", "functions_vars.html", null ],
+        [ "Typedefs", "functions_type.html", null ],
         [ "Enumerations", "functions_enum.html", null ]
       ] ]
     ] ],
@@ -18,6 +19,7 @@ var NAVTREE =
       [ "File Members", "globals.html", [
         [ "All", "globals.html", null ],
         [ "Functions", "globals_func.html", null ],
+        [ "Variables", "globals_vars.html", null ],
         [ "Typedefs", "globals_type.html", null ],
         [ "Enumerations", "globals_enum.html", null ],
         [ "Macros", "globals_defs.html", null ]
@@ -29,13 +31,13 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 ".html",
-"class_c_g_h3_buttons.html#ae759f1224f68e51f58018fe451f2052ea807a25d886fc0c49b459a3ee5f454390",
-"class_camera.html#a80cb65605322d27ad3b6d973484509eca5e915de32fec621852ef915bf5030cba",
-"class_object.html#a890760dff9df547454112ff84510040c",
-"interface_wii_search.html#ade01f115383cdd698af8927f28f63b1d",
-"structgforce__t.html",
-"wiic__functions_8h.html#a9cb3d4a8f2c2a4dec0f3e79110825f49",
-"wiic__structs_8h.html#ac08de1b672082cb0d46d4a86c1395c6a"
+"class_c_g_h3_buttons.html#ae759f1224f68e51f58018fe451f2052ea2c0da1d30a5d08ec45951b7e9ae5d610",
+"class_camera.html#a5b95c890f213db50f321380108b17ea1",
+"class_m_l_alg.html#a44f120e39108980863a3fac855f89106",
+"classtxload.html#a23aee3e0e6f6847c75b777f6e8825c3e",
+"mat_8cpp.html",
+"structnunchuk__t.html#a22475e2830a1c51b9b7b4e836eade2e2",
+"wiic__internal_8h.html#a5012dbde6f77ab929c177e1b55c203e5"
 ];
 
 var navTreeSubIndices = new Array();

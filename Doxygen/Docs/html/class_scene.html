@@ -104,26 +104,42 @@ $(document).ready(function(){initNavTree('class_scene.html','');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="class_scene-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Scene Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+<div class="dynheader">
+Inheritance diagram for Scene:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="class_scene.png" usemap="#Scene_map" alt=""/>
+  <map id="Scene_map" name="Scene_map">
+<area href="class_cameras.html" title="The Cameras class represents a group of logical cameras for a model view. Each camera posesses its ow..." alt="Cameras" shape="rect" coords="0,56,62,80"/>
+<area href="class_object.html" alt="Object" shape="rect" coords="72,56,134,80"/>
+<area href="class_camera.html" title="The Camera class represents a logical camera in a model view, which posesses a current viewing angle ..." alt="Camera" shape="rect" coords="72,112,134,136"/>
+</map>
+ </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a3010030e68d0468b8d18c1323e072e80"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3010030e68d0468b8d18c1323e072e80"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetShader</b> (GLuint gShader)</td></tr>
-<tr class="memitem:a1183da422d278456867460fb11ac8dc8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1183da422d278456867460fb11ac8dc8"></a>
-<a class="el" href="class_object.html">Object</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>AddObject</b> (std::string objName)</td></tr>
-<tr class="memitem:a1643bca3e943c5865c0aecb037006f58"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1643bca3e943c5865c0aecb037006f58"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>DelObject</b> (std::string objName)</td></tr>
+<tr class="memitem:a1debf8bc8a9cb168ebbbcda1b4ffd605"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1debf8bc8a9cb168ebbbcda1b4ffd605"></a>
+GLuint&#160;</td><td class="memItemRight" valign="bottom"><b>GetShader</b> (void)</td></tr>
+<tr class="memitem:a2a3a5e4f5ea44d086ff73f2420663a10"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2a3a5e4f5ea44d086ff73f2420663a10"></a>
+<a class="el" href="class_object.html">Object</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>AddObject</b> (const std::string &amp;objName)</td></tr>
+<tr class="memitem:a3bd9fa1058f506c04162b9283e97d20e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3bd9fa1058f506c04162b9283e97d20e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>DelObject</b> (const std::string &amp;objName)</td></tr>
 <tr class="memitem:a43fd3c56db5dc940d1724b9573c9a360"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a43fd3c56db5dc940d1724b9573c9a360"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>DelObject</b> (void)</td></tr>
 <tr class="memitem:abdfd15e7987aa261840d5ecc265170df"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abdfd15e7987aa261840d5ecc265170df"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>PopObject</b> (void)</td></tr>
+<tr class="memitem:a82759ded1f6f87a91b8d10ed87501958"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a82759ded1f6f87a91b8d10ed87501958"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene.html#a82759ded1f6f87a91b8d10ed87501958">DestroyObject</a> (void)</td></tr>
+<tr class="memdesc:a82759ded1f6f87a91b8d10ed87501958"><td class="mdescLeft">&#160;</td><td class="mdescRight">Completely remove this object and all his children. <br/></td></tr>
 <tr class="memitem:a0a57ee2c15864c55cf3284b937440330"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0a57ee2c15864c55cf3284b937440330"></a>
 <a class="el" href="class_object.html">Object</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>Next</b> (void)</td></tr>
 <tr class="memitem:a955c5c984cc6bc5fb532752e43256211"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a955c5c984cc6bc5fb532752e43256211"></a>
@@ -132,22 +148,26 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>PopObject</b> (void)<
 <a class="el" href="class_object.html">Object</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>Active</b> (void)</td></tr>
 <tr class="memitem:ad5a91c929b569b9111061eec16b3febf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad5a91c929b569b9111061eec16b3febf"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Draw</b> (void)</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a54a7aee3ada3309584dd979bd82c159a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a54a7aee3ada3309584dd979bd82c159a"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Scene</b> (<a class="el" href="class_scene.html">Scene</a> &amp;copy)</td></tr>
-<tr class="memitem:af43eeff7e8d0d450c68341c73f9b1ab4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af43eeff7e8d0d450c68341c73f9b1ab4"></a>
+<tr class="memitem:ae9b69d8db8a46991017635f22e45baad"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae9b69d8db8a46991017635f22e45baad"></a>
+<a class="el" href="class_object.html">Object</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>operator[]</b> (const std::string &amp;objname)</td></tr>
+<tr class="memitem:aa6e6354478dc7df82446b3abf9f91d96"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa6e6354478dc7df82446b3abf9f91d96"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Scene</b> (const <a class="el" href="class_scene.html">Scene</a> &amp;copy)</td></tr>
+<tr class="memitem:a6336263b33b06ce4ace53599ffd8122c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6336263b33b06ce4ace53599ffd8122c"></a>
 <a class="el" href="class_scene.html">Scene</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="class_scene.html">Scene</a> &amp;copy)</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
 <tr class="memitem:a8bbe0e5b1bfc71034b18e240e86aa285"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene.html#a8bbe0e5b1bfc71034b18e240e86aa285">DeleteObject</a> (<a class="el" href="class_object.html">Object</a> *obj)</td></tr>
 <tr class="memdesc:a8bbe0e5b1bfc71034b18e240e86aa285"><td class="mdescLeft">&#160;</td><td class="mdescRight">DeleteObject is the actual implementation function that will remove an <a class="el" href="class_object.html">Object</a> from the <a class="el" href="class_scene.html">Scene</a> list and <a class="el" href="class_scene.html">Scene</a> map, then free the object.  <a href="#a8bbe0e5b1bfc71034b18e240e86aa285"></a><br/></td></tr>
+<tr class="memitem:ae8d51ddc196248a7cbd1f3640851dbd4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae8d51ddc196248a7cbd1f3640851dbd4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>InsertObject</b> (const std::string name, <a class="el" href="class_object.html">Object</a> *obj)</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:ad4f10706155e3e956fe36a4b5f0ef731"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad4f10706155e3e956fe36a4b5f0ef731"></a>
-std::map&lt; std::string, <a class="el" href="class_object.html">Object</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>map</b></td></tr>
+<tr class="heading"><td colspan="2"><h2><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
 <tr class="memitem:ac04ab16dd305db619afe5f8ec6a02ebc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac04ab16dd305db619afe5f8ec6a02ebc"></a>
 std::list&lt; <a class="el" href="class_object.html">Object</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>list</b></td></tr>
+<tr class="memitem:ad4f10706155e3e956fe36a4b5f0ef731"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad4f10706155e3e956fe36a4b5f0ef731"></a>
+std::map&lt; std::string, <a class="el" href="class_object.html">Object</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>map</b></td></tr>
 <tr class="memitem:acbf527a005c67461e03d343a9f853807"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acbf527a005c67461e03d343a9f853807"></a>
 std::list&lt; <a class="el" href="class_object.html">Object</a> * &gt;::iterator&#160;</td><td class="memItemRight" valign="bottom"><b>currentObj</b></td></tr>
 <tr class="memitem:aece20244e3987065f05057452a14d81f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aece20244e3987065f05057452a14d81f"></a>
@@ -155,7 +175,7 @@ GLuint&#160;</td><td class="memItemRight" valign="bottom"><b>gShader</b></td></t
 </table>
 <a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock">
-<p>Definition at line <a class="el" href="_scene_8hpp_source.html#l00008">8</a> of file <a class="el" href="_scene_8hpp_source.html">Scene.hpp</a>.</p>
+<p>Definition at line <a class="el" href="_scene_8hpp_source.html#l00013">13</a> of file <a class="el" href="_scene_8hpp_source.html">Scene.hpp</a>.</p>
 </div><h2>Member Function Documentation</h2>
 <a class="anchor" id="a8bbe0e5b1bfc71034b18e240e86aa285"></a>
 <div class="memitem">
@@ -174,7 +194,7 @@ GLuint&#160;</td><td class="memItemRight" valign="bottom"><b>gShader</b></td></t
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -187,7 +207,7 @@ GLuint&#160;</td><td class="memItemRight" valign="bottom"><b>gShader</b></td></t
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="_scene_8cpp_source.html#l00037">37</a> of file <a class="el" href="_scene_8cpp_source.html">Scene.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_scene_8cpp_source.html#l00050">50</a> of file <a class="el" href="_scene_8cpp_source.html">Scene.cpp</a>.</p>
 
 </div>
 </div>
@@ -201,7 +221,7 @@ GLuint&#160;</td><td class="memItemRight" valign="bottom"><b>gShader</b></td></t
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="class_scene.html">Scene</a></li>
-    <li class="footer">Generated on Sun Dec 9 2012 17:14:29 for OpenGL Flythrough by
+    <li class="footer">Generated on Tue Dec 18 2012 01:46:34 for OpenGL Flythrough by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.1.2 </li>
   </ul>

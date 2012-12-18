@@ -1,4 +1,4 @@
-.TH "Timer" 3 "Sun Dec 9 2012" "Version 9001" "OpenGL Flythrough" \" -*- nroff -*-
+.TH "Timer" 3 "Tue Dec 18 2012" "Version 9001" "OpenGL Flythrough" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -21,6 +21,10 @@ Timer \-
 .RI "unsigned long \fBDelta\fP () const "
 .br
 .RI "\fIDelta returns the time elapsed between the last Tick and the last Tock\&. \fP"
+.ti -1c
+.RI "double \fBScale\fP () const "
+.br
+.RI "\fIScale returns the relative lateness or eagerness of the \fBTimer\fP, Relative to a benchmark or Key Frame Rate (The default is 60FPS, or 16667 msec\&.) \fP"
 .in -1c
 .SS "Private Attributes"
 
@@ -33,6 +37,9 @@ Timer \-
 .br
 .ti -1c
 .RI "unsigned long \fBdelta\fP"
+.br
+.ti -1c
+.RI "double \fBscale\fP"
 .br
 .in -1c
 .SH "Detailed Description"
@@ -52,7 +59,18 @@ Time elapsed in Microseconds, or Nanoseconds if _RT was enabled\&.
 .PP
 
 .PP
-Definition at line 56 of file Timer\&.cpp\&.
+Definition at line 58 of file Timer\&.cpp\&.
+.SS "double Timer::Scale (void) const"
+
+.PP
+Scale returns the relative lateness or eagerness of the \fBTimer\fP, Relative to a benchmark or Key Frame Rate (The default is 60FPS, or 16667 msec\&.) \fBReturns:\fP
+.RS 4
+A non-zero float that ranges from (0,1) indicating that the program is rendering faster than 60FPS, or from the range [1,+inf) indicating that the program is rendering slower than 60FPS\&. 
+.RE
+.PP
+
+.PP
+Definition at line 72 of file Timer\&.cpp\&.
 .SS "unsigned long Timer::Tick (void)"
 
 .PP

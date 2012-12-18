@@ -113,23 +113,249 @@ $(document).ready(function(){initNavTree('class_lights.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a697efdeb33331a506a1a63a564f5f2e1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a697efdeb33331a506a1a63a564f5f2e1"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>removeLightSource</b> ()</td></tr>
-<tr class="memitem:a2b773cfaba5c662fb2a0344be70edc19"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2b773cfaba5c662fb2a0344be70edc19"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>addLightSource</b> ()</td></tr>
-<tr class="memitem:a47639f6fd64056f15b9372b80f9ef117"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a47639f6fd64056f15b9372b80f9ef117"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>init_lights</b> (GLuint program)</td></tr>
+<tr class="memitem:a6efd204b85c962a046b9c1356d621050"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6efd204b85c962a046b9c1356d621050"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lights.html#a6efd204b85c962a046b9c1356d621050">Lights</a> (bool)</td></tr>
+<tr class="memdesc:a6efd204b85c962a046b9c1356d621050"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor. <br/></td></tr>
+<tr class="memitem:a00b1749bc399f2b9d092b8992a52b360"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lights.html#a00b1749bc399f2b9d092b8992a52b360">Lights</a> (GLuint &amp;, bool complexSwitch)</td></tr>
+<tr class="memdesc:a00b1749bc399f2b9d092b8992a52b360"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialization constructor.  <a href="#a00b1749bc399f2b9d092b8992a52b360"></a><br/></td></tr>
+<tr class="memitem:aed5713f8069b09349e0f86e27a474d59"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aed5713f8069b09349e0f86e27a474d59"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lights.html#aed5713f8069b09349e0f86e27a474d59">~Lights</a> ()</td></tr>
+<tr class="memdesc:aed5713f8069b09349e0f86e27a474d59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default destructor. <br/></td></tr>
+<tr class="memitem:a5383c1dbc70f74de74cd2b780ef90908"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lights.html#a5383c1dbc70f74de74cd2b780ef90908">addLightSource</a> (const <a class="el" href="class_light_source.html">LightSource</a> &amp;)</td></tr>
+<tr class="memdesc:a5383c1dbc70f74de74cd2b780ef90908"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a light source to the list.  <a href="#a5383c1dbc70f74de74cd2b780ef90908"></a><br/></td></tr>
+<tr class="memitem:a5c1870dad44d2e6cf48b9f8152e10a21"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lights.html#a5c1870dad44d2e6cf48b9f8152e10a21">removeLightSource</a> (const unsigned int)</td></tr>
+<tr class="memdesc:a5c1870dad44d2e6cf48b9f8152e10a21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the u'th element from the list of lights.  <a href="#a5c1870dad44d2e6cf48b9f8152e10a21"></a><br/></td></tr>
+<tr class="memitem:a0640af4479575593544ea68115e40ea5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0640af4479575593544ea68115e40ea5"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lights.html#a0640af4479575593544ea68115e40ea5">removeLastLightSource</a> ()</td></tr>
+<tr class="memdesc:a0640af4479575593544ea68115e40ea5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the last light added to the container. <br/></td></tr>
+<tr class="memitem:aaad7e3eb032a41ff4b60e3d0111d1031"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lights.html#aaad7e3eb032a41ff4b60e3d0111d1031">modifyLightSource</a> (const unsigned int u, const <a class="el" href="class_light_source.html">LightSource</a> &amp;l)</td></tr>
+<tr class="memdesc:aaad7e3eb032a41ff4b60e3d0111d1031"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change an existing light source.  <a href="#aaad7e3eb032a41ff4b60e3d0111d1031"></a><br/></td></tr>
+<tr class="memitem:addf8591af07eae51044c341a8e27959f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lights.html#addf8591af07eae51044c341a8e27959f">init_lights</a> (GLuint &amp;)</td></tr>
+<tr class="memdesc:addf8591af07eae51044c341a8e27959f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes members in the object to link with shader uniform variables.  <a href="#addf8591af07eae51044c341a8e27959f"></a><br/></td></tr>
+<tr class="memitem:ae9b01f6463a6687c5300486878d61043"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae9b01f6463a6687c5300486878d61043"></a>
+unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lights.html#ae9b01f6463a6687c5300486878d61043">getNumLights</a> () const </td></tr>
+<tr class="memdesc:ae9b01f6463a6687c5300486878d61043"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of lights we currently have active. <br/></td></tr>
+<tr class="memitem:ac02fbea7a66a779bbdfa3be5d2b8a8dc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac02fbea7a66a779bbdfa3be5d2b8a8dc"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lights.html#ac02fbea7a66a779bbdfa3be5d2b8a8dc">getComplex</a> () const </td></tr>
+<tr class="memdesc:ac02fbea7a66a779bbdfa3be5d2b8a8dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the lighting mode. <br/></td></tr>
+<tr class="memitem:ab420d662b1c8425636e711d947614b15"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lights.html#ab420d662b1c8425636e711d947614b15">sendAll</a> ()</td></tr>
+<tr class="memdesc:ab420d662b1c8425636e711d947614b15"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function call updates all the lighting arrays in the shader.  <a href="#ab420d662b1c8425636e711d947614b15"></a><br/></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:a902e37f0512d3bf9771472fe564bdac1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a902e37f0512d3bf9771472fe564bdac1"></a>
 vector&lt; <a class="el" href="class_light_source.html">LightSource</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>theLights</b></td></tr>
+<tr class="memitem:ad0f2d47f1de042ecbd83b70662e48245"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad0f2d47f1de042ecbd83b70662e48245"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>ambient</b> [MAX_LIGHTS *3]</td></tr>
+<tr class="memitem:ac4f62eef960d636cab994b47f184b98a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac4f62eef960d636cab994b47f184b98a"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>diffuse</b> [MAX_LIGHTS *3]</td></tr>
+<tr class="memitem:a2d946118ffd51b769a205bb57d614d8f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2d946118ffd51b769a205bb57d614d8f"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>specular</b> [MAX_LIGHTS *3]</td></tr>
+<tr class="memitem:afd97d2f8d29109ed6f5ce91fd2597590"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afd97d2f8d29109ed6f5ce91fd2597590"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>color</b> [MAX_LIGHTS *3]</td></tr>
+<tr class="memitem:ad4a7fd9b32f053f20763ff848056a771"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad4a7fd9b32f053f20763ff848056a771"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>position</b> [MAX_LIGHTS *3]</td></tr>
+<tr class="memitem:ae61432466e301a6d2022a60b7a42f18f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae61432466e301a6d2022a60b7a42f18f"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>direction</b> [MAX_LIGHTS *3]</td></tr>
+<tr class="memitem:af218e33519edf70135e4f67387438417"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af218e33519edf70135e4f67387438417"></a>
+GLuint&#160;</td><td class="memItemRight" valign="bottom"><b>g_ambient</b></td></tr>
+<tr class="memitem:aebfc32c653fd56af4e9181453b51bcc9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aebfc32c653fd56af4e9181453b51bcc9"></a>
+GLuint&#160;</td><td class="memItemRight" valign="bottom"><b>g_diffuse</b></td></tr>
+<tr class="memitem:a877a8c42205f92aa1f9d560a2d26920d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a877a8c42205f92aa1f9d560a2d26920d"></a>
+GLuint&#160;</td><td class="memItemRight" valign="bottom"><b>g_specular</b></td></tr>
+<tr class="memitem:a828207c65b87e5d746cab65dce2ca625"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a828207c65b87e5d746cab65dce2ca625"></a>
+GLuint&#160;</td><td class="memItemRight" valign="bottom"><b>g_color</b></td></tr>
+<tr class="memitem:a2fc6d74f5eaf0375c4f3c747e9eaa275"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2fc6d74f5eaf0375c4f3c747e9eaa275"></a>
+GLuint&#160;</td><td class="memItemRight" valign="bottom"><b>g_position</b></td></tr>
+<tr class="memitem:a031590d656ed1b9c943c46246a71e6ff"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a031590d656ed1b9c943c46246a71e6ff"></a>
+GLuint&#160;</td><td class="memItemRight" valign="bottom"><b>g_direction</b></td></tr>
+<tr class="memitem:a82f8c4db3ffa1a38077fa2c8f0a8f683"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a82f8c4db3ffa1a38077fa2c8f0a8f683"></a>
+GLuint&#160;</td><td class="memItemRight" valign="bottom"><b>g_numLights</b></td></tr>
+<tr class="memitem:a040252bb7d61b193446767c2a7ef3f3e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a040252bb7d61b193446767c2a7ef3f3e"></a>
+const bool&#160;</td><td class="memItemRight" valign="bottom"><b>complexSwitch</b></td></tr>
 </table>
 <a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock">
-<p>Definition at line <a class="el" href="_light_source_8hpp_source.html#l00074">74</a> of file <a class="el" href="_light_source_8hpp_source.html">LightSource.hpp</a>.</p>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="_light_source_8hpp_source.html">LightSource.hpp</a></li>
+<p>Definition at line <a class="el" href="_lights_8hpp_source.html#l00039">39</a> of file <a class="el" href="_lights_8hpp_source.html">Lights.hpp</a>.</p>
+</div><h2>Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="a00b1749bc399f2b9d092b8992a52b360"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Lights::Lights </td>
+          <td>(</td>
+          <td class="paramtype">GLuint &amp;&#160;</td>
+          <td class="paramname"><em>g_program</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>cSwitch</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialization constructor. </p>
+<p>This constructor allows the implementor to forego a call to <a class="el" href="class_lights.html#addf8591af07eae51044c341a8e27959f" title="Initializes members in the object to link with shader uniform variables.">init_lights()</a>; If you can use this one, please do! </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">g_program</td><td>A program object that we can link our arrays with. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="_lights_8cpp_source.html#l00044">44</a> of file <a class="el" href="_lights_8cpp_source.html">Lights.cpp</a>.</p>
+
+</div>
+</div>
+<h2>Member Function Documentation</h2>
+<a class="anchor" id="a5383c1dbc70f74de74cd2b780ef90908"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Lights::addLightSource </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_light_source.html">LightSource</a> &amp;&#160;</td>
+          <td class="paramname"><em>l</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Add a light source to the list. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">l</td><td>light source to add to the list. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="_lights_8cpp_source.html#l00109">109</a> of file <a class="el" href="_lights_8cpp_source.html">Lights.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="addf8591af07eae51044c341a8e27959f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Lights::init_lights </td>
+          <td>(</td>
+          <td class="paramtype">GLuint &amp;&#160;</td>
+          <td class="paramname"><em>g_program</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializes members in the object to link with shader uniform variables. </p>
+<p>IF YOU DON'T USE THE INITILIZATION CONSTRUCTOR, THIS MUST BE CALLED BEFORE TRYING TO CALL <a class="el" href="class_lights.html#ab420d662b1c8425636e711d947614b15" title="This function call updates all the lighting arrays in the shader.">sendAll()</a>; </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">g_program</td><td>A gl program to use for linking with the shader. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="_lights_8cpp_source.html#l00137">137</a> of file <a class="el" href="_lights_8cpp_source.html">Lights.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aaad7e3eb032a41ff4b60e3d0111d1031"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Lights::modifyLightSource </td>
+          <td>(</td>
+          <td class="paramtype">const unsigned int&#160;</td>
+          <td class="paramname"><em>u</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_light_source.html">LightSource</a> &amp;&#160;</td>
+          <td class="paramname"><em>l</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Change an existing light source. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">u</td><td>ONE INDEXED index to select a light source. </td></tr>
+    <tr><td class="paramname">l</td><td>light source to replace the existing light with. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="_lights_8cpp_source.html#l00120">120</a> of file <a class="el" href="_lights_8cpp_source.html">Lights.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5c1870dad44d2e6cf48b9f8152e10a21"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Lights::removeLightSource </td>
+          <td>(</td>
+          <td class="paramtype">const unsigned int&#160;</td>
+          <td class="paramname"><em>u</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Removes the u'th element from the list of lights. </p>
+<p>This function is 1-indexed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">u</td><td>the index of the light to remove. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="_lights_8cpp_source.html#l00087">87</a> of file <a class="el" href="_lights_8cpp_source.html">Lights.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab420d662b1c8425636e711d947614b15"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Lights::sendAll </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function call updates all the lighting arrays in the shader. </p>
+<p>If you make any changes to the lighting, you must call this function again. In fact, it probably belongs in your glutRedisplay() callback. </p>
+
+<p>Definition at line <a class="el" href="_lights_8cpp_source.html#l00177">177</a> of file <a class="el" href="_lights_8cpp_source.html">Lights.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li><a class="el" href="_lights_8hpp_source.html">Lights.hpp</a></li>
+<li><a class="el" href="_lights_8cpp_source.html">Lights.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -137,7 +363,7 @@ vector&lt; <a class="el" href="class_light_source.html">LightSource</a> &gt;&#16
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="class_lights.html">Lights</a></li>
-    <li class="footer">Generated on Sun Dec 9 2012 17:14:28 for OpenGL Flythrough by
+    <li class="footer">Generated on Tue Dec 18 2012 01:46:34 for OpenGL Flythrough by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.1.2 </li>
   </ul>

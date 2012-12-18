@@ -133,24 +133,31 @@ $(document).ready(function(){initNavTree('_timer_8cpp_source.html','');});
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#ifdef _RT</span></div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor"></span>  clock_gettime( CLOCK_REALTIME, &amp;_T2 );</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  this-&gt;delta = (_T2.tv_nsec - _T1.tv_nsec) + (SecToNSec * (_T2.tv_sec - _T1.tv_sec));</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor"></span>  gettimeofday( &amp;_T2, NULL );</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  this-&gt;delta = (_T2.tv_usec - _T1.tv_usec) + (SecTouSec * (_T2.tv_sec - _T1.tv_sec));</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor"></span>  _T1 = _T2;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <span class="keywordflow">return</span> delta;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;}</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
-<div class="line"><a name="l00056"></a><span class="lineno"><a class="code" href="class_timer.html#a4f68da5b62cb1d1b2dd0c8549eb6286d">   56</a></span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <a class="code" href="class_timer.html#a4f68da5b62cb1d1b2dd0c8549eb6286d" title="Delta returns the time elapsed between the last Tick and the last Tock.">Timer::Delta</a>( <span class="keywordtype">void</span> )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <span class="keywordflow">return</span> delta;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;}</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  this-&gt;scale = (this-&gt;delta / (KeyFrameRate * 1000))</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor"></span>  gettimeofday( &amp;_T2, NULL );</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  this-&gt;delta = (_T2.tv_usec - _T1.tv_usec) + (SecTouSec * (_T2.tv_sec - _T1.tv_sec));</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  this-&gt;scale = (this-&gt;delta / KeyFrameRate);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor"></span>  _T1 = _T2;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="keywordflow">return</span> delta;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="code" href="class_timer.html#a4f68da5b62cb1d1b2dd0c8549eb6286d">   58</a></span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <a class="code" href="class_timer.html#a4f68da5b62cb1d1b2dd0c8549eb6286d" title="Delta returns the time elapsed between the last Tick and the last Tock.">Timer::Delta</a>( <span class="keywordtype">void</span> )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <span class="keywordflow">return</span> delta;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;}</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="code" href="class_timer.html#a25ed035b0da5b177050c922660acf864">   72</a></span>&#160;<span class="keywordtype">double</span> <a class="code" href="class_timer.html#a25ed035b0da5b177050c922660acf864" title="Scale returns the relative lateness or eagerness of the Timer, Relative to a benchmark or Key Frame R...">Timer::Scale</a>( <span class="keywordtype">void</span> )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <span class="keywordflow">return</span> scale;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_5c8cbb32c33392d7aefdbb31b9e0adb9.html">master</a></li><li class="navelem"><a class="el" href="dir_23a39d27a3cef7e55a56bc870bc74228.html">Classes</a></li><li class="navelem"><b>Timer.cpp</b></li>
-    <li class="footer">Generated on Sun Dec 9 2012 17:14:26 for OpenGL Flythrough by
+    <li class="navelem"><a class="el" href="dir_198e610de5e1ceb82c8cf341201db1a3.html">master</a></li><li class="navelem"><a class="el" href="dir_9f805c6b079a88151d841773df404e20.html">Classes</a></li><li class="navelem"><b>Timer.cpp</b></li>
+    <li class="footer">Generated on Tue Dec 18 2012 01:46:33 for OpenGL Flythrough by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.1.2 </li>
   </ul>

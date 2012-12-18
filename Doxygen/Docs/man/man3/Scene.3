@@ -1,4 +1,4 @@
-.TH "Scene" 3 "Sun Dec 9 2012" "Version 9001" "OpenGL Flythrough" \" -*- nroff -*-
+.TH "Scene" 3 "Tue Dec 18 2012" "Version 9001" "OpenGL Flythrough" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -6,6 +6,8 @@ Scene \-
 .SH SYNOPSIS
 .br
 .PP
+.PP
+Inherited by \fBCameras\fP, and \fBObject\fP\&.
 .SS "Public Member Functions"
 
 .in +1c
@@ -13,10 +15,13 @@ Scene \-
 .RI "void \fBSetShader\fP (GLuint gShader)"
 .br
 .ti -1c
-.RI "\fBObject\fP * \fBAddObject\fP (std::string objName)"
+.RI "GLuint \fBGetShader\fP (void)"
 .br
 .ti -1c
-.RI "void \fBDelObject\fP (std::string objName)"
+.RI "\fBObject\fP * \fBAddObject\fP (const std::string &objName)"
+.br
+.ti -1c
+.RI "void \fBDelObject\fP (const std::string &objName)"
 .br
 .ti -1c
 .RI "void \fBDelObject\fP (void)"
@@ -24,6 +29,10 @@ Scene \-
 .ti -1c
 .RI "void \fBPopObject\fP (void)"
 .br
+.ti -1c
+.RI "void \fBDestroyObject\fP (void)"
+.br
+.RI "\fICompletely remove this object and all his children\&. \fP"
 .ti -1c
 .RI "\fBObject\fP * \fBNext\fP (void)"
 .br
@@ -36,29 +45,35 @@ Scene \-
 .ti -1c
 .RI "void \fBDraw\fP (void)"
 .br
-.in -1c
-.SS "Private Member Functions"
-
-.in +1c
 .ti -1c
-.RI "\fBScene\fP (\fBScene\fP &copy)"
+.RI "\fBObject\fP * \fBoperator[]\fP (const std::string &objname)"
+.br
+.ti -1c
+.RI "\fBScene\fP (const \fBScene\fP &copy)"
 .br
 .ti -1c
 .RI "\fBScene\fP & \fBoperator=\fP (const \fBScene\fP &copy)"
 .br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
 .ti -1c
 .RI "void \fBDeleteObject\fP (\fBObject\fP *obj)"
 .br
 .RI "\fIDeleteObject is the actual implementation function that will remove an \fBObject\fP from the \fBScene\fP list and \fBScene\fP map, then free the object\&. \fP"
+.ti -1c
+.RI "void \fBInsertObject\fP (const std::string name, \fBObject\fP *obj)"
+.br
 .in -1c
-.SS "Private Attributes"
+.SS "Protected Attributes"
 
 .in +1c
 .ti -1c
-.RI "std::map< std::string, \fBObject\fP * > \fBmap\fP"
+.RI "std::list< \fBObject\fP * > \fBlist\fP"
 .br
 .ti -1c
-.RI "std::list< \fBObject\fP * > \fBlist\fP"
+.RI "std::map< std::string, \fBObject\fP * > \fBmap\fP"
 .br
 .ti -1c
 .RI "std::list< \fBObject\fP * >::iterator \fBcurrentObj\fP"
@@ -69,10 +84,10 @@ Scene \-
 .in -1c
 .SH "Detailed Description"
 .PP 
-Definition at line 8 of file Scene\&.hpp\&.
+Definition at line 13 of file Scene\&.hpp\&.
 .SH "Member Function Documentation"
 .PP 
-.SS "void Scene::DeleteObject (\fBObject\fP *obj)\fC [private]\fP"
+.SS "void Scene::DeleteObject (\fBObject\fP *obj)\fC [protected]\fP"
 
 .PP
 DeleteObject is the actual implementation function that will remove an \fBObject\fP from the \fBScene\fP list and \fBScene\fP map, then free the object\&. \fBParameters:\fP
@@ -82,7 +97,7 @@ DeleteObject is the actual implementation function that will remove an \fBObject
 .PP
 
 .PP
-Definition at line 37 of file Scene\&.cpp\&.
+Definition at line 50 of file Scene\&.cpp\&.
 
 .SH "Author"
 .PP 

@@ -9,7 +9,9 @@ This is a derivative of our main project file, \hyperlink{fly_8cpp}{fly.\-cpp}.
 {\ttfamily \#include \char`\"{}globals.\-h\char`\"{}}\\*
 {\ttfamily \#include $<$cmath$>$}\\*
 {\ttfamily \#include $<$cstdio$>$}\\*
+{\ttfamily \#include $<$sstream$>$}\\*
 {\ttfamily \#include $<$cstdlib$>$}\\*
+{\ttfamily \#include $<$time.\-h$>$}\\*
 {\ttfamily \#include \char`\"{}platform.\-h\char`\"{}}\\*
 {\ttfamily \#include \char`\"{}vec.\-hpp\char`\"{}}\\*
 {\ttfamily \#include \char`\"{}mat.\-hpp\char`\"{}}\\*
@@ -21,6 +23,7 @@ This is a derivative of our main project file, \hyperlink{fly_8cpp}{fly.\-cpp}.
 {\ttfamily \#include \char`\"{}Object.\-hpp\char`\"{}}\\*
 {\ttfamily \#include \char`\"{}Timer.\-hpp\char`\"{}}\\*
 {\ttfamily \#include \char`\"{}Scene.\-hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Open\-G\-L.\-h\char`\"{}}\\*
 \subsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
@@ -30,13 +33,26 @@ This is a derivative of our main project file, \hyperlink{fly_8cpp}{fly.\-cpp}.
 \hypertarget{terrain_8cpp_acd96474ea1ee15dc164c05371abfd25b}{typedef \hyperlink{struct_angel_1_1vec4}{Angel\-::vec4} {\bfseries point4}}\label{terrain_8cpp_acd96474ea1ee15dc164c05371abfd25b}
 
 \end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum {\bfseries T\-S\-T\-A\-T\-E} \{ {\bfseries S\-H\-R\-I\-N\-K\-I\-N\-G}, 
+{\bfseries T\-R\-A\-N\-S\-I\-T\-I\-O\-N\-I\-N\-G}, 
+{\bfseries G\-R\-O\-W\-I\-N\-G}, 
+{\bfseries D\-O\-N\-E}
+ \}
+\end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{terrain_8cpp_add81313f7abf44642aca53d9670bb57c}{void {\bfseries camera\-Init} (\hyperlink{class_camera}{Camera} \&cam)}\label{terrain_8cpp_add81313f7abf44642aca53d9670bb57c}
+\hypertarget{terrain_8cpp_a43d76d6460eea14cbfac57f649c4ccc9}{void {\bfseries randomize\-\_\-terrain} ()}\label{terrain_8cpp_a43d76d6460eea14cbfac57f649c4ccc9}
 
 \item 
-void \hyperlink{terrain_8cpp_a02fd73d861ef2e4aabb38c0c9ff82947}{init} ()
+\hypertarget{terrain_8cpp_a02fd73d861ef2e4aabb38c0c9ff82947}{void {\bfseries init} ()}\label{terrain_8cpp_a02fd73d861ef2e4aabb38c0c9ff82947}
+
+\item 
+\hypertarget{terrain_8cpp_aeb94fbd457627182ceee7e505f432541}{void {\bfseries cleanup} (void)}\label{terrain_8cpp_aeb94fbd457627182ceee7e505f432541}
+
 \item 
 void \hyperlink{terrain_8cpp_af3c12d5391e754508338373c5071b2ed}{display\-Viewport} (void)
 \begin{DoxyCompactList}\small\item\em A function that takes no arguments. \end{DoxyCompactList}\item 
@@ -44,6 +60,9 @@ void \hyperlink{terrain_8cpp_af3c12d5391e754508338373c5071b2ed}{display\-Viewpor
 
 \item 
 \hypertarget{terrain_8cpp_a254e97178a2df1da3e435a01f778e475}{void {\bfseries keylift} (unsigned char key, int x, int y)}\label{terrain_8cpp_a254e97178a2df1da3e435a01f778e475}
+
+\item 
+\hypertarget{terrain_8cpp_a57454f9c62adf95e9fa9fbb9a3900712}{void {\bfseries Make\-Flat\-To\-Regular} (\hyperlink{class_trans_cache}{Trans\-Cache} \&obj)}\label{terrain_8cpp_a57454f9c62adf95e9fa9fbb9a3900712}
 
 \item 
 \hypertarget{terrain_8cpp_aef7ba2f69afb2d954545f64c7fe24b14}{void {\bfseries keyboard} (unsigned char key, int x, int y)}\label{terrain_8cpp_aef7ba2f69afb2d954545f64c7fe24b14}
@@ -58,13 +77,28 @@ void \hyperlink{terrain_8cpp_af3c12d5391e754508338373c5071b2ed}{display\-Viewpor
 \hypertarget{terrain_8cpp_ad373689e6b9dcfe1b99692b43a759d40}{void {\bfseries mouseroll} (int x, int y)}\label{terrain_8cpp_ad373689e6b9dcfe1b99692b43a759d40}
 
 \item 
+\hypertarget{terrain_8cpp_a3db6770b4d2fa9a7566e01c68880d49c}{void {\bfseries wiilook} (\hyperlink{class_camera}{Camera} \&Wii\-Camera, const \hyperlink{struct_angel_1_1vec3}{Angel\-::vec3} \&New\-Theta, const \hyperlink{struct_angel_1_1vec3}{Angel\-::vec3} \&Movement\-Rates)}\label{terrain_8cpp_a3db6770b4d2fa9a7566e01c68880d49c}
+
+\item 
 \hypertarget{terrain_8cpp_af04567427614c77718ed14b8450a3438}{void {\bfseries mouselook} (int x, int y)}\label{terrain_8cpp_af04567427614c77718ed14b8450a3438}
 
 \item 
 \hypertarget{terrain_8cpp_ace248343c050c709b645c42012d68f18}{void {\bfseries resize\-Event} (int width, int height)}\label{terrain_8cpp_ace248343c050c709b645c42012d68f18}
 
 \item 
+\hypertarget{terrain_8cpp_ac3134fe01754f597b75b29b29523cde7}{void {\bfseries simple\-Rotate\-Y} (\hyperlink{class_trans_cache}{Trans\-Cache} \&obj)}\label{terrain_8cpp_ac3134fe01754f597b75b29b29523cde7}
+
+\item 
+\hypertarget{terrain_8cpp_a15a9a530111780e1374765468f99b92e}{void {\bfseries simple\-Rotate\-Anim} (\hyperlink{class_trans_cache}{Trans\-Cache} \&obj)}\label{terrain_8cpp_a15a9a530111780e1374765468f99b92e}
+
+\item 
+\hypertarget{terrain_8cpp_ab42e9609dfaf48294321a6b821095be9}{void {\bfseries animation\-Test} (\hyperlink{class_trans_cache}{Trans\-Cache} \&obj)}\label{terrain_8cpp_ab42e9609dfaf48294321a6b821095be9}
+
+\item 
 \hypertarget{terrain_8cpp_a01131b63acf241e9db91704d89ce15d2}{void {\bfseries idle} (void)}\label{terrain_8cpp_a01131b63acf241e9db91704d89ce15d2}
+
+\item 
+\hypertarget{terrain_8cpp_af6531069cfd120c9bc890b2c187b6917}{void {\bfseries menufunc} (int value)}\label{terrain_8cpp_af6531069cfd120c9bc890b2c187b6917}
 
 \item 
 \hypertarget{terrain_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{int {\bfseries main} (int argc, char $\ast$$\ast$argv)}\label{terrain_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}
@@ -80,6 +114,26 @@ void \hyperlink{terrain_8cpp_af3c12d5391e754508338373c5071b2ed}{display\-Viewpor
 
 \item 
 \hypertarget{terrain_8cpp_a7ed35d06b42fcb55510b57a1eec2d949}{G\-Luint {\bfseries g\-Shader}}\label{terrain_8cpp_a7ed35d06b42fcb55510b57a1eec2d949}
+
+\item 
+\hypertarget{terrain_8cpp_a946fc27ea65fd5ba1802d20e5f1ea167}{bool {\bfseries fixed\-\_\-yaw} = true}\label{terrain_8cpp_a946fc27ea65fd5ba1802d20e5f1ea167}
+
+\item 
+const char $\ast$ {\bfseries terrain\-Tex} \mbox{[}$\,$\mbox{]}
+\item 
+\hypertarget{terrain_8cpp_a0bdfb46dafe8d32de1973994ec5349e0}{T\-S\-T\-A\-T\-E {\bfseries terrain\-State} = D\-O\-N\-E}\label{terrain_8cpp_a0bdfb46dafe8d32de1973994ec5349e0}
+
+\item 
+\hypertarget{terrain_8cpp_af584a969caa5b22fa5a7b6a0cc1af88f}{bool {\bfseries switching\-Terrain} = false}\label{terrain_8cpp_af584a969caa5b22fa5a7b6a0cc1af88f}
+
+\item 
+\hypertarget{terrain_8cpp_af75d2874430bb93e357149ed10e36950}{float {\bfseries Current\-Scale} = 0.\-0}\label{terrain_8cpp_af75d2874430bb93e357149ed10e36950}
+
+\item 
+\hypertarget{terrain_8cpp_abf93e1e5ae2f6baff49c75741529f033}{float \hyperlink{terrain_8cpp_abf93e1e5ae2f6baff49c75741529f033}{height\-Scale} = 0.\-0}\label{terrain_8cpp_abf93e1e5ae2f6baff49c75741529f033}
+
+\begin{DoxyCompactList}\small\item\em hackity hack hack hackey doo! \end{DoxyCompactList}\item 
+\hypertarget{terrain_8cpp_ae1114139c8bdb00ddef13127a2fe5b8b}{float {\bfseries ticker} = 0.\-0}\label{terrain_8cpp_ae1114139c8bdb00ddef13127a2fe5b8b}
 
 \end{DoxyCompactItemize}
 
@@ -111,16 +165,25 @@ A function that takes no arguments.
 
 Is responsible for drawing a S\-I\-N\-G\-L\-E V\-I\-E\-W\-P\-O\-R\-T. 
 
-Definition at line 99 of file terrain.\-cpp.
+Definition at line 198 of file terrain.\-cpp.
 
-\hypertarget{terrain_8cpp_a02fd73d861ef2e4aabb38c0c9ff82947}{\index{terrain.\-cpp@{terrain.\-cpp}!init@{init}}
-\index{init@{init}!terrain.cpp@{terrain.\-cpp}}
-\subsubsection[{init}]{\setlength{\rightskip}{0pt plus 5cm}void init (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}}\label{terrain_8cpp_a02fd73d861ef2e4aabb38c0c9ff82947}
-Fill points\mbox{[}...\mbox{]} with terrain map 
+
+
+\subsection{Variable Documentation}
+\hypertarget{terrain_8cpp_abc581addfa7e463bdc14d275fe30f412}{\index{terrain.\-cpp@{terrain.\-cpp}!terrain\-Tex@{terrain\-Tex}}
+\index{terrain\-Tex@{terrain\-Tex}!terrain.cpp@{terrain.\-cpp}}
+\subsubsection[{terrain\-Tex}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ terrain\-Tex\mbox{[}$\,$\mbox{]}}}\label{terrain_8cpp_abc581addfa7e463bdc14d275fe30f412}
+{\bfseries Initial value\-:}
+\begin{DoxyCode}
+ \{
+  \textcolor{stringliteral}{"../Textures/GoodTextures\_0013423.jpg"},  
+  \textcolor{stringliteral}{"../Textures/GoodTextures\_0013779.jpg"},  
+  \textcolor{stringliteral}{"../Textures/GrassGreenTexture0002.jpg"}, 
+  \textcolor{stringliteral}{"../Textures/GoodTextures\_0013418.jpg"},  
+  \textcolor{stringliteral}{"../Textures/GoodTextures\_0013291.jpg"}   
+\}
+\end{DoxyCode}
+
 
 Definition at line 60 of file terrain.\-cpp.
 

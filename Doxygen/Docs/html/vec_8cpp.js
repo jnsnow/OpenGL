@@ -19,5 +19,6 @@ var vec_8cpp =
     [ "operator<<", "vec_8cpp.html#a29cb0f905618ce5a191c8ec103c4deda", null ],
     [ "operator>>", "vec_8cpp.html#a723fb3d4b2fad6e37bf95657feddc1ea", null ],
     [ "operator>>", "vec_8cpp.html#a591583b8d846d4183049b216cf6ef37e", null ],
-    [ "operator>>", "vec_8cpp.html#a9134403ccd5cc5f8d2079bec7cda8042", null ]
+    [ "operator>>", "vec_8cpp.html#a9134403ccd5cc5f8d2079bec7cda8042", null ],
+    [ "XYZ", "vec_8cpp.html#aef3c2f733aa65cf66728d7dedc2fae6b", null ]
 ];

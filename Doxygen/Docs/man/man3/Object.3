@@ -1,4 +1,4 @@
-.TH "Object" 3 "Sun Dec 9 2012" "Version 9001" "OpenGL Flythrough" \" -*- nroff -*-
+.TH "Object" 3 "Tue Dec 18 2012" "Version 9001" "OpenGL Flythrough" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -6,11 +6,28 @@ Object \-
 .SH SYNOPSIS
 .br
 .PP
+.PP
+Inherits \fBScene\fP\&.
+.PP
+Inherited by \fBCamera\fP\&.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBUniforms\fP { \fBBegin\fP, \fBIsTextured\fP =  Begin, \fBObjectCTM\fP, \fBEnd\fP }"
+.br
+.ti -1c
+.RI "typedef const unsigned int \fBUniformEnum\fP"
+.br
+.ti -1c
+.RI "typedef enum Object::Uniforms \fBUniform\fP"
+.br
+.in -1c
 .SS "Public Member Functions"
 
 .in +1c
 .ti -1c
-.RI "\fBObject\fP (const std::string &name, GLuint gShader)"
+.RI "\fBObject\fP (const std::string &\fBname\fP, GLuint gShader)"
 .br
 .ti -1c
 .RI "void \fBDraw\fP (void)"
@@ -22,7 +39,56 @@ Object \-
 .RI "void \fBMode\fP (GLenum new_node)"
 .br
 .ti -1c
+.RI "void \fBTexture\fP (const char **filename)"
+.br
+.ti -1c
 .RI "const std::string & \fBName\fP (void) const "
+.br
+.ti -1c
+.RI "virtual void \fBLink\fP (UniformEnum which, const std::string &\fBname\fP)"
+.br
+.ti -1c
+.RI "virtual void \fBSend\fP (UniformEnum which)"
+.br
+.ti -1c
+.RI "void \fBAnimation\fP (void(*anim_func)(\fBTransCache\fP &arg))"
+.br
+.ti -1c
+.RI "void \fBPropegate\fP (void)"
+.br
+.ti -1c
+.RI "void \fBSetShader\fP (GLuint gShader)"
+.br
+.ti -1c
+.RI "GLuint \fBGetShader\fP (void)"
+.br
+.ti -1c
+.RI "\fBObject\fP * \fBAddObject\fP (const std::string &objName)"
+.br
+.ti -1c
+.RI "void \fBDelObject\fP (const std::string &objName)"
+.br
+.ti -1c
+.RI "void \fBDelObject\fP (void)"
+.br
+.ti -1c
+.RI "void \fBPopObject\fP (void)"
+.br
+.ti -1c
+.RI "void \fBDestroyObject\fP (void)"
+.br
+.RI "\fICompletely remove this object and all his children\&. \fP"
+.ti -1c
+.RI "\fBObject\fP * \fBNext\fP (void)"
+.br
+.ti -1c
+.RI "\fBObject\fP * \fBPrev\fP (void)"
+.br
+.ti -1c
+.RI "\fBObject\fP * \fBActive\fP (void)"
+.br
+.ti -1c
+.RI "\fBObject\fP * \fBoperator[]\fP (const std::string &objname)"
 .br
 .in -1c
 .SS "Public Attributes"
@@ -43,6 +109,25 @@ Object \-
 .ti -1c
 .RI "std::vector< \fBAngel::vec2\fP > \fBtexcoords\fP"
 .br
+.ti -1c
+.RI "\fBTransCache\fP \fBtrans\fP"
+.br
+.RI "\fI\fBTransformation\fP State\&. \fP"
+.ti -1c
+.RI "std::vector< GLint > \fBhandles\fP"
+.br
+.RI "\fIHandles to Uniforms on the shader\&. \fP"
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBDeleteObject\fP (\fBObject\fP *obj)"
+.br
+.RI "\fIDeleteObject is the actual implementation function that will remove an \fBObject\fP from the \fBScene\fP list and \fBScene\fP map, then free the object\&. \fP"
+.ti -1c
+.RI "void \fBInsertObject\fP (const std::string \fBname\fP, \fBObject\fP *obj)"
+.br
 .in -1c
 .SS "Protected Attributes"
 
@@ -50,23 +135,33 @@ Object \-
 .ti -1c
 .RI "std::string \fBname\fP"
 .br
+.RI "\fIname is used as an identifying handle for the object\&. \fP"
 .ti -1c
 .RI "GLuint \fBvao\fP"
 .br
+.RI "\fIVertex Array \fBObject\fP handle identifying our buffers/object\&. \fP"
 .ti -1c
 .RI "GLuint \fBbuffer\fP [5]"
 .br
+.RI "\fIHandles to our five buffers\&. \fP"
 .ti -1c
 .RI "GLenum \fBdraw_mode\fP"
 .br
+.RI "\fIDrawing mode for this object\&. \fP"
+.ti -1c
+.RI "bool \fBisTextured\fP"
+.br
+.ti -1c
+.RI "std::list< \fBObject\fP * > \fBlist\fP"
+.br
+.ti -1c
+.RI "std::map< std::string, \fBObject\fP * > \fBmap\fP"
+.br
+.ti -1c
+.RI "std::list< \fBObject\fP * >::iterator \fBcurrentObj\fP"
+.br
 .ti -1c
 .RI "GLuint \fBgShader\fP"
-.br
-.ti -1c
-.RI "\fBAngel::mat4\fP \fBCTM\fP"
-.br
-.ti -1c
-.RI "std::vector< \fBObject\fP > \fBchildren\fP"
 .br
 .in -1c
 .SS "Private Types"
@@ -78,7 +173,46 @@ Object \-
 .in -1c
 .SH "Detailed Description"
 .PP 
-Definition at line 10 of file Object\&.hpp\&.
+Definition at line 12 of file Object\&.hpp\&.
+.SH "Member Function Documentation"
+.PP 
+.SS "void Scene::DeleteObject (\fBObject\fP *obj)\fC [protected]\fP, \fC [inherited]\fP"
+
+.PP
+DeleteObject is the actual implementation function that will remove an \fBObject\fP from the \fBScene\fP list and \fBScene\fP map, then free the object\&. \fBParameters:\fP
+.RS 4
+\fIobj\fP The pointer to the object to free\&. 
+.RE
+.PP
+
+.PP
+Definition at line 50 of file Scene\&.cpp\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "GLenum Object::draw_mode\fC [protected]\fP"
+
+.PP
+Drawing mode for this object\&. GL_TRIANGLES, GL_LINE_LOOP, etc\&. 
+.PP
+Definition at line 76 of file Object\&.hpp\&.
+.SS "std::vector< GLint > Object::handles"
+
+.PP
+Handles to Uniforms on the shader\&. Private to allow derived classes to extend it as needed\&. 
+.PP
+Definition at line 63 of file Object\&.hpp\&.
+.SS "std::string Object::name\fC [protected]\fP"
+
+.PP
+name is used as an identifying handle for the object\&. 
+.PP
+Definition at line 67 of file Object\&.hpp\&.
+.SS "GLuint Object::vao\fC [protected]\fP"
+
+.PP
+Vertex Array \fBObject\fP handle identifying our buffers/object\&. 
+.PP
+Definition at line 70 of file Object\&.hpp\&.
 
 .SH "Author"
 .PP 

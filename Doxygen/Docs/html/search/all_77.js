@@ -3,7 +3,6 @@ var searchData=
   ['wiic',['WiiC',['../index.html',1,'']]],
   ['wait',['wait',['../structread__req__t.html#aa0e807ee1e193efc139b48c2acd8bdf7',1,'read_req_t']]],
   ['whammy_5fbar',['whammy_bar',['../structguitar__hero__3__t.html#a600aeec0929ee91d57d4685d79876942',1,'guitar_hero_3_t']]],
-  ['width',['width',['../class_camera.html#ad49d7cc9d3e2f90332702cf67f1d5357',1,'Camera']]],
   ['wiic_2ec',['wiic.c',['../wiic_8c.html',1,'']]],
   ['wiic_2eh',['wiic.h',['../wiic_8h.html',1,'']]],
   ['wiic_5fcalibrate_5fmotion_5fplus',['wiic_calibrate_motion_plus',['../motionplus_8c.html#ac5925b11d4c0677ad74a7fd7a179cd6f',1,'wiic_calibrate_motion_plus(struct motion_plus_t *mp):&#160;motionplus.c'],['../wiic__functions_8h.html#acaa58729490323c90acee8c00d8350ca',1,'wiic_calibrate_motion_plus(struct motion_plus_t *mp):&#160;motionplus.c']]],
@@ -58,5 +57,6 @@ var searchData=
   ['wiimote_5fstate_5fspeaker_5fmute',['WIIMOTE_STATE_SPEAKER_MUTE',['../wiic__macros_8h.html#af69a9d936a37a132f2b552ee2d53808d',1,'wiic_macros.h']]],
   ['wiimote_5fstate_5ft',['wiimote_state_t',['../structwiimote__state__t.html',1,'']]],
   ['wiimote_5ft',['wiimote_t',['../structwiimote__t.html',1,'']]],
+  ['wiipolldata',['wiiPollData',['../structwii_poll_data.html',1,'']]],
   ['wiisearch',['WiiSearch',['../interface_wii_search.html',1,'']]]
 ];

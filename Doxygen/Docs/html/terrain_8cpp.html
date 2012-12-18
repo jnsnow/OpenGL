@@ -102,6 +102,7 @@ $(document).ready(function(){initNavTree('terrain_8cpp.html','');});
 <div class="header">
   <div class="summary">
 <a href="#typedef-members">Typedefs</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
@@ -114,7 +115,9 @@ $(document).ready(function(){initNavTree('terrain_8cpp.html','');});
 <div class="textblock"><code>#include &quot;globals.h&quot;</code><br/>
 <code>#include &lt;cmath&gt;</code><br/>
 <code>#include &lt;cstdio&gt;</code><br/>
+<code>#include &lt;sstream&gt;</code><br/>
 <code>#include &lt;cstdlib&gt;</code><br/>
+<code>#include &lt;time.h&gt;</code><br/>
 <code>#include &quot;platform.h&quot;</code><br/>
 <code>#include &quot;vec.hpp&quot;</code><br/>
 <code>#include &quot;mat.hpp&quot;</code><br/>
@@ -126,6 +129,7 @@ $(document).ready(function(){initNavTree('terrain_8cpp.html','');});
 <code>#include &quot;Object.hpp&quot;</code><br/>
 <code>#include &quot;Timer.hpp&quot;</code><br/>
 <code>#include &quot;Scene.hpp&quot;</code><br/>
+<code>#include &quot;OpenGL.h&quot;</code><br/>
 </div>
 <p><a href="terrain_8cpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -136,17 +140,30 @@ typedef <a class="el" href="struct_angel_1_1vec4.html">Angel::vec4</a>&#160;</td
 <tr class="memitem:acd96474ea1ee15dc164c05371abfd25b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acd96474ea1ee15dc164c05371abfd25b"></a>
 typedef <a class="el" href="struct_angel_1_1vec4.html">Angel::vec4</a>&#160;</td><td class="memItemRight" valign="bottom"><b>point4</b></td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a92a4ba8dea17e206311d2bc97c610f64"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><b>TSTATE</b> { <b>SHRINKING</b>, 
+<b>TRANSITIONING</b>, 
+<b>GROWING</b>, 
+<b>DONE</b>
+ }</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:add81313f7abf44642aca53d9670bb57c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="add81313f7abf44642aca53d9670bb57c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>cameraInit</b> (<a class="el" href="class_camera.html">Camera</a> &amp;cam)</td></tr>
-<tr class="memitem:a02fd73d861ef2e4aabb38c0c9ff82947"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="terrain_8cpp.html#a02fd73d861ef2e4aabb38c0c9ff82947">init</a> ()</td></tr>
+<tr class="memitem:a43d76d6460eea14cbfac57f649c4ccc9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a43d76d6460eea14cbfac57f649c4ccc9"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>randomize_terrain</b> ()</td></tr>
+<tr class="memitem:a02fd73d861ef2e4aabb38c0c9ff82947"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a02fd73d861ef2e4aabb38c0c9ff82947"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> ()</td></tr>
+<tr class="memitem:aeb94fbd457627182ceee7e505f432541"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aeb94fbd457627182ceee7e505f432541"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>cleanup</b> (void)</td></tr>
 <tr class="memitem:af3c12d5391e754508338373c5071b2ed"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="terrain_8cpp.html#af3c12d5391e754508338373c5071b2ed">displayViewport</a> (void)</td></tr>
 <tr class="memdesc:af3c12d5391e754508338373c5071b2ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">A function that takes no arguments.  <a href="#af3c12d5391e754508338373c5071b2ed"></a><br/></td></tr>
 <tr class="memitem:a4ea013001a5fb47853d0fab8f8de35cd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4ea013001a5fb47853d0fab8f8de35cd"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>display</b> (void)</td></tr>
 <tr class="memitem:a254e97178a2df1da3e435a01f778e475"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a254e97178a2df1da3e435a01f778e475"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>keylift</b> (unsigned char key, int x, int y)</td></tr>
+<tr class="memitem:a57454f9c62adf95e9fa9fbb9a3900712"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a57454f9c62adf95e9fa9fbb9a3900712"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>MakeFlatToRegular</b> (<a class="el" href="class_trans_cache.html">TransCache</a> &amp;obj)</td></tr>
 <tr class="memitem:aef7ba2f69afb2d954545f64c7fe24b14"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aef7ba2f69afb2d954545f64c7fe24b14"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>keyboard</b> (unsigned char key, int x, int y)</td></tr>
 <tr class="memitem:a6f3a97ed034be467bc035242d2486e00"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6f3a97ed034be467bc035242d2486e00"></a>
@@ -155,12 +172,22 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>keyboard_ctrl</b> (in
 void&#160;</td><td class="memItemRight" valign="bottom"><b>mouse</b> (int button, int state, int x, int y)</td></tr>
 <tr class="memitem:ad373689e6b9dcfe1b99692b43a759d40"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad373689e6b9dcfe1b99692b43a759d40"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>mouseroll</b> (int x, int y)</td></tr>
+<tr class="memitem:a3db6770b4d2fa9a7566e01c68880d49c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3db6770b4d2fa9a7566e01c68880d49c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>wiilook</b> (<a class="el" href="class_camera.html">Camera</a> &amp;WiiCamera, const <a class="el" href="struct_angel_1_1vec3.html">Angel::vec3</a> &amp;NewTheta, const <a class="el" href="struct_angel_1_1vec3.html">Angel::vec3</a> &amp;MovementRates)</td></tr>
 <tr class="memitem:af04567427614c77718ed14b8450a3438"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af04567427614c77718ed14b8450a3438"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>mouselook</b> (int x, int y)</td></tr>
 <tr class="memitem:ace248343c050c709b645c42012d68f18"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ace248343c050c709b645c42012d68f18"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>resizeEvent</b> (int width, int height)</td></tr>
+<tr class="memitem:ac3134fe01754f597b75b29b29523cde7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac3134fe01754f597b75b29b29523cde7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>simpleRotateY</b> (<a class="el" href="class_trans_cache.html">TransCache</a> &amp;obj)</td></tr>
+<tr class="memitem:a15a9a530111780e1374765468f99b92e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a15a9a530111780e1374765468f99b92e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>simpleRotateAnim</b> (<a class="el" href="class_trans_cache.html">TransCache</a> &amp;obj)</td></tr>
+<tr class="memitem:ab42e9609dfaf48294321a6b821095be9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab42e9609dfaf48294321a6b821095be9"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>animationTest</b> (<a class="el" href="class_trans_cache.html">TransCache</a> &amp;obj)</td></tr>
 <tr class="memitem:a01131b63acf241e9db91704d89ce15d2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a01131b63acf241e9db91704d89ce15d2"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>idle</b> (void)</td></tr>
+<tr class="memitem:af6531069cfd120c9bc890b2c187b6917"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af6531069cfd120c9bc890b2c187b6917"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>menufunc</b> (int value)</td></tr>
 <tr class="memitem:a3c04138a5bfe5d72780bb7e82a18e627"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3c04138a5bfe5d72780bb7e82a18e627"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>main</b> (int argc, char **argv)</td></tr>
 </table><table class="memberdecls">
@@ -172,6 +199,20 @@ Variables</h2></td></tr>
 <a class="el" href="class_scene.html">Scene</a>&#160;</td><td class="memItemRight" valign="bottom"><b>theScene</b></td></tr>
 <tr class="memitem:a7ed35d06b42fcb55510b57a1eec2d949"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7ed35d06b42fcb55510b57a1eec2d949"></a>
 GLuint&#160;</td><td class="memItemRight" valign="bottom"><b>gShader</b></td></tr>
+<tr class="memitem:a946fc27ea65fd5ba1802d20e5f1ea167"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a946fc27ea65fd5ba1802d20e5f1ea167"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>fixed_yaw</b> = true</td></tr>
+<tr class="memitem:abc581addfa7e463bdc14d275fe30f412"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><b>terrainTex</b> []</td></tr>
+<tr class="memitem:a0bdfb46dafe8d32de1973994ec5349e0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0bdfb46dafe8d32de1973994ec5349e0"></a>
+TSTATE&#160;</td><td class="memItemRight" valign="bottom"><b>terrainState</b> = DONE</td></tr>
+<tr class="memitem:af584a969caa5b22fa5a7b6a0cc1af88f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af584a969caa5b22fa5a7b6a0cc1af88f"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>switchingTerrain</b> = false</td></tr>
+<tr class="memitem:af75d2874430bb93e357149ed10e36950"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af75d2874430bb93e357149ed10e36950"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>CurrentScale</b> = 0.0</td></tr>
+<tr class="memitem:abf93e1e5ae2f6baff49c75741529f033"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abf93e1e5ae2f6baff49c75741529f033"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="terrain_8cpp.html#abf93e1e5ae2f6baff49c75741529f033">heightScale</a> = 0.0</td></tr>
+<tr class="memdesc:abf93e1e5ae2f6baff49c75741529f033"><td class="mdescLeft">&#160;</td><td class="mdescRight">hackity hack hack hackey doo! <br/></td></tr>
+<tr class="memitem:ae1114139c8bdb00ddef13127a2fe5b8b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae1114139c8bdb00ddef13127a2fe5b8b"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>ticker</b> = 0.0</td></tr>
 </table>
 <a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>This is a derivative of our main project file, <a class="el" href="fly_8cpp.html" title="This is our main project file, fly.cpp.">fly.cpp</a>. </p>
@@ -198,24 +239,28 @@ GLuint&#160;</td><td class="memItemRight" valign="bottom"><b>gShader</b></td></t
 <p>A function that takes no arguments. </p>
 <p>Is responsible for drawing a SINGLE VIEWPORT. </p>
 
-<p>Definition at line <a class="el" href="terrain_8cpp_source.html#l00099">99</a> of file <a class="el" href="terrain_8cpp_source.html">terrain.cpp</a>.</p>
+<p>Definition at line <a class="el" href="terrain_8cpp_source.html#l00198">198</a> of file <a class="el" href="terrain_8cpp_source.html">terrain.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a02fd73d861ef2e4aabb38c0c9ff82947"></a>
+<h2>Variable Documentation</h2>
+<a class="anchor" id="abc581addfa7e463bdc14d275fe30f412"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void init </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td class="memname">const char* terrainTex[]</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Fill points[...] with terrain map </p>
-
+<b>Initial value:</b><div class="fragment"><div class="line"> {</div>
+<div class="line">  <span class="stringliteral">&quot;../Textures/GoodTextures_0013423.jpg&quot;</span>,  </div>
+<div class="line">  <span class="stringliteral">&quot;../Textures/GoodTextures_0013779.jpg&quot;</span>,  </div>
+<div class="line">  <span class="stringliteral">&quot;../Textures/GrassGreenTexture0002.jpg&quot;</span>, </div>
+<div class="line">  <span class="stringliteral">&quot;../Textures/GoodTextures_0013418.jpg&quot;</span>,  </div>
+<div class="line">  <span class="stringliteral">&quot;../Textures/GoodTextures_0013291.jpg&quot;</span>   </div>
+<div class="line">}</div>
+</div><!-- fragment -->
 <p>Definition at line <a class="el" href="terrain_8cpp_source.html#l00060">60</a> of file <a class="el" href="terrain_8cpp_source.html">terrain.cpp</a>.</p>
 
 </div>
@@ -225,8 +270,8 @@ GLuint&#160;</td><td class="memItemRight" valign="bottom"><b>gShader</b></td></t
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_5c8cbb32c33392d7aefdbb31b9e0adb9.html">master</a></li><li class="navelem"><a class="el" href="dir_4710a7f7b6231f2859dc0413de0fb797.html">Flythrough</a></li><li class="navelem"><a class="el" href="terrain_8cpp.html">terrain.cpp</a></li>
-    <li class="footer">Generated on Sun Dec 9 2012 17:14:26 for OpenGL Flythrough by
+    <li class="navelem"><a class="el" href="dir_198e610de5e1ceb82c8cf341201db1a3.html">master</a></li><li class="navelem"><a class="el" href="dir_c31bd3b7511d4fa4b99802539ff88eac.html">Flythrough</a></li><li class="navelem"><a class="el" href="terrain_8cpp.html">terrain.cpp</a></li>
+    <li class="footer">Generated on Tue Dec 18 2012 01:46:33 for OpenGL Flythrough by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.1.2 </li>
   </ul>
