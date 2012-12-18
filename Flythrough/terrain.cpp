@@ -67,20 +67,17 @@ const char* terrainTex[] = {
 
 void randomize_terrain() {
   
+  srand(time(NULL));
   Object *Terrain = theScene["terrain"];
-  // 8, 40
-  double magnitude = landGen( Terrain, 8, 40.0 );
+  double magnitude = landGen( Terrain, 10, 180.0 );
   Terrain->Buffer();
-
   GLint handle = glGetUniformLocation( gShader, "terrainMag" );
   if (handle != -1) glUniform1f( handle, magnitude );
-
 
 }
 
 
 void init() {
-  srand(time(NULL));
   
   // Load shaders and use the resulting shader program. 
   gShader = Angel::InitShader( "shaders/vterrain.glsl", "shaders/fterrain.glsl" );
@@ -247,9 +244,7 @@ typedef enum {
   DONE
 
 } TSTATE ;
-
-TSTATE terrainState = SHRINKING ;
-
+TSTATE terrainState = DONE ;
 // These belong to MakeFlatToRegular()
 bool switchingTerrain = false ;
 float CurrentScale = 0.0;
@@ -454,6 +449,19 @@ void mouseroll( int x, int y ) {
 }
 
 
+void wiilook( Camera &WiiCamera, Angel::vec3 &NewTheta ) {
+
+  static Angel::vec3 OldTheta; /* Defaults to 0,0,0 */
+  
+  // Rotation Order: Y-X-Z looks the best, I think.
+  WiiCamera.yaw( NewTheta.y - OldTheta.y );
+  WiiCamera.pitch( NewTheta.x - OldTheta.x );
+  WiiCamera.roll( NewTheta.z - NewTheta.z );
+
+  OldTheta = NewTheta;
+
+}
+
 void mouselook( int x, int y ) {
 
   if ((x != myScreen.MidpointX()) || (y != myScreen.MidpointY())) {
@@ -565,8 +573,11 @@ void idle( void ) {
     Camera *camptr = dynamic_cast< Camera* >( myScreen.camList["AutoCamera2"] );
     for (size_t i = 0; i < NumPolls; ++i) {
       pollWii( Wii );
-      //Returns and sets bb_magnitudes.
-      if (camptr) camptr->Accel( bb_magnitudes / NumPolls );
+
+      if (camptr) {
+	camptr->Accel( PollResults.bb_magnitudes / NumPolls );
+	wiilook( *camptr, PollResults.wr_thetas );
+      }
     }
   }
 #endif

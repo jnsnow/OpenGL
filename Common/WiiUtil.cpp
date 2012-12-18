@@ -44,6 +44,7 @@
 using std::cerr;
 using Angel::vec3;
 vec3 bb_magnitudes;
+wiiPollData PollResults;
 
 int LED_MAP[4] = {CWiimote::LED_1, CWiimote::LED_2, CWiimote::LED_3, CWiimote::LED_4};
 
@@ -100,6 +101,9 @@ void HandleEvent(CWiimote &wm) {
   if(wm.isUsingACC()) {
     float pitch, roll, yaw;
     wm.Accelerometer.GetOrientation(pitch, roll, yaw);
+    PollResults.wr_thetas.x = pitch;
+    PollResults.wr_thetas.y = yaw;
+    PollResults.wr_thetas.z = roll;
     printf("%s wiimote roll = %f\n", prefixString, roll);
     printf("%s wiimote pitch = %f\n", prefixString, pitch);
     printf("%s wiimote yaw = %f\n", prefixString, yaw);
@@ -109,6 +113,9 @@ void HandleEvent(CWiimote &wm) {
   if(wm.isUsingMotionPlus()) {
     float roll_rate, pitch_rate, yaw_rate;
     wm.ExpansionDevice.MotionPlus.Gyroscope.GetRates(roll_rate,pitch_rate,yaw_rate);
+    PollResults.wr_rates.x = pitch_rate;
+    PollResults.wr_rates.y = yaw_rate;
+    PollResults.wr_rates.z = roll_rate;
     printf("%s motion plus roll rate = %f\n", prefixString,roll_rate);
     printf("%s motion plus pitch rate = %f\n", prefixString,pitch_rate);
     printf("%s motion plus yaw rate = %f\n", prefixString,yaw_rate);
@@ -183,7 +190,7 @@ void WiiHandleBB( CWiimote &wm ) {
     tare = true;
     tare_polls = 0;
     for (size_t i = 0; i < 5; ++i ) tare_val[i] = 0;
-    bb_magnitudes = vec3( 0, 0, 0 );
+    PollResults.bb_magnitudes = vec3( 0, 0, 0 );
   }
   CBalanceBoard &bb = wm.ExpansionDevice.BalanceBoard;
   bb.WeightSensor.GetWeight( raw_val[TOT_WEIGHT],
@@ -216,7 +223,7 @@ void WiiHandleBB( CWiimote &wm ) {
     }
     return; /* Return early: do not compute anything with weird half-tared values. */
   } else if (adj_val[TOT_WEIGHT] < 10) {
-    bb_magnitudes = vec3( 0, 0, 0 );
+    PollResults.bb_magnitudes = vec3( 0, 0, 0 );
     return;  
   }
 
@@ -234,8 +241,8 @@ void WiiHandleBB( CWiimote &wm ) {
   if (sway_pct < -1) sway_pct = -1;
   else if (sway_pct > 1) sway_pct = 1;
 
-  bb_magnitudes.y = sway_pct;
-  bb_magnitudes.z = surge_pct;
+  PollResults.bb_magnitudes.y = sway_pct;
+  PollResults.bb_magnitudes.z = surge_pct;
 
   if (0) {
     printf( "Balance Board Raw Weights: {" );

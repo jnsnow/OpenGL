@@ -43,7 +43,7 @@ vec4 textureGradient( sampler2D a, sampler2D b, float upper, float lower )
 
 void setTextureLimits( float mag ){
 
-    snowLower  =  0.1625  * mag;
+    snowLower  =  0.20    * mag;
     rockUpper  =  0.1375  * mag;
     rockLower  =  0.1     * mag;
     grassUpper =  0.075   * mag;
