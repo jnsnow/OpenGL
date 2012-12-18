@@ -2,12 +2,18 @@
 #include <vector>
 #include "platform.h"
 #include "vec.hpp"
+#include "mat.hpp"
 #include "Object.hpp"
 #include <SOIL.h>
 #include "globals.h"
 #include <stdexcept>
 
 #include "Timer.hpp"
+
+using Angel::vec4;
+using Angel::mat4;
+
+
 
 Object::Object( const std::string &name, GLuint gShader )
 {
@@ -334,4 +340,21 @@ void Object::Animation(void (*anim_func)( TransCache &arg )) {
     (*it)->trans.PTM( this->trans.OTM() );
   }
 
+}
+
+/**
+
+   returns the position of the object
+   this makes the lighting implementation much easier... for this semester.
+
+ */
+
+vec4 Object::GetPosition() const {
+
+  mat4 theOTM = this->trans.OTM() ;
+
+  return vec4( theOTM[0][3],
+	       theOTM[1][3],
+	       theOTM[2][3],
+	       1.0);
 }

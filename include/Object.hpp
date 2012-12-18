@@ -9,6 +9,12 @@
 #include "Scene.hpp"
 #include "TransCache.hpp"
 
+
+using Angel::vec4;
+typedef Angel::vec4 color4;
+typedef Angel::vec4 point4;
+
+
 class Object : public Scene {
 
   enum bufferType { 
@@ -43,6 +49,10 @@ public:
 
   /* Animation and Related */
   void Animation(void (*anim_func)( TransCache &arg ));
+
+  
+  vec4 GetPosition() const ;
+
 
   /* Bad. Bad! Protect these. ...Later? :( */
   std::vector<Angel::vec4> points;
