@@ -89,7 +89,7 @@ void init() {
   myScreen.camList.Next();
 
   /*
-    SUPER IMPORTANT NOTE DAMMIT
+    NOTE:
     ==========================
     Please do not give the Terrain children. 
     The animation is currently scaling the Y values of the 
@@ -159,7 +159,7 @@ void init() {
   */
   
   // The water gets generated last.
-  Object *agua      = terrain->AddObject( "agua" )    ;
+  Object *agua      = theScene.AddObject( "agua" )    ;
   makeAgua( terrain, agua ) ;
   agua->Buffer();
   agua->Mode( GL_TRIANGLES );
@@ -451,14 +451,14 @@ void mouseroll( int x, int y ) {
 }
 
 
-void wiilook( Camera &WiiCamera, Angel::vec3 &NewTheta ) {
+void wiilook( Camera &WiiCamera, const Angel::vec3 &NewTheta ) {
 
   static Angel::vec3 OldTheta; /* Defaults to 0,0,0 */
   
   // Rotation Order: Y-X-Z looks the best, I think.
   WiiCamera.yaw( NewTheta.y - OldTheta.y );
-  WiiCamera.pitch( NewTheta.x - OldTheta.x );
-  WiiCamera.roll( NewTheta.z - NewTheta.z );
+  WiiCamera.pitch( OldTheta.x - NewTheta.x );
+  WiiCamera.roll( NewTheta.z - OldTheta.z );
 
   OldTheta = NewTheta;
 
@@ -573,17 +573,29 @@ void idle( void ) {
   if (usingWii) {
     static const unsigned NumPolls = 20;
     Camera *camptr = dynamic_cast< Camera* >( myScreen.camList["AutoCamera2"] );
+    Angel::vec3 theta_diff;
+    Angel::vec3 accel_mag;
+
+    // Take many samples for two reasons:
+    // (1) Without this, we can't poll often enough and Wii Input "lags".
+    // (2) Average/Sample to "smooth" the data.
     for (size_t i = 0; i < NumPolls; ++i) {
       pollWii( Wii );
-
-      if (camptr) {
-	camptr->Accel( PollResults.bb_magnitudes / NumPolls );
-	wiilook( *camptr, PollResults.wr_thetas );
-      }
+      theta_diff += PollResults.wr_thetas;
+      accel_mag += PollResults.bb_magnitudes;
     }
+
+    Angel::vec3 normal_accel = accel_mag / NumPolls;
+    fprintf( stderr, "bbXL: (%f,%f,%f)\n", normal_accel.x, normal_accel.y, normal_accel.z );
+
+    if (camptr) {
+      camptr->Accel( accel_mag / NumPolls );
+      wiilook( *camptr, theta_diff / NumPolls );
+    }
+
   }
 #endif
-
+  
   // Move all camera(s).
   myScreen.camList.IdleMotion();
   glutPostRedisplay();

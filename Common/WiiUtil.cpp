@@ -104,9 +104,11 @@ void HandleEvent(CWiimote &wm) {
     PollResults.wr_thetas.x = pitch;
     PollResults.wr_thetas.y = yaw;
     PollResults.wr_thetas.z = roll;
+    /*
     printf("%s wiimote roll = %f\n", prefixString, roll);
     printf("%s wiimote pitch = %f\n", prefixString, pitch);
     printf("%s wiimote yaw = %f\n", prefixString, yaw);
+    */
   }
   
   // if the Motion Plus is turned on then print angles
@@ -116,9 +118,11 @@ void HandleEvent(CWiimote &wm) {
     PollResults.wr_rates.x = pitch_rate;
     PollResults.wr_rates.y = yaw_rate;
     PollResults.wr_rates.z = roll_rate;
+    /*
     printf("%s motion plus roll rate = %f\n", prefixString,roll_rate);
     printf("%s motion plus pitch rate = %f\n", prefixString,pitch_rate);
     printf("%s motion plus yaw rate = %f\n", prefixString,yaw_rate);
+    */
   }
 
   // if(IR tracking is on then print the coordinates
