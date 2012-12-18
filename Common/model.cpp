@@ -440,16 +440,18 @@ vec3 calcNormal( point4 &a, point4 &b, point4 &c, point4 &d ) {
 
 void makeAgua( Object *land_obj, Object *agua_obj ) {
 
+  float wh = 0.01;
+
   // Ensure that the size of agua_obj == land_obj
   int S = sqrt( land_obj->points.size() );
   
   // Push the vertices
-  agua_obj->points.push_back( vec4( -S/2, 0 , S/2, 1) );
-  agua_obj->points.push_back( vec4( -S/2, 0 ,-S/2, 1) );
-  agua_obj->points.push_back( vec4(  S/2, 0 , S/2, 1) );
-  agua_obj->points.push_back( vec4(  S/2, 0 , S/2, 1) );
-  agua_obj->points.push_back( vec4( -S/2, 0 ,-S/2, 1) );
-  agua_obj->points.push_back( vec4(  S/2, 0 ,-S/2, 1) );
+  agua_obj->points.push_back( vec4( -S/2, wh , S/2, 1) );
+  agua_obj->points.push_back( vec4( -S/2, wh ,-S/2, 1) );
+  agua_obj->points.push_back( vec4(  S/2, wh , S/2, 1) );
+  agua_obj->points.push_back( vec4(  S/2, wh , S/2, 1) );
+  agua_obj->points.push_back( vec4( -S/2, wh ,-S/2, 1) );
+  agua_obj->points.push_back( vec4(  S/2, wh ,-S/2, 1) );
 
   agua_obj->colors.push_back( vec4( 0.0, 0.0, 0.8, 0.6 ) );
   agua_obj->colors.push_back( vec4( 0.0, 0.0, 0.8, 0.6 ) );

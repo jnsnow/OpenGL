@@ -104,17 +104,9 @@ void init() {
   Object *heavy     = theScene.AddObject( "heavy" ) ;
   Object *pony      = theScene.AddObject( "pony" ) ;
 
-  /* 
-     When the scene graph is fixed, switch to:
-
-     Object *medic = heavy->AddObject( "medic" ) ;
-     Object *spy = medic->AddObject( "spy" ) ;
-     Object *ball = spy->AddObject( "ball" );
-  */
-
-  Object *medic = theScene.AddObject( "medic" ) ;
-  Object *spy = theScene.AddObject( "spy" ) ;
-  Object *ball = theScene.AddObject( "ball" );
+  Object *medic = heavy->AddObject( "medic" ) ;
+  Object *spy   = medic->AddObject( "spy" ) ;
+  Object *ball  = spy->AddObject( "ball" );
 
   Object *agua      = theScene.AddObject( "agua" )   ;
 
@@ -157,7 +149,7 @@ void init() {
   loadModelFromFile( heavy, "../models/heavyT.obj" );
   heavy->Buffer();
   heavy->Mode( GL_TRIANGLES );
-  
+
   loadModelFromFile( medic, "../models/medicT.obj" );
   medic->Buffer();
   medic->Mode( GL_TRIANGLES );
@@ -176,7 +168,7 @@ void init() {
   makeAgua( terrain, agua ) ;
   agua->Buffer();
   agua->Mode( GL_TRIANGLES );
-    
+
 
   // Link however many cameras we have at this point to the shader.
   myScreen.camList.LinkAll( Camera::TRANSLATION, "T" );
@@ -186,21 +178,39 @@ void init() {
 
   glEnable( GL_DEPTH_TEST );
   glClearColor( 0.3, 0.5, 0.9, 1.0 );
-
+  /*
   theScene[ "heavy" ]->trans.scale.Set( 0.10 );
-  theScene[ "spy"   ]->trans.scale.Set( 0.10 );
-  theScene[ "medic" ]->trans.scale.Set( 0.10 );
-  theScene[ "pony"  ]->trans.scale.Set( 0.40 );
-
   theScene[ "heavy" ]->trans.offset.Set(  2.00 );
-  theScene[ "spy"   ]->trans.offset.Set(  4.00 );
-  theScene[ "medic" ]->trans.offset.Set(  6.00 );
-  theScene[ "pony"  ]->trans.offset.Set( -2.00 );
-
   theScene[ "heavy" ]->trans.CalcCTM();
+
+  theScene[ "spy"   ]->trans.scale.Set( 0.10 );
+  theScene[ "spy"   ]->trans.offset.Set(  4.00 );
   theScene[ "spy"   ]->trans.CalcCTM();
+
+  theScene[ "medic" ]->trans.scale.Set( 0.10 );
+  theScene[ "medic" ]->trans.offset.Set(  6.00 );
   theScene[ "medic" ]->trans.CalcCTM();
+
+  theScene[ "pony"  ]->trans.scale.Set( 0.40 );
+  theScene[ "pony"  ]->trans.offset.Set( -2.00 );
   theScene[ "pony" ]->trans.CalcCTM();
+  */
+
+  heavy->trans.scale.Set( 0.10 );
+  heavy->trans.offset.Set(  2.00 );
+  heavy->trans.CalcCTM();
+
+  spy->trans.scale.Set( 0.10 );
+  spy->trans.offset.Set(  4.00 );
+  spy->trans.CalcCTM();
+
+  medic->trans.scale.Set( 0.10 );
+  medic->trans.offset.Set(  6.00 );
+  medic->trans.CalcCTM();
+
+  pony->trans.scale.Set( 0.40 );
+  pony->trans.offset.Set( -2.00 );
+  pony->trans.CalcCTM();
 
 }
 
@@ -253,6 +263,89 @@ void keylift( unsigned char key, int x, int y ) {
     cam.Stop( Camera::Down );
     break;
   }
+}
+
+
+
+typedef enum {
+
+  SHRINKING,
+  TRANSITIONING,
+  GROWING,
+  DONE
+
+} TSTATE ;
+
+TSTATE terrainState = SHRINKING ;
+
+// These belong to MakeFlatToRegular()
+bool switchingTerrain = false ;
+float CurrentScale = 0.0;
+
+void MakeFlatToRegular( TransCache &obj ) {
+
+
+  if ( switchingTerrain ) {
+
+    terrainState = SHRINKING ;
+    switchingTerrain = false ;
+    CurrentScale = 0.0       ;
+  }
+
+  //float f ;
+  switch ( terrainState ) {
+
+  case SHRINKING:
+
+    //    f = CurrentScale / 180 ;
+    obj.scale.Set(1.0,
+		  ((1.0+cos(CurrentScale*DegreesToRadians))/2.0),
+		  1.0);
+    
+    CurrentScale += 1.0 * Tick.Scale() ;
+
+    if ( CurrentScale >= 180.0 ) {
+      terrainState = TRANSITIONING ;
+    }
+
+    break;
+
+
+  case TRANSITIONING:
+
+    // Multithread this for graphics 2 project
+    landGen( theScene["terrain"], 8, 40.0 );
+    theScene["terrain"]->Buffer();
+    terrainState = GROWING ;
+    // CurrentScale = 0.0 ;
+    break;
+
+  case GROWING:
+
+
+    //f = CurrentScale/360.0;
+
+    obj.scale.Set(1.0,
+		  ((1.0+cos(CurrentScale*DegreesToRadians))/2.0),
+		  1.0);
+
+    CurrentScale += 1.0 * Tick.Scale() ;
+
+    if ( CurrentScale >= 360.0 ) terrainState = DONE ;
+    break;
+
+
+  case DONE:
+    return;
+
+
+  default: 
+    return;
+
+  }
+
+    // bottom
+
 }
 
 void keyboard( unsigned char key, int x, int y ) {
@@ -308,8 +401,10 @@ void keyboard( unsigned char key, int x, int y ) {
   case 'b': cam.changePerspective( Camera::IDENTITY ); break;
 
   case 'l':
-    landGen( theScene["terrain"], 8, 40.0 );
-    theScene["terrain"]->Buffer();
+
+    switchingTerrain = true ;
+    //landGen( theScene["terrain"], 8, 40.0 );
+    //theScene["terrain"]->Buffer();
     break;
 
   }
@@ -438,11 +533,21 @@ void animationTest( TransCache &obj ) {
   
 }
 
+
+
 /*
 void sunAndMoon(void){
 ball
 }
 */
+
+
+/// hackity hack hack hackey doo!
+
+float heightScale = 0.0 ;
+float ticker = 0.0 ;
+
+
 void idle( void ) {
 
 
@@ -453,8 +558,8 @@ void idle( void ) {
   Object &Base = *(theScene[ "pyramid" ]);
   Base.Animation( animationTest );
   Base["moon"]->Animation( simpleRotateAnim );
-
-  //#cool
+  theScene["terrain"]->Animation( MakeFlatToRegular );
+  // #cool
 
 #ifdef WII
   if (usingWii) {
@@ -465,10 +570,24 @@ void idle( void ) {
   }
 #endif
 
+
+  /*
+  Object &t = *(theScene[ "terrain" ]);
+
+  ticker += 1.0 * Tick.Scale();
+  if ( ticker >= 360.0 ) ticker = 0.0 ;
+
+  // Make the earth rise
+  heightScale = cos((ticker+90.0)*DegreesToRadians ) + 1.0 ;
+  t.trans.scale.Set( 1.0, heightScale, 1.0 );
+  t.trans.CalcCTM();
+  */
+
+
   // Move all camera(s).
   myScreen.camList.IdleMotion();
   glutPostRedisplay();
-    
+
 }
 
 
