@@ -138,22 +138,12 @@ void init_lights( GLuint program ) {
 }
 /******************************************************************************/
 
-void cameraInit( Camera& cam ) {
-
-  /* Link this camera to our standard shader variables. */
-  cam.Link( Camera::TRANSLATION, "T" );
-  cam.Link( Camera::ROTATION, "RMat" );
-  cam.Link( Camera::VIEW, "PMat" );
-  cam.Link( Camera::CTM, "CTM" );
-
-}
-
 void init() {
 
   gShader = Angel::InitShader( "shaders/vshader.glsl", "shaders/fshader.glsl" );
   theScene.SetShader( gShader );
   myScreen = new Screen( 800, 600 );
-  myScreen->camList.Shader( gShader );
+  myScreen->camList.SetShader( gShader );
 
   Object *pyramid = theScene.AddObject( "pyramid" );
   Sierpinski_Pyramid( pyramid,
@@ -180,11 +170,6 @@ void init() {
   // More init stuff, but only lighting-related.
   init_lights( gShader );
   
-  // Link however many cameras we have at this point to the shader.
-  myScreen->camList.LinkAll( Camera::TRANSLATION, "T" );
-  myScreen->camList.LinkAll( Camera::ROTATION, "R" );
-  myScreen->camList.LinkAll( Camera::VIEW, "P" );
-  myScreen->camList.LinkAll( Camera::CTM, "CTM" );
 
   glEnable( GL_DEPTH_TEST );
   glClearColor( 0.1, 0.1, 0.1, 1.0 );
@@ -194,7 +179,6 @@ void init() {
 //--------------------------------------------------------------------
 
 void lightEffects(int frameNumber){
-
 
   static const float pulseRad = M_PI/60.0 ; // used in the pulse effect.
 
@@ -292,7 +276,7 @@ void display( void ) {
 
 void keylift( unsigned char key, int x, int y ) {
   
-  Camera &cam = myScreen->camList.Active();
+  Camera &cam = *(myScreen->camList.Active());
 
   switch( key ) {
   case 'w':
@@ -319,7 +303,7 @@ void keylift( unsigned char key, int x, int y ) {
 void keyboard( unsigned char key, int x, int y ) {
 
   /* A shorthand variable with local scope that refers to "The Active Camera." */
-  Camera &cam = myScreen->camList.Active();
+  Camera &cam = *(myScreen->camList.Active());
 
   switch( key ) {
 
@@ -328,10 +312,11 @@ void keyboard( unsigned char key, int x, int y ) {
     break;
     
   case '+':
-    cameraInit(myScreen->camList[myScreen->camList.addCamera()]);
+    myScreen->camList.AddCamera( "Camera" + myScreen->camList.NumCameras() );
+    //cameraInit(myScreen->camList[myScreen->camList.addCamera()]);
     break;
   case '-':
-    myScreen->camList.popCamera();
+    myScreen->camList.PopCamera();
     break;
     
   case 'w':
@@ -400,8 +385,8 @@ void mouse( int button, int state, int x, int y ) {
 
   if ( state == GLUT_DOWN ) {
     switch( button ) {
-    case 3: myScreen->camList.Active().dFOV( 1 ); break;
-    case 4: myScreen->camList.Active().dFOV( -1 ); break;
+    case 3: myScreen->camList.Active()->dFOV( 1 ); break;
+    case 4: myScreen->camList.Active()->dFOV( -1 ); break;
     }
   }
 
@@ -411,7 +396,7 @@ void mouse( int button, int state, int x, int y ) {
 void mouseroll( int x, int y ) {
 
   if ((x != myScreen->MidpointX()) || (y != myScreen->MidpointY())) {
-    myScreen->camList.Active().roll( x - myScreen->MidpointX() );
+    myScreen->camList.Active()->roll( x - myScreen->MidpointX() );
     glutWarpPointer( myScreen->MidpointX(), myScreen->MidpointY() );
   }
 
@@ -424,8 +409,8 @@ void mouselook( int x, int y ) {
     const double dx = ((double)x - myScreen->MidpointX());
     const double dy = ((double)y - myScreen->MidpointY());
     
-    myScreen->camList.Active().pitch( dy );
-    myScreen->camList.Active().yaw( dx, true ); // Fixed Yaw
+    myScreen->camList.Active()->pitch( dy );
+    myScreen->camList.Active()->yaw( dx, true ); // Fixed Yaw
     
     glutWarpPointer( myScreen->MidpointX(), myScreen->MidpointY() );
   }

@@ -50,7 +50,8 @@ void triangle( Object *obj, const point4& a, const point4& b,
     vec4( 0.0, 1.0, 0.0, 1.0 ), /* G */
     vec4( 0.0, 0.0, 1.0, 1.0 ), /* B */
     vec4( 1.0, 1.0, 0.0, 1.0 ), /* Y */
-    vec4( 0.4, 0.1, 0.8, 1.0 )  /* P */
+    vec4( 0.4, 0.1, 0.8, 1.0 ),  /* P */
+    vec4( 1.0, 1.0, 1.0, 1.0 )  /* W */
   };
 
   // Initialize temporary vectors along the quad's edge to
@@ -135,6 +136,10 @@ void recursiveModelGen( Object *obj,
   divide_triangle( obj, a, d, c, timesToRecurse );
 }
 
+/**
+   Creates a white sphere.
+   @param obj the object-object to create/push verticies and colors to
+ */
 
 void sphere( Object *obj ){
 
@@ -144,7 +149,7 @@ void sphere( Object *obj ){
 		    initialSpherePoints[1],
 		    initialSpherePoints[2],
 		    initialSpherePoints[3],
-		    4 ) ;
+		    5 ) ;
 
 }
 
@@ -470,7 +475,6 @@ void landGen( Object *obj, int N, float H ) {
   std::vector< point4 > &vec = obj->points;
   std::vector< point4 > &col = obj->colors;
   //std::vector< vec3 > &nor = obj->normals;
-
   std::vector< unsigned int > &drawIndex = obj->indices;
   std::vector< Angel::vec2 > &txy = obj->texcoords;
 

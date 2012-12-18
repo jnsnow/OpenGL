@@ -146,7 +146,7 @@ void Object::Buffer( void ) {
 void Object::Link( UniformEnum which, const std::string &name ) {
 
   if (which >= handles.size()) {
-    fprintf( stderr, "WARNING: Ignoring request to link a uniform (#%u) beyond our handles array [%u].\n",
+    fprintf( stderr, "WARNING: Ignoring request to link a uniform (#%u) beyond our handles array [%lu].\n",
 	     which, handles.size() );
     return;
   }
@@ -290,18 +290,12 @@ void Object::Draw( void ) {
   Send( Object::IsTextured );
   Send( Object::ObjectCTM );
 
-  /* Inform the shader if it should texture this object or not. */
-  /*glUniform1i( handles[Object::IsTextured],
-	       (isTextured) ? 1 : 0 );
-
-  glUniformMatrix4fv( handles[Object::ObjectCTM], 1, GL_TRUE, 
-  this->trans.OTM() );*/
-
   /* Are we using a draw order? */
   if (indices.size() > 1)
     glDrawElements( draw_mode, indices.size(), GL_UNSIGNED_INT, 0 );
   else
     glDrawArrays( draw_mode, 0, points.size() );
+
   glBindVertexArray(0);
 
   // Draw all of our Children.
@@ -321,6 +315,13 @@ const std::string &Object::Name( void ) const {
   return name;
 
 }
+
+/*
+void Object::Idle( void ) {
+}
+void Object::View( void ) {
+}
+*/
 
 void Object::Animation(void (*anim_func)( TransCache &arg )) {
 

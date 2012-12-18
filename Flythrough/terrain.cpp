@@ -48,7 +48,6 @@ bool usingWii = false;
 
 Screen myScreen( 800, 600 );
 Scene theScene;
-
 GLuint gShader;
 bool fixed_yaw = true;
 
@@ -65,16 +64,6 @@ const char* terrainTex[] = {
   "../Textures/GoodTextures_0013291.jpg"   // Snow
 };
 
-
-
-/*void cameraInit( Camera& cam ) {
-  // Link this camera to our standard shader variables.
-  cam.Link( Camera::TRANSLATION, "T" );
-  cam.Link( Camera::ROTATION, "R" );
-  cam.Link( Camera::VIEW, "P" );
-  cam.Link( Camera::CTM, "CTM" );
-}*/
-
 //Camera *VisCam;
 
 void init() {
@@ -88,27 +77,48 @@ void init() {
   //gShader = Angel::InitShader( "shaders/vterrain.glsl", "shaders/gterrain.glsl", "shaders/fterrain.glsl");
   gShader = Angel::InitShader( "shaders/vterrain.glsl", "shaders/fterrain.glsl" );
   theScene.SetShader( gShader );
-  myScreen.camList.Shader( gShader );
-  myScreen.camList.addCamera();
+  myScreen.camList.SetShader( gShader );
+  myScreen.camList.AddCamera( "Camera1" );
+  myScreen.camList.Next();
 
-  // Witchcraft:
-  /*VisCam = &(myScreen.camList.Active());
-  colorcube( VisCam, 0.25 );
-  VisCam->Buffer();
-  VisCam->Mode( GL_TRIANGLES );*/
+  colorcube( myScreen.camList.Active(), 0.25 );
+  myScreen.camList.Active()->Buffer();
+  myScreen.camList.Active()->Mode( GL_TRIANGLES );
 
   Object *terrain   = theScene.AddObject( "terrain" ) ;
-  Object *pyramid   = theScene.AddObject( "pyramid" ) ;
+
+  /*
+
+    SUPER IMPORTANT NOTE DAMMIT
+    ==========================
+
+    Please do not give the Terrain children. 
+
+    The animation is currently scaling the Y values of the terrain to grow/shrink it.
+
+    Any and all Children will inherit this.
+
+    I've turned rainbow dash into a pancake over and over....
+
+    Poor little pony....
+
+  */
+
+
   Object *cube_base = theScene.AddObject( "basecube" );
-  Object *moon_cube = pyramid->AddObject( "moon" );
-  Object *heavy     = theScene.AddObject( "heavy" ) ;
   Object *pony      = theScene.AddObject( "pony" ) ;
 
-  Object *medic = heavy->AddObject( "medic" ) ;
-  Object *spy   = medic->AddObject( "spy" ) ;
-  Object *ball  = spy->AddObject( "ball" );
+  Object *pyramid   = theScene.AddObject( "pyramid" ) ;
+  Object *moon_cube = pyramid->AddObject( "moon" )    ;
 
-  Object *agua      = theScene.AddObject( "agua" )   ;
+  Object *heavy     = theScene.AddObject( "heavy" ) ;
+  Object *medic     = heavy->AddObject( "medic" );
+  Object *spy       = medic->AddObject( "spy" );
+  Object *ball      = spy->AddObject( "ball" );
+
+
+  // Water comes last.
+  Object *agua      = theScene.AddObject( "agua" )    ;
 
 
   /** Fill points[...] with terrain map **/
@@ -141,9 +151,7 @@ void init() {
 
   // These models came from VALVE,
   // They are from the popular game, team fortress 2.
-
   // They are property of valve. etc, etc, lol, lol.
-
   // The model processing was done in Blender.
 
   loadModelFromFile( heavy, "../models/heavyT.obj" );
@@ -164,38 +172,19 @@ void init() {
   pony->Buffer();
   pony->Mode( GL_TRIANGLES );
 
-
   makeAgua( terrain, agua ) ;
   agua->Buffer();
   agua->Mode( GL_TRIANGLES );
 
 
+  // code to fall back onto if I mess up the merge -nick
+  /*
   // Link however many cameras we have at this point to the shader.
   myScreen.camList.LinkAll( Camera::TRANSLATION, "T" );
   myScreen.camList.LinkAll( Camera::ROTATION, "R" );
   myScreen.camList.LinkAll( Camera::VIEW, "P" );
   myScreen.camList.LinkAll( Camera::CTM, "CTM" );
-
-  glEnable( GL_DEPTH_TEST );
-  glClearColor( 0.3, 0.5, 0.9, 1.0 );
-  /*
-  theScene[ "heavy" ]->trans.scale.Set( 0.10 );
-  theScene[ "heavy" ]->trans.offset.Set(  2.00 );
-  theScene[ "heavy" ]->trans.CalcCTM();
-
-  theScene[ "spy"   ]->trans.scale.Set( 0.10 );
-  theScene[ "spy"   ]->trans.offset.Set(  4.00 );
-  theScene[ "spy"   ]->trans.CalcCTM();
-
-  theScene[ "medic" ]->trans.scale.Set( 0.10 );
-  theScene[ "medic" ]->trans.offset.Set(  6.00 );
-  theScene[ "medic" ]->trans.CalcCTM();
-
-  theScene[ "pony"  ]->trans.scale.Set( 0.40 );
-  theScene[ "pony"  ]->trans.offset.Set( -2.00 );
-  theScene[ "pony" ]->trans.CalcCTM();
-  */
-
+  
   heavy->trans.scale.Set( 0.10 );
   heavy->trans.offset.Set(  2.00 );
   heavy->trans.CalcCTM();
@@ -210,6 +199,24 @@ void init() {
 
   pony->trans.scale.Set( 0.40 );
   pony->trans.offset.Set( -2.00 );
+  */    
+
+  glEnable( GL_DEPTH_TEST );
+  glClearColor( 0.3, 0.5, 0.9, 1.0 );
+  
+  heavy->trans.scale.Set( 0.10 );
+  pony->trans.scale.Set( 0.40 );
+
+  heavy->trans.offset.Set( 2.00 );
+  spy->trans.offset.Set( 2.00 );
+  medic->trans.offset.Set( 2.00 );
+  pony->trans.offset.Set( -2.00 );
+
+  heavy->trans.CalcCTM();
+  medic->trans.CalcCTM();
+  spy->trans.CalcCTM();
+  ball->trans.CalcCTM();
+
   pony->trans.CalcCTM();
 
 }
@@ -226,9 +233,8 @@ void cleanup( void ) {
 /** A function that takes no arguments.
     Is responsible for drawing a SINGLE VIEWPORT. **/
 void displayViewport( void ) {  
-  theScene.Draw();
-  //VisCam->trans.CalcCTM();
-  //VisCam->Draw();
+  theScene.Draw(); /* Draw free-floating objects */
+  myScreen.camList.Draw(); /* Draw camera-attached objects */
 }
 
 void display( void ) {
@@ -241,7 +247,7 @@ void display( void ) {
 
 void keylift( unsigned char key, int x, int y ) {
   
-  Camera &cam = myScreen.camList.Active();
+  Camera &cam = *(myScreen.camList.Active());
 
   switch( key ) {
   case 'w':
@@ -351,21 +357,20 @@ void MakeFlatToRegular( TransCache &obj ) {
 void keyboard( unsigned char key, int x, int y ) {
 
   /* A shorthand variable with local scope that refers to "The Active Camera." */
-  Camera &cam = myScreen.camList.Active();
+  Camera &cam = *(myScreen.camList.Active());
 
   switch( key ) {
 
   case 033: // Escape Key	  
     cleanup();
-    exit( EXIT_SUCCESS );
+    glutLeaveMainLoop();
     break;
     
   case '+':
-    myScreen.camList.addCamera();
-    //cameraInit(myScreen.camList[myScreen.camList.addCamera()]);
+    myScreen.camList.AddCamera( "AutoCamera" + myScreen.camList.NumCameras() );
     break;
   case '-':
-    myScreen.camList.popCamera();
+    myScreen.camList.PopCamera();
     break;
     
   case 'w':
@@ -402,9 +407,8 @@ void keyboard( unsigned char key, int x, int y ) {
 
   case 'l':
 
-    switchingTerrain = true ;
-    //landGen( theScene["terrain"], 8, 40.0 );
-    //theScene["terrain"]->Buffer();
+    switchingTerrain = true ; // GLOBAL State variable used to control the terrain animation
+
     break;
 
   }
@@ -447,8 +451,8 @@ void mouse( int button, int state, int x, int y ) {
 
   if ( state == GLUT_DOWN ) {
     switch( button ) {
-    case 3: myScreen.camList.Active().dFOV( 1 ); break;
-    case 4: myScreen.camList.Active().dFOV( -1 ); break;
+    case 3: myScreen.camList.Active()->dFOV( 1 ); break;
+    case 4: myScreen.camList.Active()->dFOV( -1 ); break;
     }
   }
 
@@ -458,7 +462,7 @@ void mouse( int button, int state, int x, int y ) {
 void mouseroll( int x, int y ) {
 
   if ((x != myScreen.MidpointX()) || (y != myScreen.MidpointY())) {
-    myScreen.camList.Active().roll( x - myScreen.MidpointX() );
+    myScreen.camList.Active()->roll( x - myScreen.MidpointX() );
     glutWarpPointer( myScreen.MidpointX(), myScreen.MidpointY() );
   }
 
@@ -471,8 +475,8 @@ void mouselook( int x, int y ) {
     const double dx = ((double)x - myScreen.MidpointX());
     const double dy = ((double)y - myScreen.MidpointY());
     
-    myScreen.camList.Active().pitch( dy );
-    myScreen.camList.Active().yaw( dx, fixed_yaw );
+    myScreen.camList.Active()->pitch( dy );
+    myScreen.camList.Active()->yaw( dx, fixed_yaw );
     
     glutWarpPointer( myScreen.MidpointX(), myScreen.MidpointY() );
   }
@@ -541,7 +545,6 @@ ball
 }
 */
 
-
 /// hackity hack hack hackey doo!
 
 float heightScale = 0.0 ;
@@ -550,16 +553,18 @@ float ticker = 0.0 ;
 
 void idle( void ) {
 
-
   Tick.Tock();
   if (DEBUG_MOTION) 
     fprintf( stderr, "Time since last idle: %lu\n", Tick.Delta() );
 
-  Object &Base = *(theScene[ "pyramid" ]);
-  Base.Animation( animationTest );
-  Base["moon"]->Animation( simpleRotateAnim );
-  theScene["terrain"]->Animation( MakeFlatToRegular );
-  // #cool
+
+  Object &Terrain = *(theScene["terrain"]);
+  Object &Pyramid = *(theScene["pyramid"]);
+  Pyramid.Animation( animationTest );
+  Pyramid["moon"]->Animation( simpleRotateAnim );
+
+  Terrain.Animation( MakeFlatToRegular );
+
 
 #ifdef WII
   if (usingWii) {
@@ -569,19 +574,6 @@ void idle( void ) {
     }
   }
 #endif
-
-
-  /*
-  Object &t = *(theScene[ "terrain" ]);
-
-  ticker += 1.0 * Tick.Scale();
-  if ( ticker >= 360.0 ) ticker = 0.0 ;
-
-  // Make the earth rise
-  heightScale = cos((ticker+90.0)*DegreesToRadians ) + 1.0 ;
-  t.trans.scale.Set( 1.0, heightScale, 1.0 );
-  t.trans.CalcCTM();
-  */
 
 
   // Move all camera(s).
