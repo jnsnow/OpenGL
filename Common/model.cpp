@@ -271,25 +271,22 @@ void colorcube( Object *obj, GLfloat size ) {
   used in model parsing
 */
 
-vector<string> split(string str, char delim)
-{
-  vector<string> *elements = new vector<string>();
+const vector<string> split(const string &str, const char delim) {
+  std::vector<string> elements;
+  std::string tmp = str;
 
+  //vector<string> *elements = new vector<string>();
   // loop through and break string up by the deliminator
-  while (str.find_first_of(delim) != string::npos)
-    {
+  while (tmp.find_first_of(delim) != string::npos) {
       // position of deliminator in current string
-      int pos = str.find_first_of(delim);
-
-      elements->push_back(str.substr(0, pos));
-
-      str = str.substr(pos + 1);
+      int pos = tmp.find_first_of(delim);
+      elements.push_back(tmp.substr(0, pos));
+      tmp = tmp.substr(pos + 1);
     }
 
   // str will have the final element remaining in it
-  elements->push_back(str);
-
-  return *elements;
+  elements.push_back(tmp);
+  return elements;
 }
 
 void load_obj(const char* filename, vector<vec4> &vertices,
@@ -445,7 +442,7 @@ vec3 calcNormal( point4 &a, point4 &b, point4 &c, point4 &d ) {
 
 void makeAgua( Object *land_obj, Object *agua_obj ) {
 
-  float wh = 0.01;
+  float wh = 0.1;
 
   // Ensure that the size of agua_obj == land_obj
   int S = sqrt( land_obj->points.size() );
@@ -468,7 +465,7 @@ void makeAgua( Object *land_obj, Object *agua_obj ) {
   return;
 }
 
-void landGen( Object *obj, int N, float H ) {
+double landGen( Object *obj, int N, float H ) {
 
   Timer Tick;
   const int S = pow(2,N) + 1;
@@ -622,5 +619,5 @@ void landGen( Object *obj, int N, float H ) {
     fprintf( stderr, "Landgen took %lu usec, %f msec, %f sec to generate %d vertices.\n", 
 	     Tick.Delta(), Tick.Delta()/1000.0, Tick.Delta()/1000000.0, S*S );
 
-  return;
+  return magnitude;
 }

@@ -1,23 +1,26 @@
 ///////////////////////////////////////////////////////////////////////////////
+// FSHADER
 
-// sent to the fshader
+// received by the fshader
 varying vec4 color;
 varying vec3 cameraVector;
 varying vec3 fragmentNormal;
-varying vec3 lightVector[8];
+varying vec3 lightVector[5];
 
-const float MAX_DIST = 2.5;
+const float MAX_DIST = 20.0 ;
 const float MAX_DIST_SQUARED = MAX_DIST * MAX_DIST;
 
 uniform int numLights ;
 
-  uniform vec3 lightColor[8];
+uniform vec3 lightColor[5];
+
+// Unused in the simple lighting mode
 //uniform vec3 LightAmbientArray[] ;
 //uniform vec3 LightDiffuseArray[] ;
 //uniform vec3 LightSpecularArray[];
 
-uniform vec3 LightPositionArray[8];
-uniform vec3 LightDirectionArray[8];
+uniform vec3 LightPositionArray[5] ;
+uniform vec3 LightDirectionArray[5];
 
 varying vec2 outtexture;
 varying vec4 fPosition;
@@ -40,6 +43,8 @@ vec4 textureGradient( sampler2D a, sampler2D b, float upper, float lower )
 void main() 
 {
 
+  vec4 fragColor ;
+
   if (fIsTextured) {
     float gradupper1 = 13.0 ; // Between here..
     float gradlower1 = 11.0 ; // and here is Snow->Rock
@@ -55,36 +60,36 @@ void main()
 
     // Snow!
     if ( fPosition.y > gradupper1 )
-        gl_FragColor = texture2D( gSampler4, outtexture ); 
+        fragColor = texture2D( gSampler4, outtexture ); 
     // Snow->Rock
     else if ((fPosition.y > gradlower1) && (fPosition.y < gradupper1) )
-	gl_FragColor = textureGradient( gSampler4, gSampler3, gradupper1, gradlower1);
+	fragColor = textureGradient( gSampler4, gSampler3, gradupper1, gradlower1);
     // Rock
     else if ((fPosition.y > gradupper2) && (fPosition.y <= gradlower1)) 
-        gl_FragColor = texture2D( gSampler3, outtexture );
+        fragColor = texture2D( gSampler3, outtexture );
     // Rock->Grass
     else if ((fPosition.y > gradlower2) && (fPosition.y < gradupper2))
-        gl_FragColor = textureGradient( gSampler3, gSampler2, gradupper2, gradlower2 );
+        fragColor = textureGradient( gSampler3, gSampler2, gradupper2, gradlower2 );
     // Grass
     else if (( fPosition.y > gradupper3 ) && (fPosition.y <= gradlower2 ))
-        gl_FragColor = texture2D( gSampler2, outtexture );  
+        fragColor = texture2D( gSampler2, outtexture );  
     // Grass->Sand
     else if ((fPosition.y > gradlower3) && (fPosition.y < gradupper3))
-        gl_FragColor = textureGradient( gSampler2, gSampler1, gradupper3, gradlower3 );
+        fragColor = textureGradient( gSampler2, gSampler1, gradupper3, gradlower3 );
     // Sand
     else if ((fPosition.y > gradupper4 ) && (fPosition.y <= gradlower3 ))
-        gl_FragColor = texture2D( gSampler1, outtexture );  
+        fragColor = texture2D( gSampler1, outtexture );  
     // Sand->Dirt
     else if ((fPosition.y > gradlower4) && (fPosition.y < gradupper4))
-        gl_FragColor = textureGradient( gSampler1, gSampler0, gradupper4, gradlower4 );
+        fragColor = textureGradient( gSampler1, gSampler0, gradupper4, gradlower4 );
     // Dirt
     else if ( fPosition.y <= gradlower4 )
-        gl_FragColor = texture2D( gSampler0, outtexture );  
+        fragColor = texture2D( gSampler0, outtexture );  
     }
 
-    else gl_FragColor = color;
-/*
- // else gl_FragColor = color4(0.0, 0.0, 0.0, 1.0) ;
+    else {
+      fragColor = color ;
+    }
 
     // deal with all the lights, right now.
 
@@ -100,8 +105,8 @@ void main()
      float diffuseDot  ;
 
      // initialize diffuse/specular lighting
-     diffuse  = vec3(0.0, 0.0, 0.0);
-     specular = vec3(0.0, 0.0, 0.0);
+     diffuse  = vec3(0.1, 0.1, 0.1);
+     specular = vec3(0.1, 0.1, 0.1);
 
      // normalize the fragment normal and camera direction
      normal = normalize(fragmentNormal);
@@ -111,7 +116,7 @@ void main()
      vec4 sample ;
 
      // loop through each light
-     for ( i = 0; i < numLights && i < 8; ++i) {
+     for ( i = 0; i < numLights && i < 5; ++i) {
 
        // calculate distance between 0.0 and 1.0
        dist = min(dot(lightVector[i], lightVector[i]), MAX_DIST_SQUARED) / MAX_DIST_SQUARED;
@@ -127,11 +132,17 @@ void main()
        specularColor = min(lightColor[i] + 0.5, 1.0);
        specularDot = dot(normal, halfAngle);
        specular += specularColor * pow(clamp(specularDot, 0.0, 1.0), 16.0) * distFactor;
+
      }
 
-     sample = vec4(1.0, 1.0, 1.0, 1.0);
-     gl_FragColor = gl_FragColor * vec4(clamp(sample.rgb * ( diffuse  ) + specular, 0.0, 1.0), sample.a) ;
-     gl_FragColor = gl_FragColor * vec4(clamp(sample.rgb * ( diffuse  ) + specular, 0.0, 1.0), sample.a) ;
-*/
+     //sample = vec4(1.0, 1.0, 1.0, 1.0);
+
+     fragColor =          vec4(clamp(fragColor.xyz * diffuse  + specular, 0.0, 1.0), fragColor.a) ;
+
+     // fragColor = fragColor * vec4(clamp(sample.rgb * diffuse  + specular, 0.0, 1.0), sample.a) ;
+
+     // this line of code is important
+     gl_FragColor = fragColor ;	
+
 
 }

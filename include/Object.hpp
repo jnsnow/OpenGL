@@ -49,6 +49,7 @@ public:
 
   /* Animation and Related */
   void Animation(void (*anim_func)( TransCache &arg ));
+  void Propegate( void );
 
   
   vec4 GetPosition() const ;

@@ -14,7 +14,6 @@ using Angel::vec4;
 using Angel::mat4;
 
 
-
 Object::Object( const std::string &name, GLuint gShader )
 {
 
@@ -37,8 +36,8 @@ Object::Object( const std::string &name, GLuint gShader )
   // Set our name from the constructor...
   this->name = name;
 
-  /* Initialize our draw mode to GL_LINE_STRIP until informed otherwise. */
-  draw_mode = GL_LINE_STRIP;
+  /* Initialize our draw mode to GL_TRIANGLES until informed otherwise. */
+  draw_mode = GL_TRIANGLES;
 
   // Load 
   Link( Object::IsTextured, "fIsTextured" );
@@ -322,25 +321,33 @@ const std::string &Object::Name( void ) const {
 
 }
 
-/*
-void Object::Idle( void ) {
-}
-void Object::View( void ) {
-}
-*/
-
 void Object::Animation(void (*anim_func)( TransCache &arg )) {
-
   anim_func( this->trans );
+  Object::Propegate();
+}
+
+void Object::Propegate( void ) {
+
+  //fprintf( stderr, "\n" );
+  //fprintf( stderr, "Propegate called on %s\n", name.c_str() );
+
+  std::list<Object*>::iterator it;
+  
+  //std::cerr << "Calling CALCCTM:\n";
+  //Update my Object's CTM...
   this->trans.CalcCTM();
 
-  /* Propagate Changes. */
-  std::list<Object *>::iterator it;
+  //Send my OTM as the PTM to all of my children.
   for ( it = list.begin(); it != list.end(); ++it ) {
     (*it)->trans.PTM( this->trans.OTM() );
+    //Tell that child to update his CTM and propegate.
+    (*it)->Propegate();
   }
 
+  //std::cerr << "{" << name << "::OTM:" << this->trans.OTM() << "}\n";
+
 }
+
 
 /**
 

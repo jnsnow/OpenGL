@@ -12,6 +12,7 @@
 /* System Headers */
 #include <cmath>
 #include <cstdio>
+#include <sstream>
 #include <cstdlib>
 #include <time.h>
 /* Multi-platform support and OpenGL headers. */
@@ -28,6 +29,9 @@
 #include "Object.hpp"
 #include "Timer.hpp"
 #include "Scene.hpp"
+
+#include "LightSource.hpp"
+#include "Lights.hpp"
 
 #include "OpenGL.h"
 
@@ -51,8 +55,8 @@ Scene theScene;
 GLuint gShader;
 bool fixed_yaw = true;
 
-
-//Lights lights(false); // Bool controls the lighting mode. False indicates the simpler, faster one.
+// #lights
+Lights lights(false); // Bool controls the lighting mode. False indicates the simpler, faster one.
 
 // Textures
 // Obtained from www.goodtextures.com
@@ -64,69 +68,52 @@ const char* terrainTex[] = {
   "../Textures/GoodTextures_0013291.jpg"   // Snow
 };
 
-//Camera *VisCam;
+void randomize_terrain() {
+  
+  Object *Terrain = theScene["terrain"];
+  // 8, 40
+  double magnitude = landGen( Terrain, 8, 40.0 );
+  Terrain->Buffer();
+
+  GLint handle = glGetUniformLocation( gShader, "terrainMag" );
+  if (handle != -1) glUniform1f( handle, magnitude );
+
+
+}
+
 
 void init() {
-
-  srand( time(NULL));
+  srand(time(NULL));
+  
   // Load shaders and use the resulting shader program. 
-
-  // Trying to use a GSHADER!
-  // The arguments are V -> G -> F shader, the same order in which they are invoked inside the pipeline.
-  // If this causes problems, we can fallback by between the following two lines of code:  
-  //gShader = Angel::InitShader( "shaders/vterrain.glsl", "shaders/gterrain.glsl", "shaders/fterrain.glsl");
   gShader = Angel::InitShader( "shaders/vterrain.glsl", "shaders/fterrain.glsl" );
   theScene.SetShader( gShader );
   myScreen.camList.SetShader( gShader );
   myScreen.camList.AddCamera( "Camera1" );
   myScreen.camList.Next();
 
-  colorcube( myScreen.camList.Active(), 0.25 );
-  myScreen.camList.Active()->Buffer();
-  myScreen.camList.Active()->Mode( GL_TRIANGLES );
+  // initialize lights
 
-  Object *terrain   = theScene.AddObject( "terrain" ) ;
+  lights.init_lights(gShader);
 
   /*
-
     SUPER IMPORTANT NOTE DAMMIT
     ==========================
-
     Please do not give the Terrain children. 
-
-    The animation is currently scaling the Y values of the terrain to grow/shrink it.
-
+    The animation is currently scaling the Y values of the 
+    terrain to grow/shrink it.
     Any and all Children will inherit this.
-
     I've turned rainbow dash into a pancake over and over....
-
     Poor little pony....
-
   */
 
-
-  Object *cube_base = theScene.AddObject( "basecube" );
-  Object *pony      = theScene.AddObject( "pony" ) ;
-
-  Object *pyramid   = theScene.AddObject( "pyramid" ) ;
-  Object *moon_cube = pyramid->AddObject( "moon" )    ;
-
-  Object *heavy     = theScene.AddObject( "heavy" ) ;
-  Object *medic     = heavy->AddObject( "medic" );
-  Object *spy       = medic->AddObject( "spy" );
-  Object *ball      = spy->AddObject( "ball" );
-
-
-  // Water comes last.
-  Object *agua      = theScene.AddObject( "agua" )    ;
-
-
-  /** Fill points[...] with terrain map **/
-  landGen( terrain, 8, 40.0 );
+  /* Create some Objects ... */
+  Object *terrain   = theScene.AddObject( "terrain" ) ;
   terrain->Texture( terrainTex );
-  terrain->Buffer();
   terrain->Mode( GL_TRIANGLE_STRIP );
-
+  randomize_terrain();
+  
+  Object *pyramid   = theScene.AddObject( "pyramid" ) ;
   Sierpinski_Pyramid( pyramid,
 		      vec4(  0,      1,  0, 1 ),
 		      vec4( -1, -0.999,  1, 1 ),
@@ -134,93 +121,108 @@ void init() {
 		      vec4(  0, -0.999, -1, 1 ),
 		      4 );
   pyramid->Buffer();
-  pyramid->Mode( GL_TRIANGLES );
 
+  Object *cube_base = theScene.AddObject( "basecube" );
   colorcube( cube_base, 1.0 );
   cube_base->Buffer();
-  cube_base->Mode( GL_TRIANGLES );
   
+  Object *moon_cube = pyramid->AddObject( "moon" )    ;
   colorcube( moon_cube, 0.5 );
   moon_cube->Buffer();
-  moon_cube->Mode( GL_TRIANGLES );
-
-
-  sphere( ball );
-  ball->Buffer();
-  ball->Mode( GL_TRIANGLES );
 
   // These models came from VALVE,
-  // They are from the popular game, team fortress 2.
-  // They are property of valve. etc, etc, lol, lol.
+  // From their game "Team Fortress 2."
   // The model processing was done in Blender.
-
+  Object *heavy     = theScene.AddObject( "heavy" ) ;
   loadModelFromFile( heavy, "../models/heavyT.obj" );
   heavy->Buffer();
-  heavy->Mode( GL_TRIANGLES );
+  heavy->trans.scale.Set( 0.10 );
+  heavy->trans.offset.Set( 0, 2, 0 );
 
+  // Valve's TF2 Medic
+  Object *medic     = heavy->AddObject( "medic" );
   loadModelFromFile( medic, "../models/medicT.obj" );
+  medic->trans.offset.Set( 0, 20, 0 );
   medic->Buffer();
-  medic->Mode( GL_TRIANGLES );
 
+  // Valve's TF2 Spy
+  Object *spy       = medic->AddObject( "spy" );
   loadModelFromFile( spy, "../models/spyT.obj" );
+  spy->trans.offset.Set( 0, 20, 0 );
   spy->Buffer();
-  spy->Mode( GL_TRIANGLES );
 
-  // model credit
-  // http://kp-shadowsquirrel.deviantart.com/art/Pony-Model-Download-Center-215266264
+  Object *ball = theScene.AddObject( "ball" );
+  sphere( ball );
+  ball->trans.scale.Set( 1000 );
+  ball->Buffer();
+
+  Object *sun = theScene.AddObject ("sun");
+  //loadModelFromFile( sun, "../models/heavyT.obj" );
+  sphere(sun);
+  sun->trans.offset.Set(80.0);
+  sun->trans.scale.Set(10.0) ;
+  sun->Buffer();
+
+  Object *actualMoon = theScene.AddObject ("actualMoon");
+  //loadModelFromFile( actualMoon, "../models/spyT.obj" );
+  sphere(actualMoon);
+  actualMoon->trans.offset.Set(-80.0);
+  actualMoon->trans.scale.Set(8.0);
+  actualMoon->Buffer();
+
+
+  //  for ( int z = 0 ; z < 2 ; z++ ){
+
+    lights.addLightSource( LightSource( point4(0.0, 30.0, 0.0, 1.0), 
+					color4(1.0, 1.0, 1.0, 1.0)));
+
+    lights.addLightSource( LightSource( point4(0.0, -1.0, 0.0, 1.0), 
+					color4(1.0, 1.0, 1.0, 1.0)));
+
+    lights.addLightSource( LightSource( point4(10.0, 10.0, 10.0, 1.0), 
+					color4(1.0, 1.0, 1.0, 1.0)));
+
+    //    lights.addLightSource( LightSource( point4(0.0, 0.0, 0.0, 1.0), 
+    //				color4(1.0, 1.0, 1.0, 1.0)));
+    
+
+  /*
+  Object *pony      = terrain->AddObject( "pony" ) ;  
+  // http://kp-shadowsquirrel.deviantart.com/		
+  //   art/Pony-Model-Download-Center-215266264
   loadModelFromFile( pony, "../models/rainbow_dashT.obj" );
+  pony->trans.offset.Set( 2, 2, 2 );
+  pony->trans.scale.Set( 0.2 );
   pony->Buffer();
-  pony->Mode( GL_TRIANGLES );
-
+  */
+  
+  // The water gets generated last.
+  Object *agua      = terrain->AddObject( "agua" )    ;
   makeAgua( terrain, agua ) ;
   agua->Buffer();
   agua->Mode( GL_TRIANGLES );
 
-
-  // code to fall back onto if I mess up the merge -nick
-  /*
-  // Link however many cameras we have at this point to the shader.
-  myScreen.camList.LinkAll( Camera::TRANSLATION, "T" );
-  myScreen.camList.LinkAll( Camera::ROTATION, "R" );
-  myScreen.camList.LinkAll( Camera::VIEW, "P" );
-  myScreen.camList.LinkAll( Camera::CTM, "CTM" );
-  
-  heavy->trans.scale.Set( 0.10 );
-  heavy->trans.offset.Set(  2.00 );
-  heavy->trans.CalcCTM();
-
-  spy->trans.scale.Set( 0.10 );
-  spy->trans.offset.Set(  4.00 );
-  spy->trans.CalcCTM();
-
-  medic->trans.scale.Set( 0.10 );
-  medic->trans.offset.Set(  6.00 );
-  medic->trans.CalcCTM();
-
-  pony->trans.scale.Set( 0.40 );
-  pony->trans.offset.Set( -2.00 );
-  */    
-
   glEnable( GL_DEPTH_TEST );
   glClearColor( 0.3, 0.5, 0.9, 1.0 );
-  
-  heavy->trans.scale.Set( 0.10 );
-  pony->trans.scale.Set( 0.40 );
 
-  heavy->trans.offset.Set( 2.00 );
-  spy->trans.offset.Set( 2.00 );
-  medic->trans.offset.Set( 2.00 );
-  pony->trans.offset.Set( -2.00 );
+ 
+  /*
+  //Attach a model to the Camera.
+  Object *cam = myScreen.camList.Active();
+  loadModelFromFile( cam, "../models/rainbow_dashT.obj" );
+  cam->Buffer();
+  cam->Mode( GL_TRIANGLES );
+  cam->trans.scale.Set( 0.05 );
+  //cam->trans.PreOffset.Set( 0, 0, 0.2 );
+  //cam->trans.rotation.RotateY( 180 );
+  //cam->Propegate(); 
+  */
 
-  heavy->trans.CalcCTM();
-  medic->trans.CalcCTM();
-  spy->trans.CalcCTM();
-  ball->trans.CalcCTM();
-
-  pony->trans.CalcCTM();
+  terrain->Propegate(); // UH BUT UH UH UH TERRAIN SHOULD NOT HAVE KIDS IT ISNT GOOD WITH KIDS
 
 }
 
+float timeOfDay = 0.0 ; // If we are going for day and night
 
 void cleanup( void ) {
 
@@ -239,13 +241,15 @@ void displayViewport( void ) {
 
 void display( void ) {
   glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-
+  lights.sendAll();
   // Tell camList to draw using our displayViewport rendering function.
   myScreen.camList.View( displayViewport );
   glutSwapBuffers();
 }
 
 void keylift( unsigned char key, int x, int y ) {
+
+  if (myScreen.camList.NumCameras() < 1) return;
   
   Camera &cam = *(myScreen.camList.Active());
 
@@ -290,7 +294,6 @@ float CurrentScale = 0.0;
 
 void MakeFlatToRegular( TransCache &obj ) {
 
-
   if ( switchingTerrain ) {
 
     terrainState = SHRINKING ;
@@ -320,8 +323,9 @@ void MakeFlatToRegular( TransCache &obj ) {
   case TRANSITIONING:
 
     // Multithread this for graphics 2 project
-    landGen( theScene["terrain"], 8, 40.0 );
-    theScene["terrain"]->Buffer();
+    randomize_terrain();
+    //landGen( theScene["terrain"], 8, 40.0 );
+    //theScene["terrain"]->Buffer();
     terrainState = GROWING ;
     // CurrentScale = 0.0 ;
     break;
@@ -356,21 +360,42 @@ void MakeFlatToRegular( TransCache &obj ) {
 
 void keyboard( unsigned char key, int x, int y ) {
 
-  /* A shorthand variable with local scope that refers to "The Active Camera." */
-  Camera &cam = *(myScreen.camList.Active());
-
   switch( key ) {
 
   case 033: // Escape Key	  
     cleanup();
     glutLeaveMainLoop();
     break;
+
+  case ';': // Print Info
+    fprintf( stderr, "Active Object: %s\n",
+	     theScene.Active()->Name().c_str() );
+    break;
+
+  case 'l':
+    switchingTerrain = true ; 
+    // GLOBAL State variable used to control the terrain animation
+    //randomize_terrain();
+    break;
     
   case '+':
-    myScreen.camList.AddCamera( "AutoCamera" + myScreen.camList.NumCameras() );
+    std::stringstream camName;
+    camName << "AutoCamera" << myScreen.camList.NumCameras() + 1;
+    myScreen.camList.AddCamera( camName.str() );
     break;
+  }
+
+  if (myScreen.camList.NumCameras() < 1) return;
+
+  /* A shorthand variable with local scope that refers to "The Active Camera." */
+  Camera &cam = *(myScreen.camList.Active());
+  
+  switch( key ) {
   case '-':
     myScreen.camList.PopCamera();
+    break;
+  case ';':
+    fprintf( stderr, "Camera Position: (%f,%f,%f)\n", cam.X(), cam.Y(), cam.Z() );
     break;
     
   case 'w':
@@ -392,12 +417,6 @@ void keyboard( unsigned char key, int x, int y ) {
     cam.Move( Camera::Down );
     break;
     
-  case ';': // Print Info
-    fprintf( stderr, "Active Object: %s\n",
-	     theScene.Active()->Name().c_str() );
-    fprintf( stderr, "Camera Position: (%f,%f,%f)\n", cam.X(), cam.Y(), cam.Z() );
-    break;
-    
     //Perspectives
   case 'z': cam.changePerspective( Camera::PERSPECTIVE ); break;
   case 'x': cam.changePerspective( Camera::ORTHO ); break;
@@ -405,33 +424,23 @@ void keyboard( unsigned char key, int x, int y ) {
   case 'v': cam.changePerspective( Camera::FRUSTUM ); break;
   case 'b': cam.changePerspective( Camera::IDENTITY ); break;
 
-  case 'l':
-
-    switchingTerrain = true ; // GLOBAL State variable used to control the terrain animation
-
-    break;
+ // case 't': lights.addLightSource( randomLight() /*! not defined !*/ ) ; break;
 
   }
 }
 
 void keyboard_ctrl( int key, int x, int y ) {
-  switch (key) {
-  case GLUT_KEY_PAGE_UP:
-    myScreen.camList.Prev();
-    break;
 
-  case GLUT_KEY_PAGE_DOWN:
-    myScreen.camList.Next();
-    break;
-   
+  switch (key) {
+    //Cycle between Active Objects ...
   case GLUT_KEY_LEFT:
     theScene.Prev();
     break;
-    
   case GLUT_KEY_RIGHT:
     theScene.Next();
     break;
 
+    //Change the Draw Mode ...
   case GLUT_KEY_F1:
     theScene.Active()->Mode( GL_POINTS );
     break;
@@ -445,9 +454,24 @@ void keyboard_ctrl( int key, int x, int y ) {
     theScene.Active()->Mode( GL_TRIANGLES );
     break;
   }
+
+  // If there are no Cameras, don't muck around with this section.
+  if (myScreen.camList.NumCameras() < 1) return;
+
+  switch( key ) {
+  case GLUT_KEY_PAGE_UP:
+    myScreen.camList.Prev();
+    break;
+
+  case GLUT_KEY_PAGE_DOWN:
+    myScreen.camList.Next();
+    break;
+  }
 }
 
 void mouse( int button, int state, int x, int y ) {
+
+  if (myScreen.camList.NumCameras() < 1) return;
 
   if ( state == GLUT_DOWN ) {
     switch( button ) {
@@ -462,7 +486,8 @@ void mouse( int button, int state, int x, int y ) {
 void mouseroll( int x, int y ) {
 
   if ((x != myScreen.MidpointX()) || (y != myScreen.MidpointY())) {
-    myScreen.camList.Active()->roll( x - myScreen.MidpointX() );
+    if (myScreen.camList.NumCameras() > 0)
+      myScreen.camList.Active()->roll( x - myScreen.MidpointX() );
     glutWarpPointer( myScreen.MidpointX(), myScreen.MidpointY() );
   }
 
@@ -475,9 +500,11 @@ void mouselook( int x, int y ) {
     const double dx = ((double)x - myScreen.MidpointX());
     const double dy = ((double)y - myScreen.MidpointY());
     
-    myScreen.camList.Active()->pitch( dy );
-    myScreen.camList.Active()->yaw( dx, fixed_yaw );
-    
+    if (myScreen.camList.NumCameras() > 0) {
+      myScreen.camList.Active()->pitch( dy );
+      myScreen.camList.Active()->yaw( dx, fixed_yaw );
+    }    
+
     glutWarpPointer( myScreen.MidpointX(), myScreen.MidpointY() );
   }
   
@@ -490,6 +517,11 @@ void resizeEvent( int width, int height ) {
   myScreen.Size( width, height );
   glutWarpPointer( myScreen.MidpointX(), myScreen.MidpointY() );
 
+}
+
+
+void simpleRotateY( TransCache &obj ) {
+  obj.rotation.RotateY( Tick.Scale() * 1.5 ); 
 }
 
 
@@ -538,17 +570,20 @@ void animationTest( TransCache &obj ) {
 }
 
 
-
-/*
-void sunAndMoon(void){
-ball
+// TOD --> T.ime O.f D.ay
+void sunOrbit(TransCache &sun ) {
+  static float TOD = 0.0 ;
+  sun.orbit.RotateZ( TOD * 0.01 );
+  TOD += 0.01;
+  if ( TOD > 360.0 ) TOD = 0.0;
 }
-*/
 
-/// hackity hack hack hackey doo!
-
-float heightScale = 0.0 ;
-float ticker = 0.0 ;
+void moonOrbit(TransCache &moon) {
+  static float TOD = 0.0 ;
+  moon.orbit.RotateZ( TOD * 0.01);
+  TOD += 0.01;
+  if ( TOD > 360.0 ) TOD = 0.0;
+}
 
 
 void idle( void ) {
@@ -563,18 +598,35 @@ void idle( void ) {
   Pyramid.Animation( animationTest );
   Pyramid["moon"]->Animation( simpleRotateAnim );
 
+  Object &Heavy = *(theScene["heavy"]);
+  Object &Sun   = *(theScene["sun"]);
+  Object &Moon  = *(theScene["actualMoon"]);
+  Object &Medic = *(Heavy["medic"]);
+  Object &Spy   = *(Medic["spy"]);
+  Heavy.Animation( simpleRotateAnim );
+  Medic.Animation( simpleRotateY );
+  Spy.Animation( simpleRotateY );
   Terrain.Animation( MakeFlatToRegular );
+
+  Sun.Animation(  sunOrbit  );
+  Moon.Animation( moonOrbit );
+
+  // Move light absolutely, ie to the point given
+  lights.moveLight( 0, Sun.GetPosition() ) ;
+
 
 
 #ifdef WII
   if (usingWii) {
-    for (size_t i = 0; i < 20; ++i) {
+    static const unsigned NumPolls = 20;
+    Camera *camptr = dynamic_cast< Camera* >( myScreen.camList["AutoCamera2"] );
+    for (size_t i = 0; i < NumPolls; ++i) {
       pollWii( Wii );
-      myScreen.camList.Active().Accel( bb_magnitudes );
+      //Returns and sets bb_magnitudes.
+      if (camptr) camptr->Accel( bb_magnitudes / NumPolls );
     }
   }
 #endif
-
 
   // Move all camera(s).
   myScreen.camList.IdleMotion();

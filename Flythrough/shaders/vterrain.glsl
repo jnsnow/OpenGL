@@ -20,20 +20,15 @@ uniform bool fIsTextured;
 
 // Lighting, dammit.
 uniform int numLights ;
-uniform vec3 LightPositionArray[8] ;
+uniform vec3 LightPositionArray[5] ;
 
 // fshader lighting vars
 varying vec3 cameraVector;
 varying vec3 fragmentNormal;
-varying vec3 lightVector[8];
+varying vec3 lightVector[5];
 
 
 void main() {
-
-// hak hak hak
-//  vec4 magic  = vPosition ;
-  //magic.y = vPosition.y * heightScale ;
-  //gl_Position = CTM * OTM * magic;
 
   gl_Position = CTM * OTM * vPosition;
 
@@ -41,15 +36,15 @@ void main() {
   color = vColor;
   if (fIsTextured) outtexture = vTex;
   //else outtexture = vec2( -1.0, -1.0 );
-  //fPosition = vPosition;
-  fPosition = OTM * vPosition;
+  fPosition = vPosition;
+  //fPosition = OTM * vPosition;
 
-  /*
+
   int i;
-  for ( i = 0 ; i < numLights && i < 8 ; i ++ ) {
-    lightVector[i] = LightPositionArray[i] - vPosition.xyz ;
+  for ( i = 0 ; i < numLights && i < 5 ; i ++ ) {
+    lightVector[i] = LightPositionArray[i] - (OTM*vPosition).xyz ;
   }
-  */
+
 
   //fragmentNormal = vNormal;
 
