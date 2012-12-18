@@ -1,20 +1,12 @@
 var searchData=
 [
   ['vao',['vao',['../class_object.html#a66190fee29d03d6478516686cbd01eb8',1,'Object']]],
-  ['vec',['vec',['../structgforce__t.html#a97f8ca8f50cd68fd5c5e9530758c461e',1,'gforce_t']]],
   ['vec_2ecpp',['vec.cpp',['../vec_8cpp.html',1,'']]],
   ['vec2',['vec2',['../struct_angel_1_1vec2.html',1,'Angel']]],
-  ['vec2b_5ft',['vec2b_t',['../structvec2b__t.html',1,'']]],
   ['vec3',['vec3',['../struct_angel_1_1vec3.html',1,'Angel']]],
-  ['vec3b_5ft',['vec3b_t',['../structvec3b__t.html',1,'']]],
-  ['vec3f_5ft',['vec3f_t',['../structvec3f__t.html',1,'']]],
   ['vec4',['vec4',['../struct_angel_1_1vec4.html',1,'Angel']]],
-  ['vel',['vel',['../structvel__t.html#a76865c7b30e92bcae2097ec2b46aa692',1,'vel_t']]],
-  ['vel_5ft',['vel_t',['../structvel__t.html',1,'']]],
   ['velocity',['velocity',['../class_camera.html#a5b95c890f213db50f321380108b17ea1',1,'Camera']]],
   ['view',['View',['../class_camera.html#afea07d3100ca3b43655f4021fdece774',1,'Camera']]],
   ['view_5ftype',['view_type',['../class_camera.html#afdccec6d447490dcc80ab6b99f21d0e5',1,'Camera']]],
-  ['viewport',['viewport',['../class_camera.html#adda458a9212825164b52019597f2e9c8',1,'Camera']]],
-  ['visible',['visible',['../structir__dot__t.html#a80221d94f19596c20184f0fa81e492e7',1,'ir_dot_t']]],
-  ['vres',['vres',['../structir__t.html#a4aa225245b34b9348af37642a313fbe4',1,'ir_t']]]
+  ['viewport',['viewport',['../class_camera.html#adda458a9212825164b52019597f2e9c8',1,'Camera']]]
 ];

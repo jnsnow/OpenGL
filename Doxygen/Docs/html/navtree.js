@@ -1,13 +1,12 @@
 var NAVTREE =
 [
   [ "OpenGL Flythrough", "index.html", [
-    [ "WiiC", "index.html", null ],
     [ "Classes", null, [
       [ "Class List", "annotated.html", "annotated" ],
       [ "Class Index", "classes.html", null ],
       [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
       [ "Class Members", "functions.html", [
-        [ "All", "functions.html", "functions_dup" ],
+        [ "All", "functions.html", null ],
         [ "Functions", "functions_func.html", null ],
         [ "Variables", "functions_vars.html", null ],
         [ "Typedefs", "functions_type.html", null ],
@@ -20,8 +19,6 @@ var NAVTREE =
         [ "All", "globals.html", null ],
         [ "Functions", "globals_func.html", null ],
         [ "Variables", "globals_vars.html", null ],
-        [ "Typedefs", "globals_type.html", null ],
-        [ "Enumerations", "globals_enum.html", null ],
         [ "Macros", "globals_defs.html", null ]
       ] ]
     ] ]
@@ -31,13 +28,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 ".html",
-"class_c_g_h3_buttons.html#ae759f1224f68e51f58018fe451f2052ea2c0da1d30a5d08ec45951b7e9ae5d610",
-"class_camera.html#a5b95c890f213db50f321380108b17ea1",
-"class_m_l_alg.html#a44f120e39108980863a3fac855f89106",
-"classtxload.html#a23aee3e0e6f6847c75b777f6e8825c3e",
-"mat_8cpp.html",
-"structnunchuk__t.html#a22475e2830a1c51b9b7b4e836eade2e2",
-"wiic__internal_8h.html#a5012dbde6f77ab929c177e1b55c203e5"
+"class_cameras.html#acb3907c96b7d147b7bcc1aad42f8da6f",
+"fly_8cpp.html#a6e0273d43c429ca5369108478993d7b0"
 ];
 
 var navTreeSubIndices = new Array();

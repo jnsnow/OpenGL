@@ -90,7 +90,7 @@ $(document).ready(function(){initNavTree('terrain_8cpp_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -139,7 +139,7 @@ $(document).ready(function(){initNavTree('terrain_8cpp_source.html','');});
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#ifdef WII</span></div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#include &lt;wiicpp.h&gt;</span>  <span class="comment">// WiiC++ API</span></div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#include &quot;WiiUtil.h&quot;</span> <span class="comment">// Wii Controller Handler Util</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<a class="code" href="class_c_wii.html">CWii</a> Wii;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;CWii Wii;</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keywordtype">bool</span> usingWii = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor"></span></div>
@@ -736,7 +736,7 @@ $(document).ready(function(){initNavTree('terrain_8cpp_source.html','');});
 <div class="line"><a name="l00642"></a><span class="lineno">  642</span>&#160;    </div>
 <div class="line"><a name="l00643"></a><span class="lineno">  643</span>&#160;}</div>
 <div class="line"><a name="l00644"></a><span class="lineno">  644</span>&#160;</div>
-<div class="line"><a name="l00645"></a><span class="lineno">  645</span>&#160;<span class="keywordtype">int</span> <a class="code" href="example_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="main()">main</a>( <span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv ) {</div>
+<div class="line"><a name="l00645"></a><span class="lineno">  645</span>&#160;<span class="keywordtype">int</span> main( <span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv ) {</div>
 <div class="line"><a name="l00646"></a><span class="lineno">  646</span>&#160;</div>
 <div class="line"><a name="l00647"></a><span class="lineno">  647</span>&#160;<span class="preprocessor">#ifdef WII</span></div>
 <div class="line"><a name="l00648"></a><span class="lineno">  648</span>&#160;<span class="preprocessor"></span>  <span class="keywordflow">if</span> (!(usingWii = initWii( Wii ))) {</div>
@@ -797,8 +797,8 @@ $(document).ready(function(){initNavTree('terrain_8cpp_source.html','');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_198e610de5e1ceb82c8cf341201db1a3.html">master</a></li><li class="navelem"><a class="el" href="dir_c31bd3b7511d4fa4b99802539ff88eac.html">Flythrough</a></li><li class="navelem"><a class="el" href="terrain_8cpp.html">terrain.cpp</a></li>
-    <li class="footer">Generated on Tue Dec 18 2012 01:46:33 for OpenGL Flythrough by
+    <li class="navelem"><a class="el" href="dir_c1346cf4828efdd0d2baf0d391d01b77.html">master</a></li><li class="navelem"><a class="el" href="dir_f73ce1ebc00749169b5e2ae2943b2775.html">Flythrough</a></li><li class="navelem"><a class="el" href="terrain_8cpp.html">terrain.cpp</a></li>
+    <li class="footer">Generated on Tue Dec 18 2012 01:52:23 for OpenGL Flythrough by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.1.2 </li>
   </ul>
