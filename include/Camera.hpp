@@ -138,6 +138,10 @@ public:
   /* OpenGL Methods */
   virtual void Send( Object::UniformEnum which );
   void View( void );
+
+  /* In case of emergency, ... */
+  void resetRotation( void );
+
     
 private:
 

@@ -4,6 +4,17 @@ HSC
 - This is our Graphics I final project for Prof. Grinstein,
   at UMass Lowell, Fall 2012.
 
+- It has been written ground-up without utilizing the fixed-pipeline
+  API of OpenGL. 
+
+- It implements a fully Object-Oriented scene graph, independent and
+  arbitrary cameras (realized via splitscreen), and multiple methods
+  of input.
+
+- The project features prominently random terrain generation. This is
+  performed using the Diamond-Square algorithm; see below for additional
+  reading on the technique.
+
 - This project utilizes a lot of code snippets, libraries and ideas from
   a variety of authors. They are credited in-line where appropriate, but here's a list:
   
@@ -39,16 +50,32 @@ HSC
 
 - Controls (as of Mon 03 Dec 2012)
   w,a,s,d: Forward, back, strafe left and right (As in most commercial FPS games)
+  q,e: Fly up, Fly down.
   mouse: Look around.
   click and move mouse: Rotate left or right.
-  
-  1-7, 0: Control rotating light distance,
-  m: change light mode
-  n: change light position
+  right-click: Open a menu that allows you to toggle mouselook between fixed-y and free-y rotations.
 
-  z,x,c,v,b: Various perspective modes.
+  z,x,c,v,b: Various perspective modes;
+  	     z: Perspective
+	     x: Ortho2D
+	     b: Identity
+
+  l: Generate new terrain.
 
   +,-: Add or remove cameras.
+
+  left,right: Cycle between the active scene objects.
+
+  F1,F2,F3,F4: Change the rendering mode of the active scene object.
+  	       F1: GL_POINTS
+	       F2: GL_LINE_LOOP
+	       F3: GL_TRIANGLE_STRIP
+	       F4: GL_TRIANGLES
+
+  Wiimote Minus Button: Enable/Calibrate Gyroscope
+  Keyboard '~':         Calibrate Gyroscope, Reset Camera.
+
+  Wiimote Balance Board Button: Begin Tare (Calibrate to Zero.)
 
 - wiic/pp library utilizes the LGPL license,
   The source code is included in our source tree here for convenience,

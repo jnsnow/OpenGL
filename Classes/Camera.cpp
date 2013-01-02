@@ -740,3 +740,9 @@ void Camera::View( void ) {
   Send( CTM );
 
 }
+
+void Camera::resetRotation( void ) {
+
+  this->R = Angel::mat4();
+
+}

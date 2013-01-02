@@ -8,9 +8,6 @@ varying vec3 fragmentNormal;
 varying vec3 lightVector[5];
 varying vec4 fsunHeight;
 
-const float MAX_DIST = 21.0 ;
-const float MAX_DIST_SQUARED = MAX_DIST * MAX_DIST;
-
 //lights
 uniform int numLights ;
 uniform vec3 lightColor[5];
@@ -20,7 +17,7 @@ uniform vec3 LightDirectionArray[5];
 varying vec2 outtexture;
 varying vec4 fPosition;
 
-uniform bool      fIsTextured;
+uniform bool fIsTextured;
 
 uniform sampler2D gSampler0; // Dirt
 uniform sampler2D gSampler1; // Sand
@@ -39,6 +36,9 @@ float rockLower;
 float sandUpper;
 float sandLower;
 float snowLower;
+
+const float MAX_DIST = 21.0 ;
+const float MAX_DIST_SQUARED = MAX_DIST * MAX_DIST;
 
 vec4 textureGradient( sampler2D a, sampler2D b, float upper, float lower )
 {
@@ -100,8 +100,9 @@ void main()
       fragColor = color ;
     }
 
+
+
     // deal with all the lights, right now.
-/*
      int i;
      vec3 diffuse, specular;
      vec3 normal, cameraDir;

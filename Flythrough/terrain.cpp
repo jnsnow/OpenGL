@@ -71,22 +71,20 @@ const char* terrainTex[] = {
 void randomize_terrain() {
 
   float H = fmod( (float)random(), 200 ) + 50.0 ;
+  
+  srand(time(NULL));
 
   Object *Terrain = theScene["terrain"];
-  // 8, 40
   double magnitude = landGen( Terrain, 10, H /*40.0*/ );
   Terrain->Buffer();
-
   GLint handle = glGetUniformLocation( gShader, "terrainMag" );
   if (handle != -1) glUniform1f( handle, magnitude );
-
 
 }
 
 
 void init() {
 
-  srand(time(NULL));
   
   // Load shaders and use the resulting shader program. 
   gShader = Angel::InitShader( "shaders/vterrain.glsl", "shaders/fterrain.glsl" );
@@ -100,7 +98,7 @@ void init() {
   lights.init_lights(gShader);
 
   /*
-    SUPER IMPORTANT NOTE DAMMIT
+    NOTE:
     ==========================
     Please do not give the Terrain children. 
     The animation is currently scaling the Y values of the 
@@ -177,13 +175,13 @@ void init() {
 
   lights.addLightSource( LightSource( point4(0.0, 30.0, 0.0, 1.0), 
 				      color4(1.0, 1.0, 0.0, 1.0)));
-
+  /*
   lights.addLightSource( LightSource( point4(0.0, -1.0, 0.0, 1.0), 
 				      color4(1.0, 0.0, 1.0, 1.0)));
 
   lights.addLightSource( LightSource( point4(10.0, 10.0, 10.0, 1.0), 
 				      color4(0.0, 1.0, 1.0, 1.0)));
-
+  */
   /*
   Object *pony      = terrain->AddObject( "pony" ) ;  
   // http://kp-shadowsquirrel.deviantart.com/		
@@ -195,7 +193,9 @@ void init() {
   */
   
   // The water gets generated last.
-  Object *agua      = terrain->AddObject( "agua" ) ;
+
+  Object *agua      = theScene.AddObject( "agua" )    ;
+
   makeAgua( terrain, agua ) ;
   agua->Buffer();
   agua->Mode( GL_TRIANGLES );
@@ -405,6 +405,9 @@ void MakeFlatToRegular( TransCache &obj ) {
 
 void keyboard( unsigned char key, int x, int y ) {
 
+  // Hacky, for the wii reset, below.
+  Camera *camptr = dynamic_cast< Camera* >( myScreen.camList["AutoCamera2"] );
+
   switch( key ) {
 
   case 033: // Escape Key	  
@@ -417,6 +420,13 @@ void keyboard( unsigned char key, int x, int y ) {
 	     theScene.Active()->Name().c_str() );
     break;
 
+  case '~':
+#ifdef WII
+    CalibrateGyro( Wii );
+    if (camptr) camptr->resetRotation();
+#endif
+    break;
+    
   case 'l':
     switchingTerrain = true ; 
     // GLOBAL State variable used to control the terrain animation
@@ -539,6 +549,30 @@ void mouseroll( int x, int y ) {
 
 }
 
+
+void wiilook( Camera &WiiCamera, const Angel::vec3 &NewTheta,
+	      const Angel::vec3 &MovementRates ) {
+
+  static Angel::vec3 OldTheta; /* Defaults to 0,0,0 */  
+  // Rotation Order: Y-X-Z looks the best, I think.
+  //WiiCamera.yaw( NewTheta.y - OldTheta.y );
+  //WiiCamera.pitch( OldTheta.x - NewTheta.x );
+  //WiiCamera.roll( NewTheta.z - OldTheta.z );
+
+  float yaw = -MovementRates.y / 20;
+  float pitch = -MovementRates.x / 20;
+  float roll = MovementRates.z / 20;
+
+  if (abs(yaw) >= 0.1)
+    WiiCamera.yaw( -MovementRates.y / 20, fixed_yaw );
+  if (abs(pitch) >= 0.1)
+    WiiCamera.pitch( -MovementRates.x / 20 );
+  if (abs(roll) >= 0.1)
+    WiiCamera.roll( MovementRates.z / 20 );
+
+  OldTheta = NewTheta;
+
+}
 
 void mouselook( int x, int y ) {
 
@@ -680,20 +714,34 @@ void idle( void ) {
 	       Sun.GetPosition() );
 
 
-
-
 #ifdef WII
   if (usingWii) {
     static const unsigned NumPolls = 20;
     Camera *camptr = dynamic_cast< Camera* >( myScreen.camList["AutoCamera2"] );
+    Angel::vec3 theta_diff;
+    Angel::vec3 accel_mag;
+
+    // Take many samples for two reasons:
+    // (1) Without this, we can't poll often enough and Wii Input "lags".
+    // (2) Average/Sample to "smooth" the data.
     for (size_t i = 0; i < NumPolls; ++i) {
       pollWii( Wii );
-      //Returns and sets bb_magnitudes.
-      if (camptr) camptr->Accel( bb_magnitudes / NumPolls );
+      if (PollResults.Reset_Camera && camptr != NULL) camptr->resetRotation();
+      theta_diff += PollResults.wr_thetas;
+      accel_mag += PollResults.bb_magnitudes;
     }
+
+    //Angel::vec3 normal_accel = accel_mag / NumPolls;
+    //fprintf( stderr, "bbXL: (%f,%f,%f)\n", normal_accel.x, normal_accel.y, normal_accel.z );
+
+    if (camptr) {
+      camptr->Accel( (accel_mag / NumPolls) * 2.0 );
+      wiilook( *camptr, theta_diff / NumPolls, PollResults.wr_rates );
+    }
+
   }
 #endif
-
+  
   // Move all camera(s).
   myScreen.camList.IdleMotion();
   glutPostRedisplay();
