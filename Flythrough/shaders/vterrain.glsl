@@ -47,10 +47,14 @@ void main() {
   fPosition = OTM * vPosition;
   //fPosition = R*T*OTM*vPosition;
 
+
+/*
   int i;
 
-  for ( i = 0 ; i < numLights && i < 5 ; i ++ ) {
-    lightVector[i] = LightPositionArray[i] - fPosition.xyz; //(R*T*OTM*vPosition).xyz ;
+  for ( i = 0 ; i < numLights && i < 5 ; i++ ) {
+    lightVector[i] = LightPositionArray[i] - fPosition.xyz ; //(R*T*OTM*vPosition).xyz ;
   }
+*/
+
 
 }

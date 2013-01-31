@@ -1,11 +1,11 @@
 /**
-   @file terrain.cpp
-   @authors John Huston, Nicholas StPierre, Chris Compton
+   @file morph.cpp
+   @author Nicholas St.Pierre
+   @authors John Huston, Nicholas VerVoort, Chris Compton
    @date 2012-12-06
    @brief This is a derivative of our main project file, fly.cpp.
-   @details This is a tech demo for terrain generation using an udpated
-   engine derived from fly.cpp, which was mostly based on Ed Angel's code
-   from his book.
+   @details This is a tech demo for morphing two objects back and forth.
+   This is mostly based on ed angel's code from his book.
 **/
 
 #include "globals.h"
@@ -55,187 +55,57 @@ Scene theScene;
 GLuint gShader;
 bool fixed_yaw = true;
 
-// #lights
-Lights lights(false); // Bool controls the lighting mode. False indicates the simpler, faster one.
-
-// Textures
-// Obtained from www.goodtextures.com
-const char* terrainTex[] = {
-  "../Textures/GoodTextures_0013423.jpg",  // Dirt/Mud
-  "../Textures/GoodTextures_0013779.jpg",  // Sand
-  "../Textures/GrassGreenTexture0002.jpg", // Grass (who'da thunk?)
-  "../Textures/GoodTextures_0013418.jpg",  // Rock
-  "../Textures/GoodTextures_0013291.jpg"   // Snow
-};
-
-void randomize_terrain() {
-
-  float H = fmod( (float)random(), 200 ) + 50.0 ;
-  
-  srand(time(NULL));
-
-  Object *Terrain = theScene["terrain"];
-  double magnitude = landGen( Terrain, 10, H /*40.0*/ );
-  Terrain->Buffer();
-  GLint handle = glGetUniformLocation( gShader, "terrainMag" );
-  if (handle != -1) glUniform1f( handle, magnitude );
-
-}
-
-
 void init() {
 
   
   // Load shaders and use the resulting shader program. 
-  gShader = Angel::InitShader( "shaders/vterrain.glsl", "shaders/fterrain.glsl" );
+  gShader = Angel::InitShader( "shaders/vmorph.glsl", "shaders/fmorph.glsl" );
   theScene.SetShader( gShader );
   myScreen.camList.SetShader( gShader );
   myScreen.camList.AddCamera( "Camera1" );
   myScreen.camList.Next();
 
-  // initialize lights
 
-  lights.init_lights(gShader);
+  // Make ya models here
+
+  Object *bottle = theScene.AddObject( "bottle" );
+  loadModelFromFile( bottle, "../models/bottle-a.obj" ); // loadModelFromFile( bottle_a, "../models/bottle-a.obj" );
+  bottle->trans.scale.Set( 0.01 );
+  bottle->Buffer();
+
+  // Objects has-a pointer to an object which is their "morph target."
+  // they are created and buffered as follows:
+
+  bottle->genMorphTarget( gShader ) ; // this makes a new object and links it to the source object. it returns the addr of the new obj..
+  Object *bottleMorphTarget = bottle->getMorphTargetPtr() ; // we can get the addr of the morph object like this, also.
+    loadModelFromFile( bottleMorphTarget, "../models/bottle-b.obj" ); // with this model, we can use all the preexisting Object class functionality
+  //loadModelFromFile( bottle->getMorphTargetPtr(), "../models/bottle-b.obj" ); // with this model, we can use all the preexisting Object class functionality
+  bottleMorphTarget->trans.scale.Set( 0.01 );
+  bottle->BufferMorphOnly(); // YES THIS IS THE REAL OBJECT, NOT THE TARGET. IT SENDS THE MORPH VERTICES TO THE SHADER, NOT TO THE DRAW LIST TO BE DRAWN!
 
   /*
-    NOTE:
-    ==========================
-    Please do not give the Terrain children. 
-    The animation is currently scaling the Y values of the 
-    terrain to grow/shrink it.
-    Any and all Children will inherit this,
-    and become flat.
-
-  */
-
-  /* Create some Objects ... */
-  Object *terrain   = theScene.AddObject( "terrain" ) ;
-  terrain->Texture( terrainTex );
-  terrain->Mode( GL_TRIANGLE_STRIP );
-  randomize_terrain();
-  
-
-  Object *box   = theScene.AddObject( "box" ) ;
-  loadModelFromFile( box, "../models/box-a.obj");
-  box->trans.offset.SetY(100.0);
-  box->trans.offset.SetX(100.0);
-  box->Buffer();
-
-
-
-
-  Object *pyramid   = theScene.AddObject( "pyramid" ) ;
-  Sierpinski_Pyramid( pyramid,
-		      vec4(  0,      1,  0, 1 ),
-		      vec4( -1, -0.999,  1, 1 ),
-		      vec4(  1, -0.999,  1, 1 ),
-		      vec4(  0, -0.999, -1, 1 ),
-		      4 );
-  pyramid->Buffer();
-  /*
-  Object *cube_base = theScene.AddObject( "basecube" );
-  colorcube( cube_base, 1.0 );
-  cube_base->Buffer();
-  
-  Object *moon_cube = pyramid->AddObject( "moon" )    ;
-  colorcube( moon_cube, 0.5 );
-  moon_cube->Buffer();
-  */
-  // These models came from VALVE,
-  // From their game "Team Fortress 2."
-  // The model processing was done in Blender.
-  /*  Object *heavy     = theScene.AddObject( "heavy" ) ;
+  Object *heavy     = theScene.AddObject( "heavy" ) ;
   loadModelFromFile( heavy, "../models/heavyT.obj" );
+  heavy->trans.scale.Set(2.0);
   heavy->Buffer();
-  heavy->trans.scale.Set( 0.10 );
-  heavy->trans.offset.Set( 0, 2, 0 );
 
-  // Valve's TF2 Medic
-  Object *medic     = heavy->AddObject( "medic" );
-  loadModelFromFile( medic, "../models/medicT.obj" );
-  medic->trans.offset.Set( 0, 20, 0 );
-  medic->Buffer();
 
-  // Valve's TF2 Spy
-  Object *spy       = medic->AddObject( "spy" );
-  loadModelFromFile( spy, "../models/spyT.obj" );
-  spy->trans.offset.Set( 0, 20, 0 );
-  spy->Buffer();
-
-  Object *ball = theScene.AddObject( "ball" );
-  sphere( ball );
-  ball->trans.scale.Set( 1000 );
-  ball->Buffer();
-  */
-  Object *sun = theScene.AddObject ("sun");
-  //loadModelFromFile( sun, "../models/heavyT.obj" );
-  sphere(sun);
-  sun->trans.offset.SetX(500.0);
-  sun->trans.scale.Set(16.0) ;
-  sun->Buffer();
-
-  /*
-  Object *actualMoon = theScene.AddObject ("actualMoon");
-  //loadModelFromFile( actualMoon, "../models/spyT.obj" );
-  sphere(actualMoon);
-  actualMoon->trans.offset.SetX(-500.0);
-  actualMoon->trans.scale.Set(12.0);
-  actualMoon->Buffer();
+  heavy->genMorphTarget( gShader ) ;
+  loadModelFromFile( heavy->getMorphTargetPtr(), "../models/medicT.obj" );
+  heavy->getMorphTargetPtr()->trans.scale.Set(2.0);
+  heavy->BufferMorphOnly();
   */
 
-  lights.addLightSource( LightSource( point4(0.0, 30.0, 0.0, 1.0), 
-				      color4(1.0, 1.0, 0.0, 1.0)));
-  /*
-  lights.addLightSource( LightSource( point4(0.0, -1.0, 0.0, 1.0), 
-				      color4(1.0, 0.0, 1.0, 1.0)));
-
-  lights.addLightSource( LightSource( point4(10.0, 10.0, 10.0, 1.0), 
-				      color4(0.0, 1.0, 1.0, 1.0)));
-  */
-  /*
-  Object *pony      = terrain->AddObject( "pony" ) ;  
-  // http://kp-shadowsquirrel.deviantart.com/		
-  //   art/Pony-Model-Download-Center-215266264
-  loadModelFromFile( pony, "../models/rainbow_dashT.obj" );
-  pony->trans.offset.Set( 2, 2, 2 );
-  pony->trans.scale.Set( 0.2 );
-  pony->Buffer();
-  */
-  
-  // The water gets generated last.
-
-  Object *agua      = theScene.AddObject( "agua" )    ;
-
-  makeAgua( terrain, agua ) ;
-  agua->Buffer();
-  agua->Mode( GL_TRIANGLES );
 
   glEnable( GL_DEPTH_TEST );
   glClearColor( 0.3, 0.5, 0.9, 1.0 );
 
- 
-  /*
-  //Attach a model to the Camera.
-  Object *cam = myScreen.camList.Active();
-  loadModelFromFile( cam, "../models/rainbow_dashT.obj" );
-  cam->Buffer();
-  cam->Mode( GL_TRIANGLES );
-  cam->trans.scale.Set( 0.05 );
-  //cam->trans.PreOffset.Set( 0, 0, 0.2 );
-  //cam->trans.rotation.RotateY( 180 );
-  //cam->Propegate(); 
-  */
-
-  terrain->Propegate(); // UH BUT UH UH UH TERRAIN SHOULD NOT HAVE KIDS IT ISNT GOOD WITH KIDS
-
 }
 
-float timeOfDay = 0.0 ; // If we are going for day and night
 
 void cleanup( void ) {
 
   theScene.DestroyObject();
-
 }
 
 //--------------------------------------------------------------------
@@ -244,12 +114,13 @@ void cleanup( void ) {
     Is responsible for drawing a SINGLE VIEWPORT. **/
 void displayViewport( void ) {  
   theScene.Draw(); /* Draw free-floating objects */
-  myScreen.camList.Draw(); /* Draw camera-attached objects */
+  // myScreen.camList.Draw(); /* Draw camera-attached objects */
 }
 
 void display( void ) {
   glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-  lights.sendAll();
+  // lights.sendAll();
+
   // Tell camList to draw using our displayViewport rendering function.
   myScreen.camList.View( displayViewport );
   glutSwapBuffers();
@@ -258,7 +129,7 @@ void display( void ) {
 void keylift( unsigned char key, int x, int y ) {
 
   if (myScreen.camList.NumCameras() < 1) return;
-  
+
   Camera &cam = *(myScreen.camList.Active());
 
   switch( key ) {
@@ -284,135 +155,6 @@ void keylift( unsigned char key, int x, int y ) {
 }
 
 
-
-typedef enum {
-
-  SHRINKING,
-  TRANSITIONING,
-  GROWING,
-  DONE
-
-} TSTATE ;
-
-TSTATE terrainState = DONE ;
-TSTATE sunState = DONE ;
-
-// These belong to MakeFlatToRegular()
-bool switchingTerrain = false ;
-float CurrentScale = 0.0;
-
-bool pushSun = false ;
-
-void moveSun(TransCache &sun){
-
-  switch ( sunState ) {
-
-  case SHRINKING:
-
-    sun.orbit.RotateZ( timeOfDay*0.1 );
-    timeOfDay += 0.001 * Tick.Scale();
-    if ( timeOfDay > 90.0 ) sunState = TRANSITIONING ;
-
-    break;
-
-
-  case TRANSITIONING:
-
-    if ( pushSun ) {
-      sunState = GROWING ;
-      pushSun = false ;
-    }
-
-    return;
-
-  case GROWING:
-
-    sun.orbit.RotateZ( timeOfDay*0.1 ) ;
-    timeOfDay += 0.001 * Tick.Scale( ) ;
-
-    if ( timeOfDay > 360.0 ) sunState = DONE ;
-
-    break;
-
-  case DONE:
-
-    if ( pushSun ) {
-      sunState = SHRINKING ;
-      pushSun = false ;
-    }
-
-    return;
-
-  }
-
-
-}
-
-void MakeFlatToRegular( TransCache &obj ) {
-
-  if ( switchingTerrain ) {
-
-    terrainState = SHRINKING ;
-    switchingTerrain = false ;
-    CurrentScale = 0.0       ;
-  }
-
-  //float f ;
-  switch ( terrainState ) {
-
-  case SHRINKING:
-
-    //    f = CurrentScale / 180 ;
-    obj.scale.Set(1.0,
-		  ((1.0+cos(CurrentScale*DegreesToRadians))/2.0),
-		  1.0);
-    
-    CurrentScale += 1.0 * Tick.Scale() ;
-
-    if ( CurrentScale >= 180.0 ) {
-      terrainState = TRANSITIONING ;
-    }
-
-    break;
-
-
-  case TRANSITIONING:
-
-    // Multithread this for graphics 2 project
-    randomize_terrain();
-    //landGen( theScene["terrain"], 8, 40.0 );
-    //theScene["terrain"]->Buffer();
-    terrainState = GROWING ;
-    // CurrentScale = 0.0 ;
-    break;
-
-  case GROWING:
-
-
-    //f = CurrentScale/360.0;
-
-    obj.scale.Set(1.0,
-		  ((1.0+cos(CurrentScale*DegreesToRadians))/2.0),
-		  1.0);
-
-    CurrentScale += 1.0 * Tick.Scale() ;
-
-    if ( CurrentScale >= 360.0 ) terrainState = DONE ;
-    break;
-
-
-  case DONE:
-    return;
-
-  default: 
-    return;
-
-  }
-
-    // bottom
-
-}
-
 void keyboard( unsigned char key, int x, int y ) {
 
   // Hacky, for the wii reset, below.
@@ -437,11 +179,6 @@ void keyboard( unsigned char key, int x, int y ) {
 #endif
     break;
     
-  case 'l':
-    switchingTerrain = true ; 
-    // GLOBAL State variable used to control the terrain animation
-    //randomize_terrain();
-    break;
     
   case '+':
     std::stringstream camName;
@@ -488,10 +225,9 @@ void keyboard( unsigned char key, int x, int y ) {
   case 'c': cam.changePerspective( Camera::ORTHO2D ); break;
   case 'v': cam.changePerspective( Camera::FRUSTUM ); break;
   case 'b': cam.changePerspective( Camera::IDENTITY ); break;
+    //  case '[': theScene["bottle"]->setMorphPercentage(0.0); break;
+    //  case ']': theScene["bottle"]->setMorphPercentage(1.0); break;
 
- // case 't': lights.addLightSource( randomLight() /*! not defined !*/ ) ; break;
-
-  case 't': pushSun = true; break;
   }
 }
 
@@ -610,12 +346,6 @@ void resizeEvent( int width, int height ) {
 }
 
 
-void simpleRotateY( TransCache &obj ) {
-  obj.rotation.RotateY( Tick.Scale() * 1.5 ); 
-}
-
-
-
 void simpleRotateAnim( TransCache &obj ) {
 
   obj.rotation.RotateY( Tick.Scale() * 1.5 );
@@ -625,103 +355,24 @@ void simpleRotateAnim( TransCache &obj ) {
 }
 
 
-void animationTest( TransCache &obj ) {
-
-  double timeScale = Tick.Scale();
-  double theta = timeScale * 0.1;
-  if (0) fprintf( stderr, "Timescale: %f\n", timeScale );
-
-  //Object increasingly grows. 
-  /* Note that, Scaling Adjustment, unlike Rotation and Translation,
-     is a multiplicative adjustment, which means that
-     we can't just multiply by our time scaling factor,
-     we have to take pow( scaleFactor, timeScale ) instead.
-     This is, of course, incredibly inefficient. */
-  // obj.scale.Adjust( pow( 1.001, timeScale ) );
-
-  //Object rotates in-place.
-  obj.rotation.RotateX( theta );
-  obj.rotation.RotateY( theta );
-  obj.rotation.RotateZ( theta );
-
-  obj.offset.Set( 5, 0, 0 );
-
-  //Object increasingly moves away from origin, x += 0.01
-  //obj.offset.Delta( timeScale * 0.01, 0, 0 );
-
-  //Object orbits about the origin
-  obj.orbit.RotateX( timeScale * 0.2 );
-  obj.orbit.RotateY( timeScale * 0.2 );
-  obj.orbit.RotateZ( timeScale * 0.2 );
-
-  // Object moves its focal orbit-point, x = 5.
-  //obj.displacement.Set( 5, 0, 0 );
-  
-}
-
-//###
-//void sunOrbit(TransCache &sun ) {
-
-//}
-
-/*
-void moonOrbit(TransCache &moon) {
-  moon.orbit.RotateZ( timeOfDay*0.1 );
-}
-*/
 
 void idle( void ) {
 
   Tick.Tock();
 
+  static double timer = 0.0 ;
 
-  //  if ( timeOfDay > 360.0 ) timeOfDay = 0.0;
+  if ( (timer += 0.005 ) > 360.0 ) timer = 0.0 ;
 
-  glClearColor( 
-	       0.4*(sin(timeOfDay*DegreesToRadians)*sin(timeOfDay*DegreesToRadians)),
-	       0.4,
-	       0.45*(1.0+cos(timeOfDay*DegreesToRadians)),
-	       1.0 );
+  float percent = ( sin(timer) + 1 ) / 2 ;
 
-  //  glClearColor( 0.0,0.0,0.1,1.0);
+  theScene["bottle"]->setMorphPercentage(percent);
+  //  theScene["heavy"]->setMorphPercentage(percent);
+
 
   if (DEBUG_MOTION) 
     fprintf( stderr, "Time since last idle: %lu\n", Tick.Delta() );
 
-
-  Object &Terrain = *(theScene["terrain"]);
-  Object &Pyramid = *(theScene["pyramid"]);
-  Pyramid.Animation( animationTest );
-
-  /*
-  Pyramid["moon"]->Animation( simpleRotateAnim );
-  Object &Heavy = *(theScene["heavy"]);
-  Object &Medic = *(Heavy["medic"]);
-  Object &Spy   = *(Medic["spy"]);
-  Heavy.Animation( simpleRotateAnim );
-  Medic.Animation( simpleRotateY );
-  Spy.Animation( simpleRotateY );
-  */
-
-  Object &Sun   = *(theScene["sun"]);
-  //  Object &Moon  = *(theScene["actualMoon"]);
-
-  Terrain.Animation( MakeFlatToRegular );
-
-  Sun.Animation( moveSun ) ;// sunOrbit  );
-  //Moon.Animation( moonOrbit );
-
-  // Move light absolutely, ie to the point given
-  lights.moveLight( 0, Sun.GetPosition() ) ;
-
-
-  // Move light absolutely, ie to the point given
-  lights.moveLight( 0, Sun.GetPosition() ) ;
-
-
-  // lights hack
-  glUniform4fv( glGetUniformLocation(gShader, "sunHeight"), 1,
-	       Sun.GetPosition() );
 
 
 #ifdef WII
@@ -765,12 +416,8 @@ void menufunc( int value ) {
 
   switch (value) {
   case 0:
-    landGen( theScene["terrain"], 12, 40.0 );
-    theScene["terrain"]->Buffer();
     break;
   case 1:
-    if (fixed_yaw) fixed_yaw = false;
-    else fixed_yaw = true;
     break;
   }
 
@@ -795,7 +442,7 @@ int main( int argc, char **argv ) {
   glutInit( &argc, argv );
   glutInitDisplayMode( GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH );
   glutInitWindowSize( myScreen.Width(), myScreen.Height() );
-  glutCreateWindow( "Terrain" );
+  glutCreateWindow( "Change This" );
   glutFullScreen();
   glutSetCursor( GLUT_CURSOR_NONE );
 

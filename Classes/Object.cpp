@@ -42,10 +42,14 @@ Object::Object( const std::string &name, GLuint gShader )
   // Load 
   Link( Object::IsTextured, "fIsTextured" );
   Link( Object::ObjectCTM, "OTM" );
+  Link( Object::MorphPercentage, "morphPercentage" );
 
   //Default to "Not Textured"
   this->isTextured = false;
 
+
+  this->morphPercentage = 1.0;
+  this->morphTarget = NULL ;
 
   /* Create our VAO, which is our handle to all 
      the rest of the following information. */
@@ -56,11 +60,17 @@ Object::Object( const std::string &name, GLuint gShader )
 
   /* Create five VBOs: One each for Positions, Colors, Normals, 
      Textures and Draw Order. */
-  glGenBuffers( 5, buffer );
+  glGenBuffers( 8, buffer );
 
   /* Create the Vertex buffer and link it with the shader. */
   glBindBuffer( GL_ARRAY_BUFFER, buffer[VERTICES] );
   glsl_uniform = glGetAttribLocation( gShader, "vPosition" );
+  glEnableVertexAttribArray( glsl_uniform );
+  glVertexAttribPointer( glsl_uniform, 4, GL_FLOAT, GL_FALSE, 0, 0 );
+
+  /* Create the MORPH Vertex buffer and link it with the shader. */
+  glBindBuffer( GL_ARRAY_BUFFER, buffer[VERTICES_MORPH] );
+  glsl_uniform = glGetAttribLocation( gShader, "vPositionMorph" );
   glEnableVertexAttribArray( glsl_uniform );
   glVertexAttribPointer( glsl_uniform, 4, GL_FLOAT, GL_FALSE, 0, 0 );
 
@@ -70,11 +80,24 @@ Object::Object( const std::string &name, GLuint gShader )
   glEnableVertexAttribArray( glsl_uniform );
   glVertexAttribPointer( glsl_uniform, 3, GL_FLOAT, GL_FALSE, 0, 0 );
 
+  /* Create the Normal MORPH buffer and link it with the shader. */
+  glBindBuffer( GL_ARRAY_BUFFER, buffer[NORMALS_MORPH] );
+  glsl_uniform = glGetAttribLocation( gShader, "vNormalMorph" );
+  glEnableVertexAttribArray( glsl_uniform );
+  glVertexAttribPointer( glsl_uniform, 3, GL_FLOAT, GL_FALSE, 0, 0 );
+
   /* Create the Color buffer and link it with the shader. */
   glBindBuffer( GL_ARRAY_BUFFER, buffer[COLORS] );
   glEnable( GL_BLEND );
   glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
   glsl_uniform = glGetAttribLocation( gShader, "vColor" );
+  glEnableVertexAttribArray( glsl_uniform );
+  glVertexAttribPointer( glsl_uniform, 4, GL_FLOAT, GL_FALSE, 0, 0 );
+
+  /* Create the Color Morph buffer and link it with the shader. */
+  glBindBuffer( GL_ARRAY_BUFFER, buffer[COLORS_MORPH] );
+  glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
+  glsl_uniform = glGetAttribLocation( gShader, "vColorMorph" );
   glEnableVertexAttribArray( glsl_uniform );
   glVertexAttribPointer( glsl_uniform, 4, GL_FLOAT, GL_FALSE, 0, 0 );
 
@@ -90,7 +113,7 @@ Object::Object( const std::string &name, GLuint gShader )
 	     buffer[VERTICES], buffer[NORMALS],
 	     buffer[COLORS], buffer[TEXCOORDS],
 	     buffer[INDICES] );
-  
+
   /* Create the Drawing Order buffer, but we don't need to link it 
      with any uniform,
      because we won't be accessing this data directly. (I.e, the numbers here
@@ -101,9 +124,50 @@ Object::Object( const std::string &name, GLuint gShader )
   glBindVertexArray( 0 );
 }
 
-Object::~Object( void ) {
+
+void Object::destroyMorphTarget(){
+
+  if ( this->morphTarget != NULL ) {
+    delete this->morphTarget ;
+    this->morphTarget = NULL   ;
+  }
 
 }
+
+
+Object::~Object( void ) {
+
+  destroyMorphTarget() ;
+
+}
+
+
+
+void Object::BufferMorphOnly( void ) {
+
+  glBindVertexArray( vao );
+
+  glBindBuffer( GL_ARRAY_BUFFER, buffer[VERTICES_MORPH] );
+  glBufferData( GL_ARRAY_BUFFER, sizeof(Angel::vec4) * this->getMorphTargetPtr()->points.size(),
+                &(this->getMorphTargetPtr()->points[0]), GL_STATIC_DRAW );
+
+  glBindBuffer( GL_ARRAY_BUFFER, buffer[NORMALS_MORPH] );
+  glBufferData( GL_ARRAY_BUFFER, sizeof(Angel::vec3) * this->getMorphTargetPtr()->normals.size(),
+                &(this->getMorphTargetPtr()->normals[0]), GL_STATIC_DRAW );
+
+  glBindBuffer( GL_ARRAY_BUFFER, buffer[COLORS_MORPH] );
+  glBufferData( GL_ARRAY_BUFFER, sizeof(Angel::vec4) * this->getMorphTargetPtr()->colors.size(),
+                &(this->getMorphTargetPtr()->colors[0]), GL_STATIC_DRAW );
+
+
+  // #MORPH
+  // TODO: MORPH TEXTURES AND INDICIES
+
+  glBindVertexArray( 0 );
+
+
+}
+
 
 void Object::Buffer( void ) {
 
@@ -283,6 +347,14 @@ void Object::Send( Object::UniformEnum which ) {
 			this->trans.OTM() );
     break;
     
+
+  case Object::MorphPercentage:
+    glUniform1f( handles[Object::MorphPercentage],
+		 this->getMorphPercentage() );
+
+    break;
+
+
   default:
     throw std::invalid_argument( "Unknown Uniform Handle Enumeration." );
   }
@@ -292,8 +364,11 @@ void Object::Draw( void ) {
 
   glBindVertexArray( vao );
 
-  Send( Object::IsTextured );
-  Send( Object::ObjectCTM );
+  Send( Object::IsTextured ) ;
+  Send( Object::ObjectCTM  ) ;
+  Send( Object::MorphPercentage );
+
+  //  this->getMorphPercentage() == -1.0 ? ; : Send( Object::MorphPercentage );
 
   /* Are we using a draw order? */
   if (indices.size() > 1)
@@ -364,4 +439,31 @@ vec4 Object::GetPosition() const {
 	       theOTM[1][3],
 	       theOTM[2][3],
 	       1.0);
+}
+
+
+Object* Object::getMorphTargetPtr() const {
+
+  return this->morphTarget ;
+
+}
+
+
+void Object::setMorphPercentage(const float _morphPercentage){
+
+  morphPercentage = _morphPercentage ;
+}
+
+float Object::getMorphPercentage() const {
+
+  return this->morphPercentage ;
+}
+
+
+Object* Object::genMorphTarget(GLuint gShader) {
+
+  Object *obj = new Object( this->name + "_morph", gShader );
+  this->morphTarget = obj ;
+  return obj ;
+
 }

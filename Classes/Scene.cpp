@@ -1,6 +1,7 @@
 #include <string>
 #include <map>
 #include <list>
+#include <stdexcept>
 
 #include "Scene.hpp"
 #include "Object.hpp"
@@ -124,6 +125,7 @@ Object *Scene::operator[]( std::string const &objname ) {
   ret = map.find( objname );
   
   if (ret == map.end()) return NULL;
+  //if (ret == map.end()) throw std::out_of_range("Requested scene object \"" + objname + "\" not in scene");
   return ret->second;
 
 }

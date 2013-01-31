@@ -101,7 +101,7 @@ void main()
     }
 
 
-
+/*
     // deal with all the lights, right now.
      int i;
      vec3 diffuse, specular;
@@ -149,9 +149,9 @@ void main()
      //sample = vec4(1.0, 1.0, 1.0, 1.0);
 
      fragColor =  vec4(clamp(fragColor.xyz * diffuse + specular, 0.0, 1.0), fragColor.a) ;
-*/
-     // fragColor = fragColor * vec4(clamp(sample.rgb * diffuse  + specular, 0.0, 1.0), sample.a) ;
 
+     // fragColor = fragColor * vec4(clamp(sample.rgb * diffuse  + specular, 0.0, 1.0), sample.a) ;
+*/
 /*
      float sunH;
      sunH = sunHeight.y;
