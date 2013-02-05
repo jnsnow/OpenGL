@@ -47,7 +47,7 @@ void main() {
   position.z   =  vPosition.z*(1.0-morphPercentage) + vPositionMorph.z*morphPercentage ;
   position.w   =  1.0 ;
 
-  gl_Position = CTM * OTM * position;
+  gl_Position = P * CTM * OTM * position;
 
 
 
