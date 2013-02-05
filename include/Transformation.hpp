@@ -35,10 +35,10 @@ class RotMat : public Transformation {
 public:
 
   const RotMat &Reset( const Angel::mat4 &NewState );
-  const RotMat &RotateX( const GLfloat theta, bool order = true );
-  const RotMat &RotateY( const GLfloat theta, bool order = true );
-  const RotMat &RotateZ( const GLfloat theta, bool order = true );
-  const RotMat &Adjust( const Angel::mat4 &Adjustment, bool order = true );
+  const RotMat &RotateX( const GLfloat theta, bool postmult = true );
+  const RotMat &RotateY( const GLfloat theta, bool postmult = true );
+  const RotMat &RotateZ( const GLfloat theta, bool postmult = true );
+  const RotMat &Adjust( const Angel::mat4 &Adjustment, bool postmult = true );
   
 };
 

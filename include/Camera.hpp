@@ -148,15 +148,11 @@ private:
   void adjustRotation( const mat4 &adjustment, const bool &fixed = false );
   void commonInit( void );
 
-  /** The current translation matrix for this camera. **/
-  mat4 T;
-  /** The current rotational matrix for this camera. **/
-  mat4 R;
-  /** The current view matrix (usually perspective) for this camera. **/
-  mat4 P;
-  /** The 'Current Transformation Matrix' for this camera. May be P*R*T or T*R*P
-      depending on the current POST/PRE mult configurations. **/
-  mat4 ctm;
+  /** The current view matrix (defaultly perspective) for this camera. **/
+  mat4 view;
+
+  /** The Current Transformation state for this Camera. **/
+  TransCache ctm;
 
   /** The current viewing mode type. **/
   view_type currView;

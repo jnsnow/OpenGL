@@ -2,7 +2,7 @@
    @file Camera.cpp
    @author John Huston
    @authors John Huston, Nicholas StPierre, Chris Compton
-   @date 2012-12-04
+   @date 2012-12-20
    @brief Implementation for the Camera class.
 **/
 
@@ -15,16 +15,6 @@
 #include "globals.h" //Math constants and macros (SQRT2, POW5)
 #include "Timer.hpp" //Global timer to sync with framerate.
 using namespace Angel;
-
-#ifdef POSTMULT
-/** @var POSTMULT defines if we are, or are not using a Post-Multiplication system. **/
-/** @var PREMULT defines if we are, or are not using a Pre-Multiplication system. **/
-static const bool POSTMULT = true;
-static const bool PREMULT = false;
-#else
-static const bool POSTMULT = false;
-static const bool PREMULT = true;
-#endif
 
 /**
    commonInit is a private function that initializes local object attributes.
@@ -60,6 +50,8 @@ void Camera::commonInit( void ) {
 
 /**
    Initialization Constructor; sets the X,Y,Z coordinates explicitly.
+   @param name The name of this Camera/Object.
+   @param gShader A handle to this camera's associated shader object.
    @param x The initial X coordinate.
    @param y The initial Y coordinate.
    @param z The initial Z coordinate.
@@ -74,6 +66,8 @@ Camera::Camera( const std::string &name, GLuint gShader,
 
 /**
    Initialization Constructor, uses a vec3 as its initial coordinates.
+   @param name The name of this Camera/Object.
+   @param gShader A handle to this camera's associated shader object.
    @param in A vec3 representing the initial coordinates.
 **/
 Camera::Camera( const std::string &name, GLuint gShader, vec3 &in ) :
@@ -85,6 +79,8 @@ Camera::Camera( const std::string &name, GLuint gShader, vec3 &in ) :
 
 /**
    Initialization Constructor, uses a vec4 as its initial coordinates.
+   @param name The name of this Camera/Object.
+   @param gShader A handle to this camera's associated shader object.
    @param in A vec4 representing the initial coordinates. The w component is ignored.
 **/
 Camera::Camera( const std::string &name, GLuint gShader, vec4 &in ) :
@@ -109,11 +105,13 @@ Camera::~Camera( void ) {
    @return Void.
 **/
 void Camera::X( const float &in, const bool &update ) { 
-  ctm[0][3] = T[0][3] = -in;
+
+  ctm.offset.SetX( -in );
   trans.offset.SetX( in );
   if (update) {
-    Send( TRANSLATION );
+    ctm.CalcCTM();
     trans.CalcCTM();
+    Send( TRANSLATION );
   }
 }
 
@@ -125,11 +123,12 @@ void Camera::X( const float &in, const bool &update ) {
    @return Void.
 **/
 void Camera::Y( const float &in, const bool &update ) { 
-  ctm[1][3] = T[1][3] = -in;
+  ctm.offset.SetY( -in );
   trans.offset.SetY( in );
   if (update) {
-    Send( TRANSLATION );
+    ctm.CalcCTM();
     trans.CalcCTM();
+    Send( TRANSLATION );
   }
 }
 
@@ -141,11 +140,12 @@ void Camera::Y( const float &in, const bool &update ) {
    @return Void.
 **/
 void Camera::Z( const float &in, const bool &update ) { 
-  ctm[2][3] = T[2][3] = -in;
+  ctm.offset.SetZ( -in );
   trans.offset.SetZ( in );
   if (update) {
-    Send( TRANSLATION );
     trans.CalcCTM();
+    ctm.CalcCTM();
+    Send( TRANSLATION );
   }
 }
 
@@ -164,8 +164,9 @@ void Camera::pos( const float &x, const float &y,
   Y(y, false);
   Z(z, false);
   if (update) {
-    Send( TRANSLATION );
     trans.CalcCTM();
+    ctm.CalcCTM();
+    Send( TRANSLATION );
   }
 }
 
@@ -240,8 +241,9 @@ void Camera::dPos( const float &x, const float &y,
   dX( x, false );
   dY( y, false );
   dZ( z, false );
-  Send( TRANSLATION );
   trans.CalcCTM();
+  ctm.CalcCTM();
+  Send( TRANSLATION );
 }
 
 
@@ -274,30 +276,30 @@ void Camera::dPos( const vec4 &by ) {
 **/
 void Camera::adjustRotation( const mat4 &adjustment, const bool &fixed ) {
 
-  // By default, the 'order' bool represents the POSTMULT behavior.
+  /*
+    By default, the 'order' bool represents the PREMULT behavior.
+    However, if the fixed bool is present, toggle the order bool.
+    This stealthily inserts this rotation "first",
+    So that it is applied before any other rotations.
+  */
   bool order = POSTMULT;
-  // However, if the fixed bool is present, flip it around.
-  // This stealthily inserts this rotation "first",
-  // So that it is applied before any other rotations.
-
   if (fixed) order = !order;
 
-  if (order) {
-    // In a post-mult system, the argument order is left-to-right,
-    // So the adjustment appears last.
-    R = R * adjustment;
-  } else {
-    // In a pre-mult system, the last argument is applied first,
-    // So the adjustment should appear first.    
-    R = adjustment * R;
-  }
+  // Apply our rotational adjustment to the camera.
+  // Unintuitively, we need to adjust the Orbit.
+  ctm.orbit.Adjust( adjustment, order );
 
-  // The model needs to apply the OPPOSITE rotations, so Transpose AGAIN!
-  // We want to rotate only the object, not his position in space,
-  // So use the 'Rotate' object, not the 'Orbit'.
-  trans.rotation.Adjust( transpose(adjustment), fixed );
+  /*
+    Next, our Camera may have a physical object whose
+    Rotations need to be calculated as well.
+    We need to apply the OPPOSITE rotations,
+    So Transpose the Adjustment to obtain that.
+  */
+  trans.rotation.Adjust( transpose(adjustment), !order );
+
+  // Update our state.
   trans.CalcCTM();
-
+  ctm.CalcCTM();
   Send( ROTATION );
 }
 
@@ -309,7 +311,7 @@ void Camera::adjustRotation( const mat4 &adjustment, const bool &fixed ) {
   @param V a vec4 representing the movement offset vector.
   @return A rotated vec4.
 **/
-#define ROTATE_OFFSET(V) (V * R)
+#define ROTATE_OFFSET(V) (V * ctm.orbit.Matrix())
 
 
 /**
@@ -423,7 +425,7 @@ void Camera::Accel( const vec3 &raw_accel ) {
     Will approach 0, so that if we are at MAX SPEED,
     our acceleration will be scaled to (nearly) zero.
 
-    (C) (Tick.Delta() / KeyFrameRate)
+    (C) (Tick.Scale())
     This scales the amount of acceleration by an amount [0,1]
     so that if we are drawing many frames, we'll apply less acceleration.
     If we are drawing not so many, we'll apply more.
@@ -434,7 +436,6 @@ void Camera::Accel( const vec3 &raw_accel ) {
   vec3 accel = raw_accel * Scale;
 
   if (DEBUG_MOTION) {
-
     fprintf( stderr,
 	     "Accel(); raw_accel = (%f,%f,%f)\n",
 	     raw_accel.x, raw_accel.y, raw_accel.z );
@@ -505,7 +506,7 @@ void Camera::Idle( void ) {
        which includes instructions from keyboard and the Balance Board. */
     /* 1/20000 is a magic constant which converts our velocity units
        into model units. */
-    /* Tick.Delta()/KeyFrameRate helps keep animation speed consistent
+    /* Tick.Scale() helps keep animation speed consistent
        between different hardware. */
     float UnitScale = (1.0/20000.0);
     float Scale = Tick.Scale() * UnitScale;
@@ -518,8 +519,6 @@ void Camera::Idle( void ) {
     heave( velocity.x * Scale );
     sway( velocity.y * Scale );
     surge( velocity.z * Scale );
-    
-    
     
     // Friction Calculations
     if (speed < (FrictionMagnitude * Tick.Scale())) {
@@ -544,7 +543,6 @@ void Camera::Idle( void ) {
       speed_cap = speed/MaxSpeed;
     }
   }
-
 }
 
 
@@ -552,21 +550,21 @@ void Camera::Idle( void ) {
    X() returns the current position of the camera in model coordinates.
    @return The current X coordinate of the camera in model coordinates.
 **/
-float Camera::X( void ) const { return -T[0][3]; }
+float Camera::X( void ) const { return -ctm.offset.Matrix()[0][3]; }
 
 
 /**
    Y() returns the current position of the camera in model coordinates.
    @return The current Y coordinate of the camera in model coordinates.
 **/
-float Camera::Y( void ) const { return -T[1][3]; }
+float Camera::Y( void ) const { return -ctm.offset.Matrix()[1][3]; }
 
 
 /**
    Z() returns the current position of the camera in model coordinates.
    @return The current Z coordinate of the camera in model coordinates.
 **/
-float Camera::Z( void ) const { return -T[2][3]; }
+float Camera::Z( void ) const { return -ctm.offset.Matrix()[2][3]; }
 
 
 /**
@@ -592,7 +590,7 @@ float Camera::FOV( void ) const { return fovy; }
 void Camera::FOV( const float &in ) { 
   fovy = in;
   if (currView == Camera::PERSPECTIVE)
-    Send( VIEW );
+    refreshPerspective();
 }
 
 
@@ -622,20 +620,20 @@ void Camera::refreshPerspective( void ) {
   
   switch (currView) {
   case PERSPECTIVE:
-    P = Perspective( fovy, aspect, zNear, zFar );
+    view = Perspective( fovy, aspect, zNear, zFar );
     break;
   case ORTHO:
-    P = Ortho( -1.0, 1.0, -1.0, 1.0, zNear, zFar );
+    view = Ortho( -1.0, 1.0, -1.0, 1.0, zNear, zFar );
     break;
   case ORTHO2D:
-    P = Ortho2D( -1.0, 1.0, -1.0, 1.0 );
+    view = Ortho2D( -1.0, 1.0, -1.0, 1.0 );
     break;
   case FRUSTUM:
-    P = Frustum( -1.0, 1.0, -1.0, 1.0, zNear, zFar );
+    view = Frustum( -1.0, 1.0, -1.0, 1.0, zNear, zFar );
     break;
   case IDENTITY:
   default:
-    P = mat4( GLuint(1.0) );
+    view = mat4( GLuint(1.0) );
     break;
   }
 }
@@ -679,51 +677,31 @@ void Camera::Send( Object::UniformEnum which ) {
   switch (which) {
   case TRANSLATION:
     if (handles[which] != -1)
-      glUniformMatrix4fv( handles[which], 1, GL_TRUE, T );
+      glUniformMatrix4fv( handles[which], 1, GL_TRUE, ctm.offset.Matrix() );
     Send( CTM );
     break;
   case ROTATION:
     if (handles[which] != -1)
-      glUniformMatrix4fv( handles[which], 1, GL_TRUE, R );
+      glUniformMatrix4fv( handles[which], 1, GL_TRUE, ctm.orbit.Matrix() );
     Send( CTM );
     break;
   case VIEW:
     if (handles[which] != -1)
-      glUniformMatrix4fv( handles[which], 1, GL_TRUE, P );
+      glUniformMatrix4fv( handles[which], 1, GL_TRUE, view );
     Send( CTM );
     break;
   case CTM:
-#ifdef POSTMULT
-    ctm = T*R*P;
-#else
-    ctm = P*R*T;
-#endif
+    ctm.CalcCTM( POSTMULT );
     if (handles[which] != -1)
-      glUniformMatrix4fv( handles[which], 1, GL_TRUE, ctm );
+      glUniformMatrix4fv( handles[which], 1, GL_TRUE, ctm.OTM() );
     break;
   default:
+    // If we don't know which variable this is,
+    // See if our parent method knows.
     Object::Send( which );
-    //throw std::invalid_argument( "Unknown GLSL variable handle." );
   }
 }
 
-
-/*
-   Link associates the camera with a glsl uniform variable.
-   @param program a GLuint handle to the shader application.
-   @param which A glsl_var enumeration indication which variable to link.
-   @param glslVarName The name of the variable in the shader.
-   @return Void.
-void Camera::link( const GLuint &program, const Camera::Uniform &which, 
-		   const string &glslVarName ) {
-  glsl_handles[which] = glGetUniformLocation( program, 
-					      glslVarName.c_str() );
-  if (DEBUG)
-    fprintf( stderr, "Camera: Linking glsl_handles[%d] to %s, got handle %d\n",
-	     which, glslVarName.c_str(), glsl_handles[which] );
-  //send( which );
-}
-*/
 
 /**
    View will instruct OpenGL of the viewport we want, and then send all of our
@@ -741,8 +719,16 @@ void Camera::View( void ) {
 
 }
 
+/**
+   resetRotation adjusts the camera's rotational state back to
+   its default state (The Identity Matrix.)
+
+   @return void.
+**/
 void Camera::resetRotation( void ) {
 
-  this->R = Angel::mat4();
+  // The transpose of any rotation is its inverse.
+  // Thus, this resets the rotational matrix.
+  this->ctm.orbit.Adjust(transpose(this->ctm.rotation.Matrix()));
 
 }

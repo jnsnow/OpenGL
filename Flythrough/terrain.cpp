@@ -8,19 +8,19 @@
    from his book.
 **/
 
-#include "globals.h"
-/* System Headers */
+// System Headers
 #include <cmath>
 #include <cstdio>
 #include <sstream>
 #include <cstdlib>
 #include <time.h>
-/* Multi-platform support and OpenGL headers. */
+// Multi-platform support and OpenGL headers
 #include "platform.h"
-/* Ed Angel's Math Classes */
+#include "globals.h"
+// Ed Angel's Math Classes
 #include "vec.hpp"
 #include "mat.hpp"
-/* Utilities and Classes */
+// Utilities and Classes
 #include "model.hpp"
 #include "Camera.hpp"
 #include "InitShader.hpp"
@@ -29,8 +29,6 @@
 #include "Object.hpp"
 #include "Timer.hpp"
 #include "Scene.hpp"
-
-#include "OpenGL.h"
 
 // Type Aliases
 using Angel::vec3;
@@ -45,15 +43,13 @@ typedef Angel::vec4 point4;
 CWii Wii;
 bool usingWii = false;
 #endif
-////
 
+// Application Globals
 Screen myScreen( 800, 600 );
 Scene theScene;
 GLuint gShader;
 bool fixed_yaw = true;
 
-
-//Lights lights(false); // Bool controls the lighting mode. False indicates the simpler, faster one.
 
 // Textures
 // Obtained from www.goodtextures.com
@@ -65,6 +61,13 @@ const char* terrainTex[] = {
   "../Textures/GoodTextures_0013291.jpg"   // Snow
 };
 
+/**
+   randomize_terrain is called to regenerate the terrain in this application.
+   It assumes the terrain is named "terrain" and is located as a direct
+   child of the main scene graph.
+
+   @return void.
+**/
 void randomize_terrain() {
 
   float H = fmod( (float)random(), 200 ) + 50.0 ;
@@ -79,33 +82,41 @@ void randomize_terrain() {
 }
 
 
+/**
+   init will initialize this particular flythrough,
+   by creating and instantiating a shader, a camera,
+   and a number of initial objects.
+
+   @return void.
+**/
 void init() {
   
-  // Load shaders and use the resulting shader program. 
+  // Load shaders. Give the Shader handle to the Scene Graph and the Camera List.
   gShader = Angel::InitShader( "shaders/vterrain.glsl", "shaders/fterrain.glsl" );
   theScene.SetShader( gShader );
   myScreen.camList.SetShader( gShader );
+
+  // Cameras must be added after setting a shader.
   myScreen.camList.AddCamera( "Camera1" );
   myScreen.camList.Next();
 
   /*
     NOTE:
     ==========================
-    Please do not give the Terrain children. 
-    The animation is currently scaling the Y values of the 
-    terrain to grow/shrink it.
-    Any and all Children will inherit this.
-    I've turned rainbow dash into a pancake over and over....
-    Poor little pony....
+    Please do not give the Terrain children.
+    The terrain generation animation applies directly to the terrain,
+    which of course propegates the animation to all child objects.
+
+    You'll pancake any child objects.
   */
 
-  /* Create some Objects ... */
-  Object *terrain   = theScene.AddObject( "terrain" ) ;
+  // Let's create some objects.
+  Object *terrain = theScene.AddObject( "terrain" );
   terrain->Texture( terrainTex );
   terrain->Mode( GL_TRIANGLE_STRIP );
-  randomize_terrain();
+  randomize_terrain(); // This call depends upon "terrain" existing within theScene.
   
-  Object *pyramid   = theScene.AddObject( "pyramid" ) ;
+  Object *pyramid = theScene.AddObject( "pyramid" );
   Sierpinski_Pyramid( pyramid,
 		      vec4(  0,      1,  0, 1 ),
 		      vec4( -1, -0.999,  1, 1 ),
@@ -118,27 +129,27 @@ void init() {
   colorcube( cube_base, 1.0 );
   cube_base->Buffer();
   
-  Object *moon_cube = pyramid->AddObject( "moon" )    ;
+  Object *moon_cube = pyramid->AddObject( "moon" );
   colorcube( moon_cube, 0.5 );
   moon_cube->Buffer();
 
   // These models came from VALVE,
   // From their game "Team Fortress 2."
   // The model processing was done in Blender.
-  Object *heavy     = theScene.AddObject( "heavy" ) ;
+  Object *heavy = theScene.AddObject( "heavy" );
   loadModelFromFile( heavy, "../models/heavyT.obj" );
   heavy->Buffer();
   heavy->trans.scale.Set( 0.10 );
   heavy->trans.offset.Set( 0, 2, 0 );
 
   // Valve's TF2 Medic
-  Object *medic     = heavy->AddObject( "medic" );
+  Object *medic = heavy->AddObject( "medic" );
   loadModelFromFile( medic, "../models/medicT.obj" );
   medic->trans.offset.Set( 0, 20, 0 );
   medic->Buffer();
 
   // Valve's TF2 Spy
-  Object *spy       = medic->AddObject( "spy" );
+  Object *spy = medic->AddObject( "spy" );
   loadModelFromFile( spy, "../models/spyT.obj" );
   spy->trans.offset.Set( 0, 20, 0 );
   spy->Buffer();
@@ -148,70 +159,82 @@ void init() {
   ball->trans.scale.Set( 1000 );
   ball->Buffer();
   
-  /*
-  Object *pony      = terrain->AddObject( "pony" ) ;  
-  // http://kp-shadowsquirrel.deviantart.com/		
-  //   art/Pony-Model-Download-Center-215266264
-  loadModelFromFile( pony, "../models/rainbow_dashT.obj" );
-  pony->trans.offset.Set( 2, 2, 2 );
-  pony->trans.scale.Set( 0.2 );
-  pony->Buffer();
-  */
-  
-  // The water gets generated last.
-  Object *agua      = theScene.AddObject( "agua" )    ;
-  makeAgua( terrain, agua ) ;
+  // The water gets generated last -- In order for our fake transparency to work.
+  Object *agua = theScene.AddObject( "agua" );
+  makeAgua( terrain, agua );
   agua->Buffer();
   agua->Mode( GL_TRIANGLES );
 
   glEnable( GL_DEPTH_TEST );
   glClearColor( 0.3, 0.5, 0.9, 1.0 );
 
- 
-  /*
   //Attach a model to the Camera.
   Object *cam = myScreen.camList.Active();
   loadModelFromFile( cam, "../models/rainbow_dashT.obj" );
   cam->Buffer();
   cam->Mode( GL_TRIANGLES );
   cam->trans.scale.Set( 0.05 );
-  //cam->trans.PreOffset.Set( 0, 0, 0.2 );
-  //cam->trans.rotation.RotateY( 180 );
-  //cam->Propegate(); 
-  */
+  cam->trans.PreRotation.RotateY( 180 );
+  cam->Propegate(); 
 
+  // Add the Propegate method to the Scene Graph directly, instead of this:
   terrain->Propegate();
 
 }
 
-
+/**
+   cleanup is a routine to call at exit time that will free up the
+   resources the application is using.
+   While not critical, it does aid in using debuggers to not have
+   any memory leaks at exit time.
+   
+   @return void.
+**/
 void cleanup( void ) {
 
   theScene.DestroyObject();
 
 }
 
-//--------------------------------------------------------------------
+/** 
+    displayViewport is responsible for drawing a single viewport.
 
-/** A function that takes no arguments.
-    Is responsible for drawing a SINGLE VIEWPORT. **/
+    @return void.
+**/
 void displayViewport( void ) {  
-  theScene.Draw(); /* Draw free-floating objects */
-  myScreen.camList.Draw(); /* Draw camera-attached objects */
+  theScene.Draw();         // Draw free-floating objects
+  myScreen.camList.Draw(); // Draw camera-attached objects
 }
 
+/**
+   display is responsible for drawing an entire screen.
+
+   @return void.
+**/
 void display( void ) {
+  // Clear the screen and begin rendering.
   glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
   // Tell camList to draw using our displayViewport rendering function.
   myScreen.camList.View( displayViewport );
+
+  // Utilize multi-buffering.
   glutSwapBuffers();
 }
 
+
+/**
+   keylift is registered as a GLUT callback for when a user releases a depressed key.
+   
+   @param key The key that was lifted.
+   @param x The x coordinate of the mouse at the time the key was released.
+   @param y The y coordinate of the mouse at the time the key was released.
+
+   @return void.
+**/
 void keylift( unsigned char key, int x, int y ) {
 
   if (myScreen.camList.NumCameras() < 1) return;
-  
   Camera &cam = *(myScreen.camList.Active());
 
   switch( key ) {
@@ -237,35 +260,40 @@ void keylift( unsigned char key, int x, int y ) {
 }
 
 
-
-typedef enum {
-
-  SHRINKING,
-  TRANSITIONING,
-  GROWING,
-  DONE
-
-} TSTATE ;
-TSTATE terrainState = DONE ;
-// These belong to MakeFlatToRegular()
+// This global switch controls if we generate terrain or not.
 bool switchingTerrain = false ;
-float CurrentScale = 0.0;
 
-void MakeFlatToRegular( TransCache &obj ) {
+/**
+   TerrainGenerationAnimation is an animation callback that will:
+   (A) If triggered, begin to shrink the object into a flat plane,
+   (B) Order a re-generation of the terrain data
+   (C) will grow the object back into its new, final shape.
 
-  if ( switchingTerrain ) {
+   @param obj A reference to an object's transformation state.
 
-    terrainState = SHRINKING ;
-    switchingTerrain = false ;
-    CurrentScale = 0.0       ;
+   @return void.
+**/
+void TerrainGenerationAnimation( TransCache &obj ) {
+
+  typedef enum {
+    SHRINKING,
+    TRANSITIONING,
+    GROWING,
+    DONE
+  } AnimationState;
+  static AnimationState terrainState = DONE;
+  static float CurrentScale = 0.0;
+
+
+  if (switchingTerrain) {
+    terrainState = SHRINKING;
+    switchingTerrain = false;
+    CurrentScale = 0.0;
   }
 
-  //float f ;
   switch ( terrainState ) {
 
   case SHRINKING:
-
-    //    f = CurrentScale / 180 ;
     obj.scale.Set(1.0,
 		  ((1.0+cos(CurrentScale*DegreesToRadians))/2.0),
 		  1.0);
@@ -275,25 +303,15 @@ void MakeFlatToRegular( TransCache &obj ) {
     if ( CurrentScale >= 180.0 ) {
       terrainState = TRANSITIONING ;
     }
-
     break;
 
-
   case TRANSITIONING:
-
     // Multithread this for graphics 2 project
     randomize_terrain();
-    //landGen( theScene["terrain"], 8, 40.0 );
-    //theScene["terrain"]->Buffer();
-    terrainState = GROWING ;
-    // CurrentScale = 0.0 ;
+    terrainState = GROWING;
     break;
 
   case GROWING:
-
-
-    //f = CurrentScale/360.0;
-
     obj.scale.Set(1.0,
 		  ((1.0+cos(CurrentScale*DegreesToRadians))/2.0),
 		  1.0);
@@ -303,20 +321,25 @@ void MakeFlatToRegular( TransCache &obj ) {
     if ( CurrentScale >= 360.0 ) terrainState = DONE ;
     break;
 
-
   case DONE:
     return;
 
-
   default: 
     return;
-
   }
-
-    // bottom
-
 }
 
+
+/**
+   keyboard is a callback registered with GLUT.
+   It handles keyboard input.
+
+   @param key The key pressed by the user.
+   @param x The X coordinate of the mouse when the key was pressed.
+   @param y The Y coordinate of the mouse when the key was pressed.
+   
+   @return void.
+**/
 void keyboard( unsigned char key, int x, int y ) {
 
   // Hacky, for the wii reset, below.
@@ -342,9 +365,8 @@ void keyboard( unsigned char key, int x, int y ) {
     break;
     
   case 'l':
-    switchingTerrain = true ; 
-    // GLOBAL State variable used to control the terrain animation
-    //randomize_terrain();
+    // Trigger the Terrain Generation animation.
+    switchingTerrain = true;
     break;
     
   case '+':
@@ -396,6 +418,17 @@ void keyboard( unsigned char key, int x, int y ) {
   }
 }
 
+
+/**
+   keyboard_ctrl is registered as a GLUT callback.
+   It is responsible for catching when special keys are pressed.
+
+   @param key The key pressed.
+   @param x The X coordinate of the mouse when the key was pressed.
+   @param y The Y coordinate of the mouse when the key was pressed.
+
+   @return void.
+**/
 void keyboard_ctrl( int key, int x, int y ) {
 
   switch (key) {
@@ -461,6 +494,17 @@ void mouseroll( int x, int y ) {
 }
 
 
+/**
+   wiilook is an analog of mouselook, for wii remote controls.
+   It takes a reference to a Camera, and two vec3s,
+   and uses the information to adjust the Camera's rotation.
+
+   @param WiiCamera The camera to adjust the rotation of.
+   @param NewTheta  The X,Y,Z angles of the Wii Remote.
+   @param MovementRates The X, Y, Z angular velocities of the Wii Remote.
+
+   @return Void.
+**/
 void wiilook( Camera &WiiCamera, const Angel::vec3 &NewTheta,
 	      const Angel::vec3 &MovementRates ) {
 
@@ -502,10 +546,26 @@ void mouselook( int x, int y ) {
 }
 
 
+/**
+   resizeEvent is registered as a glut callback for when
+   the screen is resized. It instructs the screen object
+   of the new size, which informs all of the children cameras
+   to recompute their aspect ratios, viewport positions, and so on.
+
+   We also warp the pointer to the center of the screen, for
+   compatibility with mouselook( void ).
+
+   @param width The new width of the window.
+   @param height The new height of the window.
+
+   @return void.
+**/
 void resizeEvent( int width, int height ) {
 
-  /* Handles resizing the child cameras as well. */
+  // Resize all of our cameras and recompute aspect ratios.
   myScreen.Size( width, height );
+
+  // Warp cursor to center so that we don't have a big mouse jump.
   glutWarpPointer( myScreen.MidpointX(), myScreen.MidpointY() );
 
 }
@@ -514,20 +574,12 @@ void resizeEvent( int width, int height ) {
 void simpleRotateY( TransCache &obj ) {
   obj.rotation.RotateY( Tick.Scale() * 1.5 ); 
 }
-
-
-
 void simpleRotateAnim( TransCache &obj ) {
-
   obj.rotation.RotateY( Tick.Scale() * 1.5 );
   obj.offset.Set( 1.5, 0, 0 );
   obj.orbit.RotateY( Tick.Scale() * -1.0 );
-
 }
-  
-
 void animationTest( TransCache &obj ) {
-
   double timeScale = Tick.Scale();
   double theta = timeScale * 0.1;
   if (0) fprintf( stderr, "Timescale: %f\n", timeScale );
@@ -556,19 +608,11 @@ void animationTest( TransCache &obj ) {
   obj.orbit.RotateZ( timeScale * 0.2 );
 
   // Object moves its focal orbit-point, x = 5.
-  //obj.displacement.Set( 5, 0, 0 );
-  
+  //obj.displacement.Set( 5, 0, 0 ); 
 }
-
-/*
-void sunAndMoon(void){
-ball
-}
-*/
-
 /// hackity hack hack hackey doo!
-float heightScale = 0.0 ;
-float ticker = 0.0 ;
+float heightScale = 0.0;
+float ticker = 0.0;
 
 void idle( void ) {
 
@@ -588,7 +632,8 @@ void idle( void ) {
   Heavy.Animation( simpleRotateAnim );
   Medic.Animation( simpleRotateY );
   Spy.Animation( simpleRotateY );
-  Terrain.Animation( MakeFlatToRegular );
+
+  Terrain.Animation( TerrainGenerationAnimation );
 
 #ifdef WII
   if (usingWii) {
@@ -606,9 +651,6 @@ void idle( void ) {
       theta_diff += PollResults.wr_thetas;
       accel_mag += PollResults.bb_magnitudes;
     }
-
-    //Angel::vec3 normal_accel = accel_mag / NumPolls;
-    //fprintf( stderr, "bbXL: (%f,%f,%f)\n", normal_accel.x, normal_accel.y, normal_accel.z );
 
     if (camptr) {
       camptr->Accel( (accel_mag / NumPolls) * 2.0 );
@@ -643,7 +685,7 @@ void menufunc( int value ) {
 }
 
 int main( int argc, char **argv ) {
-
+ 
 #ifdef WII
   if (!(usingWii = initWii( Wii ))) {
     std::cerr << "Not using Wii controls for this runthrough.\n";

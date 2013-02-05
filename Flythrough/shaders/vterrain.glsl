@@ -30,12 +30,7 @@ varying vec3 lightVector[8];
 
 void main() {
 
-// hak hak hak
-//  vec4 magic  = vPosition ;
-  //magic.y = vPosition.y * heightScale ;
-  //gl_Position = CTM * OTM * magic;
-
-  gl_Position = CTM * OTM * vPosition;
+  gl_Position = P * CTM * OTM * vPosition;
 
 
   color = vColor;

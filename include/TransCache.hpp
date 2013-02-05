@@ -5,7 +5,7 @@ class TransCache {
   
 public:
 
-  void PTM( const Angel::mat4 &ptm_in );
+  void PTM( const Angel::mat4 &ptm_in, bool postmult = true );
 
   const Angel::mat4 &PTM( void ) const;
   const Angel::mat4 &CTM( void ) const;
@@ -13,6 +13,8 @@ public:
 
   // Hacky: For Camera.
   TransMat PreOffset; 
+  RotMat PreRotation;
+
   // Component Transformations //
   ScaleMat scale;        /* Scale Matrix */
   RotMat rotation;       /* Rotation-in-place Matrix */
@@ -21,7 +23,7 @@ public:
   TransMat displacement; /* Offset of entire animation from origin. */
 
   /* Updates our CTM. Private Use. */
-  void CalcCTM( void );
+  void CalcCTM( bool postmult = true );
 
 private:
   

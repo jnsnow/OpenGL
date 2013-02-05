@@ -29,32 +29,29 @@ const RotMat &RotMat::Reset( const Angel::mat4 &NewState ) {
   return (*this);
 }
 
-const RotMat &RotMat::RotateX( GLfloat theta, bool order ) {
-  if (order) mat = Angel::RotateX( theta ) * mat;
-  else mat = mat * Angel::RotateX( theta );
-  return (*this); 
+const RotMat &RotMat::RotateX( GLfloat theta, bool postmult ) {
+  return Adjust( Angel::RotateX( theta ), postmult );
 }
 
-const RotMat &RotMat::RotateY( GLfloat theta, bool order ) {
-  if (order) mat = Angel::RotateY( theta ) * mat;
-  else mat = mat * Angel::RotateY( theta );
-  return (*this);
+const RotMat &RotMat::RotateY( GLfloat theta, bool postmult ) {
+  return Adjust( Angel::RotateY( theta ), postmult );
 }
 
-const RotMat &RotMat::RotateZ( GLfloat theta, bool order ) {
-  if (order) mat = Angel::RotateZ( theta ) * mat;
-  else mat = mat * Angel::RotateZ( theta );
-  return (*this);
+const RotMat &RotMat::RotateZ( GLfloat theta, bool postmult ) {
+  return Adjust( Angel::RotateZ( theta ), postmult );
 }
 
-const RotMat &RotMat::Adjust( const Angel::mat4 &adjustment, bool order ) {
-  if (order) mat = adjustment * mat;
+const RotMat &RotMat::Adjust( const Angel::mat4 &adjustment, bool postmult ) {
+  // If we are post-multiplying, The default,
+  // Adjustments, which come "last", must appear first.
+  if (postmult) mat = adjustment * mat;
+  // Otherwise, we are pre-multiplying, and later adjustments
+  // really do come last.
   else mat = mat * adjustment;
   return (*this);
 }
 
 /* TRANSLATION */
-
 
 const TransMat &TransMat::SetX( const float x ) {
   //fprintf( stderr, "SetX( %f )\n", x );

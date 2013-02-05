@@ -13,17 +13,26 @@
 #include "Cameras.hpp"
 #include "globals.h"
 
+/**
+   Default constructor. Nothing special.
+**/
 Cameras::Cameras( void ) {
   this->Size = Angel::vec2( 0, 0 );
 }
 
-Cameras::~Cameras( void ) {
-  /* Nothing special here, either! */
-}
+/**
+   Default destructor. Nothing special here, either.
+**/
+Cameras::~Cameras( void ) { }
 
+/**
+   AddCamera takes a name for a camera and returns a handle to a newly created camera.
+
+   @param name The name of the new camera to create.
+
+   @return A Pointer to a newly created Camera object.
+**/
 Camera *Cameras::AddCamera( const std::string &name ) {
-
-  std::cerr << "Camera Name: " << name << "\n";
 
   Camera *cam = new Camera( name, gShader );
   Scene::InsertObject( name, cam );

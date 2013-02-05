@@ -2,32 +2,31 @@
 #include "Transformation.hpp"
 #include "mat.hpp"
 
-void TransCache::PTM( const Angel::mat4 &new_ptm ) {
+void TransCache::PTM( const Angel::mat4 &new_ptm,
+		      bool postmult ) {
+
   /* Update our cached PTM. */
   this->ptm = new_ptm;
+
   /* Update our Result Matrix. */
-  otm = ptm * ctm;
+  if (postmult) otm = ptm * ctm;
+  else otm = ctm * ptm;
+
 }
 
-void TransCache::CalcCTM( void ) {
-  /*
-  std::cerr << "displacement" << displacement.Matrix() << "\n";
-  std::cerr << "orbit" << orbit.Matrix() << "\n";
-  std::cerr << "offset" << offset.Matrix() << "\n";
-  std::cerr << "rotation" << rotation.Matrix() << "\n";
-  std::cerr << "scale" << scale.Matrix() << "\n";
-  */
+void TransCache::CalcCTM( bool postmult ) {
 
-  /* Recompute our CTM */
-  ctm = displacement * orbit * offset * PreOffset * rotation * scale;
-  /* Recompute our Cached Result Transformation Matrix */
-  otm = ptm * ctm;
-  
-  /*
-    std::cerr << "CTM:" << ctm << "\n";
-    std::cerr << "---------------\n";
-  */
-
+  if (postmult) {
+    /* Recompute our CTM */
+    ctm = displacement * orbit * offset * rotation * scale * PreRotation;
+    /* Recompute our Cached Result Transformation Matrix */
+    otm = ptm * ctm;
+  } else {
+    /* Recompute our CTM */
+    ctm = PreRotation * scale * rotation * offset * orbit * displacement;
+    /* Recompute our Cached Result Transformation Matrix */
+    otm = ctm * ptm;
+  }
 }
 
 const Angel::mat4 &TransCache::PTM( void ) const { return ptm; }

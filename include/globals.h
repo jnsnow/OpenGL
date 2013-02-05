@@ -16,6 +16,18 @@ const float DivideByZeroTolerance = float(1.0e-07);
 #define DEBUG true
 #endif
 
+
+#ifdef PREMULT
+/** @var POSTMULT defines if we are, or are not using a Post-Multiplication system. **/
+/** @var PREMULT defines if we are, or are not using a Pre-Multiplication system. **/
+static const bool POSTMULT = false;
+static const bool PREMULT = true;
+#else
+static const bool POSTMULT = true;
+static const bool PREMULT = false;
+#endif
+
+
 #define DEBUG_MOTION (false)
 
 #endif
