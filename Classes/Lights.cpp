@@ -146,15 +146,15 @@ void Lights::init_lights( GLuint &g_program ) {
       g_diffuse  = glGetUniformLocation( g_program, "LightDiffuseArray" ) ;
       g_specular = glGetUniformLocation( g_program, "LightSpecularArray" ) ;  
     } 
-  else 
+  else
     {
-      g_color = glGetUniformLocation( g_program, "LightColor" )  ;
+      g_color    = glGetUniformLocation( g_program, "LightColor" )  ;
     }
 
 
-   g_position  = glGetUniformLocation( g_program, "LightPositionArray" ) ;
-   g_direction = glGetUniformLocation( g_program, "LightDirectionArray" ) ;
-   g_numLights = glGetUniformLocation( g_program, "numLights" ) ;
+   g_position    = glGetUniformLocation( g_program, "LightPositionArray" ) ;
+   g_direction   = glGetUniformLocation( g_program, "LightDirectionArray" ) ;
+   g_numLights   = glGetUniformLocation( g_program, "numLights" ) ;
 
   return ;
 
@@ -256,3 +256,10 @@ void Lights::sendAll() {
 
 }
 
+void Lights::moveLight( unsigned int u, point4 p )
+{
+
+  if ( u < theLights.size() )
+    theLights[u].SetPosition(p);
+
+}

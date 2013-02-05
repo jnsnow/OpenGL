@@ -30,6 +30,10 @@
 #include "Timer.hpp"
 #include "Scene.hpp"
 
+// Nick's Beta Lighting
+//#include "LightSource.hpp
+//#include "Lights.hpp"
+
 // Type Aliases
 using Angel::vec3;
 using Angel::vec4;
@@ -50,6 +54,8 @@ Scene theScene;
 GLuint gShader;
 bool fixed_yaw = true;
 
+// #lights
+//Lights lights(false); // Bool controls the lighting mode. False indicates the simpler, faster one.
 
 // Textures
 // Obtained from www.goodtextures.com
@@ -70,11 +76,14 @@ const char* terrainTex[] = {
 **/
 void randomize_terrain() {
 
-  float H = fmod( (float)random(), 200 ) + 50.0 ;
+  // Final project demo used the equivalent of terrain_size = 10.
+  const size_t terrain_size = 8;
+  float H = fmod((float)random(), 20 * terrain_size) + 5 * terrain_size;
   
   srand(time(NULL));
+
   Object *Terrain = theScene["terrain"];
-  double magnitude = landGen( Terrain, 10, H /*40.0*/ );
+  double magnitude = landGen( Terrain, terrain_size, H );
   Terrain->Buffer();
   GLint handle = glGetUniformLocation( gShader, "terrainMag" );
   if (handle != -1) glUniform1f( handle, magnitude );
@@ -90,6 +99,7 @@ void randomize_terrain() {
    @return void.
 **/
 void init() {
+
   
   // Load shaders. Give the Shader handle to the Scene Graph and the Camera List.
   gShader = Angel::InitShader( "shaders/vterrain.glsl", "shaders/fterrain.glsl" );
@@ -99,6 +109,9 @@ void init() {
   // Cameras must be added after setting a shader.
   myScreen.camList.AddCamera( "Camera1" );
   myScreen.camList.Next();
+
+  // initialize lights
+  //lights.init_lights(gShader);
 
   /*
     NOTE:
@@ -117,6 +130,15 @@ void init() {
   randomize_terrain(); // This call depends upon "terrain" existing within theScene.
   
   Object *pyramid = theScene.AddObject( "pyramid" );
+
+/*
+  Object *box   = theScene.AddObject( "box" ) ;
+  loadModelFromFile( box, "../models/box-a.obj");
+  box->trans.offset.SetY(100.0);
+  box->trans.offset.SetX(100.0);
+  box->Buffer();
+*/
+
   Sierpinski_Pyramid( pyramid,
 		      vec4(  0,      1,  0, 1 ),
 		      vec4( -1, -0.999,  1, 1 ),
@@ -159,6 +181,28 @@ void init() {
   ball->trans.scale.Set( 1000 );
   ball->Buffer();
   
+  /*
+  Object *sun = theScene.AddObject ("sun");
+  //loadModelFromFile( sun, "../models/heavyT.obj" );
+  sphere(sun);
+  sun->trans.offset.SetX(500.0);
+  sun->trans.scale.Set(16.0) ;
+  sun->Buffer();
+  */
+
+  /*
+  Object *actualMoon = theScene.AddObject ("actualMoon");
+  //loadModelFromFile( actualMoon, "../models/spyT.obj" );
+  sphere(actualMoon);
+  actualMoon->trans.offset.SetX(-500.0);
+  actualMoon->trans.scale.Set(12.0);
+  actualMoon->Buffer();
+  */
+
+  //lights.addLightSource( LightSource( point4(0.0, 30.0, 0.0, 1.0), 				      color4(1.0, 1.0, 0.0, 1.0)));
+  //lights.addLightSource( LightSource( point4(0.0, -1.0, 0.0, 1.0), 				      color4(1.0, 0.0, 1.0, 1.0)));
+  //lights.addLightSource( LightSource( point4(10.0, 10.0, 10.0, 1.0), 				      color4(0.0, 1.0, 1.0, 1.0)));
+
   // The water gets generated last -- In order for our fake transparency to work.
   Object *agua = theScene.AddObject( "agua" );
   makeAgua( terrain, agua );
@@ -171,6 +215,8 @@ void init() {
   //Attach a model to the Camera.
   Object *cam = myScreen.camList.Active();
   loadModelFromFile( cam, "../models/rainbow_dashT.obj" );
+  // http://kp-shadowsquirrel.deviantart.com/		
+  //   art/Pony-Model-Download-Center-215266264
   cam->Buffer();
   cam->Mode( GL_TRIANGLES );
   cam->trans.scale.Set( 0.05 );
@@ -178,9 +224,15 @@ void init() {
   cam->Propegate(); 
 
   // Add the Propegate method to the Scene Graph directly, instead of this:
+  // Note: Terrain doesn't/shouldn't have children ...
   terrain->Propegate();
 
+
 }
+
+  // Nick: Stop littering the global namespace everywhere in the mainfile,
+  // Put them in the functions as statics or put them at the top of the file.
+  float timeOfDay = 0.0; // If we are going for day and night
 
 /**
    cleanup is a routine to call at exit time that will free up the
@@ -214,7 +266,7 @@ void displayViewport( void ) {
 void display( void ) {
   // Clear the screen and begin rendering.
   glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-
+  //lights.sendAll();
   // Tell camList to draw using our displayViewport rendering function.
   myScreen.camList.View( displayViewport );
 
@@ -329,6 +381,52 @@ void TerrainGenerationAnimation( TransCache &obj ) {
   }
 }
 
+/*
+bool pushSun = false ;
+void moveSun(TransCache &sun){
+
+  switch ( sunState ) {
+
+  case SHRINKING:
+
+    sun.orbit.RotateZ( timeOfDay*0.1 );
+    timeOfDay += 0.001 * Tick.Scale();
+    if ( timeOfDay > 90.0 ) sunState = TRANSITIONING ;
+
+    break;
+
+  case TRANSITIONING:
+
+    if ( pushSun ) {
+      sunState = GROWING ;
+      pushSun = false ;
+    }
+
+    return;
+
+  case GROWING:
+
+    sun.orbit.RotateZ( timeOfDay*0.1 ) ;
+    timeOfDay += 0.001 * Tick.Scale( ) ;
+
+    if ( timeOfDay > 360.0 ) sunState = DONE ;
+
+    break;
+
+  case DONE:
+
+    if ( pushSun ) {
+      sunState = SHRINKING ;
+      pushSun = false ;
+    }
+
+    return;
+
+  }
+
+
+}
+*/
 
 /**
    keyboard is a callback registered with GLUT.
@@ -415,6 +513,8 @@ void keyboard( unsigned char key, int x, int y ) {
   case 'v': cam.changePerspective( Camera::FRUSTUM ); break;
   case 'b': cam.changePerspective( Camera::IDENTITY ); break;
 
+  //case 't': lights.addLightSource( randomLight() /*! not defined !*/ ) ; break;
+  //case 't': pushSun = true; break;
   }
 }
 
@@ -579,6 +679,7 @@ void simpleRotateAnim( TransCache &obj ) {
   obj.offset.Set( 1.5, 0, 0 );
   obj.orbit.RotateY( Tick.Scale() * -1.0 );
 }
+
 void animationTest( TransCache &obj ) {
   double timeScale = Tick.Scale();
   double theta = timeScale * 0.1;
@@ -614,9 +715,29 @@ void animationTest( TransCache &obj ) {
 float heightScale = 0.0;
 float ticker = 0.0;
 
+//###
+//void sunOrbit(TransCache &sun ) {
+
+//}
+
+/*
+void moonOrbit(TransCache &moon) {
+  moon.orbit.RotateZ( timeOfDay*0.1 );
+}
+*/
+
 void idle( void ) {
 
   Tick.Tock();
+
+  //  if ( timeOfDay > 360.0 ) timeOfDay = 0.0;
+  glClearColor( 
+	       0.4*(sin(timeOfDay*DegreesToRadians)*sin(timeOfDay*DegreesToRadians)),
+	       0.4,
+	       0.45*(1.0+cos(timeOfDay*DegreesToRadians)),
+	       1.0 );
+  //  glClearColor( 0.0,0.0,0.1,1.0);
+
   if (DEBUG_MOTION) 
     fprintf( stderr, "Time since last idle: %lu\n", Tick.Delta() );
 
@@ -628,12 +749,26 @@ void idle( void ) {
 
   Object &Heavy = *(theScene["heavy"]);
   Object &Medic = *(Heavy["medic"]);
-  Object &Spy =   *(Medic["spy"]);
+  Object &Spy   = *(Medic["spy"]);
   Heavy.Animation( simpleRotateAnim );
   Medic.Animation( simpleRotateY );
   Spy.Animation( simpleRotateY );
 
   Terrain.Animation( TerrainGenerationAnimation );
+
+  //Sun.Animation( moveSun ) ;// sunOrbit  );
+  //Moon.Animation( moonOrbit );
+
+  // Move light absolutely, ie to the point given
+  //lights.moveLight( 0, Sun.GetPosition() ) ;
+
+  // Move light absolutely, ie to the point given
+  //lights.moveLight( 0, Sun.GetPosition() ) ;
+
+  // lights hack
+  //glUniform4fv( glGetUniformLocation(gShader, "sunHeight"), 1,
+	//       Sun.GetPosition() );
+
 
 #ifdef WII
   if (usingWii) {
@@ -681,7 +816,7 @@ void menufunc( int value ) {
     else fixed_yaw = true;
     break;
   }
-    
+
 }
 
 int main( int argc, char **argv ) {
@@ -703,7 +838,7 @@ int main( int argc, char **argv ) {
   glutInit( &argc, argv );
   glutInitDisplayMode( GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH );
   glutInitWindowSize( myScreen.Width(), myScreen.Height() );
-  glutCreateWindow( "Gasket Flythrough" );
+  glutCreateWindow( "Terrain" );
   glutFullScreen();
   glutSetCursor( GLUT_CURSOR_NONE );
 

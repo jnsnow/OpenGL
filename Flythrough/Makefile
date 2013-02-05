@@ -29,9 +29,8 @@ CC=g++
 CFLAGS=-Wall -pedantic -I $(RELDIR)/include
 LDLIBS=-lSOIL
 
-EXECS=fly terrain
+EXECS=fly terrain morph
 
-EXECS=fly terrain
 
 #EXEC sources are implied to be $EXEC.cpp !!
 
@@ -63,6 +62,8 @@ ifdef WII
 	LDLIBS += -lwiic -lwiicpp
 	SOURCES += $(COMMON_DIR)/WiiUtil.cpp
 endif
+
+#DEBUG=1
 
 ifdef DEBUG
 	CFLAGS += -DDEBUG -O0 -ggdb

@@ -9,6 +9,12 @@
 #include "Scene.hpp"
 #include "TransCache.hpp"
 
+
+using Angel::vec4;
+typedef Angel::vec4 color4;
+typedef Angel::vec4 point4;
+
+
 class Object : public Scene {
 
   enum bufferType { 
@@ -16,7 +22,10 @@ class Object : public Scene {
     NORMALS,
     INDICES,
     COLORS,
-    TEXCOORDS };
+    TEXCOORDS,
+    VERTICES_MORPH,
+    NORMALS_MORPH,
+    COLORS_MORPH } ;
 
 public:
 
@@ -26,6 +35,7 @@ public:
     Begin,
     IsTextured = Begin,
     ObjectCTM,
+    MorphPercentage,
     End
   } Uniform;
 
@@ -33,6 +43,7 @@ public:
   virtual ~Object( void );
   void Draw( void );
   void Buffer( void );
+  void BufferMorphOnly( void ) ;
   void Mode( GLenum new_node );
   void Texture( const char** filename );
   const std::string &Name( void ) const;
@@ -45,12 +56,24 @@ public:
   void Animation(void (*anim_func)( TransCache &arg ));
   void Propegate( void );
 
+  /* Info Get */  
+  vec4 GetPosition() const ;
+
+  /* Morph Methods */
+  Object* getMorphTargetPtr() const     ;
+  Object* genMorphTarget(GLuint)        ;
+  float getMorphPercentage()     const  ;
+  void  setMorphPercentage(const float) ;
+  void  destroyMorphTarget()            ;
+
   /* Bad. Bad! Protect these. ...Later? :( */
   std::vector<Angel::vec4> points;
   std::vector<Angel::vec3> normals;
   std::vector<unsigned int> indices;
   std::vector<Angel::vec4> colors;
   std::vector<Angel::vec2> texcoords;
+
+
 
   /** Transformation State **/
   TransCache trans;
@@ -60,7 +83,10 @@ public:
       Private to allow derived classes
       to extend it as needed.
   **/
+
   std::vector< GLint > handles;
+
+
 
 protected:
   /** name is used as an identifying handle for the object. **/
@@ -70,12 +96,22 @@ protected:
   GLuint vao;
 
   /** Handles to our five buffers **/
-  GLuint buffer[5];
-  
+  GLuint buffer[8]; // #MORPH
+
   /** Drawing mode for this object. GL_TRIANGLES, GL_LINE_LOOP, etc. **/
   GLenum draw_mode;
 
   bool isTextured;
+
+
+  /** Morphing/Tweening Things **/
+
+
+  /*   0.0 means 100% the actual object,
+     100.0 means 100% the target object  */
+  float   morphPercentage ;
+  Object *morphTarget     ;
+
 
 };
 

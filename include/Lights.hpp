@@ -34,7 +34,7 @@ using std::vector;
    const unsigned int id;
 */
 
-#define MAX_LIGHTS 8
+#define MAX_LIGHTS 5
 
 class Lights 
 {
@@ -93,9 +93,15 @@ class Lights
   void init_lights( /*const*/ GLuint & );   // init the vertex shading variables.
   unsigned int getNumLights() const ;     // get the number of lights in the container.
 
+
+  void moveLight( unsigned int u, point4 p ) ;
+
   bool getComplex() const ;
 
   void sendAll();
+
+
+
   //void sendAll(bool);
 
 };
@@ -103,42 +109,20 @@ class Lights
 
 #endif
 
-/*
-
+/* Ignore this garbaggio :
 color4 LightSource::GetLight_specular() const {
   return light_specular ;
 }
-
 color4 LightSource::GetLight_diffuse() const {
   return light_diffuse ;
 }
-
 color4 LightSource::GetLight_ambient() const {
   return light_ambient ;
 }
-
 vec3 LightSource::GetDirection() const {
   return direction ;
 }
-
 point4 LightSource::GetPoint() const {
   return position ;
-}
-*//*
-
-
-  float  material_shininess = 100.0;
-
-  color4 ambient_product = light_ambient * material_ambient;
-  color4 diffuse_product = light_diffuse * material_diffuse;
-  color4 specular_product = light_specular * material_specular;
-
-  // This is all copy-pasted. And it is done poorly.
-
-  glUniform4fv( glGetUniformLocation(program, "LightPosition"),
-		1, light_position2 );
-
-  glUniform1f( glGetUniformLocation(program, "Shininess"),
-	       material_shininess );
 }
 */
