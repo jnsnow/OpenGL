@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 HSC
 ===
 
@@ -20,6 +21,63 @@ HSC
   
   - Etay Mieri, olgdev.atspace.co.uk:
     	 Invaluable tutorials on OpenGL.  
+=======
+
+- This is the Readme file for the UMass Lowell Computer Graphics 2 class project, Spring semester 2013.
+  It it based on the Computer Graphics 1 final project by Chris Compton, Nick St. Pierre, and John Huston.
+
+License
+==
+TBD.
+
+Authors
+==
+
+- Chris Compton - Particle Systems, Graphical User Interface
+
+- John Fallon -- Graphical User Interface
+
+- Greg Giannone -- Modelling, Shaders, Bugfixes
+
+- John Huston -- Engine, Debugging, Wii Support, Components Integration
+
+- Franck Kamayou -- Graphical User Interface
+
+- Zach Maybury -- Model Morphing Logistics, Morphing UI Integration
+
+- Eric McCann -- Integration, Logistics, Bugfixes, 
+                 Raytracing, Lighting, Kinect Support, Git Guru
+
+- Hoanh Nguyen -- Raytracing, Lighting
+
+- Nick St.Pierre -- Particle Systems, Math, Sound
+
+- Luan Tran -- Graphical User Interface (Linux Support)
+
+- Nick VerVoort -- Particle Systems, Modelling, Lighting
+
+Third-Party Libraries
+==
+
+- OpenGL, GLEW, Freeglut, and the usual suspects.
+
+- Libmagick++: Image loader, utilized for converting JPEG tetxures to RGBA.
+
+- LibWiiC/++: Wii Remote driver library, see Gabrielle Randelli below.
+
+- exprtk: C++ Mathematical Expression Library, Arash Parttow, http://www.partow.net/programming/exprtk/index.html
+
+- fModEX: Sound library, http://www.fmod.org/
+
+- QT: Multi-platform GUI library
+
+
+Credits and Acknowledgements
+==
+
+  - Etay Mieri, olgdev.atspace.co.uk:
+    	 Invaluable tutorials on OpenGL, and 99.9% of our Texture class.
+>>>>>>> 818999224655912123e7f7ea32dda4c17612f662
 
   - Daniel Beard, Paul Boxley and Paul Martz:
     	   Information and code for generating random terrain.
@@ -39,12 +97,44 @@ HSC
 
   - Dan Lecocq:
       For a really great blog post on how to draw a mesh with
+<<<<<<< HEAD
       GL_TRIANGLE_STRIPs.
+=======
+      GL_TRIANGLE_STRIPs. http://dan.lecocq.us/wordpress/2009/12/25/triangle-strip-for-grids-a-construction/
+>>>>>>> 818999224655912123e7f7ea32dda4c17612f662
 
   - Simon Murray:
       Founder of www.goodtextures.com from which we obtained
       all of our terrain textures.
 
+<<<<<<< HEAD
+=======
+  - blacknote:
+      Composer of Forever Endless, our audio loop.
+      blacknote: http://blacknote.newgrounds.com/
+      Forever Endless: http://www.newgrounds.com/audio/listen/371629
+
+Outdated HSC Readme
+===
+
+- This is our Graphics I final project for Prof. Grinstein,
+  at UMass Lowell, Fall 2012.
+
+- It has been written ground-up without utilizing the fixed-pipeline
+  API of OpenGL. 
+
+- It implements a fully Object-Oriented scene graph, independent and
+  arbitrary cameras (realized via splitscreen), and multiple methods
+  of input.
+
+- The project features prominently random terrain generation. This is
+  performed using the Diamond-Square algorithm; see below for additional
+  reading on the technique.
+
+- This project utilizes a lot of code snippets, libraries and ideas from
+  a variety of authors. They are credited above!
+
+>>>>>>> 818999224655912123e7f7ea32dda4c17612f662
 - To build the project, pushd Flythrough && make;
   To run, pushd Flythrough && ./fly;
 
@@ -79,4 +169,8 @@ HSC
 
 - wiic/pp library utilizes the LGPL license,
   The source code is included in our source tree here for convenience,
+<<<<<<< HEAD
   with minor alterations.
+=======
+  with minor alterations.
+>>>>>>> 818999224655912123e7f7ea32dda4c17612f662

@@ -1,0 +1,50 @@
+# Compiled Object files
+*.slo
+*.lo
+*.o
+
+# Compiled Dynamic libraries
+*.so
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+
+# Compiled headers
+*.h.gch
+*.hpp.gch
+
+# Emacs cruft
+*~
+\#*
+
+# Dependency Files
+*.d
+
+# Mac OSX cruft
+.DS_Store
+.cproject
+.project
+
+# Compiled Binaries.
+Binaries/ds
+Binaries/raytrace1
+Binaries/zachMorphDemo
+Binaries/dumb
+Binaries/melt
+Binaries/modelTest
+Binaries/finalProject
+Binaries/MONOLITH
+Binaries/FinalProject.app
+
+# Generated Content
+debug
+release
+qMakefile
+Qt/ui
+Qt/moc
+Binaries/vf2
+fMod/*example
+boost
+Binaries/logo
