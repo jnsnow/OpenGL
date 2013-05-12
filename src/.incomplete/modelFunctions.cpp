@@ -14,18 +14,18 @@
 #include <cfloat>
 #include <vector>
 
-float twoDimensionalDistance( vec4 points1, vec4 points2){
+float twoDimensionalDistance( Angel::vec4 points1, Angel::vec4 points2){
 	return pow( (points1.x - points2.x), 2 ) + pow( (points1.y - points2.y), 2 );
 }
 
-float twoDimensionalDistance( vec4 points1, Angel::vec2 points2){
+float twoDimensionalDistance( Angel::vec4 points1, Angel::vec2 points2){
 	return pow( (points1.x - points2.x), 2 ) + pow( (points1.y - points2.y), 2 );
 }
-float twoDimensionalXZDistance( vec4 points1, Angel::vec2 points2){
+float twoDimensionalXZDistance( Angel::vec4 points1, Angel::vec2 points2){
 	return pow( (points1.x - points2.x), 2 ) + pow( (points1.y - points2.y), 2 );
 }
 
-float threeDimensionalDistance( vec4 points1, vec4 points2 ) {
+float threeDimensionalDistance( Angel::vec4 points1, Angel::vec4 points2 ) {
   return
       pow( (points1.x - points2.x), 2 ) + pow( (points1.y - points2.y), 2 )
       + pow( (points1.z - points2.z), 2 );
@@ -51,29 +51,29 @@ int findTriangleWithMinimumDistance( Object* largerModel, Object* smallerModel,
   else throw std::logic_error( "Unable to identify the minimum index." );
 }
 
-float threeDimensionalDistanceFromCenter(vec4 points1, vec4 points2){
+float threeDimensionalDistanceFromCenter(Angel::vec4 points1, Angel::vec4 points2){
 	return pow((points1.x - points2.x),2) + pow((points1.y - points2.y),2) + pow((points1.z - points2.z),2);
 }
 
-float threeDimensionalDistanceWithOrigin(vec4 points1, vec4 points2){
+float threeDimensionalDistanceWithOrigin(Angel::vec4 points1, Angel::vec4 points2){
 	if(abs(points1.z) > abs(points2.z)){
-		return pow((points1.x - points2.x),2) + pow((points1.y - points2.y),2) + pow((points1.z - points2.z),2) + threeDimensionalDistance(points2, vec4(0.0,0.0,0.0,0.0));
+	  return pow((points1.x - points2.x),2) + pow((points1.y - points2.y),2) + pow((points1.z - points2.z),2) + threeDimensionalDistance(points2, Angel::vec4(0.0,0.0,0.0,0.0));
 	}else{
-		return pow((points1.x - points2.x),2) + pow((points1.y - points2.y),2) + pow((points1.z - points2.z),2) + threeDimensionalDistance(points1, vec4(0.0,0.0,0.0,0.0));
+	  return pow((points1.x - points2.x),2) + pow((points1.y - points2.y),2) + pow((points1.z - points2.z),2) + threeDimensionalDistance(points1, Angel::vec4(0.0,0.0,0.0,0.0));
 	} 
 	
 }
 
-vec4 findCenter(vec4 point1, vec4 point2, vec4 point3){
+Angel::vec4 findCenter(Angel::vec4 point1, Angel::vec4 point2, Angel::vec4 point3){
 	int x,y,z,w;
 	x = (point1.x + point2.x + point3.x)/3;
 	y = (point1.y + point2.y + point3.y)/3;
 	z = (point1.z + point2.z + point3.z)/3;
 	w = (point1.w + point2.w + point3.w)/3;
-	return vec4(x,y,z,w);
+	return Angel::vec4(x,y,z,w);
 }
 
-void findOptimalOrientation(vec4 a, vec4 b, vec4 c, vec4 d, vec4 e, vec4 f, vec4& point1, vec4& point2, vec4& point3){
+void findOptimalOrientation(Angel::vec4 a, Angel::vec4 b, Angel::vec4 c, Angel::vec4 d, Angel::vec4 e, Angel::vec4 f, Angel::vec4& point1, Angel::vec4& point2, Angel::vec4& point3){
 	//abc
 	float distance1 = threeDimensionalDistance(a,d)+threeDimensionalDistance(b,e)+threeDimensionalDistance(c,f);
 	//bca
@@ -91,7 +91,7 @@ void findOptimalOrientation(vec4 a, vec4 b, vec4 c, vec4 d, vec4 e, vec4 f, vec4
 	}
 }
 
-void findOptimalOrientation(vec4 a, vec4 b, vec4 c, std::vector< Angel::vec4 > model, int index, vec4& point1, vec4& point2, vec4& point3){
+void findOptimalOrientation(Angel::vec4 a, Angel::vec4 b, Angel::vec4 c, std::vector< Angel::vec4 > model, int index, Angel::vec4& point1, Angel::vec4& point2, Angel::vec4& point3){
 	//abc
 	float distance1 = threeDimensionalDistance(a,model[index])+threeDimensionalDistance(b,model[index+1])+threeDimensionalDistance(c,model[index+2]);
 	//bca
@@ -109,7 +109,7 @@ void findOptimalOrientation(vec4 a, vec4 b, vec4 c, std::vector< Angel::vec4 > m
 	}
 }
 
-void findOptimalOrientation(vec4 a, vec4 b, vec4 c, std::vector< Triangle* > model, int index, vec4& point1, vec4& point2, vec4& point3){
+void findOptimalOrientation(Angel::vec4 a, Angel::vec4 b, Angel::vec4 c, std::vector< Triangle* > model, int index, Angel::vec4& point1, Angel::vec4& point2, Angel::vec4& point3){
 	//abc
 	float distance1 = threeDimensionalDistance(a,model[index]->a->vertex)+threeDimensionalDistance(b,model[index]->b->vertex)+threeDimensionalDistance(c,model[index]->c->vertex);
 	//bca
@@ -127,7 +127,7 @@ void findOptimalOrientation(vec4 a, vec4 b, vec4 c, std::vector< Triangle* > mod
 	}
 }
 
-void findOptimalOrientation(vec4 a, vec4 b, vec4 c, Object* model, int index, vec4& point1, vec4& point2, vec4& point3){
+void findOptimalOrientation(Angel::vec4 a, Angel::vec4 b, Angel::vec4 c, Object* model, int index, Angel::vec4& point1, Angel::vec4& point2, Angel::vec4& point3){
 	//abc
 	float distance1 = threeDimensionalDistance(a,model->_vertices[index])+threeDimensionalDistance(b,model->_vertices[index+1])+threeDimensionalDistance(c,model->_vertices[index+2]);
 	//bca
@@ -145,7 +145,7 @@ void findOptimalOrientation(vec4 a, vec4 b, vec4 c, Object* model, int index, ve
 	}
 }
 
-void findOptimalOrientation(vec4 a, vec4 b, vec4 c, Object* model, int index, int& point1, int& point2, int& point3){
+void findOptimalOrientation(Angel::vec4 a, Angel::vec4 b, Angel::vec4 c, Object* model, int index, int& point1, int& point2, int& point3){
 	//abc
 	float distance1 = threeDimensionalDistance(a,model->_vertices[index])+threeDimensionalDistance(b,model->_vertices[index+1])+threeDimensionalDistance(c,model->_vertices[index+2]);
 	//bca
@@ -168,7 +168,7 @@ int findTriangleWithMinimumDistanceFromCenter(std::vector< Angel::vec4 > largerP
     float minDistance = INFINITY;
 
 		for(size_t i=0; i<smallerPoints.size();i+= 3){
-			vec4 point1,point2,point3;
+			Angel::vec4 point1,point2,point3;
 			findOptimalOrientation(smallerPoints[index],smallerPoints[index+1],smallerPoints[index+2],largerPoints, i, point1, point2, point3);
 			float distance = threeDimensionalDistance(point1,largerPoints[i])+threeDimensionalDistance(point2,largerPoints[i+1])+threeDimensionalDistance(point3,largerPoints[i+2]);
 	
@@ -211,7 +211,7 @@ int findTriangleWithMinimumDistanceFromCenter(Object* largerModel, Object* small
 				distance += threeDimensionalDistanceWithOrigin(largerModel->_vertices[index+l],smallerModel->_vertices[i+l]);
 			}
 		
-			//vec4 point1,point2,point3;
+			//Angel::vec4 point1,point2,point3;
 			//findOptimalOrientation(smallerModel->_vertices[index],smallerModel->_vertices[index+1],smallerModel->_vertices[index+2],largerModel, i, point1, point2, point3);
 			//float distance = threeDimensionalDistance(point1,largerModel->_vertices[i])+threeDimensionalDistance(point2,largerModel->_vertices[i+1])+threeDimensionalDistance(point3,largerModel->_vertices[i+2]);
 	
@@ -229,18 +229,18 @@ void makeModelsSameSize(Object* model1, Object* model2){
 		while(model2->numberOfPoints() < (model1->numberOfPoints())){
 			int index = findTriangleWithMinimumDistanceFromCenter(model1,model2,model2->numberOfPoints());
 			for(int i=0; i<3; i++){
-					model2->_vertices.push_back(vec4(model2->_vertices[index+i]));
-					model2->_normals.push_back(vec3(model2->_normals[index+i]));
-					model2->_colors.push_back(vec4(model2->_colors[index+i]));
+					model2->_vertices.push_back(Angel::vec4(model2->_vertices[index+i]));
+					model2->_normals.push_back(Angel::vec3(model2->_normals[index+i]));
+					model2->_colors.push_back(Angel::vec4(model2->_colors[index+i]));
 			}
 		}
 	}else if(model1->numberOfPoints()<model2->numberOfPoints()){
 		while(model1->numberOfPoints() < model2->numberOfPoints()){
 			int index = findTriangleWithMinimumDistanceFromCenter(model2,model1,model1->numberOfPoints());
 			for(int i=0; i<3; i++){
-				model1->_vertices.push_back(vec4(model1->_vertices[index+i]));
-				model1->_normals.push_back(vec3(model1->_normals[index+i]));
-				model1->_colors.push_back(vec4(model1->_colors[index+i]));
+				model1->_vertices.push_back(Angel::vec4(model1->_vertices[index+i]));
+				model1->_normals.push_back(Angel::vec3(model1->_normals[index+i]));
+				model1->_colors.push_back(Angel::vec4(model1->_colors[index+i]));
 			}
 		}
 	}else{
@@ -259,7 +259,7 @@ void matchInitialPoints(Object* model1, Object* model2){
 				//	distance += threeDimensionalDistance(model1->_vertices[j+l],model2->_vertices[i+l]);
 				//}
 				//float distance = threeDimensionalDistanceFromCenter(findCenter(model1->_vertices[j],model1->_vertices[j+1],model1->_vertices[j+2]),findCenter(model2->_vertices[i],model2->_vertices[i+1],model2->_vertices[i+2]));
-				vec4 point1,point2,point3;
+				Angel::vec4 point1,point2,point3;
 				findOptimalOrientation(model2->_vertices[i],model2->_vertices[i+1],model2->_vertices[i+2],model1, j, point1, point2, point3);
 				float distance = threeDimensionalDistance(point1,model1->_vertices[j])+threeDimensionalDistance(point2,model1->_vertices[j+1])+threeDimensionalDistance(point3,model1->_vertices[j+2]);
 				
@@ -269,9 +269,9 @@ void matchInitialPoints(Object* model1, Object* model2){
 				}
 			}
 			for(int m=0; m<3; m++){
-				vec4 tempPoints = model1->_vertices[i+m];
-				vec3 tempNormals = model1->_normals[i+m];
-				vec4 tempColors = model1->_colors[i+m];
+				Angel::vec4 tempPoints = model1->_vertices[i+m];
+				Angel::vec3 tempNormals = model1->_normals[i+m];
+				Angel::vec4 tempColors = model1->_colors[i+m];
 				model1->_vertices[i+m] = model1->_vertices[matchIndex+m];
 				model1->_normals[i+m] = model1->_normals[matchIndex+m];
 				model1->_colors[i+m] = model1->_colors[matchIndex+m];
@@ -293,7 +293,7 @@ void matchInitialPoints(Object* model1, Object* model2){
 				//	distance += threeDimensionalDistance(model2->_vertices[j+l],model1->_vertices[i+l]);
 				//}
 				//float distance = threeDimensionalDistanceFromCenter(findCenter(model2->_vertices[j],model2->_vertices[j+1],model2->_vertices[j+2]),findCenter(model1->_vertices[i],model1->_vertices[i+1],model1->_vertices[i+2]));
-				vec4 point1,point2,point3;
+				Angel::vec4 point1,point2,point3;
 				findOptimalOrientation(model1->_vertices[i],model1->_vertices[i+1],model1->_vertices[i+2],model2, j, point1, point2, point3);
 				float distance = threeDimensionalDistance(point1,model2->_vertices[j])+threeDimensionalDistance(point2,model2->_vertices[j+1])+threeDimensionalDistance(point3,model2->_vertices[j+2]);
 	
@@ -309,9 +309,9 @@ void matchInitialPoints(Object* model1, Object* model2){
 			//	correctlyMatchedPoints+=3;
 			//}
 			for(int m=0; m<3; m++){
-				vec4 tempPoints = model2->_vertices[i+m];
-				vec3 tempNormals = model2->_normals[i+m];
-				vec4 tempColors = model2->_colors[i+m];
+				Angel::vec4 tempPoints = model2->_vertices[i+m];
+				Angel::vec3 tempNormals = model2->_normals[i+m];
+				Angel::vec4 tempColors = model2->_colors[i+m];
 				model2->_vertices[i+m] = model2->_vertices[matchIndex+m];
 				model2->_normals[i+m] = model2->_normals[matchIndex+m];
 				model2->_colors[i+m] = model2->_colors[matchIndex+m];
@@ -335,7 +335,7 @@ void matchPoints(std::vector< Angel::vec4 >& model1Vertices,std::vector< Angel::
 				}
 				distance += abs(threeDimensionalDistance(model1Normals[j],model2Normals[i]));
 				//float distance = threeDimensionalDistanceFromCenter(findCenter(model1Vertices[j],model1Vertices[j+1],model1Vertices[j+2]),findCenter(model2Vertices[i],model2Vertices[i+1],model2Vertices[i+2]));
-				//vec4 point1,point2,point3;
+				//Angel::vec4 point1,point2,point3;
 				//findOptimalOrientation(model2Vertices[i],model2Vertices[i+1],model2Vertices[i+2],model1Vertices, j, point1, point2, point3);
 				//float distance = threeDimensionalDistance(point1,model1Vertices[j])+threeDimensionalDistance(point2,model1Vertices[j+1])+threeDimensionalDistance(point3,model1Vertices[j+2]);
 	
@@ -346,9 +346,9 @@ void matchPoints(std::vector< Angel::vec4 >& model1Vertices,std::vector< Angel::
 				}
 			}
 			for(int m=0; m<3; m++){
-				vec4 tempPoints = model1Vertices[i+m];
-				vec3 tempNormals = model1Normals[i+m];
-				vec4 tempColors = model1Colors[i+m];
+				Angel::vec4 tempPoints = model1Vertices[i+m];
+				Angel::vec3 tempNormals = model1Normals[i+m];
+				Angel::vec4 tempColors = model1Colors[i+m];
 				model1Vertices[i+m] = model1Vertices[matchIndex+m];
 				model1Normals[i+m] = model1Normals[matchIndex+m];
 				model1Colors[i+m] = model1Colors[matchIndex+m];
@@ -371,7 +371,7 @@ void matchPoints(std::vector< Angel::vec4 >& model1Vertices,std::vector< Angel::
 				distance += abs(threeDimensionalDistance(model2Normals[j],model1Normals[i]));
 				
 				//float distance = threeDimensionalDistanceFromCenter(findCenter(model2Vertices[j],model2Vertices[j+1],model2Vertices[j+2]),findCenter(model1Vertices[i],model1Vertices[i+1],model1Vertices[i+2]));
-				//vec4 point1,point2,point3;
+				//Angel::vec4 point1,point2,point3;
 				//findOptimalOrientation(model1Vertices[i],model1Vertices[i+1],model1Vertices[i+2],model2Vertices, j, point1, point2, point3);
 				//float distance = threeDimensionalDistance(point1,model2Vertices[j])+threeDimensionalDistance(point2,model2Vertices[j+1])+threeDimensionalDistance(point3,model2Vertices[j+2]);
 	
@@ -387,9 +387,9 @@ void matchPoints(std::vector< Angel::vec4 >& model1Vertices,std::vector< Angel::
 			//	correctlyMatchedPoints+=3;
 			//}
 			for(int m=0; m<3; m++){
-				vec4 tempPoints = model2Vertices[i+m];
-				vec3 tempNormals = model2Normals[i+m];
-				vec4 tempColors = model2Colors[i+m];
+				Angel::vec4 tempPoints = model2Vertices[i+m];
+				Angel::vec3 tempNormals = model2Normals[i+m];
+				Angel::vec4 tempColors = model2Colors[i+m];
 				model2Vertices[i+m] = model2Vertices[matchIndex+m];
 				model2Normals[i+m] = model2Normals[matchIndex+m];
 				model2Colors[i+m] = model2Colors[matchIndex+m];
@@ -401,7 +401,7 @@ void matchPoints(std::vector< Angel::vec4 >& model1Vertices,std::vector< Angel::
 	}
 }
 
-void segmentModels(Object* model1, vec3 model1Low, vec3 model1High, Object* model2, vec3 model2Low, vec3 model2High){
+void segmentModels(Object* model1, Angel::vec3 model1Low, Angel::vec3 model1High, Object* model2, Angel::vec3 model2Low, Angel::vec3 model2High){
 	size_t partitionSize = 6;
 	std::vector< Angel::vec4 > model1Vertices[6];
 	std::vector< Angel::vec3 > model1Normals[6];
@@ -476,7 +476,7 @@ int findTriangleWithMinimumDistance(std::vector< Triangle* > larger, std::vector
 	int minIndex = -1;
     float minDistance = INFINITY;
 	for(size_t i=0; i<smaller.size();i++){
-		vec4 point1,point2,point3;
+		Angel::vec4 point1,point2,point3;
 		findOptimalOrientation(smaller[i]->a->vertex,smaller[i]->b->vertex,smaller[i]->c->vertex,larger, index, point1, point2, point3);
 		float distance = threeDimensionalDistance(point1,larger[i]->a->vertex)+threeDimensionalDistance(point2,larger[i]->b->vertex)+threeDimensionalDistance(point3,larger[i]->c->vertex);
 		//float distance = threeDimensionalDistance(smaller[i]->a->vertex,larger[i]->a->vertex)+threeDimensionalDistance(smaller[index]->b->vertex,larger[i]->b->vertex)+threeDimensionalDistance(smaller[index]->c->vertex,larger[i]->c->vertex);
@@ -601,18 +601,18 @@ void splitProblemTriangles(Object* model1, Object* model2){
 }
 
 void divideTriangle(Object* model, int index){
-	vec4 aVec = model->_vertices[index];
-	vec4 bVec = model->_vertices[index+1];
-	vec4 cVec = model->_vertices[index+2];
-	vec3 Norm = model->_normals[index];
-	vec4 aCol = model->_colors[index];
-	vec4 bCol = model->_colors[index+1];
-	vec4 cCol = model->_colors[index+2];
+	Angel::vec4 aVec = model->_vertices[index];
+	Angel::vec4 bVec = model->_vertices[index+1];
+	Angel::vec4 cVec = model->_vertices[index+2];
+	Angel::vec3 Norm = model->_normals[index];
+	Angel::vec4 aCol = model->_colors[index];
+	Angel::vec4 bCol = model->_colors[index+1];
+	Angel::vec4 cCol = model->_colors[index+2];
 	
-	vec4 MidPoint1 = vec4((bVec + cVec)/2.0);
-	vec4 MidPoint1Col = vec4((bCol + cCol)/2.0);
-	vec4 MidPoint2 = vec4((aVec + cVec)/2.0);
-	vec4 MidPoint2Col = vec4((aCol + cCol)/2.0);
+	Angel::vec4 MidPoint1 = Angel::vec4((bVec + cVec)/2.0);
+	Angel::vec4 MidPoint1Col = Angel::vec4((bCol + cCol)/2.0);
+	Angel::vec4 MidPoint2 = Angel::vec4((aVec + cVec)/2.0);
+	Angel::vec4 MidPoint2Col = Angel::vec4((aCol + cCol)/2.0);
 	
 	//std::cout << aVec << bVec << cVec << std::endl;
 	//std::cout << MidPoint1 << MidPoint2 << std::endl;
@@ -643,7 +643,7 @@ void divideTriangle(Object* model, int index){
 	
 }
 
-float getTriangleSize(vec4 a, vec4 b, vec4 c){
-	return 0.5*(threeDimensionalDistance(a,b))*(threeDimensionalDistance(c,vec4((a.x+b.x)/2.0,(a.y+b.y)/2.0,(a.z+b.z)/2.0,(a.w+b.w)/2.0)));
+float getTriangleSize(Angel::vec4 a, Angel::vec4 b, Angel::vec4 c){
+	return 0.5*(threeDimensionalDistance(a,b))*(threeDimensionalDistance(c,Angel::vec4((a.x+b.x)/2.0,(a.y+b.y)/2.0,(a.z+b.z)/2.0,(a.w+b.w)/2.0)));
 }
 

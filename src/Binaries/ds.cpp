@@ -41,33 +41,33 @@ void init() {
   Object *D = rootScene->addObject( "Object D (TEX2)", shader[2] );
   
   // draw a square in the upper left
-  triangle( A, vec4( -1, 0, 0, 1 ), vec4( 0, 0, 0, 1 ), vec4( -1, 1, 0, 1 ),
+  triangle( A, Angel::vec4( -1, 0, 0, 1 ), Angel::vec4( 0, 0, 0, 1 ), Angel::vec4( -1, 1, 0, 1 ),
             0 );
-  triangle( A, vec4( 0, 0, 0, 1 ), vec4( -1, 1, 0, 1 ), vec4( 0, 1, 0, 1 ), 0 );
+  triangle( A, Angel::vec4( 0, 0, 0, 1 ), Angel::vec4( -1, 1, 0, 1 ), Angel::vec4( 0, 1, 0, 1 ), 0 );
   A->buffer();
   
   // draw a square in the lower right
-  triangle( B, vec4( 0, -1, 0, 1 ), vec4( 1, -1, 0, 1 ), vec4( 0, 0, 0, 1 ),
+  triangle( B, Angel::vec4( 0, -1, 0, 1 ), Angel::vec4( 1, -1, 0, 1 ), Angel::vec4( 0, 0, 0, 1 ),
             0 );
-  triangle( B, vec4( 1, -1, 0, 1 ), vec4( 0, 0, 0, 1 ), vec4( 1, 0, 0, 1 ), 0 );
+  triangle( B, Angel::vec4( 1, -1, 0, 1 ), Angel::vec4( 0, 0, 0, 1 ), Angel::vec4( 1, 0, 0, 1 ), 0 );
   B->buffer();
   
   // draw a triangle in the lower left, and texture it.
-  triangle( C, vec4( -1, -1, 0, 1 ), vec4( 0, -1, 0, 1 ), vec4( -1, 0, 0, 1 ),
+  triangle( C, Angel::vec4( -1, -1, 0, 1 ), Angel::vec4( 0, -1, 0, 1 ), Angel::vec4( -1, 0, 0, 1 ),
             0 );
-  C->_texUVs.push_back( vec2( 0, 0 ) );
-  C->_texUVs.push_back( vec2( 1, 1 ) );
-  C->_texUVs.push_back( vec2( 0, 1 ) );
+  C->_texUVs.push_back( Angel::vec2( 0, 0 ) );
+  C->_texUVs.push_back( Angel::vec2( 1, 1 ) );
+  C->_texUVs.push_back( Angel::vec2( 0, 1 ) );
   C->buffer();
   const char *filename = "../Textures/GrassGreenTexture0002.jpg";
   C->texture( filename );
   
   // draw another triangle in the lower left, texture it differently.
-  triangle( D, vec4( -1, 0, 0, 1 ), vec4( 0, 0, 0, 1 ), vec4( 0, -1, 0, 1 ),
+  triangle( D, Angel::vec4( -1, 0, 0, 1 ), Angel::vec4( 0, 0, 0, 1 ), Angel::vec4( 0, -1, 0, 1 ),
             0 );
-  D->_texUVs.push_back( vec2( 0, 0 ) );
-  D->_texUVs.push_back( vec2( 1, 1 ) );
-  D->_texUVs.push_back( vec2( 0, 1 ) );
+  D->_texUVs.push_back( Angel::vec2( 0, 0 ) );
+  D->_texUVs.push_back( Angel::vec2( 1, 1 ) );
+  D->_texUVs.push_back( Angel::vec2( 0, 1 ) );
   D->buffer();
   D->texture( "../Textures/GoodTextures_0013291.jpg" );
   

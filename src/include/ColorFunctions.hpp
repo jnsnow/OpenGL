@@ -3,9 +3,6 @@
 
 #include "vec.hpp"
 
-using Angel::vec3;
-using Angel::vec4;
-
 namespace ColorFunctions
 {
 

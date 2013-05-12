@@ -20,9 +20,6 @@
 #include "scaleModel.hpp"
 #include "scanMatching.hpp"
 
-using Angel::vec3;
-using Angel::vec4;
-
 void makeModelsSameSize( Object* model1, Object* model2 );
 void makeSameSize(std::vector<Triangle*> model1, std::vector<Triangle*> model2);
 void splitProblemTriangles(Object* model1, Object* model2);

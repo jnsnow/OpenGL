@@ -5,23 +5,19 @@
 #include "UserVectorField.hpp"
 #include <cmath>
 
-using Angel::vec2;
-using Angel::vec3;
-using Angel::vec4;
-
 typedef struct s_attractor{
 
 	float power;
-	vec3 position;
+	Angel::vec3 position;
 	float range;
 
 } attractor;
 
-double getTheta(vec4 pos)
+double getTheta(Angel::vec4 pos)
 {
 
-	vec2 reference = vec2(1.0,0.0) ;
-	vec2 planar_angle = vec2(pos.x, pos.z) ;
+	Angel::vec2 reference = Angel::vec2(1.0,0.0) ;
+	Angel::vec2 planar_angle = Angel::vec2(pos.x, pos.z) ;
 
 	float dotPdt = dot( reference, planar_angle ) ;
 
@@ -39,19 +35,19 @@ double getTheta(vec4 pos)
 
 
 
-vec3 ParticleFieldFunctions::fixed(vec4 pos)
+Angel::vec3 ParticleFieldFunctions::fixed(Angel::vec4 pos)
 {
-  return vec3(0.0,0.0,0.0);
+  return Angel::vec3(0.0,0.0,0.0);
 }
 
 
-vec3 ParticleFieldFunctions::up(vec4 pos, Parameters* parameters)
+Angel::vec3 ParticleFieldFunctions::up(Angel::vec4 pos, Parameters* parameters)
 {
-  return vec3(0.0,0.005,0.0);
+  return Angel::vec3(0.0,0.005,0.0);
 }
 
 //FIXME DOCS PARAMETERS
-vec3 ParticleFieldFunctions::tornado(vec4 pos, Parameters* parameters)
+Angel::vec3 ParticleFieldFunctions::tornado(Angel::vec4 pos, Parameters* parameters)
 {
 	TornadoParameters *theParams = (TornadoParameters *) parameters;
 
@@ -59,11 +55,11 @@ vec3 ParticleFieldFunctions::tornado(vec4 pos, Parameters* parameters)
 	float b = theParams->b() ;
 	float c = theParams->c() ;
 
-	vec4 retVal;
+	Angel::vec4 retVal;
 
 	double theta = getTheta(pos);
 
-	retVal = vec4( -sin(theta)/a /*100.0*/,
+	retVal = Angel::vec4( -sin(theta)/a /*100.0*/,
 			0.001,
 			cos(theta)/b /*100.0*/,
 			1.0 ) ;
@@ -75,10 +71,10 @@ vec3 ParticleFieldFunctions::tornado(vec4 pos, Parameters* parameters)
 
 }
 
-vec3 ParticleFieldFunctions::flame(vec4 pos, Parameters* theParameters)
+Angel::vec3 ParticleFieldFunctions::flame(Angel::vec4 pos, Parameters* theParameters)
 {
 	FlameParameters* parameters = (FlameParameters* ) theParameters;
-	vec3 retVal ;
+	Angel::vec3 retVal ;
 
 	//float steepness = ParticleSystem::rangeRandom(2,100) ;
 
@@ -94,7 +90,7 @@ vec3 ParticleFieldFunctions::flame(vec4 pos, Parameters* theParameters)
 	atr_top.position = parameters->atrPos() ;
 	atr_top.range =	parameters->rng();
 	// get the distance from the attractor
-	vec3 atrDist = atr_top.position - xyz(pos) ;
+	Angel::vec3 atrDist = atr_top.position - xyz(pos) ;
 
 	float distanceSquare = length(atrDist) * length(atrDist);
 
@@ -123,9 +119,9 @@ vec3 ParticleFieldFunctions::flame(vec4 pos, Parameters* theParameters)
 
 }
 
-vec3 ParticleFieldFunctions::flameold(vec4 pos) {
+Angel::vec3 ParticleFieldFunctions::flameold(Angel::vec4 pos) {
 
-	vec3 retVal ;
+	Angel::vec3 retVal ;
 
 	//double theta = getTheta(pos);
 
@@ -142,10 +138,10 @@ vec3 ParticleFieldFunctions::flameold(vec4 pos) {
 	attractor atr_top ;
 
 	atr_top.power    = 0.05 ;
-	atr_top.position = vec3(0.0, 0.15, 0.0) ;
+	atr_top.position = Angel::vec3(0.0, 0.15, 0.0) ;
 	atr_top.range =	.02;
 	// get the distance from the attractor
-	vec3 woah = atr_top.position - xyz(pos) ;
+	Angel::vec3 woah = atr_top.position - xyz(pos) ;
 
 	float distanceSquare = length(woah) * length(woah);
 
@@ -185,7 +181,7 @@ float TornadoParameters::c( void )
 	return _c;
 }
 
-FlameParameters::FlameParameters( vec3 theAtrPos, double theScl, float thePwr, float theRng) :
+FlameParameters::FlameParameters( Angel::vec3 theAtrPos, double theScl, float thePwr, float theRng) :
 		_atrPos(theAtrPos),
 		_scl(theScl),
 		_pwr(thePwr),
@@ -194,7 +190,7 @@ FlameParameters::FlameParameters( vec3 theAtrPos, double theScl, float thePwr, f
 	
 }	
 
-vec3 FlameParameters::atrPos(void)
+Angel::vec3 FlameParameters::atrPos(void)
 {
 	return _atrPos;
 }
@@ -259,9 +255,9 @@ Angel::vec3 ParticleFieldFunctions::userSupplied( Angel::vec4 pos, Parameters* p
 //#endif
 
 /* // jet 1?
-vec3 ParticleFieldFunctions::idk(vec4 pos)
+Angel::vec3 ParticleFieldFunctions::idk(Angel::vec4 pos)
 {
-  return vec3( (sin(pos.x)+pos.y)/1200.0,
+  return Angel::vec3( (sin(pos.x)+pos.y)/1200.0,
                (cos(pos.z)+pos.y)/1200.0,
                pos.y/1000.0) ;
 

@@ -19,8 +19,6 @@
 #include "Texture.hpp"
 #include "Material.hpp"
 
-using Angel::vec4;
-
 /**
  * @author John Huston
  * @date 2013-03-15
@@ -214,7 +212,7 @@ public:
    * Obtain the vec4 representative of the Object's current position in space.
    * @return vec4 representing the Object's position in space.
    */
-  vec4 position() const;
+  Angel::vec4 position() const;
 
   // Morph Methods ============================================================
   

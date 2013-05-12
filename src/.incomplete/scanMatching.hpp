@@ -94,7 +94,7 @@ struct ScanMatch {
 	void scanQuarters();
 	void scanQuarterFromTop(std::vector<Triangle*> source, std::vector<Triangle*> destination);
 	void sortTriangles(std::vector< Triangle* >& triangles);
-	void findOptimalOrientation(vec4 a, vec4 b, vec4 c, std::vector< Triangle* > model, int index, vec4& point1, vec4& point2, vec4& point3);
+	void findOptimalOrientation(Angel::vec4 a, Angel::vec4 b, Angel::vec4 c, std::vector< Triangle* > model, int index, Angel::vec4& point1, Angel::vec4& point2, Angel::vec4& point3);
 	int findTriangleWithMinimumDistance(std::vector< Triangle* > larger, std::vector< Triangle* > smaller, int index);
 	void copyBackToObjects(Object* object, std::vector< Triangle* > triangles);
 	void copyToBuffers();
@@ -102,7 +102,7 @@ struct ScanMatch {
 	void makeSameSize(std::vector<Triangle*>& model1, std::vector<Triangle*>& model2);
 	void matchInitial(std::vector<Triangle*>& model1, std::vector<Triangle*>& model2);
 	void addToTriangles(std::vector< Triangle* >& parent, std::vector<Triangle*> addition);
-	float threeDimensionalDistance( vec4 points1, vec4 points2 );
+	float threeDimensionalDistance( Angel::vec4 points1, Angel::vec4 points2 );
 
 };
 bool compareTriangles(Triangle* a, Triangle* b);

@@ -13,10 +13,6 @@
 #include "vec.hpp"
 #include "Object.hpp"
 
-using Angel::vec2;
-using Angel::vec3;
-using Angel::vec4;
-using Angel::mat4;
 using std::string;
 
 /**
@@ -91,7 +87,7 @@ public:
    @param gShader A handle to this camera's associated shader object.
    @param in A vec3 representing the initial coordinates.
    **/
-  Camera( const std::string &name, GLuint gShader, vec3 &in );
+  Camera( const std::string &name, GLuint gShader, Angel::vec3 &in );
 
   /**
    Initialization Constructor, uses a vec4 as its initial coordinates.
@@ -99,7 +95,7 @@ public:
    @param gShader A handle to this camera's associated shader object.
    @param in A vec4 representing the initial coordinates. The w component is ignored.
    **/
-  Camera( const std::string &name, GLuint gShader, vec4 &in );
+  Camera( const std::string &name, GLuint gShader, Angel::vec4 &in );
 
   /**
    Default destructor. Defined only to allow inheritance.
@@ -146,7 +142,7 @@ public:
    @param update Whether or not to update the shader with the new coordinates.
    @return Void.
    **/
-  void pos( const vec3 &in, const bool &update = true );
+  void pos( const Angel::vec3 &in, const bool &update = true );
 
   /**
    Sets the absolute position of the camera.
@@ -154,7 +150,7 @@ public:
    @param update Whether or not to update the shader with the new coordinates.
    @return Void.
    **/
-  void pos( const vec4 &in, const bool &update = true );
+  void pos( const Angel::vec4 &in, const bool &update = true );
 
   /* Adjust positionals: move the camera by an offset */
   /**
@@ -198,14 +194,14 @@ public:
    @param by A vec3 containing the x, y, and z axis displacements.
    @return Void.
    **/
-  void dPos( const vec3 &by );
+  void dPos( const Angel::vec3 &by );
 
   /**
    Moves the camera along the x, y, and z axes.
    @param by A vec4 containing the x, y, and z axis displacements. The w component is ignored.
    @return Void.
    **/
-  void dPos( const vec4 &by );
+  void dPos( const Angel::vec4 &by );
 
   /* Field-of-view */
   /**
@@ -340,7 +336,7 @@ public:
    @param accel The vec3 which represents the (x,y,z) acceleration, where x,y,z are [-1,1].
    @return Void.
    **/
-  void accel( const vec3 &accel );
+  void accel( const Angel::vec3 &accel );
 
   /* Get Position */
   /**
@@ -362,14 +358,14 @@ public:
    pos() gets the current camera position in model coordinates.
    @return A vec4 that represents the current camera coordinates.
    **/
-  vec4 pos( void ) const;
+  Angel::vec4 pos( void ) const;
 
   /* Get Velocity */
-  vec3 dPos ( void ) const;
+  Angel::vec3 dPos ( void ) const;
 
   /* Get directional vectors */
-  vec4 forward ( void ) const;
-  vec4 up ( void ) const;
+  Angel::vec4 forward ( void ) const;
+  Angel::vec4 up ( void ) const;
 
 
 
@@ -433,7 +429,7 @@ private:
    @param fixed Should this rotation be fixed about the origin?
    @return Void.
    **/
-  void adjustRotation( const mat4 &adjustment, const bool &fixed = false );
+  void adjustRotation( const Angel::mat4 &adjustment, const bool &fixed = false );
   /**
    commonInit is a private function that initializes local object attributes.
    It should be called by all available constructors.
@@ -442,7 +438,7 @@ private:
   void commonInit( void );
 
   /** The current view matrix (defaultly perspective) for this camera. **/
-  mat4 _view;
+  Angel::mat4 _view;
 
   /** The Current Transformation state for this Camera. **/
   TransCache _ctm;
@@ -454,7 +450,7 @@ private:
   GLfloat _speed;
 
   /** Current Velocity of camera motion. **/
-  vec3 _velocity;
+  Angel::vec3 _velocity;
 
   /** Current Speed Capacity: (speed/MaxSpeed) **/
   GLfloat _speed_cap;

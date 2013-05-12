@@ -17,21 +17,18 @@
 #include "Timer.hpp"
 #include "vec.hpp"
 
-using Angel::vec4;
-using Angel::mat4;
-
 // Constructor(s)
-Particle::Particle( vec4 position, float scale, float lifetime ) :
-  _pos( position ), _scale( scale ), _vel(vec3(0.0, 0.0, 0.0)),
+Particle::Particle( Angel::vec4 position, float scale, float lifetime ) :
+  _pos( position ), _scale( scale ), _vel(Angel::vec3(0.0, 0.0, 0.0)),
   _respawnFlag( false )
 {
-  setMaxLifetime(lifetime), setColor(vec4(1.0,0.0,1.0,1.0));
+  setMaxLifetime(lifetime), setColor(Angel::vec4(1.0,0.0,1.0,1.0));
 }
 
-Particle::Particle( vec4 position, float lifetime ) :
-    _pos( position ), _vel(vec3(0.0, 0.0, 0.0)), _respawnFlag( false )
+Particle::Particle( Angel::vec4 position, float lifetime ) :
+    _pos( position ), _vel(Angel::vec3(0.0, 0.0, 0.0)), _respawnFlag( false )
 {
-  setMaxLifetime(lifetime), setColor(vec4(1.0,0.0,1.0,1.0));
+  setMaxLifetime(lifetime), setColor(Angel::vec4(1.0,0.0,1.0,1.0));
 }
 
 // Destructor(s)
@@ -56,7 +53,7 @@ void Particle::updateSelf( void ) {
 }
 
 
-void Particle::changeVel( vec3 newVel ) {
+void Particle::changeVel( Angel::vec3 newVel ) {
   _vel += newVel;
 }
 
@@ -72,7 +69,7 @@ float Particle::getAlpha( void ) {
   return _color.w;
 }
 
-void Particle::setColor( vec4 newColor ) {
+void Particle::setColor( Angel::vec4 newColor ) {
   _color = newColor;
 }
 
@@ -84,15 +81,15 @@ void Particle::setMaxLifetime( float newMaxLife ) {
 	_maxLifetime = _lifetime = newMaxLife;
 }
 
-void Particle::setPos( vec4 newPos ) {
+void Particle::setPos( Angel::vec4 newPos ) {
   _pos = newPos;
 }
 
-void Particle::setScale( vec3 newScale ) {
+void Particle::setScale( Angel::vec3 newScale ) {
   _scale = newScale;
 }
 
-void Particle::setVel( vec3 newVel ) {
+void Particle::setVel( Angel::vec3 newVel ) {
   _vel = newVel;
 }
 
@@ -106,7 +103,7 @@ bool Particle::getRespawnFlag()
     return _respawnFlag;
 }
 
-vec4
+Angel::vec4
 Particle::getPosition( void )
 {
   return _pos;
@@ -118,7 +115,7 @@ Particle::getMaxLifetime()
 	return _maxLifetime;
 }
 
-vec4
+Angel::vec4
 Particle::getColor( void ) {
   return _color ;
 }

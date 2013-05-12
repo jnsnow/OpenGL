@@ -6,15 +6,11 @@
 
 #include <cmath>
 
-using Angel::vec2;
-using Angel::vec3;
-using Angel::vec4;
-
-vec4 ColorFunctions::standard( float lifePct, vec4 posIn ) {
-  return vec4( 1.0, 1.0, 1.0, 1.0 );
+Angel::vec4 ColorFunctions::standard( float lifePct, Angel::vec4 posIn ) {
+  return Angel::vec4( 1.0, 1.0, 1.0, 1.0 );
 }
 
-vec4 ColorFunctions::flame( float lifePct, vec4 posIn ) {
+Angel::vec4 ColorFunctions::flame( float lifePct, Angel::vec4 posIn ) {
   float r, g, b, w;
   
   if( lifePct >= 0.7 ) {
@@ -29,12 +25,12 @@ vec4 ColorFunctions::flame( float lifePct, vec4 posIn ) {
     w = lifePct + 0.2;
   }
   
-  //return 2*normalize(vec4(r, g, b, w ));
+  //return 2*normalize(Angel::vec4(r, g, b, w ));
 
-  return vec4(2*normalize(vec3(r, g, b)), w);
+  return Angel::vec4(2*normalize(Angel::vec3(r, g, b)), w);
 }
 
-vec4 ColorFunctions::flameSt( float lifePct, vec4 posIn ) {
+Angel::vec4 ColorFunctions::flameSt( float lifePct, Angel::vec4 posIn ) {
   float r, g, b, w;
   
   if( lifePct >= 0.82 ) {
@@ -51,11 +47,11 @@ vec4 ColorFunctions::flameSt( float lifePct, vec4 posIn ) {
 
   w = 0.1+(2*lifePct*(1-lifePct));
 
-  return vec4(r, g, b, w);
+  return Angel::vec4(r, g, b, w);
 
 }
 
-vec4 ColorFunctions::aurora( float lifePct, vec4 posIn ) {
+Angel::vec4 ColorFunctions::aurora( float lifePct, Angel::vec4 posIn ) {
   float r, g, b, w;
   
   r = sin(1-lifePct*4);
@@ -63,14 +59,14 @@ vec4 ColorFunctions::aurora( float lifePct, vec4 posIn ) {
   b = 0.5;
   w = sin(lifePct*4);
 
-  return vec4(r, g, b, w);
+  return Angel::vec4(r, g, b, w);
 }
 
 float scaleOverRange( float min, float max, float pct ) {
   return pct / (max - min);
 }
 
-vec4 ColorFunctions::HSV( float lifePct, vec4 posIn ) {
+Angel::vec4 ColorFunctions::HSV( float lifePct, Angel::vec4 posIn ) {
   
   float hue = lifePct;
 
@@ -88,17 +84,17 @@ vec4 ColorFunctions::HSV( float lifePct, vec4 posIn ) {
   
   i = (int)I;
   
-  if (i == 0) return vec4( V, K, M, 1 );
-  if (i == 1) return vec4( N, V, M, 1 );
-  if (i == 2) return vec4( M, V, K, 1 );
-  if (i == 3) return vec4( M, N, V, 1 );
-  if (i == 4) return vec4( K, M, V, 1 );
+  if (i == 0) return Angel::vec4( V, K, M, 1 );
+  if (i == 1) return Angel::vec4( N, V, M, 1 );
+  if (i == 2) return Angel::vec4( M, V, K, 1 );
+  if (i == 3) return Angel::vec4( M, N, V, 1 );
+  if (i == 4) return Angel::vec4( K, M, V, 1 );
 
-  return vec4( V, M, N, 1 );
+  return Angel::vec4( V, M, N, 1 );
   
 }
 
-vec4 ColorFunctions::rainbow( float lifePct, vec4 posIn ) {
+Angel::vec4 ColorFunctions::rainbow( float lifePct, Angel::vec4 posIn ) {
   float r, g, b, w;
 
   //D'oh, this is needed to avoid backwards rainbows
@@ -147,10 +143,10 @@ vec4 ColorFunctions::rainbow( float lifePct, vec4 posIn ) {
     w = -scaleOverRange( 0.9, 1.0, pct );
   }
   
-  return vec4(r, g, b, w);
+  return Angel::vec4(r, g, b, w);
 }
 
-vec4 ColorFunctions::tropical( float lifePct, vec4 posIn ) {
+Angel::vec4 ColorFunctions::tropical( float lifePct, Angel::vec4 posIn ) {
   float r, g, b, w;
 
   r = 0.5;
@@ -162,10 +158,10 @@ vec4 ColorFunctions::tropical( float lifePct, vec4 posIn ) {
     w = -scaleOverRange( 0.9, 1.0, lifePct );
   }
 
-  return vec4(r, g, b, w);
+  return Angel::vec4(r, g, b, w);
 }
 
-vec4 ColorFunctions::galaxy( float lifePct, vec4 posIn ) {
+Angel::vec4 ColorFunctions::galaxy( float lifePct, Angel::vec4 posIn ) {
   float r, g, b, w;
 
   if( lifePct > 0.9 ) {
@@ -183,5 +179,5 @@ vec4 ColorFunctions::galaxy( float lifePct, vec4 posIn ) {
     w = -scaleOverRange( 0.8, 1.0, lifePct );
   }
 
-  return vec4(r, g, b, w);
+  return Angel::vec4(r, g, b, w);
 }

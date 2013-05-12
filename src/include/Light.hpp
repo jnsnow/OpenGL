@@ -12,10 +12,6 @@
 #include "mat.hpp"
 #include "vec.hpp"
 
-using Angel::vec2;
-using Angel::vec3;
-using Angel::vec4;
-using Angel::mat4;
 using std::string;
 
 class Light {
@@ -39,14 +35,14 @@ public:
    @param name The name of this Light/Object.
    @param in A vec3 representing the initial coordinates.
    **/
-  Light( const std::string &name, vec3 &in );
+  Light( const std::string &name, Angel::vec3 &in );
 
   /**
    Initialization Constructor, uses a vec4 as its initial coordinates.
    @param name The name of this Light/Object.
    @param in A vec4 representing the initial coordinates. The w component is ignored.
    **/
-  Light( const std::string &name, vec4 &in );
+  Light( const std::string &name, Angel::vec4 &in );
 
   /**
    Default destructor. Defined only to allow inheritance.
@@ -67,14 +63,14 @@ public:
    @param in A vec3 containing the x, y, and z coordinates to set the light to.
    @return Void.
    **/
-  void pos( const vec3 &in );
+  void pos( const Angel::vec3 &in );
 
   /**
    Sets the absolute position of the light.
    @param in A vec4 containing the x, y, and z coordinates to set the light to. The w coordinate is ignored.
    @return Void.
    **/
-  void pos( const vec4 &in );
+  void pos( const Angel::vec4 &in );
 
   void dX( const float &by );
   void dY( const float &by );
@@ -94,14 +90,14 @@ public:
    @param by A vec3 containing the x, y, and z axis displacements.
    @return Void.
    **/
-  void dPos( const vec3 &by );
+  void dPos( const Angel::vec3 &by );
 
   /**
    Moves the light along the x, y, and z axes.
    @param by A vec4 containing the x, y, and z axis displacements. The w component is ignored.
    @return Void.
    **/
-  void dPos( const vec4 &by );
+  void dPos( const Angel::vec4 &by );
 
   float x( void ) const;
   float y( void ) const;
@@ -115,18 +111,18 @@ public:
    pos() gets the current light position in model coordinates.
    @return A vec4 that represents the current light coordinates.
    **/
-  vec4 pos( void ) const;
+  Angel::vec4 pos( void ) const;
 
   /**
      color() gets the current light color.
      @return A vec3 that represents the current light color.
    **/
-  vec3 color( void ) const;
+  Angel::vec3 color( void ) const;
   /**
      Sets the color of the light.
      @return void.
    **/
-  void color( const vec3 &in ); 
+  void color( const Angel::vec3 &in ); 
 
   /**
      intensity() gets the current light intensity.
@@ -150,10 +146,10 @@ public:
 private:
 
   /** Current world position of the Light **/
-  vec3 _position;
+  Angel::vec3 _position;
   
   /** Color of the emitted light **/
-  vec3 _color;
+  Angel::vec3 _color;
 
   /** The brightness level of the light **/
   float _intensity;

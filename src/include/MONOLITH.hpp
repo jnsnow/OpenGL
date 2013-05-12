@@ -17,13 +17,6 @@
 #include "ParticleFieldFunctions.hpp"
 #include "ColorFunctions.hpp"
 
-/*Morphing Items */
-#include "modelFunctions.hpp"
-#include "nearestNeighbor.hpp"
-#include "bipartiteGraph.hpp"
-#include "scanMatching.hpp"
-#include "scaleModel.hpp"
-
 #include <boost/bind.hpp>
 #include "soundHelper.hpp" // fmod headers and helpers
 
@@ -100,8 +93,6 @@ public:
      */
     int defaultNumberOfParticles();
 
-    RectangularMapping * _rectangularMapping;
-    ScaleModel * _scaleModel;
     bool _morphMatchCalculated;
     
 #ifndef WITHOUT_QT

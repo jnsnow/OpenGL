@@ -21,10 +21,6 @@
 #include "ParticleFieldFunctions.hpp"
 #include "UserVectorField.hpp"
 
-using Angel::vec2;
-using Angel::vec3;
-using Angel::vec4;
-using Angel::mat4;
 using std::string;
 using std::vector;
 
@@ -59,8 +55,8 @@ class ParticleSystem : public Object {
 
   virtual void draw( bool doDraw = true );
 
-  void  setVectorField(vec3 (*vectorFieldFunc)(vec4, Parameters* ) );
-  void  setColorFunc(vec4 (*colorFunc)(float, vec4) );
+  void  setVectorField(Angel::vec3 (*vectorFieldFunc)(Angel::vec4, Parameters* ) );
+  void  setColorFunc(Angel::vec4 (*colorFunc)(float, Angel::vec4) );
   
   static float rangeRandom( float min, float max );
 
@@ -108,15 +104,15 @@ class ParticleSystem : public Object {
   void  updateNumParticles( int );
 
   float generateLifespan();
+  
+  Angel::vec4  getSpawnPos(PS_SHAPE);
+  Angel::vec4  getRandomCircularSpawnPoint(void);
+  Angel::vec4  getRandomCubeSpawnPoint(void);
+  Angel::vec4  getRandomSphericalSpawnPoint(void);
+  Angel::vec4  getRandomHemisphericalSpawnPoint(void);
+  Angel::vec4  getRandomLinearSpawnPoint(void);
 
-  vec4  getSpawnPos(PS_SHAPE);
-  vec4  getRandomCircularSpawnPoint(void);
-  vec4  getRandomCubeSpawnPoint(void);
-  vec4  getRandomSphericalSpawnPoint(void);
-  vec4  getRandomHemisphericalSpawnPoint(void);
-  vec4  getRandomLinearSpawnPoint(void);
-
-  vec4  getRandomSphericalSpawnPointHelper(float);
+  Angel::vec4  getRandomSphericalSpawnPointHelper(float);
 
 
   void  respawnParticle(Particle &p);

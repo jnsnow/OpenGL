@@ -10,7 +10,6 @@
 #include "Screen.hpp"
 #include "Cameras.hpp"
 #include "vec.hpp"
-using Angel::vec2;
 
 /**
  * Initializes the Screen with a width and a height.
@@ -22,10 +21,10 @@ Screen::Screen( int x, int y ) {
 }
 
 /**
- * Initializes the Screen width a width and a height from a vec2.
- * @param startSize the vec2 initializer in the form of {x,y}.
+ * Initializes the Screen width a width and a height from a Angel::vec2.
+ * @param startSize the Angel::vec2 initializer in the form of {x,y}.
  */
-Screen::Screen( const vec2 &startSize ) {
+Screen::Screen( const Angel::vec2 &startSize ) {
   this->size( startSize );
 }
 
@@ -35,24 +34,24 @@ Screen::Screen( const vec2 &startSize ) {
  * @param y The new height.
  */
 void Screen::size( int x, int y ) {
-  size( vec2( x, y ) );
+  size( Angel::vec2( x, y ) );
 }
 
 /**
  * Updates the size of the screen.
- * @param newSize The new dimensions, passed in as vec2(x,y).
+ * @param newSize The new dimensions, passed in as Angel::vec2(x,y).
  */
-void Screen::size( const vec2 &newSize ) {
+void Screen::size( const Angel::vec2 &newSize ) {
   _size = newSize;
   _center = newSize / 2.0;
   _camList.resize( _size.x, _size.y );
 }
 
 /**
- * Retrieve a const vec2 reference for the dimensions of what the screen is.
- * @return vec2( x:width, y:height )
+ * Retrieve a const Angel::vec2 reference for the dimensions of what the screen is.
+ * @return Angel::vec2( x:width, y:height )
  */
-const vec2 &Screen::size( void ) {
+const Angel::vec2 &Screen::size( void ) {
   return _size;
 }
 
@@ -73,10 +72,10 @@ int Screen::height( void ) {
 }
 
 /**
- * Fetches a const vec2 reference for the midpoint of the screen.
- * @return Midpoint of the screen as vec2( midX, midY ).
+ * Fetches a const Angel::vec2 reference for the midpoint of the screen.
+ * @return Midpoint of the screen as Angel::vec2( midX, midY ).
  */
-const vec2 &Screen::center( void ) {
+const Angel::vec2 &Screen::center( void ) {
   return _center;
 }
 

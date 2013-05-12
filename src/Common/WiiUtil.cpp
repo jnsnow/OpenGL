@@ -46,7 +46,6 @@
 #include "Util.hpp"
 
 using std::cerr;
-using Angel::vec3;
 vec3 bbMagnitudes;
 WiiPollData pollResults;
 

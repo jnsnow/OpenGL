@@ -14,10 +14,6 @@
 #include "Object.hpp"
 #include "Util.hpp"
 
-using Angel::vec4;
-using Angel::vec3;
-using Angel::mat4;
-
 
 /**
  * Bind a VBO and associate it with a variable on the shader.
@@ -703,11 +699,11 @@ void Object::sceneCascade( void ) {
  * Obtain the vec4 representative of the Object's current position in space.
  * @return vec4 representing the Object's position in space.
  */
-vec4 Object::position( void ) const {
+Angel::vec4 Object::position( void ) const {
   
-  mat4 theOTM = this->_trans.otm();
+  Angel::mat4 theOTM = this->_trans.otm();
   
-  return vec4( theOTM[0][3], theOTM[1][3], theOTM[2][3], 1.0 );
+  return Angel::vec4( theOTM[0][3], theOTM[1][3], theOTM[2][3], 1.0 );
 }
 
 /**
@@ -801,7 +797,7 @@ void Object::addMaterial(Material *newMaterial) {
   _colors.clear();
 
   for ( size_t i = 0; i < _vertices.size(); ++i ) {
-    _colors.push_back(vec4(color, 1));
+    _colors.push_back(Angel::vec4(color, 1));
   }
 }
 

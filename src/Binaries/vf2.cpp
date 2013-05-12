@@ -11,7 +11,7 @@
 /* Engine Classes */
 #include "Engine.hpp"
 
-typedef vec4 color4;
+typedef Angel::vec4 color4;
 
 int numberOfParticles = 999;
 
@@ -43,8 +43,8 @@ void init() {
   vfield->drawMode( GL_LINES );
   
   float resolution = 0.002;
-  vec4 vecEnd;
-  vec4 vecBegin;
+  Angel::vec4 vecEnd;
+  Angel::vec4 vecBegin;
   
   float start = -.012;
   float stop = .012;
@@ -57,10 +57,10 @@ void init() {
     for ( float y = 0.0; y <= stop * 4.0; y += resolution * 2.0 ) {
       for ( float z = start; z <= stop; z += resolution ) {
         if ( z == 0.0 ) continue;
-        vecBegin = vec4( x, y, z, 1.0 );
+        vecBegin = Angel::vec4( x, y, z, 1.0 );
         vfield->_vertices.push_back( vecBegin );
         
-        vecEnd = vec4( ParticleFieldFunctions::flame( vecBegin, NULL ), 1.0 );
+        vecEnd = Angel::vec4( ParticleFieldFunctions::flame( vecBegin, NULL ), 1.0 );
         //	vecEnd = normalize(vecEnd);
         
         vecEnd.x += vecBegin.x;

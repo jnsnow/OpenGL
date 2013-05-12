@@ -93,8 +93,8 @@ void init() {
    box->_buffer();
    */
 
-  sierpinskiPyramid( pyramid, vec4( 0, 1, 0, 1 ), vec4( -1, -0.999, 1, 1 ),
-                     vec4( 1, -0.999, 1, 1 ), vec4( 0, -0.999, -1, 1 ), 4 );
+  sierpinskiPyramid( pyramid, Angel::vec4( 0, 1, 0, 1 ), Angel::vec4( -1, -0.999, 1, 1 ),
+                     Angel::vec4( 1, -0.999, 1, 1 ), Angel::vec4( 0, -0.999, -1, 1 ), 4 );
   pyramid->buffer();
   
   Object *cube_base = theScene->addObject( "basecube" );

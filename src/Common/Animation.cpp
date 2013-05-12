@@ -27,8 +27,8 @@ void Animation::seekCenterTo( Object *obj, float x, float z, bool inherit ) {
 
   TransMat seek;
   seek.inheritable( inherit );
-  vec3 min = obj->getMin();
-  vec3 max = obj->getMax();
+  Angel::vec3 min = obj->getMin();
+  Angel::vec3 max = obj->getMax();
 
   float xSeek = (max.x + min.x) / 2.0;
   float zSeek = (max.z + min.z) / 2.0;
@@ -41,8 +41,8 @@ void Animation::seekCenterTo( Object *obj, float x, float z, bool inherit ) {
 float Animation::scaleBottomFixed( Object *obj, float scaleAmt ) {
 
   // This is where the minimum coordinates are, right now ...
-  vec4 min = obj->_trans.otm() * vec4( obj->getMin(), 1.0 );
-  vec4 max = obj->_trans.otm() * vec4( obj->getMax(), 1.0 );
+  Angel::vec4 min = obj->_trans.otm() * Angel::vec4( obj->getMin(), 1.0 );
+  Angel::vec4 max = obj->_trans.otm() * Angel::vec4( obj->getMax(), 1.0 );
 
   float height = max.y - min.y;
   float yAdjustment = min.y - (scaleAmt * min.y);
@@ -63,7 +63,7 @@ float Animation::scaleBottomFixed( Object *obj, float scaleAmt ) {
 void Animation::candleMelt( Object *candle, Object *tip, float rawScale ) {
   
   float adj = Animation::scaleBottomFixed( candle, pow(rawScale, tick.scale()) );
-  vec4 currentTipPos = tip->_trans.otm() * vec4(tip->getMax(),1.0);
+  Angel::vec4 currentTipPos = tip->_trans.otm() * Angel::vec4(tip->getMax(),1.0);
   tip->_trans.push( TransMat( 0, adj, 0 ) );
 
   currentTipPos.y += adj;

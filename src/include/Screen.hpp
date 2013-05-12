@@ -10,7 +10,6 @@
 
 #include "vec.hpp"
 #include "Cameras.hpp"
-using Angel::vec2;
 
 /**
  * The Screen class encompasses state necessary for rendering
@@ -34,7 +33,7 @@ public:
    * Initializes the Screen width a width and a height from a vec2.
    * @param startSize the vec2 initializer in the form of {x,y}.
    */
-  Screen( const vec2 &startSize );
+  Screen( const Angel::vec2 &startSize );
 
   /**
    * Updates the size of the screen.
@@ -47,13 +46,13 @@ public:
    * Updates the size of the screen.
    * @param newSize The new dimensions, passed in as vec2(x,y).
    */
-  void size( const vec2 &newSize );
+  void size( const Angel::vec2 &newSize );
 
   /**
    * Retrieve a const vec2 reference for the dimensions of what the screen is.
    * @return vec2( x:width, y:height )
    */
-  const vec2 &size( void );
+  const Angel::vec2 &size( void );
 
   /**
    * Returns the current width of the screen.
@@ -71,7 +70,7 @@ public:
    * Fetches a const vec2 reference for the midpoint of the screen.
    * @return Midpoint of the screen as vec2( midX, midY ).
    */
-  const vec2 &center( void );
+  const Angel::vec2 &center( void );
 
   /**
    * Fetches the widthwise midpoint of the screen.
@@ -96,12 +95,12 @@ private:
   /**
    * The current size of the screen.
    */
-  vec2 _size;
+  Angel::vec2 _size;
 
   /**
    * The current midpoint of the screen.
    */
-  vec2 _center;
+  Angel::vec2 _center;
   
 };
 

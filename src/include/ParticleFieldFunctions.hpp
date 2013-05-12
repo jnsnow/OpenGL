@@ -4,9 +4,6 @@
 #include "UserVectorField.hpp"
 #include "vec.hpp"
 
-using Angel::vec3;
-using Angel::vec4;
-
 class Parameters
 {
 public:
@@ -16,17 +13,17 @@ private:
 class FlameParameters : public Parameters
 {
 public:
-    FlameParameters( vec3 theAtrPos = vec3(0.0, 0.45, 0.0), 
+  FlameParameters( Angel::vec3 theAtrPos = Angel::vec3(0.0, 0.45, 0.0), 
 		     double theScl = 0.01,
 		     float thePwr = 0.1,
 		     float theRng = 0.24);
-  vec3 atrPos(void);
+  Angel::vec3 atrPos(void);
   double scl(void);
   float pwr(void);
   float rng(void);
   
 private:
-  vec3 _atrPos;
+  Angel::vec3 _atrPos;
   double _scl;
   float _pwr;
   float _rng;

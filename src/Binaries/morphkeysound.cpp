@@ -63,7 +63,7 @@ void fModInit( void );
  @param v a vec4 to convert
  @return a corresponding FMOD_VECTOR
  */
-FMOD_VECTOR convert_vec4_to_FMOD_VECTOR( vec4 v ) {
+FMOD_VECTOR convert_vec4_to_FMOD_VECTOR( Angel::vec4 v ) {
   
   FMOD_VECTOR ret = { v.x, v.y, v.z };
   return ret;
@@ -221,7 +221,7 @@ void play3dSound( FMOD_VECTOR pos, FMOD_VECTOR vel, FMOD::Channel **a_channel,
  overloaded version for your convenience.
 
  */
-void play3dSound( vec4 pos, vec4 vel, FMOD::Channel **a_channel,
+void play3dSound( Angel::vec4 pos, Angel::vec4 vel, FMOD::Channel **a_channel,
                   FMOD::Sound *a_sound ) {
   
   FMOD_VECTOR f_pos = convert_vec4_to_FMOD_VECTOR( pos );
@@ -314,7 +314,7 @@ float driveTheMorph( void ) {
         percent = 0.0;
         a_morph_status = previous_morph_status = DONE;
         // play a glass 'ding' sound before going to the DONE state:
-        play3dSound( vec4( 0.0, 0.0, 0.0, 1.0 ), vec4( 0.0, 0.0, 0.0, 1.0 ),
+        play3dSound( Angel::vec4( 0.0, 0.0, 0.0, 1.0 ), Angel::vec4( 0.0, 0.0, 0.0, 1.0 ),
                      &bottleChannel, ding1 );
       } else percent = (timer / 180.0) * tick.scale();
       break;
@@ -332,7 +332,7 @@ float driveTheMorph( void ) {
         timer = 180.0;
         percent = 1.0;
         a_morph_status = previous_morph_status = DONE;
-        play3dSound( vec4( 0.0, 0.0, 0.0, 1.0 ), vec4( 0.0, 0.0, 0.0, 1.0 ),
+        play3dSound( Angel::vec4( 0.0, 0.0, 0.0, 1.0 ), Angel::vec4( 0.0, 0.0, 0.0, 1.0 ),
                      &bottleChannel, ding2 );
       } else percent = (timer / 180.0) * tick.scale();
       break;
@@ -343,7 +343,7 @@ float driveTheMorph( void ) {
         timer = 0.0;
         percent = 0.0;
         a_morph_status = previous_morph_status = DONE;
-        play3dSound( vec4( 0.0, 0.0, 0.0, 1.0 ), vec4( 0.0, 0.0, 0.0, 1.0 ),
+        play3dSound( Angel::vec4( 0.0, 0.0, 0.0, 1.0 ), Angel::vec4( 0.0, 0.0, 0.0, 1.0 ),
                      &bottleChannel, ding1 );
       } else percent = ((1.0 - cos( timer * DegreesToRadians )) / 2.0)
           * tick.scale();
@@ -356,7 +356,7 @@ float driveTheMorph( void ) {
         timer = 180.0;
         percent = 1.0;
         a_morph_status = previous_morph_status = DONE;
-        play3dSound( vec4( 0.0, 0.0, 0.0, 1.0 ), vec4( 0.0, 0.0, 0.0, 1.0 ),
+        play3dSound( Angel::vec4( 0.0, 0.0, 0.0, 1.0 ), Angel::vec4( 0.0, 0.0, 0.0, 1.0 ),
                      &bottleChannel, ding2 );
       } else percent = ((1.0 - cos( timer * DegreesToRadians )) / 2.0)
           * tick.scale();
@@ -451,7 +451,7 @@ void updateListener( void ) {
   
   //static float t = 0;
   //static FMOD_VECTOR lastpos   = { 0.0f, 0.0f, 0.0f } ;
-  vec4 forwardVector;
+  Angel::vec4 forwardVector;
   FMOD_VECTOR forward = convert_vec4_to_FMOD_VECTOR( cam.forward() );
   FMOD_VECTOR up = convert_vec4_to_FMOD_VECTOR( cam.up() );// = { 0.0f, 1.0f, 0.0f } ;
   //unsigned long timeSinceLastFrame = Tick.Delta();

@@ -11,9 +11,6 @@
 #include "vec.hpp"
 #include "Object.hpp"
 
-using Angel::vec4;
-using Angel::vec3;
-
 /**
  * Adds another vertex to the specified object.
  *
@@ -23,7 +20,7 @@ using Angel::vec3;
  * @param the_normal The vec3 that specifies the normal for this vertex.
  */
 void createPoint( Object *obj, Point4 const &the_point, Color4 const &the_color,
-                  vec3 const &the_normal );
+                  Angel::vec3 const &the_normal );
 
 /**
  * Creates a triangle primitive from three spatial coordinates.

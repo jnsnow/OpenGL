@@ -15,10 +15,6 @@
 #include "vec.hpp"
 #include "Object.hpp"
 
-using Angel::vec2;
-using Angel::vec3;
-using Angel::vec4;
-using Angel::mat4;
 using std::string;
 
 
@@ -26,38 +22,38 @@ class Particle {
   
 public:
 
-  Particle( vec4 position, float lifetime );
-  Particle( vec4 position, float scale, float lifetime );
+  Particle( Angel::vec4 position, float lifetime );
+  Particle( Angel::vec4 position, float scale, float lifetime );
   ~Particle( void );
 
-  void changeVel( vec3 newVel ); // ???
+  void changeVel( Angel::vec3 newVel ); // ???
 
   // setters
   void  setAlpha( float newAlpha );
-  void  setColor( vec4 newColor );
+  void  setColor( Angel::vec4 newColor );
   void  setLifetime( float newLifetime );
   void  setMaxLifetime( float newMaxLife );
-  void  setPos( vec4 newPos );
-  void  setScale( vec3 newScale );
-  void  setVel( vec3 newVel );
+  void  setPos( Angel::vec4 newPos );
+  void  setScale( Angel::vec3 newScale );
+  void  setVel( Angel::vec3 newVel );
   void  setParticleRespawnFlag( bool );
 
   // getters
-  vec4  getPosition( void );
+  Angel::vec4  getPosition( void );
   float getMaxLifetime(void);
   float getLifetime( void );
   float getAlpha( void ) ;
-  vec4 getColor( void );
+  Angel::vec4 getColor( void );
   bool getRespawnFlag( void );
   //void setSpin( float newSpin );
 
   void updateSelf( void );
 
 private:
-  vec4   _pos;
-  vec3   _scale;
-  vec3   _vel;
-  vec4   _color;
+  Angel::vec4   _pos;
+  Angel::vec3   _scale;
+  Angel::vec3   _vel;
+  Angel::vec4   _color;
   float  _lifetime;
   float  _maxLifetime;
   bool   _respawnFlag;

@@ -18,10 +18,6 @@
 // If there is an argv[1], we will use it to initialize the particle system.
 int numberOfParticles = 9999;
 
-// Type Aliases
-using Angel::vec3;
-using Angel::vec4;
-
 // Initialization: load and compile shaders, initialize camera(s), load models.
 void init() {
   

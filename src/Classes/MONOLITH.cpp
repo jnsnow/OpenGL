@@ -159,23 +159,6 @@ void MONOLITH::slotMorphToWhiskyBottle(void)
 }
 
 void MONOLITH::slotEnableMorphMatching(bool isEnabled){
-    if(!_morphMatchCalculated){
-        int heightScale = 10;
-        int widthScale = 1;
-        int depthScale = 1;
-        _scaleModel = new ScaleModel(bottle, bottle->morphTarget(),widthScale,heightScale,depthScale);
-        _rectangularMapping = new RectangularMapping(bottle,bottle->morphTarget());
-        _scaleModel->restoreModels();
-        _morphMatchCalculated = true;
-    }
-    gprint(PRINT_WARNING, "MORPH MATCHING := %s\n", isEnabled?"ENABLED":"DISABLED");
-    if(isEnabled){
-        _rectangularMapping->copyToObjects(rootScene->search("bottle"),rootScene->search("bottle")->morphTarget());
-        _scaleModel->restoreModels();
-    }else{
-        _rectangularMapping->revertToOriginal(rootScene->search("bottle"),rootScene->search("bottle")->morphTarget());
-    }
-    rootScene->search("bottle")->buffer();
 }
 
 
@@ -393,19 +376,7 @@ void MONOLITH::run() {
   ObjLoader::loadModelFromFile( bottleMorphTarget, "../models/bottle_liquor_high3.obj" );
   ObjLoader::loadMaterialFromFile( bottleMorphTarget, "../models/bottle_liquor_high.mtl" );
   Animation::seekBottomTo( bottleMorphTarget, 0.001 );
-
-  static const bool useZachMorphing = false;
-  if (useZachMorphing) {
-    int heightScale = 10;
-    int widthScale = 1;
-    int depthScale = 1;
-    _scaleModel = new ScaleModel(bottle, bottleMorphTarget,widthScale,heightScale,depthScale);
-    _rectangularMapping = new RectangularMapping(bottle,bottleMorphTarget);
-    _scaleModel->restoreModels();
-    _morphMatchCalculated = true;
-  } else {
-    _morphMatchCalculated = false;
-  }
+  _morphMatchCalculated = false;
   bottle->buffer();
   glUniform1i( glGetUniformLocation( bottle->shader(), "letMeSeeThatPhong" ), 1 );
 

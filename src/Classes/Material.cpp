@@ -9,9 +9,9 @@
  * transparency  1.0
  */
 Material::Material() :
-	ambient( vec3(0.2, 0.2, 0.2) ),
-	specular( vec3(1.0, 1.0, 1.0) ),
-	diffuse(vec3(0.8, 0.8, 0.8)),
+	ambient( Angel::vec3(0.2, 0.2, 0.2) ),
+	specular( Angel::vec3(1.0, 1.0, 1.0) ),
+	diffuse(Angel::vec3(0.8, 0.8, 0.8)),
 	shininess(0.0),
 	transparency(1.0),
 	ior(1.0) {
@@ -24,10 +24,10 @@ Material::Material() :
  * 
  * @param ambient The ambient vector of the object.
  */
-Material::Material(vec3 ambient) :
+Material::Material(Angel::vec3 ambient) :
 	ambient(ambient),
-	specular(vec3(1.0, 1.0, 1.0)),
-	diffuse(vec3(0.8, 0.8, 0.8)),
+	specular(Angel::vec3(1.0, 1.0, 1.0)),
+	diffuse(Angel::vec3(0.8, 0.8, 0.8)),
 	shininess(0.0),
 	transparency(1.0),
 	ior(1.0) {
@@ -44,7 +44,7 @@ Material::Material(vec3 ambient) :
  * @param ambient The specular vector of the object.
  * @param ambient The shininess coefficient of the object.
  */
-Material::Material(vec3 ambient, vec3 diffuse, vec3 specular, float shininess) :
+Material::Material(Angel::vec3 ambient, Angel::vec3 diffuse, Angel::vec3 specular, float shininess) :
 	ambient(ambient),
 	specular(specular),
 	diffuse(diffuse),
@@ -65,7 +65,7 @@ Material::Material(vec3 ambient, vec3 diffuse, vec3 specular, float shininess) :
  * @param shininess The shininess coefficient of the object.
  * @param transparency The transparency coefficient of the object.
  */
-Material::Material(vec3 ambient, vec3 diffuse, vec3 specular, 
+Material::Material(Angel::vec3 ambient, Angel::vec3 diffuse, Angel::vec3 specular, 
 				   float shininess, float transparency) :
 	ambient(ambient),
 	specular(specular),
@@ -77,15 +77,15 @@ Material::Material(vec3 ambient, vec3 diffuse, vec3 specular,
 	// Nothing
 }
 
-void Material::setAmbient(vec3 ambient) {
+void Material::setAmbient(Angel::vec3 ambient) {
 	this->ambient = ambient;
 }
 
-void Material::setDiffuse(vec3 diffuse) {
+void Material::setDiffuse(Angel::vec3 diffuse) {
 	this->diffuse = diffuse;
 }
 
-void Material::setSpecular(vec3 specular) {
+void Material::setSpecular(Angel::vec3 specular) {
 	this->specular = specular;
 }
 
@@ -101,15 +101,15 @@ void Material::setRefract(float ior) {
 	this->ior = ior;
 }
 
-const vec3 Material::getAmbient() const {
+const Angel::vec3 Material::getAmbient() const {
 	return this->ambient;	
 }
 
-const vec3 Material::getDiffuse() const {
+const Angel::vec3 Material::getDiffuse() const {
 	return this->diffuse;	
 }
 
-const vec3 Material::getSpecular() const {
+const Angel::vec3 Material::getSpecular() const {
 	return this->specular;	
 }
 

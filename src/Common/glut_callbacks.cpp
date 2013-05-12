@@ -406,7 +406,7 @@ void wiilook( Camera &WiiCamera, const Angel::vec3 &NewTheta,
   float pitch = -MovementRates.x / 20;
   float roll = MovementRates.z / 20;
 
-  accumulated += vec3( yaw, pitch, roll );
+  accumulated += Angel::vec3( yaw, pitch, roll );
 
   if ( abs(accumulated.x) >= 0.1 ) {
     WiiCamera.yaw( accumulated.x, Engine::instance()->opt( "fixed_yaw" ) );

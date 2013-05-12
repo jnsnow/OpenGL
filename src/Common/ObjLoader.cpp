@@ -17,9 +17,6 @@
 
 using std::vector;
 using std::string;
-using Angel::vec4;
-using Angel::vec3;
-using Angel::vec2;
 using std::istringstream;
 
 namespace ObjLoader {
@@ -52,9 +49,9 @@ namespace ObjLoader {
    * @param line The line to parse.
    * @return a vec4 containing the parsed vertex.
    */
-  vec4 parseVertex( const string& line ) {
+  Angel::vec4 parseVertex( const string& line ) {
     
-    vec4 v;
+    Angel::vec4 v;
     
     // read in vertex coords
     istringstream s( line.substr( 2 ) );
@@ -72,8 +69,8 @@ namespace ObjLoader {
    * @param line The line to parse.
    * @return a vec2 containing the parsed texUV.
    */
-  vec2 parseTextureUV( const string &line ) {
-    vec2 uv;
+  Angel::vec2 parseTextureUV( const string &line ) {
+    Angel::vec2 uv;
     
     // read in uv coords
     istringstream s( line.substr( 3 ) );
@@ -103,8 +100,8 @@ namespace ObjLoader {
    * @param line the line to parse.
    * @return a vec3 containing the parsed normal.
    */
-  vec3 parseNormal( const string& line ) {
-    vec3 vn;
+  Angel::vec3 parseNormal( const string& line ) {
+    Angel::vec3 vn;
     
     istringstream s( line.substr( 3 ) );
     s >> vn.x;
@@ -181,9 +178,9 @@ namespace ObjLoader {
    * @return A vec3 containing the color in rgb format
    */
 
-  vec3 parseColor(const string &line)
+  Angel::vec3 parseColor(const string &line)
   {
-    vec3 color;
+    Angel::vec3 color;
     
     istringstream s( line.substr( 3 ) );
     s >> color.x;
@@ -239,12 +236,12 @@ namespace ObjLoader {
     
     bool firstObject = true;
     
-    vector< vec4 > raw_vertices;
-    vector< vec4 > vertices;
-    vector< vec3 > raw_normals;
-    vector< vec3 > normals;
-    vector< vec2 > raw_textureUVs;
-    vector< vec2 > textureUVs;
+    vector< Angel::vec4 > raw_vertices;
+    vector< Angel::vec4 > vertices;
+    vector< Angel::vec3 > raw_normals;
+    vector< Angel::vec3 > normals;
+    vector< Angel::vec2 > raw_textureUVs;
+    vector< Angel::vec2 > textureUVs;
     
     string line;
     string objName;
@@ -359,9 +356,9 @@ namespace ObjLoader {
       throw std::runtime_error( "Could not open file." );
     }
     
-    vector< vec4 > raw_vertices;
-    vector< vec3 > raw_normals;
-    vector< vec2 > raw_textureUVs;
+    vector< Angel::vec4 > raw_vertices;
+    vector< Angel::vec3 > raw_normals;
+    vector< Angel::vec2 > raw_textureUVs;
     
     string line;
     
@@ -419,7 +416,7 @@ namespace ObjLoader {
     
     if ( object->_texUVs.size() < object->_vertices.size() )
       for ( size_t i = 0; i < object->_vertices.size(); ++i ) {
-        object->_colors.push_back(vec4( RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, 1.0 ) );
+        object->_colors.push_back(Angel::vec4( RAND_FLOAT, RAND_FLOAT, RAND_FLOAT, 1.0 ) );
       }
 
     for ( size_t i = 0; i < object->_texUVs.size(); ++i ) {

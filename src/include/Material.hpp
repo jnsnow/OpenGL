@@ -3,8 +3,6 @@
 
 #include "vec.hpp"
 
-using Angel::vec3;
-
 /**
  * This class contains the material information of an object. The elements
  * in this class are parsed from the .mtl file. The values stored are the
@@ -16,21 +14,21 @@ using Angel::vec3;
  */
 class Material {
 public:
-	Material();
-	Material(vec3 ambient);
-	Material(vec3 ambient, vec3 diffuse, vec3 specular, float shininess);
-	Material(vec3 ambient, vec3 diffuse, vec3 specular, float shininess, float transparency);
-
-	void setAmbient(vec3 ambient);
-	void setSpecular(vec3 specular);
-	void setDiffuse(vec3 diffuse);
+  Material();
+  Material(Angel::vec3 ambient);
+  Material(Angel::vec3 ambient, Angel::vec3 diffuse, Angel::vec3 specular, float shininess);
+  Material(Angel::vec3 ambient, Angel::vec3 diffuse, Angel::vec3 specular, float shininess, float transparency);
+  
+	void setAmbient(Angel::vec3 ambient);
+	void setSpecular(Angel::vec3 specular);
+	void setDiffuse(Angel::vec3 diffuse);
 	void setShininess(float shininess);
 	void setTransparency(float transparency);
 	void setRefract(float ior);
 	
-	const vec3 getAmbient() const;
-	const vec3 getDiffuse() const;
-	const vec3 getSpecular() const;
+	const Angel::vec3 getAmbient() const;
+	const Angel::vec3 getDiffuse() const;
+	const Angel::vec3 getSpecular() const;
 
 	float getShininess() const;
 	float getTransparency() const;
@@ -51,9 +49,9 @@ public:
 	void initMaterial(GLuint shaderProgram);
 
 private:
-	vec3 ambient;
-	vec3 specular;
-	vec3 diffuse;
+	Angel::vec3 ambient;
+	Angel::vec3 specular;
+	Angel::vec3 diffuse;
 	
 	float shininess;
 	float transparency;
