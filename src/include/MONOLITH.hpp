@@ -12,11 +12,6 @@
 
 /* OpenGL and "The Engine" */
 #include "Engine.hpp"
-/* Utilities and Common */
-#include "model.hpp"
-#include "InitShader.hpp"
-#include "glut_callbacks.h"
-#include "ObjLoader.hpp"
 
 /* particle system goodness */
 #include "ParticleFieldFunctions.hpp"
@@ -30,9 +25,6 @@
 #include "scaleModel.hpp"
 
 #include <boost/bind.hpp>
-
-#include "RayTracer.h"
-
 #include "soundHelper.hpp" // fmod headers and helpers
 
 
@@ -89,11 +81,6 @@ public:
      */
     void init();
     
-    /**
-     * SHOW ENGINE WHERE OUR GOAT IS //ralphy may allusion
-     */
-    void raytraceStatusChanged(bool newstatus);
-
     /*
      * I have to do it this way, because the only way monolith (glut) and the mainwindow (Qt)
      * communicate is through final project. so they can only communicate value through
@@ -113,20 +100,9 @@ public:
      */
     int defaultNumberOfParticles();
 
-
     RectangularMapping * _rectangularMapping;
     ScaleModel * _scaleModel;
     bool _morphMatchCalculated;
-    bool _VRCameraControl;
-    bool _VRMoveLeft;
-    bool _VRMoveUp;
-    bool _VRMoveRight;
-    bool _VRMoveDown;
-    bool _VRMoving;
-    Angel::vec2 _VRCameraCoordinates;
-    void vrlook( Camera *VRCamera, const Angel::vec2 &NewTheta,
-                  const Angel::vec2 &MovementRates );
-
     
 #ifndef WITHOUT_QT
     void setMorphPercentageCallback(boost::function<void(int)> cb);
@@ -138,13 +114,9 @@ public slots:
     void slotMorphPercentage(int value);
     void slotEnableMorphing(bool isEnabled);
     void slotEnableMorphMatching(bool isEnabled);
-    void slotEnableVRCameraControl(bool isEnabled);
-    void slotVRCameraCoordinates(float, float);
-    void slotEnableRaytracing(bool enabled);
     void slotEnableParticleSystem(bool isEnabled);
     void slotMorphToWineBottle(void);
     void slotMorphToWhiskyBottle(void);
-    //void slotParticleFieldFunction(int index); Deprecated for now.
     void slotUpdateVectorField(std::string, std::string, std::string);
     void slotMaxAcceleration(int num);
     void slotFriction(int num);
@@ -167,9 +139,6 @@ signals:
 #endif
 
 private:
-    // Beware all those who dare venture here
-    RayTracer rt;
-    
     /**
      * A simple animation callback.
      * Rotates the object about its Y axis,

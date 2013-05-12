@@ -60,7 +60,6 @@ SOURCES += \
         Qt/mainwindow.cpp \
         Binaries/FinalProject.cpp \
         Classes/nearestNeighbor.cpp \
-        Classes/RayTracer.cpp \
         Classes/scanMatching.cpp \
         Classes/UserVectorField.cpp \
         Qt/dialog.cpp \
@@ -89,8 +88,6 @@ HEADERS  += include/Animation.hpp \
             include/OpenGL.h \ 
             include/Particle.hpp \
 	    include/nearestNeighbor.hpp \
-	    include/RaytraceBuffer.hpp \
-	    include/RayTracer.h \
 	    include/scaleModel.hpp \
 	    include/scanMatching.hpp \
             include/ParticleFieldFunctions.hpp \
@@ -123,36 +120,14 @@ LIBS += -lMagick++
 
 # Linux Settings
 unix:!macx {
-LIBS += -lGL -lGLU -lGLEW -lglut -lX11 -lm -lMagick++ -lboost_thread-mt -lfmodex \
--lopencv_calib3d -lopencv_contrib -lopencv_core -lopencv_features2d -lopencv_flann \
--lopencv_highgui -lopencv_imgproc -lopencv_legacy -lopencv_ml \
--lopencv_objdetect -lopencv_photo -lopencv_stitching -lopencv_ts -lopencv_video -lopencv_videostab
-#lopencv_gpu -lopencv_nonfree -lopencv_superres
+LIBS += -lGL -lGLU -lGLEW -lglut -lX11 -lm -lMagick++ -lboost_thread-mt -lfmodex
 INCLUDEPATH +=. /usr/include/ImageMagick/ include/ /usr/local/include/opencv
 }
 
 # Mac OSX Settings
 macx {
 LIBS += -framework Carbon -framework OpenGL -framework GLUT \
-        /opt/local/lib/libopencv_calib3d.dylib \
-        /opt/local/lib/libopencv_contrib.dylib \
-        /opt/local/lib/libopencv_core.dylib \
-        /opt/local/lib/libopencv_features2d.dylib \
-        /opt/local/lib/libopencv_flann.dylib \
-        /opt/local/lib/libopencv_gpu.dylib \
-        /opt/local/lib/libopencv_highgui.dylib \
-        /opt/local/lib/libopencv_imgproc.dylib \
-        /opt/local/lib/libopencv_legacy.dylib \
-        /opt/local/lib/libopencv_ml.dylib \
-        /opt/local/lib/libopencv_nonfree.dylib \
-        /opt/local/lib/libopencv_objdetect.dylib \
-        /opt/local/lib/libopencv_photo.dylib \
-        /opt/local/lib/libopencv_stitching.dylib \
-        /opt/local/lib/libopencv_superres.dylib \
-        /opt/local/lib/libopencv_ts.dylib \
-        /opt/local/lib/libopencv_video.dylib \
-        /opt/local/lib/libopencv_videostab.dylib
-INCLUDEPATH += . include /opt/local/include/ImageMagick/ /opt/local/include/ /opt/local/include/opencv
+INCLUDEPATH += . include /opt/local/include/ImageMagick/ /opt/local/include/
 LIBS += -L/opt/local/lib -lMagick++ -lboost_thread-mt fMod/lib/libfmodex.dylib
 }
 

@@ -295,7 +295,6 @@ public:
   /** Draw Order Index buffer. If not used, engine assumes GL_DRAW_ARRAYS. **/
   std::vector< unsigned int > _indices;
   /** Colors buffer. **/
-
   std::vector< Angel::vec4 > _colors;
   /** Texture Coordinates buffer. **/
   std::vector< Angel::vec2 > _texUVs;
@@ -320,10 +319,6 @@ public:
   Angel::vec3 getMin( void );
   Angel::vec4 getRealMin( void );
   Angel::vec4 getRealMax( void );
-
-  virtual void sceneToRaytracer( RayTracer &rt );
-  virtual void bufferToRaytracer( RayTracer &rt );
-  //void setLights(GLfloat* ambient, GLint* numlights, GLfloat* positions, GLfloat* diffuse, GLfloat* specular);
 
 protected:
 
@@ -384,19 +379,12 @@ protected:
   /** The diffuse color of the object **/
   Angel::vec3 color;
 
-  /*GLfloat *_lightAmbient;
-  GLfloat *_lightPositions;
-  GLfloat *_lightDiffuse;
-  GLfloat *_lightSpecular;
-  GLint *_numLights;*/
-
   GLint _uLightAmbient;
   GLint _uLightPositions;
   GLint _uLightDiffuse;
   GLint _uLightSpecular;
   GLint _uNumLights;
   GLint _uLightIntensity;
-
 
   /** The material properties of this object **/
   Material *_material;

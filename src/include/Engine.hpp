@@ -41,8 +41,7 @@
 #include <vector>
 
 #include <boost/function.hpp>
-
-typedef boost::function< void( bool ) > raytracerCallback;
+#include <boost/thread.hpp>
 
 /**
  * An alias for the type used by the Settings Map.
@@ -184,32 +183,7 @@ b   * @param Option The name of the option to access.
    */
   ~Engine( void );
 
-  /**
-   * flips scene shaders
-   *
-   * @param enabled -- duh
-   */
-  void setRaytrace( bool enabled );
-
-  /**
-   * get current tracer status
-   *
-   */
-  bool getRaytrace();
-
-  /**
-   * Let binary define what it wants to do when tracing needs to be flipped
-   *
-   * @param traceFunc duh
-   */
-  void registerTraceFunc( raytracerCallback traceFunc );
-
   float glslVersion( void );
-
-  void registerDisplayFunc(boost::function<void(void)> displayFunc);
-  void unregisterDisplayFunc();
-
-  void registerDisplayExtension(boost::function<void(void)> displayFunc);
 
   bool wearingAPhong();
 
@@ -339,25 +313,11 @@ private:
    */
   Engine &operator=( Engine &assign );
 
-  /**
-   * Function called early in display() function to let binary swap shaders
-   */
-  raytracerCallback _traceFunc;
-
-  boost::function<void(void)> _displayFunc;
-  boost::function<void(void)> _displayExtension;
-
   void noop( bool enabled );
-
-  void banana();
-
   bool _floss;
-
-  bool _raytraceChanged, _raytraceStatus;
+  boost::mutex LifeLock;
 
   bool _isFullScreen;
-
-  boost::mutex LifeLock;
 
 #ifdef WII
 public:

@@ -31,9 +31,9 @@ ifndef WII
 endif
 
 #todo Remove this when some hero fixes the GL_TEXTURE_BUFFER undefined error for Apple users
-ifeq ($(UNAME), Darwin)
-    DIAF += Binaries/raytrace1.cpp Binaries/raytraceIntegrated.cpp Binaries/rti.cpp
-endif
+#ifeq ($(UNAME), Darwin)
+#    DIAF += 
+#endif
 
 
 SOURCES=$(filter-out $(DIAF),$(SOURCESRAW))

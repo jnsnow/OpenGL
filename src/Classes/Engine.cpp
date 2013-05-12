@@ -44,10 +44,7 @@ bool Engine::exists( void ) {
 /**
  * Default constructor. Cannot be called, this is a singleton class.
  */
-Engine::Engine( void ) :
-  _traceFunc(boost::bind(&Engine::noop, this, _1)),
-  _displayExtension(boost::bind(&Engine::banana, this))
-    {
+Engine::Engine( void ) {
 
   _idleFunc = NULL;
   // Reminder: 0 is never a valid program.
@@ -55,8 +52,6 @@ Engine::Engine( void ) :
   _glslVersion = 0.0;
 
   _renderingCamera = NULL;
-  _raytraceChanged = false;
-  _raytraceStatus = false;
   _isFullScreen = false;
 
   _lights = new vector<Light*>;
@@ -291,15 +286,15 @@ void Engine::init( int *argc, char *argv[], const char *title ) {
   GLEW_INIT();
 
   /* Register our Callbacks */
-  instance()->unregisterDisplayFunc();
-  glutDisplayFunc(Engine::display);
+  glutDisplayFunc( Engine::displayScreen );
+  glutIdleFunc( Engine::idle );
+
   glutKeyboardFunc( engineKeyboard );
   glutKeyboardUpFunc( engineKeylift );
   glutSpecialFunc( engineSpecialKeyboard );
   glutMouseFunc( engineMouse );
   glutMotionFunc( engineMouseMotion );
   glutPassiveMotionFunc( EngineMousePassive );
-  glutIdleFunc( Engine::idle );
   glutReshapeFunc( engineResize );
 
   float glsl_vers;
@@ -353,25 +348,6 @@ void Engine::registerIdle( boost::function<void(void)> idleFunc ) {
   _idleFunc = idleFunc;
 }
 
-void Engine::registerTraceFunc( raytracerCallback traceFunc ) {
-  _traceFunc = traceFunc;
-}
-
-void Engine::registerDisplayFunc( boost::function<void(void)> displayFunc ) {
-  _displayFunc = displayFunc;
-}
-
-void Engine::unregisterDisplayFunc()
-{
-  _displayFunc = displayScreen;
-}
-
-void Engine::display()
-{
-  instance()->_displayFunc();
-}
-
-
 /**
  * What should the engine be doing every idle()?
  */
@@ -379,16 +355,10 @@ void Engine::idle( void ) {
 
   static Engine *eng = Engine::instance();
 
-  //YOU THOUGH' THA' WA' GO'N' TO BE WA'ER, BU' I' WA'N'... ROCK AND ROLLLLLLLL -Ozzy Osbourne
-  if (instance()->_raytraceChanged) {
-    instance()->_traceFunc(instance()->_raytraceStatus);
-    instance()->_raytraceChanged = false;
-  }
-
   // Compute the time since last idle().
   tick.tock();
 
-  // Propagate Scene Graph Changes (Maybe!)
+  // Propagate Scene Graph Changes
   eng->rootScene()->propagate();
 
   // Move all camera(s).
@@ -499,53 +469,11 @@ void Engine::displayViewport( void ) {
   static Scene *theScene = Engine::instance()->rootScene();
   static Cameras *camList = Engine::instance()->cams();
 
-  if (glGetError()) { gprint( PRINT_ERROR, "true in displayViewport\n" ); }
-  instance()->_displayExtension();
-
   //ensure all objects are lit the same
   boost::mutex::scoped_lock stopFlashingItsAFellony(instance()->LifeLock);
   theScene->draw();
   camList->draw();
 
-}
-
-bool Engine::getRaytrace()
-{
-  return _raytraceStatus;
-}
-
-/**
- * flips scene shaders
- *
- * @param enabled -- duh
- */
-void Engine::setRaytrace(bool enabled)
-{
-  if (_raytraceStatus != enabled)
-    {
-      _raytraceStatus = enabled;
-      _raytraceChanged = true;
-    }
-}
-
-void Engine::noop(bool enabled)
-{
-  printf("The front line is everywhere.\nThere be no [raytracer] here.\n"); //Zack de la Rocha
-}
-
-void Engine::banana()
-{
-  //orange you glad this function's named banana?
-}
-
-void Engine::phongSong(bool enabled)
-{
-  static GLuint uni = glGetUniformLocation(currentShader(),"letMeSeeThatPhong");
-  if (uni)
-  {
-    _floss = enabled;
-    glUniform1i(uni, (enabled ? 1 : 0));
-  }
 }
 
 float Engine::glslVersion( void ) {
@@ -554,16 +482,6 @@ float Engine::glslVersion( void ) {
 
 void Engine::glslVersion( float in ) {
   _glslVersion = in;
-}
-
-void Engine::registerDisplayExtension(boost::function<void(void)> displayFunc)
-{
-  _displayExtension = displayFunc;
-}
-
-bool Engine::wearingAPhong()
-{
-  return _floss;
 }
 
 void Engine::setFullScreen() {

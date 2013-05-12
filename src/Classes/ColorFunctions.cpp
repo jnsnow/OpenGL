@@ -74,7 +74,7 @@ vec4 ColorFunctions::HSV( float lifePct, vec4 posIn ) {
   
   float hue = lifePct;
 
-  static const float S = 1.0;
+  //static const float S = 1.0;
   static const float V = 1.0;
   static const float M = 0.0;
   float H, F, N, I;

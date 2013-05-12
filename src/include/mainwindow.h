@@ -3,9 +3,6 @@
 
 #include <QMainWindow>
 #include <QDialog>
-#include <opencv2/core/core.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
 
 namespace Ui {
 class MainWindow;
@@ -25,8 +22,6 @@ public slots:
     void processFrameAndUpdateGUI();
 
 private slots:
-    /* VR stuff */
-    void slotEnableVR(bool isEnabled);
 
 signals:
 	/* General Settings */
@@ -82,8 +77,6 @@ private slots:
     void on_flameShowButton_clicked();
     void on_flameDefaultButton_clicked();
 
-    void on_VRXLocation_valueChanged(int value);
-
     void on_tornadoShowButton_clicked();
 
     void on_tornadoDefaultButton_clicked();
@@ -104,17 +97,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-
-    cv::VideoCapture capWebcam;
-
-    cv::Mat matOriginal;
-    cv::Mat matProcessed;
-
-    QImage qimgOriginal;
-    QImage qimgProcessed;
-    std::vector<cv::Vec3f> vecCircles;
-    std::vector<cv::Vec3f>::iterator itrCircles;
-
     QTimer* tmrTimer;
 };
 

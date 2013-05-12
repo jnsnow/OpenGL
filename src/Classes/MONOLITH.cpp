@@ -39,11 +39,6 @@ MONOLITH::MONOLITH(int argc, char** argv) :
     _l1 = _l2 = NULL;
     _argc = argc;
     _argv = argv;
-    _VRMoveLeft = false;
-    _VRMoveRight = false;
-    _VRMoveUp = false;
-    _VRMoveDown = false;
-    _VRMoving = false;
 }
 
 /**
@@ -66,11 +61,8 @@ double morphTime = 0, prevTime = 0;
 /**
  * Apply animations and whatever else your heart desires.
  */
-void MONOLITH::monolith_idle(void)
-{
-#ifndef __APPLE__
-  rt.idleHandsSpendTimeWithTheTextureBuffer();
-#endif
+void MONOLITH::monolith_idle(void) {
+
   static Scene *rootScene = Engine::instance()->rootScene();
   Object *bottle = rootScene->search("bottle");
 
@@ -97,10 +89,6 @@ void MONOLITH::monolith_idle(void)
               Animation::candleMelt( candle, candletip, 0.9995 );
           }
       }
-    }
-
-    if(_VRCameraControl){
-        vrlook(Engine::instance()->currentCamera(),_VRCameraCoordinates,Angel::vec2(1,1));
     }
 
     // Update the morph percentage.
@@ -139,14 +127,6 @@ void MONOLITH::slotParticleAdd(int value)
 void MONOLITH::slotFreezeParticles(bool isEnabled)
 {
     ps->setPause(isEnabled);
-}
-
-void MONOLITH::slotEnableVRCameraControl(bool isEnabled){
-    _VRCameraControl = isEnabled;
-}
-
-void MONOLITH::slotVRCameraCoordinates(float x, float y){
-    _VRCameraCoordinates = Angel::vec2(x,y);
 }
 
 void MONOLITH::slotMorphPercentage(int value)
@@ -198,11 +178,6 @@ void MONOLITH::slotEnableMorphMatching(bool isEnabled){
     rootScene->search("bottle")->buffer();
 }
 
-
-void MONOLITH::slotEnableRaytracing(bool enabled)
-{
-   Engine::instance()->setRaytrace(enabled);
-}
 
 void MONOLITH::slotEnableParticleSystem(bool isEnabled)
 {
@@ -375,7 +350,6 @@ void MONOLITH::run() {
   zipo = boost::thread(boost::bind(&MONOLITH::aRomanticEvening, this));
 
   eng->registerIdle( boost::bind(&MONOLITH::monolith_idle, this) );
-  eng->registerTraceFunc( (raytracerCallback)(boost::bind(&MONOLITH::raytraceStatusChanged, this, _1)));
 
   // Get handles to the Scene and the Screen.
   rootScene = Engine::instance()->rootScene();
@@ -388,22 +362,12 @@ void MONOLITH::run() {
   shader[2] = Angel::InitShader( "shaders/vParticle2.glsl",
                                  "shaders/fParticle2.glsl" );
 
-  // Raytracing shader
-  if (eng->glslVersion() >= 1.50)
-    shader[3] = Angel::InitShader( "shaders/vRaytracer.glsl",
-                   "shaders/fRaytracer.glsl" );
-  else
-    shader[3] = 0;
-
   GLint morphingShader = Engine::instance()->rootScene()->shader();
   GLint noMorphShader = shader[1];
   GLint particleShader = shader[2];
-  GLint raytraceShader = shader[3];
 
   tick.setTimeUniform( glGetUniformLocation( morphingShader, "ftime" ) );
   tick.setTimeUniform( glGetUniformLocation( noMorphShader, "ftime" ) );
-  if (raytraceShader)
-    tick.setTimeUniform( glGetUniformLocation( raytraceShader, "ftime" ) );
 
   // ============ Object Placement / Scene Generation ============
 
@@ -554,33 +518,6 @@ void MONOLITH::candleTopMeltDown(TransCache &obj) {
  // obj._offset.delta(0.0, -0.0025, 0.0);
 }
 
-/**
- * SHOW ENGINE WHERE OUR GOAT IS //ralphy may allusion
- */
-void MONOLITH::raytraceStatusChanged(bool newstatus)
-{
-  if (Engine::instance()->glslVersion() < 1.50)
-  {
-    gprint(PRINT_ERROR, "Raytracing is not supported on this system.\n");
-    return;
-  }
-  if (newstatus)
-  {
-    //TODO handle particles
-    //TODO handle scene graph
-    printf("SWITCHING TO RAY TRACING SHADER!\n");
-    Engine::instance()->registerDisplayFunc(rt.display);
-    rt.init(shader[3]);
-    rt.pushDataToBuffer();
-  }
-  else
-  {
-    printf("SWITCHING TO NORMAL SHADER!\n");
-    Engine::instance()->unregisterDisplayFunc();
-  }
-  printf("TODO: SWITCH VERTICES AND PUSH STUFF TO GPU APPROPRIATELY!\n");
-}
-
 //flicker at constant rate, regardless of update loop
 void MONOLITH::aRomanticEvening() {
   printf("STARTING ROMANCE!\n");
@@ -609,61 +546,3 @@ void MONOLITH::aRomanticEvening() {
   printf("ENDING ROMANCE!\n");
 }
 
-/**
- VRlook is an analog of mouselook, for VR location controls.
- It takes a reference to a Camera, and two vec2s,
- and uses the information to adjust the Camera's _rotation.
-
- @param VRCamera The camera to adjust the _rotation of.
- @param NewTheta  The X,Y coordinates of the VR contorls.
- @param MovementRates The X, Y angular velocities of the VR Controls.
-
- @return Void.
-
-**/
-void MONOLITH::vrlook( Camera *VRCamera, const Angel::vec2 &NewTheta,
-              const Angel::vec2 &MovementRates ){
-
-    if((NewTheta.x > 1/3.0*280.0)&&(NewTheta.x < 2/3.0*280.0)&&(NewTheta.y < 2/3.0*157.0)&&(NewTheta.y >1/3.0*157.0)&&(NewTheta.x != 0.0)&&(NewTheta.y != 0.0)){
-        if(_VRMoveLeft){
-            //printf("VR Stop Left\n");
-          VRCamera->stop( Camera::DIR_LEFT );
-          _VRMoveLeft = false;
-        }else if (_VRMoveRight){
-            //printf("VR Stop Right\n");
-          VRCamera->stop( Camera::DIR_RIGHT);
-          _VRMoveRight = false;
-        }
-
-        if(_VRMoveUp){
-            VRCamera->stop( Camera::DIR_UP);
-            //printf("VR Stop Up\n");
-            _VRMoveUp = false;
-        }else if (_VRMoveDown){
-            VRCamera->stop( Camera::DIR_DOWN);
-            //printf("VR Stop Down\n");
-            _VRMoveDown = false;
-        }
-
-    }else if((NewTheta.x != 0.0)&&(NewTheta.y != 0.0)){
-      if(NewTheta.x < 1/3.0*280.0){
-          //printf("VR Move Left: %f < %f\n",NewTheta.x,1/3.0*280.0);
-            _VRMoveLeft = true;
-            VRCamera->move( Camera::DIR_LEFT );
-      }else if(NewTheta.x > 2/3.0*280.0){
-          //printf("VR Move Right\n");
-            VRCamera->move( Camera::DIR_RIGHT );
-            _VRMoveRight = true;
-      }
-
-      if(NewTheta.y > 2/3.0*157.0){
-          //printf("VR Move Up\n");
-        VRCamera->move( Camera::DIR_UP );
-        _VRMoveUp = true;
-      }else if(NewTheta.y < 1/3.0*157.0){
-          //printf("VR Move Down\n");
-        VRCamera->move( Camera::DIR_DOWN );
-        _VRMoveDown = true;
-      }
-    }
-}

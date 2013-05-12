@@ -193,13 +193,7 @@ void engineKeyboard( unsigned char key, int x, int y ) {
   case 'p':
     trapCursor(!warpPointer);
 	break;
-
-  case 'f':
-    Engine::instance()->setRaytrace(!Engine::instance()->getRaytrace());
-    break;
-  case 'l':
-    Engine::instance()->phongSong(!Engine::instance()->wearingAPhong());
-    break;
+	
   }
 }
 

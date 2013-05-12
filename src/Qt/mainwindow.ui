@@ -126,13 +126,6 @@
          </property>
         </widget>
        </item>
-       <item>
-        <widget class="QCheckBox" name="vrEnabler">
-         <property name="text">
-          <string>Enable Virtual Reality</string>
-         </property>
-        </widget>
-       </item>
       </layout>
      </widget>
      <widget class="QWidget" name="layoutWidget">
@@ -1517,11 +1510,6 @@
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="raytraceTab">
-     <attribute name="title">
-      <string>Raytrace</string>
-     </attribute>
-    </widget>
     <widget class="QWidget" name="sceneTab">
      <attribute name="title">
       <string>Scene</string>
@@ -1574,177 +1562,6 @@
       </property>
       <property name="text">
        <string>Add Object...</string>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="VRTab">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <attribute name="title">
-      <string>VR</string>
-     </attribute>
-     <widget class="QWidget" name="verticalLayoutWidget_2">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>10</y>
-        <width>511</width>
-        <height>131</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_6">
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout">
-         <item>
-          <widget class="QCheckBox" name="VRCameraEnabler">
-           <property name="text">
-            <string>Enable Camera Control</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_11">
-           <property name="text">
-            <string>X Location:</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QSpinBox" name="VRXLocation">
-           <property name="minimum">
-            <number>0</number>
-           </property>
-           <property name="maximum">
-            <number>280</number>
-           </property>
-           <property name="value">
-            <number>140</number>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_12">
-           <property name="text">
-            <string>Y Location:</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QSpinBox" name="VRYLocation">
-           <property name="maximum">
-            <number>157</number>
-           </property>
-           <property name="value">
-            <number>79</number>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_4">
-         <item>
-          <widget class="QCheckBox" name="vrMorphControl">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-           <property name="text">
-            <string>Enable Morph Control</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QSlider" name="vrMorphSlider">
-           <property name="maximum">
-            <number>100</number>
-           </property>
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_6">
-         <item>
-          <widget class="QCheckBox" name="vrParticleControl">
-           <property name="text">
-            <string>Enable Particle Control</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QSlider" name="vrParticleSlider">
-           <property name="maximum">
-            <number>2000</number>
-           </property>
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QLabel" name="lblProcessed">
-      <property name="geometry">
-       <rect>
-        <x>140</x>
-        <y>360</y>
-        <width>280</width>
-        <height>157</height>
-       </rect>
-      </property>
-      <property name="autoFillBackground">
-       <bool>true</bool>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-     <widget class="QLabel" name="lblOriginal">
-      <property name="geometry">
-       <rect>
-        <x>140</x>
-        <y>160</y>
-        <width>280</width>
-        <height>157</height>
-       </rect>
-      </property>
-      <property name="autoFillBackground">
-       <bool>true</bool>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_9">
-      <property name="geometry">
-       <rect>
-        <x>220</x>
-        <y>140</y>
-        <width>101</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Original Video</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_10">
-      <property name="geometry">
-       <rect>
-        <x>220</x>
-        <y>330</y>
-        <width>111</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Processed Video</string>
       </property>
      </widget>
     </widget>
