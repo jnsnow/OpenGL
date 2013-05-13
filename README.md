@@ -1,27 +1,5 @@
-<<<<<<< HEAD
 HSC
 ===
-
-- This is our Graphics I final project for Prof. Grinstein,
-  at UMass Lowell, Fall 2012.
-
-- It has been written ground-up without utilizing the fixed-pipeline
-  API of OpenGL. 
-
-- It implements a fully Object-Oriented scene graph, independent and
-  arbitrary cameras (realized via splitscreen), and multiple methods
-  of input.
-
-- The project features prominently random terrain generation. This is
-  performed using the Diamond-Square algorithm; see below for additional
-  reading on the technique.
-
-- This project utilizes a lot of code snippets, libraries and ideas from
-  a variety of authors. They are credited in-line where appropriate, but here's a list:
-  
-  - Etay Mieri, olgdev.atspace.co.uk:
-    	 Invaluable tutorials on OpenGL.  
-=======
 
 - This is the Readme file for the UMass Lowell Computer Graphics 2 class project, Spring semester 2013.
   It it based on the Computer Graphics 1 final project by Chris Compton, Nick St. Pierre, and John Huston.
@@ -77,7 +55,6 @@ Credits and Acknowledgements
 
   - Etay Mieri, olgdev.atspace.co.uk:
     	 Invaluable tutorials on OpenGL, and 99.9% of our Texture class.
->>>>>>> 818999224655912123e7f7ea32dda4c17612f662
 
   - Daniel Beard, Paul Boxley and Paul Martz:
     	   Information and code for generating random terrain.
@@ -97,18 +74,12 @@ Credits and Acknowledgements
 
   - Dan Lecocq:
       For a really great blog post on how to draw a mesh with
-<<<<<<< HEAD
-      GL_TRIANGLE_STRIPs.
-=======
       GL_TRIANGLE_STRIPs. http://dan.lecocq.us/wordpress/2009/12/25/triangle-strip-for-grids-a-construction/
->>>>>>> 818999224655912123e7f7ea32dda4c17612f662
 
   - Simon Murray:
       Founder of www.goodtextures.com from which we obtained
       all of our terrain textures.
 
-<<<<<<< HEAD
-=======
   - blacknote:
       Composer of Forever Endless, our audio loop.
       blacknote: http://blacknote.newgrounds.com/
@@ -134,7 +105,6 @@ Outdated HSC Readme
 - This project utilizes a lot of code snippets, libraries and ideas from
   a variety of authors. They are credited above!
 
->>>>>>> 818999224655912123e7f7ea32dda4c17612f662
 - To build the project, pushd Flythrough && make;
   To run, pushd Flythrough && ./fly;
 
@@ -169,8 +139,4 @@ Outdated HSC Readme
 
 - wiic/pp library utilizes the LGPL license,
   The source code is included in our source tree here for convenience,
-<<<<<<< HEAD
   with minor alterations.
-=======
-  with minor alterations.
->>>>>>> 818999224655912123e7f7ea32dda4c17612f662
