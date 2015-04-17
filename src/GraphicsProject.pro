@@ -99,12 +99,11 @@ HEADERS  += include/Animation.hpp \
 
 # Common Settings
 INCLUDEPATH += . ./include/ ./fMod/include
-LIBS += -lMagick++
 
 # Linux Settings
 unix:!macx {
-LIBS += -lGL -lGLU -lGLEW -lglut -lX11 -lm -lMagick++ -lboost_thread-mt -lfmodex
-INCLUDEPATH +=. /usr/include/ImageMagick/ include/
+LIBS += -lGL -lGLU -lGLEW -lglut -lX11 -lm -lMagick++-6.Q16 -lMagickWand-6.Q16 -lMagickCore-6.Q16 -lboost_thread -lfmodex
+INCLUDEPATH +=. /usr/include/ImageMagick-6/ include/
 }
 
 # Mac OSX Settings
