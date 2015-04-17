@@ -128,7 +128,7 @@ Angel::vec3 ParticleFieldFunctions::flameold(Angel::vec4 pos) {
 	double scale = sin(0.8+(pos.y*M_PI*10))/40.0;
 	retVal.x = pos.x*scale;
 	retVal.z = pos.z*scale;
-	if ( ! pos.y >= 0.5 )
+	if (pos.y < 0.5)
 	{
 		retVal *= -1.0 ;
 	}
