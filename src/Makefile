@@ -30,12 +30,6 @@ ifndef WII
     DIAF += Common/WiiUtil.cpp
 endif
 
-#todo Remove this when some hero fixes the GL_TEXTURE_BUFFER undefined error for Apple users
-#ifeq ($(UNAME), Darwin)
-#    DIAF += 
-#endif
-
-
 SOURCES=$(filter-out $(DIAF),$(SOURCESRAW))
 COMMON=$(filter-out $(DIAF),$(COMMONRAW))
 CLASSES=$(filter-out $(DIAF),$(CLASSESRAW))
@@ -46,8 +40,10 @@ OBJS = $(subst .cpp,.o,$(COMMON)) \
        $(subst .cpp,.o,$(CLASSES)) \
 
 DIRT = $(wildcard */*.o */*.so */*.d *.i *~ */*~ *.log)
-CXXOPTS = -fmessage-length=0 -ansi -Wall -pedantic -DWITHOUT_QT
 
+# Options and Dependencies
+CXXOPTS = -fmessage-length=0 -Wall -pedantic -Wno-long-long
+CXXDEFS = -DWITHOUT_QT
 CXXINCS = "-I$(CURDIR)/include"
 CXXINCS += -IfMod/include
 CXXINCS += $(shell pkg-config --cflags ImageMagick)
@@ -60,25 +56,43 @@ LDLIBS += $(shell pkg-config --libs ImageMagick++)
 
 # Configuration Options
 ifdef POSTMULT
-	CXXDEFS += -DPOSTMULT
+    CXXDEFS += -DPOSTMULT
 endif
+
 ifdef WII
-    CXXOPTS = -DWITHOUT_QT
-    CXXDEFS += -DWII -I/usr/local/include/wiic
+    CXXDEFS += -DWII
+    CXXINCS += -I/usr/local/include/wiic
     LDLIBS += -lwiic -lwiicpp
 endif
+
 ifdef EXPRTK
     CXXDEFS += -DEXPRTK
 endif
+
+ifdef PRINTLEVEL
+    CXXDEFS += -DPRINTLEVEL=$(PRINTLEVEL)
+endif
+
+ifdef DEBUG
+    CXXDEFS += -DDEBUG
+    CXXOPTS += -O0 -g
+else
+    CXXOPTS += -O3
+endif
+
+ifdef DEBUG_MOTION
+    CXXDEFS += -DDEBUG_MOTION
+endif
+
 
 # Platform-dependent configuration.
 
 # LINUX
 ifeq ($(UNAME), Linux)
     prepare = preparelinux
-    CXXINCS += -I/usr/include/ImageMagick/
-    CXXDEFS += -DFREEGLUT_STATIC -DGLEW_STATIC
-    LDLIBS += -lGL -lGLU -lGLEW -lglut -lX11 -lm -lfmodex
+    CXXINCS += $(shell pkg-config x11)
+    LDLIBS += $(shell pkg-config x11)
+    LDLIBS += -lglut -lm -lfmodex
     FMODLINK = @true
     QT_FINALIZE = @true
 endif
@@ -86,28 +100,13 @@ endif
 # APPLE OSX
 ifeq ($(UNAME), Darwin)
     prepare = preparemac
-    CXXINCS += -I/opt/local/include -I/opt/local/include/ImageMagick 
-    CXXDEFS += -Wno-long-long
-   # If apple, we need a funky post-compile build step
+    CXXINCS += -I/opt/local/include -I/opt/local/include/ImageMagick
+    # If apple, we need a funky post-compile build step	
     LDLIBS += -framework Carbon -framework OpenGL -framework GLUT -L/opt/local/lib fMod/lib/libfmodex.dylib
-   #FMODLINK = install_name_tool -change ./libfmodex.dylib ../fMod/lib/libfmodex.dylib
-   FMODLINK = install_name_tool -change ./libfmodex.dylib `pwd`/fMod/lib/libfmodex.dylib
-   LDOPTS = -headerpad_max_install_names
-   QT_FINALIZE = @cp -f Binaries/FinalProject.app/Contents/MacOS/FinalProject Binaries/FinalProject
-endif
-
-ifdef PRINTLEVEL
-	CXXOPTS += -DPRINTLEVEL=$(PRINTLEVEL)
-endif
-
-ifdef DEBUG
-	CXXOPTS += -DDEBUG -O0 -g
-else
-	CXXOPTS += -O3
-endif
-
-ifdef DEBUG_MOTION
-	CXXOPTS += -DDEBUG_MOTION
+    #FMODLINK = install_name_tool -change ./libfmodex.dylib ../fMod/lib/libfmodex.dylib
+    FMODLINK = install_name_tool -change ./libfmodex.dylib `pwd`/fMod/lib/libfmodex.dylib
+    LDOPTS = -headerpad_max_install_names
+    QT_FINALIZE = @cp -f Binaries/FinalProject.app/Contents/MacOS/FinalProject Binaries/FinalProject
 endif
 
 CXXFLAGS = $(CXXOPTS) $(CXXDEFS) $(CXXINCS)
@@ -168,7 +167,7 @@ clean: _clean
 rmtargets: _rmtargets
 	@echo "Removed executables."
 
-clobber: _clean _rmtargets clean-qt
+distclean: _clean _rmtargets clean-qt
 	@echo "Removed objects and executables."
 
 .PHONY: fresh
