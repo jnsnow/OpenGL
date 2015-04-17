@@ -49,9 +49,14 @@ DIRT = $(wildcard */*.o */*.so */*.d *.i *~ */*~ *.log)
 CXXOPTS = -fmessage-length=0 -ansi -Wall -pedantic -DWITHOUT_QT
 
 CXXINCS = "-I$(CURDIR)/include"
-CXXINCS+= -IfMod/include
-CXXDEFS = -DWITHOUT_QT -Wno-long-long
-LDLIBS = -lMagick++ -lboost_thread-mt
+CXXINCS += -IfMod/include
+CXXINCS += $(shell pkg-config --cflags ImageMagick)
+CXXINCS += $(shell pkg-config --cflags ImageMagick++)
+
+LDLIBS = -lboost_thread
+LDLIBS += $(shell pkg-config --libs glew)
+LDLIBS += $(shell pkg-config --libs ImageMagick)
+LDLIBS += $(shell pkg-config --libs ImageMagick++)
 
 # Configuration Options
 ifdef POSTMULT
