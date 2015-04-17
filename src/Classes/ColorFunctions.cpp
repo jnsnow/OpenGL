@@ -147,7 +147,7 @@ Angel::vec4 ColorFunctions::rainbow( float lifePct, Angel::vec4 posIn ) {
 }
 
 Angel::vec4 ColorFunctions::tropical( float lifePct, Angel::vec4 posIn ) {
-  float r, g, b, w;
+  float r, g, b, w = 1.0;
 
   r = 0.5;
   g = sin(posIn.x);
@@ -162,7 +162,7 @@ Angel::vec4 ColorFunctions::tropical( float lifePct, Angel::vec4 posIn ) {
 }
 
 Angel::vec4 ColorFunctions::galaxy( float lifePct, Angel::vec4 posIn ) {
-  float r, g, b, w;
+  float r, g, b, w = 1.0;
 
   if( lifePct > 0.9 ) {
     r = 1.0;
