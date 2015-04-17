@@ -49,7 +49,6 @@ CXXINCS += -IfMod/include
 CXXINCS += $(shell pkg-config --cflags ImageMagick)
 CXXINCS += $(shell pkg-config --cflags ImageMagick++)
 
-LDLIBS = -lboost_thread
 LDLIBS += $(shell pkg-config --libs glew)
 LDLIBS += $(shell pkg-config --libs ImageMagick)
 LDLIBS += $(shell pkg-config --libs ImageMagick++)
@@ -92,7 +91,7 @@ ifeq ($(UNAME), Linux)
     prepare = preparelinux
     CXXINCS += $(shell pkg-config x11)
     LDLIBS += $(shell pkg-config x11)
-    LDLIBS += -lglut -lm -lfmodex
+    LDLIBS += -lglut -lm -lfmodex -lboost_thread
     FMODLINK = @true
     QT_FINALIZE = @true
 endif
@@ -101,9 +100,9 @@ endif
 ifeq ($(UNAME), Darwin)
     prepare = preparemac
     CXXINCS += -I/opt/local/include -I/opt/local/include/ImageMagick
-    # If apple, we need a funky post-compile build step	
     LDLIBS += -framework Carbon -framework OpenGL -framework GLUT -L/opt/local/lib fMod/lib/libfmodex.dylib
-    #FMODLINK = install_name_tool -change ./libfmodex.dylib ../fMod/lib/libfmodex.dylib
+    LDLIBS += -lboost_thread-mt -lboost_system-mt
+    # If apple, we need a funky post-compile build step:
     FMODLINK = install_name_tool -change ./libfmodex.dylib `pwd`/fMod/lib/libfmodex.dylib
     LDOPTS = -headerpad_max_install_names
     QT_FINALIZE = @cp -f Binaries/FinalProject.app/Contents/MacOS/FinalProject Binaries/FinalProject
@@ -116,7 +115,8 @@ LDFLAGS = $(LDOPTS) $(LDDIRS) $(LDLIBS)
 
 .PHONY: Makefile
 
-#explicitely force ordering of preliminary steps, rather than letting make try to build targets and prepare stuff simultaneously
+#explicitely force ordering of preliminary steps, rather than letting make try 
+#to build targets and prepare stuff simultaneously
 default all:
 	$(MAKE) $(prepare)
 	$(MAKE) clean-qt
@@ -128,8 +128,8 @@ preparelinux:
 
 .PHONY: preparemac
 preparemac:
-	Util/fixboost.sh
-	Util/fMod/macfix.sh
+	true # placeholder, todo: test mac-missing to install deps
+#	Util/mac-missing.sh
 
 $(TARGETS): $(OBJS)
 
